@@ -33,7 +33,7 @@ Summary: The Internet Junkbuster
 Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
 Version: 2.9.11
-Release: 9
+Release: 3
 Source0: http://www.waldherr.org/%{name}/ijbswa-%{version}.tar.gz
 License: GPL
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -170,6 +170,7 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 %doc doc/text/developer-manual.txt doc/text/user-manual.txt
 %doc doc/webserver/developer-manual
 %doc doc/webserver/user-manual
+%doc doc/webserver/ijb_docs.css
 #%doc %{name}.weekly %{name}.monthly AUTHORS
 
 %dir %{ijbconf}
@@ -221,6 +222,9 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Thu Mar 21 2002 Hal Burgiss <hal@foobox.net>
+- added ijb_docs.css to docs.
+
 * Mon Mar 11 2002 Hal Burgiss <hal@foobox.net>
 + junkbuster-2.9.11-8 
 - Take out --enable-no-gifs, breaks some browsers.
@@ -434,6 +438,9 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.43  2002/03/21 16:04:10  hal9
+# added ijb_docs.css to %doc
+#
 # Revision 1.42  2002/03/12 13:41:18  sarantis
 # remove hard-coded "ijbswa" string in build phase
 #
