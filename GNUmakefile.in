@@ -578,7 +578,7 @@ dok-webserver:
 	$(PERL) -pi.bak -e 's/..\/p_doc.css/p_web.css/;\
      s/<\/HEAD/\n<meta name=\"description\" content=\"Privoxy helps consumers reduce unwanted junk email and protect their privacy from direct marketing companies.\"><\/HEAD/;\
 	s/<\/HEAD/\n<meta name="MSSmartTagsPreventParsing" content="TRUE"><\/HEAD/;\
-	s/\.\d\.//'\
+	s/\.\d\. //'\
      doc/webserver/index.html && $(RM) doc/source/webserver/*.bak
 
 # Main documentation target.
@@ -820,6 +820,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.100  2002/05/08 13:48:18  hal9
+# Ooops, that trashed JB v2.0.2 comment. Fixed.
+#
 # Revision 1.99  2002/05/08 13:42:07  hal9
 # This fixes the numbering problem on index.html in contact info section (.1.). Using
 # perl, since its way too convoluted to try to fix proper with docbook.
