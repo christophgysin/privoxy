@@ -42,6 +42,14 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.40  2002/05/19 11:34:35  jongfoster
+ *    Handling read-only actions files better - report the actual
+ *    error, not "Out of memory"!
+ *
+ *    Bug report:
+ *    http://sourceforge.net/tracker/index.php?func=detail
+ *    &aid=557905&group_id=11118&atid=111118
+ *
  *    Revision 1.39  2002/05/12 21:39:15  jongfoster
  *    - Adding Doxygen-style comments to structures and #defines.
  *    - Correcting function comments
@@ -430,6 +438,9 @@ jb_err cgi_error_parse(struct client_state *csp,
 jb_err cgi_error_file(struct client_state *csp,
                       struct http_response *rsp,
                       const char *filename);
+jb_err cgi_error_file_read_only(struct client_state *csp,
+                                struct http_response *rsp,
+                                const char *filename);
 jb_err cgi_error_disabled(struct client_state *csp,
                           struct http_response *rsp);
 
@@ -2284,6 +2295,51 @@ jb_err cgi_error_file(struct client_state *csp,
 
 /*********************************************************************
  *
+ * Function    :  cgi_error_file
+ *
+ * Description :  CGI function that is called when a file cannot be
+ *                opened for writing by the CGI editor.
+ *
+ * Parameters  :
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  filename = The file that we can't write to
+ *
+ * CGI Parameters : none
+ *
+ * Returns     :  JB_ERR_OK on success
+ *                JB_ERR_MEMORY on out-of-memory error.
+ *
+ *********************************************************************/
+jb_err cgi_error_file_read_only(struct client_state *csp,
+                                struct http_response *rsp,
+                                const char *filename)
+{
+   struct map *exports;
+   jb_err err;
+
+   assert(csp);
+   assert(rsp);
+   assert(filename);
+
+   if (NULL == (exports = default_exports(csp, NULL)))
+   {
+      return JB_ERR_MEMORY;
+   }
+
+   err = map(exports, "f", 1, html_encode(filename), 0);
+   if (err)
+   {
+      free_map(exports);
+      return err;
+   }
+
+   return template_fill_for_cgi(csp, "cgi-error-file-read-only", exports, rsp);
+}
+
+
+/*********************************************************************
+ *
  * Function    :  cgi_error_disabled
  *
  * Description :  CGI function that is called if the actions editor
@@ -3263,6 +3319,11 @@ jb_err cgi_edit_actions_submit(struct client_state *csp,
    if (err)
    {
       /* Error writing file */
+      if (err == JB_ERR_FILE)
+      {
+         /* Read-only file. */
+         err = cgi_error_file_read_only(csp, rsp, file->identifier);
+      }
       edit_free_file(file);
       return err;
    }
@@ -3385,6 +3446,11 @@ jb_err cgi_edit_actions_url(struct client_state *csp,
    if (err)
    {
       /* Error writing file */
+      if (err == JB_ERR_FILE)
+      {
+         /* Read-only file. */
+         err = cgi_error_file_read_only(csp, rsp, file->identifier);
+      }
       edit_free_file(file);
       return err;
    }
@@ -3524,6 +3590,11 @@ jb_err cgi_edit_actions_add_url(struct client_state *csp,
    if (err)
    {
       /* Error writing file */
+      if (err == JB_ERR_FILE)
+      {
+         /* Read-only file. */
+         err = cgi_error_file_read_only(csp, rsp, file->identifier);
+      }
       edit_free_file(file);
       return err;
    }
@@ -3640,6 +3711,11 @@ jb_err cgi_edit_actions_remove_url(struct client_state *csp,
    if (err)
    {
       /* Error writing file */
+      if (err == JB_ERR_FILE)
+      {
+         /* Read-only file. */
+         err = cgi_error_file_read_only(csp, rsp, file->identifier);
+      }
       edit_free_file(file);
       return err;
    }
@@ -3772,6 +3848,11 @@ jb_err cgi_edit_actions_section_remove(struct client_state *csp,
    if (err)
    {
       /* Error writing file */
+      if (err == JB_ERR_FILE)
+      {
+         /* Read-only file. */
+         err = cgi_error_file_read_only(csp, rsp, file->identifier);
+      }
       edit_free_file(file);
       return err;
    }
@@ -3946,6 +4027,11 @@ jb_err cgi_edit_actions_section_add(struct client_state *csp,
    if (err)
    {
       /* Error writing file */
+      if (err == JB_ERR_FILE)
+      {
+         /* Read-only file. */
+         err = cgi_error_file_read_only(csp, rsp, file->identifier);
+      }
       edit_free_file(file);
       return err;
    }
@@ -4144,6 +4230,11 @@ jb_err cgi_edit_actions_section_swap(struct client_state *csp,
       if (err)
       {
          /* Error writing file */
+         if (err == JB_ERR_FILE)
+         {
+            /* Read-only file. */
+            err = cgi_error_file_read_only(csp, rsp, file->identifier);
+         }
          edit_free_file(file);
          return err;
       }
