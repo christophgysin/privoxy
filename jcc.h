@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/18 12:31:58  oes
+ *    moved #define freez from jcc.h to project.h
+ *
  *    Revision 1.2  2001/05/31 21:24:47  jongfoster
  *    Changed "permission" to "action" throughout.
  *    Removed DEFAULT_USER_AGENT - it must now be specified manually.
@@ -60,11 +63,7 @@
 extern "C" {
 #endif
 
-#define freez(X)  if(X) free(X); X = NULL
-
-
 /* Global variables */
-
 
 #ifdef STATISTICS
 extern int urls_read;
