@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.54  2002/04/01 00:54:24  gliptak
+dnl More changes needed around regex support.
+dnl
 dnl Revision 1.53  2002/03/29 20:09:01  swa
 dnl al's patch
 dnl
@@ -523,10 +526,6 @@ else
   fi
 fi
 AC_SUBST(WIN_ONLY)
-
-if test $target_type = i686-pc-linux-gnu; then
-  SPECIAL_CFLAGS="-I pcre/"
-fi
 
 dnl Checking which text html browser we have avaliable
 if test $dodk != no; then
