@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/07/25 22:53:59  jongfoster
+ *    Will #error if pthreads is enabled under BeOs
+ *
  *    Revision 1.6  2001/07/15 17:54:29  jongfoster
  *    Renaming #define STATIC to STATIC_PCRE
  *    Adding new #define FEATURE_PTHREAD that will be used to enable
@@ -303,5 +306,15 @@
 #if defined(FEATURE_PTHREAD) && defined(_WIN32)
 #define __CLEANUP_C
 #endif /* defined(FEATURE_PTHREAD) && defined(_WIN32) */
+
+/*
+ * BEOS does not currently support POSIX threads.
+ * This *should* be detected by ./configure, but let's be sure.
+ */
+#if defined(FEATURE_PTHREAD) && defined(__BEOS__)
+#error BEOS does not support pthread - please run ./configure again with "--disable-pthread"
+
+#endif /* defined(FEATURE_PTHREAD) && defined(__BEOS__) */
+
 
 #endif /* _CONFIG_H */
