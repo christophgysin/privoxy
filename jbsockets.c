@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35.2.1  2002/05/26 23:41:27  joergs
+ *    AmigaOS: Fixed wrong type of len in write_socket()
+ *
  *    Revision 1.35  2002/04/26 15:50:04  joergs
  *    AmigaOS: No socklen_t, added AMIGA to the systems using int instead.
  *
@@ -396,7 +399,11 @@ jb_socket connect_to(const char *host, int portnum, struct client_state *csp)
  *                nonzero on error.
  *
  *********************************************************************/
+#ifdef AMIGA
+int write_socket(jb_socket fd, const char *buf, ssize_t len)
+#else
 int write_socket(jb_socket fd, const char *buf, size_t len)
+#endif
 {
    if (len == 0)
    {
