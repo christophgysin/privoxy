@@ -1004,8 +1004,8 @@ const char FILENAME_rcs[] = "$Id: developer-manual.sgml,v 1.4 2001/09/23 10:13:
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.2  2001/10/21 17:19:22  swa
- *    wrong url in documentation
+ *    Revision 1.3  2001/10/26 18:38:48  swa
+ *    updated files from SGML code.
  *
  *
  *********************************************************************/
@@ -1065,8 +1065,8 @@ const char FILENAME_h_rcs[] = FILENAME_H_VERSION;
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.2  2001/10/21 17:19:22  swa
- *    wrong url in documentation
+ *    Revision 1.3  2001/10/26 18:38:48  swa
+ *    updated files from SGML code.
  *
  *
  *********************************************************************/
