@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2002/04/08 16:59:08  oes
+ *    Fixed comment
+ *
  *    Revision 1.28  2002/03/27 12:30:29  oes
  *    Deleted unsused variable
  *
@@ -2406,10 +2409,10 @@ jb_err cgi_error_file(struct client_state *csp,
 
 /*********************************************************************
  *
- * Function    :  cgi_error_bad_param
+ * Function    :  cgi_error_disabled
  *
- * Description :  CGI function that is called if the parameters
- *                (query string) for a CGI were wrong.
+ * Description :  CGI function that is called if the actions editor
+ *                is called although it's disabled in config
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
