@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.47  2002/03/26 16:41:00  hal9
+dnl Upped RPM Release to 3 (need to build new RH packages)
+dnl
 dnl Revision 1.46  2002/03/24 18:55:06  jongfoster
 dnl Making Docbook work under Windows
 dnl
@@ -327,7 +330,7 @@ dnl =================================================================
 VERSION_MAJOR=2
 VERSION_MINOR=9
 VERSION_POINT=13
-VERSION_RPM_PACKAGE=1
+VERSION_RPM_PACKAGE=3
 CODE_STATUS="beta"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
