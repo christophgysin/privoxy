@@ -33,6 +33,10 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.2  2002/01/21 00:14:09  jongfoster
+ *    Correcting comment style
+ *    Fixing an uninitialized memory bug in create_url_spec()
+ *
  *    Revision 1.1  2002/01/17 20:53:46  jongfoster
  *    Moving all our URL and URL pattern parsing code to the same file - it
  *    was scattered around in filters.c, loaders.c and parsers.c.
@@ -312,8 +316,10 @@ jb_err parse_http_url(const char * url,
 
       if (http->dcount <= 0)
       {
-         // Error: More than SZ(vec) components in domain
-         //    or: no components in domain
+         /*
+          * Error: More than SZ(vec) components in domain
+          *    or: no components in domain
+          */
          free_http_request(http);
          return JB_ERR_PARSE;
       }
@@ -567,8 +573,8 @@ static int domain_match(const struct url_spec *pattern, const struct http_reques
  *                When finished, free with unload_url().
  *
  * Parameters  :
- *          1  :  url = Target url_spec to be filled in.  Must be
- *                      zeroed out before the call (e.g. using zalloc).
+ *          1  :  url = Target url_spec to be filled in.  Will be
+ *                      zeroed before use.
  *          2  :  buf = Source pattern, null terminated.  NOTE: The
  *                      contents of this buffer are destroyed by this
  *                      function.  If this function succeeds, the
@@ -588,6 +594,9 @@ jb_err create_url_spec(struct url_spec * url, const char * buf)
 
    assert(url);
    assert(buf);
+
+   /* Zero memory */
+   memset(url, '\0', sizeof(*url));
 
    /* save a copy of the orignal specification */
    if ((url->spec = strdup(buf)) == NULL)
