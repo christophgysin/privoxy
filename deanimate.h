@@ -40,9 +40,8 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/07/13 13:40:09  oes
- *    cm
- *
+ *    Revision 1.2  2001/07/13 13:46:20  oes
+ *    Introduced GIF deanimation feature
  *
  *
  *********************************************************************/
