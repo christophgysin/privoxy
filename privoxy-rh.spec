@@ -242,9 +242,8 @@ fi
 # -- morcego
 # WARNING ! WARNING ! WARNING ! WARNING ! WARNING ! WARNING ! WARNING !
 %config %{privoxyconf}/config
-%config %{privoxyconf}/advanced.action
-%config %{privoxyconf}/basic.action
-%config %{privoxyconf}/intermediate.action
+%config %{privoxyconf}/standard.action
+%config(noreplace) %{privoxyconf}/user.action
 %config %{privoxyconf}/default.action
 %config %{privoxyconf}/default.filter
 %config %{privoxyconf}/trust
@@ -294,6 +293,10 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Tue Apr 23 2002 Hal Burgiss <hal@foobox.net>
++ privoxy-2.9.14-2
+- Adjust for new *actions files.
+
 * Mon Apr 22 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + privoxy-2.9.14-2
 - Removed the redhat hack that prevented the user and group from
@@ -617,6 +620,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.29  2002/04/24 03:13:51  hal9
+# New actions files changes.
+#
 # Revision 1.28  2002/04/22 18:51:33  morcego
 # user and group now get removed on rh too.
 #
