@@ -28,6 +28,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.16  2002/03/14 22:32:32  hal9
+# Bumped the RPM version.
+#
 # Revision 1.15  2002/03/08 20:00:28  swa
 # some leftovers.
 #
@@ -251,7 +254,7 @@ CODE_STATUS   = @CODE_STATUS@
 VERSION       = $(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_POINT)
 # will automatically be postfixed with -$(RPM_PACKAGEV) in the SPECfile
 RPM_VERSION   = $(VERSION)
-RPM_PACKAGEV  = 1
+RPM_PACKAGEV  = 3
 
 
 #############################################################################
