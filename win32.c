@@ -31,6 +31,9 @@ const char win32_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/11/30 21:29:33  jongfoster
+ *    Fixing a warning
+ *
  *    Revision 1.3  2001/11/16 00:46:31  jongfoster
  *    Fixing compiler warnings
  *
@@ -141,7 +144,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
    }
 
    /* Allocate array of strings */
-   argv = (char **)malloc(sizeof(char *) * argc);
+   argv = (const char **)malloc(sizeof(const char *) * argc);
 
    /* step through command line replacing spaces with zeros, initialise array */
    argv[0] = szModule;
@@ -179,7 +182,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
    /* Cleanup */
-   free(argv);
+   free((void *)argv);
    free(pszArgs);
 
    return res;
