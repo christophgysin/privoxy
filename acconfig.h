@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2003/03/21 14:45:23  oes
+ *    Presumably fixed Bug #707467 by defining unix ifdef __unix__
+ *
  *    Revision 1.30  2002/09/06 12:14:12  oes
  *    Added missing preproc symbols PCRE*_H_IN_SUBDIR
  *
@@ -438,6 +441,13 @@
 
 #endif /* defined(FEATURE_PTHREAD) && defined(__BEOS__) */
 
+/*
+ * On OpenBSD and maybe also FreeBSD, gcc doesn't define the cpp
+ * symbol unix; it defines __unix__
+ */
+#if defined(__unix__) && !defined(unix)
+#define unix 1
+#endif
 
 /*
  * It's too easy to accidentally use a Cygwin or MinGW32 version of config.h
