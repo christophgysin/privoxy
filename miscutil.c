@@ -1,4 +1,3 @@
-/* vim:ts=3: */
 const char miscutil_rcs[] = "$Id$";
 /*********************************************************************
  *
@@ -37,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/07/13 14:02:24  oes
+ *    Removed vim-settings
+ *
  *    Revision 1.14  2001/06/29 21:45:41  oes
  *    Indentation, CRLF->LF, Tab-> Space
  *
