@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/11/05 21:43:48  steudten
+ *    Add global var 'basedir' for unix os.
+ *
  *    Revision 1.13  2001/10/29 03:48:10  david__schmidt
  *    OS/2 native needed a snprintf() routine.  Added one to miscutil, brackedted
  *    by and __OS2__ ifdef.
@@ -117,6 +120,7 @@
 extern "C" {
 #endif
 
+extern const char *basedir;
 extern void *zalloc(int size);
 
 extern unsigned int hash_string(const char* s);
