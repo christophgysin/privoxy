@@ -34,6 +34,9 @@ const char list_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2002/03/07 03:46:17  oes
+ *    Fixed compiler warnings
+ *
  *    Revision 1.12  2001/10/25 03:40:48  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -402,7 +405,7 @@ jb_err enlist_first(struct list *the_list, const char *str)
  *
  *********************************************************************/
 jb_err enlist_unique(struct list *the_list, const char *str,
-                     int num_significant_chars)
+                     size_t num_significant_chars)
 {
    struct list_entry *cur_entry;
 
@@ -410,7 +413,7 @@ jb_err enlist_unique(struct list *the_list, const char *str,
    assert(list_is_valid(the_list));
    assert(str);
    assert(num_significant_chars >= 0);
-   assert((size_t)num_significant_chars <= strlen(str));
+   assert(num_significant_chars <= strlen(str));
 
    if (num_significant_chars > 0)
    {
@@ -464,7 +467,7 @@ jb_err enlist_unique(struct list *the_list, const char *str,
 jb_err enlist_unique_header(struct list *the_list, const char *name,
                             const char *value)
 {
-   int length;
+   size_t length;
    jb_err result;
    char *str;
 
@@ -490,6 +493,7 @@ jb_err enlist_unique_header(struct list *the_list, const char *name,
    assert(list_is_valid(the_list));
 
    return result;
+
 }
 
 
@@ -550,7 +554,7 @@ char *list_to_text(const struct list *the_list)
    struct list_entry *cur_entry;
    char *ret = NULL;
    char *s;
-   int size = 2;
+   size_t size = 2;
 
    assert(the_list);
    assert(list_is_valid(the_list));

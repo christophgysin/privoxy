@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2002/03/07 03:46:17  oes
+ *    Fixed compiler warnings
+ *
  *    Revision 1.15  2002/01/22 23:46:18  jongfoster
  *    Moving edit_read_line() and simple_read_line() to loaders.c, and
  *    extending them to support reading MS-DOS, Mac and UNIX style files
@@ -153,7 +156,7 @@ struct configuration_spec;
 struct url_spec;
 
 extern void sweep(void);
-extern char *read_config_line(char *buf, int buflen, FILE *fp, unsigned long *linenum);
+extern char *read_config_line(char *buf, size_t buflen, FILE *fp, unsigned long *linenum);
 extern int check_file_changed(const struct file_list * current,
                               const char * filename,
                               struct file_list ** newfl);

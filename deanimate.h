@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2002/03/07 03:46:17  oes
+ *    Fixed compiler warnings
+ *
  *    Revision 1.4  2001/07/29 18:50:04  jongfoster
  *    Fixing "extern C" block, and renaming #define _DEANIMATE_H
  *
@@ -65,7 +68,7 @@ struct binbuffer
 {
    char *buffer; 
    int offset;   
-   int size;    
+   size_t size;    
 };
 
 /*

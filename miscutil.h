@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2002/03/07 03:46:17  oes
+ *    Fixed compiler warnings
+ *
  *    Revision 1.17  2002/03/04 18:28:32  oes
  *    Deleted deletePidFile, played syleguide police
  *
@@ -135,7 +138,7 @@ extern "C" {
 #endif
 
 extern const char *basedir;
-extern void *zalloc(int size);
+extern void *zalloc(size_t size);
 
 #if defined(unix)
 extern void write_pid_file(void);
@@ -155,7 +158,7 @@ extern jb_err string_join  (char **target_string,       char *text_to_append);
 extern char *chomp(char *string);
 extern int simplematch(char *pattern, char *text);
 
-extern char *bindup(const char *string, int n);
+extern char *bindup(const char *string, size_t len);
 
 extern char *make_path(const char * dir, const char * file);
 

@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2002/03/07 03:46:16  oes
+ *    Fixed compiler warnings
+ *
  *    Revision 1.22  2002/01/21 00:27:02  jongfoster
  *    Allowing free_action(NULL).
  *    Moving the functions that #include actionlist.h to the end of the file,
@@ -579,16 +582,16 @@ jb_err get_actions(char *line,
                {
                   /* append multi string. */
 
-                  struct list * remove = cur_action->multi_remove[action->index];
-                  struct list * add    = cur_action->multi_add[action->index];
+                  struct list * remove_p = cur_action->multi_remove[action->index];
+                  struct list * add_p    = cur_action->multi_add[action->index];
 
                   if ((value == NULL) || (*value == '\0'))
                   {
                      return JB_ERR_PARSE;
                   }
 
-                  list_remove_item(remove, value);
-                  err = enlist_unique(add, value, 0);
+                  list_remove_item(remove_p, value);
+                  err = enlist_unique(add_p, value, 0);
                   if (err)
                   {
                      return err;
@@ -599,8 +602,8 @@ jb_err get_actions(char *line,
                {
                   /* remove multi string. */
 
-                  struct list * remove = cur_action->multi_remove[action->index];
-                  struct list * add    = cur_action->multi_add[action->index];
+                  struct list * remove_p = cur_action->multi_remove[action->index];
+                  struct list * add_p    = cur_action->multi_add[action->index];
 
                   if ( (value == NULL) || (*value == '\0')
                      || ((*value == '*') && (value[1] == '\0')) )
@@ -610,8 +613,8 @@ jb_err get_actions(char *line,
                       *
                       * Remove *ALL*.
                       */
-                     list_remove_all(remove);
-                     list_remove_all(add);
+                     list_remove_all(remove_p);
+                     list_remove_all(add_p);
                      cur_action->multi_remove_all[action->index] = 1;
                   }
                   else
@@ -621,13 +624,13 @@ jb_err get_actions(char *line,
                      if ( !cur_action->multi_remove_all[action->index] )
                      {
                         /* there isn't a catch-all in the remove list already */
-                        err = enlist_unique(remove, value, 0);
+                        err = enlist_unique(remove_p, value, 0);
                         if (err)
                         {
                            return err;
                         }
                      }
-                     list_remove_item(add, value);
+                     list_remove_item(add_p, value);
                   }
                   break;
                }

@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2002/03/07 03:46:17  oes
+ *    Fixed compiler warnings
+ *
  *    Revision 1.31  2002/03/06 23:02:57  jongfoster
  *    Removing tabs
  *
@@ -603,7 +606,7 @@ void log_error(int loglevel, char *fmt, ...)
             outc += ival;
             if (outc < BUFFER_SIZE-1)
             {
-               memcpy(outbuf + oldoutc, sval, ival);
+               memcpy(outbuf + oldoutc, sval, (size_t) ival);
             }
             else
             {
