@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.40  2001/10/26 20:13:09  jongfoster
+ *    ctype.h is needed in Windows, too.
+ *
  *    Revision 1.39  2001/10/26 17:40:04  oes
  *    Introduced get_header_value()
  *    Removed http->user_agent, csp->referrer and csp->accept_types
@@ -313,10 +316,10 @@ const char parsers_rcs[] = "$Id$";
 #ifndef _WIN32
 #include <stdio.h>
 #include <sys/types.h>
-#include <stdlib.h>
-#include <ctype.h>
 #endif
 
+#include <stdlib.h>
+#include <ctype.h>
 #include <assert.h>
 #include <string.h>
 
