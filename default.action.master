@@ -1565,6 +1565,9 @@ www.dn.se
 www.munichre.com
 #MASTER# PROBLEM-URL: http://www.sfgate.com
 .sfgate.com
+#MASTER# PROBLEM-URL: http://www.nasa.gov
+#MASTER# REMARKS: No progress past main page without js-annoyances
+.nasa.gov
 
 {-filter{unsolicited-popups}}
 #MASTER# DONT-VERIFY
