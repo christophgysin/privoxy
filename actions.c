@@ -33,6 +33,13 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2002/04/24 02:10:31  oes
+ *     - Jon's patch for multiple AFs:
+ *       - split load_actions_file, add load_one_actions_file
+ *       - make csp->actions_list files an array
+ *       - remember file id with each action
+ *     - Copy_action now frees dest action before copying
+ *
  *    Revision 1.26  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -229,6 +236,9 @@ static const struct action_name action_names[] =
 };
 
 
+static int load_one_actions_file(struct client_state *csp, int fileid);
+
+
 /*********************************************************************
  *
  * Function    :  merge_actions
@@ -310,8 +320,6 @@ jb_err merge_actions (struct action_spec *dest,
  *
  * Description :  Copy an action_specs.
  *                Similar to "cur_action = new_action".
- *                Note that dest better not contain valid data
- *                - it's overwritten, not freed.
  *
  * Parameters  :
  *          1  :  dest = Destination of copy.
@@ -326,6 +334,7 @@ jb_err copy_action (struct action_spec *dest,
    int i;
    jb_err err = JB_ERR_OK;
 
+   free_action(dest);
    memset(dest, '\0', sizeof(*dest));
 
    dest->mask = src->mask;
@@ -820,7 +829,10 @@ void free_current_action (struct current_action_spec *src)
 }
 
 
-static struct file_list *current_actions_file  = NULL;
+static struct file_list *current_actions_file[MAX_ACTION_FILES]  = {
+   NULL, NULL, NULL, NULL, NULL,
+   NULL, NULL, NULL, NULL, NULL
+};
 
 
 #ifdef FEATURE_GRACEFUL_TERMINATION
@@ -906,7 +918,7 @@ void free_alias_list(struct action_alias *alias_list)
  *
  * Function    :  load_actions_file
  *
- * Description :  Read and parse a action file and add to files
+ * Description :  Read and parse all the action files and add to files
  *                list.
  *
  * Parameters  :
@@ -916,6 +928,45 @@ void free_alias_list(struct action_alias *alias_list)
  *
  *********************************************************************/
 int load_actions_file(struct client_state *csp)
+{
+   int i;
+   int result;
+
+   for (i = 0; i < MAX_ACTION_FILES; i++)
+   {
+      if (csp->config->actions_file[i])
+      {
+         result = load_one_actions_file(csp, i);
+         if (result)
+         {
+            return result;
+         }
+      }
+      else if (current_actions_file[i])
+      {
+         current_actions_file[i]->unloader = unload_actions_file;
+         current_actions_file[i] = NULL;
+      }
+   }
+
+   return 0;
+}
+
+/*********************************************************************
+ *
+ * Function    :  load_one_actions_file
+ *
+ * Description :  Read and parse a action file and add to files
+ *                list.
+ *
+ * Parameters  :
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  fileid = File index to load.
+ *
+ * Returns     :  0 => Ok, everything else is an error.
+ *
+ *********************************************************************/
+static int load_one_actions_file(struct client_state *csp, int fileid)
 {
 
    /*
@@ -941,19 +992,16 @@ int load_actions_file(struct client_state *csp)
    struct action_alias * alias_list = NULL;
    unsigned long linenum = 0;
 
-   if (!check_file_changed(current_actions_file, csp->config->actions_file, &fs))
+   if (!check_file_changed(current_actions_file[fileid], csp->config->actions_file[fileid], &fs))
    {
       /* No need to load */
-      if (csp)
-      {
-         csp->actions_list = current_actions_file;
-      }
+      csp->actions_list[fileid] = current_actions_file[fileid];
       return 0;
    }
    if (!fs)
    {
       log_error(LOG_LEVEL_FATAL, "can't load actions file '%s': error finding file: %E",
-                csp->config->actions_file);
+                csp->config->actions_file[fileid]);
       return 1; /* never get here */
    }
 
@@ -961,14 +1009,14 @@ int load_actions_file(struct client_state *csp)
    if (last_perm == NULL)
    {
       log_error(LOG_LEVEL_FATAL, "can't load actions file '%s': out of memory!",
-                csp->config->actions_file);
+                csp->config->actions_file[fileid]);
       return 1; /* never get here */
    }
 
-   if ((fp = fopen(csp->config->actions_file, "r")) == NULL)
+   if ((fp = fopen(csp->config->actions_file[fileid], "r")) == NULL)
    {
       log_error(LOG_LEVEL_FATAL, "can't load actions file '%s': error opening file: %E",
-                csp->config->actions_file);
+                csp->config->actions_file[fileid]);
       return 1; /* never get here */
    }
 
@@ -989,7 +1037,7 @@ int load_actions_file(struct client_state *csp)
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
                   "can't load actions file '%s': invalid line (%lu): %s", 
-                  csp->config->actions_file, linenum, buf);
+                  csp->config->actions_file[fileid], linenum, buf);
                return 1; /* never get here */
             }
 
@@ -1003,7 +1051,7 @@ int load_actions_file(struct client_state *csp)
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
                   "can't load actions file '%s': invalid line (%lu): {{ }}",
-                  csp->config->actions_file, linenum);
+                  csp->config->actions_file[fileid], linenum);
                return 1; /* never get here */
             }
 
@@ -1035,7 +1083,7 @@ int load_actions_file(struct client_state *csp)
                   fclose(fp);
                   log_error(LOG_LEVEL_FATAL,
                      "can't load actions file '%s': line %lu: {{settings}} must only appear once, and it must be before anything else.",
-                     csp->config->actions_file, linenum);
+                     csp->config->actions_file[fileid], linenum);
                }
                mode = MODE_SETTINGS;
             }
@@ -1049,7 +1097,7 @@ int load_actions_file(struct client_state *csp)
                   fclose(fp);
                   log_error(LOG_LEVEL_FATAL,
                      "can't load actions file '%s': line %lu: {{description}} must only appear once, and only a {{settings}} block may be above it.",
-                     csp->config->actions_file, linenum);
+                     csp->config->actions_file[fileid], linenum);
                }
                mode = MODE_DESCRIPTION;
             }
@@ -1071,7 +1119,7 @@ int load_actions_file(struct client_state *csp)
                   fclose(fp);
                   log_error(LOG_LEVEL_FATAL,
                      "can't load actions file '%s': line %lu: {{alias}} must only appear once, and it must be before all actions.",
-                     csp->config->actions_file, linenum);
+                     csp->config->actions_file[fileid], linenum);
                }
                mode = MODE_ALIAS;
             }
@@ -1081,7 +1129,7 @@ int load_actions_file(struct client_state *csp)
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
                   "can't load actions file '%s': invalid line (%lu): {{%s}}",
-                  csp->config->actions_file, linenum, start);
+                  csp->config->actions_file[fileid], linenum, start);
                return 1; /* never get here */
             }
          }
@@ -1112,7 +1160,7 @@ int load_actions_file(struct client_state *csp)
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
                   "can't load actions file '%s': out of memory",
-                  csp->config->actions_file);
+                  csp->config->actions_file[fileid]);
                return 1; /* never get here */
             }
             init_action(cur_action);
@@ -1128,7 +1176,7 @@ int load_actions_file(struct client_state *csp)
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
                   "can't load actions file '%s': invalid line (%lu): %s",
-                  csp->config->actions_file, linenum, buf);
+                  csp->config->actions_file[fileid], linenum, buf);
                return 1; /* never get here */
             }
             *end = '\0';
@@ -1142,7 +1190,7 @@ int load_actions_file(struct client_state *csp)
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
                   "can't load actions file '%s': invalid line (%lu): %s",
-                  csp->config->actions_file, linenum, buf);
+                  csp->config->actions_file[fileid], linenum, buf);
                return 1; /* never get here */
             }
          }
@@ -1177,7 +1225,7 @@ int load_actions_file(struct client_state *csp)
          {
             log_error(LOG_LEVEL_FATAL,
                "can't load actions file '%s': invalid alias line (%lu): %s",
-               csp->config->actions_file, linenum, buf);
+               csp->config->actions_file[fileid], linenum, buf);
             return 1; /* never get here */
          }
 
@@ -1186,7 +1234,7 @@ int load_actions_file(struct client_state *csp)
             fclose(fp);
             log_error(LOG_LEVEL_FATAL,
                "can't load actions file '%s': out of memory!",
-               csp->config->actions_file);
+               csp->config->actions_file[fileid]);
             return 1; /* never get here */
          }
 
@@ -1212,7 +1260,7 @@ int load_actions_file(struct client_state *csp)
          {
             log_error(LOG_LEVEL_FATAL,
                "can't load actions file '%s': invalid alias line (%lu): %s",
-               csp->config->actions_file, linenum, buf);
+               csp->config->actions_file[fileid], linenum, buf);
             return 1; /* never get here */
          }
 
@@ -1226,7 +1274,7 @@ int load_actions_file(struct client_state *csp)
             fclose(fp);
             log_error(LOG_LEVEL_FATAL,
                "can't load actions file '%s': invalid alias line (%lu): %s = %s",
-               csp->config->actions_file, linenum, buf, start);
+               csp->config->actions_file[fileid], linenum, buf, start);
             return 1; /* never get here */
          }
 
@@ -1244,7 +1292,7 @@ int load_actions_file(struct client_state *csp)
             fclose(fp);
             log_error(LOG_LEVEL_FATAL,
                "can't load actions file '%s': out of memory!",
-               csp->config->actions_file);
+               csp->config->actions_file[fileid]);
             return 1; /* never get here */
          }
 
@@ -1257,7 +1305,7 @@ int load_actions_file(struct client_state *csp)
             fclose(fp);
             log_error(LOG_LEVEL_FATAL,
                "can't load actions file '%s': line %lu: cannot create URL pattern from: %s",
-               csp->config->actions_file, linenum, buf);
+               csp->config->actions_file[fileid], linenum, buf);
             return 1; /* never get here */
          }
 
@@ -1271,7 +1319,7 @@ int load_actions_file(struct client_state *csp)
          fclose(fp);
          log_error(LOG_LEVEL_FATAL,
             "can't load actions file '%s': first needed line (%lu) is invalid: %s",
-            csp->config->actions_file, linenum, buf);
+            csp->config->actions_file[fileid], linenum, buf);
          return 1; /* never get here */
       }
       else
@@ -1280,7 +1328,7 @@ int load_actions_file(struct client_state *csp)
          fclose(fp);
          log_error(LOG_LEVEL_FATAL,
             "can't load actions file '%s': INTERNAL ERROR - mode = %d",
-            csp->config->actions_file, mode);
+            csp->config->actions_file[fileid], mode);
          return 1; /* never get here */
       }
    }
@@ -1292,19 +1340,16 @@ int load_actions_file(struct client_state *csp)
    free_alias_list(alias_list);
 
    /* the old one is now obsolete */
-   if (current_actions_file)
+   if (current_actions_file[fileid])
    {
-      current_actions_file->unloader = unload_actions_file;
+      current_actions_file[fileid]->unloader = unload_actions_file;
    }
 
    fs->next    = files->next;
    files->next = fs;
-   current_actions_file = fs;
+   current_actions_file[fileid] = fs;
 
-   if (csp)
-   {
-      csp->actions_list = fs;
-   }
+   csp->actions_list[fileid] = fs;
 
    return(0);
 
