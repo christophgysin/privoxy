@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2002/01/22 23:26:03  jongfoster
+ *    Adding cgi_transparent_gif() for http://i.j.b/t
+ *
  *    Revision 1.4  2001/10/23 21:48:19  jongfoster
  *    Cleaning up error handling in CGI functions - they now send back
  *    a HTML error page and should never cause a FATAL error.  (Fixes one
@@ -96,6 +99,9 @@ extern jb_err cgi_show_version (struct client_state *csp,
 extern jb_err cgi_show_request (struct client_state *csp,
                                 struct http_response *rsp,
                                 const struct map *parameters);
+extern jb_err cgi_transparent_gif (struct client_state *csp,
+                                   struct http_response *rsp,
+                                   const struct map *parameters);
 
 /* Revision control strings from this header and associated .c file */
 extern const char cgisimple_rcs[];
