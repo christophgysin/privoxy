@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.21  2001/07/18 17:26:24  oes
+ *    Changed to conform to new pcrs interface
+ *
  *    Revision 1.20  2001/07/17 13:07:01  oes
  *    Fixed segv when last line in config files
  *     lacked a terminating (\r)\n
@@ -921,7 +924,7 @@ int load_re_filterfile(struct client_state *csp)
       enlist( bl->patterns, buf );
 
       /* We have a meaningful line -> make it a job */
-      if ((dummy = pcrs_compile(buf, &error)) == NULL)
+      if ((dummy = pcrs_compile_command(buf, &error)) == NULL)
       {
          log_error(LOG_LEVEL_RE_FILTER, 
                "Adding re_filter job %s failed with error %d.", buf, error);

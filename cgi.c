@@ -36,6 +36,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/07/18 17:24:37  oes
+ *    Changed to conform to new pcrs interface
+ *
  *    Revision 1.10  2001/07/13 13:53:13  oes
  *    Removed all #ifdef PCRS and related code
  *
@@ -132,7 +135,6 @@ const char cgi_rcs[] = "$Id$";
 #include "project.h"
 #include "cgi.h"
 #include "list.h"
-#include "pcrs.h"
 #include "encode.h"
 #include "ssplit.h"
 #include "jcc.h"
@@ -902,8 +904,8 @@ char *fill_template(struct client_state *csp, const char *template, struct map *
       /* Enclose name in @@ */
       snprintf(buf, BUFFER_SIZE, "@%s@", m->name);
 
-      /* Make and chain in job */
-      if ( NULL == (job = (pcrs_make_job(buf, m->value, "sigTU", &error))) ) 
+      /* Make and chain job */
+      if ( NULL == (job = (pcrs_compile(buf, m->value, "sigTU", &error))) ) 
       {
          log_error(LOG_LEVEL_ERROR, "Error compiling template fill job %s: %d", m->name, error);
       }
