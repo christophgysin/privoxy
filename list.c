@@ -34,6 +34,9 @@ const char list_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/09/16 17:30:24  jongfoster
+ *    Fixing a compiler warning.
+ *
  *    Revision 1.9  2001/09/16 13:20:29  jongfoster
  *    Rewrite of list library.  Now has seperate header and list_entry
  *    structures.  Also added a large sprinking of assert()s to the list
@@ -91,10 +94,15 @@ const char list_rcs[] = "$Id$";
 
 #include "config.h"
 
+#ifndef _WIN32
+/* FIXME: The following headers are not needed for Win32.  Are they
+ * needed on other platforms?
+ */
 #include <stdio.h>
 #include <sys/types.h>
 #include <stdlib.h>
 #include <ctype.h>
+#endif
 #include <string.h>
 
 #ifndef _WIN32
@@ -104,11 +112,13 @@ const char list_rcs[] = "$Id$";
 #include <assert.h>
 
 #include "project.h"
-#include "jcc.h"
 #include "list.h"
 #include "miscutil.h"
 
 const char list_h_rcs[] = LIST_H_VERSION;
+
+
+static int list_is_valid (const struct list *the_list);
 
 
 /*********************************************************************

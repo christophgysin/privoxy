@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/09/16 17:30:24  jongfoster
+ *    Fixing a compiler warning.
+ *
  *    Revision 1.7  2001/09/16 13:20:29  jongfoster
  *    Rewrite of list library.  Now has seperate header and list_entry
  *    structures.  Also added a large sprinking of assert()s to the list
@@ -98,8 +101,6 @@ extern "C" {
 
 extern void init_list    (struct list *the_list);
 extern void destroy_list (struct list *the_list);
-
-extern int  list_is_valid(const struct list *the_list);
 
 extern int  enlist                 (struct list *the_list, const char *str);
 extern int  enlist_unique          (struct list *the_list, const char *str, int num_significant_chars);
