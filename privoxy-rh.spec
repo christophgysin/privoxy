@@ -244,6 +244,7 @@ fi
 %doc doc/webserver/faq
 %doc doc/webserver/p_doc.css doc/webserver/p_web.css doc/webserver/index.html
 %doc doc/webserver/images
+%doc doc/webserver/man-page
 
 %dir %{privoxyconf}
 %dir %{privoxyconf}/templates
@@ -311,6 +312,10 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Sat May 25 2002 Hal Burgiss <hal@foobox.net>
++ privoxy-2.9.15-1
+- Add html man page so index.html does not 404.
+
 * Fri May 24 2002 Hal Burgiss <hal@foobox.net>
 + privoxy-2.9.15-1
 - Add another template and alphabetize these for easier tracking.
@@ -658,6 +663,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.33.2.1  2002/05/26 17:20:23  hal9
+# Add images to doc dirs.
+#
 # Revision 1.33  2002/05/25 02:08:23  hal9
 # Add doc/images directory.
 # Redhat: alphabetized list of templates (and I think added one in the process)
