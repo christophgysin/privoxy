@@ -34,6 +34,9 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/07/29 18:47:57  jongfoster
+ *    Adding missing #include project.h
+ *
  *    Revision 1.4  2001/07/24 12:47:06  oes
  *    Applied BeOS support update by Eugenia
  *
@@ -72,6 +75,7 @@ const char gateway_rcs[] = "$Id$";
 #include <netdb.h>
 #endif /* def __BEOS__ */
 
+#include "project.h"
 #include "jcc.h"
 #include "errlog.h"
 #include "jbsockets.h"
