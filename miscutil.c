@@ -36,6 +36,11 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/09/20 13:33:43  steudten
+ *
+ *    change long to int as return value in hash_string(). Remember the wraparound
+ *    for int = long = sizeof(4) - thats maybe not what we want.
+ *
  *    Revision 1.17  2001/09/13 20:51:29  jongfoster
  *    Fixing potential problems with characters >=128 in simplematch()
  *    This was also a compiler warning.
@@ -186,9 +191,9 @@ void *zalloc(int size)
  * Returns     :  an unsigned long variable with the hashed value.
  *
  *********************************************************************/
-unsigned long hash_string( const char* s )
+unsigned int hash_string( const char* s )
 {
-   unsigned long h = 0ul; 
+   unsigned int h = 0; 
 
    for ( ; *s; ++s )
    {
