@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/05/26 17:12:07  jongfoster
+ *    Fatal errors loading configuration files now give better error messages.
+ *
  *    Revision 1.8  2001/05/26 00:55:20  jongfoster
  *    Removing duplicated code.  load_forwardfile() now uses create_url_spec()
  *
@@ -991,7 +994,7 @@ int load_aclfile(struct client_state *csp)
    return(0);
 
 load_aclfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load access control list %s: %E",
+   log_error(LOG_LEVEL_FATAL, "can't load access control list %s: %E",
              csp->config->aclfile);
    return(-1);
 
@@ -1114,7 +1117,7 @@ int load_blockfile(struct client_state *csp)
    return(0);
 
 load_blockfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load blockfile '%s': %E", csp->config->blockfile);
+   log_error(LOG_LEVEL_FATAL, "can't load blockfile '%s': %E", csp->config->blockfile);
    return(-1);
 
 }
@@ -1236,7 +1239,7 @@ int load_imagefile(struct client_state *csp)
    return(0);
 
 load_imagefile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load imagefile '%s': %E", csp->config->imagefile);
+   log_error(LOG_LEVEL_FATAL, "can't load imagefile '%s': %E", csp->config->imagefile);
    return(-1);
 
 }
@@ -1434,7 +1437,7 @@ int load_permissions_file(struct client_state *csp)
    return(0);
 
 load_permissions_error:
-   log_error(LOG_LEVEL_ERROR, "can't load permissions file '%s': %E",
+   log_error(LOG_LEVEL_FATAL, "can't load permissions file '%s': %E",
              csp->config->permissions_file);
    return(-1);
 
@@ -1578,7 +1581,7 @@ int load_trustfile(struct client_state *csp)
    return(0);
 
 load_trustfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load trustfile '%s': %E",
+   log_error(LOG_LEVEL_FATAL, "can't load trustfile '%s': %E",
              csp->config->trustfile);
    return(-1);
 
@@ -1781,7 +1784,7 @@ int load_forwardfile(struct client_state *csp)
    return(0);
 
 load_forwardfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load forwardfile '%s': %E",
+   log_error(LOG_LEVEL_FATAL, "can't load forwardfile '%s': %E",
              csp->config->forwardfile);
    return(-1);
 
@@ -1887,7 +1890,7 @@ int load_re_filterfile(struct client_state *csp)
    return( 0 );
 
 load_re_filterfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load re_filterfile '%s': %E", 
+   log_error(LOG_LEVEL_FATAL, "can't load re_filterfile '%s': %E", 
              csp->config->re_filterfile);
    return(-1);
 
