@@ -28,6 +28,12 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.64  2002/04/22 16:32:31  morcego
+dnl configure.in, *.spec: Bumping release to 2 (2.9.14-2)
+dnl -rh.spec: uid and gid are now macros
+dnl -suse.spec: Changing the header Copyright to License (Copyright is
+dnl             deprecable)
+dnl
 dnl Revision 1.63  2002/04/11 11:00:21  oes
 dnl Applied Moritz' fix for socklen_t on Solaris
 dnl
@@ -394,7 +400,7 @@ dnl =================================================================
 VERSION_MAJOR=2
 VERSION_MINOR=9
 VERSION_POINT=14
-VERSION_RPM_PACKAGE=1
+VERSION_RPM_PACKAGE=2
 CODE_STATUS="beta"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
