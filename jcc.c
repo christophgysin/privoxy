@@ -33,6 +33,14 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2001/07/19 19:09:47  haroon
+ *    - Added code to take care of the situation where while processing the first
+ *      server response (which includes the server header), after finding the end
+ *      of the headers we were not looking past the end of the headers for
+ *      content modification. I enabled it for filter_popups.
+ *      Someone else should look to see if other similar operations should be
+ *      done to the discarded portion of the buffer.
+ *
  *    Revision 1.26  2001/07/18 12:31:36  oes
  *    cosmetics
  *
@@ -991,6 +999,12 @@ static void chat(struct client_state *csp)
                 block_popups)                     /* Policy allows */
             {
                block_popups_now = 1;
+               /*
+                    * even though the header has been found, don't forget about the
+                    * left over portion of the buffer which will usually contain body text
+                    */
+               n = strlen(csp->iob->cur);
+               filter_popups(csp->iob->cur, n);
             }
 
 #endif /* def KILLPOPUPS */
