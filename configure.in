@@ -28,6 +28,10 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.15  2001/09/12 17:28:59  david__schmidt
+dnl
+dnl OS/2 port: update autoconf'd support for the platform.
+dnl
 dnl Revision 1.14  2001/07/30 22:12:11  jongfoster
 dnl Fixing Solaris build (I hope) and tidying up #defines:
 dnl - All feature #defines are now of the form FEATURE_xxx
@@ -325,10 +329,10 @@ dnl =================================================================
 
 AC_CANONICAL_HOST
 
-SOLARIS_ONLY=#
+SOCKET_LIB=
 
 case "$host" in
-*-solaris*) SOLARIS_ONLY=
+*-solaris*) SOCKET_LIB=-lsocket -lnsl
             AC_DEFINE(__EXTENSIONS__)
             if test "$GCC" = "yes"; then
               # Set a GCC specific switch:
@@ -342,7 +346,18 @@ case "$host" in
 ;;
 esac
 
-AC_SUBST(SOLARIS_ONLY)
+AC_SUBST(SOCKET_LIB)
+
+dnl =================================================================
+dnl OS/2 specific
+dnl =================================================================
+
+case "$host" in
+*-os2-emx*) SOCKET_LIB=-lsocket
+;;
+esac
+
+AC_SUBST(SOCKET_LIB)
 
 dnl =================================================================
 dnl Check for standard compiler stuff
@@ -564,4 +579,3 @@ AC_SUBST(SPECIAL_CFLAGS)
 AC_SUBST(PTHREAD_LIB)
 
 AC_OUTPUT(Makefile)
-
