@@ -36,6 +36,10 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/06/01 18:14:49  jongfoster
+ *    Changing the calls to strerr() to check HAVE_STRERR (which is defined
+ *    in config.h if appropriate) rather than the NO_STRERR macro.
+ *
  *    Revision 1.5  2001/06/01 10:31:51  oes
  *    Added character class matching to trivimatch; renamed to simplematch
  *
@@ -211,9 +215,9 @@ char *safe_strerror(int err)
    char buf[BUFSIZ];
 
 
-#ifndef NOSTRERROR
+#ifdef HAVE_STRERROR
    s = strerror(err);
-#endif /* NOSTRERROR */
+#endif /* HAVE_STRERROR */
 
    if (s == NULL)
    {

@@ -33,6 +33,10 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/06/01 18:14:49  jongfoster
+ *    Changing the calls to strerr() to check HAVE_STRERR (which is defined
+ *    in config.h if appropriate) rather than the NO_STRERR macro.
+ *
  *    Revision 1.10  2001/05/29 11:52:21  oes
  *    Conditional compilation of w32_socket_error
  *
@@ -477,11 +481,11 @@ void log_error(int loglevel, char *fmt, ...)
             sval = w32_socket_strerr(ival, tempbuf);
 #else /* ifndef _WIN32 */
             ival = errno; 
-#ifndef NOSTRERROR
+#ifdef HAVE_STRERROR
             sval = strerror(ival);
-#else /* def NOSTRERROR */
+#else /* ifndef HAVE_STRERROR */
             sval = NULL;
-#endif /* def NOSTRERROR */
+#endif /* ndef HAVE_STRERROR */
             if (sval == NULL)
             {
                sprintf(tempbuf, "(errno = %d)", ival);
