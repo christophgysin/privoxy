@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2002/03/24 13:32:41  swa
+ *    name change related issues
+ *
  *    Revision 1.22  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -2449,7 +2452,7 @@ jb_err cgi_edit_actions(struct client_state *csp,
    }
 
    /* FIXME: Incomplete */
-   rsp->status = strdup("302 Local Redirect from Junkbuster");
+   rsp->status = strdup("302 Local Redirect from Privoxy");
    if (rsp->status == NULL)
    {
       return JB_ERR_MEMORY;
@@ -3221,7 +3224,7 @@ jb_err cgi_edit_actions_submit(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   rsp->status = strdup("302 Local Redirect from Junkbuster");
+   rsp->status = strdup("302 Local Redirect from Privoxy");
    if (rsp->status == NULL)
    {
       free(target);
@@ -3343,7 +3346,7 @@ jb_err cgi_edit_actions_url(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   rsp->status = strdup("302 Local Redirect from Junkbuster");
+   rsp->status = strdup("302 Local Redirect from Privoxy");
    if (rsp->status == NULL)
    {
       free(target);
@@ -3482,7 +3485,7 @@ jb_err cgi_edit_actions_add_url(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   rsp->status = strdup("302 Local Redirect from Junkbuster");
+   rsp->status = strdup("302 Local Redirect from Privoxy");
    if (rsp->status == NULL)
    {
       free(target);
@@ -3598,7 +3601,7 @@ jb_err cgi_edit_actions_remove_url(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   rsp->status = strdup("302 Local Redirect from Junkbuster");
+   rsp->status = strdup("302 Local Redirect from Privoxy");
    if (rsp->status == NULL)
    {
       free(target);
@@ -3730,7 +3733,7 @@ jb_err cgi_edit_actions_section_remove(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   rsp->status = strdup("302 Local Redirect from Junkbuster");
+   rsp->status = strdup("302 Local Redirect from Privoxy");
    if (rsp->status == NULL)
    {
       free(target);
@@ -3904,7 +3907,7 @@ jb_err cgi_edit_actions_section_add(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   rsp->status = strdup("302 Local Redirect from Junkbuster");
+   rsp->status = strdup("302 Local Redirect from Privoxy");
    if (rsp->status == NULL)
    {
       free(target);
@@ -4103,7 +4106,7 @@ jb_err cgi_edit_actions_section_swap(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   rsp->status = strdup("302 Local Redirect from Junkbuster");
+   rsp->status = strdup("302 Local Redirect from Privoxy");
    if (rsp->status == NULL)
    {
       free(target);
