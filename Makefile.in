@@ -28,6 +28,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.27  2001/09/13 13:11:37  steudten
+#
+# Replace DEBUG_CFLAGS with OTHER_CFLAGS
+#
 # Revision 1.26  2001/09/12 23:44:54  david__schmidt
 # Mac OSX (Darwin) support added.
 #
@@ -230,11 +234,10 @@ LIBS         = @LIBS@ $(W32_LIB) $(SOCKET_LIB) $(PTHREAD_LIB)
 # possibly other OSs).
 SPECIAL_CFLAGS = @SPECIAL_CFLAGS@
 
-# Either/Or of these next two lines
-#DEBUG_CFLAGS = -g  # Debug build
-DEBUG_CFLAGS  = -O3 # Full optimization
+# Add your flags here 
+OTHER_CFLAGS =   
 
-CFLAGS = @CFLAGS@ @CPPFLAGS@ $(DEBUG_CFLAGS) $(SPECIAL_CFLAGS) \
+CFLAGS = @CFLAGS@ @CPPFLAGS@ $(OTHER_CFLAGS) $(SPECIAL_CFLAGS) \
          @STATIC_PCRE_ONLY@ -Ipcre -Wall
 
 LDFLAGS = $(DEBUG_CFLAGS) $(SPECIAL_CFLAGS)
