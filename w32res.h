@@ -1,5 +1,5 @@
-#ifndef _W32RES_H
-#define _W32RES_H
+#ifndef W32RES_H_INCLUDED
+#define W32RES_H_INCLUDED
 #define W32RES_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -34,6 +34,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.8  2001/07/13 14:04:59  oes
  *    Removed all #ifdef PCRS
  *
@@ -173,7 +177,7 @@
 #define ID_EDIT_COPY  30000
 
 
-#endif /* ndef _W32RES_H */
+#endif /* ndef W32RES_H_INCLUDED */
 
 /*
   Local Variables:

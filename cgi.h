@@ -1,5 +1,5 @@
-#ifndef _CGI_H
-#define _CGI_H
+#ifndef CGI_H_INCLUDED
+#define CGI_H_INCLUDED
 #define CGI_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -38,6 +38,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.6  2001/06/29 21:45:41  oes
  *    Indentation, CRLF->LF, Tab-> Space
  *
@@ -139,7 +143,7 @@ extern const char cgi_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _CGI_H */
+#endif /* ndef CGI_H_INCLUDED */
 
 /*
   Local Variables:

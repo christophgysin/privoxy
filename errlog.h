@@ -1,5 +1,5 @@
-#ifndef _ERRLOG_H
-#define _ERRLOG_H
+#ifndef ERRLOG_H_INCLUDED
+#define ERRLOG_H_INCLUDED
 #define ERRLOG_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -35,6 +35,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.7  2001/07/19 19:02:53  haroon
  *    Added define for LOG_LEVEL_POPUPS
  *
@@ -146,7 +150,7 @@ extern const char errlog_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _ERRLOG_H */
+#endif /* ndef ERRLOG_H_INCLUDED */
 
 /*
   Local Variables:

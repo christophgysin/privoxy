@@ -1,5 +1,5 @@
-#ifndef _PROJECT_H
-#define _PROJECT_H
+#ifndef PROJECT_H_INCLUDED
+#define PROJECT_H_INCLUDED
 #define PROJECT_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.24  2001/07/25 17:20:27  oes
  *    Introduced http->user_agent
  *
@@ -802,7 +806,7 @@ static const char CHEADER[] =
 } /* extern "C" */
 #endif
 
-#endif /* ndef _PROJECT_H */
+#endif /* ndef PROJECT_H_INCLUDED */
 
 /*
   Local Variables:

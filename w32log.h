@@ -1,5 +1,5 @@
-#ifndef _W32LOG_H
-#define _W32LOG_H
+#ifndef W32LOG_H_INCLUDED
+#define W32LOG_H_INCLUDED
 #define W32LOG_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -34,6 +34,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.6  2001/07/13 14:04:59  oes
  *    Removed all #ifdef PCRS
  *
@@ -138,7 +142,7 @@ extern const char w32log_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _W32LOG_H */
+#endif /* ndef W32LOG_H_INCLUDED */
 
 
 /*

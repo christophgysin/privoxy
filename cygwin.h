@@ -1,5 +1,5 @@
-#ifndef _CYGWIN_H
-#define _CYGWIN_H
+#ifndef CYGWIN_H_INCLUDED
+#define CYGWIN_H_INCLUDED
 #define CYGWIN_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -36,8 +36,12 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:51  oes
- *    Initial revision
+ *    Revision 1.2  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:58:51  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -56,7 +60,7 @@
  */
 
 #endif /* def __MINGW32__ */
-#endif /* ndef _CYGWIN_H */
+#endif /* ndef CYGWIN_H_INCLUDED */
 
 
 /*

@@ -1,5 +1,5 @@
-#ifndef _ENCODE_H
-#define _ENCODE_H
+#ifndef ENCODE_H_INCLUDED
+#define ENCODE_H_INCLUDED
 #define ENCODE_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -35,8 +35,12 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:51  oes
- *    Initial revision
+ *    Revision 1.2  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:58:51  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -59,7 +63,7 @@ extern const char encode_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _ENCODE_H */
+#endif /* ndef ENCODE_H_INCLUDED */
 
 /*
   Local Variables:

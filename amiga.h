@@ -1,6 +1,6 @@
 #ifdef AMIGA
-#ifndef _AMIGA_H
-#define _AMIGA_H
+#ifndef AMIGA_H_INCLUDED
+#define AMIGA_H_INCLUDED
 #define AMIGA_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -31,6 +31,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.4  2001/05/29 20:05:06  joergs
  *    Fixed exit() macro not exiting if called before InitAmiga()
  *    (junkbuster --help and --version).
@@ -104,5 +108,5 @@ __saveds ULONG server_thread(void);
 
 #define EINTR 0
 
-#endif /* ndef _AMIGA_H */
+#endif /* ndef AMIGA_H_INCLUDED */
 #endif /* def AMIGA */

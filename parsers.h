@@ -1,5 +1,5 @@
-#ifndef _PARSERS_H
-#define _PARSERS_H
+#ifndef PARSERS_H_INCLUDED
+#define PARSERS_H_INCLUDED
 #define PARSERS_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -43,6 +43,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.8  2001/07/13 14:01:54  oes
  *    Removed all #ifdef PCRS
  *
@@ -138,7 +142,7 @@ extern const char parsers_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _PARSERS_H */
+#endif /* ndef PARSERS_H_INCLUDED */
 
 /*
   Local Variables:

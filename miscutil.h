@@ -1,5 +1,5 @@
-#ifndef _MISCUTIL_H
-#define _MISCUTIL_H
+#ifndef MISCUTIL_H_INCLUDED
+#define MISCUTIL_H_INCLUDED
 #define MISCUTIL_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.8  2001/06/29 13:32:14  oes
  *    Removed logentry from cancelled commit
  *
@@ -124,7 +128,7 @@ extern const char miscutil_h_rcs[];
 }
 #endif
 
-#endif /* ndef _MISCUTIL_H */
+#endif /* ndef MISCUTIL_H_INCLUDED */
 
 /*
   Local Variables:

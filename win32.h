@@ -1,5 +1,5 @@
-#ifndef _WIN32_H
-#define _WIN32_H
+#ifndef WIN32_H_INCLUDED
+#define WIN32_H_INCLUDED
 #define WIN32_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -33,8 +33,12 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:08  oes
- *    Initial revision
+ *    Revision 1.2  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:08  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -65,7 +69,7 @@ extern const char win32_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _WIN32_H */
+#endif /* ndef WIN32_H_INCLUDED */
 
 /*
   Local Variables:

@@ -1,5 +1,5 @@
-#ifndef _W32RULESDLG_H
-#define _W32RULESDLG_H
+#ifndef W32RULESDLG_H_INCLUDED
+#define W32RULESDLG_H_INCLUDED
 #define W32RULESDLG_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -34,6 +34,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.2  2001/05/26 01:26:34  jongfoster
  *    New #define, WIN_GUI_EDIT, enables the (embryonic) Win32 GUI editor.
  *    This #define cannot be set from ./configure - there's no point, it
@@ -67,7 +71,7 @@ extern const char w32rulesdlg_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _W32RULESDLG_H */
+#endif /* ndef W32RULESDLG_H_INCLUDED */
 
 
 /*

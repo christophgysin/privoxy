@@ -1,5 +1,5 @@
-#ifndef _SSPLIT_H
-#define _SSPLIT_H
+#ifndef SSPLIT_H_INCLUDED
+#define SSPLIT_H_INCLUDED
 #define SSPLIT_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -34,6 +34,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/29 18:43:08  jongfoster
+ *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
+ *    ANSI C rules.
+ *
  *    Revision 1.2  2001/05/29 08:54:25  jongfoster
  *    Rewrote the innards of ssplit() to be easier to understand,
  *    faster, and to use less memory.  Didn't change the interface
@@ -61,7 +65,7 @@ extern const char ssplit_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _SSPLIT_H */
+#endif /* ndef SSPLIT_H_INCLUDED */
 
 /*
   Local Variables:
