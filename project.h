@@ -36,6 +36,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2001/08/05 16:06:20  jongfoster
+ *    Modifiying "struct map" so that there are now separate header and
+ *    "map_entry" structures.  This means that functions which modify a
+ *    map no longer need to return a pointer to the modified map.
+ *    Also, it no longer reverses the order of the entries (which may be
+ *    important with some advanced template substitutions).
+ *
  *    Revision 1.26  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -305,11 +312,17 @@ struct list /* FIXME: Why not separate entries and header? */
    struct list *next;
 };
 
+struct map_entry
+{
+   const char *name;
+   const char *value;
+   struct map_entry *next;
+};
+
 struct map
 {
-  char *name;
-  char *value;
-  struct map *next;
+   struct map_entry *first;
+   struct map_entry *last;
 };
 
 struct http_request

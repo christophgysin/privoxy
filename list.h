@@ -36,6 +36,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/08/05 16:06:20  jongfoster
+ *    Modifiying "struct map" so that there are now separate header and
+ *    "map_entry" structures.  This means that functions which modify a
+ *    map no longer need to return a pointer to the modified map.
+ *    Also, it no longer reverses the order of the entries (which may be
+ *    important with some advanced template substitutions).
+ *
  *    Revision 1.5  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -94,9 +101,10 @@ extern void  list_duplicate(struct list *dest, const struct list *src);
 extern void  destroy_list(struct list *h);
 extern char *list_to_text(struct list *h);
 
-extern struct map* map(struct map* map, char *name, int nc, char *value, int vc);
-extern char *lookup(struct map *list, char *name);
+extern struct map *new_map(void);
 extern void free_map(struct map *list);
+extern void map(struct map* map, const char *name, int nc, const char *value, int vc);
+extern const char *lookup(const struct map *list, const char *name);
 
 /* Revision control strings from this header and associated .c file */
 extern const char list_rcs[];

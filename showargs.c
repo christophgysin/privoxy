@@ -34,6 +34,13 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.24  2001/08/05 16:06:20  jongfoster
+ *    Modifiying "struct map" so that there are now separate header and
+ *    "map_entry" structures.  This means that functions which modify a
+ *    map no longer need to return a pointer to the modified map.
+ *    Also, it no longer reverses the order of the entries (which may be
+ *    important with some advanced template substitutions).
+ *
  *    Revision 1.23  2001/08/02 22:03:23  jongfoster
  *    Fixing an unterminated character constant.
  *
@@ -378,108 +385,106 @@ char *show_rcs(void)
  * Returns     :  string 
  *
  *********************************************************************/
-struct map * show_defines(struct map *exports)
+void show_defines(struct map *exports)
 {
 
 #ifdef FEATURE_ACL
-   exports = map_conditional(exports, "FEATURE_ACL", 1);
+   map_conditional(exports, "FEATURE_ACL", 1);
 #else /* ifndef FEATURE_ACL */
-   exports = map_conditional(exports, "FEATURE_ACL", 0);
+   map_conditional(exports, "FEATURE_ACL", 0);
 #endif /* ndef FEATURE_ACL */
 
 #ifdef FEATURE_COOKIE_JAR
-   exports = map_conditional(exports, "FEATURE_COOKIE_JAR", 1);
+   map_conditional(exports, "FEATURE_COOKIE_JAR", 1);
 #else /* ifndef FEATURE_COOKIE_JAR */
-   exports = map_conditional(exports, "FEATURE_COOKIE_JAR", 0);
+   map_conditional(exports, "FEATURE_COOKIE_JAR", 0);
 #endif /* ndef FEATURE_COOKIE_JAR */
 
 #ifdef FEATURE_DENY_GZIP
-   exports = map_conditional(exports, "FEATURE_DENY_GZIP", 1);
+   map_conditional(exports, "FEATURE_DENY_GZIP", 1);
 #else /* ifndef FEATURE_DENY_GZIP */
-   exports = map_conditional(exports, "FEATURE_DENY_GZIP", 0);
+   map_conditional(exports, "FEATURE_DENY_GZIP", 0);
 #endif /* ndef FEATURE_DENY_GZIP */
 
 #ifdef FEATURE_FAST_REDIRECTS
-   exports = map_conditional(exports, "FEATURE_FAST_REDIRECTS", 1);
+   map_conditional(exports, "FEATURE_FAST_REDIRECTS", 1);
 #else /* ifndef FEATURE_FAST_REDIRECTS */
-   exports = map_conditional(exports, "FEATURE_FAST_REDIRECTS", 0);
+   map_conditional(exports, "FEATURE_FAST_REDIRECTS", 0);
 #endif /* ndef FEATURE_FAST_REDIRECTS */
 
 #ifdef FEATURE_FORCE_LOAD
-   exports = map_conditional(exports, "FEATURE_FORCE_LOAD", 1);
+   map_conditional(exports, "FEATURE_FORCE_LOAD", 1);
 #else /* ifndef FEATURE_FORCE_LOAD */
-   exports = map_conditional(exports, "FEATURE_FORCE_LOAD", 0);
+   map_conditional(exports, "FEATURE_FORCE_LOAD", 0);
 #endif /* ndef FEATURE_FORCE_LOAD */
 
 #ifdef FEATURE_IMAGE_BLOCKING
-   exports = map_conditional(exports, "FEATURE_IMAGE_BLOCKING", 1);
+   map_conditional(exports, "FEATURE_IMAGE_BLOCKING", 1);
 #else /* ifndef FEATURE_IMAGE_BLOCKING */
-   exports = map_conditional(exports, "FEATURE_IMAGE_BLOCKING", 0);
+   map_conditional(exports, "FEATURE_IMAGE_BLOCKING", 0);
 #endif /* ndef FEATURE_IMAGE_BLOCKING */
 
 #ifdef FEATURE_IMAGE_DETECT_MSIE
-   exports = map_conditional(exports, "FEATURE_IMAGE_DETECT_MSIE", 1);
+   map_conditional(exports, "FEATURE_IMAGE_DETECT_MSIE", 1);
 #else /* ifndef FEATURE_IMAGE_DETECT_MSIE */
-   exports = map_conditional(exports, "FEATURE_IMAGE_DETECT_MSIE", 0);
+   map_conditional(exports, "FEATURE_IMAGE_DETECT_MSIE", 0);
 #endif /* ndef FEATURE_IMAGE_DETECT_MSIE */
 
 #ifdef FEATURE_KILL_POPUPS
-   exports = map_conditional(exports, "FEATURE_KILL_POPUPS", 1);
+   map_conditional(exports, "FEATURE_KILL_POPUPS", 1);
 #else /* ifndef FEATURE_KILL_POPUPS */
-   exports = map_conditional(exports, "FEATURE_KILL_POPUPS", 0);
+   map_conditional(exports, "FEATURE_KILL_POPUPS", 0);
 #endif /* ndef FEATURE_KILL_POPUPS */
 
 #ifdef FEATURE_PTHREAD
-   exports = map_conditional(exports, "FEATURE_PTHREAD", 1);
+   map_conditional(exports, "FEATURE_PTHREAD", 1);
 #else /* ifndef FEATURE_PTHREAD */
-   exports = map_conditional(exports, "FEATURE_PTHREAD", 0);
+   map_conditional(exports, "FEATURE_PTHREAD", 0);
 #endif /* ndef FEATURE_PTHREAD */
 
 #ifdef FEATURE_STATISTICS
-   exports = map_conditional(exports, "FEATURE_STATISTICS", 1);
+   map_conditional(exports, "FEATURE_STATISTICS", 1);
 #else /* ifndef FEATURE_STATISTICS */
-   exports = map_conditional(exports, "FEATURE_STATISTICS", 0);
+   map_conditional(exports, "FEATURE_STATISTICS", 0);
 #endif /* ndef FEATURE_STATISTICS */
 
 #ifdef FEATURE_TOGGLE
-   exports = map_conditional(exports, "FEATURE_TOGGLE", 1);
+   map_conditional(exports, "FEATURE_TOGGLE", 1);
 #else /* ifndef FEATURE_TOGGLE */
-   exports = map_conditional(exports, "FEATURE_TOGGLE", 0);
+   map_conditional(exports, "FEATURE_TOGGLE", 0);
 #endif /* ndef FEATURE_TOGGLE */
 
 #ifdef FEATURE_TRUST
-   exports = map_conditional(exports, "FEATURE_TRUST", 1);
+   map_conditional(exports, "FEATURE_TRUST", 1);
 #else /* ifndef FEATURE_TRUST */
-   exports = map_conditional(exports, "FEATURE_TRUST", 0);
+   map_conditional(exports, "FEATURE_TRUST", 0);
 #endif /* ndef FEATURE_TRUST */
 
 #ifdef REGEX_GNU
-   exports = map_conditional(exports, "REGEX_GNU", 1);
+   map_conditional(exports, "REGEX_GNU", 1);
 #else /* ifndef REGEX_GNU */
-   exports = map_conditional(exports, "REGEX_GNU", 0);
+   map_conditional(exports, "REGEX_GNU", 0);
 #endif /* def REGEX_GNU */
 
 #ifdef REGEX_PCRE
-   exports = map_conditional(exports, "REGEX_PCRE", 1);
+   map_conditional(exports, "REGEX_PCRE", 1);
 #else /* ifndef REGEX_PCRE */
-   exports = map_conditional(exports, "REGEX_PCRE", 0);
+   map_conditional(exports, "REGEX_PCRE", 0);
 #endif /* def REGEX_PCRE */
 
 #ifdef STATIC_PCRE
-   exports = map_conditional(exports, "STATIC_PCRE", 1);
+   map_conditional(exports, "STATIC_PCRE", 1);
 #else /* ifndef STATIC_PCRE */
-   exports = map_conditional(exports, "STATIC_PCRE", 0);
+   map_conditional(exports, "STATIC_PCRE", 0);
 #endif /* ndef STATIC_PCRE */
 
 #ifdef STATIC_PCRS
-   exports = map_conditional(exports, "STATIC_PCRS", 1);
+   map_conditional(exports, "STATIC_PCRS", 1);
 #else /* ifndef STATIC_PCRS */
-   exports = map_conditional(exports, "STATIC_PCRS", 0);
+   map_conditional(exports, "STATIC_PCRS", 0);
 #endif /* ndef STATIC_PCRS */
 
-   exports = map(exports, "FORCE_PREFIX", 1, FORCE_PREFIX, 1);
-
-   return exports;
+   map(exports, "FORCE_PREFIX", 1, FORCE_PREFIX, 1);
 }
 
 

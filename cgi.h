@@ -38,6 +38,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/08/05 16:06:20  jongfoster
+ *    Modifiying "struct map" so that there are now separate header and
+ *    "map_entry" structures.  This means that functions which modify a
+ *    map no longer need to return a pointer to the modified map.
+ *    Also, it no longer reverses the order of the entries (which may be
+ *    important with some advanced template substitutions).
+ *
  *    Revision 1.10  2001/08/01 21:19:22  jongfoster
  *    Moving file version information to a separate CGI page.
  *
@@ -112,17 +119,17 @@ extern struct http_response *error_response(struct client_state *csp, const char
 extern struct http_response *finish_http_response(struct http_response *rsp);
 extern void free_http_response(struct http_response *rsp);
 
-extern struct map *default_exports(struct client_state *csp, char *caller);
-extern struct map *map_block_killer(struct map *map, char *name);
-extern struct map *map_conditional(struct map *exports, char *name, int choose_first);
-extern char *fill_template(struct client_state *csp, const char *template, struct map *exports);
+extern struct map * default_exports(const struct client_state *csp, const char *caller);
+extern void map_block_killer(struct map *map, const char *name);
+extern void map_conditional(struct map *exports, const char *name, int choose_first);
+extern char *fill_template(struct client_state *csp, const char *templatename, struct map *exports);
 
 
 /*
  * Text generators
  */
 extern char *make_menu(const char *self);
-extern char *dump_map(struct map *map);
+extern char *dump_map(const struct map *map);
 
 #ifdef FEATURE_STATISTICS
 extern struct map *add_stats(struct map *exports);

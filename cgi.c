@@ -36,6 +36,13 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/08/05 16:06:20  jongfoster
+ *    Modifiying "struct map" so that there are now separate header and
+ *    "map_entry" structures.  This means that functions which modify a
+ *    map no longer need to return a pointer to the modified map.
+ *    Also, it no longer reverses the order of the entries (which may be
+ *    important with some advanced template substitutions).
+ *
  *    Revision 1.17  2001/08/05 15:57:38  oes
  *    Adapted finish_http_response to new list_to_text
  *
@@ -291,7 +298,7 @@ struct http_response *dispatch_cgi(struct client_state *csp)
  * Parameters  :
  *          1  :  string = string to be parsed 
  *
- * Returns     :  poniter to param list, or NULL if failiure
+ * Returns     :  pointer to param list
  *
  *********************************************************************/
 struct map *parse_cgi_parameters(char *argstring)
@@ -299,9 +306,12 @@ struct map *parse_cgi_parameters(char *argstring)
    char *tmp, *p;
    char *vector[BUFFER_SIZE];
    int pairs, i;
-   struct map *cgi_params = NULL;
+   struct map *cgi_params = new_map();
 
-   if(*argstring == '?') argstring++;
+   if(*argstring == '?')
+   {
+      argstring++;
+   }
    tmp = strdup(argstring);
 
    pairs = ssplit(tmp, "&", vector, SZ(vector), 1, 1);
@@ -311,7 +321,7 @@ struct map *parse_cgi_parameters(char *argstring)
       if ((NULL != (p = strchr(vector[i], '='))) && (*(p+1) != '\0'))
       {
          *p = '\0';
-         cgi_params = map(cgi_params, url_decode(vector[i]), 0, url_decode(++p), 0);
+         map(cgi_params, url_decode(vector[i]), 0, url_decode(++p), 0);
       }
    }
 
@@ -339,8 +349,9 @@ struct map *parse_cgi_parameters(char *argstring)
 int cgi_default(struct client_state *csp, struct http_response *rsp,
                 struct map *parameters)
 {
-   char *p, *tmp = NULL;
-   struct map *exports = default_exports(csp, "");
+   char *p;
+   char *tmp = NULL;
+   struct map * exports = default_exports(csp, "");
 
    /* If there were other parameters, export a dump as "cgi-parameters" */
    if(parameters)
@@ -349,12 +360,12 @@ int cgi_default(struct client_state *csp, struct http_response *rsp,
       tmp = strsav(tmp, "<p>What made you think this cgi takes parameters?\n"
                         "Anyway, here they are, in case you're interested:</p>\n");
       tmp = strsav(tmp, p);
-      exports = map(exports, "cgi-parameters", 1, tmp, 0);
+      map(exports, "cgi-parameters", 1, tmp, 0);
       free(p);
    }
    else
    {
-      exports = map(exports, "cgi-parameters", 1, "", 1);
+      map(exports, "cgi-parameters", 1, "", 1);
    }
 
    rsp->body = fill_template(csp, "default", exports);
@@ -387,13 +398,13 @@ int cgi_send_banner(struct client_state *csp, struct http_response *rsp,
 {
    if(strcmp(lookup(parameters, "type"), "trans"))
    {
-      rsp->body = bindup(JBGIF, sizeof(JBGIF));
-      rsp->content_length = sizeof(JBGIF);
+      rsp->body = bindup(JBGIF, sizeof(JBGIF) - 1);
+      rsp->content_length = sizeof(JBGIF) - 1;
    }
    else
    {
-      rsp->body = bindup(BLANKGIF, sizeof(BLANKGIF));
-      rsp->content_length = sizeof(BLANKGIF);
+      rsp->body = bindup(BLANKGIF, sizeof(BLANKGIF) - 1);
+      rsp->content_length = sizeof(BLANKGIF) - 1;
    }   
 
    enlist(rsp->headers, "Content-Type: image/gif");
@@ -425,9 +436,9 @@ int cgi_send_banner(struct client_state *csp, struct http_response *rsp,
 int cgi_show_version(struct client_state *csp, struct http_response *rsp,
                      struct map *parameters)
 {
-   struct map *exports = default_exports(csp, "show-version");
+   struct map * exports = default_exports(csp, "show-version");
 
-   exports = map(exports, "sourceversions", 1, show_rcs(), 0);  
+   map(exports, "sourceversions", 1, show_rcs(), 0);  
 
    rsp->body = fill_template(csp, "show-version", exports);
    free_map(exports);
@@ -460,7 +471,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
 {
    char *s = NULL;
    int i;
-   struct map *exports = default_exports(csp, "show-status");
 
    FILE * fp;
    char buf[BUFFER_SIZE];
@@ -468,9 +478,9 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    const char * filename = NULL;
    char * file_description = NULL;
 
+   struct map * exports = default_exports(csp, "show-status");
 
-   p = lookup(parameters, "file");
-   switch (*p)
+   switch (*(lookup(parameters, "file")))
    {
    case 'p':
       if (csp->actions_list)
@@ -501,12 +511,12 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
 
    if (NULL != filename)
    {
-      exports = map(exports, "file-description", 1, file_description, 1);
-      exports = map(exports, "filepath", 1, html_encode(filename), 0);
+      map(exports, "file-description", 1, file_description, 1);
+      map(exports, "filepath", 1, html_encode(filename), 0);
 
       if ((fp = fopen(filename, "r")) == NULL)
       {
-         exports = map(exports, "content", 1, "<h1>ERROR OPENING FILE!</h1>", 1);
+         map(exports, "content", 1, "<h1>ERROR OPENING FILE!</h1>", 1);
       }
       else
       {
@@ -521,7 +531,7 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
             }
          }
          fclose(fp);
-         exports = map(exports, "contents", 1, s, 0);
+         map(exports, "contents", 1, s, 0);
       }
       rsp->body = fill_template(csp, "show-status-file", exports);
       free_map(exports);
@@ -529,7 +539,7 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
 
    }
 
-   exports = map(exports, "redirect-url", 1, REDIRECT_URL, 1);
+   map(exports, "redirect-url", 1, REDIRECT_URL, 1);
    
    s = NULL;
    for (i=0; i < Argc; i++)
@@ -537,46 +547,46 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
       s = strsav(s, Argv[i]);
       s = strsav(s, " ");
    }
-   exports = map(exports, "invocation", 1, s, 0);
+   map(exports, "invocation", 1, s, 0);
 
-   exports = map(exports, "options", 1, csp->config->proxy_args, 1);
-   exports = show_defines(exports);
+   map(exports, "options", 1, csp->config->proxy_args, 1);
+   show_defines(exports);
 
 #ifdef FEATURE_STATISTICS
-   exports = add_stats(exports);
+   add_stats(exports);
 #else /* ndef FEATURE_STATISTICS */
-   exports = map_block_killer(exports, "statistics");
+   map_block_killer(exports, "statistics");
 #endif /* ndef FEATURE_STATISTICS */
 
    if (csp->actions_list)
    {
-      exports = map(exports, "actions-filename", 1,  csp->actions_list->filename, 1);
+      map(exports, "actions-filename", 1,  csp->actions_list->filename, 1);
    }
    else
    {
-      exports = map(exports, "actions-filename", 1, "None specified", 1);
+      map(exports, "actions-filename", 1, "None specified", 1);
    }
 
    if (csp->rlist)
    {
-      exports = map(exports, "re-filter-filename", 1,  csp->rlist->filename, 1);
+      map(exports, "re-filter-filename", 1,  csp->rlist->filename, 1);
    }
    else
    {
-      exports = map(exports, "re-filter-filename", 1, "None specified", 1);
+      map(exports, "re-filter-filename", 1, "None specified", 1);
    }
 
 #ifdef FEATURE_TRUST
    if (csp->tlist)
    {
-      exports = map(exports, "trust-filename", 1,  csp->tlist->filename, 1);
+      map(exports, "trust-filename", 1,  csp->tlist->filename, 1);
    }
    else
    {
-       exports = map(exports, "trust-filename", 1, "None specified", 1);
+       map(exports, "trust-filename", 1, "None specified", 1);
    }
 #else
-   exports = map_block_killer(exports, "trust-support");
+   map_block_killer(exports, "trust-support");
 #endif /* ndef FEATURE_TRUST */
 
    rsp->body = fill_template(csp, "show-status", exports);
@@ -611,13 +621,14 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
 int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
                       struct map *parameters)
 {
-   struct map *exports = default_exports(csp, "show-url-info");
-   char *url_param, *host = NULL;
+   char *url_param;
+   char *host = NULL;
+   struct map * exports = default_exports(csp, "show-url-info");
 
    if (NULL == (url_param = strdup(lookup(parameters, "url"))) || *url_param == '\0')
    {
-      exports = map_block_killer(exports, "url-given");
-      exports = map(exports, "url", 1, "", 1);
+      map_block_killer(exports, "url-given");
+      map(exports, "url", 1, "", 1);
    }
    else
    {
@@ -634,18 +645,18 @@ int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
       host = url_param;
       host += (strncmp(url_param, "http://", 7)) ? 0 : 7;
 
-      exports = map(exports, "url", 1, host, 1);
-      exports = map(exports, "url-html", 1, html_encode(host), 0);
+      map(exports, "url", 1, host, 1);
+      map(exports, "url-html", 1, html_encode(host), 0);
 
       init_current_action(action);
 
       s = current_action_to_text(action);
-      exports = map(exports, "default", 1, s , 0);
+      map(exports, "default", 1, s , 0);
 
       if (((fl = csp->actions_list) == NULL) || ((b = fl->f) == NULL))
       {
-         exports = map(exports, "matches", 1, "none" , 1);
-         exports = map(exports, "final", 1, lookup(exports, "default"), 1);
+         map(exports, "matches", 1, "none" , 1);
+         map(exports, "final", 1, lookup(exports, "default"), 1);
 
          freez(url_param);
          free_current_action(action);
@@ -679,8 +690,8 @@ int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
       /* if splitting the domain fails, punt */
       if (url->dbuf == NULL)
       {
-         exports = map(exports, "matches", 1, "none" , 1);
-         exports = map(exports, "final", 1, lookup(exports, "default"), 1);
+         map(exports, "matches", 1, "none" , 1);
+         map(exports, "final", 1, lookup(exports, "default"), 1);
 
          freez(url_param);
          freez(path);
@@ -723,11 +734,11 @@ int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
 
       if (hits)
       {
-         exports = map(exports, "matches", 1, matches , 0);
+         map(exports, "matches", 1, matches , 0);
       }
       else
       {
-         exports = map(exports, "matches", 1, "none", 1);
+         map(exports, "matches", 1, "none", 1);
       }
       matches = NULL;
 
@@ -738,7 +749,7 @@ int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
       freez(path);
 
       s = current_action_to_text(action);
-      exports = map(exports, "final", 1, s, 0);
+      map(exports, "final", 1, s, 0);
       s = NULL;
 
       free_current_action(action);
@@ -760,38 +771,38 @@ int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
- *          2  :  template = Which template should be used for the answer
+ *          2  :  templatename = Which template should be used for the answer
  *          3  :  errno = system error number
  *
  * Returns     :  NULL if no memory, else http_response
  *
  *********************************************************************/
-struct http_response *error_response(struct client_state *csp, const char *template, int err)
+struct http_response *error_response(struct client_state *csp, const char *templatename, int err)
 {
    struct http_response *rsp;
-   struct map *exports = default_exports(csp, NULL);
+   struct map * exports = default_exports(csp, NULL);
 
    if (NULL == ( rsp = (struct http_response *)zalloc(sizeof(*rsp))))
    {
       return NULL;
    }  
 
-      exports = map(exports, "host-html", 1, html_encode(csp->http->host), 0);
-      exports = map(exports, "hostport", 1, csp->http->hostport, 1);
-      exports = map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0);
-      exports = map(exports, "path", 1, csp->http->path, 1);
-      exports = map(exports, "path-html", 1, html_encode(csp->http->path), 0);
-      exports = map(exports, "error", 1, safe_strerror(err), 0);
-      exports = map(exports, "host-ip", 1, csp->http->host_ip_addr_str, 1);
+      map(exports, "host-html", 1, html_encode(csp->http->host), 0);
+      map(exports, "hostport", 1, csp->http->hostport, 1);
+      map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0);
+      map(exports, "path", 1, csp->http->path, 1);
+      map(exports, "path-html", 1, html_encode(csp->http->path), 0);
+      map(exports, "error", 1, safe_strerror(err), 0);
+      map(exports, "host-ip", 1, csp->http->host_ip_addr_str, 1);
 
-      rsp->body = fill_template(csp, template, exports);
+      rsp->body = fill_template(csp, templatename, exports);
       free_map(exports);
       
-      if (!strcmp(template, "no-such-domain"))
+      if (!strcmp(templatename, "no-such-domain"))
       {
          rsp->status = strdup("404 No such domain"); 
       }
-      else if (!strcmp(template, "connect-failed"))
+      else if (!strcmp(templatename, "connect-failed"))
       {
          rsp->status = strdup("503 Connect failed");
       }
@@ -911,7 +922,7 @@ void free_http_response(struct http_response *rsp)
  *********************************************************************/
 char *fill_template(struct client_state *csp, const char *templatename, struct map *exports)
 {
-   struct map *m;
+   struct map_entry *m;
    pcrs_job *job;
    char buf[BUFFER_SIZE];
    char *tmp_out_buffer;
@@ -954,13 +965,14 @@ char *fill_template(struct client_state *csp, const char *templatename, struct m
    /* 
     * Assemble pcrs joblist from exports map
     */
-   for (m = exports; m != NULL; m = m->next)
+   for (m = exports->first; m != NULL; m = m->next)
    {
       /* Enclose name in @@ */
       snprintf(buf, BUFFER_SIZE, "@%s@", m->name);
 
-      /* Make and run job */
-      if ( NULL == (job = (pcrs_compile(buf, m->value, "sigTU", &error))) ) 
+      /* Make and run job. */
+      job = pcrs_compile(buf, m->value, "sigTU",  &error);
+      if (job == NULL) 
       {
          log_error(LOG_LEVEL_ERROR, "Error compiling template fill job %s: %d", m->name, error);
       }
@@ -993,45 +1005,47 @@ char *fill_template(struct client_state *csp, const char *templatename, struct m
  *                which are common to all CGI functions.
  *
  * Parameters  :
+ *          1  :  exports = Structure to write output to.  This
+ *                structure should be newly allocated and will be
+ *                zeroed.
  *          1  :  csp = Current client state (buffers, headers, etc...)
  *          2  :  caller = name of CGI who calls us and which should
  *                         be excluded from the generated menu.
  * Returns     :  NULL if no memory, else map
  *
  *********************************************************************/
-struct map *default_exports(struct client_state *csp, char *caller)
+struct map * default_exports(const struct client_state *csp, const char *caller)
 {
-   struct map *exports = NULL;
    char buf[20];
+   struct map * exports = new_map();
 
-   exports = map(exports, "version", 1, VERSION, 1);
-   exports = map(exports, "my-ip-address", 1, csp->my_ip_addr_str ? csp->my_ip_addr_str : "unknown", 1);
-   exports = map(exports, "my-hostname", 1, csp->my_hostname ? csp->my_hostname : "unknown", 1);
-   exports = map(exports, "admin-address", 1, csp->config->admin_address ? csp->config->admin_address : "fill@me.in.please", 1);
-   exports = map(exports, "homepage", 1, HOME_PAGE_URL, 1);
-   exports = map(exports, "default-cgi", 1, HOME_PAGE_URL "/config", 1);
-   exports = map(exports, "menu", 1, make_menu(caller), 0);
-   exports = map(exports, "code-status", 1, CODE_STATUS, 1);
+   map(exports, "version", 1, VERSION, 1);
+   map(exports, "my-ip-address", 1, csp->my_ip_addr_str ? csp->my_ip_addr_str : "unknown", 1);
+   map(exports, "my-hostname", 1, csp->my_hostname ? csp->my_hostname : "unknown", 1);
+   map(exports, "admin-address", 1, csp->config->admin_address ? csp->config->admin_address : "fill@me.in.please", 1);
+   map(exports, "homepage", 1, HOME_PAGE_URL, 1);
+   map(exports, "default-cgi", 1, HOME_PAGE_URL "/config", 1);
+   map(exports, "menu", 1, make_menu(caller), 0);
+   map(exports, "code-status", 1, CODE_STATUS, 1);
 
    snprintf(buf, 20, "%d", csp->config->hport);
-   exports = map(exports, "my-port", 1, buf, 1);
+   map(exports, "my-port", 1, buf, 1);
 
    if(!strcmp(CODE_STATUS, "stable"))
    {
-      exports = map_block_killer(exports, "unstable");
+      map_block_killer(exports, "unstable");
    }
 
    if(csp->config->proxy_info_url != NULL)
    {
-      exports = map(exports, "proxy-info-url", 1, csp->config->proxy_info_url, 1);
+      map(exports, "proxy-info-url", 1, csp->config->proxy_info_url, 1);
    }
    else
    {
-      exports = map_block_killer(exports, "have-proxy-info");
+      map_block_killer(exports, "have-proxy-info");
    }   
 
-   return(exports);
-
+   return (exports);
 }
 
 
@@ -1052,15 +1066,12 @@ struct map *default_exports(struct client_state *csp, char *caller)
  * Returns     :  extended map
  *
  *********************************************************************/
-struct map *map_block_killer(struct map *exports, char *name)
+void map_block_killer(struct map *exports, const char *name)
 {
    char buf[1000]; /* Will do, since the names are hardwired */
 
    snprintf(buf, 1000, "if-%s-start.*if-%s-end", name, name);
-   exports = map(exports, buf, 1, "", 1);
-
-   return(exports);
-
+   map(exports, buf, 1, "", 1);
 }
 
 
@@ -1088,7 +1099,7 @@ struct map *map_block_killer(struct map *exports, char *name)
  * Returns     :  extended map
  *
  *********************************************************************/
-struct map *map_conditional(struct map *exports, char *name, int choose_first)
+void map_conditional(struct map *exports, const char *name, int choose_first)
 {
    char buf[1000]; /* Will do, since the names are hardwired */
 
@@ -1096,13 +1107,10 @@ struct map *map_conditional(struct map *exports, char *name, int choose_first)
       ? "else-not-%s@.*@endif-%s"
       : "if-%s-then@.*@else-not-%s"),
       name, name);
-   exports = map(exports, buf, 1, "", 1);
+   map(exports, buf, 1, "", 1);
 
    snprintf(buf, 1000, (choose_first ? "if-%s-then" : "endif-%s"), name);
-   exports = map(exports, buf, 1, "", 1);
-
-   return(exports);
-
+   map(exports, buf, 1, "", 1);
 }
 
 
@@ -1121,9 +1129,13 @@ struct map *map_conditional(struct map *exports, char *name, int choose_first)
 char *make_menu(const char *self)
 {
    const struct cgi_dispatcher *d;
-   char buf[BUFFER_SIZE], *tmp = NULL;
+   char buf[BUFFER_SIZE];
+   char *result = NULL;
 
-   if (self == NULL) self = "NO-SUCH-CGI!";
+   if (self == NULL)
+   {
+      self = "NO-SUCH-CGI!";
+   }
 
    /* List available unhidden CGI's and export as "other-cgis" */
    for (d = cgi_dispatcher; d->handler; d++)
@@ -1132,10 +1144,10 @@ char *make_menu(const char *self)
       {
          snprintf(buf, BUFFER_SIZE, "<li><a href=%s/config/%s>%s</a></li>\n",
    	       HOME_PAGE_URL, d->name, d->description);
-         tmp = strsav(tmp, buf);
+         result = strsav(result, buf);
       }
    }
-   return(tmp);
+   return(result);
 
 }
 
@@ -1147,26 +1159,26 @@ char *make_menu(const char *self)
  * Description :  HTML-dump a map for debugging
  *
  * Parameters  :
- *          1  :  map = map to dump
+ *          1  :  the_map = map to dump
  *
  * Returns     :  string with HTML
  *
  *********************************************************************/
-char *dump_map(struct map *map)
+char *dump_map(const struct map *the_map)
 {
-   struct map *p = map;
+   struct map_entry *cur_entry = the_map->first;
    char *ret = NULL;
 
    ret = strsav(ret, "<table>\n");
 
-   while (p)
+   while (cur_entry)
    {
       ret = strsav(ret, "<tr><td><b>");
-      ret = strsav(ret, p->name);
+      ret = strsav(ret, cur_entry->name);
       ret = strsav(ret, "</b></td><td>");
-      ret = strsav(ret, p->value);
+      ret = strsav(ret, cur_entry->value);
       ret = strsav(ret, "</td></tr>\n");
-      p = p->next;
+      cur_entry = cur_entry->next;
    }
 
    ret = strsav(ret, "</table>\n");
@@ -1207,23 +1219,23 @@ struct map *add_stats(struct map *exports)
 
    if (local_urls_read == 0)
    {
-      exports = map_block_killer(exports, "have-stats");
+      map_block_killer(exports, "have-stats");
    }
    else
    {
-      exports = map_block_killer(exports, "have-no-stats");
+      map_block_killer(exports, "have-no-stats");
 
       perc_rej = (float)local_urls_rejected * 100.0F /
             (float)local_urls_read;
 
       sprintf(buf, "%d", local_urls_read);
-      exports = map(exports, "requests-received", 1, buf, 1);
+      map(exports, "requests-received", 1, buf, 1);
 
       sprintf(buf, "%d", local_urls_rejected);
-      exports = map(exports, "requests-blocked", 1, buf, 1);
+      map(exports, "requests-blocked", 1, buf, 1);
 
       sprintf(buf, "%6.2f", perc_rej);
-      exports = map(exports, "percent-blocked", 1, buf, 1);
+      map(exports, "percent-blocked", 1, buf, 1);
    }
 
    return(exports);

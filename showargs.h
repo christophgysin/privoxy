@@ -35,6 +35,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/08/05 16:06:20  jongfoster
+ *    Modifiying "struct map" so that there are now separate header and
+ *    "map_entry" structures.  This means that functions which modify a
+ *    map no longer need to return a pointer to the modified map.
+ *    Also, it no longer reverses the order of the entries (which may be
+ *    important with some advanced template substitutions).
+ *
  *    Revision 1.7  2001/08/01 00:19:40  jongfoster
  *    Changing prototype of show_defines() to modify a map directly
  *
@@ -71,7 +78,7 @@ extern "C" {
 
 extern void savearg(char *c, char *o, struct configuration_spec * config);
 extern char *show_rcs(void);
-struct map * show_defines(struct map *exports);
+extern void show_defines(struct map *exports);
 
 /* Revision control strings from this header and associated .c file */
 extern const char showargs_rcs[];
