@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2001/07/25 17:21:54  oes
+ *    client_uagent now saves copy of User-Agent: header value
+ *
  *    Revision 1.18  2001/07/13 14:02:46  oes
  *     - Included fix to repair broken HTTP requests that
  *       don't contain a path, not even '/'.
@@ -528,6 +531,7 @@ void free_http_request(struct http_request *http)
    freez(http->path);
    freez(http->ver);
    freez(http->host_ip_addr_str);
+   freez(http->user_agent);
 
 }
 
@@ -888,8 +892,9 @@ char *client_referrer(const struct parsers *v, char *s, struct client_state *csp
  *
  * Function    :  client_uagent
  *
- * Description :  Handle the "user-agent" config setting properly.
- *                Called from `sed'.
+ * Description :  Handle the "user-agent" config setting properly
+ *                and remember its original value to enable browser
+ *                bug workarounds. Called from `sed'.
  *
  * Parameters  :
  *          1  :  v = ignored
@@ -903,6 +908,12 @@ char *client_referrer(const struct parsers *v, char *s, struct client_state *csp
 char *client_uagent(const struct parsers *v, char *s, struct client_state *csp)
 {
    const char * newval;
+
+   /* Save the client's User-Agent: value */
+   if (strlen(s) >= 12)
+   {
+      csp->http->user_agent = strdup(s + 12);
+   }
 
 #ifdef DETECT_MSIE_IMAGES
    if (strstr (s, "MSIE "))
