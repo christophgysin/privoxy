@@ -28,6 +28,11 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.8  2001/07/15 17:54:29  jongfoster
+dnl Renaming #define STATIC to STATIC_PCRE
+dnl Adding new #define FEATURE_PTHREAD that will be used to enable
+dnl POSIX threads support.
+dnl
 dnl Revision 1.7  2001/07/13 13:58:05  oes
 dnl    Completely reorganized the selection scheme for
 dnl    pcre, pcreposix, pcrs and gnu_regex:
@@ -238,6 +243,12 @@ AC_ARG_ENABLE(toggle,
   AC_DEFINE(TOGGLE)
 fi],AC_DEFINE(TOGGLE))
 
+AC_ARG_ENABLE(pthread,
+[  --disable-pthread       Don't use POSIX threads (pthreads)],
+[if test $enableval = yes; then
+  AC_DEFINE(FEATURE_PTHREAD)
+fi],AC_DEFINE(FEATURE_PTHREAD))
+
 AC_ARG_ENABLE(gzip,
 [  --enable-gzip           Allow gzip'ed transfer of documents. Note that this will make content modification impossible.],
 [if test $enableval = "no"; then
@@ -361,7 +372,7 @@ if test $have_pcre = "yes" -a $dont_miss_pcreposix = "yes"; then
 else
   echo "using built-in static pcre"
   pcre_dyn=no
-  AC_DEFINE(STATIC)
+  AC_DEFINE(STATIC_PCRE)
   STATIC_PCRE_ONLY=
 fi
 
