@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.10  2002/10/24 00:40:46  hal9
+# Quote $$answer to avoid error on null value.
+#
 # Revision 1.9  2002/10/23 06:14:09  agotneja
 # Added FreeBSD checks to stop people from using the default 'make'
 #
@@ -75,7 +78,7 @@ error:
 	@if [ -f GNUmakefile ]; then \
 	    echo "***"; \
 	    echo "*** You are not using the GNU version of Make - maybe it's called gmake"; \
-	    echo "*** or it's in a different directory?"; \
+	    echo "*** or it's in a different PATH? Please read INSTALL." ; \
 	    echo "***"; \
 	    exit 1; \
 	 elif test -n "$(HOST_ARCH)"  && test -z "$(MAKE_VERSION)" ; then \
@@ -97,7 +100,7 @@ error:
 	    echo "***"; \
 	    echo -n "*** Shall I do this for you now? (y/n) "; \
 	    read answer; \
-	    if [ $$answer = "y" ]; then \
+	    if [ "$$answer" = "y" ]; then \
 		autoheader && autoconf && ./configure || exit 1; \
 	  	if $(GNU_MAKE_CMD) -v |grep GNU >/dev/null 2>/dev/null; then \
 		   $(GNU_MAKE_CMD) ;\
@@ -105,6 +108,7 @@ error:
 		   $(MAKE_CMD) ;\
 		else \
 		   echo "Neither 'make' nor 'gmake' are GNU compatible!" ; \
+		   echo "Please read INSTALL." ; \
 		   exit 1 ; \
 		fi ;\
 	    fi; \
