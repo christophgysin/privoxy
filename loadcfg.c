@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2002/03/03 15:07:20  oes
+ *    Re-enabled automatic config reloading
+ *
  *    Revision 1.30  2002/01/22 23:31:43  jongfoster
  *    Replacing strsav() with string_append()
  *
@@ -1396,7 +1399,6 @@ struct configuration_spec * load_config(void)
    files->next = fs;
 
    current_configfile = fs;
-   MustReload = 0;
 
    return (config);
 }

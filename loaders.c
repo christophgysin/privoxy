@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.37  2002/03/03 15:07:49  oes
+ *    Re-enabled automatic config reloading
+ *
  *    Revision 1.36  2002/01/22 23:46:18  jongfoster
  *    Moving edit_read_line() and simple_read_line() to loaders.c, and
  *    extending them to support reading MS-DOS, Mac and UNIX style files
@@ -432,8 +435,7 @@ int check_file_changed(const struct file_list * current,
        && (current->lastmodified == statbuf->st_mtime)
        && (0 == strcmp(current->filename, filename)))
    {
-       /* force reload of configfile and all the logs */
-       if ( !MustReload ) return 0;
+      return 0;
    }
 
    fs = (struct file_list *)zalloc(sizeof(struct file_list));
