@@ -33,6 +33,9 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2002/11/12 16:50:58  oes
+ *    Fixed memory leak in parse_http_request() reported by Oliver Stoeneberg. Fixes bug #637073
+ *
  *    Revision 2.1  2002/06/06 19:03:29  jongfoster
  *    Adding support for proprietary Microsoft WebDAV extensions
  *
@@ -479,6 +482,7 @@ jb_err parse_http_request(const char *req,
       return JB_ERR_MEMORY;
    }
 
+   free(buf);
    return JB_ERR_OK;
 }
 
