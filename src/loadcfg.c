@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.6  2003/10/02 15:17:07  david__schmidt
+ *    Adjust stat.h header for Windows build
+ *
  *    Revision 2.5  2003/09/22 00:33:01  david__schmidt
  *    Enable sending a custom 'blocked' image.  Shows up as
  *    "image-blocker-custom-file" parameter in config, and
@@ -331,6 +334,7 @@ const char loadcfg_rcs[] = "$Id$";
 
 #include <stdio.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>
@@ -354,17 +358,16 @@ const char loadcfg_rcs[] = "$Id$";
 /* VC++ has "_snprintf", not "snprintf" */
 #define snprintf _snprintf
 
-#else /* ifndef _WIN32 */
+#else /* every platform but _WIN32 */
 
 #ifndef __OS2__
 # include <unistd.h>
 # include <sys/wait.h>
-#endif
+#endif /* ndef __OS2__ */
 # include <sys/time.h>
-# include <sys/stat.h>
 # include <signal.h>
 
-#endif
+#endif /* ndef _WIN32 */
 
 #include "loadcfg.h"
 #include "list.h"
