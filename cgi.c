@@ -36,6 +36,10 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2001/09/16 15:02:35  jongfoster
+ *    Adding i.j.b/robots.txt.
+ *    Inlining add_stats() since it's only ever called from one place.
+ *
  *    Revision 1.24  2001/09/16 11:38:01  jongfoster
  *    Splitting fill_template() into 2 functions:
  *    template_load() loads the file
@@ -204,6 +208,9 @@ const char cgi_rcs[] = "$Id$";
 const char cgi_h_rcs[] = CGI_H_VERSION;
 
 const struct cgi_dispatcher cgi_dispatcher[] = {
+   { "robots.txt", 
+         10, cgi_robots_txt,  
+         "HIDE Sends a robots.txt file to tell robots to go away." }, 
    { "show-status", 
          11, cgi_show_status,  
          "Show information about the current configuration" }, 
@@ -549,6 +556,11 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    char * p;
    const char * filename = NULL;
    char * file_description = NULL;
+#ifdef FEATURE_STATISTICS
+   float perc_rej;   /* Percentage of http requests rejected */
+   int local_urls_read;
+   int local_urls_rejected;
+#endif /* ndef FEATURE_STATISTICS */
 
    struct map * exports = default_exports(csp, "show-status");
 
@@ -626,7 +638,40 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    show_defines(exports);
 
 #ifdef FEATURE_STATISTICS
-   add_stats(exports);
+   local_urls_read     = urls_read;
+   local_urls_rejected = urls_rejected;
+
+   /*
+    * Need to alter the stats not to include the fetch of this
+    * page.
+    *
+    * Can't do following thread safely! doh!
+    *
+    * urls_read--;
+    * urls_rejected--; * This will be incremented subsequently *
+    */
+
+   if (local_urls_read == 0)
+   {
+      map_block_killer(exports, "have-stats");
+   }
+   else
+   {
+      map_block_killer(exports, "have-no-stats");
+
+      perc_rej = (float)local_urls_rejected * 100.0F /
+            (float)local_urls_read;
+
+      sprintf(buf, "%d", local_urls_read);
+      map(exports, "requests-received", 1, buf, 1);
+
+      sprintf(buf, "%d", local_urls_rejected);
+      map(exports, "requests-blocked", 1, buf, 1);
+
+      sprintf(buf, "%6.2f", perc_rej);
+      map(exports, "percent-blocked", 1, buf, 1);
+   }
+
 #else /* ndef FEATURE_STATISTICS */
    map_block_killer(exports, "statistics");
 #endif /* ndef FEATURE_STATISTICS */
@@ -1420,61 +1465,45 @@ char *dump_map(const struct map *the_map)
 }
 
 
-#ifdef FEATURE_STATISTICS
 /*********************************************************************
  *
- * Function    :  add_stats
+ * Function    :  cgi_robots_txt
  *
- * Description :  Add the blocking statistics to a given map.
+ * Description :  CGI function to return "/robots.txt".
  *
  * Parameters  :
- *          1  :  exports = map to write to.
+ *           1 :  csp = Current client state (buffers, headers, etc...)
+ *           2 :  rsp = http_response data structure for output
+ *           3 :  parameters = map of cgi parameters
  *
- * Returns     :  pointer to extended map
+ * CGI Parameters : None
+ *
+ * Returns     :  0
  *
  *********************************************************************/
-struct map *add_stats(struct map *exports)
+int cgi_robots_txt(struct client_state *csp, struct http_response *rsp,
+                   struct map *parameters)
 {
-   float perc_rej;   /* Percentage of http requests rejected */
-   char buf[1000];
-   int local_urls_read     = urls_read;
-   int local_urls_rejected = urls_rejected;
+   char buf[100];
 
-   /*
-    * Need to alter the stats not to include the fetch of this
-    * page.
-    *
-    * Can't do following thread safely! doh!
-    *
-    * urls_read--;
-    * urls_rejected--; * This will be incremented subsequently *
-    */
+   rsp->body = strdup(
+      "# This is the Internet Junkbuster control interface.\n"
+      "# It isn't very useful to index it, and you're likely to break stuff.\n"
+      "# So go away!\n"
+      "\n"
+      "User-agent: *\n"
+      "Disallow: /\n"
+      "\n");
 
-   if (local_urls_read == 0)
-   {
-      map_block_killer(exports, "have-stats");
-   }
-   else
-   {
-      map_block_killer(exports, "have-no-stats");
+   enlist_unique(rsp->headers, "Content-Type: text/plain", 13);
 
-      perc_rej = (float)local_urls_rejected * 100.0F /
-            (float)local_urls_read;
+   rsp->is_static = 1;
 
-      sprintf(buf, "%d", local_urls_read);
-      map(exports, "requests-received", 1, buf, 1);
+   get_http_time(7 * 24 * 60 * 60, buf); /* 7 days into future */
+   enlist_unique_header(rsp->headers, "Expires", buf);
 
-      sprintf(buf, "%d", local_urls_rejected);
-      map(exports, "requests-blocked", 1, buf, 1);
-
-      sprintf(buf, "%6.2f", perc_rej);
-      map(exports, "percent-blocked", 1, buf, 1);
-   }
-
-   return(exports);
-
+   return 0;
 }
-#endif /* def FEATURE_STATISTICS */
 
 
 /*
