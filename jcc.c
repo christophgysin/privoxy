@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.86  2002/03/25 17:04:55  david__schmidt
+ *    Workaround for closing the jarfile before load_config() comes around again
+ *
  *    Revision 1.85  2002/03/24 15:23:33  jongfoster
  *    Name changes
  *
@@ -2021,6 +2024,23 @@ static void listen_loop(void)
          received_hup_signal = 0;
       }
 #endif
+
+#ifdef __OS2__
+#ifdef FEATURE_COOKIE_JAR
+      /*
+       * Need a workaround here: we have to fclose() the jarfile, or we die because it's
+       * already open.  I think unload_configfile() is not being run, which should do
+       * this work.  Until that can get resolved, we'll use this workaround.
+       */
+       if (csp)
+         if(csp->config)
+           if (csp->config->jar)
+           {
+             fclose(csp->config->jar);
+             csp->config->jar = NULL;
+           }
+#endif /* FEATURE_COOKIE_JAR */
+#endif /* __OS2__ */
 
       if ( NULL == (csp = (struct client_state *) zalloc(sizeof(*csp))) )
       {
