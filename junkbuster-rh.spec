@@ -26,6 +26,11 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.2  2001/06/04 18:31:58  swa
+# files are now prefixed with either `confdir' or `logdir'.
+# `make redhat-dist' replaces both entries confdir and logdir
+# with redhat values
+#
 # Revision 1.1  2001/06/04 10:44:57  swa
 # `make redhatr-dist' now works. Except for the paths
 # in the config file.
@@ -259,7 +264,20 @@ cp -f re_filterfile $RPM_BUILD_ROOT/etc/junkbuster/re_filterfile
 # cp -f imagelist $RPM_BUILD_ROOT/etc/junkbuster/imagelist
 # cp -f cookiefile $RPM_BUILD_ROOT/etc/junkbuster/cookiefile
 cp -f aclfile $RPM_BUILD_ROOT/etc/junkbuster/aclfile
-cp -f config $RPM_BUILD_ROOT/etc/junkbuster/config
+
+# verify all file locations, etc. in the config file
+# don't start with ^ or commented lines are not replaced
+cat config | \
+    sed 's/^confdir.*/confdir \/etc\/junkbuster/g' | \
+#    sed 's/^permissionsfile.*/permissionsfile \/etc\/junkbuster\/permissionsfile/g' | \
+#    sed 's/^re_filterfile.*/re_filterfile \/etc\/junkbuster\/re_filterfile/g' | \
+#    sed 's/^logfile.*/logfile \/var\/log\/junkbuster\/logfile/g' | \
+#    sed 's/^jarfile.*/jarfile \/var\/log\/junkbuster\/jarfile/g' | \
+#    sed 's/^forward.*/forward \/etc\/junkbuster\/forward/g' | \
+#    sed 's/^aclfile.*/aclfile \/etc\/junkbuster\/aclfile/g' > \
+    sed 's/^logdir.*/logdir \/var\/log\/junkbuster/g' > \
+    $RPM_BUILD_ROOT/etc/junkbuster/config
+
 cp -f forward $RPM_BUILD_ROOT/etc/junkbuster/forward
 cp -f trust $RPM_BUILD_ROOT/etc/junkbuster/trust
 # cp -f popup $RPM_BUILD_ROOT/etc/junkbuster/popup

@@ -36,6 +36,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/06/04 18:31:58  swa
+ *    files are now prefixed with either `confdir' or `logdir'.
+ *    `make redhat-dist' replaces both entries confdir and logdir
+ *    with redhat values
+ *
  *    Revision 1.15  2001/06/04 11:28:53  swa
  *    redirect did not work due to missing /
  *
@@ -704,6 +709,7 @@ struct configuration_spec
    const char *logfile;
 
    const char *confdir;
+   const char *logdir;
    const char *actions_file;
    const char *forwardfile;
 

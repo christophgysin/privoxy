@@ -35,6 +35,11 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/06/04 18:31:58  swa
+ *    files are now prefixed with either `confdir' or `logdir'.
+ *    `make redhat-dist' replaces both entries confdir and logdir
+ *    with redhat values
+ *
  *    Revision 1.10  2001/06/03 19:11:54  oes
  *    introduced confdir option
  *
@@ -296,6 +301,7 @@ static struct file_list *current_configfile = NULL;
 #define hash_actions_file              3825730796ul /* FIXME "permissionsfile" */
 #define hash_debug                          78263ul
 #define hash_confdir                      1978389lu
+#define hash_logdir                        422889lu
 #define hash_forwardfile               1268669141ul
 #define hash_jarfile                      2046641ul
 #define hash_listen_address            1255650842ul
@@ -453,6 +459,8 @@ struct configuration_spec * load_config(void)
       char arg[BUFSIZ];
       char tmp[BUFSIZ];
 
+      char arg2[BUFSIZ];
+
       strcpy(tmp, buf);
 
       /* Copy command (i.e. up to space or tab) into cmd */
@@ -497,7 +505,8 @@ struct configuration_spec * load_config(void)
 #ifdef TRUST_FILES
          case hash_trustfile :
             freez((char *)config->trustfile);
-            config->trustfile = strdup(arg);
+				snprintf(arg2, BUFSIZ, "%s/%s", config->confdir, arg);
+            config->trustfile = strdup(arg2);
             continue;
 
          case hash_trust_info_url :
@@ -513,24 +522,31 @@ struct configuration_spec * load_config(void)
             config->confdir = strdup(arg);
             continue;            
 
+         case hash_logdir :
+            config->logdir = strdup(arg);
+            continue;            
+
          case hash_single_threaded :
             config->multi_threaded = 0;
             continue;
 
          case hash_actions_file :
             freez((char *)config->actions_file);
-            config->actions_file = strdup(arg);
+				snprintf(arg2, BUFSIZ, "%s/%s", config->confdir, arg);
+            config->actions_file = strdup(arg2);
             continue;
 
          case hash_logfile :
             freez((char *)config->logfile);
-            config->logfile = strdup(arg);
+				snprintf(arg2, BUFSIZ, "%s/%s", config->logdir, arg);
+            config->logfile = strdup(arg2);
             continue;
 
 #ifdef JAR_FILES
          case hash_jarfile :
             freez((char *)config->jarfile);
-            config->jarfile = strdup(arg);
+				snprintf(arg2, BUFSIZ, "%s/%s", config->logdir, arg);
+            config->jarfile = strdup(arg2);
             continue;
 #endif /* def JAR_FILES */
 
@@ -541,13 +557,15 @@ struct configuration_spec * load_config(void)
 
          case hash_forwardfile :
             freez((char *)config->forwardfile);
-            config->forwardfile = strdup(arg);
+				snprintf(arg2, BUFSIZ, "%s/%s", config->confdir, arg);
+            config->forwardfile = strdup(arg2);
             continue;
 
 #ifdef ACL_FILES
          case hash_aclfile :
             freez((char *)config->aclfile);
-            config->aclfile = strdup(arg);
+				snprintf(arg2, BUFSIZ, "%s/%s", config->confdir, arg);
+            config->aclfile = strdup(arg2);
             continue;
 #endif /* def ACL_FILES */
 
