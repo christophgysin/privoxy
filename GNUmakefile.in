@@ -572,7 +572,7 @@ endif
 
 # readme page
 dok-readme:
-	cd doc/source && $(DB) -V nochunks readme.sgml > tmp.html &&\
+	cd doc/source && $(DB)-notoc -V nochunks readme.sgml > tmp.html &&\
 	$(WDUMP) tmp.html > ../../README && $(RM) -r tmp.html
 
 # webserver files
@@ -613,7 +613,7 @@ groff2html:
 
 ## Make README
 redhat-readme: 
-	cd doc/source && $(DB) -V nochunks readme.sgml > tmp.html && $(WDUMP) \
+	cd doc/source && $(DB)-notoc -V nochunks readme.sgml > tmp.html && $(WDUMP) \
 	  tmp.html > ../../README && $(RM) -r tmp.html
 
 ## Make AUTHORS file
@@ -839,6 +839,9 @@ coffee:
 ## end:
 
 # $Log$
+# Revision 1.104.2.1  2002/05/26 17:19:34  hal9
+# Remove Table of Contents from readme with oes's dsl trick.
+#
 # Revision 1.104  2002/05/24 00:03:49  oes
 # Use p_doc.css for the Homepage for consistency
 #
