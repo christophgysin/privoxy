@@ -33,6 +33,17 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/10/14 21:58:22  jongfoster
+ *    Adding support for the CGI-based editor:
+ *    - Exported get_actions()
+ *    - Added new function free_alias_list()
+ *    - Added support for {{settings}} and {{description}} blocks
+ *      in the actions file.  They are currently ignored.
+ *    - Added restriction to only one {{alias}} block which must appear
+ *      first in the file, to simplify the editor's rewriting rules.
+ *    - Note that load_actions_file() is no longer used by the CGI-based
+ *      editor, but some of the other routines in this file are.
+ *
  *    Revision 1.14  2001/09/22 16:36:59  jongfoster
  *    Removing unused parameter fs from read_config_line()
  *
@@ -105,23 +116,6 @@ const char actions_rcs[] = "$Id$";
 
 const char actions_h_rcs[] = ACTIONS_H_VERSION;
 
-
-/* Turn off everything except forwarding */
-/* This structure is used to hold user-defined aliases */
-struct action_alias
-{
-   const char * name;
-   struct action_spec action[1];
-   struct action_alias * next;
-};
-
-
-/*
- * Must declare this in this file for the above structure.
- */
-static int get_actions (char *line, 
-                        struct action_alias * alias_list,
-                        struct action_spec *cur_action);
 
 /*
  * We need the main list of options.
@@ -445,9 +439,9 @@ int get_action_token(char **line, char **name, char **value)
  *                nonzero => Error (line was trashed anyway)
  *
  *********************************************************************/
-static int get_actions(char *line,
-                       struct action_alias * alias_list,
-                       struct action_spec *cur_action)
+int get_actions(char *line,
+                struct action_alias * alias_list,
+                struct action_spec *cur_action)
 {
    init_action(cur_action);
    cur_action->mask = ACTION_MASK_ALL;
@@ -995,6 +989,32 @@ void unload_actions_file(void *file_data)
 
 /*********************************************************************
  *
+ * Function    :  free_alias_list
+ *
+ * Description :  Free memory used by a list of aliases.
+ *
+ * Parameters  :
+ *          1  :  alias_list = Linked list to free.
+ *
+ * Returns     :  N/A
+ *
+ *********************************************************************/
+void free_alias_list(struct action_alias *alias_list)
+{
+   while (alias_list != NULL)
+   {
+      struct action_alias * next = alias_list->next;
+      alias_list->next = NULL;
+      freez((char *)alias_list->name);
+      free_action(alias_list->action);
+      free(alias_list);
+      alias_list = next;
+   }
+}
+
+
+/*********************************************************************
+ *
  * Function    :  load_actions_file
  *
  * Description :  Read and parse a action file and add to files
@@ -1010,20 +1030,27 @@ int load_actions_file(struct client_state *csp)
 {
    static struct file_list *current_actions_file  = NULL;
 
-   FILE *fp;
+   /*
+    * Parser mode.
+    * Note: Keep these in the order they occur in the file, they are
+    * sometimes tested with <=
+    */
+#define MODE_START_OF_FILE 1
+#define MODE_SETTINGS      2
+#define MODE_DESCRIPTION   3
+#define MODE_ALIAS         4
+#define MODE_ACTIONS       5
 
+   int mode = MODE_START_OF_FILE;
+
+   FILE *fp;
    struct url_actions *last_perm;
    struct url_actions *perm;
    char  buf[BUFFER_SIZE];
    struct file_list *fs;
-#define MODE_START_OF_FILE 1
-#define MODE_ACTIONS       2
-#define MODE_ALIAS         3
-   int mode = MODE_START_OF_FILE;
-   struct action_spec cur_action[1];
+   struct action_spec * cur_action = NULL;
+   int cur_action_used = 0;
    struct action_alias * alias_list = NULL;
-
-   init_action(cur_action);
 
    if (!check_file_changed(current_actions_file, csp->config->actions_file, &fs))
    {
@@ -1091,10 +1118,72 @@ int load_actions_file(struct client_state *csp)
                return 1; /* never get here */
             }
 
-            if (0 == strcmpic(start, "alias"))
+            /*
+             * An actionsfile can optionally contain the following blocks.
+             * They *MUST* be in this order, to simplify processing:
+             *
+             * {{settings}}
+             * name=value...
+             *
+             * {{description}}
+             * ...free text, format TBD, but no line may start with a '{'...
+             *
+             * {{alias}}
+             * name=actions...
+             *
+             * The actual actions must be *after* these special blocks.
+             * None of these special blocks may be repeated.
+             *
+             */
+            if (0 == strcmpic(start, "settings"))
+            {
+               /* it's a {{settings}} block */
+               if (mode >= MODE_SETTINGS)
+               {
+                  /* {{settings}} must be first thing in file and must only
+                   * appear once.
+                   */
+                  fclose(fp);
+                  log_error(LOG_LEVEL_FATAL, 
+                     "can't load actions file '%s': {{settings}} must only appear once, and it must be before anything else.",
+                     csp->config->actions_file);
+               }
+               mode = MODE_SETTINGS;
+            }
+            else if (0 == strcmpic(start, "description"))
+            {
+               /* it's a {{description}} block */
+               if (mode >= MODE_DESCRIPTION)
+               {
+                  /* {{description}} is a singleton and only {{settings}} may proceed it
+                   */
+                  fclose(fp);
+                  log_error(LOG_LEVEL_FATAL, 
+                     "can't load actions file '%s': {{description}} must only appear once, and only a {{settings}} block may be above it.",
+                     csp->config->actions_file);
+               }
+               mode = MODE_DESCRIPTION;
+            }
+            else if (0 == strcmpic(start, "alias"))
             {
                /* it's an {{alias}} block */
-
+               if (mode >= MODE_ALIAS)
+               {
+                  /* {{alias}} must be first thing in file, possibly after
+                   * {{settings}} and {{description}}
+                   *
+                   * {{alias}} must only appear once.
+                   *
+                   * Note that these are new restrictions introduced in
+                   * v2.9.10 in order to make actionsfile editing simpler.
+                   * (Otherwise, reordering actionsfile entries without
+                   * completely rewriting the file becomes non-trivial)
+                   */
+                  fclose(fp);
+                  log_error(LOG_LEVEL_FATAL, 
+                     "can't load actions file '%s': {{alias}} must only appear once, and it must be before all actions.",
+                     csp->config->actions_file, start);
+               }
                mode = MODE_ALIAS;
             }
             else
@@ -1118,7 +1207,26 @@ int load_actions_file(struct client_state *csp)
             mode    = MODE_ACTIONS;
 
             /* free old action */
-            free_action(cur_action);
+            if (cur_action)
+            {
+               if (!cur_action_used)
+               {
+                  free_action(cur_action);
+                  free(cur_action);
+               }
+               cur_action = NULL;
+            }
+            cur_action_used = 0;
+            cur_action = (struct action_spec *)zalloc(sizeof(*cur_action));
+            if (cur_action == NULL)
+            {
+               fclose(fp);
+               log_error(LOG_LEVEL_FATAL, 
+                  "can't load actions file '%s': out of memory",
+                  csp->config->actions_file);
+               return 1; /* never get here */
+            }
+            init_action(cur_action);
 
             /* trim { */
             strcpy(actions_buf, buf + 1);
@@ -1160,9 +1268,26 @@ int load_actions_file(struct client_state *csp)
             }
          }
       }
+      else if (mode == MODE_SETTINGS)
+      {
+         /*
+          * Part of the {{settings}} block.
+          * Ignore for now, but we may want to read & check permissions
+          * when we go multi-user.
+          */
+      }
+      else if (mode == MODE_DESCRIPTION)
+      {
+         /*
+          * Part of the {{description}} block.
+          * Ignore for now.
+          */
+      }
       else if (mode == MODE_ALIAS)
       {
-         /* define an alias */
+         /*
+          * define an alias
+          */
          char  actions_buf[BUFFER_SIZE];
          struct action_alias * new_alias;
 
@@ -1285,14 +1410,7 @@ int load_actions_file(struct client_state *csp)
    
    free_action(cur_action);
 
-   while (alias_list != NULL)
-   {
-      struct action_alias * next = alias_list->next;
-      freez((char *)alias_list->name);
-      free_action(alias_list->action);
-      free(alias_list);
-      alias_list = next;
-   }
+   free_alias_list(alias_list);
 
    /* the old one is now obsolete */
    if (current_actions_file)
