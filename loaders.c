@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.44  2002/03/16 21:51:00  jongfoster
+ *    Fixing free(NULL).
+ *
  *    Revision 1.43  2002/03/16 20:28:34  oes
  *    Added descriptions to the filters so users will know what they select in the cgi editor
  *
@@ -848,9 +851,9 @@ jb_err edit_read_line(FILE *fp,
        * the caller cares about "raw" or just "data").
        */
 
-      free(raw);
-      free(prefix);
-      free(data);
+      freez(raw);
+      freez(prefix);
+      freez(data);
 
       return JB_ERR_FILE;
    }
@@ -867,7 +870,7 @@ jb_err edit_read_line(FILE *fp,
       }
       else
       {
-         free(raw);
+         freez(raw);
       }
       if (prefix_out)
       {
@@ -875,7 +878,7 @@ jb_err edit_read_line(FILE *fp,
       }
       else
       {
-         free(prefix);
+         freez(prefix);
       }
       if (data_out)
       {
@@ -883,7 +886,7 @@ jb_err edit_read_line(FILE *fp,
       }
       else
       {
-         free(data);
+         freez(data);
       }
       return JB_ERR_OK;
    }
