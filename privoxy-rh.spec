@@ -244,6 +244,7 @@ fi
 %doc doc/webserver/faq
 %doc doc/webserver/p_doc.css doc/webserver/p_web.css doc/webserver/index.html
 %doc doc/webserver/images
+%doc doc/webserver/man-page
 
 %dir %{privoxyconf}
 %dir %{privoxyconf}/templates
@@ -658,6 +659,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.34  2002/05/25 22:09:58  hal9
+# Add html man page to keep index.html from breaking (untested).
+#
 # Revision 1.33  2002/05/25 02:08:23  hal9
 # Add doc/images directory.
 # Redhat: alphabetized list of templates (and I think added one in the process)
