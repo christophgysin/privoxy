@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.45  2002/01/09 14:33:27  oes
+ *    Added HOSTENT_BUFFER_SIZE
+ *
  *    Revision 1.44  2001/12/30 14:07:32  steudten
  *    - Add signal handling (unix)
  *    - Add SIGHUP handler (unix)
@@ -422,6 +425,16 @@ typedef int jb_err;
  * - we don't want any buffer overflows!
  */
 #define BUFFER_SIZE 5000
+
+/*
+ * Buffer size for capturing struct hostent data in the
+ * gethostby(name|addr)_r library calls. Since we don't
+ * loop over gethostbyname_r, the buffer must be sufficient
+ * to accomodate multiple IN A RRs, as used in DNS round robin
+ * load balancing. W3C's wwwlib uses 1K, so that should be
+ * good enough for us, too.
+ */
+#define HOSTENT_BUFFER_SIZE 1024
 
 /*
  * So you can say "while (FOREVER) { ...do something... }"
