@@ -95,10 +95,10 @@
  Sample Configuration File for Privoxy v&p-version;
 </title>
 <para>
-Copyright (C) 2001, 2002 Privoxy Developers http://privoxy.org
+ $Id$
 </para>
 <para>
-$Id$
+Copyright (C) 2001, 2002 Privoxy Developers http://privoxy.org
 </para>
 
 <para>
