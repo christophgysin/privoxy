@@ -37,6 +37,18 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/10/23 21:48:19  jongfoster
+ *    Cleaning up error handling in CGI functions - they now send back
+ *    a HTML error page and should never cause a FATAL error.  (Fixes one
+ *    potential source of "denial of service" attacks).
+ *
+ *    CGI actions file editor that works and is actually useful.
+ *
+ *    Ability to toggle JunkBuster remotely using a CGI call.
+ *
+ *    You can turn off both the above features in the main configuration
+ *    file, e.g. if you are running a multi-user proxy.
+ *
  *    Revision 1.2  2001/10/14 22:12:49  jongfoster
  *    New version of CGI-based actionsfile editor.
  *    Major changes, including:
@@ -68,18 +80,36 @@ extern "C" {
  * CGI functions
  */
 #ifdef FEATURE_CGI_EDIT_ACTIONS
-extern int cgi_edit_actions        (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_edit_actions_for_url(struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_edit_actions_list   (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_edit_actions_submit (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
+extern jb_err cgi_edit_actions        (struct client_state *csp,
+                                       struct http_response *rsp,
+                                       const struct map *parameters);
+extern jb_err cgi_edit_actions_for_url(struct client_state *csp,
+                                       struct http_response *rsp,
+                                       const struct map *parameters);
+extern jb_err cgi_edit_actions_list   (struct client_state *csp,
+                                       struct http_response *rsp,
+                                       const struct map *parameters);
+extern jb_err cgi_edit_actions_submit (struct client_state *csp,
+                                       struct http_response *rsp,
+                                       const struct map *parameters);
+extern jb_err cgi_edit_actions_url    (struct client_state *csp,
+                                       struct http_response *rsp,
+                                       const struct map *parameters);
+extern jb_err cgi_edit_actions_add_url(struct client_state *csp,
+                                       struct http_response *rsp,
+                                       const struct map *parameters);
+extern jb_err cgi_edit_actions_remove_url    (struct client_state *csp,
+                                              struct http_response *rsp,
+                                              const struct map *parameters);
+extern jb_err cgi_edit_actions_section_remove(struct client_state *csp,
+                                              struct http_response *rsp,
+                                              const struct map *parameters);
+extern jb_err cgi_edit_actions_section_add   (struct client_state *csp,
+                                              struct http_response *rsp,
+                                              const struct map *parameters);
+extern jb_err cgi_toggle(struct client_state *csp,
+                         struct http_response *rsp,
+                         const struct map *parameters);
 #endif /* def FEATURE_CGI_EDIT_ACTIONS */
 
 

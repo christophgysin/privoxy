@@ -38,6 +38,18 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/10/23 21:48:19  jongfoster
+ *    Cleaning up error handling in CGI functions - they now send back
+ *    a HTML error page and should never cause a FATAL error.  (Fixes one
+ *    potential source of "denial of service" attacks).
+ *
+ *    CGI actions file editor that works and is actually useful.
+ *
+ *    Ability to toggle JunkBuster remotely using a CGI call.
+ *
+ *    You can turn off both the above features in the main configuration
+ *    file, e.g. if you are running a multi-user proxy.
+ *
  *    Revision 1.3  2001/10/14 22:00:32  jongfoster
  *    Adding support for a 404 error when an invalid CGI page is requested.
  *
@@ -60,30 +72,30 @@ extern "C" {
 /*
  * CGI functions
  */
-extern int cgi_default             (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_error_404           (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_robots_txt          (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_send_banner         (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_show_status         (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_show_url_info       (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_show_version        (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_show_request        (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
+extern jb_err cgi_default      (struct client_state *csp,
+                                struct http_response *rsp,
+                                const struct map *parameters);
+extern jb_err cgi_error_404    (struct client_state *csp,
+                                struct http_response *rsp,
+                                const struct map *parameters);
+extern jb_err cgi_robots_txt   (struct client_state *csp,
+                                struct http_response *rsp,
+                                const struct map *parameters);
+extern jb_err cgi_send_banner  (struct client_state *csp,
+                                struct http_response *rsp,
+                                const struct map *parameters);
+extern jb_err cgi_show_status  (struct client_state *csp,
+                                struct http_response *rsp,
+                                const struct map *parameters);
+extern jb_err cgi_show_url_info(struct client_state *csp,
+                                struct http_response *rsp,
+                                const struct map *parameters);
+extern jb_err cgi_show_version (struct client_state *csp,
+                                struct http_response *rsp,
+                                const struct map *parameters);
+extern jb_err cgi_show_request (struct client_state *csp,
+                                struct http_response *rsp,
+                                const struct map *parameters);
 
 /* Revision control strings from this header and associated .c file */
 extern const char cgisimple_rcs[];
