@@ -35,62 +35,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/06/29 13:35:41  oes
+ *    adapted to reflect the changes in showargs.c
+ *
  *    Revision 1.4  2001/06/03 19:13:05  oes
  *    moved stuff to cgi.c
- *
- *    Revision 1.4  2001/06/03 11:03:48  oes
- *    Makefile/in
- *
- *    introduced cgi.c
- *
- *    actions.c:
- *
- *    adapted to new enlist_unique arg format
- *
- *    conf loadcfg.c
- *
- *    introduced confdir option
- *
- *    filters.c filtrers.h
- *
- *     extracted-CGI relevant stuff
- *
- *    jbsockets.c
- *
- *     filled comment
- *
- *    jcc.c
- *
- *     support for new cgi mechansim
- *
- *    list.c list.h
- *
- *    functions for new list type: "map"
- *    extended enlist_unique
- *
- *    miscutil.c .h
- *    introduced bindup()
- *
- *    parsers.c parsers.h
- *
- *    deleted const struct interceptors
- *
- *    pcrs.c
- *    added FIXME
- *
- *    project.h
- *
- *    added struct map
- *    added struct http_response
- *    changes struct interceptors to struct cgi_dispatcher
- *    moved HTML stuff to cgi.h
- *
- *    re_filterfile:
- *
- *    changed
- *
- *    showargs.c
- *    NO TIME LEFT
  *
  *    Revision 1.3  2001/05/29 23:11:38  oes
  *
@@ -114,11 +63,9 @@
 extern "C" {
 #endif
 
-
 extern void savearg(char *c, char *o, struct configuration_spec * config);
-
-extern void init_proxy_args(int argc, const char *argv[], struct configuration_spec * config);
-extern char *end_proxy_args(struct configuration_spec * config);
+extern char *show_rcs(void);
+extern char *show_defines(void);
 
 /* Revision control strings from this header and associated .c file */
 extern const char showargs_rcs[];
