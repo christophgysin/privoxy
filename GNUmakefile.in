@@ -688,7 +688,7 @@ $(PROGRAM): $(OBJS) $(W32_FILES)
 	$(LD) $(LDFLAGS) -o $(PROGRAM) $(OBJS) $(LIBS)
 
 clean:
-	$(RM) a.out $(OBJS) $(W32_FILES) $(W32_INIS) $(PROGRAM) `find . -iname TAGS`
+	$(RM) a.out $(OBJS) $(W32_FILES) $(W32_INIS) $(PROGRAM) `find . -name TAGS -o -name tags` 
 
 tidy:
 	$(RM) `find . -name "*~" -o -name "#*#"`
@@ -732,6 +732,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.64  2002/04/04 22:14:51  oes
+# No longer rely on find honoring -iname
+#
 # Revision 1.63  2002/04/04 21:06:22  swa
 # cosmetics.
 #
