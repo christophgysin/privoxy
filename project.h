@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.37  2001/10/14 22:14:01  jongfoster
+ *    Removing name_length field from struct cgi_dispatcher, as this is
+ *    now calculated at runtime from the "name" field.
+ *
  *    Revision 1.36  2001/10/10 16:45:15  oes
  *    Added LIMIT_CONNECT action and string
  *    Fixed HTTP message line termination
@@ -685,7 +689,6 @@ struct parsers
 struct cgi_dispatcher
 {
    const char *name;
-   int         name_length;
    int         (*handler)(struct client_state *csp, struct http_response *rsp, struct map *parameters);
    const char *description;
 };
