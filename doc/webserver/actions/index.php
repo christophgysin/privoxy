@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.19  2002/04/09 13:06:29  oes
+  Resize and jump to the right on load
+
   Revision 1.18  2002/04/08 17:03:29  oes
    - Fixed problem with spaces in URLs
    - Adapt to unified stylesheet
@@ -96,8 +99,22 @@
  <head>
   <meta http-equiv="Content-Style-Type" content="text/css">
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
   <link rel="stylesheet" type="text/css" href="../privoxy.css">
   <link rel="stylesheet" type="text/css" href="../p_feedback.css">
+
+  <script language="javascript" type="text/javascript">
+  <!--
+   //
+   // Try to expand to the whole screen height
+   //
+   function maximizeVertically()
+   {
+      window.moveTo(screen.width - 600, 0);
+      window.resizeTo(600, Math.floor(screen.height * 0.9));  
+   }
+  //-->
+  </script>
 
 <?php
 
@@ -130,7 +147,7 @@ function error_abort($title, $message)
 
    echo ("  <title>Privoxy: $title</title>
            </head>
-           <body>
+           <body onload=\"maximizeVertically();\">
             <div class=\"title\">
              <h1>
               <a href=\"http://www.privoxy.org/\">Privoxy</a>: $title
@@ -163,6 +180,9 @@ if (!isset($url))
 {
    $url = "http://www.example.com/";
 }
+/*
+ * Kludge: We should properly escape query strings
+ */
 else
 {
    $url = strtr($url, " ", "+");
@@ -179,6 +199,7 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
 
    error_abort("invalid", "<p>As much as we welcome your feedback, please note that
                we can only accept problem reports based on:
+               </p>
                <ul>
                 <li><a href=\"http://www.privoxy.org/\" target=\"_blank\">Privoxy</a> version $required_privoxy_version or later</li>
                 <li><a href=\"$actions_file_download\">Actionsfile</a> version  version $required_actions_file_version or later</li>
@@ -194,7 +215,7 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
   <title>Privoxy Action List Feedback - Step 1 of 2</title>
  </head>
 
- <body>
+ <body onload="maximizeVertically();">
   <div class="title">
     <h1>
       <a href="http://www.privoxy.org" target="_blank">Privoxy</a> Action List Feedback - Step 1 of 2
