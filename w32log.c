@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2001/07/19 19:15:14  haroon
+ *    - Added a FIXME for EditFile but didn't fix :-)
+ *
  *    Revision 1.12  2001/07/13 14:04:59  oes
  *    Removed all #ifdef PCRS
  *
@@ -943,6 +946,8 @@ void ShowLogWindow(BOOL bShow)
  * Function    :  EditFile
  *
  * Description :  Opens the specified setting file for editing.
+ * FIXME: What if the file has no associated application. Check for return values
+*        from ShellExecute??
  *
  * Parameters  :
  *          1  :  filename = filename from the config (aka junkbstr.txt) file.
