@@ -27,7 +27,7 @@
 # 
 #  Revisions   :
 #     $Log$
-#     Revision 1.23  2002/03/16 20:30:49  oes
+#     Revision 1.24  2002/03/16 20:39:54  oes
 #      - Added descriptions to the filters so users will know what they select in the cgi editor
 #      - Added content-cookies filter
 #      - Bugfixed many jobs (Thanks to Al for some hints)
@@ -222,7 +222,7 @@ s/<img\s+[^>]*?(width|height)\s*=\s*['"]?1\D[^>]*?(width|height)\s*=\s*['"]?1(\D
 #################################################################################
 FILTER: no-refresh Kill automatic refresh tags (for dial-on-demand setups)
 
-s/<meta\s+http-equiv=['"]?refresh['"]?\s+content=['"]?[0-9]*;\s+URL=['"]?([^>]*)['"]?>/<link rev="x-refresh" href=$1>/iU   
+s/<meta\s+http-equiv=['"]?refresh['"]?\s+content=['"]?[0-9]*;\s+url=([^>]*)['"]?>/<link rev="x-refresh" href=$1>/iU   
 s/<meta\s+http-equiv=['"]?page-enter['"]?\s+content=[^>].*>/<!--no page enter for me-->/iU 
 
 
