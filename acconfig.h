@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2002/03/04 17:52:44  oes
+ *    Deleted PID_FILE_PATH
+ *
  *    Revision 1.16  2002/01/10 12:36:18  oes
  *    Moved HAVE_*_R to acconfig.h, where they belong.
  *
@@ -197,11 +200,6 @@
  * Status of the code: "alpha", "beta" or "stable".
  */
 #undef CODE_STATUS
-
-/*
- * pid file used under unix.
- */
-#undef PID_FILE_PATH 
 
 /*
  * Regular expression matching for URLs.  (Highly recommended).
