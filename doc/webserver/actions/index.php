@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.22  2002/04/11 10:11:04  oes
+  Actionsfile Version 1.2
+
   Revision 1.21  2002/04/10 13:51:19  oes
   Updated to new Bookmarklet
 
@@ -114,7 +117,7 @@
 /*
  * Config:
  */
-$required_actions_file_version = "1.1";
+$required_actions_file_version = "1.2";
 $required_privoxy_version = "2.9.14";
 $actions_file_download = "http://www.privoxy.org/actions/testdrive.action";
 $submit_target = "http://www.oesterhelt.org/actions/step2.php";
