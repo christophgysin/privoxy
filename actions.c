@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2002/04/30 11:14:52  oes
+ *    Made csp the first parameter in *action_to_html
+ *
  *    Revision 1.29  2002/04/26 19:30:54  jongfoster
  *    - current_action_to_html(): Adding help link for the "-" form of
  *      one-string actions.
@@ -1471,15 +1474,15 @@ char * actions_to_text(struct action_spec *action)
  *                the user manual.
  *
  * Parameters  :
- *          1  :  mask = As from struct url_actions
- *          2  :  add  = As from struct url_actions
+ *          1  :  csp    = Client state (for config)
+ *          2  :  action = Action spec to be converted
  *
  * Returns     :  A string.  Caller must free it.
  *                NULL on out-of-memory error.
  *
  *********************************************************************/
-char * actions_to_html(struct action_spec *action,
-                       struct client_state *csp)
+char * actions_to_html(struct client_state *csp,
+                       struct action_spec *action)
 {
    unsigned mask = action->mask;
    unsigned add  = action->add;
@@ -1578,14 +1581,15 @@ char * actions_to_html(struct action_spec *action,
  *                the user manual.
  *
  * Parameters  :
- *          1  :  action = Action
+ *          1  :  csp    = Client state (for config) 
+ *          2  :  action = Current action spec to be converted
  *
  * Returns     :  A string.  Caller must free it.
  *                NULL on out-of-memory error.
  *
  *********************************************************************/
-char *current_action_to_html(struct current_action_spec *action,
-                             struct client_state *csp)
+char *current_action_to_html(struct client_state *csp,
+                             struct current_action_spec *action)
 {
    unsigned long flags  = action->flags;
    char * result = strdup("");

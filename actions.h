@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2002/04/30 11:14:52  oes
+ *    Made csp the first parameter in *action_to_html
+ *
  *    Revision 1.10  2002/04/26 12:53:33  oes
  *     -  actions_to_html signature change
  *     -  current_action_to_text: renamed to current_action_to_html
@@ -120,14 +123,16 @@ extern jb_err copy_action (struct action_spec *dest,
                            const struct action_spec *src);
 extern char * actions_to_text     (struct action_spec *action);
 #ifdef FEATURE_CGI_EDIT_ACTIONS
-extern char * actions_to_html     (struct action_spec *action, struct client_state *csp);
+extern char * actions_to_html     (struct client_state *csp,
+                                   struct action_spec *action);
 #endif /* def FEATURE_CGI_EDIT_ACTIONS */
 
 extern void init_current_action     (struct current_action_spec *dest);
 extern void free_current_action     (struct current_action_spec *src);
 extern jb_err merge_current_action  (struct current_action_spec *dest, 
                                      const struct action_spec *src);
-extern char * current_action_to_html(struct current_action_spec *action, struct client_state *csp);
+extern char * current_action_to_html(struct client_state *csp,
+                                     struct current_action_spec *action);
 
 extern jb_err get_action_token(char **line, char **name, char **value);
 extern void unload_actions_file(void *file_data);
