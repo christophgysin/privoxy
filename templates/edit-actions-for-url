@@ -32,6 +32,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.18  2002/03/24 16:32:08  jongfoster
+#    Removing logo option
+#
 #    Revision 1.17  2002/03/24 15:23:33  jongfoster
 #    Name changes
 #
@@ -139,7 +142,6 @@
 # hide-referer-param
 # hide-user-agent-param
 # image-blocker-param-pattern
-# image-blocker-param-logo
 # image-blocker-param-blank
 # image-blocker-param-custom
 #
@@ -599,11 +601,6 @@ function show_wafer_opts(tf)
         for="image_blocker_mode_pattern">Send a pattern (<img
         src="send-banner?type=p" width="12" height="12"
         alt="pattern">)</label><br>
-        <input type="radio" name="image_blocker_mode"
-        onclick="image_blocker_param_disable(true)"
-        value="logo" id="image_blocker_mode_logo" @image-blocker-param-logo@><label
-        for="image_blocker_mode_logo">Send Privoxy logo
-        (<img src="send-banner?type=l" alt="logo">)</label><br>
         <input type="radio" name="image_blocker_mode" value="blank"
         onclick="image_blocker_param_disable(true)"
         id="image_blocker_mode_blank" @image-blocker-param-blank@><label 
