@@ -34,6 +34,9 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2001/08/02 22:03:23  jongfoster
+ *    Fixing an unterminated character constant.
+ *
  *    Revision 1.22  2001/08/01 00:20:57  jongfoster
  *    Changing show_defines so that it doesn't contain any HTML.
  *
@@ -411,7 +414,7 @@ struct map * show_defines(struct map *exports)
 #ifdef FEATURE_IMAGE_BLOCKING
    exports = map_conditional(exports, "FEATURE_IMAGE_BLOCKING", 1);
 #else /* ifndef FEATURE_IMAGE_BLOCKING */
-   exports = map_conditional(exports, "FEATURE_IMAGE_BLOCKING, 0);
+   exports = map_conditional(exports, "FEATURE_IMAGE_BLOCKING", 0);
 #endif /* ndef FEATURE_IMAGE_BLOCKING */
 
 #ifdef FEATURE_IMAGE_DETECT_MSIE
