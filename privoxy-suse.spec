@@ -1,6 +1,6 @@
 # $Id$
 #
-# Written by and Copyright (C) 2001 the SourceForge
+# Written by and Copyright (C) 2001,2002 the SourceForge
 # Privoxy team. http://www.privoxy.org/
 #
 # Based on the Internet Junkbuster originally written
@@ -36,7 +36,7 @@ Summary:      Privoxy - privacy enhancing proxy
 Vendor:       Privoxy.Org
 Name:         privoxy-suse
 Distribution: defineme
-Version: 3.1.1
+Version: 3.0.0
 Release: 1
 # Needs makefile change: Source: http://prdownloads.sourceforge.net/ijbswa/privoxy-%{version}-%{status}-src.tar.gz
 Source: http://prdownloads.sourceforge.net/ijbswa/privoxy-%{version}.tar.gz
@@ -262,6 +262,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 # -----------------------------------------------------------------------------
 #
 %changelog
+* Thu Sep 05 2002 Hal Burgiss <hal@foobox.net>
+- Sync changes with 3.0 branch.
+
 * Tue Sep 03 2002 Hal Burgiss <hal@foobox.net>
 + privoxy-3.1.1-1
 - Explicitly list %%config files, and set noreplace flag for config and 
@@ -375,6 +378,9 @@ user.action. Note: no way I can test this change! Bump version while here.
 - new package: version 2.0
 
 # $Log$
+# Revision 1.23  2002/09/05 16:30:44  hal9
+# Syncing with 3.0 branch. Not tested.
+#
 # Revision 1.22  2002/09/03 23:42:21  hal9
 # Explicitly list all %config files, like RH spec. Set noreplace flag for config
 # and user.action (only). Bump version. Note: I have no way to test this change,
