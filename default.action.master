@@ -336,7 +336,7 @@
 #
 # +kill-popups
 #    Filter the website through a built-in filter to disable
-#    1;''.concat() etc.  The two alternative spellings are
+#    window.open() etc.  The two alternative spellings are
 #    equivalent.
 #
 # +send-vanilla-wafer
