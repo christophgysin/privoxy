@@ -35,6 +35,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/07/13 13:59:22  oes
+ *     - Added LOG_LEVEL_DEANIMATE
+ *     - Changed LOG_LEVEL_CLF
+ *     - Removed all #ifdef PCRS
+ *
  *    Revision 1.5  2001/05/26 17:25:14  jongfoster
  *    Added support for CLF (Common Log Format) and fixed LOG_LEVEL_LOG
  *
@@ -111,14 +116,13 @@ extern "C" {
 #ifdef FORCE_LOAD
 #define LOG_LEVEL_FORCE      0x0020
 #endif /* def FORCE_LOAD */
-#ifdef PCRS
 #define LOG_LEVEL_RE_FILTER  0x0040
-#endif /* def PCRS */
 #ifdef FAST_REDIRECTS
 #define LOG_LEVEL_REDIRECTS  0x0080
 #endif /* def FAST_REDIRECTS */
+#define LOG_LEVEL_DEANIMATE  0x0100
 
-#define LOG_LEVEL_CLF        0x0100 /* Common Log File format */
+#define LOG_LEVEL_CLF        0x0200 /* Common Log File format */
 
 /* Following are always on: */
 #define LOG_LEVEL_INFO    0x1000
