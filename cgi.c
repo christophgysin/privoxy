@@ -36,6 +36,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/06/07 23:05:19  jongfoster
+ *    Removing code related to old forward and ACL files.
+ *
  *    Revision 1.5  2001/06/05 19:59:16  jongfoster
  *    Fixing multiline character string (a GCC-only "feature"), and snprintf (it's _snprintf under VC++).
  *
@@ -672,23 +675,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
          file_description = "Actions List";
       }
       break;
-   case 'f':
-      if (csp->flist)
-      {
-         filename = csp->flist->filename;
-         file_description = "Forward List";
-      }
-      break;
-
-#ifdef ACL_FILES
-   case 'a':
-      if (csp->alist)
-      {
-         filename = csp->alist->filename;
-         file_description = "Access Control List";
-      }
-      break;
-#endif /* def ACL_FILES */
 
 #ifdef PCRS
    case 'r':
@@ -747,8 +733,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    exports = map(exports, "version", 1, VERSION, 1);
    exports = map(exports, "home-page", 1, HOME_PAGE_URL, 1);
    exports = map(exports, "invocation-args", 1, csp->config->proxy_args_header, 1);
-   exports = map(exports, "gateways", 1, csp->config->proxy_args_gateways, 1);
-   exports = map(exports, "gateway-protocols", 1, s, 0);
 
 
 #ifdef STATISTICS
@@ -766,28 +750,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
 	{
  	   exports = map(exports, "actions-filename", 1, "None specified", 1);
 	}
-
-   if (csp->flist)
-   {
-      exports = map(exports, "forward-filename", 1,  csp->flist->filename, 1);
-	}
-   else
-	{
- 	   exports = map(exports, "forward-filename", 1, "None specified", 1);
-	}
-
-#ifdef ACL_FILES
-   if (csp->alist)
-   {
-      exports = map(exports, "acl-filename", 1,  csp->alist->filename, 1);
-	}
-   else
-	{
- 	   exports = map(exports, "acl-filename", 1, "None specified", 1);
-	}
-#else
-   exports = map(exports, "acl-killer-start.*acl-killer-end", 1, "", 1);
-#endif /* ndef ACL_FILES */
 
 #ifdef PCRS
    if (csp->rlist)
@@ -824,18 +786,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    {
       map(exports, "clist", 1, csp->clist->proxy_args , 1);
    }
-
-   if (csp->flist)
-   {
-      map(exports, "flist", 1, csp->flist->proxy_args , 1);
-	}
-
-#ifdef ACL_FILES
-   if (csp->alist)
-   {
-      map(exports, "alist", 1, csp->alist->proxy_args , 1);
-	}
-#endif /* def ACL_FILES */
 
 #ifdef PCRS
    if (csp->rlist)
