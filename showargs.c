@@ -33,6 +33,9 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/05/31 21:36:07  jongfoster
+ *    Added RCS for actions.[ch] and list.[ch]
+ *
  *    Revision 1.9  2001/05/29 23:11:38  oes
  *
  *     - Moved strsav() from showargs to miscutil
@@ -338,6 +341,8 @@ void end_proxy_args(struct configuration_spec * config)
    }
 
    /* In alphabetical order */
+   SHOW_RCS(actions_h_rcs)
+   SHOW_RCS(actions_rcs)
 #ifdef __MINGW32__
    SHOW_RCS(cygwin_h_rcs)
 #endif
@@ -361,6 +366,8 @@ void end_proxy_args(struct configuration_spec * config)
    SHOW_RCS(killpopup_h_rcs)
    SHOW_RCS(killpopup_rcs)
 #endif /* def KILLPOPUPS */
+   SHOW_RCS(list_h_rcs)
+   SHOW_RCS(list_rcs)
    SHOW_RCS(loadcfg_h_rcs)
    SHOW_RCS(loadcfg_rcs)
    SHOW_RCS(loaders_h_rcs)
