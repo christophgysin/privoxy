@@ -38,6 +38,10 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.41  2001/11/13 00:14:07  jongfoster
+ *    Fixing stupid bug now I've figured out what || means.
+ *    (It always returns 0 or 1, not one of it's paramaters.)
+ *
  *    Revision 1.40  2001/10/26 17:37:55  oes
  *    - Re-enabled Netscape 200/404 bug workaround in block_url():
  *      - Removed OS/2 special case
@@ -737,10 +741,10 @@ struct http_response *block_url(struct client_state *csp)
       err = map_block_killer(exports, "force-support");
 #endif /* ndef FEATURE_FORCE_LOAD */
 
-      err = err || map(exports, "hostport", 1, csp->http->hostport, 1);
-      err = err || map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0);
-      err = err || map(exports, "path", 1, csp->http->path, 1);
-      err = err || map(exports, "path-html", 1, html_encode(csp->http->path), 0);
+      if (!err) err = map(exports, "hostport", 1, csp->http->hostport, 1);
+      if (!err) err = map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0);
+      if (!err) err = map(exports, "path", 1, csp->http->path, 1);
+      if (!err) err = map(exports, "path-html", 1, html_encode(csp->http->path), 0);
 
       if (err)
       {
@@ -812,20 +816,20 @@ struct http_response *trust_url(struct client_state *csp)
    /*
     * Export the host, port, and referrer information
     */
-   err = map(exports, "hostport", 1, csp->http->hostport, 1)
-      || map(exports, "path", 1, csp->http->path, 1)
-      || map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0)
-      || map(exports, "path-html", 1, html_encode(csp->http->path), 0);
+   err = map(exports, "hostport", 1, csp->http->hostport, 1);
+   if (!err) err = map(exports, "path", 1, csp->http->path, 1);
+   if (!err) err = map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0);
+   if (!err) err = map(exports, "path-html", 1, html_encode(csp->http->path), 0);
 
    if (NULL != (p = get_header_value(csp->headers, "Referer:")))
    {
-      err = err || map(exports, "referrer", 1, p, 1);
-      err = err || map(exports, "referrer-html", 1, html_encode(p), 0);
+      if (!err) err = map(exports, "referrer", 1, p, 1);
+      if (!err) err = map(exports, "referrer-html", 1, html_encode(p), 0);
    }
    else
    {
-      err = err || map(exports, "referrer", 1, "unknown", 1);
-      err = err || map(exports, "referrer-html", 1, "unknown", 1);
+      if (!err) err = map(exports, "referrer", 1, "unknown", 1);
+      if (!err) err = map(exports, "referrer-html", 1, "unknown", 1);
    }
 
    if (err)

@@ -33,6 +33,10 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2001/11/13 00:14:07  jongfoster
+ *    Fixing stupid bug now I've figured out what || means.
+ *    (It always returns 0 or 1, not one of it's paramaters.)
+ *
  *    Revision 1.18  2001/11/07 00:06:06  steudten
  *    Add line number in error output for lineparsing for
  *    actionsfile.
@@ -116,6 +120,7 @@ const char actions_rcs[] = "$Id$";
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <stdlib.h>
 
 #include "project.h"
 #include "jcc.h"
@@ -255,7 +260,7 @@ jb_err merge_actions (struct action_spec *dest,
          /* No "remove all"s to worry about. */
          list_remove_list(dest->multi_add[i], src->multi_remove[i]);
          err = list_append_list_unique(dest->multi_remove[i], src->multi_remove[i]);
-         err = err || list_append_list_unique(dest->multi_add[i], src->multi_add[i]);
+         if (!err) err = list_append_list_unique(dest->multi_add[i], src->multi_add[i]);
       }
 
       if (err)
@@ -312,8 +317,12 @@ jb_err copy_action (struct action_spec *dest,
    for (i = 0; i < ACTION_MULTI_COUNT; i++)
    {
       dest->multi_remove_all[i] = src->multi_remove_all[i];
-      err =        list_duplicate(dest->multi_remove[i], src->multi_remove[i]);
-      err = err || list_duplicate(dest->multi_add[i],    src->multi_add[i]);
+      err = list_duplicate(dest->multi_remove[i], src->multi_remove[i]);
+      if (err)
+      {
+         return err;
+      }
+      err = list_duplicate(dest->multi_add[i],    src->multi_add[i]);
       if (err)
       {
          return err;
