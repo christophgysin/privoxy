@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2001/09/13 23:29:43  jongfoster
+ *    Defining FORWARD_SPEC_INITIALIZER
+ *
  *    Revision 1.28  2001/09/13 23:05:50  jongfoster
  *    Changing the string paramater to the header parsers a "const".
  *
@@ -378,6 +381,11 @@ struct url_spec
    regex_t *preg;      /* Regex for matching path part                      */
 #endif
 };
+#ifdef REGEX
+#define URL_SPEC_INITIALIZER { NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0, NULL }
+#else /* ifndef REGEX */
+#define URL_SPEC_INITIALIZER { NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0 }
+#endif /* ndef REGEX */
 
 /* Constants for host part matching in URLs */
 #define ANCHOR_LEFT  1
@@ -692,6 +700,8 @@ struct forward_spec
    /* For the linked list */
    struct forward_spec *next;
 };
+#define FORWARD_SPEC_INITIALIZER { URL_SPEC_INITIALIZER, 0, NULL, 0, NULL, 0, NULL }
+
 
 struct re_filterfile_spec
 {
