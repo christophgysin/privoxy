@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.37  2001/09/10 11:12:24  oes
+ *    Deleted unused variable
+ *
  *    Revision 1.36  2001/09/10 10:56:15  oes
  *    Silenced compiler warnings
  *
@@ -424,7 +427,6 @@ static void chat(struct client_state *csp)
 
    char buf[BUFFER_SIZE];
    char *hdr, *p, *req;
-   char *err = NULL;
    fd_set rfds;
    int n, maxfd, server_body;
    int ms_iis5_hack = 0;
