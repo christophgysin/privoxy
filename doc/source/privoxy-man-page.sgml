@@ -191,7 +191,10 @@
 </para>
 <para>
  The Secure (SSL) Proxy should also be set to the same values, otherwise
- https: URLs will not be proxied. 
+ https: URLs will not be proxied. Note: <command>Privoxy</command> can only
+ proxy HTTP and HTTPS traffic. Do not try it with FTP or other protocols.
+</para>
+
 </para>
 <para>
  For other browsers, check the documentation.
