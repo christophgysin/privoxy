@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/10/10 16:44:16  oes
+ *    Added match_portlist function
+ *
  *    Revision 1.14  2001/10/07 15:41:40  oes
  *    Added prototype for remove_chunked_transfer_coding
  *
@@ -201,6 +204,7 @@ struct url_spec;
 extern int block_acl(struct access_control_addr *dst, struct client_state *csp);
 extern int acl_addr(char *aspec, struct access_control_addr *aca);
 #endif /* def FEATURE_ACL */
+extern int match_portlist(const char *portlist, int port);
 
 /*
  * Interceptors

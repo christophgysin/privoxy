@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.36  2001/10/10 16:44:16  oes
+ *    Added match_portlist function
+ *
  *    Revision 1.35  2001/10/07 15:41:23  oes
  *    Replaced 6 boolean members of csp with one bitmap (csp->flags)
  *
@@ -476,6 +479,86 @@ int acl_addr(char *aspec, struct access_control_addr *aca)
 
 }
 #endif /* def FEATURE_ACL */
+
+
+/*********************************************************************
+ *
+ * Function    :  match_portlist
+ *
+ * Description :  Check if a given number is covered by a comma
+ *                separated list of numbers and ranges (a,b-c,d,..)
+ *
+ * Parameters  :
+ *          1  :  portlist = String with list
+ *          2  :  port = port to check
+ *
+ * Returns     :  0 => no match
+ *                1 => match
+ *
+ *********************************************************************/
+int match_portlist(const char *portlist, int port)
+{
+   char *min, *max, *next, *portlist_copy;
+
+   min = next = portlist_copy = strdup(portlist);
+
+   /*
+    * Zero-terminate first item and remember offset for next
+    */
+   if (NULL != (next = strchr(portlist_copy, (int) ',')))
+   {
+      *next++ = '\0';
+   }
+   
+   /*
+    * Loop through all items, checking for match
+    */
+   while(min)
+   {
+      if (NULL == (max = strchr(min, (int) '-')))
+      {
+         /*
+          * No dash, check for equality
+          */
+         if (port == atoi(min))
+         {
+            free(portlist_copy);
+            return(1);
+         }
+      }
+      else
+      {
+         /*
+          * This is a range, so check if between min and max,
+          * or, if max was omitted, between min and 65K
+          */
+         *max++ = '\0';
+         if(port >= atoi(min) && port <= (atoi(max) ? atoi(max) : 65535))
+         {
+            free(portlist_copy);
+            return(1);
+         }
+           
+      }      
+
+      /*
+       * Jump to next item
+       */
+      min = next;
+
+      /*
+       * Zero-terminate next item and remember offset for n+1
+       */
+      if ((NULL != next) && (NULL != (next = strchr(next, (int) ','))))
+      {
+         *next++ = '\0';
+      }
+   }
+   
+   free(portlist_copy);
+   return 0;
+
+}
 
 
 /*********************************************************************
