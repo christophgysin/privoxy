@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.92.2.2  2002/11/20 14:37:47  oes
+ *    Fix: Head of global clients list now initialized to NULL
+ *
  *    Revision 1.92.2.1  2002/09/25 14:52:24  oes
  *    Added basic support for OPTIONS and TRACE HTTP methods:
  *     - New interceptor direct_response() added in chat().
@@ -1834,6 +1837,7 @@ int main(int argc, const char *argv[])
 
 
    files->next = NULL;
+   clients->next = NULL;
 
 #ifdef AMIGA
    InitAmiga();
