@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.66  2002/04/26 18:32:57  jongfoster
+ *    Fixing a memory leak on error
+ *
  *    Revision 1.65  2002/04/26 12:53:51  oes
  *     - New function add_help_link
  *     - default_exports now exports links to the user manual
@@ -1254,11 +1257,11 @@ jb_err cgi_error_bad_param(struct client_state *csp,
 char *add_help_link(const char *item, 
                     struct configuration_spec *config)
 {
-   char *result = strdup("");
+   char *result;
 
    if (!item) return NULL;
-   
-   string_append(&result, "<a href=\"");
+
+   result = strdup("<a href=\"");
    string_append(&result, config->usermanual);
    string_append(&result, HELP_LINK_PREFIX);
    string_join  (&result, string_toupper(item));
