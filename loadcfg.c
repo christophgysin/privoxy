@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.48  2002/05/14 21:30:38  oes
+ *    savearg now uses own linking code instead of (now special-cased) add_help_link
+ *
  *    Revision 1.47  2002/05/12 21:36:29  jongfoster
  *    Correcting function comments
  *
@@ -1540,8 +1543,17 @@ static void savearg(char *command, char *argument, struct configuration_spec * c
    assert(*command);
    assert(argument);
 
-   buf = strdup("");
-   string_join(&buf, add_help_link(command, config));
+   /*
+    * Add config option name embedded in
+    * link to it's section in the user-manual
+    */
+   buf = strdup("<a href=\"");
+   string_append(&buf, config->usermanual);
+   string_append(&buf, CONFIG_HELP_PREFIX);
+   string_join  (&buf, string_toupper(command));
+   string_append(&buf, "\">");
+   string_append(&buf, command);
+   string_append(&buf, "</a> ");
 
    if (NULL == buf)
    {
