@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2002/03/08 17:46:04  jongfoster
+ *    Fixing int/size_t warnings
+ *
  *    Revision 1.5  2002/03/07 03:46:17  oes
  *    Fixed compiler warnings
  *
@@ -67,7 +70,7 @@ extern "C" {
 struct binbuffer
 {
    char *buffer; 
-   int offset;   
+   size_t offset;   
    size_t size;    
 };
 

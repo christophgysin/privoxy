@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.40  2002/03/08 17:46:04  jongfoster
+ *    Fixing int/size_t warnings
+ *
  *    Revision 1.39  2002/03/07 03:46:17  oes
  *    Fixed compiler warnings
  *
@@ -495,7 +498,7 @@ int check_file_changed(const struct file_list * current,
  *********************************************************************/
 jb_err simple_read_line(FILE *fp, char **dest, int *newline)
 {
-   int len = 0;
+   size_t len = 0;
    size_t buflen = BUFFER_SIZE;
    char * buf;
    char * p;
