@@ -28,6 +28,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.28  2001/09/13 15:19:08  swa
+# we want text files as well.
+#
 # Revision 1.27  2001/09/13 13:11:37  steudten
 #
 # Replace DEBUG_CFLAGS with OTHER_CFLAGS
@@ -353,12 +356,16 @@ dok:
 #  user manual
 	rm -rf doc/webserver/user-manual
 	cd doc/source && db2html -s ldp.dsl user-manual.sgml && mv user-manual ../webserver
-#  developer manual
+	cd doc/source && db2html -s ldp.dsl --nochunks user-manual.sgml > tmp.html && lynx -dump tmp.html > ../text/user-manual.txt && rm -rf tmp.html user-manual
+##  developer manual
 	rm -rf doc/webserver/developer-manual
 	cd doc/source && db2html -s ldp.dsl developer-manual.sgml && mv developer-manual ../webserver
-#  faq
+	cd doc/source && db2html -s ldp.dsl --nochunks developer-manual.sgml > tmp.html && lynx -dump tmp.html > ../text/developer-manual.txt && rm -rf tmp.html developer-manual
+##  faq
 	rm -rf doc/webserver/faq
 	cd doc/source && db2html -s ldp.dsl faq.sgml && mv faq ../webserver
+	cd doc/source && db2html -s ldp.dsl --nochunks faq.sgml > tmp.html && lynx -dump tmp.html > ../text/faq.txt && rm -rf tmp.html faq
+
 
 #############################################################################
 # Source file dependencies
