@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2001/10/10 10:56:39  oes
+ *    Failiure to load template now fatal. Before, the user got a hard-to-understand assertion failure from cgi.c
+ *
  *    Revision 1.30  2001/10/02 15:30:57  oes
  *    Introduced show-request cgi
  *
@@ -719,7 +722,7 @@ char *template_load(struct client_state *csp, const char *templatename)
 
    if(NULL == (fp = fopen(buf, "r")))
    {
-      log_error(LOG_LEVEL_ERROR, "error loading template %s: %E", buf);
+      log_error(LOG_LEVEL_FATAL, "error loading template %s: %E", buf);
       return NULL;
    }
    
