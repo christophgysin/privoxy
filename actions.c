@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/09/22 16:36:59  jongfoster
+ *    Removing unused parameter fs from read_config_line()
+ *
  *    Revision 1.13  2001/09/16 15:47:37  jongfoster
  *    First version of CGI-based edit interface.  This is very much a
  *    work-in-progress, and you can't actually use it to edit anything
@@ -1053,7 +1056,7 @@ int load_actions_file(struct client_state *csp)
       return 1; /* never get here */
    }
 
-   while (read_config_line(buf, sizeof(buf), fp, fs) != NULL)
+   while (read_config_line(buf, sizeof(buf), fp) != NULL)
    {
       if (*buf == '{')
       {

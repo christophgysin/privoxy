@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2001/09/22 16:36:59  jongfoster
+ *    Removing unused parameter fs from read_config_line()
+ *
  *    Revision 1.26  2001/09/22 14:05:22  jongfoster
  *    Bugfix: Multiple escaped "#" characters in a configuration
  *    file are now permitted.
@@ -582,20 +585,17 @@ int check_file_changed(const struct file_list * current,
  * Description :  Read a single non-empty line from a file and return
  *                it.  Trims comments, leading and trailing whitespace
  *                and respects escaping of newline and comment char.
- *                Also writes the file to fs->proxy_args.
  *
  * Parameters  :
  *          1  :  buf = Buffer to use.
  *          2  :  buflen = Size of buffer in bytes.
  *          3  :  fp = File to read from
- *          4  :  fs = File will be written to fs->proxy_args.  May
- *                be NULL to disable this feature.
  *
  * Returns     :  NULL on EOF or error
  *                Otherwise, returns buf.
  *
  *********************************************************************/
-char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
+char *read_config_line(char *buf, int buflen, FILE *fp)
 {
    char *p;
    char *src;
@@ -751,7 +751,7 @@ int load_trustfile(struct client_state *csp)
 
    tl = csp->config->trust_list;
 
-   while (read_config_line(buf, sizeof(buf), fp, fs) != NULL)
+   while (read_config_line(buf, sizeof(buf), fp) != NULL)
    {
       trusted = 0;
       reject  = 1;
@@ -918,7 +918,7 @@ int load_re_filterfile(struct client_state *csp)
    }
 
    /* Read line by line */
-   while (read_config_line(buf, sizeof(buf), fp, fs) != NULL)
+   while (read_config_line(buf, sizeof(buf), fp) != NULL)
    {
       enlist( bl->patterns, buf );
 
