@@ -28,6 +28,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.15  2002/03/08 20:00:28  swa
+# some leftovers.
+#
 # Revision 1.14  2002/03/07 18:25:56  swa
 # synced redhat and suse build process
 #
@@ -518,6 +521,8 @@ suse-upload:
 suse-clean:
 	rpm -e junkbuster-suse
 	rm -rf /etc/junkbuster
+	rm -rf /etc/rc.d/junkbuster*
+	rm -rf /var/run/junkbuster.pid 
 	rm -rf /var/log/junkbuster
 	rm -f /etc/init.d/junkbuster
 	rm -f /usr/sbin/junkbuster
