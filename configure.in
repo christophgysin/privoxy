@@ -28,6 +28,12 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.65  2002/04/25 19:13:57  morcego
+dnl Removed RPM release number declaration on configure.in
+dnl Changed makefile to use given value for RPM_PACKAGEV when on uploading
+dnl targets (will produce an error, explaining who to do it, if no value
+dnl if provided).
+dnl
 dnl Revision 1.64  2002/04/22 16:32:31  morcego
 dnl configure.in, *.spec: Bumping release to 2 (2.9.14-2)
 dnl -rh.spec: uid and gid are now macros
@@ -400,7 +406,6 @@ dnl =================================================================
 VERSION_MAJOR=2
 VERSION_MINOR=9
 VERSION_POINT=14
-VERSION_RPM_PACKAGE=2
 CODE_STATUS="beta"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
@@ -413,14 +418,12 @@ dnl =================================================================
 AC_SUBST(VERSION_MAJOR)
 AC_SUBST(VERSION_MINOR)
 AC_SUBST(VERSION_POINT)
-AC_SUBST(VERSION_RPM_PACKAGE)
 AC_SUBST(CODE_STATUS)
 
 dnl
 AC_DEFINE_UNQUOTED(VERSION_MAJOR,${VERSION_MAJOR})
 AC_DEFINE_UNQUOTED(VERSION_MINOR,${VERSION_MINOR})
 AC_DEFINE_UNQUOTED(VERSION_POINT,${VERSION_POINT})
-AC_DEFINE_UNQUOTED(VERSION_RPM_PACKAGE,${VERSION_RPM_PACKAGE})
 AC_DEFINE_UNQUOTED(VERSION,"${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_POINT}")
 AC_DEFINE_UNQUOTED(CODE_STATUS,"${CODE_STATUS}")
 

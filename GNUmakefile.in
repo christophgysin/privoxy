@@ -42,9 +42,7 @@ VERSION_MINOR = @VERSION_MINOR@
 VERSION_POINT = @VERSION_POINT@
 CODE_STATUS   = @CODE_STATUS@
 VERSION       = $(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_POINT)
-# will automatically be postfixed with -$(RPM_PACKAGEV) in the SPECfile
 RPM_VERSION   = $(VERSION)
-RPM_PACKAGEV  = @VERSION_RPM_PACKAGE@
 
 
 #############################################################################
@@ -286,22 +284,27 @@ rpm-stuff: dist-check clean clobber
 # redhat distribution alpha and x86
 #############################################################################
 redhat-dist: rpm-stuff
-	TMPFILE=$$(mktemp -q /tmp/$(PROGRAM).XXXXXX); \
-	if $(SED) -e 's/^\(Version:\).*/\1 $(RPM_VERSION)/g' \
-             -e 's/^\(Release:\).*/\1 $(RPM_PACKAGEV)/g' \
-              privoxy-rh.spec > $$TMPFILE ; then \
-	$(MV) -f $$TMPFILE privoxy-rh.spec; \
-	else \
-		$(ECHO) "Could not set version info in specfile."; \
-	exit 1;\
-	fi
 
 	$(TAR) --exclude ".cvsignore" --exclude "CVS" --exclude "privoxy-suse.spec" -czf $(TAR_ARCH) .
 	$(RPM) --clean -ta  $(TAR_ARCH)
 	if [ -f $(TAR_ARCH) ]; then  $(RM) $(TAR_ARCH); fi
 
+check-release:
+	@if [ "$(RPM_PACKAGEV)" = "" ]; then \
+		echo ; \
+		echo "	ERROR: NO RPM_PACKAGEV VALUE"; \
+		echo "	No value given for RPM_PACKAGEV. Please use:"; \
+		echo "	make dist-upload RPM_PACKAGEV=release"; \
+		echo "	where \"release\" is the release number you want to and"; \
+		echo "	where \"dist\" is the name of the distro \(redhat or suse\)"; \
+		echo ; \
+		echo "	Ex: make redhat-upload RPM_PACKAGEV=1"; \
+		echo ; \
+		exit 1; \
+	fi
+
 # anonymously ncftps the rpms to sourceforge
-redhat-upload:
+redhat-upload: check-release
 	ncftpput -u anonymous -p ijbswa-developers@lists.sourceforge.net upload.sourceforge.net /incoming $(RPM_BASE)/SRPMS/privoxy-$(RPM_VERSION)-$(RPM_PACKAGEV).src.rpm
 # better should use `arch` here instead of ix86 to support other platforms too
 	ncftpput -u anonymous -p ijbswa-developers@lists.sourceforge.net upload.sourceforge.net /incoming $(RPM_BASE)/RPMS/*/privoxy-$(RPM_VERSION)-$(RPM_PACKAGEV).*.rpm
@@ -331,7 +334,7 @@ suse-dist: rpm-stuff
 	if [ -f $(TAR_ARCH) ]; then  $(RM) $(TAR_ARCH); fi
 
 # anonymously ncftps the rpms to sourceforge
-suse-upload:
+suse-upload: check-release
 	ncftpput -u anonymous -p ijbswa-developers@lists.sourceforge.net upload.sourceforge.net /incoming $(RPM_BASE)/SRPMS/privoxy-suse-$(RPM_VERSION)-$(RPM_PACKAGEV).src.rpm
 # better should use `arch` here instead of ix86 to support other platforms too
 	ncftpput -u anonymous -p ijbswa-developers@lists.sourceforge.net upload.sourceforge.net /incoming $(RPM_BASE)/RPMS/*/privoxy-suse-$(RPM_VERSION)-$(RPM_PACKAGEV).*.rpm
@@ -795,6 +798,12 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.88  2002/04/25 19:13:57  morcego
+# Removed RPM release number declaration on configure.in
+# Changed makefile to use given value for RPM_PACKAGEV when on uploading
+# targets (will produce an error, explaining who to do it, if no value
+# if provided).
+#
 # Revision 1.87  2002/04/23 14:10:59  swa
 # now create pdf documents
 #

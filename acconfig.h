@@ -37,6 +37,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2002/04/25 19:13:57  morcego
+ *    Removed RPM release number declaration on configure.in
+ *    Changed makefile to use given value for RPM_PACKAGEV when on uploading
+ *    targets (will produce an error, explaining who to do it, if no value
+ *    if provided).
+ *
  *    Revision 1.26  2002/04/11 11:00:21  oes
  *    Applied Moritz' fix for socklen_t on Solaris
  *
@@ -218,11 +224,6 @@
  * Version number - Point (_._.X)
  */
 #undef VERSION_POINT
-
-/*
- * Version number - RPM-release
- */
-#undef VERSION_RPM_PACKAGE
 
 /*
  * Version number, as a string
