@@ -36,6 +36,12 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2002/03/04 18:27:42  oes
+ *    - Deleted deletePidFile
+ *    - Made write_pid_file use the --pidfile option value
+ *      (or no PID file, if the option was absent)
+ *    - Played styleguide police
+ *
  *    Revision 1.29  2002/03/04 02:08:02  david__schmidt
  *    Enable web editing of actions file on OS/2 (it had been broken all this time!)
  *
@@ -191,6 +197,7 @@ const char miscutil_rcs[] = "$Id$";
 #include "project.h"
 #include "miscutil.h"
 #include "errlog.h"
+#include "jcc.h"
 
 const char miscutil_h_rcs[] = MISCUTIL_H_VERSION;
 
@@ -217,53 +224,46 @@ void *zalloc(int size)
    }
 
    return(ret);
+
 }
+
+
 #if defined(unix)
 /*********************************************************************
  *
- * Function    : deletePidFile 
+ * Function    :  write_pid_file 
  *
- * Description :  deletes the pid file with the pid of the main process 
+ * Description :  Writes a pid file with the pid of the main process 
  *
- * Parameters  : -
+ * Parameters  :  None
  *
- * Returns     : - 
- *
- *********************************************************************/
-void deletePidFile( void )
-{
-  char pidfile[ 64 ];
-
-  snprintf( pidfile, sizeof(pidfile), "%s/%s", PID_FILE_PATH, PID_FILE_NAME);
-  unlink( pidfile );
-}
-/*********************************************************************
- *
- * Function    : writePidFile 
- *
- * Description :  writes the pid file with the pid of the main process 
- *
- * Parameters  : -
- *
- * Returns     : - 
+ * Returns     :  N/A 
  *
  *********************************************************************/
-void writePidFile( void )
+void write_pid_file(void)
 {
-  FILE   *fp;
-  char   pidfile[64];
+   FILE   *fp;
+   
+   /*
+    * If no --pidfile option was given,
+    * we can live without one.
+    */
+   if (pidfile == NULL) return;
 
-  snprintf( pidfile, sizeof(pidfile), "%s/%s", PID_FILE_PATH, PID_FILE_NAME);
-  if ((fp = fopen( pidfile,"w")) == NULL )
-  {
+   if ((fp = fopen(pidfile, "w")) == NULL)
+   {
       log_error(LOG_LEVEL_INFO, "can't open pidfile '%s': %E", pidfile);
-      return;
-  }
+   }
+   else
+   {
+      fprintf(fp, "%u\n", (unsigned int) getpid());
+      fclose (fp);
+   }
+   return;
 
-  fprintf( fp,"%u\n", (unsigned int) getpid());
-  fclose ( fp );
 }
-#endif /* unix */
+#endif /* def unix */
+
 
 /*********************************************************************
  *
