@@ -36,6 +36,16 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/06/29 13:31:03  oes
+ *    - Improved comments
+ *    - Fixed (actionsfile) and sorted hashes
+ *    - Introduced admin_address and proxy-info-url
+ *      as config parameters
+ *    - Renamed config->proxy_args_invocation (which didn't have
+ *      the invocation but the options!) to config->proxy_args
+ *    - Various adaptions
+ *    - Removed logentry from cancelled commit
+ *
  *    Revision 1.16  2001/06/09 10:55:28  jongfoster
  *    Changing BUFSIZ ==> BUFFER_SIZE
  *
@@ -62,60 +72,6 @@ const char loadcfg_rcs[] = "$Id$";
  *
  *    Revision 1.10  2001/06/03 19:11:54  oes
  *    introduced confdir option
- *
- *    Revision 1.10  2001/06/03 11:03:48  oes
- *    Makefile/in
- *
- *    introduced cgi.c
- *
- *    actions.c:
- *
- *    adapted to new enlist_unique arg format
- *
- *    conf loadcfg.c
- *
- *    introduced confdir option
- *
- *    filters.c filtrers.h
- *
- *     extracted-CGI relevant stuff
- *
- *    jbsockets.c
- *
- *     filled comment
- *
- *    jcc.c
- *
- *     support for new cgi mechansim
- *
- *    list.c list.h
- *
- *    functions for new list type: "map"
- *    extended enlist_unique
- *
- *    miscutil.c .h
- *    introduced bindup()
- *
- *    parsers.c parsers.h
- *
- *    deleted const struct interceptors
- *
- *    pcrs.c
- *    added FIXME
- *
- *    project.h
- *
- *    added struct map
- *    added struct http_response
- *    changes struct interceptors to struct cgi_dispatcher
- *    moved HTML stuff to cgi.h
- *
- *    re_filterfile:
- *
- *    changed
- *
- *    showargs.c
- *    NO TIME LEFT
  *
  *    Revision 1.9  2001/06/01 20:06:24  jongfoster
  *    Removed support for "tinygif" option - moved to actions file.
@@ -301,9 +257,8 @@ int g_bToggleIJB        = 1;   /* JunkBusters is enabled by default. */
 const char *configfile  = NULL;
 
 /*
- * The load_config function is now going to call `init_proxy_args',
- * so it will need argc and argv.  So we need to have these
- * globally available.
+ * CGI functions will later need access to the invocation args,
+ * so we will make argc and argv global.
  */
 int Argc = 0;
 const char **Argv = NULL;
@@ -323,7 +278,8 @@ static struct file_list *current_configfile = NULL;
  * console and GUI specific options last).
  */
 
-#define hash_actions_file              3825730796ul /* FIXME "permissionsfile" */
+#define hash_actions_file              1196306641ul /* "actionsfile" */
+#define hash_admin_address             4112573064ul /* "admin-address" */
 #define hash_confdir                      1978389ul /* "confdir" */
 #define hash_debug                          78263ul /* "debug" */
 #define hash_deny_access               1227333715ul /* "deny-access" */
@@ -335,17 +291,17 @@ static struct file_list *current_configfile = NULL;
 #define hash_logdir                        422889ul /* "logdir" */
 #define hash_logfile                      2114766ul /* "logfile" */
 #define hash_permit_access             3587953268ul /* "permit-access" */
+#define hash_proxy_info_url            3903079059ul /* "proxy-info-url" */
 #define hash_re_filterfile             3877522444ul /* "re_filterfile" */
 #define hash_single_threaded           4250084780ul /* "single-threaded" */
-#define hash_suppress_blocklists       1948693308ul /* ??? */
+#define hash_suppress_blocklists       1948693308ul /* "suppress-blocklists" */
 #define hash_toggle                        447966ul /* "toggle" */
-#define hash_trust_info_url             449869467ul /* ??? */
+#define hash_trust_info_url             430331967ul /* "trust-info-url" */
 #define hash_trustfile                   56494766ul /* "trustfile" */
-
-#define hash_hide_console              2048809870ul /* "hide-console" */
 
 #define hash_activity_animation        1817904738ul /* "activity-animation" */
 #define hash_close_button_minimizes    3651284693ul /* "close-button-minimizes" */
+#define hash_hide_console              2048809870ul /* "hide-console" */
 #define hash_log_buffer_size           2918070425ul /* "log-buffer-size" */
 #define hash_log_font_name             2866730124ul /* "log-font-name" */
 #define hash_log_font_size             2866731014ul /* "log-font-size" */
@@ -353,6 +309,7 @@ static struct file_list *current_configfile = NULL;
 #define hash_log_max_lines             2868344173ul /* "log-max-lines" */
 #define hash_log_messages              2291744899ul /* "log-messages" */
 #define hash_show_on_task_bar           215410365ul /* "show-on-task-bar" */
+
 
 
 /*********************************************************************
@@ -410,6 +367,9 @@ void unload_configfile (void * data)
    freez((char *)config->logfile);
 
    freez((char *)config->actions_file);
+   freez((char *)config->admin_address);
+   freez((char *)config->proxy_info_url);
+   freez((char *)config->proxy_args);
 
 #ifdef JAR_FILES
    freez((char *)config->jarfile);
@@ -486,8 +446,6 @@ struct configuration_spec * load_config(void)
     */
    config->config_file_list = fs;
 
-   init_proxy_args(Argc, Argv, config);
-
    /*
     * Set to defaults
     */
@@ -556,13 +514,21 @@ struct configuration_spec * load_config(void)
       switch( hash_string( cmd ) )
       {
 /****************************************************************************
- * permissionsfile actions-file-name
+ * actionsfile actions-file-name
  * In confdir by default
  ****************************************************************************/
          case hash_actions_file :
             freez((char *)config->actions_file);
             config->actions_file = make_path(config->confdir, arg);
             continue;
+
+/****************************************************************************
+ * admin-address email-address
+ ****************************************************************************/
+         case hash_admin_address :
+            freez((char *)config->admin_address);
+            config->admin_address = strdup(arg);
+            continue;       
 
 /****************************************************************************
  * confdir directory-name
@@ -591,7 +557,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for "
                      "deny-access directive in configuration file.");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "deny-access directive in configuration file.<br><br>\n");
                continue;
@@ -612,12 +578,12 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Invalid source IP for deny-access "
                      "directive in configuration file: \"%s\"", vec[0]);
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Invalid source IP for deny-access directive"
                   " in configuration file: \"");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   vec[0]);
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "\"<br><br>\n");
                freez(cur_acl);
                continue;
@@ -628,12 +594,12 @@ struct configuration_spec * load_config(void)
                {
                   log_error(LOG_LEVEL_ERROR, "Invalid destination IP for deny-access "
                         "directive in configuration file: \"%s\"", vec[0]);
-                  config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+                  config->proxy_args = strsav( config->proxy_args,
                      "<br>\nWARNING: Invalid destination IP for deny-access directive"
                      " in configuration file: \"");
-                  config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+                  config->proxy_args = strsav( config->proxy_args,
                      vec[0]);
-                  config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+                  config->proxy_args = strsav( config->proxy_args,
                      "\"<br><br>\n");
                   freez(cur_acl);
                   continue;
@@ -665,7 +631,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for forward "
                      "directive in configuration file.");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "forward directive in configuration file.");
                continue;
@@ -687,7 +653,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Bad URL specifier for forward "
                      "directive in configuration file.");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward directive in configuration file.");
                continue;
@@ -728,7 +694,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for "
                      "forward-socks4 directive in configuration file.");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "forward-socks4 directive in configuration file.");
                continue;
@@ -750,7 +716,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Bad URL specifier for forward-socks4 "
                      "directive in configuration file.");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward-socks4 directive in configuration file.");
                continue;
@@ -809,7 +775,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for "
                      "forward-socks4a directive in configuration file.");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "forward-socks4a directive in configuration file.");
                continue;
@@ -831,7 +797,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Bad URL specifier for forward-socks4a "
                      "directive in configuration file.");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward-socks4a directive in configuration file.");
                continue;
@@ -924,7 +890,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for "
                      "permit-access directive in configuration file.");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "permit-access directive in configuration file.<br><br>\n");
 
@@ -946,12 +912,12 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Invalid source IP for permit-access "
                      "directive in configuration file: \"%s\"", vec[0]);
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "<br>\nWARNING: Invalid source IP for permit-access directive"
                   " in configuration file: \"");
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   vec[0]);
-               config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+               config->proxy_args = strsav( config->proxy_args,
                   "\"<br><br>\n");
                freez(cur_acl);
                continue;
@@ -963,12 +929,12 @@ struct configuration_spec * load_config(void)
                   log_error(LOG_LEVEL_ERROR, "Invalid destination IP for "
                         "permit-access directive in configuration file: \"%s\"",
                         vec[0]);
-                  config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+                  config->proxy_args = strsav( config->proxy_args,
                      "<br>\nWARNING: Invalid destination IP for permit-access directive"
                      " in configuration file: \"");
-                  config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+                  config->proxy_args = strsav( config->proxy_args,
                      vec[0]);
-                  config->proxy_args_invocation = strsav( config->proxy_args_invocation,
+                  config->proxy_args = strsav( config->proxy_args,
                      "\"<br><br>\n");
                   freez(cur_acl);
                   continue;
@@ -991,6 +957,14 @@ struct configuration_spec * load_config(void)
 #endif /* def ACL_FILES */
 
 /****************************************************************************
+ * proxy-info-url url
+ ****************************************************************************/
+         case hash_proxy_info_url :
+            freez((char *)config->proxy_info_url);
+            config->proxy_info_url = strdup(arg);
+            continue;
+
+/****************************************************************************
  * re_filterfile file-name
  * In confdir by default.
  ****************************************************************************/
@@ -1009,7 +983,7 @@ struct configuration_spec * load_config(void)
             continue;
 
 /****************************************************************************
- * FIXME: Document this
+ * FIXME: Document this FIXME2: Shouldn't we throw this out? --oes
  ****************************************************************************/
 #ifndef SPLIT_PROXY_ARGS
          case hash_suppress_blocklists :
@@ -1037,7 +1011,7 @@ struct configuration_spec * load_config(void)
 #endif /* def TOGGLE */
 
 /****************************************************************************
- * FIXME: Please document this!
+ * trust-info-url url
  ****************************************************************************/
 #ifdef TRUST_FILES
          case hash_trust_info_url :
@@ -1197,9 +1171,9 @@ struct configuration_spec * load_config(void)
              */
             log_error(LOG_LEVEL_ERROR, "Unrecognized directive (%luul) in "
                   "configuration file: \"%s\"", hash_string( cmd ), buf);
-            config->proxy_args_invocation = strsav( config->proxy_args_invocation, "<br>\nWARNING: unrecognized directive : ");
-            config->proxy_args_invocation = strsav( config->proxy_args_invocation, buf);
-            config->proxy_args_invocation = strsav( config->proxy_args_invocation, "<br><br>\n");
+            config->proxy_args = strsav( config->proxy_args, "<br>\nWARNING: unrecognized directive : ");
+            config->proxy_args = strsav( config->proxy_args, buf);
+            config->proxy_args = strsav( config->proxy_args, "<br><br>\n");
             continue;
 
 /****************************************************************************/
