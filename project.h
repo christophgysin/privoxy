@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.72  2002/05/14 21:35:49  oes
+ *    Split HELP_LINK_PREFIX into ACTIONS_HELP_PREFIX and CONFIG_HELP_PREFIX
+ *    because of split in user-manual
+ *
  *    Revision 1.71  2002/05/12 21:39:36  jongfoster
  *    - Adding Doxygen-style comments to structures and #defines.
  *
@@ -1369,16 +1373,21 @@ struct configuration_spec
 #endif /* def FEATURE_NO_GIFS */
 
 
-/* Hardwired URLs */
+/* 
+ * Hardwired URLs
+ */
 
-/** URL for the Privoxy home page. No trailing "/". */
-#define HOME_PAGE_URL     "http://www.privoxy.org"
+/** URL for the Privoxy home page. */
+#define HOME_PAGE_URL     "http://www.privoxy.org/"
 
-/** URL for the Privoxy user manual. With a trailing "/". */
+/** URL for the Privoxy user manual. */
 #define USER_MANUAL_URL   HOME_PAGE_URL "/" VERSION "/user-manual/"
 
-/** FIXME: DOCME: Document this. */
-#define HELP_LINK_PREFIX  "configuration.html#"
+/** Prefix for actions help links  (append to USER_MANUAL_URL). */
+#define ACTIONS_HELP_PREFIX "actions-file.html#"
+
+/** Prefix for config option help links (append to USER_MANUAL_URL). */
+#define CONFIG_HELP_PREFIX  "config.html#"
 
 /*
  * The "hosts" to intercept and display CGI pages.
