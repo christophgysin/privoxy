@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2002/03/24 17:08:12  jongfoster
+ *    Version number bump
+ *
  *    Revision 1.17  2002/03/24 13:33:26  swa
  *    name change related issues
  *
@@ -190,17 +193,17 @@
 /*
  * Version number - Point (_._.X)
  */
-#define VERSION_POINT 10
+#define VERSION_POINT 13
 
 /*
  * Version number, as a string
  */
-#define VERSION "2.9.10"
+#define VERSION "2.9.13"
 
 /*
  * Status of the code: alpha, beta or stable
  */
-#define CODE_STATUS "alpha"
+#define CODE_STATUS "beta"
 
 /*
  * Regular expression matching for URLs.  (Highly recommended).
