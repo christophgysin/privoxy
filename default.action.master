@@ -450,6 +450,7 @@ allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
 +hide-from-header{block} \
 +hide-referrer{forge} \
 -hide-user-agent \
+-inspect-jpegs \
 -kill-popups \
 -limit-connect \
 +prevent-compression \
