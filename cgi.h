@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2002/04/24 02:16:51  oes
+ *    Moved get_char_param, get_string_param and get_number_param here from cgiedit.c
+ *
  *    Revision 1.26  2002/04/10 13:38:35  oes
  *    load_template signature changed
  *
@@ -193,6 +196,16 @@ extern jb_err cgi_error_no_template(struct client_state *csp,
 extern jb_err cgi_error_bad_param(struct client_state *csp,
                                   struct http_response *rsp);
 
+extern jb_err get_number_param(struct client_state *csp,
+                               const struct map *parameters,
+                               char *name,
+                               unsigned *pvalue);
+extern jb_err get_string_param(const struct map *parameters,
+                               const char *param_name,
+                               const char **pparam);
+extern char   get_char_param(const struct map *parameters,
+                             const char *param_name);
+
 /*
  * Text generators
  */
@@ -201,7 +214,7 @@ extern char *make_menu(const char *self);
 extern char *dump_map(const struct map *the_map);
 
 /*
- * Ad replacement images.
+ * Ad replacement images
  */
 extern const char image_pattern_data[];
 extern const size_t  image_pattern_length;
