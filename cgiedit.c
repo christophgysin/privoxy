@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2002/03/26 22:59:17  jongfoster
+ *    Fixing /toggle to display status consistently.
+ *
  *    Revision 1.25  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -4164,11 +4167,6 @@ jb_err cgi_toggle(struct client_state *csp,
       return cgi_error_disabled(csp, rsp);
    }
 
-   if (NULL == (exports = default_exports(csp, "toggle")))
-   {
-      return JB_ERR_MEMORY;
-   }
-
    mode = get_char_param(parameters, "set");
 
    if (mode == 'E')
@@ -4185,6 +4183,11 @@ jb_err cgi_toggle(struct client_state *csp,
    {
       /* Toggle */
       g_bToggleIJB = !g_bToggleIJB;
+   }
+
+   if (NULL == (exports = default_exports(csp, "toggle")))
+   {
+      return JB_ERR_MEMORY;
    }
 
    err = map_conditional(exports, "enabled", g_bToggleIJB);
