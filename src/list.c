@@ -34,6 +34,10 @@ const char list_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2004/05/25 01:40:35  david__schmidt
+ *    Removing the "arbitrary" limit of 1000 elements in list.c - due to tracker
+ *    #911950.
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -262,11 +266,16 @@ static int list_is_valid (const struct list *the_list)
 
       /*
        * Arbitrarily limit length to prevent infinite loops.
+       * Note that the 1000 limit was hit by a real user in tracker 911950;
+       * removing it for now.  Symptoms of a real circular reference will
+       * include 100% CPU usage, I'd imagine.  It'll be obvious, anyway.
        */
+      /*
       if (++length > 1000)
       {
          return 0;
       }
+      */
 
       /*
        * Check this isn't marked as the last entry, unless of course it's
