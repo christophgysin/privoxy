@@ -36,6 +36,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.70  2002/05/12 16:05:50  jongfoster
+ *    Fixing ACTION_MASK_ALL to be unsigned long rather than
+ *    just unsigned int.  I don't know if anyone is porting
+ *    Privoxy to 16-bit platforms, but if so, +limit-connect
+ *    wouldn't have worked because of this bug.
+ *
  *    Revision 1.69  2002/05/08 16:00:16  oes
  *    Added size member to struct iob, so it can
  *    be alloced larger than needed.
@@ -680,7 +686,7 @@ struct iob
 #define CT_GIF    2 /* Suitable for GIF filtering */
 #define CT_TABOO  4 /* DONT filter */
 
-#define ACTION_MASK_ALL        (~0U)
+#define ACTION_MASK_ALL        (~0UL)
 
 #define ACTION_MOST_COMPATIBLE 0x00000000UL
 
