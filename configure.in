@@ -28,9 +28,8 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
-dnl Revision 1.69  2002/05/25 18:11:49  jongfoster
-dnl Wahay!!! 3.0.x has branched!
-dnl New development version is 3.1.1 alpha
+dnl Revision 1.68.2.1  2002/07/26 15:21:12  oes
+dnl  Bumped version number for 2.9.16 freeze
 dnl
 dnl Revision 1.68  2002/05/25 16:54:54  jongfoster
 dnl Detect if the compiler supports -pthread.
@@ -418,10 +417,10 @@ dnl =================================================================
 dnl Application version number
 dnl =================================================================
 
-VERSION_MAJOR=3
-VERSION_MINOR=1
-VERSION_POINT=1
-CODE_STATUS="alpha"
+VERSION_MAJOR=2
+VERSION_MINOR=9
+VERSION_POINT=16
+CODE_STATUS="beta"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
 dnl used for CGI output
