@@ -437,7 +437,7 @@ allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
 -filter{tiny-textforms} \
 +filter{jumping-windows} \
 -filter{frameset-borders} \
-+filter{demoronizer} \
+-filter{demoronizer} \
 -filter{shockwave-flash} \
 -filter{quicktime-kioskmode} \
 -filter{fun} \
@@ -1141,6 +1141,7 @@ www.quelle-bausparkasse.de/$
 .jp
 .cn
 .tw
+.ru
 
 #----------------------------------------------------------------------------
 # Misc special rules:
