@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2002/04/04 21:15:50  gliptak
+ *    Added FEATURE_NO_GIFS define to make the same as config.h
+ *
  *    Revision 1.15  2002/04/04 00:36:36  gliptak
  *    always use pcre for matching
  *
@@ -297,6 +300,11 @@
  * Kills JavaScript popups - window.open, onunload, etc.
  */
 #define FEATURE_KILL_POPUPS 1
+
+/*
+ * Use PNG instead of GIF for built-in images
+ */
+/* #undef FEATURE_NO_GIFS */
 
 /*
  * Use POSIX threads instead of native threads.
