@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2001/07/15 17:45:16  jongfoster
+ *    Removing some unused #includes
+ *
  *    Revision 1.18  2001/07/13 14:01:14  oes
  *     - Removed all #ifdef PCRS
  *     - Removed vim-settings
@@ -198,13 +201,7 @@ const char loadcfg_rcs[] = "$Id$";
 
 #ifdef _WIN32
 
-# include <sys/timeb.h>
 # include <windows.h>
-# include <io.h>
-# include <process.h>
-# ifdef TOGGLE
-#  include <time.h>
-# endif /* def TOGGLE */
 
 # include "win32.h"
 # ifndef _WIN_CONSOLE
