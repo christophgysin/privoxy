@@ -28,6 +28,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.32  2001/10/09 22:38:19  jongfoster
+# Correcting actionsfile filename for Win32 INI build
+#
 # Revision 1.31  2001/09/23 10:13:48  swa
 # upload process established. run make webserver and
 # the documentation is moved to the webserver. documents
@@ -292,7 +295,7 @@ junkbstr.txt: config
 			-e 's!#Win32-only: !!' \
 	< $< > $@
 
-sactions.txt: actionslist
+sactions.txt: actionsfile
 strust.txt: trust
 sregexp.txt: re_filterfile
 
