@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.16  2001/09/12 22:55:45  joergs
+dnl AmigaOS support added.
+dnl
 dnl Revision 1.15  2001/09/12 17:28:59  david__schmidt
 dnl
 dnl OS/2 port: update autoconf'd support for the platform.
@@ -358,6 +361,19 @@ case "$host" in
 esac
 
 AC_SUBST(SOCKET_LIB)
+
+dnl =================================================================
+dnl AmigaOS specific
+dnl =================================================================
+
+AMIGAOS_ONLY=#
+
+case "$host" in
+*-amigaos) AMIGAOS_ONLY=
+;;
+esac
+
+AC_SUBST(AMIGAOS_ONLY)
 
 dnl =================================================================
 dnl Check for standard compiler stuff
