@@ -11,8 +11,8 @@
   $Id$
 
   $Log$
-  Revision 1.5  2002/04/02 06:14:47  oes
-  Follow redirects
+  Revision 1.6  2002/04/02 07:22:19  oes
+  Elimnating duplicate images; using relative link for step3
 
   Revision 1.4  2002/04/01 19:13:47  oes
   Extended, fixed bugs, beefed up design, made IE-safe
@@ -104,12 +104,9 @@
 /*
  * For testing: 
  */
-$base_url = "http://www.oesterhelt.org/actions";
-//$base_url = "http://privoxy.org/actions";
-//$base_url = "http://localhost/actions";
 //phpinfo();
-//error_reporting(E_NONE);
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
+error_reporting(E_NONE);
 
 
 /* 
@@ -223,7 +220,7 @@ switch($problem)
   </div>
 
   <div class="box">
-   <form action="<?php echo($base_url); ?>/step3.php" method="post">
+   <form action="step3.php" method="post">
     <p>
      <input type="hidden" name="problem" value="<?php echo ($problem) ?>">
      <input type="hidden" name="referrer_url" value="<?php echo ($referrer_url) ?>">
@@ -249,7 +246,9 @@ else
     * in a table for the user to select
     */
    preg_match_all('|<img\s+[^>]*?src=[\'"]?(.*?)[\'" >]|i', $page, $matches);
-   $count = count($matches[0]);
+   $image_urls = array_values(array_unique($matches[1]));
+   $count = count($image_urls);
+
    if ($count > 0)
    {
       /* 
@@ -286,7 +285,7 @@ else
        */
       for ($i=0; $i< $count; $i++)
       {
-         $image_url = $matches[1][$i];
+         $image_url = $image_urls[$i];
  
          /*
           * Make image URLs absolute:
