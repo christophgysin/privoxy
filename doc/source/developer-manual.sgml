@@ -65,31 +65,27 @@ Please see the Contact section in the user-manual if you want to contact the dev
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="documentation"><title>Documentation Guidelines</title>
     <para>
-All docs should be ...
-<ItemizedList>
-	<ListItem>
-	  <Para>in a format that is widely used. I propose HTML.
-  </Para>
-	</ListItem>
-	<ListItem>
-	  <Para>we either
-  <ItemizedList>
-	      <ListItem>
-		<Para>generate man pages from the documentation (let's _NOT_
-write them manually), or</Para>
-	      </ListItem>
-	      <ListItem><Para>we have a man page that points to the
-	      documentation (I propose this option)
-	      </Para></ListItem>
-      </ItemizedList></Para></ListItem>
-    <ListItem><Para>have a consistent layout</Para></ListItem>
-    <ListItem><Para>have a link to the latest version of the document (i.e. point to a URL at sf)</Para></ListItem>
-    <ListItem><Para>be consistent with the redirect script (i.e. the junkbuster program
-      points via the redirect URL at sf to valid end-points in the document)</Para></ListItem>
-    <ListItem><Para>started from scratch but recycle parts from the original junkbuster documents</Para></ListItem>
-  </ItemizedList>
-  </para>
-  </sect1>
+	All docs are in SGML format and located in the <computeroutput>doc/source</computeroutput> directory.
+	</para>
+	<para>
+	How do you update the webserver (i.e. the pages on sourceforge)?
+	<OrderedList Numeration="Arabic">
+		<ListItem><Para>
+	Run <computeroutput>make dok</computeroutput> (which uses the documents in <computeroutput>doc/source</computeroutput> to update all
+	text files in <computeroutput>doc/text</computeroutput> and to update
+all web documents in <computeroutput>doc/webserver</computeroutput>.
+		</Para></ListItem>
+		<ListItem><Para>
+	Run <computeroutput>make webserver</computeroutput> which copies all files from
+<computeroutput>doc/webserver</computeroutput> to the sourceforge webserver
+via scp.
+		</Para></ListItem>
+	</OrderedList>
+
+ </sect1>
+
+<!--     <ListItem><Para>be consistent with the redirect script (i.e. the junkbuster program -->
+<!--       points via the redirect URL at sf to valid end-points in the document)</Para></ListItem> -->
 
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="coding"><title>Coding Guidelines</title>
@@ -1475,6 +1471,10 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.5  2001/10/31 18:16:51  swa
+  documentation added: howto generate docs in text and html
+  format, howto move stuff to the webserver.
+
   Revision 1.4  2001/09/23 10:13:48  swa
   upload process established. run make webserver and
   the documentation is moved to the webserver. documents
