@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.39  2001/11/16 00:48:13  jongfoster
+ *    Fixing a compiler warning
+ *
  *    Revision 1.38  2001/11/13 00:31:21  jongfoster
  *    - Adding new CGIs for use by non-JavaScript browsers:
  *        edit-actions-url-form
@@ -388,6 +391,7 @@ static struct http_response cgi_error_memory_response[1];
 
 static struct http_response *dispatch_known_cgi(struct client_state * csp,
                                                 const char * path);
+static struct map *parse_cgi_parameters(char *argstring);
 
 
 /*********************************************************************
