@@ -28,6 +28,13 @@ const char amiga_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2003/01/21 02:49:27  david__schmidt
+ *    Developer TODO 612294: src: C++ keyword as variable name
+ *    I changed all ocurrences of 'new' to 'new_something' wherever I found
+ *    one.  I also brought up all the source files in MSDEV to see if I could
+ *    spot any highlighted keywords that really were variables.  Non-scientific,
+ *    but at least I tried. :-)
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -232,7 +239,7 @@ void free (void *m)
 
 void *realloc (void *old, size_t ns)
 {
-   void *new;
+   void *new_buf;
    LONG osize, *o = old;
    LONG nsize = ns;
 
@@ -245,9 +252,9 @@ void *realloc (void *old, size_t ns)
    {
       return old;
    }
-   if ((new = malloc(nsize)))
+   if ((new_buf = malloc(nsize)))
    {
-      ULONG *n = new;
+      ULONG *n = new_buf;
 
       osize >>= 2;
       while(osize--)
@@ -256,7 +263,7 @@ void *realloc (void *old, size_t ns)
       }
       free(old);
    }
-   return new;
+   return new_buf;
 }
 
 void __memCleanUp (void)

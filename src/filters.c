@@ -38,6 +38,13 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.4  2003/01/21 02:49:27  david__schmidt
+ *    Developer TODO 612294: src: C++ keyword as variable name
+ *    I changed all ocurrences of 'new' to 'new_something' wherever I found
+ *    one.  I also brought up all the source files in MSDEV to see if I could
+ *    spot any highlighted keywords that really were variables.  Non-scientific,
+ *    but at least I tried. :-)
+ *
  *    Revision 2.3  2002/12/28 03:58:19  david__schmidt
  *    Initial drop of dashboard instrumentation - enabled with
  *    --enable-activity-console
@@ -1294,7 +1301,7 @@ char *pcrs_filter_response(struct client_state *csp)
    int hits=0;
    size_t size;
 
-   char *old = csp->iob->cur, *new = NULL;
+   char *old_buf = csp->iob->cur, *new_buf = NULL;
    pcrs_job *job;
 
    struct file_list *fl;
@@ -1357,9 +1364,9 @@ char *pcrs_filter_response(struct client_state *csp)
             /* Apply all jobs from the joblist */
             for (job = b->joblist; NULL != job; job = job->next)
             {
-               current_hits += pcrs_execute(job, old, size, &new, &size);
-               if (old != csp->iob->cur) free(old);
-               old=new;
+               current_hits += pcrs_execute(job, old_buf, size, &new_buf, &size);
+               if (old_buf != csp->iob->cur) free(old_buf);
+               old_buf=new_buf;
             }
 
             log_error(LOG_LEVEL_RE_FILTER, " ...produced %d hits (new size %d).", current_hits, size);
@@ -1374,7 +1381,7 @@ char *pcrs_filter_response(struct client_state *csp)
     */
    if (!hits)
    {
-      free(new);
+      free(new_buf);
       return(NULL);
    }
 #ifdef FEATURE_ACTIVITY_CONSOLE
@@ -1386,7 +1393,7 @@ char *pcrs_filter_response(struct client_state *csp)
    csp->content_length = size;
    IOB_RESET(csp);
 
-   return(new);
+   return(new_buf);
 
 }
 
