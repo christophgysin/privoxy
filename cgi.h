@@ -38,6 +38,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/06/09 10:50:58  jongfoster
+ *    Changing "show URL info" handler to new style.
+ *    Adding "extern" to some function prototypes.
+ *
  *    Revision 1.3  2001/06/03 19:12:16  oes
  *    introduced new cgi handling
  *
@@ -111,14 +115,15 @@ extern int make_http_response(struct http_response *rsp);
 extern void free_http_response(struct http_response *rsp);
 
 extern struct map *parse_cgi(char *argstring);
-char *dump_map(struct map *map);
+extern char *dump_map(struct map *map);
 
 extern int cgi_default(struct client_state *csp, struct http_response *rsp,
 		       struct map *parameters);
-int cgi_show_status(struct client_state *csp, struct http_response *rsp,
+extern int cgi_show_status(struct client_state *csp, struct http_response *rsp,
                     struct map *parameters);
 
-extern char *ijb_show_url_info(struct http_request *http, struct client_state *csp);
+extern int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
+                    struct map *parameters);
 
 extern char *redirect_url(struct http_request *http, struct client_state *csp);
 extern int cgi_send_banner(struct client_state *csp, struct http_response *rsp,
