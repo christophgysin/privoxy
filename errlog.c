@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.37  2002/03/27 14:32:43  david__schmidt
+ *    More compiler warning message maintenance
+ *
  *    Revision 1.36  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -231,6 +234,7 @@ const char errlog_rcs[] = "$Id$";
 #endif /* def _WIN32 */
 
 #ifdef __OS2__
+#include <sys/socket.h> /* For sock_errno */
 #define INCL_DOS
 #include <os2.h>
 #endif

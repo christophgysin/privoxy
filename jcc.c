@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.88  2002/03/27 14:32:43  david__schmidt
+ *    More compiler warning message maintenance
+ *
  *    Revision 1.87  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -2156,7 +2159,7 @@ static void listen_loop(void)
 #if defined(__OS2__) && !defined(SELECTED_ONE_OPTION)
 #define SELECTED_ONE_OPTION
          child_id = _beginthread(
-            serve,
+            (void(* _Optlink)(void*))serve,
             NULL,
             64 * 1024,
             csp);
