@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.5.2.1  2002/08/05 17:46:13  oes
+# Change make to gmake to fix auto-build on Solaris
+#
 # Revision 1.5  2002/04/11 12:51:34  oes
 # Bugfix
 #
@@ -60,7 +63,7 @@ error:
 	    echo -n "*** Shall I do this for you now? (y/n) "; \
 	    read answer; \
 	    if [ $$answer = "y" ]; then \
-	       autoheader && autoconf && ./configure && make;\
+	       autoheader && autoconf && ./configure && gmake; \
 	    fi; \
 	 fi
 
