@@ -36,6 +36,15 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.24  2001/11/05 21:41:43  steudten
+ *    Add changes to be a real daemon just for unix os.
+ *    (change cwd to /, detach from controlling tty, set
+ *    process group and session leader to the own process.
+ *    Add DBG() Macro.
+ *    Add some fatal-error log message for failed malloc().
+ *    Add '-d' if compiled with 'configure --with-debug' to
+ *    enable debug output.
+ *
  *    Revision 1.23  2001/10/29 03:48:10  david__schmidt
  *    OS/2 native needed a snprintf() routine.  Added one to miscutil, brackedted
  *    by and __OS2__ ifdef.
@@ -740,8 +749,32 @@ char * make_path(const char * dir, const char * file)
    }
    else
    {
-      char * path = malloc(strlen(dir) + strlen(file) + 2);
+      char * path;
+
+#if defined(unix)
+      if ( *dir != '/' && basedir && *basedir )
+      {
+	      path = malloc( strlen( basedir ) + strlen(dir) + strlen(file) + 3);
+	      if (!path ) log_error(LOG_LEVEL_FATAL, "malloc failed!");
+	      strcpy(path, basedir);
+	      strcat(path, "/");
+	      strcat(path, dir);
+	      DBG(1, ("make_path: path: %s\n",path) );
+      }
+      else
+      {
+	      path = malloc(strlen(dir) + strlen(file) + 2);
+	      if (!path ) log_error(LOG_LEVEL_FATAL, "malloc failed!");
+	      strcpy(path, dir);
+      }
+#else
+
+      path = malloc(strlen(dir) + strlen(file) + 2);
+      if (!path ) log_error(LOG_LEVEL_FATAL, "malloc failed!");
       strcpy(path, dir);
+
+#endif /* defined unix */
+
 #ifdef _WIN32
       if(path[strlen(path)-1] != '\\')
       {
