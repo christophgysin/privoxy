@@ -31,6 +31,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/10/13 12:46:08  joergs
+ *    Added #undef EINTR to avoid warnings
+ *
  *    Revision 1.5  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -106,6 +109,7 @@ __saveds ULONG server_thread(void);
    }                                                        \
 }
 
+#undef EINTR
 #define EINTR 0
 
 #endif /* ndef AMIGA_H_INCLUDED */
