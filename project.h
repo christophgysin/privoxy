@@ -36,6 +36,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.36  2001/10/10 16:45:15  oes
+ *    Added LIMIT_CONNECT action and string
+ *    Fixed HTTP message line termination
+ *    Added CFORBIDDEN HTTP message
+ *
  *    Revision 1.35  2001/10/07 18:06:43  oes
  *    Added status member to struct http_request
  *
@@ -483,15 +488,15 @@ struct iob
 #define ACTION_NO_COOKIE_SET   0x2000U
 #define ACTION_NO_POPUPS       0x4000U
 #define ACTION_VANILLA_WAFER   0x8000U
-
+#define ACTION_LIMIT_CONNECT   0x010000U
 
 #define ACTION_STRING_DEANIMATE     0
 #define ACTION_STRING_FROM          1
 #define ACTION_STRING_IMAGE_BLOCKER 2
 #define ACTION_STRING_REFERER       3
 #define ACTION_STRING_USER_AGENT    4
-#define ACTION_STRING_COUNT         5
-
+#define ACTION_STRING_LIMIT_CONNECT 5
+#define ACTION_STRING_COUNT         6
 
 #define ACTION_MULTI_ADD_HEADER     0
 #define ACTION_MULTI_WAFER          1
@@ -868,10 +873,13 @@ struct configuration_spec
 /* HTTP snipplets */
 static const char CSUCCEED[] =
    "HTTP/1.0 200 Connection established\n"
-   "Proxy-Agent: IJ/" VERSION "\n\n";
+   "Proxy-Agent: IJ/" VERSION "\r\n\r\n";
 
 static const char CHEADER[] =
-   "HTTP/1.0 400 Invalid header received from browser\n\n";
+   "HTTP/1.0 400 Invalid header received from browser\r\n\r\n";
+
+static const char CFORBIDDEN[] =
+   "HTTP/1.0 403 Connection not allowable\r\nX-Hint: If you read this message interactively, then you know why this happens ,-)\r\n\r\n";
 
 #ifdef __cplusplus
 } /* extern "C" */
