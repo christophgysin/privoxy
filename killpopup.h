@@ -34,6 +34,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/10/07 15:42:41  oes
+ *    filter_popups now gets a csp pointer so it can raise the new
+ *      CSP_FLAG_MODIFIED flag.
+ *
  *    Revision 1.5  2001/07/31 14:44:22  oes
  *    Deleted unused size parameter from filter_popups()
  *
@@ -75,7 +79,7 @@ extern "C" {
 
 #ifdef FEATURE_KILL_POPUPS
 
-extern void filter_popups(char *buff);
+extern void filter_popups(char *buff, struct client_state *csp);
 
 #endif /* def FEATURE_KILL_POPUPS */
 

@@ -32,6 +32,10 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/10/07 15:42:41  oes
+ *    filter_popups now gets a csp pointer so it can raise the new
+ *      CSP_FLAG_MODIFIED flag.
+ *
  *    Revision 1.10  2001/09/22 16:34:44  jongfoster
  *    Removing unneeded #includes
  *
@@ -110,18 +114,19 @@ const char killpopup_h_rcs[] = KILLPOPUP_H_VERSION;
  *
  * Function    :  filter_popups
  *
- * Description :  Filter the block of data that's been read from the server.
- *                Caller is responsible for checking permissons list
- *                to determine if this function should be called.
- *                Remember not to change the content length (substitute char by char)
+ * Description :  Filter the block of data that's been read from the server
+ *                for javascript popup code and replace by syntactically
+ *                neutral code of the same size.
+ *                Raise the CSP_FLAG_MODIFIED flag on success.
  *
  * Parameters  :
  *          1  :  buff = Buffer to scan and modify.  Null terminated.
+ *          2  :  csp = Client state pointer
  *
  * Returns     :  void
  *
  *********************************************************************/
-void filter_popups(char *buff)
+void filter_popups(char *buff, struct client_state *csp)
 {
    char *popup = NULL;
    char *close = NULL;
@@ -137,6 +142,7 @@ void filter_popups(char *buff)
           */
          strncpy(popup, "1;''.concat(", 12);
          log_error(LOG_LEVEL_POPUPS, "Blocked popup window open");
+         csp->flags |= CSP_FLAG_MODIFIED;
       }
    }
    
@@ -150,6 +156,7 @@ void filter_popups(char *buff)
           */
          strncpy(popup, ".scrollTo(", 10);
          log_error(LOG_LEVEL_POPUPS, "Blocked popup window resize");
+         csp->flags |= CSP_FLAG_MODIFIED;
       }
    }
 
@@ -168,11 +175,13 @@ void filter_popups(char *buff)
          if (p)
          {
             strncpy(p,"_nU_",4);
+            csp->flags |= CSP_FLAG_MODIFIED;
          }
          p=strstr(popup, "onExit");
          if (p)
          {
             strncpy(p,"_nE_",4);
+            csp->flags |= CSP_FLAG_MODIFIED;
          }
       }
    }
