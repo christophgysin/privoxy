@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.37  2001/10/23 21:36:02  jongfoster
+ *    Documenting sed()'s error behaviou (doc change only)
+ *
  *    Revision 1.36  2001/10/13 12:51:51  joergs
  *    Removed client_host, (was only required for the old 2.0.2-11 http://noijb.
  *    force-load), instead crumble Host: and add it (again) in client_host_adder
@@ -561,7 +564,8 @@ char *get_header(struct client_state *csp)
  *                headers (client or server)
  *          3  :  csp = Current client state (buffers, headers, etc...)
  *
- * Returns     :  Single pointer to a fully formed header.
+ * Returns     :  Single pointer to a fully formed header, or NULL
+ *                on out-of-memory error.
  *
  *********************************************************************/
 char *sed(const struct parsers pats[], void (* const more_headers[])(struct client_state *), struct client_state *csp)
@@ -597,7 +601,7 @@ char *sed(const struct parsers pats[], void (* const more_headers[])(struct clie
 
    hdr = list_to_text(csp->headers);
 
-   return(hdr);
+   return hdr;
 
 }
 
