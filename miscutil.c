@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.36  2002/04/26 12:55:38  oes
+ *    New function string_toupper
+ *
  *    Revision 1.35  2002/03/26 22:29:55  swa
  *    we have a new homepage!
  *
@@ -678,6 +681,42 @@ jb_err string_join(char **target_string, char *text_to_append)
    free(text_to_append);
 
    return err;
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  string_toupper
+ *
+ * Description :  Produce a copy of string with all convertible
+ *                characters converted to uppercase.
+ *
+ * Parameters  :
+ *          1  :  string = string to convert
+ *
+ * Returns     :  Uppercase copy of string if possible, 
+ *                NULL on out-of-memory or if string was NULL.
+ *
+ *********************************************************************/
+char *string_toupper(const char *string)
+{
+   char *result, *q, *p;
+
+   if (!string || ((result = (char *) zalloc(strlen(string) + 1)) == NULL))
+   {
+      return NULL;
+   }
+   
+   q = string;
+   p = result;
+
+   while (*q != '\0')
+   {
+      *p++ = toupper(*q++);
+   }
+
+   return result;
+
 }
 
 
