@@ -398,7 +398,6 @@ Thanx David Schmidt!
  <screen>
  cvs -d:pserver:anonymous@cvs.ijbswa.sourceforge.net:/cvsroot/ijbswa login          
  cvs -z3 -d:pserver:anonymous@cvs.ijbswa.sourceforge.net:/cvsroot/ijbswa co os2setup
- cd current                                                                         
  </screen>
  This will create a directory named os2setup/, which will contain the
  <filename>Makefile.vac</filename> makefile and <filename>os2build.cmd</filename>
@@ -3281,6 +3280,9 @@ communication (bugs, feature requests, etc.)
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.31  2002/03/02 22:45:52  david__schmidt
+ Just tweaking
+
  Revision 1.30  2002/03/02 22:00:14  hal9
  Updated 'New Features' list. Ran through spell-checker.
 
