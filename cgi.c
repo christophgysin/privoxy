@@ -38,6 +38,10 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.44  2002/03/05 22:43:45  david__schmidt
+ *    - Better error reporting on OS/2
+ *    - Fix double-slash comment (oops)
+ *
  *    Revision 1.43  2002/03/05 21:33:45  david__schmidt
  *    - Re-enable OS/2 building after new parms were added
  *    - Fix false out of memory report when resolving CGI templates when no IP
@@ -698,7 +702,7 @@ struct http_response *error_response(struct client_state *csp,
      err = map(exports, "host-ip", 1, html_encode(csp->http->host_ip_addr_str), 0);
      if (err)
      {
-       // Some failures, like "404 no such domain", don't have an IP address.
+       /* Some failures, like "404 no such domain", don't have an IP address. */
        err = map(exports, "host-ip", 1, html_encode(csp->http->host), 0);
      }
    }

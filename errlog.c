@@ -33,6 +33,10 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2002/03/05 22:43:45  david__schmidt
+ *    - Better error reporting on OS/2
+ *    - Fix double-slash comment (oops)
+ *
  *    Revision 1.29  2002/03/04 23:45:13  jongfoster
  *    Printing thread ID if using Win32 native threads
  *
@@ -475,7 +479,7 @@ void log_error(int loglevel, char *fmt, ...)
    while ((*src) && (outc < BUFFER_SIZE-2))
    {
       char tempbuf[BUFFER_SIZE];
-      char *sval;
+      char *sval = NULL;
       int ival;
       unsigned uval;
       long lval;
@@ -610,6 +614,9 @@ void log_error(int loglevel, char *fmt, ...)
             sval = w32_socket_strerr(ival, tempbuf);
 #elif __OS2__
             ival = sock_errno();
+            if (ival == 0)
+              ival = errno;
+            sval = strerror(ival);
 #else /* ifndef _WIN32 */
             ival = errno; 
 #ifdef HAVE_STRERROR
