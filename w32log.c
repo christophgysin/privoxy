@@ -32,6 +32,10 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/08/01 19:58:12  jongfoster
+ *    Fixing documentation filenames in help menu, and making status
+ *    option work without needing the "Junkbuster Status.URL" file.
+ *
  *    Revision 1.15  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -1106,19 +1110,19 @@ void OnLogCommand(int nCommand)
 #endif /* def FEATURE_TRUST */
 
       case ID_HELP_GPL:
-         ShellExecute(g_hwndLogFrame, "open", "gpl.html", NULL, NULL, SW_SHOWNORMAL);
+         ShellExecute(g_hwndLogFrame, "open", "doc/gpl.html", NULL, NULL, SW_SHOWNORMAL);
          break;
 
       case ID_HELP_FAQ:
-         ShellExecute(g_hwndLogFrame, "open", "ijbfaq.html", NULL, NULL, SW_SHOWNORMAL);
+         ShellExecute(g_hwndLogFrame, "open", "doc/ijbfaq.html", NULL, NULL, SW_SHOWNORMAL);
          break;
 
       case ID_HELP_MANUAL:
-         ShellExecute(g_hwndLogFrame, "open", "ijbman.html", NULL, NULL, SW_SHOWNORMAL);
+         ShellExecute(g_hwndLogFrame, "open", "doc/ijbman.html", NULL, NULL, SW_SHOWNORMAL);
          break;
 
       case ID_HELP_STATUS:
-         ShellExecute(g_hwndLogFrame, "open", "Junkbuster Status.URL", NULL, NULL, SW_SHOWNORMAL);
+         ShellExecute(g_hwndLogFrame, "open", HOME_PAGE_URL "/config/show-status", NULL, NULL, SW_SHOWNORMAL);
          break;
 
       case ID_HELP_ABOUTJUNKBUSTER:
