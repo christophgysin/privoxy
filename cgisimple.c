@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.24  2002/04/02 16:12:47  oes
+ *    Fix: moving misplaced lines into #ifdef FEATURE_FORCE
+ *
  *    Revision 1.23  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -1117,8 +1120,10 @@ static jb_err show_defines(struct map *exports)
 
 #ifdef FEATURE_FORCE_LOAD
    if (!err) err = map_conditional(exports, "FEATURE_FORCE_LOAD", 1);
+   if (!err) err = map(exports, "FORCE_PREFIX", 1, FORCE_PREFIX, 1);
 #else /* ifndef FEATURE_FORCE_LOAD */
    if (!err) err = map_conditional(exports, "FEATURE_FORCE_LOAD", 0);
+   if (!err) err = map(exports, "FORCE_PREFIX", 1, "(none - disabled)", 1);
 #endif /* ndef FEATURE_FORCE_LOAD */
 
 #ifdef FEATURE_IMAGE_BLOCKING
@@ -1192,8 +1197,6 @@ static jb_err show_defines(struct map *exports)
 #else /* ifndef STATIC_PCRS */
    if (!err) err = map_conditional(exports, "STATIC_PCRS", 0);
 #endif /* ndef STATIC_PCRS */
-
-   if (!err) err = map(exports, "FORCE_PREFIX", 1, FORCE_PREFIX, 1);
 
    return err;
 }
