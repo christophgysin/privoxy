@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.5  2001/06/29 13:26:27  oes
+dnl Introduced #define CODE_STATUS
+dnl
 dnl Revision 1.4  2001/05/29 09:50:24  jongfoster
 dnl Unified blocklist/imagelist/permissionslist.
 dnl File format is still under discussion, but the internal changes
@@ -122,6 +125,11 @@ VERSION_POINT=4
 AC_SUBST(VERSION_MAJOR)
 AC_SUBST(VERSION_MINOR)
 AC_SUBST(VERSION_POINT)
+
+dnl This can be "alpha", "beta", or "stable"
+dnl and will be used for CGI output
+dnl
+AC_DEFINE(CODE_STATUS, "alpha")
 
 AC_DEFINE_UNQUOTED(VERSION_MAJOR,${VERSION_MAJOR})
 AC_DEFINE_UNQUOTED(VERSION_MINOR,${VERSION_MINOR})
