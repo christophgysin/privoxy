@@ -1,4 +1,10 @@
+Makefile
+config
+config.cache
 config.h
+config.log
+config.status
+junkbuster
+junkbuster.log
 permissionsfile
 re_filterfile
-config
