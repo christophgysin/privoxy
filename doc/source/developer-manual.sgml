@@ -2426,7 +2426,7 @@ at sourceforge. Three simple steps:
       </para>
       <para>
       <programlisting>
-        cvs -z3  -d:pserver:anonymous@cvs.ijbswa.sourceforge.net:/cvsroot/ijbswa co winsetup
+  cvs -z3  -d:pserver:anonymous@cvs.ijbswa.sourceforge.net:/cvsroot/ijbswa co winsetup
 </programlisting>
       </para>
       <para>
@@ -2436,8 +2436,8 @@ at sourceforge. Three simple steps:
       </para>
       <para>
       <programlisting>
-        cd winsetup
-        make
+  cd winsetup
+  make
 </programlisting>
       </para>
       <para>
@@ -2458,32 +2458,22 @@ at sourceforge. Three simple steps:
       </para>
       <para>
         <programlisting>
-        debchange -v &p-version;-&p-status;-1 "New upstream version"
-        </programlisting>
+  debchange -v &p-version;-&p-status;-1 "New upstream version"
+</programlisting>
       </para>
       <para>
-        After this simply run 
+        Then, run: 
       </para>
       <para>
         <programlisting>
-        dpkg-buildpackage -rfakeroot -us -uc -b
-        </programlisting>
+  dpkg-buildpackage -rfakeroot -us -uc -b
+</programlisting>
       </para>
       <para>
         This will create
         <filename>../privoxy_&p-version;-&p-status;-1_i386.deb</filename>
-        which can be uploaded.
-      </para>
-      <para>
-        Then, run:
-      </para>
-      <para>
-	<programlisting>
-  make debian-dist
-</programlisting>
-      </para>
-      <para>
-        To upload the package to Sourceforge, simply issue
+        which can be uploaded.  To upload the package to Sourceforge, simply
+	issue
       </para>
       <para>
         <programlisting>
@@ -2526,7 +2516,7 @@ at sourceforge. Three simple steps:
 	</para>
 	<para>
 	<programlisting>
-zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
+  zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
 </programlisting>
 	</para>
 	<para>
@@ -2832,6 +2822,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.46.2.4  2002/05/29 00:30:59  mal0rd
+  Fixed a little formatting.  Clarified debian section.
+
   Revision 1.46.2.3  2002/05/28 04:32:45  hal9
   Change hints on bundling index.html to privoxy-index.html
 
