@@ -38,6 +38,13 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.37  2001/10/22 15:33:56  david__schmidt
+ *    Special-cased OS/2 out of the Netscape-abort-on-404-in-js problem in
+ *    filters.c.  Added a FIXME in front of the offending code.  I'll gladly
+ *    put in a better/more robust fix for all parties if one is presented...
+ *    It seems that just returning 200 instead of 404 would pretty much fix
+ *    it for everyone, but I don't know all the history of the problem.
+ *
  *    Revision 1.36  2001/10/10 16:44:16  oes
  *    Added match_portlist function
  *
@@ -650,7 +657,19 @@ struct http_response *block_url(struct client_state *csp)
       rsp->body = template_load(csp, "blocked");
       template_fill(&rsp->body, exports);
       free_map(exports);
-  
+
+      /* FIXME */
+#ifdef __EMX__
+      /*
+       * The entire OS/2 community will hit the stupid Netscape bug
+       * (all three of us! :-) so we'll just keep ourselves out
+       * of this contentious debate and special-case ourselves.
+       * The problem is... a this point in parsing, we don't know
+       * what the csp->http->user_agent is (yet).  So we can't use
+       * it to decide if we should work around the NS bug or not.
+       */
+      rsp->status = strdup("200 Request for blocked URL"); 
+#else
       /*
        * Workaround for stupid Netscape bug which prevents
        * pages from being displayed if loading a referenced
@@ -668,7 +687,7 @@ struct http_response *block_url(struct client_state *csp)
       {
          rsp->status = strdup("404 Request for blocked URL"); 
       }
-
+#endif /* __EMX__ */
    }
 
    return(finish_http_response(rsp));

@@ -36,6 +36,13 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/10/22 15:33:56  david__schmidt
+ *    Special-cased OS/2 out of the Netscape-abort-on-404-in-js problem in
+ *    filters.c.  Added a FIXME in front of the offending code.  I'll gladly
+ *    put in a better/more robust fix for all parties if one is presented...
+ *    It seems that just returning 200 instead of 404 would pretty much fix
+ *    it for everyone, but I don't know all the history of the problem.
+ *
  *    Revision 1.19  2001/10/14 22:02:57  jongfoster
  *    New function string_append() which is like strsav(), but running
  *    out of memory isn't automatically FATAL.
@@ -414,7 +421,7 @@ char *chomp(char *string)
  *********************************************************************/
 char *strsav(char *old, const char *text_to_append)
 {
-   int old_len, new_len;
+   int old_len, new_len = 0;
    char *p;
 
    if (( text_to_append == NULL) || (*text_to_append == '\0'))
