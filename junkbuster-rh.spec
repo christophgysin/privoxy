@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.10  2001/07/03 09:34:44  sarantis
+# bumped up version number.
+#
 # Revision 1.9  2001/06/12 18:15:29  swa
 # the % in front of configure (see tag below) confused
 # the rpm build process on 7.1.
@@ -64,7 +67,7 @@
 Summary: The Internet Junkbuster
 Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
-Version: 2.9.4
+Version: 2.9.5
 Release: 1
 Source0: http://www.waldherr.org/junkbuster/ijbswa.tar.gz
 Copyright: GPL
