@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.77  2002/03/07 03:52:06  oes
+ *     - Fixed compiler warnings etc
+ *     - Improved handling of failed DNS lookups
+ *
  *    Revision 1.76  2002/03/06 22:54:35  jongfoster
  *    Automated function-comment nitpicking.
  *
@@ -677,6 +681,7 @@ static void chat(struct client_state *csp)
    int byte_count = 0;
    const struct forward_spec * fwd;
    struct http_request *http;
+   size_t len; /* for buffer sizes */
 #ifdef FEATURE_KILL_POPUPS
    int block_popups;         /* bool, 1==will block popups */
    int block_popups_now = 0; /* bool, 1==currently blocking popups */
@@ -700,11 +705,11 @@ static void chat(struct client_state *csp)
 
    while (FOREVER)
    {
-      n = read_socket(csp->cfd, buf, sizeof(buf));
+      len = read_socket(csp->cfd, buf, sizeof(buf));
 
-      if (n <= 0) break;      /* error! */
+      if (len <= 0) break;      /* error! */
 
-      add_to_iob(csp, buf, n);
+      add_to_iob(csp, buf, len);
 
       req = get_header(csp);
 
@@ -917,13 +922,13 @@ static void chat(struct client_state *csp)
    {
       if ( ( p = get_header(csp) ) && ( *p == '\0' ) )
       {
-         n = read_socket(csp->cfd, buf, sizeof(buf));
-         if (n <= 0)
+         len = read_socket(csp->cfd, buf, sizeof(buf));
+         if (len <= 0)
          {
             log_error(LOG_LEVEL_ERROR, "read from client failed: %E");
             return;
          }
-         add_to_iob(csp, buf, n);
+         add_to_iob(csp, buf, len);
          continue;
       }
 
@@ -1049,9 +1054,9 @@ static void chat(struct client_state *csp)
        * (along with anything else that may be in the buffer)
        */
 
-      n = strlen(hdr);
+      len = strlen(hdr);
 
-      if ((write_socket(csp->sfd, hdr, n) != n)
+      if ((write_socket(csp->sfd, hdr, len) != len)
           || (flush_socket(csp->sfd, csp   ) <  0))
       {
          log_error(LOG_LEVEL_CONNECT, "write header to: %s failed: %E",
@@ -1126,14 +1131,14 @@ static void chat(struct client_state *csp)
 
       if (FD_ISSET(csp->cfd, &rfds))
       {
-         n = read_socket(csp->cfd, buf, sizeof(buf));
+         len = read_socket(csp->cfd, buf, sizeof(buf));
 
-         if (n <= 0)
+         if (len <= 0)
          {
             break; /* "game over, man" */
          }
 
-         if (write_socket(csp->sfd, buf, n) != n)
+         if (write_socket(csp->sfd, buf, len) != len)
          {
             log_error(LOG_LEVEL_ERROR, "write to: %s failed: %E", http->host);
             return;
@@ -1151,9 +1156,9 @@ static void chat(struct client_state *csp)
       if (FD_ISSET(csp->sfd, &rfds))
       {
          fflush( 0 );
-         n = read_socket(csp->sfd, buf, sizeof(buf) - 1);
+         len = read_socket(csp->sfd, buf, sizeof(buf) - 1);
 
-         if (n < 0)
+         if (len < 0)
          {
             log_error(LOG_LEVEL_ERROR, "read from: %s failed: %E", http->host);
 
@@ -1178,7 +1183,7 @@ static void chat(struct client_state *csp)
          /* Add a trailing zero.  This lets filter_popups
           * use string operations.
           */
-         buf[n] = '\0';
+         buf[len] = '\0';
 
 #ifdef FEATURE_KILL_POPUPS
          /* Filter the popups on this read. */
@@ -1206,7 +1211,7 @@ static void chat(struct client_state *csp)
           * doesn't generate a valid header, then we won't
           * transmit anything to the client.
           */
-         if (n == 0)
+         if (len == 0)
          {
 
             if (server_body || http->ssl)
@@ -1235,9 +1240,9 @@ static void chat(struct client_state *csp)
                      log_error(LOG_LEVEL_FATAL, "Out of memory parsing server header");
                   }
 
-                  n = strlen(hdr);
+                  len = strlen(hdr);
 
-                  if ((write_socket(csp->cfd, hdr, n) != n)
+                  if ((write_socket(csp->cfd, hdr, len) != len)
                       || (write_socket(csp->cfd, p != NULL ? p : csp->iob->cur, csp->content_length) != (int)csp->content_length))
                   {
                      log_error(LOG_LEVEL_ERROR, "write modified content to client failed: %E");
@@ -1257,7 +1262,7 @@ static void chat(struct client_state *csp)
              * This is NOT the body, so
              * Let's pretend the server just sent us a blank line.
              */
-            n = sprintf(buf, "\r\n");
+            len = sprintf(buf, "\r\n");
 
             /*
              * Now, let the normal header parsing algorithm below do its
@@ -1277,7 +1282,7 @@ static void chat(struct client_state *csp)
          {
             if (content_filter)
             {
-               add_to_iob(csp, buf, n);
+               add_to_iob(csp, buf, len);
 
                /*
                 * If the buffer limit will be reached on the next read,
@@ -1295,11 +1300,11 @@ static void chat(struct client_state *csp)
                      log_error(LOG_LEVEL_FATAL, "Out of memory parsing server header");
                   }
 
-                  n   = strlen(hdr);
-                  byte_count += n;
+                  len = strlen(hdr);
+                  byte_count += len;
 
-                  if (((write_socket(csp->cfd, hdr, n) != n)
-                       || (n = flush_socket(csp->cfd, csp) < 0)))
+                  if (((write_socket(csp->cfd, hdr, len) != len)
+                       || (len = flush_socket(csp->cfd, csp) < 0)))
                   {
                      log_error(LOG_LEVEL_CONNECT, "write header to client failed: %E");
 
@@ -1308,7 +1313,7 @@ static void chat(struct client_state *csp)
                   }
 
                   freez(hdr);
-                  byte_count += n;
+                  byte_count += len;
 
                   content_filter = NULL;
                   server_body = 1;
@@ -1317,13 +1322,13 @@ static void chat(struct client_state *csp)
             }
             else
             {
-               if (write_socket(csp->cfd, buf, n) != n)
+               if (write_socket(csp->cfd, buf, len) != len)
                {
                   log_error(LOG_LEVEL_ERROR, "write to client failed: %E");
                   return;
                }
             }
-            byte_count += n;
+            byte_count += len;
             continue;
          }
          else
@@ -1334,7 +1339,7 @@ static void chat(struct client_state *csp)
              */
 
             /* buffer up the data we just read */
-            add_to_iob(csp, buf, n);
+            add_to_iob(csp, buf, len);
 
             /* get header lines from the iob */
 
@@ -1389,7 +1394,7 @@ static void chat(struct client_state *csp)
                log_error(LOG_LEVEL_FATAL, "Out of memory parsing server header");
             }
 
-            n   = strlen(hdr);
+            len = strlen(hdr);
 
             /* write the server's (modified) header to
              * the client (along with anything else that
@@ -1435,8 +1440,8 @@ static void chat(struct client_state *csp)
             /*
              * Only write if we're not buffering for content modification
              */
-            if (!content_filter && ((write_socket(csp->cfd, hdr, n) != n)
-                || (n = flush_socket(csp->cfd, csp) < 0)))
+            if (!content_filter && ((write_socket(csp->cfd, hdr, len) != len)
+                || (len = flush_socket(csp->cfd, csp) < 0)))
             {
                log_error(LOG_LEVEL_CONNECT, "write header to client failed: %E");
 
@@ -1448,7 +1453,7 @@ static void chat(struct client_state *csp)
                return;
             }
 
-            if(!content_filter) byte_count += n;
+            if(!content_filter) byte_count += len;
 
             /* we're finished with the server's header */
 
@@ -1854,12 +1859,25 @@ static int bind_port_helper(struct configuration_spec * config)
 
    if (bfd < 0)
    {
-      log_error(LOG_LEVEL_FATAL, "can't bind %s:%d: %E "
-         "- There may be another junkbuster or some other "
-         "proxy running on port %d",
-         (NULL != config->haddr) ? config->haddr : "INADDR_ANY",
-         config->hport, config->hport
-      );
+      switch(bfd)
+      {
+         case -3 :
+            log_error(LOG_LEVEL_FATAL, "can't bind to %s:%d: "
+               "There may be another junkbuster or some other "
+               "proxy running on port %d",
+               (NULL != config->haddr) ? config->haddr : "INADDR_ANY",
+                      config->hport, config->hport);
+
+         case -2 :
+            log_error(LOG_LEVEL_FATAL, "can't bind to %s:%d: " 
+               "The hostname is not resolvable",
+               (NULL != config->haddr) ? config->haddr : "INADDR_ANY", config->hport);
+
+         default :
+            log_error(LOG_LEVEL_FATAL, "can't bind to %s:%d: because %E",
+               (NULL != config->haddr) ? config->haddr : "INADDR_ANY", config->hport);
+      }
+
       /* shouldn't get here */
       return -1;
    }
