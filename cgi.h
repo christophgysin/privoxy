@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2002/04/26 12:54:03  oes
+ *    New function add_help_link
+ *
  *    Revision 1.27  2002/04/24 02:16:51  oes
  *    Moved get_char_param, get_string_param and get_number_param here from cgiedit.c
  *
@@ -210,6 +213,7 @@ extern char   get_char_param(const struct map *parameters,
  * Text generators
  */
 extern void get_http_time(int time_offset, char * buf);
+extern char *add_help_link(const char *item, struct configuration_spec *config);
 extern char *make_menu(const char *self);
 extern char *dump_map(const struct map *the_map);
 
