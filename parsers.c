@@ -41,8 +41,11 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:01  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/17 23:02:36  oes
+ *     - Made referrer option accept 'L' as a substitute for '§'
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:01  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -790,11 +793,11 @@ char *client_referrer(const struct parsers *v, char *s, struct client_state *csp
    }
 
    /*
-    * New option §: Forge a referer as http://[hostname:port of REQUEST]/
+    * New option § or L: Forge a referer as http://[hostname:port of REQUEST]/
     * to fool stupid checks for in-site links
     */
 
-   if (*referrer == '§')
+   if (*referrer == '§' || *referrer == 'L')
    {
       if (csp->send_user_cookie)
       {
