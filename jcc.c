@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.65  2002/03/03 14:49:11  oes
+ *    Fixed CLF logging: Now uses client's original HTTP request
+ *
  *    Revision 1.64  2002/03/03 09:18:03  joergs
  *    Made jumbjuster work on AmigaOS again.
  *
@@ -785,6 +788,16 @@ static void chat(struct client_state *csp)
       }
    }
 
+   /* 
+    * Save a copy of the original request for logging
+    */
+   http->ocmd = strdup(http->cmd);
+
+   if (http->ocmd == NULL)
+   {
+      log_error(LOG_LEVEL_FATAL, "Out of memory copying HTTP request line");
+   }
+
    /*
     * (Re)build the HTTP request for non-SSL requests.
     * If forwarding, use the whole URL, else, use only the path.
@@ -903,7 +916,7 @@ static void chat(struct client_state *csp)
 
       /* Log (FIXME: All intercept reasons apprear as "crunch" with Status 200) */
       log_error(LOG_LEVEL_GPC, "%s%s crunch!", http->hostport, http->path);
-      log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 3", csp->ip_addr_str, http->cmd);
+      log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 3", csp->ip_addr_str, http->ocmd);
 
       /* Clean up and return */
       free_http_response(rsp);
@@ -936,14 +949,14 @@ static void chat(struct client_state *csp)
          rsp = error_response(csp, "no-such-domain", errno);
 
          log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 404 0",
-                   csp->ip_addr_str, http->cmd);
+                   csp->ip_addr_str, http->ocmd);
       }
       else
       {
          rsp = error_response(csp, "connect-failed", errno);
 
          log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0",
-                   csp->ip_addr_str, http->cmd);
+                   csp->ip_addr_str, http->ocmd);
       }
 
 
@@ -987,7 +1000,7 @@ static void chat(struct client_state *csp)
                     http->hostport);
 
          log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0",
-                   csp->ip_addr_str, http->cmd);
+                   csp->ip_addr_str, http->ocmd);
 
          rsp = error_response(csp, "connect-failed", errno);
 
@@ -1013,7 +1026,7 @@ static void chat(struct client_state *csp)
        * client, flush the rest, and get out of the way.
        */
       log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 2\n",
-                csp->ip_addr_str, http->cmd);
+                csp->ip_addr_str, http->ocmd);
 
       if (write_socket(csp->cfd, CSUCCEED, sizeof(CSUCCEED)-1) < 0)
       {
@@ -1087,7 +1100,7 @@ static void chat(struct client_state *csp)
             log_error(LOG_LEVEL_ERROR, "read from: %s failed: %E", http->host);
 
             log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0",
-                      csp->ip_addr_str, http->cmd);
+                      csp->ip_addr_str, http->ocmd);
 
             rsp = error_response(csp, "connect-failed", errno);
 
@@ -1401,7 +1414,7 @@ static void chat(struct client_state *csp)
    }
 
    log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 %d",
-             csp->ip_addr_str, http->cmd, byte_count);
+             csp->ip_addr_str, http->ocmd, byte_count);
 }
 
 
