@@ -33,6 +33,9 @@ const char encode_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2002/03/07 03:46:53  oes
+ *    Fixed compiler warnings etc
+ *
  *    Revision 1.4  2002/01/22 23:28:07  jongfoster
  *    Adding convenience function html_encode_and_free_original()
  *    Making all functions accept NULL paramaters - in this case, they
@@ -359,7 +362,7 @@ char * url_encode(const char *s)
  * Returns     :  The integer value, or -1 for non-hex characters.
  *
  *********************************************************************/
-static int xdtoi(char d)
+static int xdtoi(const int d)
 {
    if ((d >= '0') && (d <= '9'))
    {
@@ -397,10 +400,10 @@ static int xtoi(const char *s)
 {
    int d1, d2;
 
-   d1 = xdtoi(*s++);
+   d1 = xdtoi(*s);
    if(d1 >= 0)
    {
-      d2 = xdtoi(*s);
+      d2 = xdtoi(*(s+1));
       if(d2 >= 0)
       {
          return (d1 << 4) + d2;
