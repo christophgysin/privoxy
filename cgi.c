@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.60  2002/04/08 20:50:25  swa
+ *    fixed JB spelling
+ *
  *    Revision 1.59  2002/04/05 15:51:51  oes
  *     - added send-stylesheet CGI
  *     - bugfix: error-pages now get correct request protocol
@@ -144,7 +147,7 @@ const char cgi_rcs[] = "$Id$";
  *
  *    CGI actions file editor that works and is actually useful.
  *
- *    Ability to toggle JunkBuster remotely using a CGI call.
+ *    Ability to toggle Junkbuster remotely using a CGI call.
  *
  *    You can turn off both the above features in the main configuration
  *    file, e.g. if you are running a multi-user proxy.

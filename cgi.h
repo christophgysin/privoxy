@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2002/04/08 20:50:25  swa
+ *    fixed JB spelling
+ *
  *    Revision 1.24  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -69,7 +72,7 @@
  *
  *    CGI actions file editor that works and is actually useful.
  *
- *    Ability to toggle JunkBuster remotely using a CGI call.
+ *    Ability to toggle Junkbuster remotely using a CGI call.
  *
  *    You can turn off both the above features in the main configuration
  *    file, e.g. if you are running a multi-user proxy.
