@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/05/29 20:11:19  joergs
+ *    '/* inside comment' warning removed.
+ *
  *    Revision 1.10  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -805,7 +808,7 @@ char *crumble(const struct parsers *v, char *s, struct client_state *csp)
  *
  * Function    :  content_type
  *
- * Description :  Is this a text/* or javascript MIME Type?
+ * Description :  Is this a text/.* or javascript MIME Type?
  *
  * Parameters  :
  *          1  :  v = ignored
