@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.40  2001/09/16 15:41:45  jongfoster
+ *    Fixing signed/unsigned comparison warning.
+ *
  *    Revision 1.39  2001/09/16 13:21:27  jongfoster
  *    Changes to use new list functions.
  *
@@ -922,7 +925,7 @@ static void chat(struct client_state *csp)
                   n = strlen(hdr);
 
                   if ((write_socket(csp->cfd, hdr, n) != n)
-                      || (write_socket(csp->cfd, p != NULL ? p : csp->iob->cur, csp->content_length) != csp->content_length))
+                      || (write_socket(csp->cfd, p != NULL ? p : csp->iob->cur, csp->content_length) != (int)csp->content_length))
                   {
                      log_error(LOG_LEVEL_CONNECT, "write modified content to client failed: %E");
                      return;
