@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2002/03/24 12:07:36  jongfoster
+ *    Consistern name for filters file
+ *
  *    Revision 1.11  2002/03/24 12:03:47  jongfoster
  *    Name change
  *
@@ -146,7 +149,7 @@
 /* Break these out so they are easier to extend, but keep consecutive */
 #define ID_TOOLS_EDITCONFIG               5000
 #define ID_TOOLS_EDITACTIONS              5001
-#define ID_TOOLS_EDITPERLRE               5002
+#define ID_TOOLS_EDITFILTERS              5002
 
 #ifdef FEATURE_TRUST
 #define ID_TOOLS_EDITTRUST                5003

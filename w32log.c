@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.21  2002/03/24 12:07:35  jongfoster
+ *    Consistern name for filters file
+ *
  *    Revision 1.20  2002/03/24 12:03:47  jongfoster
  *    Name change
  *
@@ -1112,7 +1115,7 @@ void OnLogCommand(int nCommand)
          EditFile(g_actions_file);
          break;
 
-      case ID_TOOLS_EDITPERLRE:
+      case ID_TOOLS_EDITFILTERS:
          EditFile(g_re_filterfile);
          break;
 
@@ -1167,7 +1170,7 @@ void OnLogInitMenu(HMENU hmenu)
 {
    /* Only enable editors if there is a file to edit */
    EnableMenuItem(hmenu, ID_TOOLS_EDITACTIONS, MF_BYCOMMAND | (g_actions_file ? MF_ENABLED : MF_GRAYED));
-   EnableMenuItem(hmenu, ID_TOOLS_EDITPERLRE, MF_BYCOMMAND | (g_re_filterfile ? MF_ENABLED : MF_GRAYED));
+   EnableMenuItem(hmenu, ID_TOOLS_EDITFILTERS, MF_BYCOMMAND | (g_re_filterfile ? MF_ENABLED : MF_GRAYED));
 #ifdef FEATURE_TRUST
    EnableMenuItem(hmenu, ID_TOOLS_EDITTRUST, MF_BYCOMMAND | (g_trustfile ? MF_ENABLED : MF_GRAYED));
 #endif /* def FEATURE_TRUST */
