@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2002/04/26 21:50:02  jongfoster
+ *    Honouring default exports in edit-actions-for-url-filter template.
+ *
  *    Revision 1.34  2002/04/26 12:54:17  oes
  *    Adaptions to changes in actions.c
  *
@@ -2852,6 +2855,8 @@ jb_err cgi_edit_actions_for_url(struct client_state *csp,
          }
          return err;
       }
+
+      err = template_fill(&filter_template, exports);
 
       result = strdup("");
 
