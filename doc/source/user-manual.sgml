@@ -144,62 +144,6 @@ You can find the latest version of the user manual at  <ulink url="http://ijbswa
 
 </sect2>
 
-<!--   ~~~~~       New section      ~~~~~     -->
-<sect2>
-<title>New Features</title>
-<para>
- In addition to <application>Junkbuster's</application> traditional features
- of ad and banner blocking and cookie management, this is a list of new
- features currently under development:
-</para>
-
-<para>
- <itemizedlist>
-
- <listitem>
-  <para>
-   Modularized configuration that will allow for system wide settings, and
-   individual user settings. 
-  </para>
- </listitem> 
-
- <listitem>
-  <para>
-   A web based GUI configuration utility.
-  </para>
- </listitem> 
-
- <listitem>
-  <para>
-    Blocking of annoying pop-up browser windows (previously available as a
-    patch). 
-  </para>
- </listitem> 
-
- <listitem>
-  <para>
-   Support for HTTP 1.1.
-  </para>
- </listitem> 
-
- <listitem>
-  <para>
-   Support for Perl Compatible Regular Expressions in the configuration files, and 
-   generally a more sophisticated configuration syntax.
-  </para>
- </listitem> 
-
- <listitem>
-  <para>
-   Web page content filtering.
-  </para>
- </listitem> 
- 
- </itemizedlist>
-</para>
-
-</sect2>
-
 </sect1>
 
 <!--  ~  End section  ~  -->
@@ -2922,10 +2866,12 @@ communication (bugs, feature requests, etc.)
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.12  2001/09/28 02:57:04  hal9
+ Ditto :/
+
  Revision 1.11  2001/09/28 02:25:20  hal9
  Ditto.
 
- 
  Revision 1.9  2001/09/27 23:50:29  hal9
  A few changes. A short section on regular expression in appendix.
 
