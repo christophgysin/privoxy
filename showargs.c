@@ -34,6 +34,11 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2001/07/13 14:11:36  oes
+ *     - Included SHOW_RCS for deanimate.*
+ *     - Removed all #ifdef PCRS
+ *
+ *
  *    Revision 1.18  2001/07/02 02:55:16  iwanttokeepanon
  *    Apended " on some sites" to the HTML generating function `show_defines' (@ line
  *    392); since "DENY_GZIP" is not *really* necessary for all PCRS functionallity.
@@ -288,6 +293,8 @@ char *show_rcs(void)
 #ifdef __MINGW32__
    SHOW_RCS(cygwin_h_rcs)
 #endif
+   SHOW_RCS(deanimate_h_rcs)
+   SHOW_RCS(deanimate_rcs)
    SHOW_RCS(encode_h_rcs)
    SHOW_RCS(encode_rcs)
    SHOW_RCS(errlog_h_rcs)
@@ -318,10 +325,8 @@ char *show_rcs(void)
    SHOW_RCS(miscutil_rcs)
    SHOW_RCS(parsers_h_rcs)
    SHOW_RCS(parsers_rcs)
-#ifdef PCRS
    SHOW_RCS(pcrs_rcs)
    SHOW_RCS(pcrs_h_rcs)
-#endif /* def PCRS */
    SHOW_RCS(project_h_rcs)
    SHOW_RCS(showargs_h_rcs)
    SHOW_RCS(showargs_rcs)
@@ -373,12 +378,6 @@ char *show_defines(void)
 #else /* ifndef PCRE */
    b = strsav(b, "  <li><code>#undef <b>PCRE</b></code> - Use old GNU regex library rather than PCRE.</li>\n");
 #endif /* ndef PCRE */
-
-#ifdef PCRS
-   b = strsav(b, "  <li><code>#define <b>PCRS</b></code> - Enables arbitrary content modification regexps.</li>\n");
-#else /* ifndef PCRS */
-   b = strsav(b, "  <li><code>#undef <b>PCRS</b></code> - Disables arbitrary content modification regexps.</li>\n");
-#endif /* ndef PCRS */
 
 #ifdef TOGGLE
    b = strsav(b, "  <li><code>#define <b>TOGGLE</b></code> - Allow JunkBuster to be \"disabled\" so it is just a normal non-blocking non-anonymizing proxy.</li>\n");
