@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.36  2001/09/10 10:56:15  oes
+ *    Silenced compiler warnings
+ *
  *    Revision 1.35  2001/07/31 14:44:22  oes
  *    Deleted unused size parameter from filter_popups()
  *
@@ -1077,7 +1080,7 @@ static void chat(struct client_state *csp)
                return;
             }
 
-            !content_filter && (byte_count += n);
+            if(!content_filter) byte_count += n;
 
             /* we're finished with the server's header */
 
