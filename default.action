@@ -508,5 +508,7 @@ advice.
 .uni-*.de
 www.ugu.com/sui/ugu/adv
 .*downloads.
+# So many download pages being blocked
+/downloads/
 # adv for globalintersec means advanced, not advertisement
 www.globalintersec.com/adv
