@@ -34,6 +34,9 @@ const char list_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.4  2001/06/29 13:30:22  oes
  *    - Added Convenience function enlist_unique_header(),
  *      which takes the Header name and value as separate
@@ -234,13 +237,13 @@ void enlist_unique_header(struct list *header, const char *name, const char *val
    if (name == NULL || value == NULL) return;
 
    dummy = strdup(name);
-	dummy = strsav(dummy, ": ");
+   dummy = strsav(dummy, ": ");
    length = strlen(dummy);
 
    while (cur != NULL)
    {
       if ((cur->str != NULL) && 
-			(0 == strncmp(dummy, cur->str, length)))
+   		(0 == strncmp(dummy, cur->str, length)))
       {
          /* Already there */
          return;
@@ -252,7 +255,7 @@ void enlist_unique_header(struct list *header, const char *name, const char *val
 
    if (cur != NULL)
    {
-	   cur->str  = strsav(dummy, value);
+      cur->str  = strsav(dummy, value);
       cur->next = NULL;
 
       last = header->last;
@@ -549,6 +552,7 @@ char *lookup(struct map *map, char *name)
       p = p->next;
    }
    return "";
+
 }
 
 

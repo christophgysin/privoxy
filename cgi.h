@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.5  2001/06/29 13:22:44  oes
  *    - Cleaned up
  *    - Added new functions: default_exports(), make_menu(),
@@ -80,7 +83,7 @@ extern int cgi_show_status(struct client_state *csp, struct http_response *rsp,
 extern int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
                              struct map *parameters);
 extern int cgi_send_banner(struct client_state *csp, struct http_response *rsp,
-			                  struct map *parameters);
+   		                  struct map *parameters);
 
 /* Not exactly a CGI */
 extern struct http_response *error_response(struct client_state *csp, const char *template, int err);

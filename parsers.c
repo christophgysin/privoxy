@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.16  2001/06/29 13:32:42  oes
  *    - Fixed a comment
  *    - Adapted free_http_request
@@ -746,12 +749,12 @@ char *content_type(const struct parsers *v, char *s, struct client_state *csp)
 char *content_length(const struct parsers *v, char *s, struct client_state *csp)
 {
    if (csp->content_length != 0) /* Content has been modified */
-	{
-	   s = (char *) zalloc(100);
-	   sprintf(s, "Content-Length: %d", csp->content_length);
-		log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", csp->content_length);
-	   return(s);
-	}
+   {
+      s = (char *) zalloc(100);
+      sprintf(s, "Content-Length: %d", csp->content_length);
+   	log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", csp->content_length);
+      return(s);
+   }
    else
    {
       return(strdup(s));

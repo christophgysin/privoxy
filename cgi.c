@@ -36,6 +36,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.8  2001/06/29 13:21:46  oes
  *    - Cosmetics: renamed and reordered functions, variables,
  *      texts, improved comments  etc
@@ -229,12 +232,12 @@ struct http_response *dispatch_cgi(struct client_state *csp)
       {
          param_list = parse_cgi_parameters(argstring + d->name_length);
          if ((d->handler)(csp, rsp, param_list))
-	 {
-	    freez(rsp);
-	 }
+         {
+            freez(rsp);
+         }
 
-	 free_map(param_list);
-	 return(finish_http_response(rsp));
+         free_map(param_list);
+         return(finish_http_response(rsp));
       }
    }
 
@@ -351,18 +354,19 @@ int cgi_send_banner(struct client_state *csp, struct http_response *rsp,
 {
    if(strcmp(lookup(parameters, "type"), "trans"))
    {
-     rsp->body = bindup(JBGIF, sizeof(JBGIF));
-     rsp->content_length = sizeof(JBGIF);
+      rsp->body = bindup(JBGIF, sizeof(JBGIF));
+      rsp->content_length = sizeof(JBGIF);
    }
    else
    {
-     rsp->body = bindup(BLANKGIF, sizeof(BLANKGIF));
-     rsp->content_length = sizeof(BLANKGIF);
+      rsp->body = bindup(BLANKGIF, sizeof(BLANKGIF));
+      rsp->content_length = sizeof(BLANKGIF);
    }   
 
    enlist(rsp->headers, "Content-Type: image/gif");
 
    return(0);
+
 }
 
 
@@ -516,11 +520,11 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    if (csp->tlist)
    {
       exports = map(exports, "trust-filename", 1,  csp->tlist->filename, 1);
-	}
+   }
    else
-	{
- 	   exports = map(exports, "trust-filename", 1, "None specified", 1);
-	}
+   {
+       exports = map(exports, "trust-filename", 1, "None specified", 1);
+   }
 #else
    exports = map_block_killer(exports, "trust-support");
 #endif /* ndef TRUST_FILES */
@@ -605,7 +609,7 @@ int cgi_show_url_info(struct client_state *csp, struct http_response *rsp,
       host += (strncmp(url_param, "http://", 7)) ? 0 : 7;
 
       exports = map(exports, "url", 1, host, 1);
-      exports = map(exports, "url-html", 1, html_encode(host), 0);
+      exports = map(exports, "url-html", 1, html_encode(host), 0);
 
       init_current_action(action);
 
@@ -785,44 +789,44 @@ struct http_response *error_response(struct client_state *csp, const char *templ
  *********************************************************************/
 struct http_response *finish_http_response(struct http_response *rsp)
 {
-  char buf[BUFFER_SIZE];
+   char buf[BUFFER_SIZE];
 
-  /* 
-   * Fill in the HTTP Status
-   */
-  sprintf(buf, "HTTP/1.0 %s", rsp->status ? rsp->status : "200 OK");
-  enlist_first(rsp->headers, buf);
+   /* 
+    * Fill in the HTTP Status
+    */
+   sprintf(buf, "HTTP/1.0 %s", rsp->status ? rsp->status : "200 OK");
+   enlist_first(rsp->headers, buf);
 
-  /* 
-   * Set the Content-Length
-   */
-  if (rsp->content_length == 0)
-  {
-     rsp->content_length = rsp->body ? strlen(rsp->body) : 0;
-  }
-  sprintf(buf, "Content-Length: %d", rsp->content_length);
-  enlist(rsp->headers, buf);
+   /* 
+    * Set the Content-Length
+    */
+   if (rsp->content_length == 0)
+   {
+      rsp->content_length = rsp->body ? strlen(rsp->body) : 0;
+   }
+   sprintf(buf, "Content-Length: %d", rsp->content_length);
+   enlist(rsp->headers, buf);
 
-  /* 
-   * Fill in the default headers FIXME: Are these correct? sequence OK? check rfc!
-   */
-  enlist_unique(rsp->headers, "Last-Modified: Thu Jul 31, 1997 07:42:22 pm GMT", 14);
-  enlist_unique(rsp->headers, "Expires:       Thu Jul 31, 1997 07:42:22 pm GMT", 8);
-  enlist_unique(rsp->headers, "Content-Type: text/html", 13);
-  enlist(rsp->headers, "");
+   /* 
+    * Fill in the default headers FIXME: Are these correct? sequence OK? check rfc!
+    */
+   enlist_unique(rsp->headers, "Last-Modified: Thu Jul 31, 1997 07:42:22 pm GMT", 14);
+   enlist_unique(rsp->headers, "Expires:       Thu Jul 31, 1997 07:42:22 pm GMT", 8);
+   enlist_unique(rsp->headers, "Content-Type: text/html", 13);
+   enlist(rsp->headers, "");
   
 
-  /* 
-   * Write the head
-   */
-  if (NULL == (rsp->head = list_to_text(rsp->headers)))
-  {
-    free_http_response(rsp);
-    return(NULL);
-  }
-  rsp->head_length = strlen(rsp->head);
+   /* 
+    * Write the head
+    */
+   if (NULL == (rsp->head = list_to_text(rsp->headers)))
+   {
+      free_http_response(rsp);
+      return(NULL);
+   }
+   rsp->head_length = strlen(rsp->head);
 
-  return(rsp);
+   return(rsp);
 
 }
   
@@ -891,7 +895,7 @@ char *fill_template(struct client_state *csp, const char *template, struct map *
       log_error(LOG_LEVEL_ERROR, "error loading template %s: %E", buf);
       return NULL;
    }
-	
+   
 
    /* 
     * Assemble pcrs joblist from exports map
@@ -923,7 +927,7 @@ char *fill_template(struct client_state *csp, const char *template, struct map *
    {
       /* skip lines starting with '#' */
       if(*buf == '#') continue;
-	
+   
       old = strsav(old, buf);
    }
    fclose(fp);
@@ -1056,7 +1060,7 @@ char *make_menu(const char *self)
       if (strncmp(d->description, "HIDE", 4) && strcmp(d->name, self))
       {
          snprintf(buf, BUFFER_SIZE, "<li><a href=%s/config/%s>%s</a></li>\n",
-		       HOME_PAGE_URL, d->name, d->description);
+   	       HOME_PAGE_URL, d->name, d->description);
          tmp = strsav(tmp, buf);
       }
    }
@@ -1081,7 +1085,6 @@ char *dump_map(struct map *map)
 {
    struct map *p = map;
    char *ret = NULL;
-
 
    ret = strsav(ret, "<table>\n");
 

@@ -34,6 +34,9 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.16  2001/06/29 13:35:07  oes
  *    - Adapted
  *    - Improved comments
@@ -336,7 +339,7 @@ char *show_rcs(void)
 
 #undef SHOW_RCS
 
-	return(b);
+   return(b);
 }
 
 /*********************************************************************

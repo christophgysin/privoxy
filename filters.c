@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.18  2001/06/29 13:27:38  oes
  *    - Cleaned up, renamed and reorderd functions
  *      and improved comments
@@ -277,8 +280,7 @@ const char filters_h_rcs[] = FILTERS_H_VERSION;
  * Returns     : 0 = FALSE (don't block) and 1 = TRUE (do block)
  *
  *********************************************************************/
-int block_acl(struct access_control_addr *dst,
-              struct client_state *csp)
+int block_acl(struct access_control_addr *dst, struct client_state *csp)
 {
    struct access_control_list *acl = csp->config->acl;
 
@@ -413,7 +415,7 @@ int acl_addr(char *aspec, struct access_control_addr *aca)
 struct http_response *block_url(struct client_state *csp)
 {
    char *p;
-	struct http_response *rsp;
+   struct http_response *rsp;
    struct map *exports = NULL;
 
    /* 
@@ -437,10 +439,10 @@ struct http_response *block_url(struct client_state *csp)
     * as specified by the relevant +image action
     */
 #ifdef IMAGE_BLOCKING
-	if (((csp->action->flags & ACTION_IMAGE_BLOCKER) != 0)
+   if (((csp->action->flags & ACTION_IMAGE_BLOCKER) != 0)
         && is_imageurl(csp))
-	{
-	   /* determine HOW images should be blocked */
+   {
+      /* determine HOW images should be blocked */
       p = csp->action->string[ACTION_STRING_IMAGE_BLOCKER];
 
       /* and handle accordingly: */
@@ -472,7 +474,7 @@ struct http_response *block_url(struct client_state *csp)
     */
    {
 
-	   exports = default_exports(csp, NULL);	   
+      exports = default_exports(csp, NULL);	   
 #ifdef FORCE_LOAD
       exports = map(exports, "force-prefix", 1, FORCE_PREFIX, 1);
 #else
@@ -521,7 +523,7 @@ struct http_response *trust_url(struct client_state *csp)
     */
    if (!is_untrusted_url(csp))
    {
-     return NULL;
+      return NULL;
    }
 
    /* 
@@ -535,7 +537,7 @@ struct http_response *trust_url(struct client_state *csp)
 
    /* 
     * Export the host, port, and referrer information
-	 */
+    */
    exports = map(exports, "hostport", 1, csp->http->hostport, 1);
    exports = map(exports, "path", 1, csp->http->path, 1);
    exports = map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0);
@@ -572,25 +574,23 @@ struct http_response *trust_url(struct client_state *csp)
 
       for (l = csp->config->trust_info->next; l ; l = l->next)
       {
-         sprintf(buf,
-            "<li> <a href=%s>%s</a><br>\n",
-               l->str, l->str);
+         sprintf(buf, "<li> <a href=%s>%s</a><br>\n",l->str, l->str);
          p = strsav(p, buf);
       }
       exports = map(exports, "trust-info", 1, p, 0);
    }
    else
-	{
-	   exports = map_block_killer(exports, "have-trust-info");
-	}
+   {
+      exports = map_block_killer(exports, "have-trust-info");
+   }
    
    /*
     * Export the force prefix or the force conditional block killer
     */
 #ifdef FORCE_LOAD
-      exports = map(exports, "force-prefix", 1, FORCE_PREFIX, 1);
+   exports = map(exports, "force-prefix", 1, FORCE_PREFIX, 1);
 #else
-      exports = map_block_killer(exports, "force-support");
+   exports = map_block_killer(exports, "force-support");
 #endif /* ndef FORCE_LOAD */
 
    /*
@@ -770,7 +770,7 @@ int is_untrusted_url(struct client_state *csp)
    if ((csp->referrer == NULL)|| (strlen(csp->referrer) <= 9))
    {
       /* no referrer was supplied */
-	   return(1);
+      return(1);
    }
 
    /* forge a URL from the referrer so we can use
@@ -945,6 +945,7 @@ void url_actions(struct http_request *http,
    }
 
    apply_url_actions(csp->action, http, b);
+
 }
 
 
@@ -1095,12 +1096,13 @@ struct url_spec dsplit(char *domain)
 
    if (domain[strlen(domain) - 1] == '.')
    {
-	  ret->unanchored |= ANCHOR_RIGHT;
-	}
-	if (domain[0] == '.')
+      ret->unanchored |= ANCHOR_RIGHT;
+   }
+
+   if (domain[0] == '.')
    {
-	  ret->unanchored |= ANCHOR_LEFT;
-	}
+      ret->unanchored |= ANCHOR_LEFT;
+   }
 
    ret->dbuf = strdup(domain);
 
@@ -1123,7 +1125,6 @@ struct url_spec dsplit(char *domain)
    {
       memcpy(ret->dvec, v, size);
    }
-
 
    return(*ret);
 
@@ -1162,6 +1163,7 @@ static int simple_domaincmp(char **pv, char **fv, int len)
    }
 
    return 0;
+
 }
 
 
@@ -1244,8 +1246,8 @@ int domaincmp(struct url_spec *pattern, struct url_spec *fqdn)
       }
       return 1;
    }
-}
 
+}
 
 
 /*

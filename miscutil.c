@@ -37,6 +37,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.13  2001/06/29 13:32:14  oes
  *    Removed logentry from cancelled commit
  *
@@ -567,12 +570,12 @@ char *bindup(const char *string, int n)
 
    if (NULL == (dup = (char *)malloc(n)))
    {
-	   return NULL;
-	}
+      return NULL;
+   }
    else
-	{
-	  memcpy(dup, string, n);
-	}
+   {
+     memcpy(dup, string, n);
+   }
 
    return dup;
 

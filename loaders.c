@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.17  2001/06/29 13:31:51  oes
  *    Various adaptions
  *
@@ -163,11 +166,6 @@ const char loaders_rcs[] = "$Id$";
 #include "errlog.h"
 #include "gateway.h"
 #include "actions.h"
-
-#ifndef SPLIT_PROXY_ARGS
-/* For strsav */
-#include "showargs.h"
-#endif /* ndef SPLIT_PROXY_ARGS */
 
 const char loaders_h_rcs[] = LOADERS_H_VERSION;
 
@@ -389,14 +387,13 @@ int create_url_spec(struct url_spec * url, char * buf)
             (REG_EXTENDED|REG_NOSUB|REG_ICASE));
       if (errcode)
       {
-         size_t errlen =
-            regerror(errcode,
-               url->preg, buf, sizeof(buf));
+         size_t errlen = regerror(errcode,
+            url->preg, buf, sizeof(buf));
 
          buf[errlen] = '\0';
 
          log_error(LOG_LEVEL_ERROR, "error compiling %s: %s",
-                 url->spec, buf);
+            url->spec, buf);
 
          freez(url->spec);
          freez(url->path);
@@ -435,6 +432,7 @@ int create_url_spec(struct url_spec * url, char * buf)
    url->unanchored = tmp_url->unanchored;
 
    return 0; /* OK */
+
 }
 
 
@@ -558,6 +556,7 @@ int check_file_changed(const struct file_list * current,
 
    *newfl = fs;
    return 1;
+
 }
 
 
@@ -643,7 +642,7 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
       if (contflag)
       {
          contflag = 0;
-			continue;
+   		continue;
       }
 
       /* Remove leading and trailing whitespace */         
@@ -679,7 +678,7 @@ static void unload_trustfile(void *f)
    struct block_spec *b = (struct block_spec *)f;
    if (b == NULL) return;
 
-   unload_trustfile(b->next);
+   unload_trustfile(b->next); /* Stack is cheap, isn't it? */
 
    free_url(b->url);
 
@@ -852,11 +851,10 @@ static void unload_re_filterfile(void *f)
    if (b == NULL) return;
 
    destroy_list(b->patterns);
-
    pcrs_free_joblist(b->joblist);
-
    freez(b);
 
+   return;
 }
 
 /*********************************************************************

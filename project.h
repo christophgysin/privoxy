@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.19  2001/06/29 13:33:36  oes
  *    - Improved comments
  *    - Introduced http_request.host_ip_addr_str

@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/06/29 21:45:41  oes
+ *    Indentation, CRLF->LF, Tab-> Space
+ *
  *    Revision 1.10  2001/06/29 13:29:15  oes
  *    - Added remote (server) host IP to csp->http->host_ip_addr_str
  *    - Added detection of local socket IP and fqdn
@@ -148,7 +151,7 @@ int connect_to(const char *host, int portnum, struct client_state *csp)
 
    if ((addr = resolve_hostname_to_ip(host)) == -1)
    {
-	   csp->http->host_ip_addr_str = strdup("unknown");
+      csp->http->host_ip_addr_str = strdup("unknown");
       return(-1);
    }
 
@@ -462,7 +465,7 @@ int accept_connection(struct client_state * csp, int fd)
     * and the hostname associated with that address
     */
    if (!getsockname(afd, &laddr, &laddrlen))
-	{
+   {
       csp->my_ip_addr_str = strdup(inet_ntoa(lap->sin_addr));
 
       host = gethostbyaddr(laddr.sa_data + 2, 4, AF_INET);
@@ -471,16 +474,17 @@ int accept_connection(struct client_state * csp, int fd)
          log_error(LOG_LEVEL_ERROR, "Unable to get my own hostname: %s\n", hstrerror(h_errno)); 
       }
       else
-	   {
+      {
          csp->my_hostname = strdup(host->h_name);
       }
-	}
+   }
 
    csp->cfd    = afd;
    csp->ip_addr_str  = strdup(inet_ntoa(rap->sin_addr));
    csp->ip_addr_long = ntohl(rap->sin_addr.s_addr);
 
    return 1;
+
 }
 
 
