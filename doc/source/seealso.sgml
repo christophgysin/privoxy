@@ -97,4 +97,11 @@
    caching proxy, which is often used together with <application>Privoxy</application>.
   </member>
  </simplelist>
+ <simplelist>
+  <member>
+   <ulink
+   url="http://www.privoxy.org/developer-manual/">http://www.privoxy.org/developer-manual/</ulink>, 
+   the <application>Privoxy</application> developer manual. 
+  </member>
+ </simplelist>
 </para>
