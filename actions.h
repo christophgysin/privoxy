@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/10/23 21:30:30  jongfoster
+ *    Adding error-checking to selected functions.
+ *
  *    Revision 1.5  2001/10/14 21:58:22  jongfoster
  *    Adding support for the CGI-based editor:
  *    - Exported get_actions()
@@ -86,17 +89,17 @@ struct action_alias
 };
 
 
-extern int get_actions (char *line, 
-                        struct action_alias * alias_list,
-                        struct action_spec *cur_action);
+extern jb_err get_actions (char *line, 
+                           struct action_alias * alias_list,
+                           struct action_spec *cur_action);
 extern void free_alias_list(struct action_alias *alias_list);
 
 extern void init_action(struct action_spec *dest);
 extern void free_action(struct action_spec *src);
-extern void merge_actions (struct action_spec *dest, 
+extern jb_err merge_actions (struct action_spec *dest, 
+                             const struct action_spec *src);
+extern jb_err copy_action (struct action_spec *dest, 
                            const struct action_spec *src);
-extern void copy_action (struct action_spec *dest, 
-                         const struct action_spec *src);
 extern char * actions_to_text     (struct action_spec *action);
 #ifdef FEATURE_CGI_EDIT_ACTIONS
 extern char * actions_to_html     (struct action_spec *action);
@@ -104,11 +107,11 @@ extern char * actions_to_html     (struct action_spec *action);
 
 extern void init_current_action     (struct current_action_spec *dest);
 extern void free_current_action     (struct current_action_spec *src);
-extern void merge_current_action    (struct current_action_spec *dest, 
+extern jb_err merge_current_action  (struct current_action_spec *dest, 
                                      const struct action_spec *src);
 extern char * current_action_to_text(struct current_action_spec *action);
 
-extern int get_action_token(char **line, char **name, char **value);
+extern jb_err get_action_token(char **line, char **name, char **value);
 extern void unload_actions_file(void *file_data);
 extern int load_actions_file(struct client_state *csp);
 
