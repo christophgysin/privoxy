@@ -27,6 +27,10 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.14  2001/12/09 18:55:11  david__schmidt
+#     Updated CODE_STATUS to beta, commented out microsuck line in re_filterfile
+#     for 2.9.10 beta
+#
 #     Revision 1.13  2001/10/13 13:11:20  joergs
 #     Fixed WebBug filter.
 #
@@ -166,7 +170,7 @@ s/<img\s+[^>]*?(width|height)\s*=\s*['"]?1\D[^>]*?(width|height)\s*=\s*['"]?1(\D
 # Fun stuff
 #
 # ********************************************************************/
-s/microsoft(?!.com)/MicroSuck/ig
+#s/microsoft(?!.com)/MicroSuck/ig
 
 # ********************************************************************/
 #
