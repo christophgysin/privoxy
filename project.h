@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2001/09/16 23:02:51  jongfoster
+ *    Fixing warning
+ *
  *    Revision 1.31  2001/09/16 13:20:29  jongfoster
  *    Rewrite of list library.  Now has seperate header and list_entry
  *    structures.  Also added a large sprinking of assert()s to the list
@@ -723,7 +726,7 @@ struct forward_spec
    /* For the linked list */
    struct forward_spec *next;
 };
-#define FORWARD_SPEC_INITIALIZER { URL_SPEC_INITIALIZER, 0, NULL, 0, NULL, 0, NULL }
+#define FORWARD_SPEC_INITIALIZER { { URL_SPEC_INITIALIZER }, 0, NULL, 0, NULL, 0, NULL }
 
 
 struct re_filterfile_spec
