@@ -33,6 +33,9 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/06 19:03:29  jongfoster
+ *    Adding support for proprietary Microsoft WebDAV extensions
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -421,6 +424,24 @@ jb_err parse_http_request(const char *req,
          || (0 == strcmpic(v[0], "mkcol"))
          || (0 == strcmpic(v[0], "lock"))
          || (0 == strcmpic(v[0], "unlock"))
+
+         /* Or a Microsoft webDAV extension for Exchange 2000.  See: */
+         /*   http://lists.w3.org/Archives/Public/w3c-dist-auth/2002JanMar/0001.html */
+         /*   http://msdn.microsoft.com/library/en-us/wss/wss/_webdav_methods.asp */ 
+         || (0 == strcmpic(v[0], "bcopy"))
+         || (0 == strcmpic(v[0], "bmove"))
+         || (0 == strcmpic(v[0], "bdelete"))
+         || (0 == strcmpic(v[0], "bpropfind"))
+         || (0 == strcmpic(v[0], "bproppatch"))
+
+         /* Or another Microsoft webDAV extension for Exchange 2000.  See: */
+         /*   http://systems.cs.colorado.edu/grunwald/MobileComputing/Papers/draft-cohen-gena-p-base-00.txt */
+         /*   http://lists.w3.org/Archives/Public/w3c-dist-auth/2002JanMar/0001.html */
+         /*   http://msdn.microsoft.com/library/en-us/wss/wss/_webdav_methods.asp */ 
+         || (0 == strcmpic(v[0], "subscribe"))
+         || (0 == strcmpic(v[0], "unsubscribe"))
+         || (0 == strcmpic(v[0], "notify"))
+         || (0 == strcmpic(v[0], "poll"))
          )
    {
       /* Normal */
@@ -429,6 +450,7 @@ jb_err parse_http_request(const char *req,
    else
    {
       /* Unknown HTTP method */
+      /* Maybe one of: trace options purge */
       free(buf);
       return JB_ERR_PARSE;
    }
