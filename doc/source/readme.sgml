@@ -153,9 +153,11 @@
 
 <!--   ~~~~~       New section      ~~~~~     -->
 <sect1 id="install" ><title>INSTALL</title>
-<!-- include buildsource.sgml boilerplate: -->
- &buildsource;
-<!-- end boilderplate -->
+<!-- Install instructions are now in INSTALL -->
+<para>
+ See the INSTALL file in this directory, for installing from source, and 
+ the User Manual, for other installation types.
+</para>
 </sect1>
 
 <!--   ~~~~~       New section      ~~~~~     -->
