@@ -539,7 +539,9 @@ advice.
 www.ugu.com/sui/ugu/adv
 .*downloads.
 # So many download pages being blocked
-/downloads/
+#/downloads/
+# tmp fix until Andreas gets back.
+/(.*/)?((up|down)lo|p?thre)ads/
 # adv for globalintersec means advanced, not advertisement
 www.globalintersec.com/adv
 # We all want weather forecast to work
