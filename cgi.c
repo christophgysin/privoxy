@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.40  2002/01/09 14:26:46  oes
+ *    Added support for thread-safe gmtime_r call.
+ *
  *    Revision 1.39  2001/11/16 00:48:13  jongfoster
  *    Fixing a compiler warning
  *
@@ -889,7 +892,14 @@ void get_http_time(int time_offset, char *buf)
    current_time += time_offset;
 
    /* get and save the gmt */
-   t = gmtime(&current_time);
+   {
+#ifdef HAVE_GMTIME_R
+      struct tm dummy;
+      t = gmtime_r(&current_time, &dummy);
+#else
+      t = gmtime(&current_time);
+#endif
+   }
 
    /* Format: "Sun, 06 Nov 1994 08:49:37 GMT" */
    snprintf(buf, 30,
