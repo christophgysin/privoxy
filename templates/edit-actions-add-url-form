@@ -6,7 +6,7 @@
 #
 #
 # Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#                IJBSWA team.  http://ijbswa.sourceforge.net
+#                Privoxy team.  http://ijbswa.sourceforge.net
 #
 #                Original Author: Copyright (C) 2001 Jonathan Foster
 #                http://www.jon-foster.co.uk/
@@ -31,6 +31,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.8  2002/03/24 11:01:06  swa
+#    name change
+#
 #    Revision 1.7  2002/03/23 16:18:15  swa
 #    renamed every reference to the old name with foobar.
 #    fixed "application foobar application" tag, fixed
@@ -88,7 +91,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="robots" content="noindex,nofollow">
 
-<title>Foobar: Edit URL Pattern</title>
+<title>Privoxy: Edit URL Pattern</title>
 
 <style type="text/css">
 body         { font-family: Helvetica, Helv, Arial, Sans-Serif, sans-serif;
@@ -148,7 +151,7 @@ function validate(text)
 
   <tr>
     <td class="dark">
-      <h2>More Foobar:</h2>
+      <h2>More Privoxy:</h2>
       <ul>@menu@</ul>
     </td>
   </tr>
