@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.16  2002/04/08 08:11:04  oes
+  Bumped up actions file number
+
   Revision 1.15  2002/04/07 17:13:08  oes
   Ooops: fixing submit target url
 
@@ -93,7 +96,7 @@
 /*
  * Config:
  */
-$required_actions_file_version = "1.0";
+$required_actions_file_version = "1.1";
 $required_privoxy_version = "2.9.13";
 $actions_file_download = "http://www.privoxy.org/actions/testdrive.action";
 $submit_target = "http://www.oesterhelt.org/actions/step2.php";
@@ -166,10 +169,13 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
    error_abort("invalid", "<p>As much as we welcome your feedback, please note that
                we can only accept problem reports based on:
                <ul>
-                <li><a href=\"http://www.privoxy.org/\">Privoxy</a> version $required_privoxy_version or later</li>
+                <li><a href=\"http://www.privoxy.org/\" target=\"_blank\">Privoxy</a> version $required_privoxy_version or later</li>
                 <li><a href=\"$actions_file_download\">Actionsfile</a> version  version $required_actions_file_version or later</li>
                </ul>
-               <p>We hope you will understand that we feel unable to maintain concurrent versions of the file.</p>");
+               <p>We hope you will understand that we feel unable to maintain concurrent versions of the file.</p>
+               <p><i>Hint: To upgrade your actions file, just right-click the above link, then save as default.action in
+                  your Privoxy config directory</i>
+               </p>");
 }
 
 ?>
