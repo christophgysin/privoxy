@@ -35,6 +35,11 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2001/11/07 00:02:13  steudten
+ *    Add line number in error output for lineparsing for
+ *    actionsfile and configfile.
+ *    Special handling for CLF added.
+ *
  *    Revision 1.26  2001/11/05 21:41:43  steudten
  *    Add changes to be a real daemon just for unix os.
  *    (change cwd to /, detach from controlling tty, set
@@ -439,6 +444,7 @@ struct configuration_spec * load_config(void)
    struct configuration_spec * config = NULL;
    struct client_state * fake_csp;
    struct file_list *fs;
+   unsigned long linenum = 0;
 
    DBG(1, ("load_config() entered..\n") );
    if (!check_file_changed(current_configfile, configfile, &fs))
@@ -496,7 +502,7 @@ struct configuration_spec * load_config(void)
       /* Never get here - LOG_LEVEL_FATAL causes program exit */
    }
 
-   while (read_config_line(buf, sizeof(buf), configfp) != NULL)
+   while (read_config_line(buf, sizeof(buf), configfp, &linenum) != NULL)
    {
       char cmd[BUFFER_SIZE];
       char arg[BUFFER_SIZE];
@@ -578,7 +584,7 @@ struct configuration_spec * load_config(void)
  ****************************************************************************/
          case hash_confdir :
             freez(config->confdir);
-            config->confdir = strdup(arg);
+            config->confdir = make_path( NULL, arg);
             continue;
 
 /****************************************************************************
@@ -1221,8 +1227,11 @@ struct configuration_spec * load_config(void)
              * error.  To change back to an error, just change log level
              * to LOG_LEVEL_FATAL.
              */
-            log_error(LOG_LEVEL_ERROR, "Unrecognized directive (%luul) in "
+            log_error(LOG_LEVEL_ERROR, "Unrecognized directive '%s' in line %lu in "
+                  "configuration file (%s).",  buf, linenum, configfile);
+            /* log_error(LOG_LEVEL_ERROR, "Unrecognized directive (%luul) in "
                   "configuration file: \"%s\"", hash_string( cmd ), buf);
+ 	    */
             config->proxy_args = strsav( config->proxy_args, "<br>\nWARNING: unrecognized directive : ");
             config->proxy_args = strsav( config->proxy_args, buf);
             config->proxy_args = strsav( config->proxy_args, "<br><br>\n");

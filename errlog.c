@@ -33,6 +33,11 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2001/11/07 00:02:13  steudten
+ *    Add line number in error output for lineparsing for
+ *    actionsfile and configfile.
+ *    Special handling for CLF added.
+ *
  *    Revision 1.22  2001/11/05 23:43:05  steudten
  *    Add time+date to log files.
  *
@@ -407,6 +412,7 @@ void log_error(int loglevel, char *fmt, ...)
          outc = sprintf(outbuf, "IJB(%ld) Gif-Deanimate: ", this_thread);
          break;
       case LOG_LEVEL_CLF:
+	 outbuf = outbuf_save;
          outc = 0;
          outbuf[0] = '\0';
          break;

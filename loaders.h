@@ -37,6 +37,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/11/07 00:02:13  steudten
+ *    Add line number in error output for lineparsing for
+ *    actionsfile and configfile.
+ *    Special handling for CLF added.
+ *
  *    Revision 1.11  2001/10/23 21:38:53  jongfoster
  *    Adding error-checking to create_url_spec()
  *
@@ -125,7 +130,7 @@ struct configuration_spec;
 struct url_spec;
 
 extern void sweep(void);
-extern char *read_config_line(char *buf, int buflen, FILE *fp);
+extern char *read_config_line(char *buf, int buflen, FILE *fp, unsigned long *linenum);
 extern int check_file_changed(const struct file_list * current,
                               const char * filename,
                               struct file_list ** newfl);
