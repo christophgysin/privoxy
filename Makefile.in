@@ -28,6 +28,11 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.23  2001/09/12 16:28:42  swa
+# added "make dok" section to generate html pages from
+# the sgml source documents. note that the we do not want
+# generated stuff in cvs.
+#
 # Revision 1.22  2001/09/10 16:31:23  swa
 # buildroot definition in the specfile fucks up the build
 # process under suse. hence I moved it to the "rpm -ta"
@@ -323,6 +328,24 @@ tarball-dist:
 	chmod a+r ../../ijb-distribution-$(VERSION).tar.gz
 	@$(ECHO) Tarball with binary created.
 
+#############################################################################
+#
+# Documentation
+#
+# converts doc/source/*.sgml into html, text and man pages
+#
+#############################################################################
+dok:
+	mkdir -p doc/text doc/man
+#  user manual
+	rm -rf doc/webserver/user-manual
+	cd doc/source && db2html -s ldp.dsl user-manual.sgml && mv user-manual ../webserver
+#  developer manual
+	rm -rf doc/webserver/developer-manual
+	cd doc/source && db2html -s ldp.dsl developer-manual.sgml && mv developer-manual ../webserver
+#  faq
+	rm -rf doc/webserver/faq
+	cd doc/source && db2html -s ldp.dsl faq.sgml && mv faq ../webserver
 
 #############################################################################
 # Source file dependencies
