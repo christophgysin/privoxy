@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/06/07 23:14:38  jongfoster
+ *    Removing ACL and forward file loaders - these files have
+ *    been merged into the config file.
+ *
  *    Revision 1.5  2001/05/31 21:28:49  jongfoster
  *    Removed all permissionsfile code - it's now called the actions
  *    file, and (almost) all the code is in actions.c
@@ -104,12 +108,7 @@ extern int check_file_changed(const struct file_list * current,
                               struct file_list ** newfl);
 
 extern int load_actions_file(struct client_state *csp);
-extern int load_forwardfile(struct client_state *csp);
   
-#ifdef ACL_FILES
-extern int load_aclfile(struct client_state *csp);
-#endif /* def ACL_FILES */
-
 #ifdef TRUST_FILES
 extern int load_trustfile(struct client_state *csp);
 #endif /* def TRUST_FILES */
@@ -124,10 +123,6 @@ extern void free_url(struct url_spec *url);
 extern void add_loader(int (*loader)(struct client_state *), 
                        struct configuration_spec * config);
 extern int run_loader(struct client_state *csp);
-
-#ifdef PCRS
-extern int load_re_filterfile(struct client_state *csp);
-#endif /* def PCRS */
 
 /* Revision control strings from this header and associated .c file */
 extern const char loaders_rcs[];
