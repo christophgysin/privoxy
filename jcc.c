@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.51  2001/10/26 17:38:28  oes
+ *    Cosmetics
+ *
  *    Revision 1.50  2001/10/25 03:40:48  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -741,12 +744,9 @@ static void chat(struct client_state *csp)
       enlist(csp->headers, p);
       freez(p);
    }
-
-   /* We have a request. */
-
    /*
-    * Now, check to see if we need to intercept it, i.e.
-    * If
+    * We have a request. Now, check to see if we need to
+    * intercept it, i.e. If ..
     */
 
    if (
