@@ -1,4 +1,14 @@
 #!/bin/sh
+#
+# This is file /etc/rc.d/init.d/privoxy and was put here 
+# by the privoxy rpm
+#
+# chkconfig: 235 84 09
+#
+# description: This shell script takes care of starting and stopping \
+#              privoxy.
+#
+
 #  ********************************************************************
 # 
 #  File        :  $Source$
@@ -33,6 +43,10 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.7  2002/04/08 14:54:51  morcego
+#     Moved the chkconfig comments to the begining of the file, couse Linuxconf
+#     was getting confused with it where it was.
+#
 #     Revision 1.6  2002/03/26 22:29:55  swa
 #     we have a new homepage!
 #
@@ -150,15 +164,6 @@
 #
 # 
 # ********************************************************************/
-
-# This is file /etc/rc.d/init.d/privoxy and was put here 
-# by the privoxy rpm
-#
-# chkconfig: 235 84 09
-#
-# description: This shell script takes care of starting and stopping \
-#              privoxy.
-#
 
 
 # Source function library.
