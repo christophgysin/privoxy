@@ -1907,6 +1907,11 @@ at sourceforge. Three simple steps:
       </listitem> 
       <listitem>
        <para>
+        <emphasis>Commit all files that were changed in the above steps!</emphasis>
+       </para>
+      </listitem> 
+      <listitem>
+       <para>
         Tag all files in CVS with the version number with
         <quote><command>cvs tag v_X_Y_Z</command></quote>.
         Don't use vX_Y_Z, ver_X_Y_Z, v_X.Y.Z (won't work) etc.
@@ -2411,6 +2416,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.31  2002/04/11 09:32:52  oes
+  more nits
+
   Revision 1.30  2002/04/11 09:24:53  oes
   nits
 
