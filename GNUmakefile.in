@@ -28,6 +28,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.20  2002/03/24 11:39:17  jongfoster
+# Renaming config files
+#
 # Revision 1.19  2002/03/22 20:53:03  morcego
 # - Ongoing process to change name to JunkbusterNG
 # - configure/configure.in: no change needed
@@ -381,7 +384,7 @@ W32_FILES = @WIN_ONLY@w32.res
 W32_OBJS  = @WIN_ONLY@$(W32_SRC:.c=.@OBJEXT@) $(W32_FILES)
 W32_HDRS  = @WIN_ONLY@w32log.h w32taskbar.h win32.h w32res.h
 W32_LIB   = @WIN_ONLY@-lwsock32 -lcomctl32
-W32_INIS  = @WIN_ONLY@config.txt trust.txt re_filterfile.txt
+W32_INIS  = @WIN_ONLY@config.txt trust.txt
 
 PCRS_SRC     = @STATIC_PCRS_ONLY@pcrs.c
 PCRS_OBJS    = @STATIC_PCRS_ONLY@$(PCRS_SRC:.c=.@OBJEXT@)
@@ -469,12 +472,13 @@ config.txt: config
 	$(SED) -e 's!\trustfile trust!trustfile trust.txt!' \
 	       -e 's!\jarfile jarfile!jarfile jar.log!' \
 	       -e 's!\logfile logfile!logfile junkbuster.log!' \
-	       -e 's!\re_filterfile re_filterfile!re_filterfile re_filterfile.txt!' \
 	       -e 's!#Win32-only: !!' \
 	       < $< | \
 	       $(DOSFILTER) > $@
-	# LF to CRLF in ijb.action
-	$(DOSFILTER) <ijb.action >ijb.action.txt && mv ijb.action.txt ijb.action
+	# LF to CRLF in default.action
+	$(DOSFILTER) <default.action >default.action.txt && mv default.action.txt default.action
+	# LF to CRLF in default.filter
+	$(DOSFILTER) <default.filter >default.filter.txt && mv default.filter.txt default.filter
 
 trust.txt: trust
 	$(DOSFILTER) < $< > $@ 
@@ -767,7 +771,7 @@ install: all
 	mkdir -p $(DEST)/templates
 	cp -r doc/webserver/user-manual $(DEST)
 	cp -r templates $(DEST)
-	$(INSTALL) config ijb.action re_filterfile trust $(DEST)
+	$(INSTALL) config default.action default.filter trust $(DEST)
 	# FIXME $(ECHO) junkbuster.logrotate junkbuster.monthly junkbuster.weekly
 	# FIXME: Need new manual! $(GZIP_PROG) -c junkbuster.1 > $(MAN_DEST)/junkbuster.1.gz
 	$(INSTALL) junkbusterng.init /etc/init.d/junkbusterng
