@@ -424,6 +424,7 @@ privacy.net
 .privoxy.org/actions
 .oesterhelt.org/actions
 
+
 #############################################################################
 # Test for new GIF deanimation feature.
 # Just try http://www.oesterhelt.org/deanimate-demo with and without it.
@@ -438,7 +439,6 @@ www.oesterhelt.org/deanimate-demo
 # FIXME: Now cookies are allowed by default, do any of these sites
 # need persistent cookies?
 #############################################################################
-
 #{-no-cookies}
 #.javasoft.com
 #.sun.com
@@ -491,11 +491,11 @@ edit.europe.yahoo.com
 .nytimes.com
 
 #############################################################################
-# Please don't re_filter code!
+# Please don't re_filter or modify code!
 #############################################################################
-{-filter}
+{-filter -no-popups}
 .sourceforge.net
-
+.sf.net
 
 #############################################################################
 # Imagelist:
