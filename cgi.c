@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.58  2002/03/29 03:33:13  david__schmidt
+ *    Fix Mac OSX compiler warnings
+ *
  *    Revision 1.57  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -1105,7 +1108,7 @@ struct http_response *finish_http_response(struct http_response *rsp)
    }
    if (!err)
    {
-      sprintf(buf, "Content-Length: %d", rsp->content_length);
+      sprintf(buf, "Content-Length: %d", (int)rsp->content_length);
       err = enlist(rsp->headers, buf);
    }
 

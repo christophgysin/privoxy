@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2002/03/29 03:33:13  david__schmidt
+ *    Fix Mac OSX compiler warnings
+ *
  *    Revision 1.30  2002/03/27 14:32:43  david__schmidt
  *    More compiler warning message maintenance
  *
@@ -622,7 +625,7 @@ int accept_connection(struct client_state * csp, jb_socket fd)
    struct sockaddr_in client, server;
    struct hostent *host = NULL;
    jb_socket afd;
-#if defined(_WIN32) || defined(__OS2__)
+#if defined(_WIN32) || defined(__OS2__) || defined(__APPLE_CC__)
    /* Wierdness - fix a warning. */
    int c_length, s_length;
 #else
