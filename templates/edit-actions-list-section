@@ -30,7 +30,6 @@
 #                Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # Revisions   :
-#    $Log$
 #    Revision 1.7  2002/03/26 22:29:56  swa
 #    we have a new homepage!
 #
@@ -68,7 +67,7 @@
 # edit-actions page is ~300k.  Before it was optimized, it was ~550k.
 #
 #############################################################################
-<table border="0" width="100%" cellspacing="0" cellpadding="3" class="wide">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="framed">
 <tr class="actions" valign="top">
  <td class="header" align="right">Actions:</td>
  <td align="center"><a name="l@s@" href="eas?f=@f@&amp;v=@v@&amp;s=@s@">Edit</a></td>
@@ -78,7 +77,7 @@
  <td colspan="3"><img src="t" width="2" height="1" alt="----"></td>
 </tr>
 <tr class="url1" valign="top">
- <td class="header" align="right">URLs:</a></td>
+ <td class="header" align="right">URLs:</td>
  <td align="center"><a href="eaa?f=@f@&amp;v=@v@&amp;s=@s@">Add</a></td>
  <td align="left">&nbsp;</td>
 </tr>
@@ -102,5 +101,4 @@
  </td>
 </tr>
 </table>
-<p>&nbsp;</p>
 
