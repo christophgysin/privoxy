@@ -36,6 +36,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2001/09/20 13:30:08  steudten
+ *
+ *    Make freez() more secure in case of: if (exp) { free(z) ; a=*z }
+ *    Last case will set z to NULL in free(z) and thats bad..
+ *
  *    Revision 1.32  2001/09/16 23:02:51  jongfoster
  *    Fixing warning
  *
@@ -307,7 +312,7 @@
 extern "C" {
 #endif
 
-#define freez(X)  if(X) free(X); X = NULL
+#define freez(X)  { if(X) { free(X); X = NULL ; } }
 
 #define BUFFER_SIZE 5000
 
