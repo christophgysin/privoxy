@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.41.2.1  2002/08/02 12:43:14  oes
+ *    Fixed bug #588514: first_time now set on a per-string basis in actions_from_radio; javascriptify now called on copies
+ *
  *    Revision 1.41  2002/05/21 19:09:45  oes
  *     - Made Add/Edit/Remove URL Submit and Cancel
  *       buttons jump back to relevant section in eal
@@ -4580,7 +4583,6 @@ static jb_err actions_to_radio(struct map * exports,
 static jb_err actions_from_radio(const struct map * parameters,
                                  struct action_spec *action)
 {
-   static int first_time = 1;
    const char * param;
    char * param_dup;
    char ch;
@@ -4594,16 +4596,22 @@ static jb_err actions_from_radio(const struct map * parameters,
     * but in this case we're safe and don't need semaphores.
     * Be careful if you modify this function.
     * - Jon
+    * The js_name_arr's are never free()d, but this is no
+    * problem, since they will only be created once and
+    * used by all threads thereafter. -oes
     */
 
 #define JAVASCRIPTIFY(dest_var, string)               \
    {                                                  \
-      static char js_name_arr[] = string;             \
+     static int first_time = 1;                       \
+     static char *js_name_arr;                        \
       if (first_time)                                 \
       {                                               \
+         js_name_arr = strdup(string);                \
          javascriptify(js_name_arr);                  \
       }                                               \
       dest_var = js_name_arr;                         \
+      first_time = 0;                                 \
    }                                                  \
 
 #define DEFINE_ACTION_BOOL(name, bit)                 \
@@ -4698,8 +4706,6 @@ static jb_err actions_from_radio(const struct map * parameters,
 #undef DEFINE_ACTION_BOOL
 #undef DEFINE_ACTION_ALIAS
 #undef JAVASCRIPTIFY
-
-   first_time = 0;
 
    return err;
 }
