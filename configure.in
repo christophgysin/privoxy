@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.36  2002/03/06 23:50:36  morcego
+dnl Will not test for a text browser if we are not using docbook.
+dnl
 dnl Revision 1.35  2002/03/06 21:55:52  morcego
 dnl New configure option: --with-docbook=(yes|no|directory)
 dnl Preliminary new platform detection code included. Will work with the
@@ -260,8 +263,8 @@ AC_INIT(jcc.c)
 AC_CONFIG_HEADER(config.h)
 AC_CANONICAL_HOST
 
-dodk=dump
-DKPREFIX="none"
+dodk=auto
+DKPREFIX=none
 AC_ARG_WITH(docbook, dnl
   --with-docbook=[[yes|no|directory]]	
                            Enable docbook documentation creation 
@@ -386,7 +389,7 @@ else
   fi
 fi
 
-if test $dodk = dump; then
+if test $dodk = auto; then
 	dodk = no
 	if test $target_type = unix; then
 		case "$host_os" in
@@ -426,7 +429,7 @@ fi
 AC_SUBST(WIN_ONLY)
 
 dnl Checking which text html browser we have avaliable
-if test $target_type = unix; then
+if test $dodk != no; then
 	AC_CHECK_PROGS(WDUMP,w3m lynx links,false)
 	if test "$WDUMP" = false; then
 		AC_MSG_ERROR(You need some kind of text browser to continue \(w3m, lynx and links are supported\))
