@@ -11,8 +11,8 @@
   $Id$
 
   $Log$
-  Revision 1.9  2002/04/06 11:34:44  oes
-  Cosmetics
+  Revision 1.10  2002/04/06 15:19:35  oes
+  Clean-up, smarter handling of unreachable URLs
 
   Revision 1.5  2002/04/02 07:22:43  oes
   Cosmetics
@@ -48,24 +48,55 @@
  -->
 
  <head>
-  <style type="text/css">
-   body, div, p, h1, h2, ul, ol, li, td, th, dl, dt, dd { font-family:helvetica,helv,arial,sans-serif; font-size:10px }
-   body { background-color: #ffffff }
-   div.title    { background-color:#dddddd; border:solid black 1px; margin:20px; min-width: 80%; padding:20px; font-size:15px; font-weight:bold }
-   div.box      { background-color:#eeeeee; border:solid black 1px; margin:20px; min-width: 80%; padding:20px; font-size:10px }
-   div.infobox  { background-color:#ccccff; border:solid black 1px; margin:20px; min-width: 60%; max-width: 60%; padding:20px; font-size:10px; }
-   div.errorbox { background-color:#ffdddd; border:solid black 1px; margin:20px; min-width: 60%; max-width: 60%; padding:20px; font-size:10px; }
-  </style>
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <link rel="stylesheet" type="text/css" href="../p_feedback.css">
+
 
 <?php
 
 /* 
- * For testing:
+ * Config:
+ */
+$logfile = "results/actions-feedback.txt";
+
+
+/* 
+ * Debug:
  */
 //phpinfo();
 //error_reporting(E_ALL);
 error_reporting(E_NONE);
 
+/*
+ * Function: error_abort
+ * Purpose:  Return an error page with $title and $message
+ */
+function error_abort($title, $message)
+{
+   if ($title == "invalid") /* shortcut */
+   {
+      $title = "Invalid Feedback Submission";
+   }
+
+   echo ("  <title>Privoxy: $title</title>
+           </head>
+           <body>
+            <div class=\"title\">
+             <h1>
+              <a href=\"http://www.privoxy.org/\">Privoxy</a>: $title
+              </h1>
+             </div>
+            <center>
+             <div class=\"errorbox\">
+              $message
+             </div>
+            </center>
+            <p>Valid <a href=\"http://validator.w3.org/\">HTML 4.01 Transitional</a></p>
+           </body>
+          </html>\n");
+   exit; 
+}
 
 
 /* 
@@ -73,18 +104,7 @@ error_reporting(E_NONE);
  */
 if (!isset($referrer_url))
 {
-   echo ("  <title>Invalid Feedback Submission</title>
-           </head>
-           <body>
-            <div class=\"title\">Invalid Feedback Submission</div>
-            <div align=\"center\">
-             <div class=\"errorbox\" align=\"left\">
-              When submitting your feedback please start with <a href=\"index.php\">step 1</a>.
-             </div>
-            </div>
-           </body>
-          </html>");
-   exit; 
+   error_abort("invalid", "When submitting your feedback please start with <a href=\"index.php\">step 1</a>.");
 }
 
 
@@ -93,18 +113,17 @@ if (!isset($referrer_url))
  */
 if (!isset($problem))
 {
-   echo ("  <title>Invalid Feedback Submission</title>
-           </head>
-           <body>
-            <div class=\"title\">Invalid Feedback Submission</div>
-            <div align=\"center\">
-             <div class=\"errorbox\" align=\"left\">
-              You need to select the nature of the problem in <a href=\"index.php\">step 1</a>.
-             </div>
-            </div>
-           </body>
-          </html>");
-   exit; 
+   error_abort("invalid", "You need to select the nature of the problem in <a href=\"index.php\">step 1</a>.");
+}
+
+
+/* 
+ * Don't accept unconfirmed URLs
+ */
+if (!isset($url_confirmed))
+{
+   error_abort("invalid", "When submitting URLs that this script can't retrieve, you need to check \"Yes, I'm sure\"
+                <a href=\"javascript:history.back();\">step 2</a>.");
 }
 
 
@@ -120,7 +139,6 @@ if (!isset($name) || ($name == ""))
 /* 
  * Open the logfile or fail:
  */
-$logfile = "feedback-data.txt";
 $fp = fopen($logfile, "a");
 
 if(!$fp)
@@ -128,9 +146,11 @@ if(!$fp)
    echo ("  <title>Internal Script Error</title>
            </head>
            <body>
-            <div class=\"title\">Internal Script Error</div>
-            <div align=\"center\">
-             <div class=\"errorbox\" align=\"left\">
+            <div class=\"title\">
+              <h1><a href=\"http://www.privoxy.org/\">Privoxy</a>: Internal Script Error</h1>
+            </div>
+            <center>
+             <div class=\"errorbox\">
               <p>
                This script was unable to open its logfile.
               </p>
@@ -138,7 +158,7 @@ if(!$fp)
                Please <a href=\"mailto:info@privoxy.org?SUBJECT=Feedback-Script-Broken\">mail its owner</a>!
               </p>
              </div>
-            </div>
+            </center>
            </body>
           </html>");
    exit; 
@@ -149,7 +169,7 @@ if(!$fp)
  * Write Head (type, severity, user, client-ip)
  * and remarks field:
  */
-fwrite($fp, "\n#FEEDBACK TYPE $problem SEVERITY $severity FROM $name ON $REMOTE_ADDR\n");
+fwrite($fp, "\n#FEEDBACK TYPE $problem SEVERITY $severity FROM $name ON $REMOTE_ADDR VERIFIED $url_verified TIME " . date("r") ."\n");
 if (isset($remarks))
 {
    $lines = explode("\n", $remarks);
@@ -215,7 +235,9 @@ fclose($fp);
 
  <body>
   <div class="title">
-   <a href="http://www.privoxy.org" target="_blank">Privoxy</a> Action List Feedback - Result
+   <h1>
+    <a href="http://www.privoxy.org" target="_blank">Privoxy</a> Action List Feedback - Result
+   </h1>
   </div>
 
   <div class="box">
@@ -233,5 +255,8 @@ fclose($fp);
    </p>
 
   </div>
+
+  <p>Valid <a href="http://validator.w3.org/">HTML 4.01 Transitional</a></p>
+
  </body>
 </html>
