@@ -31,6 +31,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.7  2001/06/19 14:21:56  oes
+#     Fixed microsuck line
+#
 #     Revision 1.6  2001/06/09 14:01:57  swa
 #     header. cosmetics. default: no messing ala microsuck.
 #
@@ -133,7 +136,7 @@ s/<img\s+[^>]*?(width|height)\s+=\s+['"]?1\D[^>]*?(width|height)\s+=\s+['"]?1\D[
 # Fun stuff
 #
 # ********************************************************************/
-#s/microsoft(?!.com)/<b>MicroSuck<\/b>/ig
+s/microsoft(?!.com)/MicroSuck/ig
 
 # ********************************************************************/
 #
