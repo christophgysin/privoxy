@@ -1,5 +1,5 @@
-#ifndef _LOADERS_H
-#define _LOADERS_H
+#ifndef LOADERS_H_INCLUDED
+#define LOADERS_H_INCLUDED
 #define LOADERS_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/07/29 18:58:15  jongfoster
+ *    Removing nested #includes, adding forward declarations for needed
+ *    structures, and changing the #define _FILENAME_H to FILENAME_H_INCLUDED.
+ *
  *    Revision 1.7  2001/07/13 14:01:54  oes
  *    Removed all #ifdef PCRS
  *
@@ -98,11 +102,15 @@
  *********************************************************************/
 
 
-#include "project.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/* Structures taken from project.h */
+struct client_state;
+struct file_list;
+struct configuration_spec;
+struct url_spec;
 
 extern void sweep(void);
 extern char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs);
@@ -134,7 +142,7 @@ extern const char loaders_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _LOADERS_H */
+#endif /* ndef LOADERS_H_INCLUDED */
 
 /*
   Local Variables:

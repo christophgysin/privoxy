@@ -1,5 +1,5 @@
-#ifndef _LOADCFG_H
-#define _LOADCFG_H
+#ifndef LOADCFG_H_INCLUDED
+#define LOADCFG_H_INCLUDED
 #define LOADCFG_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/07/29 18:58:15  jongfoster
+ *    Removing nested #includes, adding forward declarations for needed
+ *    structures, and changing the #define _FILENAME_H to FILENAME_H_INCLUDED.
+ *
  *    Revision 1.5  2001/05/26 00:28:36  jongfoster
  *    Automatic reloading of config file.
  *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
@@ -111,15 +115,12 @@
  *********************************************************************/
 
 
-/* Declare struct FILE for vars and funcs. */
-#include <stdio.h>
-
-/* All of our project's data types. */
-#include "project.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/* Don't need project.h, only this: */
+struct configuration_spec;
 
 /* Global variables */
 
@@ -151,7 +152,7 @@ extern const char loadcfg_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _JCC_H */
+#endif /* ndef LOADCFG_H_INCLUDED */
 
 /*
   Local Variables:

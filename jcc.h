@@ -1,5 +1,5 @@
-#ifndef _JCC_H
-#define _JCC_H
+#ifndef JCC_H_INCLUDED
+#define JCC_H_INCLUDED
 #define JCC_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -35,6 +35,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/07/29 18:58:15  jongfoster
+ *    Removing nested #includes, adding forward declarations for needed
+ *    structures, and changing the #define _FILENAME_H to FILENAME_H_INCLUDED.
+ *
  *    Revision 1.3  2001/07/18 12:31:58  oes
  *    moved #define freez from jcc.h to project.h
  *
@@ -51,17 +55,13 @@
  *********************************************************************/
 
 
-/* Declare struct FILE for vars and funcs. */
-#include <stdio.h>
-
-/* All of our project's data types. */
-#include "project.h"
-
-#include "loadcfg.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+struct client_state;
+struct file_list;
+
 
 /* Global variables */
 
@@ -91,7 +91,7 @@ extern const char jcc_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _JCC_H */
+#endif /* ndef JCC_H_INCLUDED */
 
 /*
   Local Variables:

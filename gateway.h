@@ -1,5 +1,5 @@
-#ifndef _GATEWAY_H
-#define _GATEWAY_H
+#ifndef GATEWAY_H_INCLUDED
+#define GATEWAY_H_INCLUDED
 #define GATEWAY_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/29 18:58:15  jongfoster
+ *    Removing nested #includes, adding forward declarations for needed
+ *    structures, and changing the #define _FILENAME_H to FILENAME_H_INCLUDED.
+ *
  *    Revision 1.2  2001/06/07 23:12:14  jongfoster
  *    Removing gateways[] list - no longer used.
  *    Replacing function pointer in struct gateway with a directly
@@ -51,11 +55,13 @@
  *********************************************************************/
 
 
-#include "project.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+struct forward_spec;
+struct http_request;
+struct client_state;
 
 extern int forwarded_connect(const struct forward_spec * fwd, 
                              struct http_request *http, 
@@ -69,7 +75,7 @@ extern const char gateway_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _GATEWAY_H */
+#endif /* ndef GATEWAY_H_INCLUDED */
 
 /*
   Local Variables:
