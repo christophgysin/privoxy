@@ -8,7 +8,7 @@
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity history SYSTEM "history.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
-<!entity p-version "2.9.13">
+<!entity p-version "2.9.14">
 <!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
@@ -214,7 +214,7 @@
  This will place the <application>Privoxy</application> configuration 
  files in <filename>/etc/privoxy/</filename>, and log files in 
  <filename>/var/log/privoxy/</filename>. Run 
- <command>ckconfig privoxy on</command> to have
+ <command>chkconfig privoxy on</command> to have
  <application>Privoxy</application> start automatically during init.
 
 </para>
@@ -3946,6 +3946,9 @@ Requests</title>
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.71  2002/04/08 22:59:26  hal9
+ Version update. Spell chkconfig correctly :)
+
  Revision 1.70  2002/04/08 20:53:56  swa
  ?
 
