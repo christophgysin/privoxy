@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/05/29 20:09:15  joergs
+ *    HTTP_REDIRECT_TEMPLATE fixed.
+ *
  *    Revision 1.7  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -733,7 +736,7 @@ static const char HTTP_REDIRECT_TEMPLATE[] =
       "Pragma: no-cache\r\n"
       "Last-Modified: Thu Jul 31, 1997 07:42:22 pm GMT\r\n"
       "Expires:       Thu Jul 31, 1997 07:42:22 pm GMT\r\n"
-      "Location: %s\r\n";
+      "Location: %s\r\n\r\n";
 
 #endif /*  defined(FAST_REDIRECTS) || defined(IMAGE_BLOCKING) */
 
