@@ -1118,6 +1118,9 @@ www.amazon.de/exec/obidos/clipserve/
 #MASTER# PROBLEM-URL: http://www.ameritrade.com
 #MASTER# REMARKS: Animated link texts
 www.ameritrade.com
+#MASTER# PROBLEM-URL: http://www.myrealbox.com/a?B.KL.U6wQ.d
+#MASTER# REMARKS: Bogus web server doesn't close connection -> deanimation doesn't terminate
+www.myrealbox.com
 
 #----------------------------------------------------------------------------
 # These sites are so abusive that we need to kill all JS event bindings (and
