@@ -32,6 +32,9 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/06/29 13:29:55  oes
+ *    Added FIXMEs (and didn't repair, hehe)
+ *
  *    Revision 1.3  2001/05/22 18:56:28  oes
  *    CRLF -> LF
  *
@@ -90,6 +93,7 @@ const char killpopup_h_rcs[] = KILLPOPUP_H_VERSION;
  * Description :  Filter the block of data that's been read from the server.
  *                Caller is responsible for checking permissons list
  *                to determine if this function should be called.
+ *                FIXME: Should use the replacements proposed by Guy
  *
  * Parameters  :
  *          1  :  buff = Buffer to scan and modify.  Null terminated.
@@ -159,7 +163,7 @@ void filter_popups(char *buff, int size)
       close=strchr(popup,'>');
       if (close)
       {
-         /* we are now between <body and the ending > */
+         /* we are now between <body and the ending > FIXME: No, we're anywhere! --oes*/
          p=strstr(popup, "onUnload");
          if (p)
          {
