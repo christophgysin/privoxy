@@ -35,6 +35,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.6  2001/10/23 21:30:30  jongfoster
  *    Adding error-checking to selected functions.
  *
@@ -115,6 +122,9 @@ extern jb_err get_action_token(char **line, char **name, char **value);
 extern void unload_actions_file(void *file_data);
 extern int load_actions_file(struct client_state *csp);
 
+#ifdef FEATURE_GRACEFUL_TERMINATION
+void unload_current_actions_file(void);
+#endif
 
 
 /* Revision control strings from this header and associated .c file */

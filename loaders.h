@@ -37,6 +37,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.16  2002/03/07 03:46:17  oes
  *    Fixed compiler warnings
  *
@@ -196,6 +203,12 @@ extern int load_re_filterfile(struct client_state *csp);
 extern int load_trustfile(struct client_state *csp);
 #endif /* def FEATURE_TRUST */
 
+#ifdef FEATURE_GRACEFUL_TERMINATION
+#ifdef FEATURE_TRUST
+void unload_current_trust_file(void);
+#endif
+void unload_current_re_filterfile(void);
+#endif /* FEATURE_GRACEFUL_TERMINATION */
 
 
 extern void add_loader(int (*loader)(struct client_state *), 

@@ -38,6 +38,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.7  2002/03/08 16:43:59  oes
  *    Renamed cgi_transparent_png to cgi_transparent_image
  *
@@ -109,6 +116,12 @@ extern jb_err cgi_show_request (struct client_state *csp,
 extern jb_err cgi_transparent_image (struct client_state *csp,
                                    struct http_response *rsp,
                                    const struct map *parameters);
+
+#ifdef FEATURE_GRACEFUL_TERMINATION
+extern jb_err cgi_die (struct client_state *csp,
+                       struct http_response *rsp,
+                       const struct map *parameters);
+#endif
 
 /* Revision control strings from this header and associated .c file */
 extern const char cgisimple_rcs[];

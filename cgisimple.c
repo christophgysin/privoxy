@@ -36,6 +36,13 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.18  2002/03/12 01:44:49  oes
  *    Changed default for "blocked" image from jb logo to checkboard pattern
  *
@@ -254,6 +261,48 @@ jb_err cgi_error_404(struct client_state *csp,
 
    return template_fill_for_cgi(csp, "cgi-error-404", exports, rsp);
 }
+
+
+#ifdef FEATURE_GRACEFUL_TERMINATION
+/*********************************************************************
+ *
+ * Function    :  cgi_die
+ *
+ * Description :  CGI function to shut down JunkBuster.
+ *                NOTE: Turning this on in a production build
+ *                would be a BAD idea.  An EXTREMELY BAD idea.
+ *                In short, don't do it.
+ *               
+ * Parameters  :
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
+ *
+ * CGI Parameters : none
+ *
+ * Returns     :  JB_ERR_OK on success
+ *                JB_ERR_MEMORY on out-of-memory error.  
+ *
+ *********************************************************************/
+jb_err cgi_die (struct client_state *csp,
+                struct http_response *rsp,
+                const struct map *parameters)
+{
+   assert(csp);
+   assert(rsp);
+   assert(parameters);
+
+   /* quit */
+   g_terminate = 1;
+
+   /*
+    * I don't really care what gets sent back to the browser.
+    * Take the easy option - "out of memory" page.
+    */
+
+   return JB_ERR_MEMORY;
+}
+#endif /* def FEATURE_GRACEFUL_TERMINATION */
 
 
 /*********************************************************************

@@ -35,6 +35,13 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.45  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.44  2002/03/16 21:51:00  jongfoster
  *    Fixing free(NULL).
  *
@@ -951,16 +958,44 @@ char *read_config_line(char *buf, size_t buflen, FILE *fp, unsigned long *linenu
  *********************************************************************/
 static void unload_trustfile(void *f)
 {
-   struct block_spec *b = (struct block_spec *)f;
-   if (b == NULL) return;
+   struct block_spec *cur = (struct block_spec *)f;
+   struct block_spec *next;
 
-   unload_trustfile(b->next); /* Stack is cheap, isn't it? */
+   while (cur != NULL)
+   {
+      next = cur->next;
 
-   free_url_spec(b->url);
+      free_url_spec(cur->url);
+      free(cur);
 
-   freez(b);
+      cur = next;
+   }
 
 }
+
+
+#ifdef FEATURE_GRACEFUL_TERMINATION
+/*********************************************************************
+ *
+ * Function    :  unload_current_trust_file
+ *
+ * Description :  Unloads current trust file - reset to state at
+ *                beginning of program.
+ *
+ * Parameters  :  None
+ *
+ * Returns     :  N/A
+ *
+ *********************************************************************/
+void unload_current_trust_file(void)
+{
+   if (current_trustfile)
+   {
+      current_trustfile->unloader = unload_trustfile;
+      current_trustfile = NULL;
+   }
+}
+#endif /* FEATURE_GRACEFUL_TERMINATION */
 
 
 /*********************************************************************
@@ -1134,6 +1169,30 @@ static void unload_re_filterfile(void *f)
 
    return;
 }
+
+
+#ifdef FEATURE_GRACEFUL_TERMINATION
+/*********************************************************************
+ *
+ * Function    :  unload_current_re_filterfile
+ *
+ * Description :  Unloads current re_filter file - reset to state at
+ *                beginning of program.
+ *
+ * Parameters  :  None
+ *
+ * Returns     :  N/A
+ *
+ *********************************************************************/
+void unload_current_re_filterfile(void)
+{
+   if (current_re_filterfile)
+   {
+      current_re_filterfile->unloader = unload_re_filterfile;
+      current_re_filterfile = NULL;
+   }
+}
+#endif
 
 
 /*********************************************************************

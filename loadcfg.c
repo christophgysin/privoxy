@@ -35,6 +35,13 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.37  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.36  2002/03/13 00:27:05  jongfoster
  *    Killing warnings
  *
@@ -456,6 +463,30 @@ void unload_configfile (void * data)
    freez(config->re_filterfile);
 
 }
+
+
+#ifdef FEATURE_GRACEFUL_TERMINATION
+/*********************************************************************
+ *
+ * Function    :  unload_current_config_file
+ *
+ * Description :  Unloads current config file - reset to state at
+ *                beginning of program.
+ *
+ * Parameters  :  None
+ *
+ * Returns     :  N/A
+ *
+ *********************************************************************/
+void unload_current_config_file(void)
+{
+   if (current_configfile)
+   {
+      current_configfile->unloader = unload_configfile;
+      current_configfile = NULL;
+   }
+}
+#endif
 
 
 /*********************************************************************

@@ -35,6 +35,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.9  2002/03/07 03:52:44  oes
  *    Set logging to tty for --no-daemon mode
  *
@@ -100,6 +107,10 @@ extern struct file_list    files[];
 extern const char *pidfile;
 #endif
 extern int no_daemon;
+
+#ifdef FEATURE_GRACEFUL_TERMINATION
+extern int g_terminate;
+#endif
 
 /* Functions */
 

@@ -38,6 +38,13 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.50  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.49  2002/03/13 00:27:04  jongfoster
  *    Killing warnings
  *
@@ -333,6 +340,11 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
    { "",
          cgi_default,
          "Junkbuster main page" },
+#ifdef FEATURE_GRACEFUL_TERMINATION
+   { "die", 
+         cgi_die,  
+         "<b>Shut down</b> - <font color=red size='+1'>Do not deploy this build in a production environment, this is a one click Denial Of Service attack!!!</font>" }, 
+#endif
    { "show-status", 
          cgi_show_status,  
          "Show information about the current configuration" }, 

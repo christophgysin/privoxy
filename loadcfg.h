@@ -37,6 +37,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2002/03/16 23:54:06  jongfoster
+ *    Adding graceful termination feature, to help look for memory leaks.
+ *    If you enable this (which, by design, has to be done by hand
+ *    editing config.h) and then go to http://i.j.b/die, then the program
+ *    will exit cleanly after the *next* request.  It should free all the
+ *    memory that was used.
+ *
  *    Revision 1.8  2001/12/30 14:07:32  steudten
  *    - Add signal handling (unix)
  *    - Add SIGHUP handler (unix)
@@ -158,6 +165,9 @@ extern short int MustReload;
 
 extern struct configuration_spec * load_config(void);
 
+#ifdef FEATURE_GRACEFUL_TERMINATION
+void unload_current_config_file(void);
+#endif
 
 /* Revision control strings from this header and associated .c file */
 extern const char loadcfg_rcs[];
