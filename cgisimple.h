@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.2  2001/10/02 15:31:20  oes
+ *    Introduced show-request cgi
+ *
  *    Revision 1.1  2001/09/16 17:08:54  jongfoster
  *    Moving simple CGI functions from cgi.c to new file cgisimple.c
  *
@@ -70,6 +73,9 @@ extern int cgi_show_url_info       (struct client_state *csp,
                                     struct http_response *rsp,
                                     struct map *parameters);
 extern int cgi_show_version        (struct client_state *csp,
+                                    struct http_response *rsp,
+                                    struct map *parameters);
+extern int cgi_show_request        (struct client_state *csp,
                                     struct http_response *rsp,
                                     struct map *parameters);
 

@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2001/10/02 15:30:57  oes
+ *    Introduced show-request cgi
+ *
  *    Revision 1.29  2001/09/20 15:47:44  steudten
  *
  *    Fix BUG: Modify int size to size_t size in fill_template()
@@ -258,6 +261,9 @@ const struct cgi_dispatcher cgi_dispatcher[] = {
          12, cgi_edit_actions, 
          "HIDE Edit the actions for (a) specified URL(s)" },
 #endif /* def FEATURE_CGI_EDIT_ACTIONS */
+   { "show-request", 
+         12, cgi_show_request,  
+         "Show the client's request headers." }, 
    { "",
          0, cgi_default,
          "Junkbuster main page" },
