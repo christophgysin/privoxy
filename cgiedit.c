@@ -35,6 +35,10 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/10/29 03:48:09  david__schmidt
+ *    OS/2 native needed a snprintf() routine.  Added one to miscutil, brackedted
+ *    by and __OS2__ ifdef.
+ *
  *    Revision 1.5  2001/10/25 03:40:48  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -96,13 +100,6 @@ const char cgiedit_rcs[] = "$Id$";
 #ifdef _WIN32
 #define snprintf _snprintf
 #endif /* def _WIN32 */
-
-#ifdef __OS2__
-/*
- * FIXME: gotta write a snprintf routine.  snprintf.  You guys kill me.
- */
-#define snprintf(X,Y,Z) sprintf(X,Z)
-#endif /* __OS2__ */
 
 #include "project.h"
 #include "cgi.h"

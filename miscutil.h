@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2001/10/29 03:48:10  david__schmidt
+ *    OS/2 native needed a snprintf() routine.  Added one to miscutil, brackedted
+ *    by and __OS2__ ifdef.
+ *
  *    Revision 1.12  2001/10/23 21:27:50  jongfoster
  *    Standardising error codes in string_append
  *    make_path() no longer adds '\\' if the dir already ends in '\\' (this
@@ -135,6 +139,10 @@ extern char *make_path(const char * dir, const char * file);
 #ifdef __MINGW32__
 extern char *strdup(const char *s);
 #endif /* def __MINGW32__ */
+
+#ifdef __OS2__
+extern int snprintf(char *, size_t, const char *, /*args*/ ...);
+#endif /* def __OS2__ */
 
 /* Revision control strings from this header and associated .c file */
 extern const char miscutil_rcs[];
