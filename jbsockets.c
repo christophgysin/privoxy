@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/05/28 16:14:00  jongfoster
+ *    Fixing bug in LOG_LEVEL_LOG
+ *
  *    Revision 1.6  2001/05/26 17:28:32  jongfoster
  *    Fixed LOG_LEVEL_LOG
  *
@@ -247,7 +250,7 @@ int write_socket(int fd, const char *buf, int len)
       return(0);
    }
 
-   log_error(LOG_LEVEL_LOG, "%n", len, buf);
+   log_error(LOG_LEVEL_LOG, "%N", len, buf);
 
 #if defined(_WIN32) || defined(__BEOS__) || defined(AMIGA)
    return( send(fd, buf, len, 0));
