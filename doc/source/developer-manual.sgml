@@ -1,5 +1,5 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V3.1//EN"[
-<!entity % dummy "INCLUDE"> 
+<!entity % dummy "IGNORE"> 
 <!entity supported SYSTEM "supported.sgml">
 <!entity newfeatures SYSTEM "newfeatures.sgml">
 <!entity p-intro SYSTEM "privoxy.sgml">
@@ -2542,6 +2542,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.36  2002/04/26 05:25:23  hal9
+  Mass commit to catch a few scattered fixes.
+
   Revision 1.35  2002/04/17 15:16:15  oes
   Added link to docbook crash course
 

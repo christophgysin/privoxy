@@ -28,7 +28,7 @@
 
 -->
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
-<!entity % dummy "INCLUDE"> 
+<!entity % dummy "IGNORE"> 
 <!entity authors SYSTEM "p-authors.sgml">
 <!entity p-version "2.9.14">
 <!entity p-status "beta">
