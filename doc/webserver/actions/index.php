@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.8  2002/04/02 08:45:22  oes
+  Made script location indepandant
+
   Revision 1.7  2002/04/02 07:21:34  oes
   Using relative link for step2
 
@@ -74,9 +77,12 @@ $actions_file_download = "http://www.privoxy.org/actions/testdrive.action";
 //error_reporting(E_ALL);
 error_reporting(E_NONE);
 
-//$bookmarklet_base = "http://www.privoxy.org/actions/";
-$bookmarklet_base = "http://www.oesterhelt.org/actions/index.php";
-$bookmarklet = "javascript:void(window.open('$bookmarklet_base?url='+escape(location.href), 'Feedback', " .
+
+/*
+ * Bookmarklet that leads here:
+ */
+$my_address = "http://" . $HTTP_SERVER_VARS["HTTP_HOST"] . $PHP_SELF;
+$bookmarklet = "javascript:void(window.open('$my_address?url='+escape(location.href), 'Feedback', " .
                "'width=600,scrollbars=yes,toolbar=no,location=no,directories=no,status=no,menubar=no,copyhistory=no').focus());";
 
 
