@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.28  2002/01/09 18:34:03  hal9
+# nit.
+#
 # Revision 1.27  2002/01/09 18:32:02  hal9
 # Removed RPM_OPT_FLAGS kludge.
 #
@@ -142,7 +145,7 @@ systems and multi-user networks.
 %build
 %configure
 make 
-# strip junkbuster
+strip junkbuster
 
 %pre
 /usr/sbin/useradd -d /etc/junkbuster -r junkbuster -s "/bin/false" > /dev/null 2>&1 || /bin/true
