@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/05/29 20:14:01  joergs
+ *    AmigaOS bugfix: PCRS needs a lot of stack, stacksize for child threads
+ *    increased.
+ *
  *    Revision 1.13  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -1059,7 +1063,7 @@ int main(int argc, const char *argv[])
 {
    configfile =
 #ifdef AMIGA
-   "AmiTCP:db/junkbuster.config"
+   "AmiTCP:db/junkbuster/config"
 #elif !defined(_WIN32)
    "config"
 #else
@@ -1084,10 +1088,6 @@ int main(int argc, const char *argv[])
    }
 #endif /* !defined(_WIN32) || defined(_WIN_CONSOLE) */
 
-#ifdef AMIGA
-   InitAmiga();
-#endif
-
    Argc = argc;
    Argv = argv;
 
@@ -1098,7 +1098,9 @@ int main(int argc, const char *argv[])
 
    files->next = NULL;
 
-#ifdef _WIN32
+#ifdef AMIGA
+   InitAmiga();
+#elif defined(_WIN32)
    InitWin32();
 #endif
 
@@ -1307,7 +1309,7 @@ static void listen_loop(void)
             NP_Output, Output(),
             NP_CloseOutput, FALSE,
             NP_Name, (ULONG)"junkbuster child",
-            NP_StackSize, 20*1024,
+            NP_StackSize, 200*1024,
             TAG_DONE)))
          {
             childs++;
