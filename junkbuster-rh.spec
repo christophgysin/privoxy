@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.31  2002/03/04 18:06:09  morcego
+# SPECFILE: fixing permissing of the init script (broken by the last change)
+#
 # Revision 1.30  2002/03/04 16:18:03  morcego
 # General cleanup of the rh specfile.
 #
@@ -137,7 +140,7 @@ Summary: The Internet Junkbuster
 Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
 Version: 2.9.11
-Release: 2
+Release: 3
 Source0: http://www.waldherr.org/%{name}/ijbswa-%{version}.tar.gz
 License: GPL
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -250,6 +253,8 @@ fi
 %doc README AUTHORS ChangeLog
 # Where are the webserver/{developer,user}-manual files ?
 %doc doc/text/developer-manual.txt doc/text/user-manual.txt
+%doc doc/webserver/developer-manual
+%doc doc/webserver/user-manual
 #%doc %{name}.weekly %{name}.monthly AUTHORS
 
 %dir %{ijbconf}
@@ -296,11 +301,15 @@ fi
 %config %{ijbconf}/templates/untrusted
 
 %config %{_sysconfdir}/logrotate.d/%{name}
-%config %{_sysconfdir}/rc.d/init.d/%{name}
+%config %attr(0744,root,root) %{_sysconfdir}/rc.d/init.d/%{name}
 
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Mon Mar 04 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
++ junkbuster-2.9.11-3
+- Fixing permissions of the init script
+
 * Mon Mar 04 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + junkbuster-2.9.11-2
 - General specfile fixup, using the best recomended practices, including:
