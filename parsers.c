@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2001/09/22 16:32:28  jongfoster
+ *    Removing unused #includes.
+ *
  *    Revision 1.27  2001/09/20 15:45:25  steudten
  *
  *    add casting from size_t to int for printf()
@@ -236,10 +239,13 @@ const char parsers_rcs[] = "$Id$";
 
 #include "config.h"
 
+#ifndef _WIN32
 #include <stdio.h>
 #include <sys/types.h>
 #include <stdlib.h>
 #include <ctype.h>
+#endif
+
 #include <string.h>
 
 #ifndef _WIN32
@@ -250,14 +256,10 @@ const char parsers_rcs[] = "$Id$";
 #include "list.h"
 #include "parsers.h"
 #include "encode.h"
-#include "filters.h"
-#include "loaders.h"
-#include "jcc.h"
 #include "ssplit.h"
 #include "errlog.h"
 #include "jbsockets.h"
 #include "miscutil.h"
-#include "cgi.h"
 
 const char parsers_h_rcs[] = PARSERS_H_VERSION;
 
