@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/05/26 15:26:15  jongfoster
+ *    ACL feature now provides more security by immediately dropping
+ *    connections from untrusted hosts.
+ *
  *    Revision 1.9  2001/05/26 00:28:36  jongfoster
  *    Automatic reloading of config file.
  *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
@@ -1121,6 +1125,7 @@ static void listen_loop(void)
             exit(1); 
          }
 #endif
+         freez(csp);
          continue;
       }
       else
@@ -1133,15 +1138,23 @@ static void listen_loop(void)
       csp->toggled_on = g_bToggleIJB;
 #endif
 
-      /* add it to the list of clients */
-      csp->next = clients->next;
-      clients->next = csp;
-
       if (run_loader(csp))
       {
          log_error(LOG_LEVEL_FATAL, "a loader failed - must exit");
          /* Never get here - LOG_LEVEL_FATAL causes program exit */
       }
+
+      if (block_acl(NULL,csp))
+      {
+         log_error(LOG_LEVEL_CONNECT, "Connection dropped due to ACL");
+         close_socket(csp->cfd);
+         freez(csp);
+         continue;
+      }
+
+      /* add it to the list of clients */
+      csp->next = clients->next;
+      clients->next = csp;
 
       if (config->multi_threaded)
       {

@@ -40,6 +40,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/26 15:26:15  jongfoster
+ *    ACL feature now provides more security by immediately dropping
+ *    connections from untrusted hosts.
+ *
  *    Revision 1.3  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -111,7 +115,7 @@ extern "C" {
 #endif
 
 #ifdef ACL_FILES
-extern int block_acl(struct access_control_addr *src, struct access_control_addr *dst, struct client_state *csp);
+extern int block_acl(struct access_control_addr *dst, struct client_state *csp);
 extern int acl_addr(char *aspec, struct access_control_addr *aca);
 #endif /* def ACL_FILES */
 

@@ -35,6 +35,10 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/26 15:26:15  jongfoster
+ *    ACL feature now provides more security by immediately dropping
+ *    connections from untrusted hosts.
+ *
  *    Revision 1.4  2001/05/26 00:37:42  jongfoster
  *    Cosmetic indentation correction.
  *
@@ -119,7 +123,7 @@ int connect_to(char *host, int portnum, struct client_state *csp)
 #endif /* !defined(_WIN32) && !defined(__BEOS__) && !defined(AMIGA) */
 
 #ifdef ACL_FILES
-   struct access_control_addr src[1], dst[1];
+   struct access_control_addr dst[1];
 #endif /* def ACL_FILES */
 
    memset((char *)&inaddr, 0, sizeof inaddr);
@@ -130,13 +134,10 @@ int connect_to(char *host, int portnum, struct client_state *csp)
    }
 
 #ifdef ACL_FILES
-   src->addr = csp->ip_addr_long;
-   src->port = 0;
-
    dst->addr = ntohl(addr);
    dst->port = portnum;
 
-   if (block_acl(src, dst, csp))
+   if (block_acl(dst, csp))
    {
       errno = EPERM;
       return(-1);
