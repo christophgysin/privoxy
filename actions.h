@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2002/05/06 07:56:50  oes
+ *    Made actions_to_html independent of FEATURE_CGI_EDIT_ACTIONS
+ *
  *    Revision 1.11  2002/04/30 11:14:52  oes
  *    Made csp the first parameter in *action_to_html
  *
@@ -122,11 +125,8 @@ extern jb_err merge_actions (struct action_spec *dest,
 extern jb_err copy_action (struct action_spec *dest, 
                            const struct action_spec *src);
 extern char * actions_to_text     (struct action_spec *action);
-#ifdef FEATURE_CGI_EDIT_ACTIONS
 extern char * actions_to_html     (struct client_state *csp,
                                    struct action_spec *action);
-#endif /* def FEATURE_CGI_EDIT_ACTIONS */
-
 extern void init_current_action     (struct current_action_spec *dest);
 extern void free_current_action     (struct current_action_spec *src);
 extern jb_err merge_current_action  (struct current_action_spec *dest, 

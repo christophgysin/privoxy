@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2002/05/06 07:56:50  oes
+ *    Made actions_to_html independent of FEATURE_CGI_EDIT_ACTIONS
+ *
  *    Revision 1.30  2002/04/30 11:14:52  oes
  *    Made csp the first parameter in *action_to_html
  *
@@ -185,9 +188,7 @@ const char actions_rcs[] = "$Id$";
 #include "miscutil.h"
 #include "errlog.h"
 #include "loaders.h"
-#ifdef FEATURE_CGI_EDIT_ACTIONS
 #include "encode.h"
-#endif /* def FEATURE_CGI_EDIT_ACTIONS */
 #include "urlmatch.h"
 #include "cgi.h"
 
@@ -1463,7 +1464,6 @@ char * actions_to_text(struct action_spec *action)
 }
 
 
-#ifdef FEATURE_CGI_EDIT_ACTIONS
 /*********************************************************************
  *
  * Function    :  actions_to_html
@@ -1569,7 +1569,6 @@ char * actions_to_html(struct client_state *csp,
 
    return result;
 }
-#endif /* def FEATURE_CGI_EDIT_ACTIONS */
 
 
 /*********************************************************************
