@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.30  2002/03/04 17:58:01  oes
+dnl Deleted _DEBUG and PID_FILE_PATH
+dnl
 dnl Revision 1.29  2002/02/28 14:20:53  oes
 dnl Fixed detection of gethost*_r functions on Solaris
 dnl
@@ -269,12 +272,6 @@ AC_DEFINE_UNQUOTED(VERSION,"${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_POINT}")
 AC_DEFINE_UNQUOTED(CODE_STATUS,"${CODE_STATUS}")
 
 dnl =================================================================
-dnl pid file only for unix 
-dnl =================================================================
-dnl 
-PID_FILE_PATH="\"/etc/junkbuster"\"
-
-dnl =================================================================
 dnl Checks for programs needed to build.
 dnl =================================================================
 AC_PROG_CC
@@ -308,7 +305,6 @@ AC_ARG_WITH(debug,
 			CFLAGS="-g"
 		      fi
 		   fi
-                   CFLAGS="$CFLAGS -D_DEBUG"
                 fi
         ],
 	[
@@ -833,9 +829,6 @@ dnl Remove the SPECIAL_CFLAGS stuff from CFLAGS, and add it seperately
 dnl in the Makefile
 CFLAGS=$old_CFLAGS_nospecial
 AC_SUBST(SPECIAL_CFLAGS)
-
-AC_SUBST(PID_FILE_PATH)
-AC_DEFINE_UNQUOTED(PID_FILE_PATH,${PID_FILE_PATH})
 
 AC_SUBST(PTHREAD_LIB)
 
