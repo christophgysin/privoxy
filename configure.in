@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.52  2002/03/29 19:51:40  gliptak
+dnl Correcting compile problem with Debian
+dnl
 dnl Revision 1.51  2002/03/28 20:43:00  swa
 dnl set make correctly
 dnl
@@ -488,6 +491,10 @@ else
   fi
 fi
 AC_SUBST(WIN_ONLY)
+
+if test $target_type = i686-pc-linux-gnu; then
+  SPECIAL_CFLAGS="-I pcre/"
+fi
 
 dnl Checking which text html browser we have avaliable
 if test $dodk != no; then
