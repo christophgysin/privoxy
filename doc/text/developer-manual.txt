@@ -7,13 +7,20 @@ Privoxy Developer Manual
    
    The developer manual gives the users information on how to help the
    developer team. It provides guidance on coding, testing, documentation
-   and other issues. Privoxy is a web proxy with advanced filtering
-   capabilities for protecting privacy, filtering web page content,
-   managing cookies, controlling access, and removing ads, banners,
-   pop-ups and other obnoxious Internet Junk. Privoxy has a very flexible
-   configuration and can be customized to suit individual needs and
-   tastes. Privoxy has application for both stand-alone systems and
-   multi-user networks.
+   and other issues.
+   
+   Privoxy is a web proxy with advanced filtering capabilities for
+   protecting privacy, filtering web page content, managing cookies,
+   controlling access, and removing ads, banners, pop-ups and other
+   obnoxious Internet junk. Privoxy has a very flexible configuration and
+   can be customized to suit individual needs and tastes. Privoxy has
+   application for both stand-alone systems and multi-user networks.
+   
+   Privoxy is based on the code of the Internet Junkbuster. Junkbuster
+   was originally written by JunkBusters Corporation, and was released as
+   free open-source software under the GNU GPL. Stefan Waldherr made many
+   improvements, and started the SourceForge project to continue
+   development. Other developers have since joined Stefan.
    
    You can find the latest version of the user manual at
    [1]http://www.privoxy.org/developer-manual/. Please see the Contact
@@ -1038,8 +1045,8 @@ static void unload_re_filterfile( void *f ) { ... }
 4.8. Addendum: Template for files and function comment blocks:
 
    Example for file comments:
-const char FILENAME_rcs[] = "$Id: developer-manual.sgml,v 1.10 2002/03/24 12:33
-:01 swa Exp $";
+const char FILENAME_rcs[] = "$Id: developer-manual.sgml,v 1.13 2002/03/27 01:16
+:41 hal9 Exp $";
 /*********************************************************************
  *
  * File        :  $Source$
@@ -1073,8 +1080,8 @@ const char FILENAME_rcs[] = "$Id: developer-manual.sgml,v 1.10 2002/03/24 12:33
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.12  2002/03/26 22:29:56  swa
- *    we have a new homepage!
+ *    Revision 1.13  2002/03/27 09:34:26  swa
+ *    new stylesheet for docs. new stylesheet for web.
  *
  *
  *********************************************************************/
@@ -1099,8 +1106,8 @@ const char FILENAME_h_rcs[] = FILENAME_H_VERSION;
    Example for file header comments:
 #ifndef _FILENAME_H
 #define _FILENAME_H
-#define FILENAME_H_VERSION "$Id: developer-manual.sgml,v 1.10 2002/03/24 12:33:
-01 swa Exp $"
+#define FILENAME_H_VERSION "$Id: developer-manual.sgml,v 1.13 2002/03/27 01:16:
+41 hal9 Exp $"
 /*********************************************************************
  *
  * File        :  $Source$
@@ -1134,8 +1141,8 @@ const char FILENAME_h_rcs[] = FILENAME_H_VERSION;
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.12  2002/03/26 22:29:56  swa
- *    we have a new homepage!
+ *    Revision 1.13  2002/03/27 09:34:26  swa
+ *    new stylesheet for docs. new stylesheet for web.
  *
  *
  *********************************************************************/
