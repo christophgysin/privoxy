@@ -14,9 +14,9 @@
 #  File        :  $Source$
 # 
 #  Purpose     :  This shell script takes care of starting and stopping
-#                 privoxy.
+#                 privoxy on Red Hat and RH compatible systems.
 # 
-#  Copyright   :  Written by and Copyright (C) 2001 the SourceForge
+#  Copyright   :  Written by and Copyright (C) 2001,2002 the SourceForge
 #                 Privoxy team. http://www.privoxy.org/
 # 
 #                 Based on the Internet Junkbuster originally written
@@ -43,6 +43,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.10  2002/09/05 17:14:32  hal9
+#     Added note that this is for Redhat compatible systems only.
+#
 #     Revision 1.9  2002/09/05 15:38:30  oes
 #     Synced with the stable branch:
 #        Revision 1.8.2.2  2002/08/05 08:42:13  kick_
