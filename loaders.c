@@ -35,6 +35,10 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/23 12:27:33  oes
+ *
+ *    Fixed ugly indentation of my last changes
+ *
  *    Revision 1.5  2001/05/23 10:39:05  oes
  *    - Added support for escaping the comment character
  *      in config files by a backslash
@@ -740,7 +744,7 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
    char linebuf[BUFSIZ];
    int contflag = 0;
 
-	*buf = '\0';
+   *buf = '\0';
 
    while (fgets(linebuf, sizeof(linebuf), fp))
    {
@@ -764,27 +768,27 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
       }
 
       /* Line continuation? Trim escape and set flag. */
-		if ((p != linebuf) && (*--p == '\\'))
-		  {
-			 contflag = 1;
-			 *p = '\0';
-		  }
+      if ((p != linebuf) && (*--p == '\\'))
+      {
+         contflag = 1;
+         *p = '\0';
+      }
 
       /* If there's a comment char.. */
       if ((p = strpbrk(linebuf, "#")) != NULL)
       {
-		  /* ..and it's escaped, left-shift the line over the escape. */
-		  if ((p != linebuf) && (*(p-1) == '\\'))
-			 {
-				q = p-1;
-				while ((*q++ = *p++) != '\0') /* nop */;
-			 }
-		  /* Else, chop off the rest of the line */
-		  else
-			 {
-				*p = '\0';
-			 }
-		}
+         /* ..and it's escaped, left-shift the line over the escape. */
+         if ((p != linebuf) && (*(p-1) == '\\'))
+         {
+            q = p-1;
+            while ((*q++ = *p++) != '\0') /* nop */;
+         }
+         /* Else, chop off the rest of the line */
+         else
+         {
+            *p = '\0';
+         }
+      }
       
       /* Trim leading whitespace */
       p = linebuf;
@@ -825,16 +829,16 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
          /* More paranoia.  This if statement is always true. */
          if (*linebuf)
          {
-			  strncat(buf, linebuf, buflen - strlen(buf));
-			  if (contflag)
-				 {
-					contflag = 0;
-					continue;
-				 }
-			  else
-				 {
-					return buf;
-				 }
+            strncat(buf, linebuf, buflen - strlen(buf));
+            if (contflag)
+            {
+               contflag = 0;
+               continue;
+            }
+            else
+            {
+               return buf;
+            }
          }
       }
    }
