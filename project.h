@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2001/07/18 12:32:23  oes
+ *    - Added ACTION_STRING_DEANIMATE
+ *    - moved #define freez from jcc.h to project.h
+ *
  *    Revision 1.22  2001/07/15 17:51:41  jongfoster
  *    Renaming #define STATIC to STATIC_PCRE
  *
@@ -266,6 +270,8 @@
 extern "C" {
 #endif
 
+#define freez(X)  if(X) free(X); X = NULL
+
 #define BUFFER_SIZE 5000
 
 #define FOREVER 1
@@ -383,11 +389,13 @@ struct iob
 #define ACTION_NO_POPUPS       0x0800U
 #define ACTION_VANILLA_WAFER   0x1000U
 
-#define ACTION_STRING_FROM          0
-#define ACTION_STRING_IMAGE_BLOCKER 1
-#define ACTION_STRING_REFERER       2
-#define ACTION_STRING_USER_AGENT    3
-#define ACTION_STRING_COUNT         4
+#define ACTION_STRING_DEANIMATE     0
+#define ACTION_STRING_FROM          1
+#define ACTION_STRING_IMAGE_BLOCKER 2
+#define ACTION_STRING_REFERER       3
+#define ACTION_STRING_USER_AGENT    4
+#define ACTION_STRING_COUNT         5
+
 
 #define ACTION_MULTI_ADD_HEADER     0
 #define ACTION_MULTI_WAFER          1
