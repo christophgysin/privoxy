@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.5  2002/04/11 12:51:34  oes
+# Bugfix
+#
 # Revision 1.4  2002/04/09 16:38:10  oes
 # Added option to run the whole build process
 #
@@ -56,7 +59,7 @@ error:
 	    echo "***"; \
 	    echo -n "*** Shall I do this for you now? (y/n) "; \
 	    read answer; \
-	    if [ $$answer == "y" ]; then \
+	    if [ $$answer = "y" ]; then \
 	       autoheader && autoconf && ./configure && make;\
 	    fi; \
 	 fi
