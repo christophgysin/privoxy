@@ -13,7 +13,7 @@
  *                   `client_x_forwarded_adder', `client_xtra_adder',
  *                   `content_type', `crumble', `destroy_list', `enlist',
  *                   `flush_socket', `free_http_request', `get_header',
- *                   `list_to_text', `match', `parse_http_request', `sed',
+ *                   `list_to_text', `parse_http_request', `sed',
  *                   and `server_set_cookie'.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/27 13:19:06  oes
+ *    Patched Joergs solution for the content-length in.
+ *
  *    Revision 1.3  2001/05/26 13:39:32  jongfoster
  *    Only crunches Content-Length header if applying RE filtering.
  *    Without this fix, Microsoft Windows Update wouldn't work.
