@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/07/19 19:03:48  haroon
+ *    - Added case for LOG_LEVEL_POPUPS
+ *
  *    Revision 1.13  2001/07/13 13:58:58  oes
  *     - Added case for LOG_LEVEL_DEANIMATE
  *     - Removed all #ifdef PCRS
@@ -342,6 +345,11 @@ void log_error(int loglevel, char *fmt, ...)
          outc = 0;
          outbuf[0] = '\0';
          break;
+#ifdef KILLPOPUPS
+      case LOG_LEVEL_POPUPS:
+         outc = sprintf(outbuf, "IJB(%d) Kill-Popups: ", this_thread);
+         break;
+#endif /* def KILLPOPUPS */
       default:
          outc = sprintf(outbuf, "IJB(%d) UNKNOWN LOG TYPE(%d): ", this_thread, loglevel);
          break;
