@@ -48,7 +48,7 @@
 -filter{tiny-textforms} \
 -filter{jumping-windows} \
 -filter{frameset-borders} \
-+filter{demoronizer} \
+-filter{demoronizer} \
 -filter{shockwave-flash} \
 -filter{quicktime-kioskmode} \
 -filter{fun} \
@@ -161,4 +161,4 @@ standard.Medium
 -session-cookies-only \
 +set-image-blocker{pattern} \
 }
-standard.Advanced
+standard.Adventuresome
