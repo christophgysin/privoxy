@@ -1,5 +1,5 @@
-#ifndef _CONFIG_H
-#define _CONFIG_H
+#ifndef CONFIG_H_INCLUDED
+#define CONFIG_H_INCLUDED
 /*********************************************************************
  *
  * File        :  $Source$
@@ -37,6 +37,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/07/29 19:08:52  jongfoster
+ *    Changing _CONFIG_H to CONFIG_H_INCLUDED.
+ *    Also added protection against using a MinGW32 or CygWin version of
+ *    config.h from within MS Visual C++
+ *
  *    Revision 1.8  2001/07/29 17:09:17  jongfoster
  *    Major changes to build system in order to fix these bugs:
  *    - pthreads under Linux was broken - changed -lpthread to -pthread
@@ -351,4 +356,13 @@
 #endif /* defined(FEATURE_PTHREAD) && defined(__BEOS__) */
 
 
-#endif /* _CONFIG_H */
+/*
+ * It's too easy to accidentally use a Cygwin or MinGW32 version of config.h
+ * under VC++, and it usually gives many wierd error messages.  Let's make
+ * the error messages understandable, by bailing out now.
+ */
+#ifdef _MSC_VER
+#error For MS VC++, please use config.h.win or config.h.win32threads.win.  You can usually do this by selecting the "Build", "Clean" menu option.
+#endif /* def _MSC_VER */
+
+#endif /* CONFIG_H_INCLUDED */
