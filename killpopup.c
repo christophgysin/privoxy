@@ -32,8 +32,8 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.4  2001/06/29 13:29:55  oes
- *    Added FIXMEs (and didn't repair, hehe)
+ *    Revision 1.5  2001/07/18 15:02:52  haroon
+ *    improved nuking of window.open
  *
  *    Revision 1.3  2001/05/22 18:56:28  oes
  *    CRLF -> LF
@@ -93,7 +93,6 @@ const char killpopup_h_rcs[] = KILLPOPUP_H_VERSION;
  * Description :  Filter the block of data that's been read from the server.
  *                Caller is responsible for checking permissons list
  *                to determine if this function should be called.
- *                FIXME: Should use the replacements proposed by Guy
  *
  * Parameters  :
  *          1  :  buff = Buffer to scan and modify.  Null terminated.
@@ -107,7 +106,6 @@ void filter_popups(char *buff, int size)
    char *popup = NULL;
    char *close = NULL;
    char *p     = NULL;
-   char *q     = NULL; /* by BREITENB NEW! */
 
    while ((popup = strstr( buff, "window.open(" )) != NULL)
    {
@@ -120,7 +118,9 @@ void filter_popups(char *buff, int size)
 #ifdef POPUP_VERBOSE
          fprintf(logfp, "Found end of window open" );
 #endif
-         for ( p = popup; p != (close+1); p++ )
+         p = popup;
+         *p++ = '1';
+         for ( ; p != (close+1); p++ )
          {
             *p = ' ';
          }
@@ -133,23 +133,20 @@ void filter_popups(char *buff, int size)
 #ifdef POPUP_VERBOSE
          fprintf(logfp, "Couldn't find end, turned into comment.  Read boundary?\n" );
 #endif
+         *popup++ = '1';
+         *popup++ = ';';
+         *popup++ = '/';
          *popup = '/';
-         popup++;
-         *popup = '/';
-      }
-
-
-      q=popup; /* by BREITENB NEW! */
-      while (q>=buff)
-      {
-         if (*q==' ' || *q=='\t')
-            q--;
-         else break;
-      }
-      if (q>=buff)
-      {
-         if (*q=='=') *++q='1';
-         /* result of popup is assigned to a variable! ensure success. hehehe. */
+         /*
+          * result of popup is assigned to variable and the rest commented out
+          * window.open(blah
+          *		will be translated to
+          * 1;//ow.open(blah
+          *		and
+          * myWindow = window.open(blah
+          *		will be translated to
+          * myWindow = 1;//ow.open(blah
+          */
       }
    }
 
