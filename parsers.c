@@ -40,6 +40,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.56  2002/05/12 15:34:22  jongfoster
+ *    Fixing typo in a comment
+ *
  *    Revision 1.55  2002/05/08 16:01:07  oes
  *    Optimized add_to_iob:
  *     - Use realloc instead of malloc(), memcpy(), free()
@@ -630,7 +633,7 @@ char *get_header(struct client_state *csp)
 
    if ((q = strchr(ret, '\r')) != NULL) *q = '\0';
 
-   /* is this a blank linke (i.e. the end of the header) ? */
+   /* is this a blank line (i.e. the end of the header) ? */
    if (*ret == '\0')
    {
       freez(ret);
