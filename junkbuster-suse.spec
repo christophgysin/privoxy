@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.11  2001/12/02 10:29:26  swa
+# New version made these changes necessary.
+#
 # Revision 1.10  2001/10/31 19:27:27  swa
 # consistent description. new name for suse since
 # we had troubles with rpms of identical names
@@ -76,7 +79,7 @@ Group:        Networking/Utilities
 Provides:     ijb
 Obsoletes:    ijb
 Autoreqprov:  on
-Version: 2.9.9
+Version: 2.9.10
 Release: 1
 Summary:      The Internet Junkbuster
 Source:  http://www.waldherr.org/junkbuster/ijbswa.tar.gz
@@ -109,8 +112,10 @@ SuSE series: n
 # -----------------------------------------------------------------------------
 #
 %build
+autoheader
+autoconf
 ./configure
-make
+gmake
 strip junkbuster
 
 #
@@ -129,13 +134,13 @@ ln -sf /etc/init.d/junkbuster $RPM_BUILD_ROOT/usr/sbin/rcjunkbuster
 install -m 755 junkbuster $RPM_BUILD_ROOT/usr/sbin
 install -d $RPM_BUILD_ROOT/etc/junkbuster
 install -d $RPM_BUILD_ROOT/etc/junkbuster/templates
-install -m 644 actionsfile $RPM_BUILD_ROOT/etc/junkbuster
+install -m 644 ijb.action $RPM_BUILD_ROOT/etc/junkbuster
 install -m 644 re_filterfile $RPM_BUILD_ROOT/etc/junkbuster
 # verify all file locations, etc. in the config file
 # don't start with ^ or commented lines are not replaced
 cat config | \
     sed 's/^confdir.*/confdir \/etc\/junkbuster/g' | \
-    sed 's/^actionsfile.*/actionsfile \/etc\/junkbuster\/actionsfile/g' | \
+    sed 's/^ijb.action.*/ijb.action \/etc\/junkbuster\/ijb.action/g' | \
 #    sed 's/^re_filterfile.*/re_filterfile \/etc\/junkbuster\/re_filterfile/g' | \
 #    sed 's/^logfile.*/logfile \/var\/log\/junkbuster\/logfile/g' | \
 #    sed 's/^jarfile.*/jarfile \/var\/log\/junkbuster\/jarfile/g' | \
