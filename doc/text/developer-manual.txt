@@ -1258,8 +1258,9 @@ const char FILENAME_rcs[] = "$Id$";
  *                                                                                              
  * Revisions   :                                                                                
  *    $Log$
- *    Revision 1.17  2002/04/07 08:35:10  swa
- *    generated
+ *    Revision 1.18  2002/04/07 08:59:41  swa
+ *    generated files. do NOT edit.
+ *    fixed directory bug in makefile.
  *                                                                                     
  *                                                                                              
  *********************************************************************/                         
@@ -1316,8 +1317,9 @@ Example for file header comments:
  *                                                                                            
  * Revisions   :                                                                              
  *    $Log$
- *    Revision 1.17  2002/04/07 08:35:10  swa
- *    generated
+ *    Revision 1.18  2002/04/07 08:59:41  swa
+ *    generated files. do NOT edit.
+ *    fixed directory bug in makefile.
  *                                                                                   
  *                                                                                            
  *********************************************************************/                       
