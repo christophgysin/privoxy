@@ -35,6 +35,50 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/22 18:46:04  oes
+ *
+ *    - Enabled filtering banners by size rather than URL
+ *      by adding patterns that replace all standard banner
+ *      sizes with the "Junkbuster" gif to the re_filterfile
+ *
+ *    - Enabled filtering WebBugs by providing a pattern
+ *      which kills all 1x1 images
+ *
+ *    - Added support for PCRE_UNGREEDY behaviour to pcrs,
+ *      which is selected by the (nonstandard and therefore
+ *      capital) letter 'U' in the option string.
+ *      It causes the quantifiers to be ungreedy by default.
+ *      Appending a ? turns back to greedy (!).
+ *
+ *    - Added a new interceptor ijb-send-banner, which
+ *      sends back the "Junkbuster" gif. Without imagelist or
+ *      MSIE detection support, or if tinygif = 1, or the
+ *      URL isn't recognized as an imageurl, a lame HTML
+ *      explanation is sent instead.
+ *
+ *    - Added new feature, which permits blocking remote
+ *      script redirects and firing back a local redirect
+ *      to the browser.
+ *      The feature is conditionally compiled, i.e. it
+ *      can be disabled with --disable-fast-redirects,
+ *      plus it must be activated by a "fast-redirects"
+ *      line in the config file, has its own log level
+ *      and of course wants to be displayed by show-proxy-args
+ *      Note: Boy, all the #ifdefs in 1001 locations and
+ *      all the fumbling with configure.in and acconfig.h
+ *      were *way* more work than the feature itself :-(
+ *
+ *    - Because a generic redirect template was needed for
+ *      this, tinygif = 3 now uses the same.
+ *
+ *    - Moved GIFs, and other static HTTP response templates
+ *      to project.h
+ *
+ *    - Some minor fixes
+ *
+ *    - Removed some >400 CRs again (Jon, you really worked
+ *      a lot! ;-)
+ *
  *    Revision 1.3  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -166,6 +210,10 @@ int default_permissions = PERMIT_RE_FILTER;
 const char *re_filterfile = NULL;
 #endif /* def PCRS */
 
+#ifdef FAST_REDIRECTS
+int fast_redirects = 0;
+#endif /* def FAST_REDIRECTS */
+
 #ifdef TRUST_FILES
 const char *trustfile   = NULL;
 #endif /* def TRUST_FILES */
@@ -251,6 +299,7 @@ const char **Argv = NULL;
 #define hash_referrer                  10883969ul
 #define hash_referer                   2176719ul
 #define hash_from                      16264ul
+#define hash_fast_redirects            464873764lu
 #define hash_hide_console              2048809870ul
 #define hash_include_stats             2174146548ul
 #define hash_suppress_blocklists       1948693308ul
@@ -386,6 +435,10 @@ void load_config( int signum )
 #ifdef PCRS
    freez((char *)re_filterfile);
 #endif /* def PCRS */
+
+#ifdef FAST_REDIRECTS
+   fast_redirects = 0;
+#endif /* def FAST_REDIRECTS */
 
    if (NULL != configfile)
    {
@@ -589,6 +642,12 @@ void load_config( int signum )
                freez((char *)from);
                from = strdup(arg);
                continue;
+
+#ifdef FAST_REDIRECTS
+			   case hash_fast_redirects :
+               fast_redirects = 1;
+               continue;
+#endif /* def FAST_REDIRECTS */
 
 #ifdef _WIN_CONSOLE
             case hash_hide_console :

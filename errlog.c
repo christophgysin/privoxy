@@ -33,6 +33,50 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/22 18:46:04  oes
+ *
+ *    - Enabled filtering banners by size rather than URL
+ *      by adding patterns that replace all standard banner
+ *      sizes with the "Junkbuster" gif to the re_filterfile
+ *
+ *    - Enabled filtering WebBugs by providing a pattern
+ *      which kills all 1x1 images
+ *
+ *    - Added support for PCRE_UNGREEDY behaviour to pcrs,
+ *      which is selected by the (nonstandard and therefore
+ *      capital) letter 'U' in the option string.
+ *      It causes the quantifiers to be ungreedy by default.
+ *      Appending a ? turns back to greedy (!).
+ *
+ *    - Added a new interceptor ijb-send-banner, which
+ *      sends back the "Junkbuster" gif. Without imagelist or
+ *      MSIE detection support, or if tinygif = 1, or the
+ *      URL isn't recognized as an imageurl, a lame HTML
+ *      explanation is sent instead.
+ *
+ *    - Added new feature, which permits blocking remote
+ *      script redirects and firing back a local redirect
+ *      to the browser.
+ *      The feature is conditionally compiled, i.e. it
+ *      can be disabled with --disable-fast-redirects,
+ *      plus it must be activated by a "fast-redirects"
+ *      line in the config file, has its own log level
+ *      and of course wants to be displayed by show-proxy-args
+ *      Note: Boy, all the #ifdefs in 1001 locations and
+ *      all the fumbling with configure.in and acconfig.h
+ *      were *way* more work than the feature itself :-(
+ *
+ *    - Because a generic redirect template was needed for
+ *      this, tinygif = 3 now uses the same.
+ *
+ *    - Moved GIFs, and other static HTTP response templates
+ *      to project.h
+ *
+ *    - Some minor fixes
+ *
+ *    - Removed some >400 CRs again (Jon, you really worked
+ *      a lot! ;-)
+ *
  *    Revision 1.4  2001/05/21 19:32:54  jongfoster
  *    Added another #ifdef _WIN_CONSOLE
  *
@@ -233,12 +277,21 @@ void log_error(int loglevel, char *fmt, ...)
       case LOG_LEVEL_INFO:
          outc = sprintf(outbuf, "IJB(%d) Info: ", this_thread);
          break;
+#ifdef PCRS
       case LOG_LEVEL_RE_FILTER:
          outc = sprintf(outbuf, "IJB(%d) Re-Filter: ", this_thread);
          break;
+#endif /* def PCRS */
+#ifdef FORCE_LOAD
       case LOG_LEVEL_FORCE:
          outc = sprintf(outbuf, "IJB(%d) Force: ", this_thread);
          break;
+#endif /* def FORCE_LOAD */
+#ifdef FAST_REDIRECTS
+      case LOG_LEVEL_REDIRECTS:
+         outc = sprintf(outbuf, "IJB(%d) Redirect: ", this_thread);
+         break;
+#endif /* def FAST_REDIRECTS */
       default:
          outc = sprintf(outbuf, "IJB(%d) UNKNOWN LOG TYPE(%d): ", this_thread, loglevel);
          break;
