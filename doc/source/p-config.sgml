@@ -468,9 +468,12 @@ actionsfile
  <varlistentry>
   <term>Notes:</term>
   <listitem>
+<!--  HB removed per bug report 688728 02/20/03
+
    <para>
     The windows version will additionally log to the console.
    </para>
+-->   
    <para>
     The logfile is where all logging and error messages are written. The level
     of detail and number of messages are set with the <literal>debug</literal>
