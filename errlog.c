@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/09/16 23:04:34  jongfoster
+ *    Fixing a warning
+ *
  *    Revision 1.19  2001/09/13 20:08:06  jongfoster
  *    Adding support for LOG_LEVEL_CGI
  *
@@ -371,7 +374,7 @@ void log_error(int loglevel, char *fmt, ...)
          break;
 #endif /* def FEATURE_KILL_POPUPS */
       case LOG_LEVEL_CGI:
-         outc = sprintf(outbuf, "IJB(%d) CGI: ", this_thread);
+         outc = sprintf(outbuf, "IJB(%ld) CGI: ", this_thread);
          break;
       default:
          outc = sprintf(outbuf, "IJB(%ld) UNKNOWN LOG TYPE(%d): ", this_thread, loglevel);
