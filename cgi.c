@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.67  2002/04/30 12:02:07  oes
+ *    Nit: updated a comment
+ *
  *    Revision 1.66  2002/04/26 18:32:57  jongfoster
  *    Fixing a memory leak on error
  *
@@ -582,7 +585,7 @@ static struct map *parse_cgi_parameters(char *argstring);
  * Description :  Checks if a request URL has either the magical
  *                hostname CGI_SITE_1_HOST (usually http://p.p/) or
  *                matches CGI_SITE_2_HOST CGI_SITE_2_PATH (usually
- *                http://ijbswa.sourceforge.net/config). If so, it passes
+ *                http://config.privoxy.org/). If so, it passes
  *                the (rest of the) path onto dispatch_known_cgi, which
  *                calls the relevant CGI handler function.
  *
