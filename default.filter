@@ -220,6 +220,7 @@ s|<img (src=(?:(['"])[^>\\\\2]+\2\|[^'">\\\s]+?))([^>]*)width\s*=\s*(["']?)(\d+?
 #
 # Note: Use http://config.privoxy.org/send-banner?type=trans for a transparent 1x1 image
 #       Use http://config.privoxy.org/send-banner?type=pattern for a grey/white pattern image
+#       Use http://config.privoxy.org/send-banner?type=custom for the image specified in config
 #       Use http://config.privoxy.org/send-banner?type=auto  to auto-select.
 #
 # Note2: Use img-reorder before this filter to ensure maximum matching success
@@ -395,6 +396,10 @@ s/\x9B/>/g                  # 155
 #
 #  Revisions   :
 #     $Log$
+#     Revision 1.18  2003/09/22 02:25:01  david__schmidt
+#     Add explanation for send-banner?type=custom in default.filter.  See
+#     feature request item #633594.
+#
 #     Revision 1.17  2002/11/12 16:16:49  oes
 #     Exchanged js-annoyance filter against status bar rewrites with improved version by Don Libes
 #
