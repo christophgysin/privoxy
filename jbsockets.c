@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/07/18 13:47:59  oes
+ *    Eliminated dirty hack for getsockbyname()
+ *
  *    Revision 1.13  2001/07/15 13:56:57  jongfoster
  *    Removing unused local variable.
  *
@@ -447,16 +450,15 @@ int bind_port(const char *hostnam, int portnum)
  *********************************************************************/
 int accept_connection(struct client_state * csp, int fd)
 {
-   struct sockaddr raddr, laddr;
-   struct sockaddr_in *rap = (struct sockaddr_in *) &raddr;
-   struct sockaddr_in *lap = (struct sockaddr_in *) &laddr;
+   struct sockaddr_in client, server;
    struct hostent *host = NULL;
-   int   afd, raddrlen, laddrlen;
+   int afd, c_length, s_length;
 
-   raddrlen = sizeof raddr;
+   c_length = s_length = sizeof(client);
+
    do
    {
-      afd = accept (fd, &raddr, &raddrlen);
+      afd = accept (fd, (struct sockaddr *) &client, &c_length);
    } while (afd < 1 && errno == EINTR);
 
    if (afd < 0)
@@ -468,11 +470,11 @@ int accept_connection(struct client_state * csp, int fd)
     * Determine the IP-Adress that the client used to reach us
     * and the hostname associated with that address
     */
-   if (!getsockname(afd, &laddr, &laddrlen))
+   if (!getsockname(afd, (struct sockaddr *) &server, &s_length))
    {
-      csp->my_ip_addr_str = strdup(inet_ntoa(lap->sin_addr));
+      csp->my_ip_addr_str = strdup(inet_ntoa(server.sin_addr));
 
-      host = gethostbyaddr(laddr.sa_data + 2, 4, AF_INET);
+      host = gethostbyaddr(&server.sin_addr, sizeof(server.sin_addr), AF_INET);
       if (host == NULL)
       {
          log_error(LOG_LEVEL_ERROR, "Unable to get my own hostname: %E\n");
@@ -484,8 +486,8 @@ int accept_connection(struct client_state * csp, int fd)
    }
 
    csp->cfd    = afd;
-   csp->ip_addr_str  = strdup(inet_ntoa(rap->sin_addr));
-   csp->ip_addr_long = ntohl(rap->sin_addr.s_addr);
+   csp->ip_addr_str  = strdup(inet_ntoa(client.sin_addr));
+   csp->ip_addr_long = ntohl(client.sin_addr.s_addr);
 
    return 1;
 
