@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/06/29 13:19:52  oes
+ *    Removed logentry from cancelled commit
+ *
  *    Revision 1.7  2001/06/09 10:55:28  jongfoster
  *    Changing BUFSIZ ==> BUFFER_SIZE
  *
@@ -41,60 +44,6 @@ const char actions_rcs[] = "$Id$";
  *
  *    Revision 1.5  2001/06/03 19:11:48  oes
  *    adapted to new enlist_unique arg format
- *
- *    Revision 1.5  2001/06/03 11:03:48  oes
- *    Makefile/in
- *
- *    introduced cgi.c
- *
- *    actions.c:
- *
- *    adapted to new enlist_unique arg format
- *
- *    conf loadcfg.c
- *
- *    introduced confdir option
- *
- *    filters.c filtrers.h
- *
- *     extracted-CGI relevant stuff
- *
- *    jbsockets.c
- *
- *     filled comment
- *
- *    jcc.c
- *
- *     support for new cgi mechansim
- *
- *    list.c list.h
- *
- *    functions for new list type: "map"
- *    extended enlist_unique
- *
- *    miscutil.c .h
- *    introduced bindup()
- *
- *    parsers.c parsers.h
- *
- *    deleted const struct interceptors
- *
- *    pcrs.c
- *    added FIXME
- *
- *    project.h
- *
- *    added struct map
- *    added struct http_response
- *    changes struct interceptors to struct cgi_dispatcher
- *    moved HTML stuff to cgi.h
- *
- *    re_filterfile:
- *
- *    changed
- *
- *    showargs.c
- *    NO TIME LEFT
  *
  *    Revision 1.4  2001/06/01 20:03:42  jongfoster
  *    Better memory management - current_action->strings[] now
