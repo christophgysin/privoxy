@@ -48,7 +48,7 @@
 +filter{nimda} \
 -filter{shockwave-flash} \
 -filter{js-events} \
--filter{crude-prental} \
+-filter{crude-parental} \
 -handle-as-image \
 +hide-forwarded-for-headers \
 +hide-from-header{block} \
@@ -89,7 +89,7 @@ standard.Cautious
 +filter{nimda} \
 -filter{shockwave-flash} \
 -filter{js-events} \
--filter{crude-prental} \
+-filter{crude-parental} \
 -handle-as-image \
 +hide-forwarded-for-headers \
 +hide-from-header{block} \
@@ -130,7 +130,7 @@ standard.Medium
 +filter{nimda} \
 -filter{shockwave-flash} \
 -filter{js-events} \
--filter{crude-prental} \
+-filter{crude-parental} \
 -handle-as-image \
 +hide-forwarded-for-headers \
 +hide-from-header{block} \
