@@ -866,3 +866,8 @@ www.geocities.com/js_source
 #MASTER# PROBLEM-URL: http://www.privoxy.org/user-manual/filter-file.html
 #MASTER# REMARKS: Don't change the filter code with itself ;-)
 /(.*/)?user-manual/filter-file.html
+
+{+filter{img-reorder} +filter{banners-by-link}}
+#MASTER# PROBLEM-URL: http://www.dn.se/
+#MASTER# REMARKS: Can't catch by size or location
+www.dn.se
