@@ -32,6 +32,12 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/07/20 19:29:25  haroon
+ *    - In v1.5 forgot to add that I implemented LOG_LEVEL_POPUPS in errlog.c,
+ *      errlog.h and killpopup.c. In that case, it is superfluous to have define for
+ *      POPUP_VERBOSE, so I removed the defines and logging is now done
+ *      via log_error(LOG_LEVEL_POPUPS, ....)
+ *
  *    Revision 1.6  2001/07/19 19:11:35  haroon
  *    - Implemented Guy's idea of replacing window.open( with 1;''.concat(
  *    - Implemented Guy's idea of replacing .resizeTo( with .scrollTo(
@@ -89,11 +95,6 @@ const char killpopup_h_rcs[] = KILLPOPUP_H_VERSION;
 
 #ifdef KILLPOPUPS
 
-/* Change these for debug output.  *lots*. */
-/*#define POPUP_VERBOSE 1*/
-#undef POPUP_VERBOSE
-
-
 /*********************************************************************
  *
  * Function    :  filter_popups
@@ -125,9 +126,7 @@ void filter_popups(char *buff, int size)
           * Guy's idea (thanks)
           */
          strncpy(popup, "1;''.concat(", 12);
-#ifdef POPUP_VERBOSE
          log_error(LOG_LEVEL_POPUPS, "Blocked popup window open");
-#endif
       }
    }
    
@@ -140,9 +139,7 @@ void filter_popups(char *buff, int size)
           * Guy's idea (thanks)
           */
          strncpy(popup, ".scrollTo(", 10);
-#ifdef POPUP_VERBOSE
          log_error(LOG_LEVEL_POPUPS, "Blocked popup window resize");
-#endif
       }
    }
 
