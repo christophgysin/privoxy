@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.24  2001/09/13 23:05:50  jongfoster
+ *    Changing the string paramater to the header parsers a "const".
+ *
  *    Revision 1.23  2001/09/12 18:08:19  steudten
  *
  *    In parse_http_request() header rewriting miss the host value, so
@@ -720,7 +723,7 @@ void parse_http_request(char *req, struct http_request *http, struct client_stat
  * Returns     :  Always NULL.
  *
  *********************************************************************/
-char *crumble(const struct parsers *v, char *s, struct client_state *csp)
+char *crumble(const struct parsers *v, const char *s, struct client_state *csp)
 {
    log_error(LOG_LEVEL_HEADER, "crunch!");
    return(NULL);
@@ -742,7 +745,7 @@ char *crumble(const struct parsers *v, char *s, struct client_state *csp)
  * Returns     :  A duplicate string pointer to this header (ie. pass thru)
  *
  *********************************************************************/
-char *content_type(const struct parsers *v, char *s, struct client_state *csp)
+char *content_type(const struct parsers *v, const char *s, struct client_state *csp)
 {
    if (strstr(s, " text/") || strstr(s, "application/x-javascript"))
       csp->content_type = CT_TEXT;
@@ -771,15 +774,15 @@ char *content_type(const struct parsers *v, char *s, struct client_state *csp)
  * Returns     :  A duplicate string pointer to this header (ie. pass thru)
  *
  *********************************************************************/
-char *content_length(const struct parsers *v, char *s, struct client_state *csp)
+char *content_length(const struct parsers *v, const char *s, struct client_state *csp)
 {
    if (csp->content_length != 0) /* Content has been modified */
    {
-      s = (char *) zalloc(100);
-      sprintf(s, "Content-Length: %d", csp->content_length);
+      char * s2 = (char *) zalloc(100);
+      sprintf(s2, "Content-Length: %d", csp->content_length);
 
-   	log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", csp->content_length);
-      return(s);
+   	  log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", csp->content_length);
+      return(s2);
    }
    else
    {
@@ -805,9 +808,10 @@ char *content_length(const struct parsers *v, char *s, struct client_state *csp)
  *                or modified header
  *
  *********************************************************************/
-char *client_referrer(const struct parsers *v, char *s, struct client_state *csp)
+char *client_referrer(const struct parsers *v, const char *s, struct client_state *csp)
 {
    const char * newval;
+   char * s2;
 #ifdef FEATURE_FORCE_LOAD
    /* Since the referrer can include the prefix even
     * even if the request itself is non-forced, we must
@@ -849,11 +853,11 @@ char *client_referrer(const struct parsers *v, char *s, struct client_state *csp
        * to fool stupid checks for in-site links
        */
       log_error(LOG_LEVEL_HEADER, "crunch+forge!");
-      s = strsav(NULL, "Referer: ");
-      s = strsav(s, "http://");
-      s = strsav(s, csp->http->hostport);
-      s = strsav(s, "/");
-      return(s);
+      s2 = strsav(NULL, "Referer: ");
+      s2 = strsav(s2, "http://");
+      s2 = strsav(s2, csp->http->hostport);
+      s2 = strsav(s2, "/");
+      return(s2);
    }
 
    /*
@@ -864,12 +868,13 @@ char *client_referrer(const struct parsers *v, char *s, struct client_state *csp
       /*
        * We have a specific (fixed) referer we want to send.
        */
+      char * s2;
 
       log_error(LOG_LEVEL_HEADER, "modified");
 
-      s = strsav( NULL, "Referer: " );
-      s = strsav( s, newval );
-      return(s);
+      s2 = strsav( NULL, "Referer: " );
+      s2 = strsav( s2, newval );
+      return(s2);
    }
 
    /* Should never get here! */
@@ -882,11 +887,11 @@ char *client_referrer(const struct parsers *v, char *s, struct client_state *csp
     * to fool stupid checks for in-site links
     */
    log_error(LOG_LEVEL_HEADER, "crunch+forge!");
-   s = strsav(NULL, "Referer: ");
-   s = strsav(s, "http://");
-   s = strsav(s, csp->http->hostport);
-   s = strsav(s, "/");
-   return(s);
+   s2 = strsav(NULL, "Referer: ");
+   s2 = strsav(s2, "http://");
+   s2 = strsav(s2, csp->http->hostport);
+   s2 = strsav(s2, "/");
+   return(s2);
 }
 
 
@@ -907,9 +912,10 @@ char *client_referrer(const struct parsers *v, char *s, struct client_state *csp
  *                a malloc'ed string pointer to this header (ie. pass thru).
  *
  *********************************************************************/
-char *client_uagent(const struct parsers *v, char *s, struct client_state *csp)
+char *client_uagent(const struct parsers *v, const char *s, struct client_state *csp)
 {
    const char * newval;
+   char * s2;
 
    /* Save the client's User-Agent: value */
    if (strlen(s) >= 12)
@@ -940,9 +946,9 @@ char *client_uagent(const struct parsers *v, char *s, struct client_state *csp)
 
    log_error(LOG_LEVEL_HEADER, "modified");
 
-   s = strsav( NULL, "User-Agent: " );
-   s = strsav( s, newval );
-   return(s);
+   s2 = strsav( NULL, "User-Agent: " );
+   s2 = strsav( s2, newval );
+   return(s2);
 
 }
 
@@ -961,7 +967,7 @@ char *client_uagent(const struct parsers *v, char *s, struct client_state *csp)
  * Returns     :  NULL if crunched, or a malloc'ed string to original header
  *
  *********************************************************************/
-char *client_ua(const struct parsers *v, char *s, struct client_state *csp)
+char *client_ua(const struct parsers *v, const char *s, struct client_state *csp)
 {
    if ((csp->action->flags & ACTION_HIDE_USER_AGENT) == 0)
    {
@@ -991,9 +997,10 @@ char *client_ua(const struct parsers *v, char *s, struct client_state *csp)
  *                modified/original header.
  *
  *********************************************************************/
-char *client_from(const struct parsers *v, char *s, struct client_state *csp)
+char *client_from(const struct parsers *v, const char *s, struct client_state *csp)
 {
    const char * newval;
+   char * s2;
 
    if ((csp->action->flags & ACTION_HIDE_FROM) == 0)
    {
@@ -1013,9 +1020,9 @@ char *client_from(const struct parsers *v, char *s, struct client_state *csp)
 
    log_error(LOG_LEVEL_HEADER, " modified");
 
-   s = strsav( NULL, "From: " );
-   s = strsav( s, newval );
-   return(s);
+   s2 = strsav( NULL, "From: " );
+   s2 = strsav( s2, newval );
+   return(s2);
 
 }
 
@@ -1036,7 +1043,7 @@ char *client_from(const struct parsers *v, char *s, struct client_state *csp)
  * Returns     :  Always NULL.
  *
  *********************************************************************/
-char *client_send_cookie(const struct parsers *v, char *s, struct client_state *csp)
+char *client_send_cookie(const struct parsers *v, const char *s, struct client_state *csp)
 {
    if ((csp->action->flags & ACTION_NO_COOKIE_READ) == 0)
    {
@@ -1071,7 +1078,7 @@ char *client_send_cookie(const struct parsers *v, char *s, struct client_state *
  * Returns     :  Always NULL.
  *
  *********************************************************************/
-char *client_x_forwarded(const struct parsers *v, char *s, struct client_state *csp)
+char *client_x_forwarded(const struct parsers *v, const char *s, struct client_state *csp)
 {
    if ((csp->action->flags & ACTION_HIDE_FORWARDED) == 0)
    {
@@ -1106,7 +1113,7 @@ char *client_x_forwarded(const struct parsers *v, char *s, struct client_state *
  * Returns     :  Duplicate of argument s.
  *
  *********************************************************************/
-char *client_accept(const struct parsers *v, char *s, struct client_state *csp)
+char *client_accept(const struct parsers *v, const char *s, struct client_state *csp)
 {
 #ifdef FEATURE_IMAGE_DETECT_MSIE
    if (strstr (s, "image/gif"))
@@ -1202,9 +1209,10 @@ void client_cookie_adder(struct client_state *csp)
  *********************************************************************/
 void client_xtra_adder(struct client_state *csp)
 {
-   struct list *lst = csp->action->multi[ACTION_MULTI_ADD_HEADER];
+   struct list *lst;
 
-   for (lst = lst->next; lst ; lst = lst->next)
+   for (lst = csp->action->multi[ACTION_MULTI_ADD_HEADER]->next;
+        lst ; lst = lst->next)
    {
       log_error(LOG_LEVEL_HEADER, "addh: %s", lst->str);
       enlist(csp->headers, lst->str);
@@ -1290,7 +1298,7 @@ void connection_close_adder(struct client_state *csp)
  * Returns     :  `crumble' or a newly malloc'ed string.
  *
  *********************************************************************/
-char *server_set_cookie(const struct parsers *v, char *s, struct client_state *csp)
+char *server_set_cookie(const struct parsers *v, const char *s, struct client_state *csp)
 {
 #ifdef FEATURE_COOKIE_JAR
    if (csp->config->jar)
@@ -1325,7 +1333,7 @@ char *server_set_cookie(const struct parsers *v, char *s, struct client_state *c
  * Returns     :  A malloc'ed pointer to the cleaned host header 
  *
  *********************************************************************/
-char *client_host(const struct parsers *v, char *s, struct client_state *csp)
+char *client_host(const struct parsers *v, const char *s, struct client_state *csp)
 {
    char *cleanhost = strdup(s);
  

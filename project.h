@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2001/09/13 23:05:50  jongfoster
+ *    Changing the string paramater to the header parsers a "const".
+ *
  *    Revision 1.27  2001/08/05 16:06:20  jongfoster
  *    Modifiying "struct map" so that there are now separate header and
  *    "map_entry" structures.  This means that functions which modify a
@@ -611,7 +614,7 @@ struct parsers
 {
    char *str;
    char  len;
-   char *(*parser)(const struct parsers *, char *, struct client_state *);
+   char *(*parser)(const struct parsers *, const char *, struct client_state *);
 };
 
 struct cgi_dispatcher
