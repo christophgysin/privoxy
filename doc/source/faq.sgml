@@ -1428,7 +1428,7 @@ out of the picture?</title>
 <title>My logs show <application>Privoxy</application> <quote>crunches</quote> 
 ads, but also its own CGI pages. What is a <quote>crunch</quote>?</title>
 <para>
- A <quote>crunch</quote> simply means <quote>Privoxy</quote> intercepted 
+ A <quote>crunch</quote> simply means <application>Privoxy</application> intercepted 
  something, nothing more. Often this is indeed ads or banners, but
  <application>Privoxy</application> uses the same mechanism for trapping 
  requests for its own internal pages. For instance, a request for
@@ -1769,6 +1769,9 @@ FIXME: Commented out until we have something to put here. HB 03/18/02.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 1.61.2.18  2002/08/14 16:39:37  hal9
+Fix wrong tag on FAQ addition.
+
 Revision 1.61.2.17  2002/08/14 00:01:18  hal9
 Add a crunch FAQ.
 
