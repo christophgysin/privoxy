@@ -37,6 +37,16 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2002/01/22 23:46:18  jongfoster
+ *    Moving edit_read_line() and simple_read_line() to loaders.c, and
+ *    extending them to support reading MS-DOS, Mac and UNIX style files
+ *    on all platforms.
+ *
+ *    Modifying read_config_line() (without changing it's prototype) to
+ *    be a trivial wrapper for edit_read_line().  This means that we have
+ *    one function to read a line and handle comments, which is common
+ *    between the initialization code and the edit interface.
+ *
  *    Revision 1.14  2002/01/17 21:03:08  jongfoster
  *    Moving all our URL and URL pattern parsing code to urlmatch.c.
  *
@@ -147,6 +157,33 @@ extern char *read_config_line(char *buf, int buflen, FILE *fp, unsigned long *li
 extern int check_file_changed(const struct file_list * current,
                               const char * filename,
                               struct file_list ** newfl);
+
+extern jb_err edit_read_line(FILE *fp,
+                             char **raw_out,
+                             char **prefix_out,
+                             char **data_out,
+                             int *newline,
+                             unsigned long *line_number);
+
+extern jb_err simple_read_line(FILE *fp, char **dest, int *newline);
+
+/*
+ * Various types of newlines that a file may contain.
+ */
+#define NEWLINE_UNKNOWN 0  /* Newline convention in file is unknown */
+#define NEWLINE_UNIX    1  /* Newline convention in file is '\n'   (ASCII 10) */
+#define NEWLINE_DOS     2  /* Newline convention in file is '\r\n' (ASCII 13,10) */
+#define NEWLINE_MAC     3  /* Newline convention in file is '\r'   (ASCII 13) */
+
+/*
+ * Types of newlines that a file may contain, as strings.  If you have an
+ * extremely wierd compiler that does not have '\r' == CR == ASCII 13 and
+ * '\n' == LF == ASCII 10), then fix CHAR_CR and CHAR_LF in loaders.c as
+ * well as these definitions.
+ */
+#define NEWLINE(style) ((style)==NEWLINE_DOS ? "\r\n" : \
+                        ((style)==NEWLINE_MAC ? "\r" : "\n"))
+
 
 extern short int MustReload;
 extern int load_actions_file(struct client_state *csp);
