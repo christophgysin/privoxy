@@ -38,6 +38,19 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/05/27 22:17:04  oes
+ *
+ *    - re_process_buffer no longer writes the modified buffer
+ *      to the client, which was very ugly. It now returns the
+ *      buffer, which it is then written by chat.
+ *
+ *    - content_length now adjusts the Content-Length: header
+ *      for modified documents rather than crunch()ing it.
+ *      (Length info in csp->content_length, which is 0 for
+ *      unmodified documents)
+ *
+ *    - For this to work, sed() is called twice when filtering.
+ *
  *    Revision 1.8  2001/05/26 17:13:28  jongfoster
  *    Filled in a function comment.
  *
@@ -553,18 +566,17 @@ int block_imageurl_using_imagelist(struct http_request *http, struct client_stat
  * Function    :  re_process_buffer
  *
  * Description :  Apply all jobs from the joblist (aka. Perl regexp's) to
- *                the text buffer that's been accumulated in csp->iob->buf.
- *                Then, write the modified buffer out to the client
- *                (Maybe this should happen from jcc.c via flush_socket
- *                for better readability).
+ *                the text buffer that's been accumulated in csp->iob->buf
+ *                and set csp->content_length to the modified size.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
  *
- * Returns     :  N/A
+ * Returns     :  a pointer to the (newly allocated) modified buffer.
+ *                
  *
  *********************************************************************/
-void re_process_buffer(struct client_state *csp)
+char *re_process_buffer(struct client_state *csp)
 {
    int hits=0;
    int size = csp->iob->eod - csp->iob->cur;
@@ -602,15 +614,11 @@ void re_process_buffer(struct client_state *csp)
 
    log_error(LOG_LEVEL_RE_FILTER, " produced %d hits (new size %d).", hits, size);
 
-   if (write_socket(csp->cfd, old, size) != size)
-   {
-      log_error(LOG_LEVEL_ERROR, "write to client failed.");
-   }
+   csp->content_length = size;
 
    /* fwiw, reset the iob */
    IOB_RESET(csp);
-   freez(new);
-   return;
+   return(new);
 
 }
 #endif /* def PCRS */

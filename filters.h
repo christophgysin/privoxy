@@ -40,6 +40,19 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/27 22:17:04  oes
+ *
+ *    - re_process_buffer no longer writes the modified buffer
+ *      to the client, which was very ugly. It now returns the
+ *      buffer, which it is then written by chat.
+ *
+ *    - content_length now adjusts the Content-Length: header
+ *      for modified documents rather than crunch()ing it.
+ *      (Length info in csp->content_length, which is 0 for
+ *      unmodified documents)
+ *
+ *    - For this to work, sed() is called twice when filtering.
+ *
  *    Revision 1.4  2001/05/26 15:26:15  jongfoster
  *    ACL feature now provides more security by immediately dropping
  *    connections from untrusted hosts.
@@ -152,7 +165,7 @@ extern char *add_stats(char *s);
 #endif /* def STATISTICS */
 
 #ifdef PCRS
-extern void re_process_buffer(struct client_state *csp);
+extern char *re_process_buffer(struct client_state *csp);
 #endif /* def PCRS */
 
 /* Revision control strings from this header and associated .c file */

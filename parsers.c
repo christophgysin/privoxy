@@ -41,6 +41,19 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/05/27 22:17:04  oes
+ *
+ *    - re_process_buffer no longer writes the modified buffer
+ *      to the client, which was very ugly. It now returns the
+ *      buffer, which it is then written by chat.
+ *
+ *    - content_length now adjusts the Content-Length: header
+ *      for modified documents rather than crunch()ing it.
+ *      (Length info in csp->content_length, which is 0 for
+ *      unmodified documents)
+ *
+ *    - For this to work, sed() is called twice when filtering.
+ *
  *    Revision 1.7  2001/05/27 13:19:06  oes
  *    Patched Joergs solution for the content-length in.
  *
@@ -525,14 +538,12 @@ char *sed(const struct parsers pats[], void (* const more_headers[])(struct clie
    {
       for (p = csp->headers->next; p ; p = p->next)
       {
+         /* Header crunch()ed in previous run? -> ignore */
+         if (p->str == NULL) continue;
+
          if (v == pats) log_error(LOG_LEVEL_HEADER, "scan: %s", p->str);
 
-         if (p->str == NULL)
-         {
-            /* hit me */
-            log_error(LOG_LEVEL_ERROR, "NULL header");
-         }
-         else if (strncmpic(p->str, v->str, v->len) == 0)
+         if (strncmpic(p->str, v->str, v->len) == 0)
          {
             hdr = v->parser(v, p->str, csp);
             freez(p->str);
@@ -547,8 +558,11 @@ char *sed(const struct parsers pats[], void (* const more_headers[])(struct clie
       (*f)(csp);
    }
 
-   /* add the blank line at the end of the header */
-   enlist(csp->headers, "");
+   /* add the blank line at the end of the header, if necessary */
+   if(strlen(csp->headers->last->str) != 0)
+   {
+      enlist(csp->headers, "");
+   }
 
    hdr = list_to_text(csp->headers);
 
@@ -801,11 +815,13 @@ char *content_type(const struct parsers *v, char *s, struct client_state *csp)
  *********************************************************************/
 char *content_length(const struct parsers *v, char *s, struct client_state *csp)
 {
-   if (((csp->permissions & PERMIT_RE_FILTER) != 0) && csp->is_text)
-   {
-      log_error(LOG_LEVEL_HEADER, "crunch!");
-      return(NULL);
-   }
+   if (csp->content_length != 0) /* Content has been modified */
+	{
+	   s = (char *) zalloc(100);
+	   snprintf(s, 100, "Content-Length: %d", csp->content_length);
+		log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", csp->content_length);
+	   return(s);
+	}
    else
    {
       return(strdup(s));

@@ -36,6 +36,19 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/27 22:17:04  oes
+ *
+ *    - re_process_buffer no longer writes the modified buffer
+ *      to the client, which was very ugly. It now returns the
+ *      buffer, which it is then written by chat.
+ *
+ *    - content_length now adjusts the Content-Length: header
+ *      for modified documents rather than crunch()ing it.
+ *      (Length info in csp->content_length, which is 0 for
+ *      unmodified documents)
+ *
+ *    - For this to work, sed() is called twice when filtering.
+ *
  *    Revision 1.5  2001/05/26 00:28:36  jongfoster
  *    Automatic reloading of config file.
  *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
@@ -273,13 +286,8 @@ struct client_state
 #endif /* def FORCE_LOAD */
 
 #ifdef TOGGLE
-   /*
-    * by haroon - most of credit to srt19170
-    * We add an "on/off" toggle here that is used to effectively toggle
-    * the Junkbuster off or on
-    */
    int   toggled_on;
-#endif
+#endif /* def TOGGLE */
 
    char *ip_addr_str;
    long  ip_addr_long;
@@ -323,6 +331,7 @@ struct client_state
 
 #ifdef PCRS
      struct file_list *rlist;   /* Perl re_filterfile */
+     size_t content_length;     /* Length after processing */ 
 #endif /* def PCRS */
 
 #ifdef TRUST_FILES
