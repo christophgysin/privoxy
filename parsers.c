@@ -40,6 +40,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.50  2002/03/12 01:45:35  oes
+ *    More verbose logging
+ *
  *    Revision 1.49  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on
@@ -1088,11 +1091,11 @@ jb_err client_referrer(struct client_state *csp, char **header)
          log_error(LOG_LEVEL_ERROR, "Bad parameter: +referer{%s}", newval);
       }
 
-      log_error(LOG_LEVEL_HEADER, "crunch+forge!");
       *header = strdup("Referer: http://");
       string_append(header, csp->http->hostport);
       string_append(header, "/");
-
+      log_error(LOG_LEVEL_HEADER, "crunch+forge to %s", *header);
+      
       return (*header == NULL) ? JB_ERR_MEMORY : JB_ERR_OK;
    }
 }
