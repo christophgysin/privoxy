@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.9  2002/04/02 19:32:45  oes
+  Adding temporary fix for missing curl support on SF (step 2 + 3 on oesterhelt.org)
+
   Revision 1.8  2002/04/02 08:45:22  oes
   Made script location indepandant
 
@@ -126,7 +129,7 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
  </head>
 
  <body>
-  <div class="title"><a href="http://www.privoxy.org" target="_blank">Privoxy</a> Action List Feedback - Step 1 of 2</div>
+  <div class="title"><a href="http://www.privoxy.org/" target="_blank">Privoxy</a> Action List Feedback - Step 1 of 2</div>
 
   <div class="box">
    <p>
@@ -140,7 +143,8 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
   </div>
 
   <div class="box">
-   <form action="step2.php" method="post">
+   <!-- FIXME: This must become action="step2.php" as soon as SF supports curl in PHP -->
+   <form action="http://www.oesterhelt.org/actions/step2.php" method="post">
 
     <table border="0" cellpadding="0" cellspacing="4">
 
