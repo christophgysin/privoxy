@@ -446,7 +446,7 @@ configuration section below. HB.)
 
 
 <!--   ~~~~~       New section      ~~~~~     -->
-<sect1 id="configuration"><title>Invoking and Configuring Junkbuster</title>
+<sect1 id="configuration"><title>Invoking and Configuring JunkBuster</title>
 <para>
  For Unix, *BSD and Linux, all configuration files are located in
  <filename>/etc/junkbuster/</filename> by default. For MS Windows, OS/2, and
@@ -563,6 +563,17 @@ configuration section below. HB.)
    <emphasis>FILE</emphasis> on exit. Failiure to create or delete the
    <emphasis>FILE</emphasis> is non-fatal. If no <emphasis>FILE</emphasis>
    option is given, no PID file will be used. Unix only.
+  </para>
+ </listitem> 
+ <listitem>
+  <para>
+   <emphasis>--user USER</emphasis>
+  
+  </para>
+  <para>
+   After (optionally) writing the PID file, assume the user  ID  of
+   <emphasis>USER</emphasis>.  Exit if the privileges are not sufficient to do
+   so. Unix only.
   </para>
  </listitem> 
  <listitem>
@@ -3362,6 +3373,9 @@ communication (bugs, feature requests, etc.)
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.36  2002/03/05 22:53:28  hal9
+ Add new --user option.
+
  Revision 1.35  2002/03/05 00:17:27  hal9
  Added section on command line options.
 
