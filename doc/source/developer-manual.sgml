@@ -9,7 +9,7 @@
  $Id$
 
  Written by and Copyright (C) 2001 the SourceForge
- Privoxy team.  http://ijbswa.sourceforge.net
+ Privoxy team. http://www.privoxy.org/
 
  Based on the Internet Junkbuster originally written
  by and Copyright (C) 1997 Anonymous Coders and 
@@ -44,7 +44,7 @@ systems and multi-user networks.
  </para>
       <para>
 You can find the latest version of the user manual at <ulink
-url="http://ijbswa.sourceforge.net/developer-manual/">http://ijbswa.sourceforge.net/developer-manual/</ulink>.
+url="http://www.privoxy.org/developer-manual/">http://www.privoxy.org/developer-manual/</ulink>.
 Please see the Contact section in the user-manual if you want to contact the developers.
  </para>
 
@@ -1249,7 +1249,7 @@ const char FILENAME_rcs[] = "$Id$";
  * Purpose     :  (Fill me in with a good description!)
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                PRIVOXY team.  http://ijbswa.sourceforge.net
+ *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and
@@ -1309,7 +1309,7 @@ const char FILENAME_h_rcs[] = FILENAME_H_VERSION;
  * Purpose     :  (Fill me in with a good description!)
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                PRIVOXY team.  http://ijbswa.sourceforge.net
+ *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and
@@ -1498,6 +1498,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.11  2002/03/26 22:29:55  swa
+  we have a new homepage!
+
   Revision 1.10  2002/03/24 12:33:01  swa
   more additions.
 

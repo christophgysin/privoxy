@@ -6,7 +6,7 @@ const char amiga_rcs[] = "$Id$";
  * Purpose     :  Amiga-specific declarations.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                Privoxy team.  http://ijbswa.sourceforge.net
+ *                Privoxy team. http://www.privoxy.org/
  *
  *                This program is free software; you can redistribute it 
  *                and/or modify it under the terms of the GNU General
@@ -28,6 +28,9 @@ const char amiga_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2002/03/26 22:29:54  swa
+ *    we have a new homepage!
+ *
  *    Revision 1.8  2002/03/25 19:32:15  joergs
  *    Name in version string changed from junkbuster to Privoxy.
  *

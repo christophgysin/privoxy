@@ -10,7 +10,7 @@ const char deanimate_rcs[] = "$Id$";
  *                gif_extract_image
  *
  * Copyright   :  Written by and Copyright (C) 2001 by the the SourceForge
- *                Privoxy team.  http://ijbswa.sourceforge.net
+ *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the GIF file format specification (see
  *                http://tronche.com/computer-graphics/gif/gif89a.html)
@@ -37,6 +37,9 @@ const char deanimate_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2002/03/26 22:29:54  swa
+ *    we have a new homepage!
+ *
  *    Revision 1.10  2002/03/24 13:25:43  swa
  *    name change related issues
  *

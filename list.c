@@ -8,7 +8,7 @@ const char list_rcs[] = "$Id$";
  *                   `destroy_list', `enlist' and `list_to_text'
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                Privoxy team.  http://ijbswa.sourceforge.net
+ *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and
@@ -34,6 +34,9 @@ const char list_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2002/03/26 22:29:55  swa
+ *    we have a new homepage!
+ *
  *    Revision 1.14  2002/03/24 13:25:43  swa
  *    name change related issues
  *

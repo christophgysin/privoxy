@@ -11,7 +11,7 @@
  *                
  *
  * Copyright   :  Written by and Copyright (C) 2001 Andreas S. Oesterhelt
- *                for the SourceForge Privoxy team. http://ijbswa.sourceforge.net
+ *                for the Privoxy team. http://www.privoxy.org/
  *
  *                Based on ideas from the Image::DeAnim Perl module by
  *                Ken MacFarlane, <ksm+cpan@universal.dca.net>
@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2002/03/26 22:29:54  swa
+ *    we have a new homepage!
+ *
  *    Revision 1.7  2002/03/24 13:25:43  swa
  *    name change related issues
  *

@@ -1,7 +1,7 @@
 # $Id$
 #
 # Written by and Copyright (C) 2001 the SourceForge
-# PRIVOXY team.  http://ijbswa.sourceforge.net
+# Privoxy team. http://www.privoxy.org/
 #
 # Based on the Internet Junkbuster originally written
 # by and Copyright (C) 1997 Anonymous Coders and 
@@ -39,11 +39,11 @@ Version: 2.9.13
 Release: 3
 Summary: Privoxy - privacy enhancing proxy
 License: GPL
-Vendor: http://ijbswa.sourceforge.net
+Vendor: http://www.privoxy.org
 Source0: http://www.waldherr.org/%{name}/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Group: Networking/Utilities
-URL: http://ijbswa.sourceforge.net/
+URL: http://www.privoxy.org/
 Obsoletes: junkbuster-raw junkbuster-blank junkbuster
 # Prereq: /usr/sbin/useradd , /sbin/chkconfig , /sbin/service 
 Prereq: shadow-utils, chkconfig, initscripts, sh-utils
@@ -541,6 +541,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.16  2002/03/26 22:29:55  swa
+# we have a new homepage!
+#
 # Revision 1.15  2002/03/26 17:39:54  morcego
 # Adding comment on the specfile to remember the packager to update
 # the release number on the configure script

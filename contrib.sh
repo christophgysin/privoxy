@@ -293,7 +293,7 @@ exit 0
 #gen_list.c: *						list management.
 #gen_list.c: *
 #gen_list.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#gen_list.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#gen_list.c: *                Privoxy team. http://www.privoxy.org/
 #gen_list.c: *
 #gen_list.c: *                This program is free software; you can redistribute it
 #gen_list.c: *                and/or modify it under the terms of the GNU General
@@ -318,6 +318,9 @@ exit 0
 #gen_list.c: *
 #gen_list.c: * Revisions   :
 #gen_list.c: *    $Log$
+#gen_list.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#gen_list.c: *    we have a new homepage!
+#gen_list.c: *
 #gen_list.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #gen_list.c: *    name change related issues
 #gen_list.c: *
@@ -1386,7 +1389,7 @@ exit 0
 #gen_list.h: *						list management.
 #gen_list.h: *
 #gen_list.h: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#gen_list.h: *                Privoxy team.  http://ijbswa.sourceforge.net
+#gen_list.h: *                Privoxy team. http://www.privoxy.org/
 #gen_list.h: *
 #gen_list.h: *                This program is free software; you can redistribute it
 #gen_list.h: *                and/or modify it under the terms of the GNU General
@@ -1411,6 +1414,9 @@ exit 0
 #gen_list.h: *
 #gen_list.h: * Revisions   :
 #gen_list.h: *    $Log$
+#gen_list.h: *    Revision 1.3  2002/03/26 22:29:54  swa
+#gen_list.h: *    we have a new homepage!
+#gen_list.h: *
 #gen_list.h: *    Revision 1.2  2002/03/24 13:25:43  swa
 #gen_list.h: *    name change related issues
 #gen_list.h: *
@@ -1534,7 +1540,7 @@ exit 0
 #isa.c: *								per project.
 #isa.c: *
 #isa.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#isa.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#isa.c: *                Privoxy team. http://www.privoxy.org/
 #isa.c: *
 #isa.c: *                This program is free software; you can redistribute it
 #isa.c: *                and/or modify it under the terms of the GNU General
@@ -1559,6 +1565,9 @@ exit 0
 #isa.c: *
 #isa.c: * Revisions   :
 #isa.c: *    $Log$
+#isa.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#isa.c: *    we have a new homepage!
+#isa.c: *
 #isa.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #isa.c: *    name change related issues
 #isa.c: *
@@ -1615,7 +1624,7 @@ exit 0
 #isa.h: *								per project.
 #isa.h: *
 #isa.h: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#isa.h: *                Privoxy team.  http://ijbswa.sourceforge.net
+#isa.h: *                Privoxy team. http://www.privoxy.org/
 #isa.h: *
 #isa.h: *                This program is free software; you can redistribute it
 #isa.h: *                and/or modify it under the terms of the GNU General
@@ -1640,6 +1649,9 @@ exit 0
 #isa.h: *
 #isa.h: * Revisions   :
 #isa.h: *    $Log$
+#isa.h: *    Revision 1.3  2002/03/26 22:29:54  swa
+#isa.h: *    we have a new homepage!
+#isa.h: *
 #isa.h: *    Revision 1.2  2002/03/24 13:25:43  swa
 #isa.h: *    name change related issues
 #isa.h: *
@@ -1697,7 +1709,7 @@ exit 0
 #main.c: * Purpose     :  To test "generic list" creation and manipulation.
 #main.c: *
 #main.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#main.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#main.c: *                Privoxy team. http://www.privoxy.org/
 #main.c: *
 #main.c: *                This program is free software; you can redistribute it
 #main.c: *                and/or modify it under the terms of the GNU General
@@ -1729,6 +1741,9 @@ exit 0
 #main.c: *
 #main.c: * Revisions   :
 #main.c: *    $Log$
+#main.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#main.c: *    we have a new homepage!
+#main.c: *
 #main.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #main.c: *    name change related issues
 #main.c: *
@@ -2089,7 +2104,7 @@ exit 0
 #malloc_police.c: *						be most helpful to developers and debugers.
 #malloc_police.c: *
 #malloc_police.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#malloc_police.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#malloc_police.c: *                Privoxy team. http://www.privoxy.org/
 #malloc_police.c: *
 #malloc_police.c: *                This program is free software; you can redistribute it
 #malloc_police.c: *                and/or modify it under the terms of the GNU General
@@ -2114,6 +2129,9 @@ exit 0
 #malloc_police.c: *
 #malloc_police.c: * Revisions   :
 #malloc_police.c: *    $Log$
+#malloc_police.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#malloc_police.c: *    we have a new homepage!
+#malloc_police.c: *
 #malloc_police.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #malloc_police.c: *    name change related issues
 #malloc_police.c: *
@@ -2420,7 +2438,7 @@ exit 0
 #malloc_police.h: *						be most helpful to developers and debugers.
 #malloc_police.h: *
 #malloc_police.h: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#malloc_police.h: *                Privoxy team.  http://ijbswa.sourceforge.net
+#malloc_police.h: *                Privoxy team. http://www.privoxy.org/
 #malloc_police.h: *
 #malloc_police.h: *                This program is free software; you can redistribute it
 #malloc_police.h: *                and/or modify it under the terms of the GNU General
@@ -2445,6 +2463,9 @@ exit 0
 #malloc_police.h: *
 #malloc_police.h: * Revisions   :
 #malloc_police.h: *    $Log$
+#malloc_police.h: *    Revision 1.3  2002/03/26 22:29:54  swa
+#malloc_police.h: *    we have a new homepage!
+#malloc_police.h: *
 #malloc_police.h: *    Revision 1.2  2002/03/24 13:25:43  swa
 #malloc_police.h: *    name change related issues
 #malloc_police.h: *
@@ -2495,7 +2516,7 @@ exit 0
 #rec_char.c: * Purpose     :  A "derived class" of gen_list_rec.
 #rec_char.c: *
 #rec_char.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_char.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_char.c: *                Privoxy team. http://www.privoxy.org/
 #rec_char.c: *
 #rec_char.c: *                This program is free software; you can redistribute it
 #rec_char.c: *                and/or modify it under the terms of the GNU General
@@ -2520,6 +2541,9 @@ exit 0
 #rec_char.c: *
 #rec_char.c: * Revisions   :
 #rec_char.c: *    $Log$
+#rec_char.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_char.c: *    we have a new homepage!
+#rec_char.c: *
 #rec_char.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_char.c: *    name change related issues
 #rec_char.c: *
@@ -2698,7 +2722,7 @@ exit 0
 #rec_char.h: * Purpose     :  A "derived class" of gen_list_rec.
 #rec_char.h: *
 #rec_char.h: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_char.h: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_char.h: *                Privoxy team. http://www.privoxy.org/
 #rec_char.h: *
 #rec_char.h: *                This program is free software; you can redistribute it
 #rec_char.h: *                and/or modify it under the terms of the GNU General
@@ -2723,6 +2747,9 @@ exit 0
 #rec_char.h: *
 #rec_char.h: * Revisions   :
 #rec_char.h: *    $Log$
+#rec_char.h: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_char.h: *    we have a new homepage!
+#rec_char.h: *
 #rec_char.h: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_char.h: *    name change related issues
 #rec_char.h: *
@@ -2781,7 +2808,7 @@ exit 0
 #rec_charptr.c: * Purpose     :  A "derived class" of gen_list_rec.
 #rec_charptr.c: *
 #rec_charptr.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_charptr.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_charptr.c: *                Privoxy team. http://www.privoxy.org/
 #rec_charptr.c: *
 #rec_charptr.c: *                This program is free software; you can redistribute it
 #rec_charptr.c: *                and/or modify it under the terms of the GNU General
@@ -2806,6 +2833,9 @@ exit 0
 #rec_charptr.c: *
 #rec_charptr.c: * Revisions   :
 #rec_charptr.c: *    $Log$
+#rec_charptr.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_charptr.c: *    we have a new homepage!
+#rec_charptr.c: *
 #rec_charptr.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_charptr.c: *    name change related issues
 #rec_charptr.c: *
@@ -2996,7 +3026,7 @@ exit 0
 #rec_charptr.h: * Purpose     :  A "derived class" of gen_list_rec.
 #rec_charptr.h: *
 #rec_charptr.h: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_charptr.h: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_charptr.h: *                Privoxy team. http://www.privoxy.org/
 #rec_charptr.h: *
 #rec_charptr.h: *                This program is free software; you can redistribute it
 #rec_charptr.h: *                and/or modify it under the terms of the GNU General
@@ -3021,6 +3051,9 @@ exit 0
 #rec_charptr.h: *
 #rec_charptr.h: * Revisions   :
 #rec_charptr.h: *    $Log$
+#rec_charptr.h: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_charptr.h: *    we have a new homepage!
+#rec_charptr.h: *
 #rec_charptr.h: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_charptr.h: *    name change related issues
 #rec_charptr.h: *
@@ -3079,7 +3112,7 @@ exit 0
 #rec_double.c: * Purpose     :  A "derived class" of gen_list_rec.
 #rec_double.c: *
 #rec_double.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_double.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_double.c: *                Privoxy team. http://www.privoxy.org/
 #rec_double.c: *
 #rec_double.c: *                This program is free software; you can redistribute it
 #rec_double.c: *                and/or modify it under the terms of the GNU General
@@ -3104,6 +3137,9 @@ exit 0
 #rec_double.c: *
 #rec_double.c: * Revisions   :
 #rec_double.c: *    $Log$
+#rec_double.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_double.c: *    we have a new homepage!
+#rec_double.c: *
 #rec_double.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_double.c: *    name change related issues
 #rec_double.c: *
@@ -3282,7 +3318,7 @@ exit 0
 #rec_double.h: * Purpose     :  gen_A "derived class" of gen_list_rec.
 #rec_double.h: *
 #rec_double.h: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_double.h: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_double.h: *                Privoxy team. http://www.privoxy.org/
 #rec_double.h: *
 #rec_double.h: *                This program is free software; you can redistribute it
 #rec_double.h: *                and/or modify it under the terms of the GNU General
@@ -3307,6 +3343,9 @@ exit 0
 #rec_double.h: *
 #rec_double.h: * Revisions   :
 #rec_double.h: *    $Log$
+#rec_double.h: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_double.h: *    we have a new homepage!
+#rec_double.h: *
 #rec_double.h: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_double.h: *    name change related issues
 #rec_double.h: *
@@ -3365,7 +3404,7 @@ exit 0
 #rec_long.c: * Purpose     :  A "derived class" of gen_list_rec.
 #rec_long.c: *
 #rec_long.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_long.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_long.c: *                Privoxy team. http://www.privoxy.org/
 #rec_long.c: *
 #rec_long.c: *                This program is free software; you can redistribute it
 #rec_long.c: *                and/or modify it under the terms of the GNU General
@@ -3390,6 +3429,9 @@ exit 0
 #rec_long.c: *
 #rec_long.c: * Revisions   :
 #rec_long.c: *    $Log$
+#rec_long.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_long.c: *    we have a new homepage!
+#rec_long.c: *
 #rec_long.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_long.c: *    name change related issues
 #rec_long.c: *
@@ -3568,7 +3610,7 @@ exit 0
 #rec_long.h: * Purpose     :  A "derived class" of gen_list_rec.
 #rec_long.h: *
 #rec_long.h: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_long.h: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_long.h: *                Privoxy team. http://www.privoxy.org/
 #rec_long.h: *
 #rec_long.h: *                This program is free software; you can redistribute it
 #rec_long.h: *                and/or modify it under the terms of the GNU General
@@ -3593,6 +3635,9 @@ exit 0
 #rec_long.h: *
 #rec_long.h: * Revisions   :
 #rec_long.h: *    $Log$
+#rec_long.h: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_long.h: *    we have a new homepage!
+#rec_long.h: *
 #rec_long.h: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_long.h: *    name change related issues
 #rec_long.h: *
@@ -3656,7 +3701,7 @@ exit 0
 #rec_malloc_police.c: *						and debugers.
 #rec_malloc_police.c: *
 #rec_malloc_police.c: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_malloc_police.c: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_malloc_police.c: *                Privoxy team. http://www.privoxy.org/
 #rec_malloc_police.c: *
 #rec_malloc_police.c: *                This program is free software; you can redistribute it
 #rec_malloc_police.c: *                and/or modify it under the terms of the GNU General
@@ -3681,6 +3726,9 @@ exit 0
 #rec_malloc_police.c: *
 #rec_malloc_police.c: * Revisions   :
 #rec_malloc_police.c: *    $Log$
+#rec_malloc_police.c: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_malloc_police.c: *    we have a new homepage!
+#rec_malloc_police.c: *
 #rec_malloc_police.c: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_malloc_police.c: *    name change related issues
 #rec_malloc_police.c: *
@@ -3923,7 +3971,7 @@ exit 0
 #rec_malloc_police.h: *						and debugers.
 #rec_malloc_police.h: *
 #rec_malloc_police.h: * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#rec_malloc_police.h: *                Privoxy team.  http://ijbswa.sourceforge.net
+#rec_malloc_police.h: *                Privoxy team. http://www.privoxy.org/
 #rec_malloc_police.h: *
 #rec_malloc_police.h: *                This program is free software; you can redistribute it
 #rec_malloc_police.h: *                and/or modify it under the terms of the GNU General
@@ -3948,6 +3996,9 @@ exit 0
 #rec_malloc_police.h: *
 #rec_malloc_police.h: * Revisions   :
 #rec_malloc_police.h: *    $Log$
+#rec_malloc_police.h: *    Revision 1.3  2002/03/26 22:29:54  swa
+#rec_malloc_police.h: *    we have a new homepage!
+#rec_malloc_police.h: *
 #rec_malloc_police.h: *    Revision 1.2  2002/03/24 13:25:43  swa
 #rec_malloc_police.h: *    name change related issues
 #rec_malloc_police.h: *

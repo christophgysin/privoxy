@@ -10,7 +10,7 @@
  *                latest SDK too?  Shudder, I think not.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                Privoxy team.  http://ijbswa.sourceforge.net
+ *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2002/03/26 22:29:54  swa
+ *    we have a new homepage!
+ *
  *    Revision 1.3  2002/03/24 13:25:43  swa
  *    name change related issues
  *
