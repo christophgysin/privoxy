@@ -157,7 +157,7 @@
   </listitem>
   <listitem>
    <para>
-    <ulink url="team/index.html">Pictures of the Privoxy Team</ulink>
+    <ulink url="http://privoxy.org/team/index.html">Pictures of the Privoxy Team</ulink>
    </para>
   </listitem>
  </itemizedlist>
@@ -229,6 +229,9 @@
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.17  2002/05/26 17:39:35  hal9
+ Make team pictures link absolute for docs.
+
  Revision 1.16  2002/05/24 10:06:31  oes
  Nit
 
