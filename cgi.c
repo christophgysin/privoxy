@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.36  2001/10/26 17:33:27  oes
+ *    marginal bugfix
+ *
  *    Revision 1.35  2001/10/23 21:48:19  jongfoster
  *    Cleaning up error handling in CGI functions - they now send back
  *    a HTML error page and should never cause a FATAL error.  (Fixes one
@@ -281,16 +284,13 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
    { "show-url-info",
          cgi_show_url_info, 
          "Show which actions apply to a URL and why"  },
-#ifdef FEATURE_CGI_EDIT_ACTIONS
    { "toggle",
          cgi_toggle, 
          "Toggle JunkBuster on or off" },
+#ifdef FEATURE_CGI_EDIT_ACTIONS
    { "edit-actions",
          cgi_edit_actions, 
          "Edit the actions list" },
-#endif /* def FEATURE_CGI_EDIT_ACTIONS */
-
-#ifdef FEATURE_CGI_EDIT_ACTIONS
    { "edit-actions-for-url",
          cgi_edit_actions_for_url, 
          NULL /* Edit the actions for (a) specified URL(s) */ },
@@ -1027,7 +1027,7 @@ void free_http_response(struct http_response *rsp)
 
 /*********************************************************************
  *
- * Function    :  fill_template
+ * Function    :  template_load
  *
  * Description :  CGI support function that loads a given HTML
  *                template from the confdir, ignoring comment
@@ -1276,6 +1276,7 @@ jb_err template_fill_for_cgi(struct client_state *csp,
    free_map(exports);
    return err;
 }
+
 
 /*********************************************************************
  *
