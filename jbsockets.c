@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/26 17:28:32  jongfoster
+ *    Fixed LOG_LEVEL_LOG
+ *
  *    Revision 1.5  2001/05/26 15:26:15  jongfoster
  *    ACL feature now provides more security by immediately dropping
  *    connections from untrusted hosts.
@@ -92,6 +95,7 @@ const char jbsockets_rcs[] = "$Id$";
 #include "project.h"
 #include "jbsockets.h"
 #include "filters.h"
+#include "errlog.h"
 
 const char jbsockets_h_rcs[] = JBSOCKETS_H_VERSION;
 
@@ -243,7 +247,7 @@ int write_socket(int fd, const char *buf, int len)
       return(0);
    }
 
-   /* if (DEBUG(LOG)) fwrite(buf, n, 1, logfp); */
+   log_error(LOG_LEVEL_LOG, "%n", len, buf);
 
 #if defined(_WIN32) || defined(__BEOS__) || defined(AMIGA)
    return( send(fd, buf, len, 0));
