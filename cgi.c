@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.70.2.1  2002/08/05 11:17:46  oes
+ *    Fixed Bug #587820, i.e. added workaround for IE bug that includes fragment identifier in (cgi) query
+ *
  *    Revision 1.70  2002/05/19 11:33:20  jongfoster
  *    If a CGI error was not handled, and propogated back to
  *    dispatch_known_cgi(), then it was assumed to be "out of memory".
@@ -798,6 +801,16 @@ static struct map *parse_cgi_parameters(char *argstring)
    if (NULL == (cgi_params = new_map()))
    {
       return NULL;
+   }
+
+   /* 
+    * IE 5 does, of course, violate RFC 2316 Sect 4.1 and sends
+    * the fragment identifier along with the request, so we must
+    * cut it off here, so it won't pollute the CGI params:
+    */
+   if (NULL != (p = strchr(argstring, '#')))
+   {
+      *p = '\0';
    }
 
    pairs = ssplit(argstring, "&", vector, SZ(vector), 1, 1);
