@@ -36,6 +36,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/05/31 21:33:53  jongfoster
+ *    Changes for new actions file, replacing permissionsfile
+ *    and parts of the config file.  Also added support for
+ *    list_shared.
+ *
  *    Revision 1.9  2001/05/31 17:32:31  oes
  *
  *     - Enhanced domain part globbing with infix and prefix asterisk
@@ -45,7 +50,7 @@
  *    HTTP_REDIRECT_TEMPLATE fixed.
  *
  *    Revision 1.7  2001/05/29 09:50:24  jongfoster
- *    Unified blocklist/imagelist/permissionslist.
+ *    Unified blocklist/imagelist/actionslist.
  *    File format is still under discussion, but the internal changes
  *    are (mostly) done.
  *
@@ -134,7 +139,7 @@
  *    Revision 1.3  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
- *      filtering, in new "permissionsfile".
+ *      filtering, in new "actionsfile".
  *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
  *      file error you now get a message box (in the Win32 GUI) rather
  *      than the program exiting with no explanation.
@@ -246,11 +251,39 @@ struct gateway
 
 
 /* Generic linked list of strings */
-struct list
+struct list /* FIXME: Why not separate entries and header? */
 {
-   char *str;
-   struct list *last;
+   char *       str;  /* valid in an entry */
+   struct list *last; /* valid in header */
    struct list *next;
+};
+
+
+/* Generic linked list of strings */
+struct list_share /* FIXME: Why not separate entries and header? */
+{
+   const char *       str;  /* valid in an entry */
+   struct list_share *last; /* valid in header */
+   struct list_share *next;
+};
+
+
+/* A URL pattern */
+struct url_spec
+{
+   char  *spec;
+   char  *domain;
+   char  *dbuf;
+   char **dvec;
+   int    dcnt;
+   int    unanchored;
+
+   char *path;
+   int   pathlen;
+   int   port;
+#ifdef REGEX
+   regex_t *preg;
+#endif
 };
 
 
@@ -265,6 +298,77 @@ struct iob
 
 #define IOB_PEEK(CSP) ((CSP->iob->cur > CSP->iob->eod) ? (CSP->iob->eod - CSP->iob->cur) : 0)
 #define IOB_RESET(CSP) if(CSP->iob->buf) free(CSP->iob->buf); memset(CSP->iob, '\0', sizeof(CSP->iob));
+
+
+
+#define ACTION_MASK_ALL        (~0U)
+
+#define ACTION_MOST_COMPATIBLE 0U
+
+#define ACTION_BLOCK           0x0001U
+#define ACTION_FAST_REDIRECTS  0x0002U
+#define ACTION_FILTER          0x0004U
+#define ACTION_HIDE_FORWARDED  0x0008U
+#define ACTION_HIDE_FROM       0x0010U
+#define ACTION_HIDE_REFERER    0x0020U /* sic - follow HTTP, not English */
+#define ACTION_HIDE_USER_AGENT 0x0040U
+#define ACTION_IMAGE           0x0080U
+#define ACTION_NO_COOKIE_READ  0x0100U
+#define ACTION_NO_COOKIE_SET   0x0200U
+#define ACTION_NO_POPUPS       0x0400U
+#define ACTION_VANILLA_WAFER   0x0800U
+
+#define ACTION_STRING_FROM       0
+#define ACTION_STRING_REFERER    1
+#define ACTION_STRING_USER_AGENT 2
+#define ACTION_STRING_COUNT      3
+
+#define ACTION_MULTI_ADD_HEADER  0
+#define ACTION_MULTI_WAFER       1
+#define ACTION_MULTI_COUNT       2
+
+
+struct current_action_spec
+{
+   unsigned flags;    /* a bit set to "1" = add action    */
+
+   /* For those actions that require parameters: */
+
+   /* each entry is valid if & only if corresponding entry in "add" set. */
+   char * string[ACTION_STRING_COUNT];
+
+   /* Strings to add */
+   struct list_share multi[ACTION_MULTI_COUNT][1];
+};
+
+struct action_spec
+{
+   unsigned mask;   /* a bit set to "0" = remove action */
+   unsigned add;    /* a bit set to "1" = add action    */
+
+   /* For those actions that require parameters: */
+
+   /* each entry is valid if & only if corresponding entry in "add" set. */
+   char * string[ACTION_STRING_COUNT];
+
+   /* Strings to remove. */
+   struct list multi_remove[ACTION_MULTI_COUNT][1];
+
+   /* If nonzero, remove *all* strings. */
+   int         multi_remove_all[ACTION_MULTI_COUNT];
+
+   /* Strings to add */
+   struct list multi_add[ACTION_MULTI_COUNT][1];
+};
+
+struct url_actions
+{
+   struct url_spec url[1];
+
+   struct action_spec action[1];
+
+   struct url_actions * next;
+};
 
 
 /* Constants defining bitmask for csp->accept_types */
@@ -296,8 +400,8 @@ struct client_state
    struct configuration_spec * config;
 
 
-   /* The permissions that the current URL has */
-   int  permissions;
+   /* The actions to perform on the current request */
+   struct current_action_spec  action[1];
 
 
    /* socket to talk to client (web browser) */
@@ -369,7 +473,7 @@ struct client_state
 
    /* files associated with this client */
    struct file_list *flist;   /* forwardfile */
-   struct file_list *permissions_list;
+   struct file_list *actions_list;
 
 
 #ifdef ACL_FILES
@@ -402,25 +506,6 @@ struct interceptors
    char *str;
    char  len;
    char *(*interceptor)(struct http_request *http, struct client_state *csp);
-};
-
-
-/* A URL pattern */
-struct url_spec
-{
-   char  *spec;
-   char  *domain;
-   char  *dbuf;
-   char **dvec;
-   int    dcnt;
-   int    unanchored;
-
-   char *path;
-   int   pathlen;
-   int   port;
-#ifdef REGEX
-   regex_t *preg;
-#endif
 };
 
 
@@ -476,31 +561,6 @@ struct block_spec
 #endif /* def TRUST_FILES */
 
 
-#define PERMIT_COOKIE_SET      0x0001U
-#define PERMIT_COOKIE_READ     0x0002U
-#define PERMIT_RE_FILTER       0x0004U
-#define PERMIT_POPUPS          0x0008U
-#define PERMIT_REFERER         0x0010U /* sic - follow HTTP, not English */
-#define PERMIT_FAST_REDIRECTS  0x0020U
-#define PERMIT_BLOCK           0x0040U
-#define PERMIT_IMAGE           0x0080U
-
-#define PERMIT_USER_AGENT      PERMIT_COOKIE_SET /* FIXME  Alias this for now */
-
-#define PERMIT_MASK_ALL        (~0U)
-
-#define PERMIT_MOST_COMPATIBLE (PERMIT_COOKIE_SET | PERMIT_COOKIE_READ | \
-   PERMIT_REFERER | PERMIT_POPUPS | PERMIT_USER_AGENT)
-
-struct permissions_spec
-{
-   struct url_spec url[1];
-   unsigned mask;   /* a bit set to "0" = remove permission */
-   unsigned add;    /* a bit set to "1" = add permission */
-   struct permissions_spec * next;
-};
-
-
 struct forward_spec
 {
    struct url_spec url[1];
@@ -541,7 +601,7 @@ struct access_control_list
 #endif /* def ACL_FILES */
 
 
-/* Maximum number of loaders (permissions, block, forward, acl...) */
+/* Maximum number of loaders (actions, block, forward, acl...) */
 #define NLOADERS 8
 
 /*
@@ -555,13 +615,13 @@ struct configuration_spec
    int multi_threaded;
 
 #ifdef IMAGE_BLOCKING
-   int tinygif;
-   const char *tinygifurl;
+   int tinygif;              /* FIXME Should be an action */
+   const char *tinygifurl;   /* FIXME Should be an action */
 #endif /* def IMAGE_BLOCKING */
 
    const char *logfile;
 
-   const char *permissions_file;
+   const char *actions_file;
    const char *forwardfile;
 
 #ifdef ACL_FILES
@@ -572,24 +632,10 @@ struct configuration_spec
    const char *re_filterfile;
 #endif /* def PCRS */
 
-   /*
-    * Permissions to use for URLs not in the permissions list.
-    */
-   int default_permissions;
-
 #ifdef JAR_FILES
    const char * jarfile;
    FILE * jar;
 #endif /* def JAR_FILES */
-
-   const char *referrer;
-   const char *uagent;
-   const char *from;
-
-   int add_forwarded;
-
-   struct list wafer_list[1];
-   struct list xtra_list[1];
 
    /*
     * Port and IP to bind to.
