@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2001/07/29 19:32:00  jongfoster
+ *    Renaming _main() [mingw32 only] to real_main(), for ANSI compliance.
+ *
  *    Revision 1.32  2001/07/29 18:47:05  jongfoster
  *    Adding missing #include "loadcfg.h"
  *
@@ -1170,7 +1173,7 @@ static int32 server_thread(void *data)
  *
  *********************************************************************/
 #ifdef __MINGW32__
-int _main(int argc, const char *argv[])
+int real_main(int argc, const char *argv[])
 #else
 int main(int argc, const char *argv[])
 #endif

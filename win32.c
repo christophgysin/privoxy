@@ -31,8 +31,11 @@ const char win32_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:08  oes
- *    Initial revision
+ *    Revision 1.2  2001/07/29 19:32:00  jongfoster
+ *    Renaming _main() [mingw32 only] to real_main(), for ANSI compliance.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:08  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -167,7 +170,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
 #ifdef __MINGW32__
-   res = _main( argc, argv );
+   res = real_main( argc, argv );
 #else
    res = main( argc, argv );
 #endif

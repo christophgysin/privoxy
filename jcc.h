@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/07/29 19:32:00  jongfoster
+ *    Renaming _main() [mingw32 only] to real_main(), for ANSI compliance.
+ *
  *    Revision 1.4  2001/07/29 18:58:15  jongfoster
  *    Removing nested #includes, adding forward declarations for needed
  *    structures, and changing the #define _FILENAME_H to FILENAME_H_INCLUDED.
@@ -78,7 +81,7 @@ extern struct file_list    files[];
 /* Functions */
 
 #ifdef __MINGW32__
-int _main(int argc, const char *argv[]);
+int real_main(int argc, const char *argv[]);
 #else
 int main(int argc, const char *argv[]);
 #endif
