@@ -245,7 +245,7 @@ proxy-info-url http://www.your-site.com/proxy.html
 #  The reporting of FATAL errors (i.e. ones which crash 
 #  JunkBuster) is always on and cannot be disabled.
 #
-#  If you want to use CLF, you should set "debug 256" ONLY,
+#  If you want to use CLF, you should set "debug 512" ONLY,
 #  do not enable anything else.
 #
 #  Multiple "debug" directives, are OK - they're logical-OR'd
