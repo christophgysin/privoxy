@@ -38,8 +38,8 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:52  oes
- *    Initial revision
+ *    Revision 1.1.1.1  2001/05/15 13:58:52  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/

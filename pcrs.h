@@ -26,8 +26,8 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:02  oes
- *    Initial revision
+ *    Revision 1.1.1.1  2001/05/15 13:59:02  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *    Revision 1.4  2001/05/11 01:57:02  rodney
  *    Added new file header standard w/RCS control tags.

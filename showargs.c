@@ -33,8 +33,8 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:03  oes
- *    Initial revision
+ *    Revision 1.1.1.1  2001/05/15 13:59:03  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/

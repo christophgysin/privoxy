@@ -28,8 +28,8 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
-dnl Revision 1.1  2001/05/15 13:58:50  oes
-dnl Initial revision
+dnl Revision 1.1.1.1  2001/05/15 13:58:50  oes
+dnl Initial import of version 2.9.3 source tree
 dnl
 dnl 
 AC_INIT(jcc.c)
