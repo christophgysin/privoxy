@@ -68,6 +68,12 @@
  </simplelist>
  <simplelist>
   <member>
+   <ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/ijbswa/contrib/">http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/ijbswa/contrib/</ulink>, cool
+   and fun ideas from <application>Privoxy</application> users.
+  </member>
+ </simplelist>
+ <simplelist>
+  <member>
    <ulink url="http://www.junkbusters.com/ht/en/cookies.html">http://www.junkbusters.com/ht/en/cookies.html</ulink>,
    an explanation how cookies are used to track web users.
   </member>
