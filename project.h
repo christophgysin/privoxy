@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2001/10/07 18:06:43  oes
+ *    Added status member to struct http_request
+ *
  *    Revision 1.34  2001/10/07 15:45:25  oes
  *    Added url member to struct http_request and commented all
  *      members
@@ -381,6 +384,7 @@ struct http_request
    char *gpc;      /* HTTP method: GET, POST, .. */
    char *url;      /* The URL */
    char *ver;      /* Protocol version */
+   int status;     /* HTTP Status */
 
    char *host;     /* Host part of URL */
    int   port;     /* Port of URL or 80 (default) */
