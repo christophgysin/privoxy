@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/18 12:29:05  oes
+ *    Updated prototype for gif_deanimate
+ *
  *    Revision 1.2  2001/07/13 13:46:20  oes
  *    Introduced GIF deanimation feature
  *
@@ -61,7 +64,7 @@ struct binbuffer
 /*
  * Function prototypes
  */
-extern int gif_deanimate(struct binbuffer *src, struct binbuffer *dst);
+extern int gif_deanimate(struct binbuffer *src, struct binbuffer *dst, int get_first_image);
 extern void buf_free(struct binbuffer *buf);
 
 /* 
