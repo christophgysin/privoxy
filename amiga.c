@@ -28,6 +28,9 @@ const char amiga_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2002/03/03 09:18:03  joergs
+ *    Made jumbjuster work on AmigaOS again.
+ *
  *    Revision 1.4  2001/10/07 15:35:13  oes
  *    Replaced 6 boolean members of csp with one bitmap (csp->flags)
  *
@@ -93,12 +96,15 @@ __saveds ULONG server_thread(void)
    return 0;
 }
 
+static BPTR olddir;
+
 void amiga_exit(void)
 {
    if(SocketBase)
    {
       CloseLibrary(SocketBase);
    }
+   CurrentDir(olddir);
 }
 
 static struct SignalSemaphore memsem;
@@ -126,12 +132,13 @@ void InitAmiga(void)
    InitSemaphore(&memsem);
    memsemptr = &memsem;
 
+   olddir=CurrentDir(GetProgramDir());
    atexit(amiga_exit);
 }
 
 #ifdef __GNUC__
 #ifdef libnix
-/* multitaskingsafe libnix replacements */
+/* multithreadingsafe libnix replacements */
 static void *memPool=NULL;
 
 void *malloc (size_t s)
@@ -240,7 +247,7 @@ ADD2EXIT(__memCleanUp,-50);
 #error No libnix and no ixemul!?
 #endif /* libnix */
 #else
-#error Only GCC is supported, multitasking safe malloc/free required.
+#error Only GCC is supported, multithreading safe malloc/free required.
 #endif /* __GNUC__ */
 
 #endif /* def AMIGA */

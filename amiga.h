@@ -31,6 +31,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2002/03/03 09:18:03  joergs
+ *    Made jumbjuster work on AmigaOS again.
+ *
  *    Revision 1.6  2001/10/13 12:46:08  joergs
  *    Added #undef EINTR to avoid warnings
  *
@@ -64,6 +67,7 @@
 #undef __NOLIBBASE__
 
 #define __CONSTLIBBASEDECL__ const
+#define DEVICES_TIMER_H
 #include <proto/exec.h>
 #include <exec/tasks.h>
 #include <proto/dos.h>

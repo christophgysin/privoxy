@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2002/03/03 09:18:03  joergs
+ *    Made jumbjuster work on AmigaOS again.
+ *
  *    Revision 1.27  2002/01/21 00:52:32  jongfoster
  *    Adding string_join()
  *
@@ -835,7 +838,21 @@ char * make_path(const char * dir, const char * file)
 
    if(dir)
    {
-      strncpy(path,dir,512);
+      if(dir[0] == '.')
+      {
+         if(dir[1] == '/')
+         {
+            strncpy(path,dir+2,512);
+         }
+         else
+         {
+            strncpy(path,dir+1,512);
+         }
+      }
+      else
+      {
+         strncpy(path,dir,512);
+      }
       path[511]=0;
    } else {
       path[0]=0;

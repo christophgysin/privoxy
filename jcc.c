@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.64  2002/03/03 09:18:03  joergs
+ *    Made jumbjuster work on AmigaOS again.
+ *
  *    Revision 1.63  2002/03/02 04:14:50  david__schmidt
  *    Clean up a little CRLF unpleasantness that suddenly appeared
  *
@@ -525,7 +528,7 @@ static const char VANILLA_WAFER[] =
    "(copyright_or_otherwise)_applying_to_any_cookie._";
 
 
-#if !defined(_WIN32) && !defined(__OS2__)
+#if !defined(_WIN32) && !defined(__OS2__) && !defined(AMIGA)
 /*********************************************************************
  *
  * Function    :  SIG_handler 
@@ -1488,9 +1491,7 @@ int main(int argc, const char *argv[])
    int argc_pos = 1;
 
    configfile =
-#ifdef AMIGA
-   "AmiTCP:db/junkbuster/config"
-#elif !defined(_WIN32)
+#if !defined(_WIN32)
    "config"
 #else
    "config.txt"
@@ -1567,7 +1568,7 @@ int main(int argc, const char *argv[])
 #endif
 
 
-#if !defined(_WIN32) && !defined(__OS2__)
+#if !defined(_WIN32) && !defined(__OS2__) && !defined(AMIGA)
 {
    int sig;
    struct sigaction action;

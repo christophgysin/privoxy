@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2002/03/03 09:18:03  joergs
+ *    Made jumbjuster work on AmigaOS again.
+ *
  *    Revision 1.11  2002/01/23 01:03:31  jongfoster
  *    Fixing gcc [CygWin] compiler warnings
  *
@@ -703,7 +706,11 @@ jb_err edit_write_file(struct editable_file * file)
    assert(file);
    assert(file->filename);
 
+#ifdef AMIGA
+   if (NULL == (fp = fopen(file->filename, "w")))
+#else
    if (NULL == (fp = fopen(file->filename, "wt")))
+#endif /* def AMIGA */
    {
       return JB_ERR_FILE;
    }
@@ -1530,7 +1537,11 @@ jb_err edit_read_file(struct client_state *csp,
       }
    }
 
+#ifdef AMIGA
+   if (NULL == (fp = fopen(filename,"r")))
+#else
    if (NULL == (fp = fopen(filename,"rt")))
+#endif /* def AMIGA */
    {
       free(filename);
       return JB_ERR_FILE;
