@@ -92,13 +92,6 @@
 </artheader>
 
 <!--   ~~~~~       New section      ~~~~~     -->
-<sect1 id="intro" label=""><title></title>
-<!-- dummy section to force TOC on page by itself -->
-<!-- DO NOT REMOVE! please ;) -->
-<para> </para>
-</sect1>
-
-<!--   ~~~~~       New section      ~~~~~     -->
 <sect1 label="1" id="introduction"><title>Introduction</title>
 <para>
  This documentation is included with the current &p-status; version of
@@ -405,32 +398,68 @@ automatically start Privoxy in the boot process.
 
  <listitem>
   <para>
-  Install <application>Privoxy</application>. See the section <link linkend="installation">Installing</link>.
+   If upgrading, please back up any configuration files. See 
+   the <link linkend="upgradersnote">Note to Upgraders</link> Section.
+  </para>
+</listitem> 
+ <listitem>
+  <para>
+  Install <application>Privoxy</application>. See the <link
+  linkend="installation">Installation Section</link> for platform specific
+  information. 
+ </para>
+ </listitem>  
+
+ <listitem>
+  <para>
+  Start <application>Privoxy</application>, if the installation program has
+  not done this already. See the section <link linkend="startup">Starting
+  <application>Privoxy</application></link>.
   </para>
  </listitem>  
 
  <listitem>
   <para>
-  Start <application>Privoxy</application>. See the section <link linkend="startup">Starting <application>Privoxy</application></link>.
+  Set your browser to use <application>Privoxy</application> as HTTP and HTTPS
+  proxy by setting the proxy configuration for address of
+  <literal>localhost</literal> and port <literal>8118</literal>.
+  (<application>Junkbuster</application> and earlier versions of
+  <application>Privoxy</application> used port 8000.) See the section <link
+  linkend="startup">Starting <application>Privoxy</application></link>.
   </para>
  </listitem>  
 
  <listitem>
   <para>
-  Change your browser's configuration to use the proxy <literal>localhost</literal> on port
-  <literal>8118</literal>. See the section <link linkend="startup">Starting <application>Privoxy</application></link>.
+    Flush your browser's caches, to remove any cached ad images.
   </para>
- </listitem>  
+</listitem> 
 
  <listitem>
   <para>
-  Enjoy surfing with enhanced comfort and privacy. Please see the section
-  <link linkend="contact">Contacting the Developers</link> on how to report
-  bugs or problems with websites or to get help. You may want to change the
-  file <filename>user.action</filename> to further tweak your new browsing
-  experience.
+  Enjoy surfing with enhanced comfort and privacy.  You may want to customize the
+  <link linkend="actions-file"><filename>user.action</filename></link> file to
+  personalize your new browsing experience. See the <link
+  linkend="configuration">Configuration section</link> for more configuration
+  options, and how to further customize your installation.
   </para>
- </listitem>  
+ </listitem> 
+ 
+ <listitem>
+  <para>
+   If you experience problems with sites that <quote>misbehave</quote>, see
+   the <link linkend="actionsanat">Anatomy of an Action</link> section in the
+   Appendix.
+  </para>
+ </listitem> 
+ 
+ <listitem>
+  <para>
+   Please see the section <link linkend="contact">Contacting the
+   Developers</link> on how to report bugs or problems with websites or to get
+   help. 
+  </para>
+ </listitem> 
 
  </itemizedlist>
 </para>
@@ -5893,6 +5922,10 @@ Requests</title>
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.103  2002/05/04 00:40:53  hal9
+ -Remove the TOC first page kludge. It's fixed proper now in ldp.dsl.in.
+ -Some minor additions to Quickstart.
+
  Revision 1.102  2002/05/03 17:46:00  oes
  Further proofread & reactivated short build instructions
 
