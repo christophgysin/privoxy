@@ -34,6 +34,10 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/07/02 02:55:16  iwanttokeepanon
+ *    Apended " on some sites" to the HTML generating function `show_defines' (@ line
+ *    392); since "DENY_GZIP" is not *really* necessary for all PCRS functionallity.
+ *
  *    Revision 1.17  2001/06/29 21:45:41  oes
  *    Indentation, CRLF->LF, Tab-> Space
  *
@@ -389,7 +393,7 @@ char *show_defines(void)
 #endif /* ndef FORCE_LOAD */
 
 #ifdef DENY_GZIP
-   b = strsav(b, "  <li><code>#define <b>DENY_GZIP</b></code> - Prevents requests from being compressed - required for PCRS.</li>\n");
+   b = strsav(b, "  <li><code>#define <b>DENY_GZIP</b></code> - Prevents requests from being compressed - required for PCRS on some sites.</li>\n");
 #else /* ifndef DENY_GZIP */
    b = strsav(b, "  <li><code>#undef <b>DENY_GZIP</b></code> - Allows requests to be compressed if the browser and server support it.</li>\n");
 #endif /* ndef DENY_GZIP */
