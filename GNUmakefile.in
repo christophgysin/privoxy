@@ -572,18 +572,14 @@ webserver:
 	@$(ECHO) Note that this command scps all stuff to the webserver,
 	@$(ECHO) it will not remove obsolete documents.
 	@$(ECHO) -------------------------------------------------------
-	find doc/webserver -type f -exec chmod 664 {} \;
-# not sure if we need next line.swa.
-	chmod 775 doc/webserver/redirect.php
-	find doc/webserver -type d -exec chmod a+rx {} \;
 	cd doc/webserver && scp -Cr . ijbswa.sourceforge.net:/home/groups/i/ij/ijbswa/htdocs/
+	@$(ECHO) Fixing permissions
+	@ssh ijbswa.sourceforge.net chmod -R g+rw /home/groups/i/ij/ijbswa/htdocs/ 2> /dev/null
 
 webquick:
-	find doc/webserver -type f -exec chmod 664 {} \;
-# not sure if we need next line.swa.
-	chmod 775 doc/webserver/redirect.php
-	find doc/webserver -type d -exec chmod a+rx {} \;
-	cd doc/webserver/submit && scp -Cr . ijbswa.sourceforge.net:/home/groups/i/ij/ijbswa/htdocs/submit
+	cd doc/webserver/actions && scp -Cr . ijbswa.sourceforge.net:/home/groups/i/ij/ijbswa/htdocs/actions
+	@$(ECHO) Fixing permissions
+	@ssh ijbswa.sourceforge.net chmod -R g+rw /home/groups/i/ij/ijbswa/htdocs/actions 2> /dev/null
 
 
 #############################################################################
@@ -686,6 +682,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.51  2002/04/02 13:03:56  oes
+# Added fix for webserver permissions
+#
 # Revision 1.50  2002/04/02 03:46:24  hal9
 # Rewrite ldpOK.dsl so that sections are NOT numbered on FAQ, in an effort
 # to make the Table of Contents not so 'busy' looking. SuSE needs testing :)
