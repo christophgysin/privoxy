@@ -26,6 +26,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.22  2001/11/05 21:37:34  steudten
+# Fix to include the actual version for name.
+# Let the 'real' packager be included - sorry stefan.
+#
 # Revision 1.21  2001/10/31 19:27:27  swa
 # consistent description. new name for suse since
 # we had troubles with rpms of identical names
@@ -96,12 +100,11 @@ Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
 Version: 2.9.9
 Release: 1
-Source0: http://www.waldherr.org/junkbuster/ijbswa.tar.gz
+Source0: http://www.waldherr.org/junkbuster/ijbswa-%{version}.tar.gz
 Copyright: GPL
-BuildRoot: %{_tmppath}/%{name}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Group: Networking/Utilities
 URL: http://ijbswa.sourceforge.net/
-Packager: Stefan Waldherr <stefan@waldherr.org>
 Obsoletes: junkbuster-raw junkbuster-blank
 Prereq: /usr/sbin/useradd , /sbin/chkconfig , /sbin/service 
 BuildRequires: perl
