@@ -602,7 +602,7 @@ actionsfile
  </varlistentry>
 </variablelist>
 
-<![%config-file;[<literallayout>@@#trusfile trust</literallayout>]]>
+<![%config-file;[<literallayout>@@#trustfile trust</literallayout>]]>
 </sect3>
 </sect2>
 
