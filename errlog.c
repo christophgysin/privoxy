@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2002/01/09 19:05:45  steudten
+ *    Fix big memory leak.
+ *
  *    Revision 1.25  2002/01/09 14:32:08  oes
  *    Added support for gmtime_r and localtime_r.
  *
@@ -335,7 +338,7 @@ void log_error(int loglevel, char *fmt, ...)
 {
    va_list ap;
    char *outbuf= NULL;
-   char *outbuf_save = NULL;
+   static char *outbuf_save = NULL;
    char * src = fmt;
    int outc = 0;
    long this_thread = 1;  /* was: pthread_t this_thread;*/
@@ -372,8 +375,12 @@ void log_error(int loglevel, char *fmt, ...)
      this_thread = ptib -> tib_ptib2 -> tib2_ultid;
 #endif /* def FEATURE_PTHREAD */
 
-   outbuf_save = outbuf = (char*)malloc(BUFFER_SIZE);
-   assert(outbuf);
+   if ( !outbuf_save ) 
+   {
+      outbuf_save = outbuf = (char*)malloc(BUFFER_SIZE);
+      assert(outbuf);
+   }
+   outbuf = outbuf_save;
 
     {
        /*
