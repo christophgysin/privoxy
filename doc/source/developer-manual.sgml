@@ -93,8 +93,9 @@ Hal.
 <!-- end boilerplate -->
 
 <para>
+ <![%p-stable;[
  Please note that this document is constantly evolving. This copy represents
- the state at the release of version &p-version;.
+ the state at the release of version &p-version;. ]]>
  You can find the latest version of the this manual at <ulink
  url="http://www.privoxy.org/developer-manual/">http://www.privoxy.org/developer-manual/</ulink>.
  Please see <link linkend="contact">the Contact section</link> 
@@ -2997,6 +2998,10 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 2.4  2002/09/26 05:57:14  hal9
+  Conditionally exclude 'this doc is evolving' comment in intro for non release
+  situations.
+
   Revision 2.3  2002/09/05 02:27:59  hal9
   Mention tested stable branch fixes in main trunk, as alternate to posting
   patches.

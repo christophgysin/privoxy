@@ -126,8 +126,9 @@ Hal.
 <!-- end boilerplate -->
 
  <para>
+  <![%p-stable;[
   Please note that this document is constantly evolving. This copy represents
-  the state at the release of version &p-version;.
+  the state at the release of version &p-version;. ]]>
   You can find the latest version of the document at <ulink
   url="http://www.privoxy.org/faq/">http://www.privoxy.org/faq/</ulink>.
   Please see the <link linkend="contact">Contact section</link> if you want to
@@ -1873,6 +1874,10 @@ FIXME: Commented out until we have something to put here. HB 03/18/02.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 2.5  2002/09/26 05:57:14  hal9
+Conditionally exclude 'this doc is evolving' comment in intro for non release
+situations.
+
 Revision 2.4  2002/09/26 00:14:42  hal9
 Small additions for content-cookies/SSL, LAN configuration, and FTP (non)
 support.
