@@ -470,7 +470,8 @@ win-dist:
 tarball-dist: dist-check clean clobber
 	$(LN) -s current ../privoxy-$(VERSION)-$(CODE_STATUS)
 
-	for i in `find . -type f -a -not \( -path "*/CVS*" -o -path "*/results*" \)`; do \
+	for i in `find . -type f -a -not \( -path "*/CVS*" -o -path "*/results*" \
+	 -o -name ".cvsignore" -o -path "*/debian/*" \)`; do \
 	   files="$$files privoxy-$(VERSION)-$(CODE_STATUS)/$$i"; \
 	done &&  \
 	cd .. && $(TAR) cvhf privoxy-$(VERSION)-$(CODE_STATUS)-src.tar $$files ; \
@@ -784,6 +785,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.82  2002/04/11 21:07:11  oes
+# Excluding more files from tarball build
+#
 # Revision 1.81  2002/04/11 14:40:27  oes
 # Fixed typo -- Thanks, Moritz!
 #
