@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2002/03/08 16:40:28  oes
+ *    Added FEATURE_NO_GIFS
+ *
  *    Revision 1.17  2002/03/04 17:52:44  oes
  *    Deleted PID_FILE_PATH
  *
@@ -295,6 +298,11 @@
  * Kills JavaScript popups - window.open, onunload, etc.
  */
 #undef FEATURE_KILL_POPUPS
+
+/*
+ * Use PNG instead of GIF for built-in images
+ */
+#undef FEATURE_NO_GIFS
 
 /*
  * Use POSIX threads instead of native threads.
