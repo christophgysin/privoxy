@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/05/26 17:27:53  jongfoster
+ *    Added support for CLF and fixed LOG_LEVEL_LOG.
+ *    Also did CRLF->LF fix of my previous patch.
+ *
  *    Revision 1.10  2001/05/26 15:26:15  jongfoster
  *    ACL feature now provides more security by immediately dropping
  *    connections from untrusted hosts.
@@ -255,7 +259,9 @@ static void chat(struct client_state *csp)
    char *err = NULL;
    char *eno;
    fd_set rfds;
-   int n, maxfd, server_body, ms_iis5_hack = 0;
+   int n, maxfd, server_body;
+   int ms_iis5_hack = 0;
+   int byte_count = 0;
    const struct gateway *gw;
    struct http_request *http;
 #ifdef KILLPOPUPS
@@ -320,6 +326,9 @@ static void chat(struct client_state *csp)
    {
       strcpy(buf, CHEADER);
       write_socket(csp->cfd, buf, strlen(buf));
+
+      log_error(LOG_LEVEL_CLF, "%s - - [%T] \" \" 400 0", csp->ip_addr_str);
+
       return;
    }
 
@@ -452,6 +461,9 @@ static void chat(struct client_state *csp)
 
       log_error(LOG_LEVEL_GPC, "%s%s crunch!", http->hostport, http->path);
 
+      log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 1", 
+                               csp->ip_addr_str, http->cmd); 
+
 #if defined(DETECT_MSIE_IMAGES) || defined(USE_IMAGE_LIST)
       /* Block as image?  */
       if ( (csp->config->tinygif > 0) && block_imageurl(http, csp) )
@@ -489,8 +501,6 @@ static void chat(struct client_state *csp)
          write_socket(csp->cfd, p, strlen(p));
       }
 
-      log_error(LOG_LEVEL_LOG, "%s", p);
-
       freez(p);
       freez(hdr);
       return;
@@ -521,17 +531,21 @@ static void chat(struct client_state *csp)
       {
          err = zalloc(strlen(CNXDOM) + strlen(http->host));
          sprintf(err, CNXDOM, http->host);
+
+         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 404 0", 
+                   csp->ip_addr_str, http->cmd);
       }
       else
       {
          eno = safe_strerror(errno);
          err = zalloc(strlen(CFAIL) + strlen(http->hostport) + strlen(eno));
          sprintf(err, CFAIL, http->hostport, eno);
+
+         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0", 
+                   csp->ip_addr_str, http->cmd);
       }
 
       write_socket(csp->cfd, err, strlen(err));
-
-      log_error(LOG_LEVEL_LOG, err);
 
       freez(err);
       freez(hdr);
@@ -559,6 +573,9 @@ static void chat(struct client_state *csp)
          sprintf(err, CFAIL, http->hostport, eno);
          write_socket(csp->cfd, err, strlen(err));
 
+         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0", 
+                   csp->ip_addr_str, http->cmd); 
+
          freez(err);
          freez(hdr);
          return;
@@ -571,6 +588,9 @@ static void chat(struct client_state *csp)
        * so just send the "connect succeeded" message to the
        * client, flush the rest, and get out of the way.
        */
+      log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 2\n", 
+                csp->ip_addr_str, http->cmd); 
+
       if (write_socket(csp->cfd, CSUCCEED, sizeof(CSUCCEED)-1) < 0)
       {
          freez(hdr);
@@ -613,7 +633,10 @@ static void chat(struct client_state *csp)
       {
          n = read_socket(csp->cfd, buf, sizeof(buf));
 
-         if (n <= 0) break; /* "game over, man" */
+         if (n <= 0)
+         {
+            break; /* "game over, man" */
+         }
 
          if (write_socket(csp->sfd, buf, n) != n)
          {
@@ -642,6 +665,10 @@ static void chat(struct client_state *csp)
             eno = safe_strerror(errno);
             sprintf(buf, CFAIL, http->hostport, eno);
             freez(eno);
+
+            log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0", 
+                      csp->ip_addr_str, http->cmd); 
+
             write_socket(csp->cfd, buf, strlen(buf));
             return;
          }
@@ -724,6 +751,7 @@ static void chat(struct client_state *csp)
                   return;
                }
             }
+            byte_count += n;
             continue;
          }
          else
@@ -822,9 +850,8 @@ static void chat(struct client_state *csp)
 
 #endif /* def PCRS */
 
-
             if ((write_socket(csp->cfd, hdr, n) != n)
-                || (NOT_FILTERING_AND (flush_socket(csp->cfd, csp) < 0)))
+                || (NOT_FILTERING_AND (n = flush_socket(csp->cfd, csp) < 0)))
             {
                log_error(LOG_LEVEL_CONNECT, "write header to client failed: %E");
 
@@ -835,6 +862,8 @@ static void chat(struct client_state *csp)
                freez(hdr);
                return;
             }
+
+            NOT_FILTERING_AND (byte_count += n);
 
             /* we're finished with the server's header */
 
@@ -857,7 +886,8 @@ static void chat(struct client_state *csp)
       return; /* huh? we should never get here */
    }
 
-
+   log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 %d", 
+             csp->ip_addr_str, http->cmd, byte_count); 
 }
 
 
@@ -1066,7 +1096,7 @@ static void listen_loop(void)
 
       if ( NULL == (csp = (struct client_state *) malloc(sizeof(*csp))) )
       {
-         log_error(LOG_LEVEL_ERROR, "malloc(%d) for csp failed: %E", sizeof(*csp));
+         log_error(LOG_LEVEL_FATAL, "malloc(%d) for csp failed: %E", sizeof(*csp));
          continue;
       }
 
