@@ -35,6 +35,11 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2001/09/22 14:05:22  jongfoster
+ *    Bugfix: Multiple escaped "#" characters in a configuration
+ *    file are now permitted.
+ *    Also removing 3 unused headers.
+ *
  *    Revision 1.25  2001/09/13 22:44:03  jongfoster
  *    Adding {} to an if statement
  *
@@ -184,14 +189,11 @@ const char loaders_rcs[] = "$Id$";
 #include "project.h"
 #include "list.h"
 #include "loaders.h"
-#include "encode.h"
 #include "filters.h"
 #include "parsers.h"
 #include "jcc.h"
-#include "ssplit.h"
 #include "miscutil.h"
 #include "errlog.h"
-#include "gateway.h"
 #include "actions.h"
 
 const char loaders_h_rcs[] = LOADERS_H_VERSION;
@@ -595,7 +597,9 @@ int check_file_changed(const struct file_list * current,
  *********************************************************************/
 char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
 {
-   char *p, *q;
+   char *p;
+   char *src;
+   char *dest;
    char linebuf[BUFFER_SIZE];
    int contflag = 0;
 
@@ -621,13 +625,19 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
       }
 
       /* If there's a comment char.. */
-      if ((p = strpbrk(linebuf, "#")) != NULL)
+      p = linebuf;
+      while ((p = strchr(p, '#')) != NULL)
       {
          /* ..and it's escaped, left-shift the line over the escape. */
          if ((p != linebuf) && (*(p-1) == '\\'))
          {
-            q = p-1;
-            while ((*q++ = *p++) != '\0') /* nop */;
+            src = p;
+            dest = p - 1;
+            while ((*dest++ = *src++) != '\0')
+            {
+               /* nop */
+            }
+            /* Now scan from just after the "#". */
          }
          /* Else, chop off the rest of the line */
          else
@@ -646,7 +656,7 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
       if (contflag)
       {
          contflag = 0;
-   		continue;
+         continue;
       }
 
       /* Remove leading and trailing whitespace */         
