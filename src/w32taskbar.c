@@ -32,6 +32,9 @@ const char w32taskbar_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 16:37:48  jongfoster
+ *    Adding Doxygen-style comments to variables
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -77,9 +80,19 @@ const char w32taskbar_h_rcs[] = W32TASKBAR_H_VERSION;
 
 #ifndef _WIN_CONSOLE /* entire file */
 
+/**
+ * Our custom message ID.
+ */
 #define WM_TRAYMSG WM_USER+1
 
+/**
+ * The menu handle for the tray icon's pop-up menu.
+ */
 static HMENU g_hmenuTray;
+
+/**
+ * The invisible window responsible for processing tray messages.
+ */
 static HWND g_hwndTrayX;
 
 static LRESULT CALLBACK TrayProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);

@@ -31,6 +31,9 @@ const char win32_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 16:37:48  jongfoster
+ *    Adding Doxygen-style comments to variables
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -96,6 +99,10 @@ const char win32_rcs[] = "$Id$";
 
 const char win32_h_rcs[] = WIN32_H_VERSION;
 
+/**
+ * A short introductory text about Privoxy.  Used for the "About" box
+ * or the console startup message.
+ */
 const char win32_blurb[] =
 "Privoxy version " VERSION " for Windows\n"
 "Copyright (C) 2000-2002 by members of the Privoxy Team\n"
@@ -108,18 +115,38 @@ const char win32_blurb[] =
 "        " HOME_PAGE_URL "\n"
 "\n";
 
+
 #ifdef _WIN_CONSOLE
 
+
+/**
+ * Hide the console.  If set, the program will disconnect from the 
+ * console and run in the background.  This allows the command-prompt
+ * window to close.
+ */
 int hideConsole     = 0;
 
-#else
 
+#else /* ndef _WIN_CONSOLE */
+
+
+/**
+ * The application instance handle.
+ */
 HINSTANCE g_hInstance;
+
+
+/**
+ * The command to show the window that was specified at startup.
+ */
 int g_nCmdShow;
+
 
 static void  __cdecl UserInterfaceThread(void *);
 
-#endif
+
+#endif /* ndef _WIN_CONSOLE */
+
 
 
 /*********************************************************************
