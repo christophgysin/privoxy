@@ -48,7 +48,7 @@ Hal Burgiss <hal@foobox.net>
   security to users of the World Wide Web.
  </para>
  <para>
-You can find the latest version of the user manual at  <ulink url="http://ijbswa.sourceforge.net/doc/user-manual/">http://ijbswa.sourceforge.net/doc/user-manual/</ulink>.
+You can find the latest version of the user manual at  <ulink url="http://ijbswa.sourceforge.net/user-manual/">http://ijbswa.sourceforge.net/user-manual/</ulink>.
  </para>
 
  <para>
@@ -3044,6 +3044,9 @@ communication (bugs, feature requests, etc.)
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.16  2001/10/21 17:19:21  swa
+ wrong url in documentation
+
  Revision 1.15  2001/10/14 23:46:24  hal9
  Various minor changes. Fleshed out SEE ALSO section.
 
