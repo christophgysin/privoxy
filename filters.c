@@ -38,6 +38,10 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.56  2002/04/05 15:51:24  oes
+ *     - bugfix: error-pages now get correct request protocol
+ *     - fix for invalid HTML in trust info
+ *
  *    Revision 1.55  2002/04/02 16:13:51  oes
  *    Fix: No "Go there anyway" for SSL
  *
@@ -830,6 +834,7 @@ struct http_response *block_url(struct client_state *csp)
          err = map_block_killer(exports, "force-support");
       }
 
+      if (!err) err = map(exports, "protocol", 1, csp->http->ssl ? "https://" : "http://", 1);
       if (!err) err = map(exports, "hostport", 1, html_encode(csp->http->hostport), 0);
       if (!err) err = map(exports, "path", 1, html_encode(csp->http->path), 0);
 
@@ -901,9 +906,10 @@ struct http_response *trust_url(struct client_state *csp)
    }
 
    /*
-    * Export the host, port, and referrer information
+    * Export the protocol, host, port, and referrer information
     */
    err = map(exports, "hostport", 1, csp->http->hostport, 1);
+   if (!err) err = map(exports, "protocol", 1, csp->http->ssl ? "https://" : "http://", 1); 
    if (!err) err = map(exports, "path", 1, csp->http->path, 1);
 
    if (NULL != (p = get_header_value(csp->headers, "Referer:")))
@@ -950,7 +956,7 @@ struct http_response *trust_url(struct client_state *csp)
       p = strdup("");
       for (l = csp->config->trust_info->first; l ; l = l->next)
       {
-         sprintf(buf, "<li> <a href=%s>%s</a><br>\n",l->str, l->str);
+         sprintf(buf, "<li> <a href=\"%s\">%s</a><br>\n",l->str, l->str);
          string_append(&p, buf);
       }
       err = map(exports, "trust-info", 1, p, 0);
