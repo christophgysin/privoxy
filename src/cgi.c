@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.3  2002/11/12 16:19:18  oes
+ *    Fix: g_bToggleIJB was used outside #ifdef FEATURE_TOGGLE
+ *
  *    Revision 2.2  2002/09/04 15:17:28  oes
  *    Synced with the stable branch:
  *        Revision 1.70.2.1  2002/08/05 11:17:46  oes
@@ -1968,7 +1971,9 @@ struct map *default_exports(const struct client_state *csp, const char *caller)
    if (!err) err = map(exports, "code-status",   1, CODE_STATUS, 1);
    if (!err) err = map(exports, "user-manual",   1, csp->config->usermanual ,1);
    if (!err) err = map(exports, "actions-help-prefix", 1, ACTIONS_HELP_PREFIX ,1);
+#ifdef FEATURE_TOGGLE
    if (!err) err = map_conditional(exports, "enabled-display", g_bToggleIJB);
+#endif
 
    snprintf(buf, 20, "%d", csp->config->hport);
    if (!err) err = map(exports, "my-port", 1, buf, 1);
