@@ -992,6 +992,7 @@ www.guenstiger.de
 {-filter}
 #MASTER# PROBLEM-URL: http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/ijbswa/current/
 cvs.
+/.*(cvs(view|web)|viewcvs)
 #MASTER# PROBLEM-URL: http://liveupdate.symantec.com/ennlu.x86
 liveupdate.symantec.com
 #MASTER# PROBLEM-URL: http://www.bookmarklets.com/
