@@ -33,6 +33,19 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
  *    Revision 1.2  2001/05/17 23:01:01  oes
  *     - Cleaned CRLF's from the sources and related files
  *
@@ -103,16 +116,16 @@ char *strsav(char *old, const char *text_to_append)
    {
       if ((p = realloc(old, new_len)) == NULL)
       {
-         log_error(LOG_LEVEL_ERROR, "realloc(%d) bytes for proxy_args failed!", new_len);
-         exit(1);
+         log_error(LOG_LEVEL_FATAL, "realloc(%d) bytes for proxy_args failed!", new_len);
+         /* Never get here - LOG_LEVEL_FATAL causes program exit */
       }
    }
    else
    {
       if ((p = (char *)malloc(new_len)) == NULL)
       {
-         log_error(LOG_LEVEL_ERROR, "malloc(%d) bytes for proxy_args failed!", new_len);
-         exit(1);
+         log_error(LOG_LEVEL_FATAL, "malloc(%d) bytes for proxy_args failed!", new_len);
+         /* Never get here - LOG_LEVEL_FATAL causes program exit */
       }
    }
 

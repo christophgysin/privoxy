@@ -43,8 +43,21 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:01  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:01  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -87,9 +100,9 @@ extern void client_xtra_adder(struct client_state *csp);
 extern void client_x_forwarded_adder(struct client_state *csp);
 extern char *server_set_cookie(const struct parsers *v, char *s, struct client_state *csp);
 
-#ifdef PCRS
+#if defined(PCRS) || defined(KILLPOPUPS)
 extern char *content_type(const struct parsers *v, char *s, struct client_state *csp);
-#endif /* def PCRS */
+#endif /* defined(PCRS) || defined(KILLPOPUPS) */
 
 #ifdef FORCE_LOAD
 char *client_host(const struct parsers *v, char *s, struct client_state *csp);

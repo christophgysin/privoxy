@@ -35,6 +35,19 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
  *    Revision 1.2  2001/05/17 23:01:01  oes
  *     - Cleaned CRLF's from the sources and related files
  *
@@ -133,7 +146,7 @@ const char *logfile     = NULL;
 const char *configfile  = NULL;
 
 const char *blockfile   = NULL;
-const char *cookiefile  = NULL;
+const char *permissions_file  = NULL;
 const char *forwardfile = NULL;
 
 #ifdef ACL_FILES
@@ -144,14 +157,13 @@ const char *aclfile     = NULL;
 const char *imagefile   = NULL;
 #endif /* def USE_IMAGE_LIST */
 
-#ifdef KILLPOPUPS
-const char *popupfile   = NULL;
-int kill_all_popups     = 0;     /* Not recommended really ... */
-#endif /* def KILLPOPUPS */
+/*
+ * Permissions to use for URLs not in the permissions list.
+ */
+int default_permissions = PERMIT_RE_FILTER;
 
 #ifdef PCRS
 const char *re_filterfile = NULL;
-int re_filter_all       = 0;
 #endif /* def PCRS */
 
 #ifdef TRUST_FILES
@@ -172,7 +184,7 @@ const char *suppress_message = NULL;
 #endif /* ndef SPLIT_PROXY_ARGS */
 
 int suppress_vanilla_wafer = 0;
-int add_forwarded       = 0;
+int add_forwarded          = 0;
 
 struct list wafer_list[1];
 struct list xtra_list[1];
@@ -213,7 +225,8 @@ const char **Argv = NULL;
  * something a little more readable.  This also makes changing the
  * hash values easier if they should change or the hash algorthm changes.
  * Use the included "hash" program to find out what the hash will be
- * for any string supplied on the command line.
+ * for any string supplied on the command line.  (Or just put it in the
+ * config file and read the number from the error message in the log).
  */
 
 #define hash_trustfile                 56494766ul
@@ -225,7 +238,7 @@ const char **Argv = NULL;
 #define hash_suppress_vanilla_wafer    3121233547ul
 #define hash_wafer                     89669ul
 #define hash_add_header                237434619ul
-#define hash_cookiefile                247469766ul
+#define hash_permissions_file          3825730796lu /* "permissionsfile" */
 #define hash_logfile                   2114766ul
 #define hash_blockfile                 48845391ul
 #define hash_imagefile                 51447891ul
@@ -233,10 +246,7 @@ const char **Argv = NULL;
 #define hash_listen_address            1255650842ul
 #define hash_forwardfile               1268669141ul
 #define hash_aclfile                   1908516ul
-#define hash_popupfile                 54623516ul
-#define hash_kill_all_popups           2311539906ul
 #define hash_re_filterfile             3877522444ul
-#define hash_re_filter_all             3877521376ul
 #define hash_user_agent                283326691ul
 #define hash_referrer                  10883969ul
 #define hash_referer                   2176719ul
@@ -279,7 +289,7 @@ void load_config( int signum )
    char *p, *q;
    FILE *configfp = NULL;
 
-   configret = 0;
+   configret = 0; /* FIXME: This is obsolete, always 0. */
    config_changed = 1;
 
    log_error(LOG_LEVEL_INFO, "loading configuration file '%s':", configfile);
@@ -288,9 +298,9 @@ void load_config( int signum )
 
 
    /* (Waste of memory [not quite a "leak"] here.  The 
-    * last blockfile/popupfile/... etc will not be 
+    * last blockfile/permissions file/... etc will not be 
     * unloaded until we load a new one.  If the 
-    * block/popup/... feature has been disabled in 
+    * block/... feature has been disabled in 
     * the new config file, then we're wasting some 
     * memory we could otherwise reclaim.
     */
@@ -303,16 +313,18 @@ void load_config( int signum )
     * But leave changing the logfile until after we're done loading.
     */
 
-   #ifdef JAR_FILES
+#ifdef JAR_FILES
    if ( NULL != jar )
    {
       fclose( jar );
       jar = NULL;
    }
-   #endif /* def JAR_FILES */
+#endif /* def JAR_FILES */
 
    debug             = 0;
    multi_threaded    = 1;
+
+   default_permissions = PERMIT_RE_FILTER;
 
 #if defined(DETECT_MSIE_IMAGES) || defined(USE_IMAGE_LIST)
    tinygif           = 0;
@@ -326,14 +338,6 @@ void load_config( int signum )
 #ifdef _WIN_CONSOLE
    hideConsole       = 0;
 #endif /*def _WIN_CONSOLE*/
-
-#ifdef PCRS
-   re_filter_all     = 0;
-#endif /* def PCRS */
-
-#ifdef KILLPOPUPS
-   kill_all_popups   = 0;
-#endif /* def KILLPOPUPS */
 
 #ifdef TOGGLE
    g_bToggleIJB      = 1;
@@ -356,7 +360,7 @@ void load_config( int signum )
 
 
    freez((char *)blockfile);
-   freez((char *)cookiefile);
+   freez((char *)permissions_file);
    freez((char *)forwardfile);
 
 #ifdef ACL_FILES
@@ -370,10 +374,6 @@ void load_config( int signum )
 #ifdef JAR_FILES
    freez((char *)jarfile);
 #endif /* def JAR_FILES */
-
-#ifdef KILLPOPUPS
-   freez((char *)popupfile);
-#endif /* def KILLPOPUPS */
 
 #ifndef SPLIT_PROXY_ARGS
    freez((char *)suppress_message);
@@ -391,10 +391,9 @@ void load_config( int signum )
    {
       if ((configfp = fopen(configfile, "r")) == NULL)
       {
-         log_error(LOG_LEVEL_ERROR, "can't open configuration file '%s':  %E",
+         log_error(LOG_LEVEL_FATAL, "can't open configuration file '%s':  %E",
                  configfile);
-         configret = 1;
-         return;
+         /* Never get here - LOG_LEVEL_FATAL causes program exit */
       }
    }
 
@@ -518,9 +517,9 @@ void load_config( int signum )
                enlist(xtra_list, arg);
                continue;
 
-            case hash_cookiefile :
-               freez((char *)cookiefile);
-               cookiefile = strdup(arg);
+            case hash_permissions_file :
+               freez((char *)permissions_file);
+               permissions_file = strdup(arg);
                continue;
 
             case hash_logfile :
@@ -564,27 +563,10 @@ void load_config( int signum )
                continue;
 #endif /* def ACL_FILES */
 
-#ifdef KILLPOPUPS
-            case hash_popupfile :
-               freez((char *)popupfile);
-               popupfile = strdup(arg);
-               continue;
-
-            case hash_kill_all_popups :
-               kill_all_popups = 1;
-               continue;
-#endif /* def KILLPOPUPS */
-
 #ifdef PCRS
             case hash_re_filterfile :
                freez((char *)re_filterfile);
                re_filterfile = strdup(arg);
-               continue;
-
-            case hash_re_filter_all :
-               re_filter_all = 1;
-               log_error(LOG_LEVEL_REF, "re_filter policy is %s.",
-                          re_filter_all ? "RADICAL" : "SEMI-SMART");
                continue;
 #endif /* def PCRS */
 
@@ -685,7 +667,6 @@ void load_config( int signum )
 #endif /* ndef USE_IMAGE_LIST */
 #ifndef PCRS
             case hash_re_filterfile :
-            case hash_re_filter_all :
 #endif /* ndef PCRS */
 #ifndef TOGGLE
             case hash_toggle :
@@ -707,10 +688,6 @@ void load_config( int signum )
 #if !defined(DETECT_MSIE_IMAGES) && !defined(USE_IMAGE_LIST)
             case hash_tinygif :
 #endif /* !defined(DETECT_MSIE_IMAGES) && !defined(USE_IMAGE_LIST) */
-#ifndef KILLPOPUPS
-            case hash_popupfile :
-            case hash_kill_all_popups :
-#endif /* ndef KILLPOPUPS */
 #ifndef JAR_FILES
             case hash_jarfile :
 #endif /* ndef JAR_FILES */
@@ -725,6 +702,11 @@ void load_config( int signum )
                continue;
 
             default :
+               /*
+                * I decided that I liked this better as a warning than an
+                * error.  To change back to an error, just change log level
+                * to LOG_LEVEL_FATAL.
+                */
                log_error(LOG_LEVEL_ERROR, "Unrecognized directive (%lulu) in "
                      "configuration file: \"%s\"", hash_string( cmd ), buf);
                p = malloc( BUFSIZ );
@@ -734,15 +716,6 @@ void load_config( int signum )
                   proxy_args->invocation = strsav( proxy_args->invocation, p );
                   freez( p );
                }
-               /*
-                * I decided that I liked this better as a warning than an
-                * error.
-                */
-
-               /*
-                * configret = 1;
-                * return;
-                */
                continue;
          }
       }
@@ -751,9 +724,9 @@ void load_config( int signum )
 
    init_error_log(Argv[0], logfile, debug);
 
-   if (cookiefile)
+   if (permissions_file)
    {
-      add_loader(load_cookiefile);
+      add_loader(load_permissions_file);
    }
 
    if (blockfile)
@@ -787,13 +760,6 @@ void load_config( int signum )
    }
 #endif /* def ACL_FILES */
 
-#ifdef KILLPOPUPS
-   if (popupfile)
-   {
-      add_loader(load_popupfile);
-   }
-#endif /* def KILLPOPUPS */
-
 #ifdef PCRS
    if (re_filterfile)
    {
@@ -806,9 +772,8 @@ void load_config( int signum )
    {
       if ( NULL == (jar = fopen(jarfile, "a")) )
       {
-         log_error(LOG_LEVEL_ERROR, "can't open jarfile '%s': %E", jarfile);
-         configret = 1;
-         return;
+         log_error(LOG_LEVEL_FATAL, "can't open jarfile '%s': %E", jarfile);
+         /* Never get here - LOG_LEVEL_FATAL causes program exit */
       }
       setbuf(jar, NULL);
    }
@@ -833,9 +798,8 @@ void load_config( int signum )
       if (hport <= 0)
       {
          *--p = ':';
-         log_error(LOG_LEVEL_ERROR, "invalid bind port spec %s", haddr);
-         configret = 1;
-         return;
+         log_error(LOG_LEVEL_FATAL, "invalid bind port spec %s", haddr);
+         /* Never get here - LOG_LEVEL_FATAL causes program exit */
       }
       if (*haddr == '\0')
       {
@@ -845,8 +809,8 @@ void load_config( int signum )
 
    if (run_loader(NULL))
    {
-      configret = 1;
-      return;
+      log_error(LOG_LEVEL_FATAL, "A loader failed while loading config file. Exiting.");
+      /* Never get here - LOG_LEVEL_FATAL causes program exit */
    }
 
 #ifdef JAR_FILES

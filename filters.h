@@ -8,7 +8,7 @@
  * Purpose     :  Declares functions to parse/crunch headers and pages.
  *                Functions declared include:
  *                   `acl_addr', `add_stats', `block_acl', `block_imageurl',
- *                   `block_url', `cookie_url', `domaincmp', `dsplit',
+ *                   `block_url', `url_permissions', `domaincmp', `dsplit',
  *                   `filter_popups', `forward_url'
  *                   `ij_untrusted_url', `intercept_url', `re_process_buffer',
  *                   `show_proxy_args', and `trust_url'
@@ -40,8 +40,21 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:52  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:58:52  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -72,7 +85,7 @@ extern int block_imageurl(struct http_request *http, struct client_state *csp);
 extern int block_imageurl_using_imagelist(struct http_request *http, struct client_state *csp);
 #endif /* def USE_IMAGE_LIST */
 
-extern struct cookie_spec *cookie_url(struct http_request *http, struct client_state *csp);
+extern int url_permissions(struct http_request *http, struct client_state *csp);
 extern const struct gateway *forward_url(struct http_request *http, struct client_state *csp);
 
 extern struct url_spec dsplit(char *domain);

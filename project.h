@@ -36,6 +36,19 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
  *    Revision 1.2  2001/05/17 23:01:01  oes
  *     - Cleaned CRLF's from the sources and related files
  *
@@ -188,8 +201,8 @@ struct list
 
 struct client_state
 {
-   int  send_user_cookie;
-   int  accept_server_cookie;
+   int  permissions;
+   
    int  cfd;
    int  sfd;
 
@@ -231,9 +244,9 @@ struct client_state
 
    struct list headers[1];
    struct list cookie_list[1];
-#ifdef PCRS
+#if defined(PCRS) || defined(KILLPOPUPS)
    int is_text;
-#endif /* def PCRS */
+#endif /* defined(PCRS) || defined(KILLPOPUPS) */
 
    char   *x_forwarded;
 
@@ -241,8 +254,9 @@ struct client_state
 
    /* files associated with this client */
    struct file_list *blist;   /* blockfile */
-   struct file_list *clist;   /* cookiefile */
    struct file_list *flist;   /* forwardfile */
+   struct file_list *permissions_list;
+
 
 #ifdef ACL_FILES
    struct file_list *alist;   /* aclfile */
@@ -251,10 +265,6 @@ struct client_state
 #ifdef USE_IMAGE_LIST
    struct file_list *ilist;   /* imagefile */
 #endif /* def USE_IMAGE_LIST */
-
-#ifdef KILLPOPUPS
-   struct file_list *plist;   /* kill popup file */
-#endif /* def KILLPOPUPS */
 
 #ifdef PCRS
      struct file_list *rlist;   /* Perl re_filterfile */
@@ -349,19 +359,22 @@ struct file_list
 struct block_spec
 {
    struct url_spec url[1];
-   int   reject;
+   int    reject;
    struct block_spec *next;
 };
 
 
-struct cookie_spec
-{
-   struct url_spec url[1];
-   int   send_user_cookie;
-   int   accept_server_cookie;
-   struct cookie_spec *next;
-};
+#define PERMIT_COOKIE_SET    0x0001
+#define PERMIT_COOKIE_READ   0x0002
+#define PERMIT_RE_FILTER     0x0004
+#define PERMIT_POPUPS        0x0008
 
+struct permissions_spec
+{
+   struct url_spec           url[1];
+   int                       permissions;
+   struct permissions_spec * next;
+};
 
 struct forward_spec
 {
@@ -381,22 +394,6 @@ struct re_filterfile_spec
 };
 #endif /* def PCRS */
 
-
-#ifdef KILLPOPUPS
-/* Entries on popup blocklist */
-struct popup_blocklist
-{
-   char *host_name;
-   struct popup_blocklist *next;
-};
-
-/* Actual type used in file object */
-struct popup_settings
-{
-   struct popup_blocklist *blocked;
-   struct popup_blocklist *allowed;
-};
-#endif /* def KILLPOPUPS */
 
 #ifdef ACL_FILES
 #define ACL_PERMIT   1  /* accept connection request */

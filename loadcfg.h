@@ -37,6 +37,19 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
  *    Revision 1.2  2001/05/17 23:01:01  oes
  *     - Cleaned CRLF's from the sources and related files
  *
@@ -81,16 +94,12 @@ extern const char *aclfile;
 #endif /* def ACL_FILES */
 
 extern const char *blockfile;
-extern const char *cookiefile;
+extern const char *permissions_file;
 extern const char *forwardfile;
 
 #ifdef USE_IMAGE_LIST
 extern const char *imagefile;
 #endif /* def USE_IMAGE_LIST */
-
-#ifdef KILLPOPUPS
-extern const char *popupfile;
-#endif /* def KILLPOPUPS */
 
 #ifdef TRUST_FILES
 extern const char *trustfile;
@@ -100,13 +109,7 @@ extern const char *trustfile;
 extern const char *re_filterfile;
 #endif /* def PCRS */
 
-#ifdef PCRS
-extern int re_filter_all;
-#endif /* def PCRS */
-
-#ifdef KILLPOPUPS
-extern int kill_all_popups;     /* Not recommended really .. */
-#endif /* def KILLPOPUPS */
+extern int default_permissions;
 
 #ifdef JAR_FILES
 extern const char *jarfile;
@@ -141,7 +144,7 @@ extern int suppress_blocklists;  /* suppress listing sblock and simage */
 
 extern struct proxy_args proxy_args[1];
 
-extern int configret;
+extern int configret; /* FIXME: This is obsolete, always 0. */
 extern int config_changed;
 
 

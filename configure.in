@@ -28,8 +28,21 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
-dnl Revision 1.1  2001/05/15 13:58:50  oes
-dnl Initial revision
+dnl Revision 1.2  2001/05/20 01:21:20  jongfoster
+dnl Version 2.9.4 checkin.
+dnl - Merged popupfile and cookiefile, and added control over PCRS
+dnl   filtering, in new "permissionsfile".
+dnl - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+dnl   file error you now get a message box (in the Win32 GUI) rather
+dnl   than the program exiting with no explanation.
+dnl - Made killpopup use the PCRS MIME-type checking and HTTP-header
+dnl   skipping.
+dnl - Removed tabs from "config"
+dnl - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+dnl - Bumped up version number.
+dnl
+dnl Revision 1.1.1.1  2001/05/15 13:58:50  oes
+dnl Initial import of version 2.9.3 source tree
 dnl
 dnl 
 AC_INIT(jcc.c)
@@ -37,7 +50,7 @@ AC_CONFIG_HEADER(config.h)
 
 VERSION_MAJOR=2
 VERSION_MINOR=9
-VERSION_POINT=3
+VERSION_POINT=4
 
 AC_SUBST(VERSION_MAJOR)
 AC_SUBST(VERSION_MINOR)

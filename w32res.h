@@ -34,8 +34,21 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:08  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:08  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -91,7 +104,7 @@
 /* Break these out so they are easier to extend, but keep consecutive */
 #define ID_TOOLS_EDITJUNKBUSTER           5000
 #define ID_TOOLS_EDITBLOCKERS             5001
-#define ID_TOOLS_EDITCOOKIES              5002
+#define ID_TOOLS_EDITPERMISSIONS          5002
 #define ID_TOOLS_EDITFORWARD              5003
 
 #ifdef ACL_FILES
@@ -101,10 +114,6 @@
 #ifdef USE_IMAGE_LIST
 #define ID_TOOLS_EDITIMAGE                5006
 #endif /* def USE_IMAGE_LIST */
-
-#ifdef KILLPOPUPS
-#define ID_TOOLS_EDITPOPUPS               5007
-#endif /* def KILLPOPUPS */
 
 #ifdef PCRS
 #define ID_TOOLS_EDITPERLRE               5008

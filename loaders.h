@@ -37,8 +37,21 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:00  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:00  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -54,7 +67,7 @@ extern void sweep(void);
 extern char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs);
 
 extern int load_blockfile(struct client_state *csp);
-extern int load_cookiefile(struct client_state *csp);
+extern int load_permissions_file(struct client_state *csp);
 extern int load_forwardfile(struct client_state *csp);
   
 #ifdef ACL_FILES
@@ -65,10 +78,6 @@ extern int load_aclfile(struct client_state *csp);
 extern int load_imagefile(struct client_state *csp);
 #endif /* def USE_IMAGE_LIST */
  
-#ifdef KILLPOPUPS
-extern int load_popupfile(struct client_state *csp);
-#endif /* def KILLPOPUPS */
-
 #ifdef TRUST_FILES
 extern int load_trustfile(struct client_state *csp);
 #endif /* def TRUST_FILES */
@@ -84,10 +93,6 @@ extern void remove_all_loaders(void);
 #ifdef PCRS
 extern int load_re_filterfile(struct client_state *csp);
 #endif /* def PCRS */
-
-#ifdef KILLPOPUPS
-extern int load_popupfile(struct client_state *csp);
-#endif /* def KILLPOPUPS */
 
 /* Revision control strings from this header and associated .c file */
 extern const char loaders_rcs[];

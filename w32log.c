@@ -32,8 +32,21 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:07  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/20 01:21:20  jongfoster
+ *    Version 2.9.4 checkin.
+ *    - Merged popupfile and cookiefile, and added control over PCRS
+ *      filtering, in new "permissionsfile".
+ *    - Implemented LOG_LEVEL_FATAL, so that if there is a configuration
+ *      file error you now get a message box (in the Win32 GUI) rather
+ *      than the program exiting with no explanation.
+ *    - Made killpopup use the PCRS MIME-type checking and HTTP-header
+ *      skipping.
+ *    - Removed tabs from "config"
+ *    - Moved duplicated url parsing code in "loaders.c" to a new funcition.
+ *    - Bumped up version number.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:07  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -1045,8 +1058,8 @@ void OnLogCommand(int nCommand)
          EditFile(blockfile);
          break;
 
-      case ID_TOOLS_EDITCOOKIES:
-         EditFile(cookiefile);
+      case ID_TOOLS_EDITPERMISSIONS:
+         EditFile(permissions_file);
          break;
 
       case ID_TOOLS_EDITFORWARD:
@@ -1070,12 +1083,6 @@ void OnLogCommand(int nCommand)
          EditFile(re_filterfile);
          break;
 #endif
-
-#ifdef KILLPOPUPS
-      case ID_TOOLS_EDITPOPUPS:
-         EditFile(popupfile);
-         break;
-#endif /* def KILLPOPUPS */
 
 #ifdef TRUST_FILES
       case ID_TOOLS_EDITTRUST:
@@ -1131,7 +1138,7 @@ void OnLogCommand(int nCommand)
 void OnLogInitMenu(HMENU hmenu)
 {
    /* Only enable editors if there is a file to edit */
-   EnableMenuItem(hmenu, ID_TOOLS_EDITCOOKIES, MF_BYCOMMAND | (cookiefile ? MF_ENABLED : MF_GRAYED));
+   EnableMenuItem(hmenu, ID_TOOLS_EDITPERMISSIONS, MF_BYCOMMAND | (permissions_file ? MF_ENABLED : MF_GRAYED));
    EnableMenuItem(hmenu, ID_TOOLS_EDITBLOCKERS, MF_BYCOMMAND | (blockfile ? MF_ENABLED : MF_GRAYED));
    EnableMenuItem(hmenu, ID_TOOLS_EDITFORWARD, MF_BYCOMMAND | (forwardfile ? MF_ENABLED : MF_GRAYED));
 #ifdef ACL_FILES
@@ -1140,9 +1147,6 @@ void OnLogInitMenu(HMENU hmenu)
 #ifdef USE_IMAGE_LIST
    EnableMenuItem(hmenu, ID_TOOLS_EDITIMAGE, MF_BYCOMMAND | (imagefile ? MF_ENABLED : MF_GRAYED));
 #endif /* def USE_IMAGE_LIST */
-#ifdef KILLPOPUPS
-   EnableMenuItem(hmenu, ID_TOOLS_EDITPOPUPS, MF_BYCOMMAND | (popupfile ? MF_ENABLED : MF_GRAYED));
-#endif /* def KILLPOPUPS */
 #ifdef PCRS
    EnableMenuItem(hmenu, ID_TOOLS_EDITPERLRE, MF_BYCOMMAND | (re_filterfile ? MF_ENABLED : MF_GRAYED));
 #endif
