@@ -5,7 +5,7 @@
                 
  $Id$
 
- Copyright (C) 2001, 2002 Privoxy Developers <developers@privoxy.org>
+ Copyright (C) 2001 - 2004 Privoxy Developers <developers@privoxy.org>
  See LICENSE.
 
  ======================================================================
@@ -28,7 +28,7 @@
 
 <para>
  <application>Privoxy</application> is a web proxy with advanced filtering
- capabilities for protecting privacy, filtering web page content, managing
+ capabilities for protecting privacy, modifying web page content, managing
  cookies, controlling access, and removing ads, banners, pop-ups and other
  obnoxious Internet junk. <application>Privoxy</application> has a very
  flexible configuration and can be customized to suit individual needs and
