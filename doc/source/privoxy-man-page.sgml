@@ -130,7 +130,7 @@
       <para>
         On startup, write the process ID to <replaceable class="parameter">pidfile</replaceable>.
         Delete the <replaceable class="parameter">pidfile</replaceable> on exit.
-        Failiure to create or delete the <replaceable class="parameter">pidfile</replaceable>
+        Failure to create or delete the <replaceable class="parameter">pidfile</replaceable>
         is non-fatal. If no <command>--pidfile</command> option is given, no PID file will be used.
       </para>
     </listitem>
