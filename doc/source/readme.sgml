@@ -5,9 +5,9 @@
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity buildsource SYSTEM "buildsource.sgml">
 <!entity p-version "2.9.13">
-<!entity p-status "BETA">
-<!entity % p-not-stable "INCLUDE"> <!-- set to IGNORE for stable release -->
-<!entity % p-stable "IGNORE">      <!-- set INCLUDE for stable release   -->
+<!entity p-status "beta">
+<!entity % p-not-stable "INCLUDE">
+<!entity % p-stable "IGNORE">
 <!entity % p-text "INCLUDE">       <!-- define we are a text only doc    -->
 <!entity % p-doc "IGNORE">         <!-- and never a text doc             -->
 <!entity % p-readme "INCLUDE">     <!-- all your README belong to us     -->

@@ -9,9 +9,9 @@
 <!entity history SYSTEM "history.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity p-version "2.9.13">
-<!entity p-status "BETA">
-<!entity % p-not-stable "INCLUDE"> <!-- set to IGNORE for stable release  -->
-<!entity % p-stable "IGNORE">      <!-- set INCLUDE for stable release    -->
+<!entity p-status "beta">
+<!entity % p-not-stable "INCLUDE">
+<!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
 <!entity % p-doc "INCLUDE">        <!-- and we are a formal doc           -->
 <!entity % p-readme "IGNORE">
@@ -3946,6 +3946,9 @@ Requests</title>
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.70  2002/04/08 20:53:56  swa
+ ?
+
  Revision 1.69  2002/04/06 05:07:29  hal9
  -Add privoxy-man-page.sgml, for man page.
  -Add authors.sgml for AUTHORS (and p-authors.sgml)

@@ -44,9 +44,9 @@
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity authors SYSTEM "p-authors.sgml">
 <!entity p-version "2.9.13">
-<!entity p-status "BETA">
-<!entity % p-not-stable "INCLUDE">    <!-- set to IGNORE for stable release  -->
-<!entity % p-stable "IGNORE">         <!-- set INCLUDE for stable release    -->
+<!entity p-status "beta">
+<!entity % p-not-stable "INCLUDE">
+<!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">           <!-- define we are not a text only doc -->
 <!entity % p-authors-formal "IGNORE"> <!-- exclude additional formating      -->
 ]>
