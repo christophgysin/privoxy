@@ -35,6 +35,10 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/07/17 13:07:01  oes
+ *    Fixed segv when last line in config files
+ *     lacked a terminating (\r)\n
+ *
  *    Revision 1.19  2001/07/13 14:01:54  oes
  *    Removed all #ifdef PCRS
  *
@@ -607,6 +611,10 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
       if ((p = strpbrk(linebuf, "\r\n")) != NULL)
       {
          *p = '\0';
+      }
+      else
+      {
+         p = linebuf + strlen(linebuf);
       }
 
       /* Line continuation? Trim escape and set flag. */
