@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/26 00:31:30  jongfoster
+ *    Fixing compiler warning about comparing signed/unsigned.
+ *
  *    Revision 1.5  2001/05/26 00:28:36  jongfoster
  *    Automatic reloading of config file.
  *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
@@ -500,7 +503,7 @@ int LogPutString(const char *pszText)
                memset(pszBefore, 0, (match.rm_so + 1) * sizeof(char));
                strncpy(pszBefore, pszText, match.rm_so);
             }
-            if (match.rm_eo < strlen(pszText))
+            if (match.rm_eo < (regoff_t)strlen(pszText))
             {
                pszAfter = strdup(&pszText[match.rm_eo]);
             }
