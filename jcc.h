@@ -35,8 +35,14 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:56  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/31 21:24:47  jongfoster
+ *    Changed "permission" to "action" throughout.
+ *    Removed DEFAULT_USER_AGENT - it must now be specified manually.
+ *    Moved vanilla wafer check into chat(), since we must now
+ *    decide whether or not to add it based on the URL.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:58:56  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -68,10 +74,6 @@ extern int urls_rejected;
 extern struct client_state clients[];
 
 extern struct file_list    files[];
-
-/* Global constants */
-
-extern const char DEFAULT_USER_AGENT[];
 
 
 /* Functions */
