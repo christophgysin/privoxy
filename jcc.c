@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.76  2002/03/06 22:54:35  jongfoster
+ *    Automated function-comment nitpicking.
+ *
  *    Revision 1.75  2002/03/06 10:02:19  oes
  *    Fixed stupid bug when --user was not given
  *
@@ -588,7 +591,7 @@ static const char VANILLA_WAFER[] =
  *                to be reopened by the main thread on HUP.
  *
  * Parameters  :
- *          1  :  the_signal - the signal cause this function to call 
+ *          1  :  the_signal = the signal cause this function to call
  *
  * Returns     :  - 
  *

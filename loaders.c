@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.38  2002/03/06 22:54:35  jongfoster
+ *    Automated function-comment nitpicking.
+ *
  *    Revision 1.37  2002/03/03 15:07:49  oes
  *    Re-enabled automatic config reloading
  *
@@ -884,7 +887,7 @@ jb_err edit_read_line(FILE *fp,
  *          1  :  buf = Buffer to use.
  *          2  :  buflen = Size of buffer in bytes.
  *          3  :  fp = File to read from
- *	    4  :  linenum = linenumber in file
+ *          4  :  linenum = linenumber in file
  *
  * Returns     :  NULL on EOF or error
  *                Otherwise, returns buf.

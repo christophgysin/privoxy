@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2002/03/06 22:54:35  jongfoster
+ *    Automated function-comment nitpicking.
+ *
  *    Revision 1.14  2002/03/02 04:14:50  david__schmidt
  *    Clean up a little CRLF unpleasantness that suddenly appeared
  *
@@ -138,9 +141,9 @@ static jb_err show_defines(struct map *exports);
  *                Lists menu of available unhidden CGIs.
  *               
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters : none
  *
@@ -205,9 +208,9 @@ jb_err cgi_default(struct client_state *csp,
  *                given.
  *               
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters : none
  *
@@ -249,9 +252,9 @@ jb_err cgi_error_404(struct client_state *csp,
  *                made of it.
  *               
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters : none
  *
@@ -312,9 +315,9 @@ jb_err cgi_show_request(struct client_state *csp,
  * Description :  CGI function that returns a banner. 
  *
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters :
  *           type : Selects the type of banner between "trans", "logo",
@@ -386,9 +389,9 @@ jb_err cgi_send_banner(struct client_state *csp,
  * Description :  CGI function that sends a 1x1 transparent GIF.
  *
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters : None
  *
@@ -428,9 +431,9 @@ jb_err cgi_transparent_gif(struct client_state *csp,
  *                file versions of IJB.
  *
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters : none
  *
@@ -471,9 +474,9 @@ jb_err cgi_show_version(struct client_state *csp,
  *                current status of IJB.
  *
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters :
  *        file :  Which file to show.  Only first letter is checked,
@@ -692,9 +695,9 @@ jb_err cgi_show_status(struct client_state *csp,
  *                matches starting from the defaults have lead to that.
  *
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters :
  *            url : The url whose actions are to be determined.
@@ -951,9 +954,9 @@ jb_err cgi_show_url_info(struct client_state *csp,
  * Description :  CGI function to return "/robots.txt".
  *
  * Parameters  :
- *           1 :  csp = Current client state (buffers, headers, etc...)
- *           2 :  rsp = http_response data structure for output
- *           3 :  parameters = map of cgi parameters
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  rsp = http_response data structure for output
+ *          3  :  parameters = map of cgi parameters
  *
  * CGI Parameters : None
  *
@@ -1000,7 +1003,7 @@ jb_err cgi_robots_txt(struct client_state *csp,
  *                used when building
  *
  * Parameters  :
- *           1 :  exports = map to extend
+ *          1  :  exports = map to extend
  *
  * Returns     :  JB_ERR_OK on success
  *                JB_ERR_MEMORY on out-of-memory error.  
