@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2002/03/04 18:28:32  oes
+ *    Deleted deletePidFile, played syleguide police
+ *
  *    Revision 1.16  2002/01/21 00:53:36  jongfoster
  *    Adding string_join()
  *
@@ -135,8 +138,7 @@ extern const char *basedir;
 extern void *zalloc(int size);
 
 #if defined(unix)
-extern void writePidFile( void );
-extern void deletePidFile( void );
+extern void write_pid_file(void);
 #endif /* unix */
 
 extern unsigned int hash_string(const char* s);
