@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2002/03/27 12:30:29  oes
+ *    Deleted unsused variable
+ *
  *    Revision 1.27  2002/03/26 23:06:04  jongfoster
  *    Removing duplicate @ifs on the toggle page
  *
@@ -4159,7 +4162,6 @@ jb_err cgi_toggle(struct client_state *csp,
    struct map *exports;
    char mode;
    const char *template_name;
-   jb_err err;
 
    assert(csp);
    assert(rsp);
