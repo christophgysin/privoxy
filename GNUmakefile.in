@@ -106,7 +106,7 @@ C_SRC  = actions.c cgi.c cgiedit.c cgisimple.c deanimate.c encode.c \
 C_OBJS = $(C_SRC:.c=.@OBJEXT@)
 C_HDRS = $(C_SRC:.c=.h) project.h actionlist.h
 
-CONFIG_FILES = config \
+CONFIG_FILES = config trust \
 		default.action \
 		basic.action intermediate.action advanced.action \
 		default.filter \
@@ -620,6 +620,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.37  2002/03/27 15:30:26  swa
+# have a consistent appearance
+#
 # Revision 1.36  2002/03/27 14:58:08  swa
 # can be used by mutilple targets
 #

@@ -1,12 +1,18 @@
-#############################################################################
-# Sample actions file for Privoxy
-#
-# For information, see http://www.privoxy.org/
-#
-# $Id$
+######################################################################
+# 
+#  File        :  $Source$
+# 
+#  $Id$
 #
 #  Purpose     :  Default actions file, see
 #                 http://www.privoxy.org/faq/questions.html#CONFIGFILES
+#
+#  Copyright   :  Written by and Copyright
+#                 Privoxy team. http://www.privoxy.org/
+#
+#                 Based on the Internet Junkbuster originally written
+#                 by and Copyright (C) 1997 Anonymous Coders and
+#                 Junkbusters Corporation.  http://www.junkbusters.com
 # 
 # We value your feedback. However, to provide you with the best support,
 # please note:
