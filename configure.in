@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.68.2.20  2004/01/31 16:31:46  oes
+dnl Resetting version info to 0.0.0 UNRELEASED
+dnl
 dnl Revision 1.68.2.19  2004/01/30 09:26:03  oes
 dnl Added docbook paths for debian sarge; set status for release
 dnl
@@ -475,10 +478,10 @@ dnl =================================================================
 dnl Application version number
 dnl =================================================================
 
-VERSION_MAJOR=3
+VERSION_MAJOR=0
 VERSION_MINOR=0
-VERSION_POINT=3
-CODE_STATUS="stable"
+VERSION_POINT=0
+CODE_STATUS="UNRELEASED"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
 dnl used for CGI output. Set version to 0.0.0 and status to "UNRELEASED"
