@@ -69,7 +69,7 @@ SuSE series: n
 # -----------------------------------------------------------------------------
 #
 %prep
-%setup -c -n ijbswa
+%setup -c
 
 #
 # -----------------------------------------------------------------------------
@@ -272,6 +272,9 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.20  2002/03/12 13:42:14  sarantis
+# remove hardcoded "ijbswa" from build phase
+#
 # Revision 1.19  2002/03/11 22:59:05  hal9
 # Remove --enable-no-gifs
 #
