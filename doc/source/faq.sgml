@@ -8,7 +8,7 @@
 <!entity history SYSTEM "history.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
-<!entity p-version "2.9.17">
+<!entity p-version "2.9.18">
 <!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
@@ -492,11 +492,14 @@ All the ads are there. What's wrong?</title>
   the finder does not offer a way to enter the administrator password in order
   to prove you do in fact own this computer.  To fix this situation, open the
   Terminal application and carefully enter the following commands:
+ </para>
+ <para>
   <screen>
-  cd ~
-  cd .Trash
-  sudo rm -rf Privoxy
-  </screen>
+   cd ~
+   cd .Trash
+   sudo rm -rf Privoxy</screen>
+ </para>
+ <para>
   The trash may still appear full after this command; emptying the trash 
   from the desktop should make it appear empty again.
  </para>
@@ -1737,6 +1740,9 @@ FIXME: Commented out until we have something to put here. HB 03/18/02.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 1.61.2.11  2002/08/06 08:54:03  oes
+Style police: Fixed formatting details
+
 Revision 1.61.2.10  2002/08/02 14:00:25  david__schmidt
 Made the OSX removal commands far less dangerous
 
