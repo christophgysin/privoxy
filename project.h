@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.50  2002/03/04 19:32:07  oes
+ *    Changed default port to 8118
+ *
  *    Revision 1.49  2002/03/04 18:28:55  oes
  *    Deleted PID_FILE_NAME
  *
@@ -461,7 +464,7 @@ typedef int jb_err;
 
 /* Default IP and port to listen on */
 #define HADDR_DEFAULT   "127.0.0.1"
-#define HADDR_PORT      8000
+#define HADDR_PORT      8118
 
 /* Forward defs for various structures */
 
@@ -941,7 +944,7 @@ struct configuration_spec
 
    /*
     * Port and IP to bind to.
-    * Defaults to HADDR_DEFAULT:HADDR_PORT == 127.0.0.1:8000
+    * Defaults to HADDR_DEFAULT:HADDR_PORT == 127.0.0.1:8118
     */
    const char *haddr;
    int         hport;

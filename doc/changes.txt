@@ -113,7 +113,7 @@ browser to use the Junkbuster.
 
   Short instructions for the advanced user:
 
-   Configure Netscape to use 127.0.0.1 on port 8000 as 
+   Configure Netscape to use 127.0.0.1 on port 8118 as 
         a proxy server.
 
   Detailed instructions for the beginner:
@@ -197,7 +197,7 @@ browser to use the Junkbuster.
 
   Short instructions for the advanced user:
 
-   Configure Netscape to use 127.0.0.1 on port 8000 as 
+   Configure Netscape to use 127.0.0.1 on port 8118 as 
         a proxy server.
 
   Detailed instructions for the beginner:

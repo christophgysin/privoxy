@@ -104,7 +104,7 @@ http://ijbswa.sourceforge.net/user-manual/.
 
 Be sure to set your browser(s) for HTTP/HTTPS Proxy at <IP>:<Port>,
 or whatever you specify in the config file under 'listen-address'.
-DEFAULT is localhost:8000.
+DEFAULT is localhost:8118.
 
 The ijb.action file can be configured via the web interface accessed via
 http://i.j.b/, as well other options.
