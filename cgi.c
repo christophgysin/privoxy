@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.56  2002/03/24 17:50:46  jongfoster
+ *    Fixing compile error if actions file editor disabled
+ *
  *    Revision 1.55  2002/03/24 16:55:06  oes
  *    Making GIF checkerboard transparent
  *
@@ -372,10 +375,10 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
    { "show-url-info",
          cgi_show_url_info, 
          "Show which actions apply to a URL and why"  },
+#ifdef FEATURE_CGI_EDIT_ACTIONS
    { "toggle",
          cgi_toggle, 
          "Toggle Privoxy on or off" },
-#ifdef FEATURE_CGI_EDIT_ACTIONS
    { "edit-actions",
          cgi_edit_actions, 
          "Edit the actions list" },
