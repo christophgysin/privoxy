@@ -37,6 +37,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/31 17:32:31  oes
+ *
+ *     - Enhanced domain part globbing with infix and prefix asterisk
+ *       matching and optional unanchored operation
+ *
  *    Revision 1.3  2001/05/29 23:10:09  oes
  *
  *
@@ -87,7 +92,9 @@ extern int strcmpic(const char *s1, const char *s2);
 extern int strncmpic(const char *s1, const char *s2, size_t n);
 
 extern char *strsav(char *old, const char *text_to_append);
+
 extern char *chomp(char *string);
+extern int trivimatch(char *pattern, char *text);
 
 #ifdef __MINGW32__
 extern char *strdup(const char *s);

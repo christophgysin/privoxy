@@ -36,6 +36,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/05/31 17:32:31  oes
+ *
+ *     - Enhanced domain part globbing with infix and prefix asterisk
+ *       matching and optional unanchored operation
+ *
  *    Revision 1.8  2001/05/29 20:09:15  joergs
  *    HTTP_REDIRECT_TEMPLATE fixed.
  *
@@ -408,7 +413,7 @@ struct url_spec
    char  *dbuf;
    char **dvec;
    int    dcnt;
-   int    toplevel;
+   int    unanchored;
 
    char *path;
    int   pathlen;

@@ -38,6 +38,11 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/05/31 17:35:20  oes
+ *
+ *     - Enhanced domain part globbing with infix and prefix asterisk
+ *       matching and optional unanchored operation
+ *
  *    Revision 1.11  2001/05/29 11:53:23  oes
  *    "See why" link added to "blocked" page
  *
@@ -1048,13 +1053,7 @@ struct url_spec dsplit(char *domain)
 
    memset(ret, '\0', sizeof(*ret));
 
-   if ((p = strrchr(domain, '.')))
-   {
-      if (*(++p) == '\0')
-      {
-         ret->toplevel = 1;
-      }
-   }
+   ret->unanchored = (domain[strlen(domain) - 1] == '.');
 
    ret->dbuf = strdup(domain);
 
@@ -1078,6 +1077,7 @@ struct url_spec dsplit(char *domain)
       memcpy(ret->dvec, v, size);
    }
 
+
    return(*ret);
 
 }
@@ -1088,10 +1088,17 @@ struct url_spec dsplit(char *domain)
  * Function    :  domaincmp
  *
  * Description :  Compare domain names.
- *                domaincmp("a.b.c" , "a.b.c")  => 0 (MATCH)
+ *                domaincmp("a.b.c",  "a.b.c")  => 0 (MATCH)
  *                domaincmp("a*.b.c", "a.b.c")  => 0 (MATCH)
+ *                domaincmp("a*.b.c", "abc.b.c")  => 0 (MATCH)
+ *                domaincmp("a*c.b.c","abbc.b.c")  => 0 (MATCH)
+ *                domaincmp("*a.b.c", "dabc.b.c")  => 0 (MATCH)
  *                domaincmp("b.c"   , "a.b.c")  => 0 (MATCH)
+ *                domaincmp("a.b"   , "a.b.c")  => 1 (DIFF)
+ *                domaincmp("a.b."  , "a.b.c")  => 0 (MATCH)
  *                domaincmp(""      , "a.b.c")  => 0 (MATCH)
+ *                
+ * FIXME: I need a definition!
  *
  * Parameters  :
  *          1  :  pattern = a domain that may contain a '*' as a wildcard.
@@ -1107,27 +1114,29 @@ int domaincmp(struct url_spec *pattern, struct url_spec *fqdn)
    char  *p,   *f;   /* chars    */
 
    pv = pattern->dvec;
-   pn = pattern->dcnt;
-
    fv = fqdn->dvec;
-   fn = fqdn->dcnt;
+   fn = pn = 0;
 
-   while ((pn > 0) && (fn > 0))
+   while (fn < fqdn->dcnt && pn < pattern->dcnt)
    {
-      p = pv[--pn];
-      f = fv[--fn];
+      p = pv[pn];
+      f = fv[fn];
 
-      while (*p && *f && (*p == tolower(*f)))
+      if (trivimatch(p, f))
       {
-         p++, f++;
+         if(pn)
+         {
+            return 1;
+         }
       }
-
-      if ((*p != tolower(*f)) && (*p != '*')) return(1);
+      else
+      {
+         pn++;
+      }
+      fn++;
    }
 
-   if (pn > 0) return(1);
-
-   return(0);
+   return ((pn < pattern->dcnt) || ((fn < fqdn->dcnt) && !pattern->unanchored));
 
 }
 

@@ -35,6 +35,11 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/05/31 17:32:31  oes
+ *
+ *     - Enhanced domain part globbing with infix and prefix asterisk
+ *       matching and optional unanchored operation
+ *
  *    Revision 1.11  2001/05/29 23:25:24  oes
  *
  *     - load_config_line() and load_permissions_file() now use chomp()
@@ -422,6 +427,7 @@ static int create_url_spec(struct url_spec * url, char * buf)
    url->dbuf = tmp_url->dbuf;
    url->dcnt = tmp_url->dcnt;
    url->dvec = tmp_url->dvec;
+   url->unanchored = tmp_url->unanchored;
 
    return 0; /* OK */
 }
