@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2002/05/03 22:54:24  jongfoster
+ *    Version number bump to 2.9.15
+ *
  *    Revision 1.2  2002/04/26 18:26:09  jongfoster
  *    Bumping version numbers
  *
@@ -205,12 +208,12 @@
 /*
  * Version number - Point (_._.X)
  */
-#define VERSION_POINT 14
+#define VERSION_POINT 15
 
 /*
  * Version number, as a string
  */
-#define VERSION "2.9.14"
+#define VERSION "2.9.15"
 
 /*
  * Status of the code: alpha, beta or stable
