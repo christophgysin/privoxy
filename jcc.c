@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.54  2001/11/07 00:03:14  steudten
+ *    Give reliable return value if an error
+ *    occurs not just 0 with new daemon mode.
+ *
  *    Revision 1.53  2001/11/05 21:41:43  steudten
  *    Add changes to be a real daemon just for unix os.
  *    (change cwd to /, detach from controlling tty, set
@@ -1426,7 +1430,8 @@ int main(int argc, const char *argv[])
 		/* make config-filename absolute here */	
 		if ( !(basedir = getcwd( NULL, 1024 )))
 		{
-			perror("get working dir");
+			perror("get working dir failed");
+			exit( 1 );
 		}
 		DBG(1, ("working dir '%s'\n",basedir) );
 		if ( !(abs_file = malloc( strlen( basedir ) + strlen( configfile ) + 5 )))
@@ -1489,6 +1494,18 @@ int main(int argc, const char *argv[])
 	} 
 	else if ( pid != 0 ) /* parent */
 	{
+		int	status;
+		pid_t	wpid;
+		/*
+		** must check for errors 
+		** child died due to missing files aso
+		*/
+		sleep( 1 );
+		wpid = waitpid( pid, &status, WNOHANG );
+		if ( wpid != 0 )
+		{
+			exit( 1 );
+		}
 		exit( 0 );
 	}
 	/* child */
@@ -1561,7 +1578,6 @@ static void listen_loop(void)
    }
 
    config->need_bind = 0;
-
 
    while (FOREVER)
    {
