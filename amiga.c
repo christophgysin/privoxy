@@ -28,6 +28,9 @@ const char amiga_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/09/12 22:54:51  joergs
+ *    Stacksize of main thread increased.
+ *
  *    Revision 1.2  2001/05/23 00:13:58  joergs
  *    AmigaOS support fixed.
  *
@@ -49,7 +52,7 @@ const char amiga_rcs[] = "$Id$";
 
 const char amiga_h_rcs[] = AMIGA_H_VERSION;
 
-unsigned long __stack = 20*1024;
+unsigned long __stack = 100*1024;
 static char ver[] = "$VER: junkbuster " __AMIGAVERSION__ " (" __AMIGADATE__ ")";
 struct Task *main_task = NULL;
 int childs = 0;
