@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.51  2002/03/05 04:52:42  oes
+ *    Deleted non-errlog debugging code
+ *
  *    Revision 1.50  2002/03/04 19:32:07  oes
  *    Changed default port to 8118
  *
@@ -398,14 +401,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#ifdef _DEBUG
-extern int ldebug;
-#define DBG(a,b)        { if ( ldebug >= a ) { printf b ; }}
-#else
-#define DBG(a,b)
-#endif /* _DEBUG */
-
 
 
 /*

@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2002/03/05 04:52:42  oes
+ *    Deleted non-errlog debugging code
+ *
  *    Revision 1.30  2002/03/04 18:27:42  oes
  *    - Deleted deletePidFile
  *    - Made write_pid_file use the --pidfile option value
@@ -895,7 +898,6 @@ char * make_path(const char * dir, const char * file)
 	      strcpy(path, basedir);
 	      strcat(path, "/");
 	      strcat(path, dir);
-	      DBG(1, ("make_path: path: %s\n",path) );
       }
       else
       {

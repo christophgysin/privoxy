@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2002/03/05 04:52:42  oes
+ *    Deleted non-errlog debugging code
+ *
  *    Revision 1.32  2002/03/04 18:24:53  oes
  *    Re-enabled output of unknown config directive hash
  *
@@ -469,7 +472,6 @@ struct configuration_spec * load_config(void)
    struct file_list *fs;
    unsigned long linenum = 0;
 
-   DBG(1, ("load_config() entered..\n") );
    if ( !check_file_changed(current_configfile, configfile, &fs))
    {
       /* No need to load */
