@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.50  2002/04/24 02:12:16  oes
+ *    Jon's multiple AF patch: Sweep now takes care of all AFs
+ *
  *    Revision 1.49  2002/04/19 16:53:25  jongfoster
  *    Optimize away a function call by using an equivalent macro
  *
@@ -334,6 +337,7 @@ void sweep(void)
 {
    struct file_list *fl, *nfl;
    struct client_state *csp, *ncsp;
+   int i;
 
    /* clear all of the file's active flags */
    for ( fl = files->next; NULL != fl; fl = fl->next )
@@ -354,9 +358,12 @@ void sweep(void)
           */
          ncsp->config->config_file_list->active = 1;
 
-         if (ncsp->actions_list)     /* actions files */
+         for (i = 0; i < MAX_ACTION_FILES; i++)
          {
-            ncsp->actions_list->active = 1;
+            if (ncsp->actions_list[i])     /* actions files */
+            {
+               ncsp->actions_list[i]->active = 1;
+            }
          }
 
          if (ncsp->rlist)     /* pcrsjob files */
