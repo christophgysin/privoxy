@@ -472,6 +472,9 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.1  2002/03/24 11:23:44  swa
+# name change
+#
 # Revision 1.1  2002/03/22 20:53:03  morcego
 # - Ongoing process to change name to JunkbusterNG
 # - configure/configure.in: no change needed

@@ -34,7 +34,7 @@ Vendor:       http://ijbswa.sourceforge.net
 Name:         junkbuster-suse
 Distribution: defineme
 Version: 2.9.11
-Release: 1
+Release: 3
 Source: http://www.waldherr.org/%{name}/ijbswa-%{version}.tar.gz
 # not sure if this works
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -276,6 +276,9 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.1  2002/03/24 11:23:44  swa
+# name change
+#
 # Revision 1.21  2002/03/21 16:04:33  hal9
 # added ijb_docs.css to %%doc
 #
