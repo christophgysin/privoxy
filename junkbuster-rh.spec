@@ -26,9 +26,24 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
-# Revision 1.14  2001/09/13 16:22:42  swa
-# man page is legacy. suse rpm now contains html
-# documentation.
+# Revision 1.15  2001/09/14 23:28:29  hal9
+#
+# %changelog
+# * Thu Sep 13 2001 Hal Burgiss <hal@foobox.net>
+# - Added $RPM_OPT_FLAGS support, renaming of old logfile, and
+# - made sure no default shell exists for user junkbust.
+#
+# Stefan and Thomas -- if you see this, see what you think of the CFLAGS
+# handling. The Makefile changed how this is handled recently, and what I've now
+# done is:
+#
+# OPT_FLAGS="$RPM_OPT_FLAGS -Ipcre -Wall"
+# ./configure
+# make "CFLAGS=$OPT_FLAGS"
+#
+# Which 'works', but not sure what the best way to handle this. If I use
+# OTHER_FLAGS instead, I get duplicate gcc flag output like '-02 -03....'. Not
+# sure this is so bad, but at best, seems sloppy.
 #
 # Revision 1.13  2001/09/10 17:44:43  swa
 # integrate three pieces of documentation. needs work.
@@ -94,10 +109,10 @@ Prereq: /usr/sbin/useradd , /sbin/chkconfig , /sbin/service
 Conflicts: junkbuster-raw junkbuster-blank
 
 %description
-The Internet Junkbuster is an application that provides privacy and
-security to the user of the world wide web. It controls cookies,
-removes advertisements or pop-up windows. You can actually modify the
-content of web pages on-the-fly.
+The Internet Junkbuster stops your browser from displaying the
+advertisement images that pervade many commercial web pages.  Since
+your browser has to download fewer images, surfing the web should be
+faster.
 
 %define ijbconf %{_sysconfdir}/junkbuster
 
@@ -105,12 +120,13 @@ content of web pages on-the-fly.
 %setup -c -n ijbswa
 
 %build
+OPT_FLAGS="$RPM_OPT_FLAGS -Ipcre -Wall"
 ./configure
-make
+make "CFLAGS=$OPT_FLAGS"
 strip junkbuster
 
 %pre
-/usr/sbin/useradd -d /etc/junkbuster -u 73 -r junkbust > /dev/null 2>&1 || /bin/true
+/usr/sbin/useradd -d /etc/junkbuster -u 73 -r junkbust -s "" > /dev/null 2>&1 || /bin/true
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -122,7 +138,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_sbindir} \
          ${RPM_BUILD_ROOT}%{_sysconfdir}/rc.d/init.d
 
 install -s -m 744 junkbuster $RPM_BUILD_ROOT%{_sbindir}/junkbuster
-# cp -f junkbuster.1 $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8
+cp -f junkbuster.1 $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8
 cp -f actionsfile $RPM_BUILD_ROOT%{ijbconf}/actionsfile
 cp -f re_filterfile $RPM_BUILD_ROOT%{ijbconf}/re_filterfile
 cp -f trust $RPM_BUILD_ROOT%{ijbconf}/trust
@@ -148,6 +164,10 @@ cat config | \
 if [ "$1" = "1" ]; then
         /sbin/chkconfig --add junkbuster
 fi
+# for upgrade from 2.0.x
+chown junkbust:junkbust /var/log/junkbuster/* 2>/dev/null
+[ -f /var/log/junkbuster/junkbuster ] &&\
+ mv -f /var/log/junkbuster/junkbuster /var/log/junkbuster/logfile || true
 
 %preun
 if [ "$1" = "0" ]; then
@@ -172,11 +192,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0744,junkbust,junkbust) %dir /var/log/junkbuster
 %config %{_sysconfdir}/logrotate.d/junkbuster
 %attr(0744,junkbust,junkbust)/usr/sbin/junkbuster
-# %{_mandir}/man8/*
+%{_mandir}/man8/*
 %config %{_sysconfdir}/rc.d/init.d/junkbuster
 
 
 %changelog
+* Thu Sep 13 2001 Hal Burgiss <hal@foobox.net>
+- Added $RPM_OPT_FLAGS support, renaming of old logfile, and 
+- made sure no default shell exists for user junkbust.
 
 * Sun Jun  3 2001 Stefan Waldherr <stefan@waldherr.org>
 - rework of RPM
