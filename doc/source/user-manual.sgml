@@ -908,20 +908,22 @@ configuration section below. HB.)
 
 <para>
  The Windows version of <application>Junkbuster</application> puts an icon in
- the system tray, which allows you to change this option without having to
- edit this file.  If you right-click on that icon (or select the
- <quote>Options</quote> menu), one choice is <quote>Enable</quote>. Clicking
- on enable toggles <application>Junkbuster</application> on and off. This is
- useful if you want to temporarily disable
- <application>Junkbuster</application>, e.g., to access a site that requires
- cookies which you normally have blocked.
+ the system tray, which also allows you to change this option.  If you
+ right-click on that icon (or select the <quote>Options</quote> menu), one
+ choice is <quote>Enable</quote>. Clicking on enable toggles
+ <application>Junkbuster</application> on and off. This is useful if you want
+ to temporarily disable <application>Junkbuster</application>, e.g., to access
+ a site that requires cookies which you normally have blocked. This can also
+ be toggled via a web browser at the <application>Junkbuster</application>
+ internal address of <ulink url="http://i.j.b./">http://i.j.b./</ulink> on 
+ any platform.
 </para>
 
 <para>
  <quote>toggle 1</quote> means <application>Junkbuster</application> runs
  normally, <quote>toggle 0</quote> means that
  <application>Junkbuster</application> becomes a non-anonymizing non-blocking
- proxy. Default: 1.
+ proxy. Default: 1 (on). 
 </para>
 
 <para>
@@ -996,10 +998,10 @@ configuration section below. HB.)
 </para>
 
 <para>
- Security note:  If this is enabled, anyone who can use the proxy
- can toggle it on or off, and their changes will affect all users.
- For shared proxies, you probably want to disable this. Default: 
- enabled.
+ Security note:  If this is enabled, anyone who can use the proxy can toggle
+ it on or off (see <ulink url="http://i.j.b./">http://i.j.b./</ulink>), and
+ their changes will affect all users. For shared proxies, you probably want to
+ disable this. Default: enabled.
 </para>
 
 <para>
@@ -3142,6 +3144,9 @@ communication (bugs, feature requests, etc.)
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.19  2001/10/24 19:27:18  hal9
+ *** empty log message ***
+
  Revision 1.18  2001/10/24 18:45:26  hal9
  *** empty log message ***
 
