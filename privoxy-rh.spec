@@ -312,7 +312,7 @@ fi
 %defattr(0644,root,root,0755)
 
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-%config(noreplace) %attr(0744,root,root) %{_sysconfdir}/rc.d/init.d/%{name}
+%config(noreplace) %attr(0755,root,root) %{_sysconfdir}/rc.d/init.d/%{name}
 
 %{_mandir}/man1/%{name}.*
 
@@ -722,6 +722,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.33.2.16  2002/08/05 08:42:13  kick_
+# same permissions, same runlevels as all the other initscripts
+#
 # Revision 1.33.2.15  2002/07/30 21:51:19  hal9
 # Bump version to 2.9.17.
 #
