@@ -40,6 +40,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.56.2.2  2002/09/25 14:59:53  oes
+ *    Improved cookie logging
+ *
  *    Revision 1.56.2.1  2002/09/25 14:52:45  oes
  *    Added basic support for OPTIONS and TRACE HTTP methods:
  *     - New parser function client_max_forwards which decrements
@@ -1293,7 +1296,7 @@ jb_err client_send_cookie(struct client_state *csp, char **header)
    }
    else
    {
-      log_error(LOG_LEVEL_HEADER, " crunch!");
+      log_error(LOG_LEVEL_HEADER, "Crunched outgoing cookie -- yum!");
    }
 
    /*
@@ -1784,6 +1787,7 @@ jb_err server_set_cookie(struct client_state *csp, char **header)
 
    if ((csp->action->flags & ACTION_NO_COOKIE_SET) != 0)
    {
+      log_error(LOG_LEVEL_HEADER, "Crunched incoming cookie -- yum!");
       return crumble(csp, header);
    }
    else if ((csp->action->flags & ACTION_NO_COOKIE_KEEP) != 0)
