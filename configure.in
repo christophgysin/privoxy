@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.50  2002/03/27 03:03:45  hal9
+dnl Add test for man2html
+dnl
 dnl Revision 1.49  2002/03/27 02:19:52  david__schmidt
 dnl More Mac OSX support:
 dnl - Get rid of extraneous, noisy -pthread warnings
@@ -512,6 +515,10 @@ AC_SUBST(RPM_BASE)
 dnl Check for jade, so we can build the documentation
 AC_CHECK_PROGS(JADEBIN,jade openjade,false)
 AC_SUBST(JADEBIN)
+
+dnl Check for man2html for docs.
+AC_CHECK_PROGS(MAN2HTML,man2html,false)
+AC_SUBST(MAN2HTML)
 
 dnl Checking for the docbook.dsl stylesheet file
 dnl It is still not portable (directory slash)
