@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2002/04/10 13:38:35  oes
+ *    load_template signature changed
+ *
  *    Revision 1.25  2002/04/08 20:50:25  swa
  *    fixed JB spelling
  *
@@ -175,7 +178,7 @@ extern jb_err map_block_keep   (struct map *exports, const char *name);
 extern jb_err map_conditional  (struct map *exports, const char *name, int choose_first);
 
 extern jb_err template_load(struct client_state *csp, char ** template_ptr, 
-                            const char *templatename);
+                            const char *templatename, int recursive);
 extern jb_err template_fill(char ** template_ptr, const struct map *exports);
 extern jb_err template_fill_for_cgi(struct client_state *csp,
                                     const char *templatename,

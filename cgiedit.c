@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2002/04/10 13:38:35  oes
+ *    load_template signature changed
+ *
  *    Revision 1.29  2002/04/08 16:59:08  oes
  *    Fixed comment
  *
@@ -2559,7 +2562,7 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
 
    /* Should do all global exports above this point */
 
-   err = template_load(csp, &section_template, "edit-actions-list-section");
+   err = template_load(csp, &section_template, "edit-actions-list-section", 0);
    if (err)
    {
       edit_free_file(file);
@@ -2571,7 +2574,7 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
       return err;
    }
 
-   err = template_load(csp, &url_template, "edit-actions-list-url");
+   err = template_load(csp, &url_template, "edit-actions-list-url", 0);
    if (err)
    {
       free(section_template);
@@ -2945,7 +2948,7 @@ jb_err cgi_edit_actions_for_url(struct client_state *csp,
       int index = 0;
       char * filter_template;
 
-      err = template_load(csp, &filter_template, "edit-actions-for-url-filter");
+      err = template_load(csp, &filter_template, "edit-actions-for-url-filter", 0);
       if (err)
       {
          edit_free_file(file);

@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2002/04/10 13:38:35  oes
+ *    load_template signature changed
+ *
  *    Revision 1.28  2002/04/07 15:42:12  jongfoster
  *    Fixing send-banner?type=auto when the image-blocker is
  *    a redirect to send-banner
@@ -560,7 +563,7 @@ jb_err cgi_send_stylesheet(struct client_state *csp,
    assert(csp);
    assert(rsp);
 
-   err = template_load(csp, &rsp->body, "cgi-style.css");
+   err = template_load(csp, &rsp->body, "cgi-style.css", 0);
 
    if (err == JB_ERR_FILE)
    {
