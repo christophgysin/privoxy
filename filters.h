@@ -8,7 +8,7 @@
  * Purpose     :  Declares functions to parse/crunch headers and pages.
  *                Functions declared include:
  *                   `acl_addr', `add_stats', `block_acl', `block_imageurl',
- *                   `block_url', `url_permissions', `domaincmp', `dsplit',
+ *                   `block_url', `url_actions', `domaincmp', `dsplit',
  *                   `filter_popups', `forward_url'
  *                   `ij_untrusted_url', `intercept_url', `re_process_buffer',
  *                   `show_proxy_args', and `trust_url'
@@ -40,6 +40,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/05/31 21:21:30  jongfoster
+ *    Permissionsfile / actions file changes:
+ *    - Changed "permission" to "action" throughout
+ *    - changes to file format to allow string parameters
+ *    - Moved helper functions to actions.c
+ *
  *    Revision 1.6  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -166,7 +172,12 @@ extern char *redirect_url(struct http_request *http, struct client_state *csp);
 extern int block_imageurl(struct http_request *http, struct client_state *csp);
 #endif /* def IMAGE_BLOCKING */
 
-extern int url_permissions(struct http_request *http, struct client_state *csp);
+extern void url_actions(struct http_request *http, 
+                        struct client_state *csp);
+extern void apply_url_actions(struct current_action_spec *action, 
+                              struct http_request *http, 
+                              struct url_actions *b);
+
 extern const struct gateway *forward_url(struct http_request *http, struct client_state *csp);
 
 extern struct url_spec dsplit(char *domain);
