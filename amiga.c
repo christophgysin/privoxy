@@ -28,6 +28,9 @@ const char amiga_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2002/03/25 19:32:15  joergs
+ *    Name in version string changed from junkbuster to Privoxy.
+ *
  *    Revision 1.7  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -86,7 +89,7 @@ const char amiga_rcs[] = "$Id$";
 const char amiga_h_rcs[] = AMIGA_H_VERSION;
 
 unsigned long __stack = 100*1024;
-static char ver[] = "$VER: junkbuster " __AMIGAVERSION__ " (" __AMIGADATE__ ")";
+static char ver[] = "$VER: Privoxy " __AMIGAVERSION__ " (" __AMIGADATE__ ")";
 struct Task *main_task = NULL;
 int childs = 0;
 
