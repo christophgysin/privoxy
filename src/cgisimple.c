@@ -36,6 +36,11 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.3  2003/09/22 00:33:01  david__schmidt
+ *    Enable sending a custom 'blocked' image.  Shows up as
+ *    "image-blocker-custom-file" parameter in config, and
+ *    "+set-image-blocker{custom}" in action files.
+ *
  *    Revision 2.2  2002/12/28 03:58:19  david__schmidt
  *    Initial drop of dashboard instrumentation - enabled with
  *    --enable-activity-console
@@ -442,6 +447,7 @@ jb_err cgi_send_banner(struct client_state *csp,
                        const struct map *parameters)
 {
    char imagetype = lookup(parameters, "type")[0];
+   char *image_mimetype = BUILTIN_IMAGE_MIMETYPE;
 
    /*
     * If type is auto, then determine the right thing
@@ -472,6 +478,10 @@ jb_err cgi_send_banner(struct client_state *csp,
          else if (0 == strcmpic(p, "pattern"))
          {
             imagetype = 'p';
+         }
+         else if (0 == strcmpic(p, "custom"))
+         {
+            imagetype = 'c';
          }
 
          /*
@@ -525,6 +535,12 @@ jb_err cgi_send_banner(struct client_state *csp,
          rsp->body = bindup(image_blank_data, image_blank_length);
          rsp->content_length = image_blank_length;
       }
+      else if (imagetype == 'c')
+      {
+         rsp->body = bindup(csp->config->image_blocker_data, csp->config->image_blocker_length);
+         rsp->content_length = csp->config->image_blocker_length;
+         image_mimetype = csp->config->image_blocker_format;
+      }
       else
       {
          rsp->body = bindup(image_pattern_data, image_pattern_length);
@@ -535,7 +551,11 @@ jb_err cgi_send_banner(struct client_state *csp,
       {
          return JB_ERR_MEMORY;
       }
-      if (enlist(rsp->headers, "Content-Type: " BUILTIN_IMAGE_MIMETYPE))
+      if (enlist(rsp->headers, "Content-Type: "))
+      {
+         return JB_ERR_MEMORY;
+      }
+      if (enlist(rsp->headers, image_mimetype))
       {
          return JB_ERR_MEMORY;
       }
@@ -876,11 +896,13 @@ jb_err cgi_show_status(struct client_state *csp,
          snprintf(buf, 100, "</td><td class=\"buttons\"><a href=\"/show-status?file=actions&index=%d\">View</a> ", i);
          if (!err) err = string_append(&s, buf);
 
+#ifdef FEATURE_CGI_EDIT_ACTIONS
          if (NULL == strstr(csp->actions_list[i]->filename, "standard.action") && NULL != csp->config->actions_file_short[i])
          {
             snprintf(buf, 100, "<a href=\"/edit-actions-list?f=%s\">Edit</a>", csp->config->actions_file_short[i]);
             if (!err) err = string_append(&s, buf);
          }
+#endif
 
          if (!err) err = string_append(&s, "</td></tr>\n");
       }

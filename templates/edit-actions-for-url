@@ -32,6 +32,11 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.31  2003/09/22 00:33:01  david__schmidt
+#    Enable sending a custom 'blocked' image.  Shows up as
+#    "image-blocker-custom-file" parameter in config, and
+#    "+set-image-blocker{custom}" in action files.
+#
 #    Revision 1.30  2002/09/05 16:12:02  oes
 #    Synced with stable branch:
 #       Revision 1.29.2.3  2002/08/23 02:22:53  hal9
@@ -805,7 +810,11 @@ function show_send_wafer_opts(tf)
         <input type="radio" name="set_image_blocker_mode" value="blank"
         onclick="set_image_blocker_param_disable(true)"
         id="set_image_blocker_mode_blank" @set-image-blocker-param-blank@><label 
-        for="set_image_blocker_mode_blank">Send a 1x1 transparent GIF</label><br>
+        for="set_image_blocker_mode_blank">Send a 1x1 transparent image</label><br>
+        <input type="radio" name="set_image_blocker_mode" value="custom"
+        onclick="set_image_blocker_param_disable(true)"
+        id="set_image_blocker_mode_custom" @set-image-blocker-param-custom@><label 
+        for="set_image_blocker_mode_custom">Send a custom image</label><br>
         <input type="radio" name="set_image_blocker_mode" value="CUSTOM"
         onclick="set_image_blocker_param_disable(false)"
         id="set_image_blocker_mode_set" @set-image-blocker-param-custom@><label

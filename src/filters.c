@@ -38,6 +38,11 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.5  2003/09/22 00:33:01  david__schmidt
+ *    Enable sending a custom 'blocked' image.  Shows up as
+ *    "image-blocker-custom-file" parameter in config, and
+ *    "+set-image-blocker{custom}" in action files.
+ *
  *    Revision 2.4  2003/01/21 02:49:27  david__schmidt
  *    Developer TODO 612294: src: C++ keyword as variable name
  *    I changed all ocurrences of 'new' to 'new_something' wherever I found
@@ -783,6 +788,23 @@ struct http_response *block_url(struct client_state *csp)
          rsp->content_length = image_blank_length;
 
          if (enlist_unique_header(rsp->headers, "Content-Type", BUILTIN_IMAGE_MIMETYPE))
+         {
+            free_http_response(rsp);
+            return cgi_error_memory();
+         }
+      }
+
+      else if (0 == strcmpic(p, "custom"))
+      {
+         rsp->body = bindup(csp->config->image_blocker_data, csp->config->image_blocker_length);
+         if (rsp->body == NULL)
+         {
+            free_http_response(rsp);
+            return cgi_error_memory();
+         }
+         rsp->content_length = csp->config->image_blocker_length;
+
+         if (enlist_unique_header(rsp->headers, "Content-Type", csp->config->image_blocker_format))
          {
             free_http_response(rsp);
             return cgi_error_memory();

@@ -37,6 +37,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.5  2003/09/22 00:33:01  david__schmidt
+ *    Enable sending a custom 'blocked' image.  Shows up as
+ *    "image-blocker-custom-file" parameter in config, and
+ *    "+set-image-blocker{custom}" in action files.
+ *
  *    Revision 2.4  2002/12/28 03:58:19  david__schmidt
  *    Initial drop of dashboard instrumentation - enabled with
  *    --enable-activity-console
@@ -1422,6 +1427,15 @@ struct configuration_spec
 
    /** Nonzero if we need to bind() to the new port. */
    int need_bind;
+
+   /** The raw blocker custom bitmap data */
+   char *image_blocker_data;
+
+   /** The length of the blocker custom image data */
+   size_t image_blocker_length;
+
+   /** The mimetype of the blocker custom image data */
+   char *image_blocker_format;
 };
 
 /** Calculates the number of elements in an array, using sizeof. */
@@ -1432,11 +1446,15 @@ struct configuration_spec
 #define FORCE_PREFIX "/PRIVOXY-FORCE"
 #endif /* def FEATURE_FORCE_LOAD */
 
+#define IMAGE_MIMETYPE_PNG "image/png"
+#define IMAGE_MIMETYPE_GIF "image/gif"
+#define IMAGE_MIMETYPE_JPG "image/jpg"
+
 #ifdef FEATURE_NO_GIFS
-/** The MIME type for images ("image/png" or "image/gif"). */
-#define BUILTIN_IMAGE_MIMETYPE "image/png"
+/** The MIME type for built-in images ("image/png" or "image/gif"). */
+#define BUILTIN_IMAGE_MIMETYPE IMAGE_MIMETYPE_PNG
 #else
-#define BUILTIN_IMAGE_MIMETYPE "image/gif"
+#define BUILTIN_IMAGE_MIMETYPE IMAGE_MIMETYPE_GIF
 #endif /* def FEATURE_NO_GIFS */
 
 
