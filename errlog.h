@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13.2.1  2002/08/05 17:57:06  oes
+ *    Cosmetic change
+ *
  *    Revision 1.13  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -152,7 +155,7 @@ extern "C" {
 #define LOG_LEVEL_POPUPS     0x0400 /* Kill Popups */
 #endif /* def FEATURE_KILL_POPUPS */
 
-#define LOG_LEVEL_CGI   0x0800 /* CGI / templates */
+#define LOG_LEVEL_CGI        0x0800 /* CGI / templates */
 
 /* Following are always on: */
 #define LOG_LEVEL_INFO    0x1000
