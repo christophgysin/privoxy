@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.38  2002/03/08 14:13:50  morcego
+dnl Fixing configure, to remove a command not found error.
+dnl
 dnl Revision 1.37  2002/03/08 12:58:21  oes
 dnl Tiny bugfix in AC_ARG_WITH(debug)
 dnl
@@ -393,7 +396,7 @@ else
 fi
 
 if test $dodk = auto; then
-	dodk = no
+	dodk=no
 	if test $target_type = unix; then
 		case "$host_os" in
 		linux* | gnu*)
