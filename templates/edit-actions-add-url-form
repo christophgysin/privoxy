@@ -31,6 +31,10 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.14  2002/05/21 19:10:30  oes
+#     - Added jump target and button style to "cancel" link
+#     - Fixed title
+#
 #    Revision 1.13  2002/04/10 13:32:53  oes
 #    Made templates modular
 #
@@ -106,7 +110,7 @@
   <meta name="robots" content="noindex,nofollow">
   <link rel="stylesheet" type="text/css" href="@default-cgi@send-stylesheet">
 
-  <title>Privoxy@@my-hostname@: Edit URL Pattern</title>
+  <title>Privoxy@@my-hostname@: Add URL Pattern</title>
 
   <script type="text/javascript">
 <!--
@@ -158,7 +162,7 @@
             <input type="text" name="u" value="" size="78"><br>
             <input type="submit" value="Submit"> &nbsp;
             <input type="reset" value="Reset"> &nbsp;
-            <a href="edit-actions-list?f=@f@">Cancel</a>
+            <a class="cmd" href="edit-actions-list?f=@f@#l@s@">Cancel</a>
           </p>
         </form>
       </td>
