@@ -33,6 +33,11 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2001/07/02 02:28:25  iwanttokeepanon
+ *    Added "#ifdef ACL_FILES" conditional compilation to line 1291 to exclude
+ *    the `block_acl' call.  This prevents a compilation error when the user
+ *    does not wish to use the "ACL" feature.
+ *
  *    Revision 1.22  2001/06/29 21:45:41  oes
  *    Indentation, CRLF->LF, Tab-> Space
  *
@@ -1288,6 +1293,7 @@ static void listen_loop(void)
          /* Never get here - LOG_LEVEL_FATAL causes program exit */
       }
 
+#ifdef ACL_FILES
       if (block_acl(NULL,csp))
       {
          log_error(LOG_LEVEL_CONNECT, "Connection dropped due to ACL");
@@ -1295,6 +1301,7 @@ static void listen_loop(void)
          freez(csp);
          continue;
       }
+#endif /* def ACL_FILES */
 
       /* add it to the list of clients */
       csp->next = clients->next;
