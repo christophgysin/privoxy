@@ -26,6 +26,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.34  2002/03/07 00:11:57  morcego
+# Few changes on the %pre and %post sections of the rh specfile to handle
+# usernames more cleanly
+#
 # Revision 1.33  2002/03/05 13:13:57  morcego
 # - Added "make redhat-dok" to the build phase
 # - Added docbook-utils to BuildRequires
@@ -148,7 +152,7 @@ Summary: The Internet Junkbuster
 Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
 Version: 2.9.11
-Release: 5
+Release: 6
 Source0: http://www.waldherr.org/%{name}/ijbswa-%{version}.tar.gz
 License: GPL
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -156,7 +160,7 @@ Group: Networking/Utilities
 URL: http://ijbswa.sourceforge.net/
 Obsoletes: junkbuster-raw junkbuster-blank
 # Prereq: /usr/sbin/useradd , /sbin/chkconfig , /sbin/service 
-Prereq: shadow-utils, chkconfig, initscripts
+Prereq: shadow-utils, chkconfig, initscripts, sh-utils
 BuildRequires: perl gzip sed docbook-utils
 Conflicts: junkbuster-raw junkbuster-blank
 
@@ -181,9 +185,6 @@ make redhat-dok
 ## This is handled altomaticaly by RPM, and can couse troubles if
 ## anyone wants to build an unstriped version - morcego
 #strip %{name}
-
-%pre
-/usr/sbin/useradd -d /etc/%{name} -r %{name} -s "" > /dev/null 2>&1 || /bin/true
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -235,6 +236,14 @@ perl -pe 's/{-no-cookies}/{-no-cookies}\n\.redhat.com/' ijb.action >\
 ## -- morcego
 #%%makeinstall
 
+%pre
+# We check to see if the user junkbuster exists.
+# If it does, we do nothing
+# If we don't, we check to see if the user junkbust exist and, in case it
+# does, we change it do junkbuster. If it also does not exist, we create the
+# junkbuster user -- morcego
+id junkbuster > /dev/null 2>&1 || ( id junkbust && ( /usr/sbin/usermod -l junkbuster junkbust ) || ( /usr/sbin/useradd -d /etc/%{name} -r %{name} -s "" > /dev/null 2>&1 || /bin/true )
+
 %post
 # for upgrade from 2.0.x
 [ -f %{_localstatedir}/log/%{name}/%{name} ] &&\
@@ -246,7 +255,8 @@ if [ "$1" = "1" ]; then
 	/sbin/service %{name} condrestart > /dev/null 2>&1
 fi
 # 01/09/02 HB, getting rid of any user=junkbust
-grep junkbust: /etc/passwd >/dev/null && userdel junkbust || /bin/true
+# Changed by morcego to use the id command.
+id junkbust > /dev/null 2>&1 && /usr/sbin/userdel junkbust || /bin/true
 
 %preun
 if [ "$1" = "0" ]; then
@@ -273,9 +283,9 @@ fi
 
 %dir %{ijbconf}
 %dir %{ijbconf}/templates
-%attr(0744,%{name},%{name}) %dir %{_localstatedir}/log/%{name}
+%attr(0744,junkbuster,junkbuster) %dir %{_localstatedir}/log/%{name}
 
-%attr(0744,%{name},%{name})%{_sbindir}/%{name}
+%attr(0744,junkbuster,junkbuster)%{_sbindir}/%{name}
 
 # We should not use wildchars here. This could mask missing files problems
 # -- morcego
@@ -320,6 +330,13 @@ fi
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Tue Mar 06 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
++ junkbuster-2.9.11-6
+- Changed the routined that handle the junkbust and junkbuster users on
+  %%pre and %%post to work in a smoother manner
+- %%files now uses hardcoded usernames, to avoid problems with package
+  name changes in the future
+
 * Tue Mar 05 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + junkbuster-2.9.11-5
 - Added "make redhat-dok" to the build process
