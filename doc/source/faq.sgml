@@ -625,7 +625,7 @@ the differences?</title>
 </sect2>
 
 <sect2 renderas="sect3" id="configfiles"> <title>What's the difference between the
-<quote>Cautious</quote>, <quote>Medium</quote> and <quote>Advanced</quote> defaults?</title>
+<quote>Cautious</quote>, <quote>Medium</quote> and <quote>Radical</quote> defaults?</title>
  <para>
   Configuring <application>Privoxy</application> is not entirely trivial. To help you get
   started, we provide you with three different default action <quote>packages</quote> in
@@ -646,7 +646,7 @@ the differences?</title>
   <entry>Feature</entry>
   <entry>Cautious</entry>
   <entry>Intermadiate</entry>
-  <entry>Advanced</entry>
+  <entry>Radical</entry>
 </row>
 </thead>
 <!--  <tfoot> -->
@@ -1874,6 +1874,9 @@ FIXME: Commented out until we have something to put here. HB 03/18/02.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 2.6  2002/10/10 04:10:38  hal9
+s/Advanced/Radical/ for standard.action change.
+
 Revision 2.5  2002/09/26 05:57:14  hal9
 Conditionally exclude 'this doc is evolving' comment in intro for non release
 situations.
