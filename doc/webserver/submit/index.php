@@ -51,22 +51,104 @@ $headers = getallheaders();
 Great. Please fill out the form below and hit "Submit".</p>
 
 <p>
-<pre>
-Privoxy Version: prefilled (not changeable)
-Action file: prefilled (not changeable)
-Action file release: prefilled with cvs-id-tag (not changeable)
-The webpage where I observed the ad: prefilled with referrer (changeable)
-????: ????
-[...]
-Remarks: (changeable)
-Submit Button.
+<form action="http://privoxy.org/submit/confirmad.php" method="post">
+<table border="0" cellpadding="0" cellspacing="4">
 
+<tr>
+<td align="right">Your name:</td>
+<td>
+<input name="submit_name" value="anonymous" type="text" size="30" maxlength="30">
+</td>
+<td>optional</td>
+</tr>
 
-Submit button -> will present a second page, where verification 
-takes place (correct version, latest blocklist, etc.). hence
-the user has to confirm his submission on the second page.
-</pre>
+<tr>
+<td align="right">Your email address:</td>
+<td>
+<input name="submit_email" value="anonymous" type="text" size="30" maxlength="30">
+</td>
+<td>optional</td>
+</tr>
+
+<tr>
+<td align="right">Website, where I observed an ad:</td>
+<td>
+<input name="submit_url" value="prefilled" type="text" size="45" maxlength="255">
+</td>
+<td>Please change, if necessary</td>
+</tr>
+
+<tr>
+<td align="right">How annoying is the ad:</td>
+<td>
+<select name="submit_annoy" size="1">
+<option value="A0">Nice, not to have</option>
+<option selected value="A1">Should be removed</option>
+<option value="A2">Must be removed</option>
+</select>
+</td>
+<td>Please select one</td>
+</tr>
+
+<tr>
+<td align="right">Privoxy Version:</td>
+<td>
+<input name="submit_pversion" value="prefilled" readonly type="text" size="30" maxlength="30">
+</td>
+<td>Automatically determined</td>
+</tr>
+
+<tr>
+<td align="right">Action File:</td>
+<td>
+<input name="submit_actionfile" value="prefilled" readonly type="text" size="30" maxlength="30">
+</td>
+<td>Automatically determined</td>
+</tr>
+
+<tr>
+<td align="right">Action File Version:</td>
+<td>
+<input name="submit_actionversion" value="prefilled" readonly type="text" size="30" maxlength="30">
+</td>
+<td>Automatically determined</td>
+</tr>
+
+<tr>
+<td align="right">Remarks:</td>
+<td>
+<textarea name="submit_remarks" cols="35" rows="3">
+None.
+</textarea>
+</td>
+<td>Please change, if necessary</td>
+</tr>
+
+<tr>
+<td align="right"></td>
+<td>
+<input type="hidden" name="submit_targeturl" value="/submit/confirmad.php">
+<input type=submit value="Submit">
+</td>
+<td></td>
+</tr>
+
+</table>
+</form>
+
 </p>
+
+<h2>Misc</h2>
+
+<p>Bla bla bla</p>
+
 
 </body>
 </html>
+
+<!--
+	$Log$
+	Revision 1.3  2002/03/29 09:39:48  swa
+	added form
+	
+-->
