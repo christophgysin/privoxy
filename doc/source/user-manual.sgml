@@ -577,7 +577,7 @@ automatically start Privoxy in the boot process.
  When you connect to a website, the full URL will either match one or more
  of the sections as defined in <application>Privoxy's</application> configuration,
  or not. If so, then <application>Privoxy</application> will perform the
- respective actions. If not, then nothing special happens. Futhermore, web
+ respective actions. If not, then nothing special happens. Furthermore, web
  pages may contain embedded, secondary URLs that your web browser will
  use to load additional components of the page, as it parses the
  original page's HTML content. An ad image for instance, is just an URL
@@ -615,10 +615,10 @@ automatically start Privoxy in the boot process.
    for all common image types (e.g. GIF), but there are many situations where this
    is not so easy to determine. So we'll force it in these cases. This is particularly
    important for ad blocking, since  only if we know that it's an image of
-   some kind, can we replace it with an image of our chosing, instead of the 
+   some kind, can we replace it with an image of our choosing, instead of the 
    <application>Privoxy</application> BLOCKED page (which would only result in
    a <quote>broken image</quote> icon). There are some limitations to this
-   though. For instance, you can't just brute-force an image substituion for
+   though. For instance, you can't just brute-force an image substitution for
    an entire HTML page in most situations.
   </para>
  </listitem> 
@@ -638,7 +638,7 @@ automatically start Privoxy in the boot process.
   </para>
   <simplelist>
    <member>
-    &nbsp;&nbsp;&nbsp;<emphasis>pattern</emphasis> - a checkboard pattern, so that an ad 
+    &nbsp;&nbsp;&nbsp;<emphasis>pattern</emphasis> - a checkerboard pattern, so that an ad 
     replacement is obvious. This is the default.
    </member>
   </simplelist>
@@ -761,7 +761,7 @@ automatically start Privoxy in the boot process.
 <para>
  For advanced users who want to hand edit their config files, you might want
  to now go to the <link linkend="act-examples">Actions Files Tutorial</link>.
- The ideas explained thererin also apply to the web-based editor.
+ The ideas explained therein also apply to the web-based editor.
 </para>
 
 </sect2>
@@ -1614,7 +1614,7 @@ actionsfile
   <term>Effect if unset:</term>
   <listitem>
    <para>
-    No log file is used, all log messages go to the console (<literal>stderr</literal>).
+    No log file is used, all log messages go to the console (<literal>STDERR</literal>).
    </para>
   </listitem>
  </varlistentry>
@@ -4190,7 +4190,7 @@ problem-host.example.com</screen>
     reflect the file type, like in the second example section.
    </para>
    <para>
-    Note that you cannot treat HTML pages as images in most cases. For instance, (inline) ad
+    Note that you cannot treat HTML pages as images in most cases. For instance, (in-line) ad
     frames require an HTML page to be sent, or they won't display properly.
     Forcing <literal>handle-as-image</literal> in this situation will not replace the
     ad frame with an image, but lead to error messages.
@@ -6127,7 +6127,7 @@ s* industry[ -]leading \
 
 <para>
  These templates are stored in a subdirectory of the <link linkend="confdir">configuration
- directory</link> called <filename>templates</filename>. On unixish platforms,
+ directory</link> called <filename>templates</filename>. On Unixish platforms,
  this is typically
  <ulink url="file:///etc/privoxy/templates/"><filename>/etc/privoxy/templates/</filename></ulink>.
 </para>
@@ -6475,7 +6475,7 @@ Requests</title>
 </para>
 
 <para>
- For information on regular expression based substititions and their applications
+ For information on regular expression based substitutions and their applications
  in filters, please see the <link linkend="filter-file">filter file tutorial</link>
  in this manual.
 </para>
@@ -6522,7 +6522,7 @@ Requests</title>
   </blockquote>
   <para>
    There is a shortcut: <ulink url="http://p.p/">http://p.p/</ulink> (But it
-   doesn't provide a fallback to a real page, in case the request is not
+   doesn't provide a fall-back to a real page, in case the request is not
    sent through <application>Privoxy</application>)
   </para>
  </listitem>
@@ -6750,7 +6750,7 @@ Requests</title>
   <para>
    First, the server headers are read and processed to determine, among other
    things, the MIME type (document type) and encoding. The headers are then
-   filtered as deterimed by the 
+   filtered as deterimined by the 
    <link linkend="CRUNCH-INCOMING-COOKIES"><quote>+crunch-incoming-cookies</quote></link>,
    <link linkend="SESSION-COOKIES-ONLY"><quote>+session-cookies-only</quote></link>,
    and <link linkend="DOWNGRADE-HTTP-VERSION"><quote>+downgrade-http-version</quote></link>
@@ -7188,6 +7188,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.123.2.1  2002/05/26 17:04:25  hal9
+ -Spellcheck, very minor edits, and sync across branches
+
  Revision 1.123  2002/05/24 23:19:23  hal9
  Include new image (Proxy setup). More fun with guibutton.
  Minor corrections/clarifications here and there.
