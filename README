@@ -48,6 +48,16 @@ released as free open-source software under the GNU GPL. Stefan
 Waldherr made many improvements, and started the SourceForge project
 to continue development.
 
+
+ IMPORTANT CHANGE
+-----------------
+
+IMPORTANT! READ! Configuration Change as of 03/04/02: The default 
+listening port is now 8118 due to conflicts with port 8000 assignment. 
+You will need to change your browser if upgrading!!! And maybe firewall, 
+etc.
+
+
  INSTALL
 --------
 
