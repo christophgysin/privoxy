@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2002/03/12 01:44:49  oes
+ *    Changed default for "blocked" image from jb logo to checkboard pattern
+ *
  *    Revision 1.17  2002/03/08 16:43:18  oes
  *    Added choice beween GIF and PNG built-in images
  *
@@ -347,7 +350,7 @@ jb_err cgi_send_banner(struct client_state *csp,
    if (imagetype == 'a') /* auto */
    {
       /* Default to logo */
-      imagetype = 'l';
+      imagetype = 'p';
 #ifdef FEATURE_IMAGE_BLOCKING
       if ((csp->action->flags & ACTION_IMAGE_BLOCKER) != 0)
       {
@@ -373,15 +376,15 @@ jb_err cgi_send_banner(struct client_state *csp,
       rsp->content_length = image_blank_length;
 
    }
-   else if (imagetype == 'p') /* pattern */
-   {
-      rsp->body = bindup(image_pattern_data, image_pattern_length);
-      rsp->content_length = image_pattern_length;
-   }   
-   else /* logo */
+   else  if (imagetype == 'l') /* logo */
    {
       rsp->body = bindup(image_logo_data, image_logo_length);
       rsp->content_length = image_logo_length;
+   }   
+   else /* pattern */
+   {
+      rsp->body = bindup(image_pattern_data, image_pattern_length);
+      rsp->content_length = image_pattern_length;
    }   
 
    if (rsp->body == NULL)
