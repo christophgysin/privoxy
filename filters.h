@@ -39,6 +39,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2002/04/02 14:56:16  oes
+ *    Bugfix: is_untrusted_url() and trust_url() now depend on FEATURE_TRUST, not FEATURE_COOKIE_JAR
+ *
  *    Revision 1.19  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -222,16 +225,16 @@ extern int match_portlist(const char *portlist, int port);
  */
 extern struct http_response *block_url(struct client_state *csp);
 extern struct http_response *redirect_url(struct client_state *csp);
-#ifdef FEATURE_COOKIE_JAR
+#ifdef FEATURE_TRUST
 extern struct http_response *trust_url(struct client_state *csp);
-#endif /* def FEATURE_COOKIE_JAR */
+#endif /* def FEATURE_TRUST */
 
 /*
  * Request inspectors
  */
-#ifdef FEATURE_COOKIE_JAR
+#ifdef FEATURE_TRUST
 extern int is_untrusted_url(struct client_state *csp);
-#endif /* def FEATURE_COOKIE_JAR */
+#endif /* def FEATURE_TRUST */
 #ifdef FEATURE_IMAGE_BLOCKING
 extern int is_imageurl(struct client_state *csp);
 #endif /* def FEATURE_IMAGE_BLOCKING */
