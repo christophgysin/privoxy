@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.22  2001/10/26 17:39:38  oes
+ *    Moved ijb_isspace and ijb_tolower to project.h
+ *
  *    Revision 1.21  2001/10/23 21:27:50  jongfoster
  *    Standardising error codes in string_append
  *    make_path() no longer adds '\\' if the dir already ends in '\\' (this
@@ -153,16 +156,6 @@ const char miscutil_rcs[] = "$Id$";
 #include "errlog.h"
 
 const char miscutil_h_rcs[] = MISCUTIL_H_VERSION;
-
-/* Fix a problem with Solaris.  There should be no effect on other
- * platforms.
- * Solaris's isspace() is a macro which uses it's argument directly
- * as an array index.  Therefore we need to make sure that high-bit
- * characters generate +ve values, and ideally we also want to make
- * the argument match the declared parameter type of "int".
- */
-#define ijb_tolower(__X) tolower((int)(unsigned char)(__X))
-#define ijb_isspace(__X) isspace((int)(unsigned char)(__X))   
 
 /*********************************************************************
  *
