@@ -43,7 +43,7 @@ URL: http://ijbswa.sourceforge.net/
 Obsoletes: junkbuster-raw junkbuster-blank junkbuster
 # Prereq: /usr/sbin/useradd , /sbin/chkconfig , /sbin/service 
 Prereq: shadow-utils, chkconfig, initscripts, sh-utils
-BuildRequires: perl gzip sed docbook-utils libtool
+BuildRequires: perl gzip sed docbook-utils libtool autoconf
 Conflicts: junkbuster-raw junkbuster-blank junkbuster
 
 %description 
@@ -65,6 +65,7 @@ development. Several other developers are now contributing.
 %setup -q -c
 
 %build
+autoheader
 autoconf
 %configure
 make 
@@ -245,10 +246,14 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 %changelog
 * Sun Mar 24 2002 Hal Burgiss <hal@foobox.net>
 + junkbusterng-2.9.13-1
+  Added autoheader. Added autoconf to buildrequires.
+
+* Sun Mar 24 2002 Hal Burgiss <hal@foobox.net>
++ junkbusterng-2.9.13-1
 - Fixed build problems re: name conflicts with man page and logrotate.
 - Commented out rc?d/* configs for time being, which are causing a build 
 - failure. /etc/junkbuster is now /etc/privoxy. Stefan did other name 
-- changes. Fixed typo ';' should be ':'.
+- changes. Fixed typo ';' should be ':' causing 'rpm -e' to fail.
 
 * Fri Mar 22 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + junkbusterng-2.9.13-1
@@ -489,6 +494,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.7  2002/03/24 21:07:18  hal9
+# Add autoheader, etc.
+#
 # Revision 1.6  2002/03/24 19:56:40  hal9
 # /etc/junkbuster is now /etc/privoxy. Fixed ';' typo.
 #
