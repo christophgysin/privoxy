@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/07/31 14:46:53  oes
+ *    Added prototype for connection_close_adder
+ *
  *    Revision 1.10  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -123,9 +126,12 @@ extern char *client_ua(const struct parsers *v, char *s, struct client_state *cs
 extern char *client_from(const struct parsers *v, char *s, struct client_state *csp);
 extern char *client_send_cookie(const struct parsers *v, char *s, struct client_state *csp);
 extern char *client_x_forwarded(const struct parsers *v, char *s, struct client_state *csp);
+
 extern void client_cookie_adder(struct client_state *csp);
 extern void client_xtra_adder(struct client_state *csp);
+extern void connection_close_adder(struct client_state *csp); 
 extern void client_x_forwarded_adder(struct client_state *csp);
+
 extern char *server_set_cookie(const struct parsers *v, char *s, struct client_state *csp);
 
 extern char *content_type(const struct parsers *v, char *s, struct client_state *csp);
