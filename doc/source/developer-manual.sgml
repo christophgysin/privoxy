@@ -63,10 +63,32 @@ Please see the Contact section in the user-manual if you want to contact the dev
 
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="quickstart"><title>Quickstart to Privoxy Development</title>
-    <para>To be filled.
-</para>
-  </sect1>
+    <para>
+You'll need an account on Sourceforge to support our development. Mail you ID
+to the list and wait until a project manager has added you.
 
+For the time beeing (read, this section is under construction), please note the
+following guidelines for changing stuff in the code. If it is
+	<orderedlist numeration="arabic">
+       	        <listitem><para>
+	      	A bugfix / clean-up / cosmetic thing: shoot
+               	</para></listitem>
+      	        <listitem><para>
+      		A new feature that can be turned off: shoot
+               	</para></listitem>
+        	<listitem><para>
+	      	A clear improvement w/o side effects on other parts of the code: shoot
+                </para></listitem>
+        	<listitem><para>
+	        A matter of taste: ask the list
+              	</para></listitem>
+        	<listitem><para>
+	        A major redesign of some part of the code: ask the list
+                </para></listitem>
+        </orderedlist>	
+</para>		
+  </sect1>	
+	
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="documentation"><title>Documentation Guidelines</title>
     <para>
@@ -1476,6 +1498,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.10  2002/03/24 12:33:01  swa
+  more additions.
+
   Revision 1.9  2002/03/24 11:01:05  swa
   name change
 
