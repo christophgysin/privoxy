@@ -1,4 +1,4 @@
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V3.1//EN"[
 <!entity % dummy "INCLUDE"> 
 <!entity supported SYSTEM "supported.sgml">
 <!entity newfeatures SYSTEM "newfeatures.sgml">
@@ -95,10 +95,13 @@
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="quickstart"><title>Quickstart to Privoxy Development</title>
     <para>
-You'll need an account on Sourceforge to support our development. Mail your ID
-to the list and wait until a project manager has added you.
+You'll need an account on <ulink
+url="http://sourceforge.net">Sourceforge</ulink> to support our development.
+Mail your ID to the list and wait until a project manager has added you.
+</para>
 
-For the time beeing (read, this section is under construction), please note the
+<para>
+For the time being (read, this section is under construction), please note the
 following guidelines for changing stuff in the code. If it is
 	<orderedlist numeration="arabic">
        	        <listitem><para>
@@ -117,8 +120,8 @@ following guidelines for changing stuff in the code. If it is
 	        A major redesign of some part of the code: ask the list
                 </para></listitem>
         </orderedlist>	
-</para>		
-  </sect1>	
+ </para>		
+</sect1>	
 	
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="documentation"><title>Documentation Guidelines</title>
@@ -2073,6 +2076,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.18  2002/04/03 03:51:48  hal9
+  Touch ups.
+
   Revision 1.17  2002/04/03 01:21:17  hal9
   Implementing Andreas's suggestions for Release sections.
 
