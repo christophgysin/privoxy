@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/06/07 23:10:53  jongfoster
+ *    Replacing struct gateway with struct forward_spec
+ *
  *    Revision 1.8  2001/06/03 19:12:00  oes
  *    extracted-CGI relevant stuff
  *
@@ -232,7 +235,7 @@ extern void apply_url_actions(struct current_action_spec *action,
                               struct http_request *http, 
                               struct url_actions *b);
 
-extern const struct gateway *forward_url(struct http_request *http, struct client_state *csp);
+extern const struct forward_spec *forward_url(struct http_request *http, struct client_state *csp);
 
 extern struct url_spec dsplit(char *domain);
 extern int domaincmp(struct url_spec *pattern, struct url_spec *fqdn);
