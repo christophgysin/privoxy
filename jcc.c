@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.58  2001/11/30 23:37:24  jongfoster
+ *    Renaming the Win32 config file to config.txt - this is almost the
+ *    same as the corresponding UNIX name "config"
+ *
  *    Revision 1.57  2001/11/16 00:47:43  jongfoster
  *    Changing the tty-disconnection code to use setsid().
  *
@@ -1392,7 +1396,7 @@ int main(int argc, const char *argv[])
 #elif !defined(_WIN32)
    "config"
 #else
-   "junkbstr.txt"
+   "config.txt"
 #endif
       ;
 

@@ -32,6 +32,10 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/11/30 23:37:24  jongfoster
+ *    Renaming the Win32 config file to config.txt - this is almost the
+ *    same as the corresponding UNIX name "config"
+ *
  *    Revision 1.17  2001/11/16 00:46:31  jongfoster
  *    Fixing compiler warnings
  *
@@ -965,7 +969,7 @@ void ShowLogWindow(BOOL bShow)
 *        from ShellExecute??
  *
  * Parameters  :
- *          1  :  filename = filename from the config (aka junkbstr.txt) file.
+ *          1  :  filename = filename from the config (aka config.txt) file.
  *
  * Returns     :  N/A
  *
