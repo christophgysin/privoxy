@@ -38,6 +38,18 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2001/10/07 15:41:23  oes
+ *    Replaced 6 boolean members of csp with one bitmap (csp->flags)
+ *
+ *    New function remove_chunked_transfer_coding that strips chunked
+ *      transfer coding to plain and is called by pcrs_filter_response
+ *      and gif_deanimate_response if neccessary
+ *
+ *    Improved handling of zero-change re_filter runs
+ *
+ *    pcrs_filter_response and gif_deanimate_response now remove
+ *      chunked transfer codeing before processing the body.
+ *
  *    Revision 1.34  2001/09/20 15:49:36  steudten
  *
  *    Fix BUG: Change int size to size_t size in pcrs_filter_response().
@@ -291,6 +303,7 @@ const char filters_rcs[] = "$Id$";
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <assert.h>
 
 #ifndef _WIN32
 #include <unistd.h>
@@ -958,7 +971,7 @@ int is_untrusted_url(struct client_state *csp)
  * Description :  Apply all the pcrs jobs from the joblist (re_filterfile)
  *                to the text buffer that's been accumulated in 
  *                csp->iob->buf and set csp->content_length to the modified
- *                size.
+ *                size and raise the CSP_FLAG_MODIFIED flag if appropriate.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
@@ -978,12 +991,27 @@ char *pcrs_filter_response(struct client_state *csp)
    struct file_list *fl;
    struct re_filterfile_spec *b;
 
-   /* Sanity first ;-) */
+   /* Sanity first */
    if (csp->iob->cur >= csp->iob->eod)
    {
       return(NULL);
    }
    size = csp->iob->eod - csp->iob->cur;
+
+   /*
+    * If the body has a "chunked" transfer-encoding,
+    * get rid of it first, adjusting size and iob->eod
+    */
+   if (csp->flags & CSP_FLAG_CHUNKED)
+   {
+      log_error(LOG_LEVEL_RE_FILTER, "Need to de-chunk first");
+      if (0 == (size = remove_chunked_transfer_coding(csp->iob->cur, size)))
+      {
+         return(NULL);
+      }
+      csp->iob->eod = csp->iob->cur + size;
+      csp->flags |= CSP_FLAG_MODIFIED;
+   }
 
    if ( ( NULL == (fl = csp->rlist) ) || ( NULL == (b = fl->f) ) )
    {
@@ -1010,10 +1038,20 @@ char *pcrs_filter_response(struct client_state *csp)
 
    log_error(LOG_LEVEL_RE_FILTER, " produced %d hits (new size %d).", hits, size);
 
-   csp->content_length = size;
+   /* 
+    * If there were no hits, destroy our copy and let
+    * chat() use the original in csp->iob
+    */
+   if (!hits)
+   {
+      free(new);
+      return(NULL);
+   }
 
-   /* fwiw, reset the iob */
+   csp->flags |= CSP_FLAG_MODIFIED;
+   csp->content_length = size;
    IOB_RESET(csp);
+
    return(new);
 
 }
@@ -1024,8 +1062,8 @@ char *pcrs_filter_response(struct client_state *csp)
  * Function    :  gif_deanimate_response
  *
  * Description :  Deanimate the GIF image that has been accumulated in 
- *                csp->iob->buf and set csp->content_length to the modified
- *                size.
+ *                csp->iob->buf, set csp->content_length to the modified
+ *                size and raise the CSP_FLAG_MODIFIED flag.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
@@ -1039,6 +1077,21 @@ char *gif_deanimate_response(struct client_state *csp)
    struct binbuffer *in, *out;
    char *p;
    int size = csp->iob->eod - csp->iob->cur;
+
+   /*
+    * If the body has a "chunked" transfer-encoding,
+    * get rid of it first, adjusting size and iob->eod
+    */
+   if (csp->flags & CSP_FLAG_CHUNKED)
+   {
+      log_error(LOG_LEVEL_DEANIMATE, "Need to de-chunk first");
+      if (0 == (size = remove_chunked_transfer_coding(csp->iob->cur, size)))
+      {
+         return(NULL);
+      }
+      csp->iob->eod = csp->iob->cur + size;
+      csp->flags |= CSP_FLAG_MODIFIED;
+   }
 
    if (  (NULL == (in =  (struct binbuffer *)zalloc(sizeof *in )))
       || (NULL == (out = (struct binbuffer *)zalloc(sizeof *out))) )
@@ -1061,11 +1114,71 @@ char *gif_deanimate_response(struct client_state *csp)
    {
       log_error(LOG_LEVEL_DEANIMATE, "Success! GIF shrunk from %d bytes to %d.", size, out->offset);
       csp->content_length = out->offset;
+      csp->flags |= CSP_FLAG_MODIFIED;
       p = out->buffer;
       free(in);
       free(out);
       return(p);
    }  
+
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  remove_chunked_transfer_coding
+ *
+ * Description :  In-situ remove the "chunked" transfer coding as defined
+ *                in rfc2616 from a buffer.
+ *
+ * Parameters  :
+ *          1  :  buffer = Pointer to the text buffer
+ *          2  :  size = Number of bytes to be processed
+ *
+ * Returns     :  The new size, i.e. the number of bytes from buffer which
+ *                are occupied by the stripped body, or 0 in case something
+ *                went wrong
+ *                
+ *********************************************************************/
+int remove_chunked_transfer_coding(char *buffer, const size_t size)
+{
+   size_t newsize = 0;
+   unsigned int chunksize = 0;
+   char *from_p, *to_p;
+
+   assert(buffer);
+   from_p = to_p = buffer;
+
+   if (sscanf(buffer, "%x", &chunksize) != 1)
+   {
+      log_error(LOG_LEVEL_ERROR, "Invalid first chunksize while stripping \"chunked\" transfer coding");
+      return(0);
+   }
+
+   while (chunksize > 0)
+   {
+      if (NULL == (from_p = strstr(from_p, "\r\n")))
+      {
+         log_error(LOG_LEVEL_ERROR, "Parse error while stripping \"chunked\" transfer coding");
+         return(0);
+      }
+      newsize += chunksize;
+      from_p += 2;
+      
+      memmove(to_p, from_p, (size_t) chunksize);
+      to_p = buffer + newsize;
+      from_p += chunksize + 2;
+
+      if (sscanf(from_p, "%x", &chunksize) != 1)
+      {
+         log_error(LOG_LEVEL_ERROR, "Parse error while stripping \"chunked\" transfer coding");
+         return(0);
+      }
+   }
+
+   /* FIXME: Should this get its own loglevel? */
+   log_error(LOG_LEVEL_RE_FILTER, "De-chunking successful. Shrunk from %d to %d\n", size, newsize);
+   return(newsize);
 
 }
 
