@@ -28,6 +28,11 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.71  2002/06/04 14:51:49  jongfoster
+dnl Updating for new paths:
+dnl - Source files in src/
+dnl - Object files in obj/
+dnl
 dnl Revision 1.70  2002/05/27 23:26:34  mal0rd
 dnl Made doc-generation configuration automatic.
 dnl References to DB2HTML were removed, not used.
@@ -380,9 +385,9 @@ dnl AutoConf Initialization
 dnl =================================================================
 
 AC_REVISION($Revision$)
-AC_INIT(jcc.c)
+AC_INIT(src/jcc.c)
 
-if test ! -f config.h.in; then
+if test ! -f src/config.h.in; then
    echo "You need to run autoheader first. "
    echo -n "Shall I do this for you now? (y/n) "
    read answer
@@ -393,7 +398,7 @@ if test ! -f config.h.in; then
   fi
 fi  
 
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADER([src/config.h])
 AC_CANONICAL_HOST
 
 AC_ARG_WITH(docbook, dnl
