@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/10/07 15:33:14  oes
+ *    Removed FEATURE_DENY_GZIP
+ *    Bumped up version number
+ *
  *    Revision 1.6  2001/09/16 16:59:34  jongfoster
  *    Bugfix - couldn't build resources with previous version.
  *
@@ -171,12 +175,12 @@
 /*
  * Version number - Point (_._.X)
  */
-#define VERSION_POINT 8
+#define VERSION_POINT 9
 
 /*
  * Version number, as a string
  */
-#define VERSION "2.9.8"
+#define VERSION "2.9.9"
 
 /*
  * Status of the code: alpha, beta or stable
@@ -216,13 +220,6 @@
  * Allows the use of jar files to capture cookies.
  */
 #define FEATURE_COOKIE_JAR 1
-
-/*
- * If a stream is compressed via gzip, then it cannot be filtered through
- * the PCRE regexps.  (Commonly happens with Netscape browsers).
- * This forces it to be uncompressed.
- */
-#define FEATURE_DENY_GZIP 1
 
 /*
  * Locally redirect remote script-redirect URLs

@@ -28,6 +28,10 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.19  2001/10/07 15:33:14  oes
+dnl Removed FEATURE_DENY_GZIP
+dnl Bumped up version number
+dnl
 dnl Revision 1.18  2001/09/13 13:10:24  steudten
 dnl
 dnl PreWork for Debug Interface.
@@ -198,7 +202,7 @@ dnl =================================================================
 
 VERSION_MAJOR=2
 VERSION_MINOR=9
-VERSION_POINT=8
+VERSION_POINT=9
 CODE_STATUS="\"alpha\""
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
@@ -477,14 +481,6 @@ AC_ARG_ENABLE(toggle,
 [if test $enableval = yes; then
   AC_DEFINE(FEATURE_TOGGLE)
 fi],AC_DEFINE(FEATURE_TOGGLE))
-
-AC_ARG_ENABLE(gzip,
-[  --disable-gzip          Block gzip'ed transfer of documents.  Note that
-                          this is required if you want content modification
-                          even with gzip-supporting servers.],
-[if test $enableval = "no"; then
-  AC_DEFINE(FEATURE_DENY_GZIP)
-fi])
 
 AC_ARG_ENABLE(force,
 [  --disable-force         Don't allow blockfile to be bypassed],
