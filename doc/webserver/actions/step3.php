@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.5  2002/04/02 07:22:43  oes
+  Cosmetics
+
   Revision 1.4  2002/04/01 19:13:47  oes
   Extended, fixed bugs, beefed up design, made IE-safe
 
@@ -56,9 +59,10 @@
 /* 
  * For testing:
  */
-error_reporting(E_NONE);
-//error_reporting(E_ALL);
 //phpinfo();
+//error_reporting(E_ALL);
+error_reporting(E_NONE);
+
 
 
 /* 
