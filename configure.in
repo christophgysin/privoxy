@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.51  2002/03/28 20:43:00  swa
+dnl set make correctly
+dnl
 dnl Revision 1.50  2002/03/27 03:03:45  hal9
 dnl Add test for man2html
 dnl
@@ -373,7 +376,7 @@ AC_PROG_CPP
 dnl AC_PROG_CXX
 dnl AC_PROG_INSTALL
 dnl AC_PROG_LN_S
-dnl AC_PROG_MAKE_SET
+AC_PROG_MAKE_SET
 dnl RANLIB is for PCRE:
 dnl AC_PROG_RANLIB
 
