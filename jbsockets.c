@@ -35,65 +35,16 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/06/29 13:29:15  oes
+ *    - Added remote (server) host IP to csp->http->host_ip_addr_str
+ *    - Added detection of local socket IP and fqdn
+ *    - Removed logentry from cancelled commit
+ *
  *    Revision 1.9  2001/06/07 23:06:09  jongfoster
  *    The host parameter to connect_to() is now const.
  *
  *    Revision 1.8  2001/06/03 19:12:07  oes
  *    filled comment
- *
- *    Revision 1.8  2001/06/03 11:03:48  oes
- *    Makefile/in
- *
- *    introduced cgi.c
- *
- *    actions.c:
- *
- *    adapted to new enlist_unique arg format
- *
- *    conf loadcfg.c
- *
- *    introduced confdir option
- *
- *    filters.c filtrers.h
- *
- *     extracted-CGI relevant stuff
- *
- *    jbsockets.c
- *
- *     filled comment
- *
- *    jcc.c
- *
- *     support for new cgi mechansim
- *
- *    list.c list.h
- *
- *    functions for new list type: "map"
- *    extended enlist_unique
- *
- *    miscutil.c .h
- *    introduced bindup()
- *
- *    parsers.c parsers.h
- *
- *    deleted const struct interceptors
- *
- *    pcrs.c
- *    added FIXME
- *
- *    project.h
- *
- *    added struct map
- *    added struct http_response
- *    changes struct interceptors to struct cgi_dispatcher
- *    moved HTML stuff to cgi.h
- *
- *    re_filterfile:
- *
- *    changed
- *
- *    showargs.c
- *    NO TIME LEFT
  *
  *    Revision 1.7  2001/05/28 16:14:00  jongfoster
  *    Fixing bug in LOG_LEVEL_LOG
@@ -197,6 +148,7 @@ int connect_to(const char *host, int portnum, struct client_state *csp)
 
    if ((addr = resolve_hostname_to_ip(host)) == -1)
    {
+	   csp->http->host_ip_addr_str = strdup("unknown");
       return(-1);
    }
 
@@ -213,6 +165,7 @@ int connect_to(const char *host, int portnum, struct client_state *csp)
 
    inaddr.sin_addr.s_addr = addr;
    inaddr.sin_family      = AF_INET;
+   csp->http->host_ip_addr_str = strdup(inet_ntoa(inaddr.sin_addr));
 
    if (sizeof(inaddr.sin_port) == sizeof(short))
    {
@@ -485,9 +438,13 @@ int bind_port(const char *hostnam, int portnum)
  *********************************************************************/
 int accept_connection(struct client_state * csp, int fd)
 {
-   struct sockaddr raddr;
+   struct sockaddr raddr, laddr;
    struct sockaddr_in *rap = (struct sockaddr_in *) &raddr;
-   int   afd, raddrlen;
+   struct sockaddr_in *lap = (struct sockaddr_in *) &laddr;
+   struct hostent *host = NULL;
+   int   afd, raddrlen, laddrlen;
+   extern int h_errno;
+   char *p;
 
    raddrlen = sizeof raddr;
    do
@@ -499,6 +456,25 @@ int accept_connection(struct client_state * csp, int fd)
    {
       return 0;
    }
+
+   /* 
+    * Determine the IP-Adress that the client used to reach us
+    * and the hostname associated with that address
+    */
+   if (!getsockname(afd, &laddr, &laddrlen))
+	{
+      csp->my_ip_addr_str = strdup(inet_ntoa(lap->sin_addr));
+
+      host = gethostbyaddr(laddr.sa_data + 2, 4, AF_INET);
+      if (host == NULL)
+      {
+         log_error(LOG_LEVEL_ERROR, "Unable to get my own hostname: %s\n", hstrerror(h_errno)); 
+      }
+      else
+	   {
+         csp->my_hostname = strdup(host->h_name);
+      }
+	}
 
    csp->cfd    = afd;
    csp->ip_addr_str  = strdup(inet_ntoa(rap->sin_addr));
