@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.6  2003/09/25 02:37:32  david__schmidt
+ *    Feature request 595948: Re-Filter logging in single line
+ *
  *    Revision 2.5  2003/09/22 00:33:01  david__schmidt
  *    Enable sending a custom 'blocked' image.  Shows up as
  *    "image-blocker-custom-file" parameter in config, and
@@ -1321,7 +1324,7 @@ int is_untrusted_url(struct client_state *csp)
 char *pcrs_filter_response(struct client_state *csp)
 {
    int hits=0;
-   size_t size;
+   size_t size, prev_size;
 
    char *old_buf = csp->iob->cur, *new_buf = NULL;
    pcrs_job *job;
@@ -1380,9 +1383,7 @@ char *pcrs_filter_response(struct client_state *csp)
                continue;
             }
 
-            log_error(LOG_LEVEL_RE_FILTER, "re_filtering %s%s (size %d) with filter %s...",
-                      csp->http->hostport, csp->http->path, size, b->name);
-
+            prev_size = size;
             /* Apply all jobs from the joblist */
             for (job = b->joblist; NULL != job; job = job->next)
             {
@@ -1391,7 +1392,9 @@ char *pcrs_filter_response(struct client_state *csp)
                old_buf=new_buf;
             }
 
-            log_error(LOG_LEVEL_RE_FILTER, " ...produced %d hits (new size %d).", current_hits, size);
+            log_error(LOG_LEVEL_RE_FILTER, "re_filtering %s%s (size %d) with filter %s produced %d hits (new size %d).",
+                      csp->http->hostport, csp->http->path, prev_size, b->name, current_hits, size);
+
             hits += current_hits;
          }
       }
