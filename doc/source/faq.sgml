@@ -114,7 +114,7 @@ Hal.
  This FAQ gives quick answers to frequently asked  questions about
  <ulink url="http://www.privoxy.org/">Privoxy</ulink> 
  <![%p-stable;[ v.&p-version]]>. It can't and doesn't replace the
- <ulink url="../user-manual/index.html">user manual</ulink>.
+ <ulink url="../user-manual/index.html"><citetitle>User Manual</citetitle></ulink>.
  </para>
 
 <!-- Include privoxy.sgml boilerplate: -->
@@ -124,7 +124,8 @@ Hal.
  <para>
   You can find the latest version of the document at <ulink
   url="http://www.privoxy.org/faq/">http://www.privoxy.org/faq/</ulink>.
-  Please see the Contact section if you want to contact the developers.
+  Please see the <link linkend="contact">Contact section</link> if you want to
+  contact the developers. 
  </para>
 
 <!--   <para> -->
@@ -1485,6 +1486,55 @@ What can I do?</title>
 
 </sect2>
 
+
+<!--   ~~~~~       New section      ~~~~~     -->
+<sect2 id="dun">
+<title>After installing <application>Privoxy</application>, I have to log in
+every time I start IE. What gives?</title>
+
+<para>
+ This is a quirk that effects the installation of
+ <application>Privoxy</application>, in conjunction with Internet Explorer and
+ Internet Connection Sharing on Windows 2000 and Windows XP. The symptoms may
+ appear to be corrupted or invalid DUN settings, or passwords.
+</para>
+
+<para>
+ When setting up an NT based Windows system with
+ <application>Privoxy</application> you may find that things do not seem to be
+ doing what you expect. When you set your system up you will probably have set
+ up Internet Connection Sharing (ICS) with Dial up Networking (DUN) when
+ logged in with administrator privileges. You will probably have made this DUN
+ connection available to other accounts that you may have set-up on your
+ system. E.g. Mum or Dad sets up the system and makes accounts suitably
+ configured for the kids.
+</para>
+
+<para>
+ When setting up <application>Privoxy</application> in this environment you
+ will have to alter the proxy set-up of Internet Explorer (IE) for the
+ specific DUN connection on which you wish to use
+ <application>Privoxy</application>. When you do this the ICS DUN set-up
+ becomes user specific. In this instance you will see no difference if you
+ change the DUN connection under the account used to set-up the connection.
+ However when you do this from another user you will notice that the DUN
+ connection changes to make available to "Me only". You will also find that
+ you have to store the password under each different user!
+</para>
+
+<para>
+ The reason for this is that each user's set-up for IE is user specific. Each
+ set-up DUN connection and each LAN connection in IE store the settings for
+ each user individually. As such this enforces individual configurations
+ rather than common ones. Hence the first time you use a DUN connection after
+ re-booting your system it may not perform as you expect, and prompt you for 
+ the password. Just set and save the password again and all should be OK.
+</para>
+
+<para>
+[Thanks to Ray Griffith for this submission.]
+</para>
+</sect2>
 </sect1>
 <!--
 </sect1>
@@ -1577,6 +1627,9 @@ FIXME: Commented out until we have something to put here. HB 03/18/02.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 1.61.2.1  2002/06/05 23:10:43  hal9
+Add new FAQ re: DUN/IE. Change release date from May to June :)
+
 Revision 1.61  2002/05/25 12:37:25  hal9
 Various minor changes and edits.
 
