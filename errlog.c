@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/05/29 11:52:21  oes
+ *    Conditional compilation of w32_socket_error
+ *
  *    Revision 1.9  2001/05/28 16:15:17  jongfoster
  *    Improved reporting of errors under Win32.
  *
@@ -602,6 +605,7 @@ void log_error(int loglevel, char *fmt, ...)
 }
 
 
+#ifdef _WIN32
 /*********************************************************************
  *
  * Function    :  w32_socket_strerr
@@ -688,6 +692,7 @@ static char * w32_socket_strerr(int errcode, char * tmp_buf)
    sprintf(tmp_buf, "(error number %d)", errcode);
    return tmp_buf;
 }
+#endif /* def _WIN32 */
 
 
 /*
