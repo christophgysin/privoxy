@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2002/01/17 21:03:47  jongfoster
+ *    Moving all our URL and URL pattern parsing code to urlmatch.c.
+ *
  *    Revision 1.18  2001/10/26 17:40:23  oes
  *    Introduced get_header_value()
  *    Removed client_accept()
@@ -140,9 +143,6 @@ extern int add_to_iob(struct client_state *csp, char *buf, int n);
 extern char *get_header(struct client_state *csp);
 extern char *get_header_value(const struct list *header_list, const char *header_name);
 extern char *sed(const struct parsers pats[], void (* const more_headers[])(struct client_state *), struct client_state *csp);
-
-extern void free_http_request(struct http_request *http);
-extern void parse_http_request(char *req, struct http_request *http, struct client_state *csp);
 
 extern char *crumble(const struct parsers *v, const char *s, struct client_state *csp);
 

@@ -8,8 +8,7 @@
  * Purpose     :  Declares functions to parse/crunch headers and pages.
  *                Functions declared include:
  *                   `acl_addr', `add_stats', `block_acl', `block_imageurl',
- *                   `block_url', `url_actions', `domaincmp', `dsplit',
- *                   `filter_popups', `forward_url'
+ *                   `block_url', `url_actions', `filter_popups', `forward_url'
  *                   `ij_untrusted_url', `intercept_url', `re_process_buffer',
  *                   `show_proxy_args', and `trust_url'
  *
@@ -40,6 +39,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2002/01/17 21:01:02  jongfoster
+ *    Moving all our URL and URL pattern parsing code to urlmatch.c.
+ *
  *    Revision 1.15  2001/10/10 16:44:16  oes
  *    Added match_portlist function
  *
@@ -237,9 +239,6 @@ extern void apply_url_actions(struct current_action_spec *action,
  * Determining parent proxies
  */
 extern const struct forward_spec *forward_url(struct http_request *http, struct client_state *csp);
-
-extern struct url_spec dsplit(char *domain);
-extern int domaincmp(struct url_spec *pattern, struct url_spec *fqdn);
 
 /*
  * Content modification
