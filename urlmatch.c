@@ -33,6 +33,10 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10.2.6  2003/05/07 12:39:48  oes
+ *    Fix typo: Default port for https URLs is 443, not 143.
+ *    Thanks to Scott Tregear for spotting this one.
+ *
  *    Revision 1.10.2.5  2003/02/28 13:09:29  oes
  *    Fixed a rare double free condition as per Bug #694713
  *
@@ -313,7 +317,7 @@ jb_err parse_http_url(const char * url,
       else
       {
          /* No port specified. */
-         http->port = (http->ssl ? 143 : 80);
+         http->port = (http->ssl ? 443 : 80);
       }
 
       http->host = strdup(host);
