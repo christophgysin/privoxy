@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.53  2002/03/08 16:48:55  oes
+ *    Added FEATURE_NO_GIFS and BUILTIN_IMAGE_MIMETYPE
+ *
  *    Revision 1.52  2002/03/07 03:46:17  oes
  *    Fixed compiler warnings
  *
@@ -984,6 +987,13 @@ struct configuration_spec
 #ifdef FEATURE_FORCE_LOAD
 #define FORCE_PREFIX "/IJB-FORCE-LOAD"
 #endif /* def FEATURE_FORCE_LOAD */
+
+#ifdef FEATURE_NO_GIFS
+#define BUILTIN_IMAGE_MIMETYPE "image/png"
+#else
+#define BUILTIN_IMAGE_MIMETYPE "image/gif"
+#endif /* def FEATURE_NO_GIFS */
+
 
 /* Hardwired URLs */
 #define HOME_PAGE_URL       "http://ijbswa.sourceforge.net"
