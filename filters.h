@@ -40,6 +40,63 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/06/03 19:12:00  oes
+ *    extracted-CGI relevant stuff
+ *
+ *    Revision 1.8  2001/06/03 11:03:48  oes
+ *    Makefile/in
+ *
+ *    introduced cgi.c
+ *
+ *    actions.c:
+ *
+ *    adapted to new enlist_unique arg format
+ *
+ *    conf loadcfg.c
+ *
+ *    introduced confdir option
+ *
+ *    filters.c filtrers.h
+ *
+ *     extracted-CGI relevant stuff
+ *
+ *    jbsockets.c
+ *
+ *     filled comment
+ *
+ *    jcc.c
+ *
+ *     support for new cgi mechansim
+ *
+ *    list.c list.h
+ *
+ *    functions for new list type: "map"
+ *    extended enlist_unique
+ *
+ *    miscutil.c .h
+ *    introduced bindup()
+ *
+ *    parsers.c parsers.h
+ *
+ *    deleted const struct interceptors
+ *
+ *    pcrs.c
+ *    added FIXME
+ *
+ *    project.h
+ *
+ *    added struct map
+ *    added struct http_response
+ *    changes struct interceptors to struct cgi_dispatcher
+ *    moved HTML stuff to cgi.h
+ *
+ *    re_filterfile:
+ *
+ *    changed
+ *
+ *    showargs.c
+ *    NO TIME LEFT
+ *
  *    Revision 1.7  2001/05/31 21:21:30  jongfoster
  *    Permissionsfile / actions file changes:
  *    - Changed "permission" to "action" throughout
@@ -165,9 +222,6 @@ extern char *block_url(struct http_request *http, struct client_state *csp);
 #ifdef TRUST_FILES
 extern char *trust_url(struct http_request *http, struct client_state *csp);
 #endif /* def TRUST_FILES */
-extern int intercept_url(struct http_request *http, struct client_state *csp);
-extern char *redirect_url(struct http_request *http, struct client_state *csp);
-
 #ifdef IMAGE_BLOCKING
 extern int block_imageurl(struct http_request *http, struct client_state *csp);
 #endif /* def IMAGE_BLOCKING */
@@ -182,19 +236,6 @@ extern const struct gateway *forward_url(struct http_request *http, struct clien
 
 extern struct url_spec dsplit(char *domain);
 extern int domaincmp(struct url_spec *pattern, struct url_spec *fqdn);
-
-extern char *show_proxy_args(struct http_request *http, struct client_state *csp);
-extern char *ijb_send_banner(struct http_request *http, struct client_state *csp);
-
-#ifdef TRUST_FILES
-extern char *ij_untrusted_url(struct http_request *http, struct client_state *csp);
-#endif /* def TRUST_FILES */
-
-char *ijb_show_url_info(struct http_request *http, struct client_state *csp);
-
-#ifdef STATISTICS
-extern char *add_stats(char *s);
-#endif /* def STATISTICS */
 
 #ifdef PCRS
 extern char *re_process_buffer(struct client_state *csp);
