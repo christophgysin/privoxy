@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.15  2002/04/09 15:08:10  oes
+  Restoring lost text change
+
   Revision 1.14  2002/04/08 17:04:05  oes
   Adapt to unified stylesheet
 
@@ -321,7 +324,7 @@ curl_close ($ch);
    </p>
 
    <p>
-    It will be reviewed by the developers and used to improve the
+    The developers will review and use your submission to improve the
     distribution actions file.
    </p>
    
