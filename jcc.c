@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.42  2001/09/21 23:02:02  david__schmidt
+ *    Cleaning up 2 compiler warnings on OS/2.
+ *
  *    Revision 1.41  2001/09/16 17:05:14  jongfoster
  *    Removing unused #include showarg.h
  *
@@ -331,6 +334,10 @@ const char jcc_rcs[] = "$Id$";
 # ifdef __BEOS__
 #  include <socket.h>  /* BeOS has select() for sockets only. */
 #  include <OS.h>      /* declarations for threads and stuff. */
+# endif
+
+# ifdef __EMX__
+#  include <sys/select.h>  /* OS/2/EMX needs a little help with select */
 # endif
 
 # ifndef FD_ZERO

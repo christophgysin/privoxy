@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/09/21 23:02:02  david__schmidt
+ *    Cleaning up 2 compiler warnings on OS/2.
+ *
  *    Revision 1.17  2001/09/13 20:11:46  jongfoster
  *    Fixing 2 compiler warnings under Win32
  *
@@ -126,6 +129,10 @@ const char jbsockets_rcs[] = "$Id$";
 #include <arpa/inet.h>
 #else
 #include <socket.h>
+#endif
+
+#ifdef __EMX__
+#include <sys/select.h>  /* OS/2/EMX needs a little help with select */
 #endif
 
 #endif
