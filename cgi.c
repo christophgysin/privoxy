@@ -36,6 +36,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/08/05 15:57:38  oes
+ *    Adapted finish_http_response to new list_to_text
+ *
  *    Revision 1.16  2001/08/01 21:33:18  jongfoster
  *    Changes to fill_template() that reduce memory usage without having
  *    an impact on performance.  I also renamed some variables so as not
@@ -845,8 +848,7 @@ struct http_response *finish_http_response(struct http_response *rsp)
    enlist_unique(rsp->headers, "Last-Modified: Thu Jul 31, 1997 07:42:22 pm GMT", 14);
    enlist_unique(rsp->headers, "Expires:       Thu Jul 31, 1997 07:42:22 pm GMT", 8);
    enlist_unique(rsp->headers, "Content-Type: text/html", 13);
-   enlist(rsp->headers, "");
-  
+
 
    /* 
     * Write the head
