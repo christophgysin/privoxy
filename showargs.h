@@ -1,5 +1,5 @@
-#ifndef _SHOWARGS_H
-#define _SHOWARGS_H
+#ifndef SHOWARGS_H_INCLUDED
+#define SHOWARGS_H_INCLUDED
 #define SHOWARGS_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/07/29 18:51:02  jongfoster
+ *    Adding editor control block, and renaming _SHOWARGS_H
+ *
  *    Revision 1.5  2001/06/29 13:35:41  oes
  *    adapted to reflect the changes in showargs.c
  *
@@ -75,4 +78,11 @@ extern const char showargs_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _SHOWARGS_H */
+#endif /* ndef SHOWARGS_H_INCLUDED */
+
+/*
+  Local Variables:
+  tab-width: 3
+  end:
+*/
+
