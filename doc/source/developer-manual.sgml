@@ -32,10 +32,15 @@
 
     <abstract>
       <para>
-    The developer manual gives the users information on how to help the developer
+The developer manual gives the users information on how to help the developer
 team. It provides guidance on coding, testing, documentation and other
-issues. The Internet Junkbuster is an application
-that provides privacy and security to the user of the world wide web.
+issues. <application>Internet Junkbuster</application> is a web proxy with
+advanced filtering capabilities for protecting privacy, filtering web page
+content, managing cookies, controlling access, and removing ads, banners,
+pop-ups and other obnoxious Internet Junk. Junkbuster has a very flexible
+configuration and can be customized to suit individual needs and
+tastes. <application>Internet Junkbuster</application> has application for
+both stand-alone systems and multi-user networks.
  </para>
       <para>
 You can find the latest version of the user manual at <ulink
@@ -43,9 +48,10 @@ url="http://ijbswa.sourceforge.net/developer-manual/">http://ijbswa.sourceforge.
 Please see the Contact section in the user-manual if you want to contact the developers.
  </para>
 
-      <para>
-  Feel free to send a note to the developers at <email>ijbswa-developers@lists.sourceforge.net</email>.
- </para>
+<!--        <para> -->
+<!--    Feel free to send a note to the developers at <email>ijbswa-developers@lists.sourceforge.net</email>. -->
+<!--   </para> -->
+
     </abstract>
   </artheader>
 
@@ -1470,6 +1476,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.7  2002/03/11 13:13:27  swa
+  correct feedback channels
+
   Revision 1.6  2002/02/24 14:25:06  jongfoster
   Formatting changes.  Now changing the doctype to DocBook XML 4.1
   will work - no other changes are needed.
