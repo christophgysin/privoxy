@@ -28,6 +28,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.11  2001/06/11 11:26:35  sarantis
+# RPM version should be the same as ijbswa version.  The rpm release is
+# specified in the specfile.
+#
 # Revision 1.10  2001/06/07 17:27:45  swa
 # added suse build section
 #
@@ -71,7 +75,7 @@ VERSION_MAJOR = @VERSION_MAJOR@
 VERSION_MINOR = @VERSION_MINOR@
 VERSION_POINT = @VERSION_POINT@
 VERSION       = $(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_POINT)
-RPM_VERSION   = $(VERSION_MAJOR).$(VERSION_MINOR)
+RPM_VERSION   = $(VERSION)
 
 # The version is currently specified in config.h, which is
 # written by "configure".
@@ -218,7 +222,7 @@ redhat-dist:
 	rm -f ../ijbswa.tar.gz
 	tar  --exclude "junkbuster-suse.spec" -cvzf ../ijbswa.tar.gz .
 # verify all version strings, FLAGS, etc. in the spec file
-	cat junkbuster-rh.spec | sed 's/^Version:.*/Version: $(RPM_VERSION)/g' | sed 's/^Release:.*/Release: $(VERSION_POINT)/g' > /tmp/abc && cp -f /tmp/abc junkbuster-rh.spec
+#	cat junkbuster-rh.spec | sed 's/^Version:.*/Version: $(RPM_VERSION)/g' | sed 's/^Release:.*/Release: $(VERSION_POINT)/g' > /tmp/abc && cp -f /tmp/abc junkbuster-rh.spec
 # verify all files in their correct location needs to be done
 	cd .. && rpm -ta ijbswa.tar.gz
 
