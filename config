@@ -315,7 +315,7 @@ jarfile jarfile
 #      If you use + operator in the trust file, it may grow considerably
 #      over time.
 #  
-#trusfile trust
+#trustfile trust
 
 
 #  2. LOCAL SET-UP DOCUMENTATION
