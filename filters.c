@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2001/09/16 17:05:14  jongfoster
+ *    Removing unused #include showarg.h
+ *
  *    Revision 1.32  2001/09/16 13:21:27  jongfoster
  *    Changes to use new list functions.
  *
@@ -294,12 +297,8 @@ const char filters_rcs[] = "$Id$";
 #include "project.h"
 #include "filters.h"
 #include "encode.h"
-#include "jcc.h"
-#include "showargs.h"
 #include "parsers.h"
 #include "ssplit.h"
-#include "gateway.h"
-#include "jbsockets.h"
 #include "errlog.h"
 #include "jbsockets.h"
 #include "miscutil.h"

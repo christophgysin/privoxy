@@ -35,6 +35,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.2  2001/09/16 17:05:14  jongfoster
+ *    Removing unused #include showarg.h
+ *
  *    Revision 1.1  2001/09/16 15:47:37  jongfoster
  *    First version of CGI-based edit interface.  This is very much a
  *    work-in-progress, and you can't actually use it to edit anything
@@ -73,7 +76,6 @@ const char cgiedit_rcs[] = "$Id$";
 #include "actions.h"
 #include "errlog.h"
 #include "miscutil.h"
-#include "showargs.h"
 #include "loadcfg.h"
 
 const char cgiedit_h_rcs[] = CGIEDIT_H_VERSION;

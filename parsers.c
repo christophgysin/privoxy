@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2001/09/16 17:05:14  jongfoster
+ *    Removing unused #include showarg.h
+ *
  *    Revision 1.25  2001/09/16 13:21:27  jongfoster
  *    Changes to use new list functions.
  *
@@ -244,7 +247,6 @@ const char parsers_rcs[] = "$Id$";
 #include "encode.h"
 #include "filters.h"
 #include "loaders.h"
-#include "showargs.h"
 #include "jcc.h"
 #include "ssplit.h"
 #include "errlog.h"

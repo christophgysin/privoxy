@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.41  2001/09/16 17:05:14  jongfoster
+ *    Removing unused #include showarg.h
+ *
  *    Revision 1.40  2001/09/16 15:41:45  jongfoster
  *    Fixing signed/unsigned comparison warning.
  *
@@ -341,7 +344,6 @@ const char jcc_rcs[] = "$Id$";
 #include "jcc.h"
 #include "filters.h"
 #include "loaders.h"
-#include "showargs.h"
 #include "parsers.h"
 #include "killpopup.h"
 #include "miscutil.h"
