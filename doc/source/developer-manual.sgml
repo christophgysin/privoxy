@@ -8,8 +8,8 @@
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
-<!entity p-version "2.9.15">
-<!entity p-status "beta">
+<!entity p-version "3.1.1">
+<!entity p-status "alpha">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
@@ -2449,16 +2449,29 @@ at sourceforge. Three simple steps:
 	First, <emphasis>make sure that you have freshly exported the right
         version into an empty directory</emphasis>. (See "Building and releasing
         packages" above). Then, run:
-	</para>
-	<para>
+      </para>
+      <para>
 	<programlisting>
   cd current
   autoheader && autoconf && ./configure
 </programlisting>
-	</para>
-	<para>
-	Then do FIXME.
-	</para>
+      </para>
+      <para>
+        Then, run:
+      </para>
+      <para>
+	<programlisting>
+  make debian-dist
+</programlisting>
+      </para>
+      <para>
+        To upload the package to Sourceforge, simply issue
+      </para>
+      <para>
+        <programlisting>
+  make debian-upload
+</programlisting>
+      </para>
     </sect3>
 
     <sect3 id="newrelease-macosx"><title>Mac OSX</title>
@@ -2801,6 +2814,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.47  2002/05/26 04:55:11  mal0rd
+  Added debian-dist and debian-upload targets.  Also documented usage.
+
   Revision 1.46  2002/05/22 17:15:00  oes
   Updated intro
 
