@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2001/09/10 10:18:51  oes
+ *    Silenced compiler warnings
+ *
  *    Revision 1.27  2001/08/05 16:06:20  jongfoster
  *    Modifiying "struct map" so that there are now separate header and
  *    "map_entry" structures.  This means that functions which modify a
@@ -687,7 +690,7 @@ struct http_response *redirect_url(struct client_state *csp)
    /* 
     * find the last URL encoded in the request
     */
-   while (p = strstr(p, "http://"))
+   while ((p = strstr(p, "http://")))
    {
       q = p++;
    }
@@ -1147,9 +1150,11 @@ void apply_url_actions(struct current_action_spec *action,
 const struct forward_spec * forward_url(struct http_request *http,
                                         struct client_state *csp)
 {
-   static const struct forward_spec fwd_default[1] = { 0 }; /* All zeroes */
+   static const struct forward_spec fwd_default[1];
    struct forward_spec *fwd = csp->config->forward;
    struct url_spec url[1];
+
+   memset(&fwd_default, '\0', sizeof(struct forward_spec));
 
    if (fwd == NULL)
    {

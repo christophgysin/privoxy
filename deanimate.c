@@ -37,6 +37,9 @@ const char deanimate_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/09/10 10:16:06  oes
+ *    Silenced compiler warnings
+ *
  *    Revision 1.4  2001/07/18 12:28:49  oes
  *    - Added feature for extracting the first frame
  *      to gif_deanimate
@@ -233,7 +236,7 @@ int gif_skip_data_block(struct binbuffer *buf)
     * by a one-byte length field, with the last chunk having
     * zero length.
     */
-   while(c = buf_getbyte(buf, 0))
+   while((c = buf_getbyte(buf, 0)))
    {
       if ((buf->offset += c + 1) >= buf->size - 1)
       {
@@ -291,7 +294,7 @@ int gif_extract_image(struct binbuffer *src, struct binbuffer *dst)
    /*
     * Copy the image chunk by chunk.
     */
-   while(c = buf_getbyte(src, 0))
+   while((c = buf_getbyte(src, 0)))
    {
       if (buf_copy(src, dst, c + 1)) return 1;
    }
