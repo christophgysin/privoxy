@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.52  2001/10/26 20:11:20  jongfoster
+ *    Fixing type mismatch
+ *
  *    Revision 1.51  2001/10/26 17:38:28  oes
  *    Cosmetics
  *
@@ -1083,7 +1086,7 @@ static void chat(struct client_state *csp)
                 * switch to non-filtering mode, i.e. make & write the
                 * header, flush the socket and get out of the way.
                 */
-               if (csp->iob->eod - csp->iob->buf + BUFFER_SIZE > csp->config->buffer_limit)
+               if (((size_t)(csp->iob->eod - csp->iob->buf)) + (size_t)BUFFER_SIZE > csp->config->buffer_limit)
                {
                   log_error(LOG_LEVEL_ERROR, "Buffer size limit reached! Flushing and stepping back.");
 
