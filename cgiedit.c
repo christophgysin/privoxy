@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.36  2002/04/26 21:53:30  jongfoster
+ *    Fixing a memory leak.  (Near, but not caused by, my earlier commit).
+ *
  *    Revision 1.35  2002/04/26 21:50:02  jongfoster
  *    Honouring default exports in edit-actions-for-url-filter template.
  *
@@ -2922,6 +2925,9 @@ jb_err cgi_edit_actions_for_url(struct client_state *csp,
             free_map(line_exports);
          }
       }
+
+      freez(filter_template);
+
       if (!err)
       {
          err = map(exports, "filter-params", 1, result, 0);
