@@ -61,6 +61,13 @@
 #  files in the current working directory.  In either case, an
 #  absolute path name can be used to avoid problems.
 
+# While we go modular and multiuser, the blocker, filter, and 
+# per-user config will be stored in subdirectories of confdir.
+# Now, only confdir/templates is used for storing HTML templates
+# for CGI results.
+#
+confdir /home/oes/projekte/pcrs/ijb/confdir
+
 #
 #  The permissions file contains patterns to specify the
 #  filtering rules to apply to each site.
