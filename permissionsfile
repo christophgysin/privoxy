@@ -194,7 +194,7 @@ c3 = +no-cookies-set -no-cookies-read
 +hide-referer{forge} \
 -hide-user-agent \
 -image \
-+image-blocker{logo} \
++image-blocker{blank} \
 +no-cookies-read \
 +no-cookies-set \
 +no-popups \
