@@ -180,7 +180,7 @@ trust-info-url http://www.your-site.com/what_we_allow.html
 #
 #  Default: Don't show a link to online documentation
 #
-proxy-info-url http://www.your-site.com/proxy.html
+#proxy-info-url http://www.your-site.com/proxy.html
 
 #
 #  Listen-address specifies the address and port where Junkbuster will
