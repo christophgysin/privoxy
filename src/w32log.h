@@ -34,6 +34,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/09/05 08:57:47  oes
+ *    Synced with the stable branch:
+ *        Revision 1.10.2.1  2002/08/21 17:58:05  oes
+ *        Temp kludge to let user and default action file be edited through win32 GUI (FR 592080)
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -135,7 +140,8 @@ extern int g_nFontSize;
 
 /* FIXME: this is a kludge */
 
-extern const char * g_actions_file;
+extern const char * g_default_actions_file;
+extern const char * g_user_actions_file;
 extern const char * g_re_filterfile;
 #ifdef FEATURE_TRUST
 extern const char * g_trustfile;
