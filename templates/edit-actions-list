@@ -31,6 +31,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.21  2002/05/03 22:58:15  jongfoster
+#    Fixing link target in all URLs section
+#
 #    Revision 1.20  2002/04/26 12:57:18  oes
 #     - Central "button" link style in cgi-style.css
 #     - Help links now dynamic
@@ -281,7 +284,7 @@ function rm_p(pattern,curtext)
             <tr class="actions" valign="top">
               <td class="header" align="right">Actions:</td>
               <td class="buttons" align="center">
-                <p><a name="l@s@" href="eafu?f=@f@&amp;v=@v@&amp;s=@all-urls-s@">Edit</a></p>
+                <p><a name="l@all-urls-s@" href="eafu?f=@f@&amp;v=@v@&amp;s=@all-urls-s@">Edit</a></p>
                 @all-urls-buttons@
               </td>
               <td class="action" align="left">@all-urls-actions@</td>
