@@ -38,6 +38,12 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.58.2.1  2002/07/26 15:18:53  oes
+ *    - Bugfix: Executing a filters without jobs no longer results in
+ *      turing off *all* filters.
+ *    - Security fix: Malicious web servers can't cause a seg fault
+ *      through bogus chunk sizes anymore
+ *
  *    Revision 1.58  2002/04/24 02:11:17  oes
  *    Jon's multiple AF patch: url_actions now evaluates rules
  *    from all AFs.
@@ -1315,7 +1321,7 @@ char *pcrs_filter_response(struct client_state *csp)
             if ( NULL == b->joblist )
             {
                log_error(LOG_LEVEL_RE_FILTER, "Filter %s has empty joblist. Nothing to do.", b->name);
-               return(NULL);
+               continue;
             }
 
             log_error(LOG_LEVEL_RE_FILTER, "re_filtering %s%s (size %d) with filter %s...",
@@ -1466,7 +1472,12 @@ int remove_chunked_transfer_coding(char *buffer, const size_t size)
          log_error(LOG_LEVEL_ERROR, "Parse error while stripping \"chunked\" transfer coding");
          return(0);
       }
-      newsize += chunksize;
+
+      if ((newsize += chunksize) >= size)
+      {
+         log_error(LOG_LEVEL_ERROR, "Chunksize exceeds buffer in  \"chunked\" transfer coding");
+         return(0);
+      }
       from_p += 2;
 
       memmove(to_p, from_p, (size_t) chunksize);
