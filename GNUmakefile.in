@@ -672,12 +672,13 @@ webserver: tidy
 	@$(ECHO) Uploading 
 	@cd doc/webserver; \
           upload=`find . -type f -a -not \( -path "*/CVS*" -o -path "*/results*" \)`; \
-          $(TAR) c $$upload | ssh ijbswa.sourceforge.net 'cd /home/groups/i/ij/ijbswa/htdocs/; tar xvm'
+          $(TAR) c $$upload | ssh ijbswa.sourceforge.net 'cd /home/groups/i/ij/ijbswa/htdocs/; tar xvm 2>&1 | grep -v timestamp'
 
 	@$(ECHO) Fixing permissions
-	@ssh ijbswa.sourceforge.net 'find /home/groups/i/ij/ijbswa/htdocs/ -type d | xargs chmod 775 2>/dev/null'
-	@ssh ijbswa.sourceforge.net 'find /home/groups/i/ij/ijbswa/htdocs/ -type f | xargs chmod 664 2>/dev/null'
-	@ssh ijbswa.sourceforge.net 'chmod 666 /home/groups/i/ij/ijbswa/htdocs/actions/results/actions-feedback.txt 2>/dev/null'
+	@ssh ijbswa.sourceforge.net 'chmod -R 775 /home/groups/i/ij/ijbswa/htdocs 2>/dev/null; true'
+	@ssh ijbswa.sourceforge.net 'find /home/groups/i/ij/ijbswa/htdocs/ -type f | xargs chmod 664 2>/dev/null; true'
+	@ssh ijbswa.sourceforge.net 'chmod 666 /home/groups/i/ij/ijbswa/htdocs/actions/results/actions-feedback.txt 2>/dev/null; true'
+
 
 web-actions: tidy
 	@$(ECHO) Uploading 
@@ -800,6 +801,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.79  2002/04/11 06:49:28  oes
+# webserver target: silenced timestamp warnings resulting from uploading westwards, made permissions fixing independant of screwed local dir permissions, suppress (false alarm) make error if not owner of feedback log
+#
 # Revision 1.78  2002/04/09 13:37:11  sarantis
 # fix tar options typo
 #
