@@ -28,8 +28,13 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
-# Revision 1.1  2001/05/15 13:59:00  oes
-# Initial revision
+# Revision 1.2  2001/05/17 22:23:23  oes
+#  - Added auto-generation of CRLFs for Win32 config files
+#  - Added comment-prefix to all Win32-only options in the config file
+#    and provided auto stripping of this prefix for the Win32 platform by make
+#
+# Revision 1.1.1.1  2001/05/15 13:59:00  oes
+# Initial import of version 2.9.3 source tree
 #
 #
 
@@ -148,7 +153,7 @@ SUFFIX     = .txt:o
 .SUFFIXES  : .txt
 
 %.txt:
-	sed -e 's/$$//' < $< > $@
+	sed -e 's/$$/&/' < $< > $@
 
 inifiles: $(W32_INIS)
 
@@ -163,7 +168,8 @@ junkbstr.txt: config
 			-e 's!\(/var/log/junkbuster\|.\)/junkbuster\.log!junkbstr.log!' \
 			-e 's!\(/etc/junkbuster\|.\)/imagelist!simage.txt!' \
 			-e 's!\(/etc/junkbuster\|.\)/re_filterfile!sregexp.txt!' \
-			-e 's!$$!!' \
+			-e 's!$$!&!' \
+			-e 's!#Win32-only: !!' \
 	< $< > $@
 
 saclfile.txt: aclfile
