@@ -33,6 +33,12 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.80  2002/03/11 22:07:05  david__schmidt
+ *    OS/2 port maintenance:
+ *    - Fixed EMX build - it had decayed a little
+ *    - Fixed inexplicable crash during FD_ZERO - must be due to a bad macro.
+ *      substituted a memset for now.
+ *
  *    Revision 1.79  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on
@@ -595,7 +601,7 @@ static int32 server_thread(void *data);
 #define sleep(N)  DosSleep(((N) * 100))
 #endif
 
-#if defined(unix)
+#if defined(unix) || defined(__EMX__)
 const char *basedir;
 const char *pidfile = NULL;
 int received_hup_signal = 0;
@@ -1142,8 +1148,15 @@ static void chat(struct client_state *csp)
 
    while (FOREVER)
    {
+#ifdef __OS2__
+      /*
+       * FD_ZERO here seems to point to an errant macro which crashes.
+       * So do this by hand for now...
+       */
+      memset(&rfds,0x00,sizeof(fd_set));
+#else
       FD_ZERO(&rfds);
-
+#endif
       FD_SET(csp->cfd, &rfds);
       FD_SET(csp->sfd, &rfds);
 

@@ -35,6 +35,12 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2002/03/11 22:07:02  david__schmidt
+ *    OS/2 port maintenance:
+ *    - Fixed EMX build - it had decayed a little
+ *    - Fixed inexplicable crash during FD_ZERO - must be due to a bad macro.
+ *      substituted a memset for now.
+ *
  *    Revision 1.25  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on
@@ -184,7 +190,9 @@ const char jbsockets_rcs[] = "$Id$";
 
 #if defined(__EMX__) || defined (__OS2__)
 #include <sys/select.h>  /* OS/2/EMX needs a little help with select */
+#ifdef __OS2__
 #include <nerrno.h>
+#endif
 #endif
 
 #endif
