@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2002/03/13 00:27:05  jongfoster
+ *    Killing warnings
+ *
  *    Revision 1.5  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on
@@ -88,7 +91,7 @@ extern "C" {
 struct client_state;
 
 extern jb_socket connect_to(const char *host, int portnum, struct client_state *csp);
-extern int write_socket(jb_socket fd, const char *buf, int n);
+extern int write_socket(jb_socket fd, const char *buf, size_t n);
 extern int read_socket(jb_socket fd, char *buf, int n);
 extern void close_socket(jb_socket fd);
 

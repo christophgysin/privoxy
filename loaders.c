@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.42  2002/03/13 00:27:05  jongfoster
+ *    Killing warnings
+ *
  *    Revision 1.41  2002/03/12 01:42:50  oes
  *    Introduced modular filters
  *
@@ -313,7 +316,7 @@ void sweep(void)
       fl->active = 0;
    }
 
-   for (csp = clients; csp && (ncsp = csp->next) ; csp = csp->next)
+   for (csp = clients; csp && (NULL != (ncsp = csp->next)) ; csp = csp->next)
    {
       if (ncsp->flags & CSP_FLAG_ACTIVE)
       {
@@ -379,13 +382,13 @@ void sweep(void)
             freez(ncsp);
 
             /* are there any more in sequence after it? */
-            if( !(ncsp = csp->next) )
+            if( (ncsp = csp->next) == NULL)
                break;
          }
       }
    }
 
-   for (fl = files; fl && (nfl = fl->next) ; fl = fl->next)
+   for (fl = files; fl && ((nfl = fl->next) != NULL) ; fl = fl->next)
    {
       if ( ( 0 == nfl->active ) && ( NULL != nfl->unloader ) )
       {
@@ -522,7 +525,7 @@ jb_err simple_read_line(FILE *fp, char **dest, int *newline)
 #define CHAR_CR '\r' /* ASCII 13 */
 #define CHAR_LF '\n' /* ASCII 10 */
 
-   while (FOREVER)
+   for (;;)
    {
       ch = fgetc(fp);
       if (ch == EOF)
@@ -1021,7 +1024,7 @@ int load_trustfile(struct client_state *csp)
          reject = 0;
          p = buf;
          q = p+1;
-         while ((*p++ = *q++))
+         while ((*p++ = *q++) != '\0')
          {
             /* nop */
          }

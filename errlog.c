@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2002/03/13 00:27:04  jongfoster
+ *    Killing warnings
+ *
  *    Revision 1.32  2002/03/07 03:46:17  oes
  *    Fixed compiler warnings
  *
@@ -318,7 +321,7 @@ void init_error_log(const char *prog_name, const char *logfname, int debuglevel)
    /* set the designated log file */
    if( logfname )
    {
-      if( !(fp = fopen(logfname, "a")) )
+      if( NULL == (fp = fopen(logfname, "a")) )
       {
          log_error(LOG_LEVEL_FATAL, "init_error_log(): can't open logfile: %s", logfname);
       }

@@ -34,6 +34,9 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2002/03/13 00:29:59  jongfoster
+ *    Killing warnings
+ *
  *    Revision 1.12  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on
@@ -330,7 +333,7 @@ static jb_socket socks4_connect(const struct forward_spec * fwd,
       return(JB_INVALID_SOCKET);
    }
 
-   if (write_socket(sfd, (char *)c, (int)csiz))
+   if (write_socket(sfd, (char *)c, csiz))
    {
       log_error(LOG_LEVEL_CONNECT, "SOCKS4 negotiation write failed...");
       close_socket(sfd);

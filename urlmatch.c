@@ -33,6 +33,9 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2002/03/13 00:27:05  jongfoster
+ *    Killing warnings
+ *
  *    Revision 1.4  2002/03/07 03:46:17  oes
  *    Fixed compiler warnings
  *
@@ -611,7 +614,7 @@ jb_err create_url_spec(struct url_spec * url, const char * buf)
       return JB_ERR_MEMORY;
    }
 
-   if ((p = strchr(buf, '/')))
+   if ((p = strchr(buf, '/')) != NULL)
    {
       if (NULL == (url->path = strdup(p)))
       {

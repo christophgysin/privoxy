@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2002/03/13 00:27:05  jongfoster
+ *    Killing warnings
+ *
  *    Revision 1.22  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on
@@ -170,7 +173,7 @@ extern const add_header_func_ptr add_client_headers[];
 extern const add_header_func_ptr add_server_headers[];
 
 extern int flush_socket(jb_socket fd, struct client_state *csp);
-extern size_t add_to_iob(struct client_state *csp, char *buf, size_t n);
+extern void add_to_iob(struct client_state *csp, char *buf, int n);
 extern char *get_header(struct client_state *csp);
 extern char *get_header_value(const struct list *header_list, const char *header_name);
 extern char *sed(const struct parsers pats[], const add_header_func_ptr more_headers[], struct client_state *csp);

@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.49  2002/03/13 00:27:04  jongfoster
+ *    Killing warnings
+ *
  *    Revision 1.48  2002/03/08 17:47:07  jongfoster
  *    Adding comments
  *
@@ -663,7 +666,8 @@ static struct http_response *dispatch_known_cgi(struct client_state * csp,
                             csp->ip_addr_str, csp->http->cmd); 
 
    /* Find and start the right CGI function*/
-   for (d = cgi_dispatchers; FOREVER; d++)
+   d = cgi_dispatchers;
+   for (;;)
    {
       if ((d->name == NULL) || (strcmp(path_copy, d->name) == 0))
       {
@@ -686,6 +690,7 @@ static struct http_response *dispatch_known_cgi(struct client_state * csp,
             return cgi_error_memory();
          }
       }
+      d++;
    }
 }
 

@@ -33,6 +33,9 @@ const char encode_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2002/03/13 00:27:04  jongfoster
+ *    Killing warnings
+ *
  *    Revision 1.5  2002/03/07 03:46:53  oes
  *    Fixed compiler warnings etc
  *
@@ -445,7 +448,7 @@ char *url_decode(const char * s)
                break;
 
             case '%':
-               if ((*q = xtoi(s + 1)))
+               if ((*q = xtoi(s + 1)) != '\0')
                {
                   s += 3;
                   q++;
