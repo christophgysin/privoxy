@@ -34,6 +34,9 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/07/24 12:47:06  oes
+ *    Applied BeOS support update by Eugenia
+ *
  *    Revision 1.3  2001/06/09 10:55:28  jongfoster
  *    Changing BUFSIZ ==> BUFFER_SIZE
  *
@@ -64,6 +67,10 @@ const char gateway_rcs[] = "$Id$";
 #ifdef _WIN32
 #include <winsock2.h>
 #endif /* def _WIN32 */
+
+#ifdef __BEOS__
+#include <netdb.h>
+#endif /* def __BEOS__ */
 
 #include "jcc.h"
 #include "errlog.h"
