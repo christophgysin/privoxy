@@ -8,7 +8,7 @@ const char filters_rcs[] = "$Id$";
  *                   `acl_addr', `add_stats', `block_acl', `block_imageurl',
  *                   `block_url', `url_actions', `domaincmp', `dsplit',
  *                   `filter_popups', `forward_url', 'redirect_url',
- *                   `ij_untrusted_url', `intercept_url', `re_process_buffer',
+ *                   `ij_untrusted_url', `intercept_url', `pcrs_filter_respose',
  *                   `show_proxy_args', 'ijb_send_banner', and `trust_url'
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
@@ -38,6 +38,14 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.21  2001/07/13 13:59:53  oes
+ *     - Introduced gif_deanimate_response which shares the
+ *       generic content modification interface of pcrs_filter_response
+ *       and acts as a wrapper to deanimate.c:gif_deanimate()
+ *     - Renamed re_process_buffer to pcrs_filter_response
+ *     - pcrs_filter_response now returns NULL on failiure
+ *     - Removed all #ifdef PCRS
+ *
  *    Revision 1.20  2001/07/01 17:01:04  oes
  *    Added comments and missing return statement in is_untrusted_url()
  *
@@ -249,6 +257,7 @@ const char filters_rcs[] = "$Id$";
 #include "actions.h"
 #include "cgi.h"
 #include "list.h"
+#include "deanimate.h"
 
 #ifdef _WIN32
 #include "win32.h"
@@ -869,10 +878,9 @@ int is_untrusted_url(struct client_state *csp)
 #endif /* def TRUST_FILES */
 
 
-#ifdef PCRS
 /*********************************************************************
  *
- * Function    :  re_process_buffer
+ * Function    :  pcrs_filter_response
  *
  * Description :  Apply all the pcrs jobs from the joblist (re_filterfile)
  *                to the text buffer that's been accumulated in 
@@ -883,10 +891,10 @@ int is_untrusted_url(struct client_state *csp)
  *          1  :  csp = Current client state (buffers, headers, etc...)
  *
  * Returns     :  a pointer to the (newly allocated) modified buffer.
- *                or an empty string in case something went wrong
+ *                or NULL in case something went wrong
  *                
  *********************************************************************/
-char *re_process_buffer(struct client_state *csp)
+char *pcrs_filter_response(struct client_state *csp)
 {
    int hits=0;
    int size = csp->iob->eod - csp->iob->cur;
@@ -900,13 +908,13 @@ char *re_process_buffer(struct client_state *csp)
    /* Sanity first ;-) */
    if (size <= 0)
    {
-      return(strdup(""));
+      return(NULL);
    }
 
    if ( ( NULL == (fl = csp->rlist) ) || ( NULL == (b = fl->f) ) )
    {
       log_error(LOG_LEVEL_ERROR, "Unable to get current state of regexp filtering.");
-      return(strdup(""));
+      return(NULL);
    }
 
    log_error(LOG_LEVEL_RE_FILTER, "re_filtering %s%s (size %d) ...",
@@ -929,7 +937,57 @@ char *re_process_buffer(struct client_state *csp)
    return(new);
 
 }
-#endif /* def PCRS */
+
+
+/*********************************************************************
+ *
+ * Function    :  gif_deanimate_response
+ *
+ * Description :  Deanimate the GIF image that has been accumulated in 
+ *                csp->iob->buf and set csp->content_length to the modified
+ *                size.
+ *
+ * Parameters  :
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *
+ * Returns     :  a pointer to the (newly allocated) modified buffer.
+ *                or NULL in case something went wrong.
+ *                
+ *********************************************************************/
+char *gif_deanimate_response(struct client_state *csp)
+{
+   struct binbuffer *in, *out;
+   char *p;
+   int size = csp->iob->eod - csp->iob->cur;
+
+   if (  (NULL == (in =  (struct binbuffer *)zalloc(sizeof *in )))
+      || (NULL == (out = (struct binbuffer *)zalloc(sizeof *out))) )
+   {
+      log_error(LOG_LEVEL_DEANIMATE, "failed! (No Mem!)");
+      return NULL;
+   }
+
+   in->buffer = csp->iob->cur;
+   in->size = size;
+
+   if (gif_deanimate(in, out))
+   {
+      log_error(LOG_LEVEL_DEANIMATE, "failed! (size %d)", size);
+      free(in);
+      buf_free(out);
+      return(NULL);
+   }
+   else
+   {
+      log_error(LOG_LEVEL_DEANIMATE, "Success! GIF shrunk from %d bytes to %d.", size, out->offset);
+      csp->content_length = out->offset;
+      p = out->buffer;
+      free(in);
+      free(out);
+      return(p);
+   }  
+
+}
 
 
 /*********************************************************************
