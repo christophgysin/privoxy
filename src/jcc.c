@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.5  2003/01/26 20:24:26  david__schmidt
+ *    Updated activity console instrumentation locations
+ *
  *    Revision 2.4  2002/12/28 03:58:19  david__schmidt
  *    Initial drop of dashboard instrumentation - enabled with
  *    --enable-activity-console
@@ -1481,6 +1484,9 @@ static void listen_loop(void)
 #ifdef FEATURE_ACL
       if (block_acl(NULL,csp))
       {
+#ifdef FEATURE_ACTIVITY_CONSOLE
+         accumulate_stats(STATS_ACL_RESTRICT,1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
          log_error(LOG_LEVEL_CONNECT, "Connection dropped due to ACL");
          close_socket(csp->cfd);
          freez(csp);
