@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.7  2002/04/04 10:29:58  oes
+  Keeping feedback confidential
+
   Revision 1.6  2002/04/03 19:36:04  swa
   consistent look
 
@@ -53,12 +56,16 @@
 <?php
 
 /* 
+ * Config:
+ */
+$logfile = "results/actions-feedback.txt";
+
+/* 
  * For testing:
  */
 //phpinfo();
 //error_reporting(E_ALL);
 error_reporting(E_NONE);
-
 
 
 /* 
@@ -115,7 +122,6 @@ if (!isset($name) || ($name == ""))
 /* 
  * Open the logfile or fail:
  */
-$logfile = "feedback-data.txt";
 $fp = fopen($logfile, "a");
 
 if(!$fp)
