@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2001/10/07 15:40:39  oes
+ *    Replaced 6 boolean members of csp with one bitmap (csp->flags)
+ *
  *    Revision 1.27  2001/09/22 16:36:59  jongfoster
  *    Removing unused parameter fs from read_config_line()
  *
@@ -261,7 +264,7 @@ void sweep(void)
 
    for (csp = clients; csp && (ncsp = csp->next) ; csp = csp->next)
    {
-      if (ncsp->active)
+      if (ncsp->flags & CSP_FLAG_ACTIVE)
       {
          /* mark this client's files as active */
 
@@ -297,7 +300,7 @@ void sweep(void)
        * follow it
        */
       {
-         while( !ncsp->active )
+         while (!(ncsp->flags & CSP_FLAG_ACTIVE))
          {
             csp->next = ncsp->next;
    
@@ -317,10 +320,10 @@ void sweep(void)
             destroy_list(ncsp->cookie_list);
    
             free_current_action(ncsp->action);
-   
+
 #ifdef FEATURE_STATISTICS
             urls_read++;
-            if (ncsp->rejected)
+            if (ncsp->flags & CSP_FLAG_REJECTED)
             {
                urls_rejected++;
             }
