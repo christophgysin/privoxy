@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.49  2002/03/04 18:28:55  oes
+ *    Deleted PID_FILE_NAME
+ *
  *    Revision 1.48  2002/03/03 14:50:40  oes
  *    Fixed CLF logging: Added ocmd member for client's request to struct http_request
  *
@@ -459,11 +462,6 @@ typedef int jb_err;
 /* Default IP and port to listen on */
 #define HADDR_DEFAULT   "127.0.0.1"
 #define HADDR_PORT      8000
-
-/*
- * pid file name
- */
-#define PID_FILE_NAME   "junkbuster.pid"
 
 /* Forward defs for various structures */
 
