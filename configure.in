@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.31  2002/03/05 13:43:28  morcego
+dnl Checking for text browser, so redhat-dok can work.
+dnl
 dnl Revision 1.30  2002/03/04 17:58:01  oes
 dnl Deleted _DEBUG and PID_FILE_PATH
 dnl
@@ -381,6 +384,13 @@ else
 fi
 AC_SUBST(WIN_ONLY)
 
+if test $target_type = unix; then
+	AC_CHECK_PROGS(WDUMP,w3m lynx links,false)
+	if test "$WDUMP" = false; then
+		AC_MSG_ERROR(You need some kind of text browser to continue \(w3m, lynx and links are supported\))
+	fi
+fi
+AC_SUBST(WDUMP)
 
 dnl Save old CFLAGS so we can restore them later, then add SPECIAL_CFLAGS
 old_CFLAGS_nospecial=$CFLAGS
