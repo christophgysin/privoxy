@@ -33,6 +33,9 @@ const char stats_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.5  2003/01/09 02:54:55  david__schmidt
+ *    Tweaked to compile on Linux and Solaris via SourceForge compile farm
+ *
  *    Revision 2.4  2003/01/06 02:03:13  david__schmidt
  *    Update stats protocol now that the console is actually running
  *
@@ -43,6 +46,7 @@ const char stats_rcs[] = "$Id$";
 #include <string.h>
 #ifdef unix
 #include <sys/signal.h>
+#include <unistd.h>
 #include <pthread.h>
 #endif
 #include "project.h"
@@ -160,7 +164,7 @@ void init_stats_config(struct configuration_spec * config)
   /* I don't think the IPC will really work in a fork()'d environment,
    * so proceed with caution.  FIXME.
    */
-#error FIXME - stats won't work without pthreads!
+#error FIXME - stats will not work without pthreads!
   child_id = fork();
 
   if (child_id == 0)   /* child */
