@@ -13,6 +13,9 @@ error_reporting(E_NONE);
 //  $Id$
 //
 //  $Log$
+//  Revision 1.2  2002/03/30 19:49:34  swa
+//  have consistent look and feel
+//
 //  Revision 1.1  2002/03/30 03:20:30  oes
 //  Added Feedback mechanism for actions file
 //
@@ -55,7 +58,9 @@ $base_url = "http://www.privoxy.org/actions";
  */
 if (!isset($referrer_url))
 {
-     echo ("<html><head><title>Invalid Feedback Submission</title></head>
+     echo ("<html><head><title>Invalid Feedback Submission</title>
+	    <link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\">
+		</head>
                 <body><h2>Invalid Feedback Submission</h2>
                       <p>When submitting your feedback please start with
                          <a href=\"index.php\">step 1</a>.</p>
@@ -69,7 +74,9 @@ if (!isset($referrer_url))
  */
 if (!isset($problem) || $problem == "INVALID")
 {
-     echo ("<html><head><title>Invalid Feedback Submission</title></head>
+     echo ("<html><head><title>Invalid Feedback Submission</title>
+	    <link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\">
+		</head>
                 <body><h2>Invalid Feedback Submission</h2>
                       <p>You need to select the nature of the problem in
                          <a href=\"javascript:back()\">step 1</a>.</p>
@@ -96,7 +103,9 @@ curl_close ($ch);
 
 if (!$success)
 {
-   echo ("<html><head><title>Invalid Feedback Submission</title></head>
+   echo ("<html><head><title>Invalid Feedback Submission</title>
+	    <link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\">
+		</head>
                 <body><h2>Invalid Feedback Submission</h2>
                       <p>The URL that you entered (<a href=\"$referrer_url\">$referrer_url</a>)
                          <br>could not be retrieved.</p>

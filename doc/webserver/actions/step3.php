@@ -12,6 +12,9 @@ error_reporting(E_NONE);
 //  $Id$
 //
 //  $Log$
+//  Revision 1.2  2002/03/30 19:49:34  swa
+//  have consistent look and feel
+//
 //  Revision 1.1  2002/03/30 03:20:30  oes
 //  Added Feedback mechanism for actions file
 //
@@ -48,7 +51,9 @@ error_reporting(E_NONE);
  */
 if (!isset($referrer_url))
 {
-     echo ("<html><head><title>Invalid Feedback Submission</title></head>
+     echo ("<html><head><title>Invalid Feedback Submission</title>
+	    <link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\">
+		</head>
                 <body><h2>Invalid Feedback Submission</h2>
                       <p>When submitting your feedback please start with
                          <a href=\"test.php\">step 1</a>.</p>
@@ -62,7 +67,9 @@ if (!isset($referrer_url))
  */
 if (!isset($problem))
 {
-     echo ("<html><head><title>Invalid Feedback Submission</title></head>
+     echo ("<html><head><title>Invalid Feedback Submission</title>
+	    <link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\">
+		</head>
                 <body><h2>Invalid Feedback Submission</h2>
                       <p>You need to select the nature of the problem in
                          <a href=\"test.php\">step 1</a>.</p>
@@ -87,7 +94,9 @@ $fp = fopen($logfile, "a");
 
 if(!$fp)
 {
-   echo ("<html><head><title>Internal Script Error</title></head>
+   echo ("<html><head><title>Internal Script Error</title>
+	    <link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\">
+		</head>
                 <body><h2>Internal Script Error</h2>
                       <p>This script was unable to open its logfile.</p>
                       <p>Please <a href=\"mailto:info@privoxy.org?SUBJECT=Feedback-Script-Broken\">mail its owner</a>!</p>
