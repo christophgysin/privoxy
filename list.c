@@ -34,6 +34,9 @@ const char list_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/07/31 14:44:51  oes
+ *    list_to_text() now appends empty line at end
+ *
  *    Revision 1.5  2001/06/29 21:45:41  oes
  *    Indentation, CRLF->LF, Tab-> Space
  *
@@ -301,7 +304,8 @@ void destroy_list(struct list *header)
  *
  * Function    :  list_to_text
  *
- * Description :  "Flaten" a string list into 1 long \r\n delimited string.
+ * Description :  "Flaten" a string list into 1 long \r\n delimited string,
+ *                adding an empty line at the end.
  *
  * Parameters  :
  *          1  :  h = pointer to list 'dummy' header
@@ -314,9 +318,7 @@ char *list_to_text(struct list *h)
    struct list *p;
    char *ret = NULL;
    char *s;
-   int size;
-
-   size = 0;
+   int size = 2;
 
    for (p = h->next; p ; p = p->next)
    {
@@ -344,6 +346,7 @@ char *list_to_text(struct list *h)
          *s++ = '\r'; *s++ = '\n';
       }
    }
+   *s++ = '\r'; *s++ = '\n';
 
    return(ret);
 
