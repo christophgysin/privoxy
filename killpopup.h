@@ -1,5 +1,5 @@
-#ifndef _KILLPOPUP_H
-#define _KILLPOPUP_H
+#ifndef KILLPOPUP_H_INCLUDED
+#define KILLPOPUP_H_INCLUDED
 #define KILLPOPUP_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -34,6 +34,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/29 18:59:21  jongfoster
+ *    - Changing #define _KILLPOPUP_H to KILLPOPUP_H_INCLUDED
+ *    - Adding extern "C" {}
+ *
  *    Revision 1.2  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -56,6 +60,10 @@
 
 #include "project.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef KILLPOPUPS
 
 extern void filter_popups(char *buff, int size);
@@ -66,7 +74,11 @@ extern void filter_popups(char *buff, int size);
 extern const char killpopup_rcs[];
 extern const char killpopup_h_rcs[];
 
-#endif /* ndef _KILLPOPUP_H */
+#ifdef __cplusplus
+} /* extern "C" */
+#endif
+
+#endif /* ndef KILLPOPUP_H_INCLUDED */
 
 /*
   Local Variables:
