@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.29  2002/03/03 19:21:22  hal9
+# Init script fails if shell is /bin/false.
+#
 # Revision 1.28  2002/01/09 18:34:03  hal9
 # nit.
 #
@@ -116,8 +119,8 @@
 Summary: The Internet Junkbuster
 Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
-Version: 2.9.10
-Release: 2
+Version: 2.9.11
+Release: 1
 Source0: http://www.waldherr.org/junkbuster/ijbswa-%{version}.tar.gz
 Copyright: GPL
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -148,7 +151,7 @@ make
 strip junkbuster
 
 %pre
-/usr/sbin/useradd -d /etc/junkbuster -r junkbuster -s "/bin/false" > /dev/null 2>&1 || /bin/true
+/usr/sbin/useradd -d /etc/junkbuster -r junkbuster -s "" > /dev/null 2>&1 || /bin/true
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -184,6 +187,8 @@ cat config | \
     $RPM_BUILD_ROOT%{ijbconf}/config
 perl -pe 's/{-no-cookies}/{-no-cookies}\n\.redhat.com/' ijb.action >\
     $RPM_BUILD_ROOT%{ijbconf}/ijb.action
+
+#%makeinstall
 
 %post
 # for upgrade from 2.0.x
@@ -228,6 +233,9 @@ fi
 
 
 %changelog
+* Sun Mar 03 2002 Hal Burgiss <hal@foobox.net>
+- /bin/false for shell causes init script to fail. Reverting.
+
 * Wed Jan 09 2002 Hal Burgiss <hal@foobox.net>
 - Removed UID 73. Included user-manual and developer-manual in docs.
   Include other actions files. Default shell is now /bin/false.
