@@ -26,8 +26,8 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
-# Revision 1.35  2002/03/07 04:40:41  hal9
-# Fix extra ')' in %%pre script.
+# Revision 1.36  2002/03/07 05:06:54  morcego
+# Fixed %pre scriptlet. And, as a bonus, you can even understand it now. :-)
 #
 # Revision 1.34  2002/03/07 00:11:57  morcego
 # Few changes on the %pre and %post sections of the rh specfile to handle
@@ -245,7 +245,15 @@ perl -pe 's/{-no-cookies}/{-no-cookies}\n\.redhat.com/' ijb.action >\
 # If we don't, we check to see if the user junkbust exist and, in case it
 # does, we change it do junkbuster. If it also does not exist, we create the
 # junkbuster user -- morcego
-id junkbuster > /dev/null 2>&1 || ( id junkbust && /usr/sbin/usermod -l junkbuster junkbust ) || ( /usr/sbin/useradd -d /etc/%{name} -r %{name} -s "" > /dev/null 2>&1 || /bin/true )
+id junkbuster > /dev/null 2>&1 
+if [ $? -eq 1 ]; then
+	id junkbust > /dev/null 2>&1 
+	if [ $? -eq 0 ]; then
+		/usr/sbin/usermod -l junkbuster -d %{_sysconfdir}/%{name} -s "" junkbust  > /dev/null 2>&1
+	else
+		/usr/sbin/useradd -d %{_sysconfdir}/%{name} -r -s "" junkbuster > /dev/null 2>&1 
+	fi
+fi
 
 %post
 # for upgrade from 2.0.x
@@ -282,7 +290,7 @@ fi
 %doc doc/text/developer-manual.txt doc/text/user-manual.txt
 %doc doc/webserver/developer-manual
 %doc doc/webserver/user-manual
-#%%doc %{name}.weekly %{name}.monthly AUTHORS
+#%doc %{name}.weekly %{name}.monthly AUTHORS
 
 %dir %{ijbconf}
 %dir %{ijbconf}/templates
