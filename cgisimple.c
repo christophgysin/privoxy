@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/10/07 15:30:41  oes
+ *    Removed FEATURE_DENY_GZIP
+ *
  *    Revision 1.4  2001/10/02 15:31:12  oes
  *    Introduced show-request cgi
  *
@@ -670,12 +673,6 @@ static void show_defines(struct map *exports)
 #else /* ifndef FEATURE_COOKIE_JAR */
    map_conditional(exports, "FEATURE_COOKIE_JAR", 0);
 #endif /* ndef FEATURE_COOKIE_JAR */
-
-#ifdef FEATURE_DENY_GZIP
-   map_conditional(exports, "FEATURE_DENY_GZIP", 1);
-#else /* ifndef FEATURE_DENY_GZIP */
-   map_conditional(exports, "FEATURE_DENY_GZIP", 0);
-#endif /* ndef FEATURE_DENY_GZIP */
 
 #ifdef FEATURE_FAST_REDIRECTS
    map_conditional(exports, "FEATURE_FAST_REDIRECTS", 1);
