@@ -41,6 +41,63 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/06/03 19:12:38  oes
+ *    deleted const struct interceptors
+ *
+ *    Revision 1.15  2001/06/03 11:03:48  oes
+ *    Makefile/in
+ *
+ *    introduced cgi.c
+ *
+ *    actions.c:
+ *
+ *    adapted to new enlist_unique arg format
+ *
+ *    conf loadcfg.c
+ *
+ *    introduced confdir option
+ *
+ *    filters.c filtrers.h
+ *
+ *     extracted-CGI relevant stuff
+ *
+ *    jbsockets.c
+ *
+ *     filled comment
+ *
+ *    jcc.c
+ *
+ *     support for new cgi mechansim
+ *
+ *    list.c list.h
+ *
+ *    functions for new list type: "map"
+ *    extended enlist_unique
+ *
+ *    miscutil.c .h
+ *    introduced bindup()
+ *
+ *    parsers.c parsers.h
+ *
+ *    deleted const struct interceptors
+ *
+ *    pcrs.c
+ *    added FIXME
+ *
+ *    project.h
+ *
+ *    added struct map
+ *    added struct http_response
+ *    changes struct interceptors to struct cgi_dispatcher
+ *    moved HTML stuff to cgi.h
+ *
+ *    re_filterfile:
+ *
+ *    changed
+ *
+ *    showargs.c
+ *    NO TIME LEFT
+ *
  *    Revision 1.14  2001/06/01 18:49:17  jongfoster
  *    Replaced "list_share" with "list" - the tiny memory gain was not
  *    worth the extra complexity.
@@ -203,6 +260,7 @@ const char parsers_rcs[] = "$Id$";
 #include "errlog.h"
 #include "jbsockets.h"
 #include "miscutil.h"
+#include "cgi.h"
 
 const char parsers_h_rcs[] = PARSERS_H_VERSION;
 
@@ -241,15 +299,6 @@ const struct parsers client_patterns[] = {
    { NULL,                       0,    NULL }
 };
 
-const struct interceptors intercept_patterns[] = {
-   { "show-proxy-args",    14, show_proxy_args },
-   { "ijb-send-banner",    14, ijb_send_banner },
-#ifdef TRUST_FILES
-   { "ij-untrusted-url",   15, ij_untrusted_url },
-#endif /* def TRUST_FILES */
-   { "show-url-info",      13, ijb_show_url_info },
-   { NULL, 0, NULL }
-};
 
 const struct parsers server_patterns[] = {
    { "set-cookie:",        11, server_set_cookie },
