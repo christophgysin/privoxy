@@ -81,10 +81,11 @@ Hal.
  </para>
  ]]>
 <para>
- The developer manual gives the users information on how to help the developer
- team. It provides guidance on coding, testing, documentation and other
- issues. 
- </para>
+ The developer manual provides guidance on coding, testing, packaging, documentation
+ and other issues of importance to those involved with
+ <application>Privoxy</application> development. It is mandatory (and helpful!) reading
+ for anyone who wants to join the team.
+</para>
 
 <!-- Include privoxy.sgml boilerplate text: -->
 
@@ -2800,6 +2801,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.46  2002/05/22 17:15:00  oes
+  Updated intro
+
   Revision 1.45  2002/05/19 23:01:54  hal9
   Add small section on general packaging guidelines (e.g. actions files must
   be writable).
