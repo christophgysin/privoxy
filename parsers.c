@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2001/10/05 14:25:02  oes
+ *    Crumble Keep-Alive from Server
+ *
  *    Revision 1.30  2001/09/29 12:56:03  joergs
  *    IJB now changes HTTP/1.1 to HTTP/1.0 in requests and answers.
  *
@@ -314,6 +317,7 @@ const struct parsers server_patterns[] = {
    { "connection:",        11, crumble },
    { "Content-Type:",      13, content_type },
    { "Content-Length:",    15, content_length },
+   { "Keep-Alive:",        11, crumble },
    { NULL, 0, NULL }
 };
 
@@ -646,7 +650,7 @@ void parse_http_request(char *req, struct http_request *http, struct client_stat
             http->ver = strdup(v[2]);
          }
 
-	 save_url = url;
+         save_url = url;
          if (strncmpic(url, "http://",  7) == 0)
          {
             url += 7;
