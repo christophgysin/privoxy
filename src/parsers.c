@@ -40,6 +40,10 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.3  2002/12/28 03:58:19  david__schmidt
+ *    Initial drop of dashboard instrumentation - enabled with
+ *    --enable-activity-console
+ *
  *    Revision 2.2  2002/11/10 04:20:38  hal9
  *    Fix typo: supressed -> suppressed
  *
@@ -420,6 +424,9 @@ const char parsers_rcs[] = "$Id$";
 #include "jbsockets.h"
 #include "miscutil.h"
 #include "list.h"
+#ifdef FEATURE_ACTIVITY_CONSOLE
+#include "stats.h"
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
 
 const char parsers_h_rcs[] = PARSERS_H_VERSION;
 
@@ -1099,6 +1106,9 @@ jb_err client_referrer(struct client_state *csp, char **header)
       /*
        * Blocking referer
        */
+#ifdef FEATURE_ACTIVITY_CONSOLE
+      accumulate_stats(STATS_REFERER, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
       log_error(LOG_LEVEL_HEADER, "crunch!");
       return JB_ERR_OK;
    }
@@ -1203,6 +1213,9 @@ jb_err client_ua(struct client_state *csp, char **header)
 {
    if ((csp->action->flags & ACTION_HIDE_USER_AGENT) != 0)
    {
+#ifdef FEATURE_ACTIVITY_CONSOLE
+      accumulate_stats(STATS_CLIENT_UA, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
       log_error(LOG_LEVEL_HEADER, "crunch!");
       freez(*header);
    }
@@ -1247,6 +1260,9 @@ jb_err client_from(struct client_state *csp, char **header)
     */
    if ((newval == NULL) || (0 == strcmpic(newval, "block")) )
    {
+#ifdef FEATURE_ACTIVITY_CONSOLE
+      accumulate_stats(STATS_CLIENT_FROM, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
       log_error(LOG_LEVEL_HEADER, "crunch!");
       return JB_ERR_OK;
    }
@@ -1338,6 +1354,9 @@ jb_err client_x_forwarded(struct client_state *csp, char **header)
    else
    {
       freez(*header);
+#ifdef FEATURE_ACTIVITY_CONSOLE
+      accumulate_stats(STATS_CLIENT_X_FORWARDED, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
       log_error(LOG_LEVEL_HEADER, " crunch!");
    }
 

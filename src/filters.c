@@ -38,6 +38,10 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.3  2002/12/28 03:58:19  david__schmidt
+ *    Initial drop of dashboard instrumentation - enabled with
+ *    --enable-activity-console
+ *
  *    Revision 2.2  2002/09/04 15:38:24  oes
  *    Synced with the stable branch:
  *        Revision 1.58.2.2  2002/08/01 17:18:28  oes
@@ -451,7 +455,9 @@ const char filters_rcs[] = "$Id$";
 #include "list.h"
 #include "deanimate.h"
 #include "urlmatch.h"
-
+#ifdef FEATURE_ACTIVITY_CONSOLE
+#include "stats.h"
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
 #ifdef _WIN32
 #include "win32.h"
 #endif
@@ -517,6 +523,9 @@ int block_acl(struct access_control_addr *dst, struct client_state *csp)
             }
             else
             {
+#ifdef FEATURE_ACTIVITY_CONSOLE
+               accumulate_stats(STATS_ACL_RESTRICT, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
                return(1);
             }
          }
@@ -735,6 +744,9 @@ struct http_response *block_url(struct client_state *csp)
       /* and handle accordingly: */
       if ((p == NULL) || (0 == strcmpic(p, "pattern")))
       {
+#ifdef FEATURE_ACTIVITY_CONSOLE
+         accumulate_stats(STATS_IMAGE_BLOCK, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
          rsp->body = bindup(image_pattern_data, image_pattern_length);
          if (rsp->body == NULL)
          {
@@ -752,6 +764,9 @@ struct http_response *block_url(struct client_state *csp)
 
       else if (0 == strcmpic(p, "blank"))
       {
+#ifdef FEATURE_ACTIVITY_CONSOLE
+         accumulate_stats(STATS_IMAGE_BLOCK, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
          rsp->body = bindup(image_blank_data, image_blank_length);
          if (rsp->body == NULL)
          {
@@ -1362,6 +1377,10 @@ char *pcrs_filter_response(struct client_state *csp)
       free(new);
       return(NULL);
    }
+#ifdef FEATURE_ACTIVITY_CONSOLE
+   else
+     accumulate_stats(STATS_FILTER, hits);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
 
    csp->flags |= CSP_FLAG_MODIFIED;
    csp->content_length = size;
@@ -1433,6 +1452,9 @@ char *gif_deanimate_response(struct client_state *csp)
       }
       else
       {
+#ifdef FEATURE_ACTIVITY_CONSOLE
+         accumulate_stats(STATS_GIF_DEANIMATE, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
          log_error(LOG_LEVEL_DEANIMATE, "Success! GIF shrunk from %d bytes to %d.", size, out->offset);
       }
       csp->content_length = out->offset;

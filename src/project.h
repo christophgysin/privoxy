@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.4  2002/12/28 03:58:19  david__schmidt
+ *    Initial drop of dashboard instrumentation - enabled with
+ *    --enable-activity-console
+ *
  *    Revision 2.3  2002/09/05 08:00:23  oes
  *    Synced with the stable branch:
  *        Revision 1.72.2.1  2002/08/10 11:25:18  oes
@@ -1358,6 +1362,31 @@ struct configuration_spec
 
    /** Size limit for IOB */
    size_t buffer_limit;
+
+#ifdef FEATURE_ACTIVITY_CONSOLE
+
+  /**
+   * Default IP address to send statistics to, as a string.
+   * Set to "127.0.0.1".
+   */
+  #define ACTIVTY_ADDR_DEFAULT   "127.0.0.1"
+
+  /**
+   * Default port to listen on, as a number.
+   * Set to 8119.
+   */
+  #define ACTIVTY_ADDR_PORT      8119
+
+   /** IP address to talk to for activity/statistics reporting. */
+   const char *activity_address;
+
+   /** Port to bind to.  Defaults to ACTIVTY_ADDR_PORT == 8119. */
+   int         activity_port;
+
+   /** Frequency, in seconds, of how often to update the stats console. */
+   int         activity_freq;
+
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
 
 #ifdef FEATURE_TRUST
 

@@ -36,6 +36,10 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2002/12/28 03:58:19  david__schmidt
+ *    Initial drop of dashboard instrumentation - enabled with
+ *    --enable-activity-console
+ *
  *    Revision 2.1  2002/07/04 14:35:05  oes
  *    Added ability to send redirects to send-banner CGI, so that it can completely mimic the image blocking action if called with type=auto
  *
@@ -1413,6 +1417,9 @@ static char *show_rcs(void)
    SHOW_RCS(filters_rcs)
    SHOW_RCS(gateway_h_rcs)
    SHOW_RCS(gateway_rcs)
+#ifdef FEATURE_ACTIVITY_CONSOLE
+   SHOW_RCS(ipc_h_rcs)
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
    SHOW_RCS(jbsockets_h_rcs)
    SHOW_RCS(jbsockets_rcs)
    SHOW_RCS(jcc_h_rcs)
@@ -1436,6 +1443,10 @@ static char *show_rcs(void)
    SHOW_RCS(project_h_rcs)
    SHOW_RCS(ssplit_h_rcs)
    SHOW_RCS(ssplit_rcs)
+#ifdef FEATURE_ACTIVITY_CONSOLE
+   SHOW_RCS(stats_h_rcs)
+   SHOW_RCS(stats_rcs)
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
    SHOW_RCS(urlmatch_h_rcs)
    SHOW_RCS(urlmatch_rcs)
 #ifdef _WIN32

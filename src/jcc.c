@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.4  2002/12/28 03:58:19  david__schmidt
+ *    Initial drop of dashboard instrumentation - enabled with
+ *    --enable-activity-console
+ *
  *    Revision 2.3  2002/07/18 22:06:12  jongfoster
  *    Trivial formatting changes
  *
@@ -618,6 +622,9 @@ const char jcc_rcs[] = "$Id$";
 #include "cgi.h"
 #include "loadcfg.h"
 #include "urlmatch.h"
+#ifdef FEATURE_ACTIVITY_CONSOLE
+#include "stats.h"
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
 
 const char jcc_h_rcs[] = JCC_H_VERSION;
 const char project_h_rcs[] = PROJECT_H_VERSION;
@@ -1350,6 +1357,10 @@ static void listen_loop(void)
 
    bfd = bind_port_helper(config);
 
+#ifdef FEATURE_ACTIVITY_CONSOLE
+   init_stats_config(config);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
+
 #ifdef FEATURE_GRACEFUL_TERMINATION
    while (!g_terminate)
 #else
@@ -1456,6 +1467,10 @@ static void listen_loop(void)
          csp->flags |= CSP_FLAG_TOGGLED_ON;
       }
 #endif /* def FEATURE_TOGGLE */
+
+#ifdef FEATURE_ACTIVITY_CONSOLE
+      update_stats_config(config);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
 
       if (run_loader(csp))
       {
@@ -2405,6 +2420,9 @@ static jb_err open_forwarding_connection(struct client_state *csp )
 {
    struct http_response *rsp;
    
+#ifdef FEATURE_ACTIVITY_CONSOLE
+   accumulate_stats(STATS_REQUEST, 1);
+#endif /* def FEATURE_ACTIVITY_CONSOLE */
    log_error(LOG_LEVEL_GPC, "%s%s", csp->http->hostport, csp->http->path);
 
    if (csp->http->fwd->forward_host)
