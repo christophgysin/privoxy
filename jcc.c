@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2001/07/31 14:44:22  oes
+ *    Deleted unused size parameter from filter_popups()
+ *
  *    Revision 1.34  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -860,7 +863,7 @@ static void chat(struct client_state *csp)
          /* Filter the popups on this read. */
          if (block_popups_now)
          {
-            filter_popups(buf, n);
+            filter_popups(buf);
          }
 #endif /* def FEATURE_KILL_POPUPS */
 
@@ -1034,7 +1037,7 @@ static void chat(struct client_state *csp)
                 * Filter the part of the body that came in the same read
                 * as the last headers:
                 */
-               filter_popups(csp->iob->cur, csp->iob->eod - csp->iob->cur);
+               filter_popups(csp->iob->cur);
             }
 
 #endif /* def FEATURE_KILL_POPUPS */

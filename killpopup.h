@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/07/31 14:44:22  oes
+ *    Deleted unused size parameter from filter_popups()
+ *
  *    Revision 1.4  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -72,7 +75,7 @@ extern "C" {
 
 #ifdef FEATURE_KILL_POPUPS
 
-extern void filter_popups(char *buff, int size);
+extern void filter_popups(char *buff);
 
 #endif /* def FEATURE_KILL_POPUPS */
 

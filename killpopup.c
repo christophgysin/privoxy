@@ -32,6 +32,9 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/07/31 14:44:22  oes
+ *    Deleted unused size parameter from filter_popups()
+ *
  *    Revision 1.8  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -112,12 +115,11 @@ const char killpopup_h_rcs[] = KILLPOPUP_H_VERSION;
  *
  * Parameters  :
  *          1  :  buff = Buffer to scan and modify.  Null terminated.
- *          2  :  size = Buffer size, excluding null terminator.
  *
  * Returns     :  void
  *
  *********************************************************************/
-void filter_popups(char *buff, int size)
+void filter_popups(char *buff)
 {
    char *popup = NULL;
    char *close = NULL;
@@ -149,7 +151,7 @@ void filter_popups(char *buff, int size)
       }
    }
 
-   /* Filter all other crap like onUnload onExit etc.  (by BREITENB) NEW!*/
+   /* Filter onUnload and onExit */
    popup=strstr( buff, "<body");
    if (!popup) popup=strstr( buff, "<BODY");
    if (!popup) popup=strstr( buff, "<Body");
@@ -159,7 +161,7 @@ void filter_popups(char *buff, int size)
       close=strchr(popup,'>');
       if (close)
       {
-         /* we are now between <body and the ending > FIXME: No, we're anywhere! --oes*/
+         /* we are now between <body and the ending > FIXME: No, we're anywhere! --oes */
          p=strstr(popup, "onUnload");
          if (p)
          {
