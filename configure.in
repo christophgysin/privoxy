@@ -28,6 +28,11 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.18  2001/09/13 13:10:24  steudten
+dnl
+dnl PreWork for Debug Interface.
+dnl Add new option "--with-debug" to enable debugging (flags aso.)
+dnl
 dnl Revision 1.17  2001/09/12 23:44:55  david__schmidt
 dnl Mac OSX (Darwin) support added.
 dnl
@@ -184,6 +189,7 @@ dnl =================================================================
 AC_REVISION($Revision$)
 AC_INIT(jcc.c)
 AC_CONFIG_HEADER(config.h)
+AC_CANONICAL_HOST
 
 
 dnl =================================================================
@@ -225,6 +231,48 @@ dnl AC_PROG_LN_S
 dnl AC_PROG_MAKE_SET
 dnl RANLIB is for PCRE:
 dnl AC_PROG_RANLIB
+
+AC_CHECK_PROG(GDB,gdb,yes,no)
+
+dnl =================================================================
+dnl debug, gcc and gdb support 
+dnl =================================================================
+
+AC_ARG_WITH(debug,
+        [  --with-debug           Enable debug mode],
+        [
+                if test "x$withval" != "$xno" ; then
+		    if test $ac_cv_prog_cc_g = yes; then
+		      if test "$GCC" = yes; then
+			if test "$GDB"; then
+			  CFLAGS="-ggdb"
+			else
+			  CFLAGS="-g"
+			fi
+			CFLAGS="$CFLAGS -Wshadow  -Wconversion"
+		      else
+			CFLAGS="-g"
+		      fi
+		   fi
+                   CFLAGS="$CFLAGS -D_DEBUG"
+                fi
+        ],
+	[
+	    if test "$GCC" = yes; then
+	      CFLAGS="-O2"
+	    else
+	      CFLAGS=
+	    fi
+	]
+)
+
+dnl =================================================================
+dnl additional gcc flags
+dnl =================================================================
+dnl 
+if test "$GCC"; then
+  CFLAGS="-pipe $CFLAGS"
+fi
 
 
 dnl =================================================================
@@ -281,6 +329,7 @@ else
 fi
 AC_SUBST(WIN_ONLY)
 
+
 dnl Save old CFLAGS so we can restore them later, then add SPECIAL_CFLAGS
 old_CFLAGS_nospecial=$CFLAGS
 CFLAGS="$CFLAGS $SPECIAL_CFLAGS"
@@ -333,7 +382,6 @@ dnl Solaris specific
 dnl FIXME: Not tested on Solaris yet...
 dnl =================================================================
 
-AC_CANONICAL_HOST
 
 SOCKET_LIB=
 
@@ -387,6 +435,11 @@ AC_OBJEXT
 AC_HEADER_STDC
 AC_C_CONST
 AC_TYPE_SIZE_T
+AC_CHECK_SIZEOF(int)
+AC_CHECK_SIZEOF(char *)
+AC_CHECK_SIZEOF(long)
+AC_CHECK_SIZEOF(long long)
+AC_CHECK_SIZEOF(size_t)
 
 dnl Checks for header files.
 dnl AC_HEADER_SYS_WAIT
