@@ -37,6 +37,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/06/07 23:09:19  jongfoster
+ *    Cosmetic indentation changes.
+ *
  *    Revision 1.10  2001/06/07 14:51:38  joergs
  *    make_path() no longer adds '/' if the dir already ends in '/'.
  *
@@ -489,14 +492,14 @@ char *strsav(char *old, const char *text_to_append)
  *********************************************************************/
 int simplematch(char *pattern, char *text)
 {
-  char *fallback; 
-  char *pat = pattern;
-  char *txt = text;
-  int wildcard = 0;
+   char *fallback; 
+   char *pat = pattern;
+   char *txt = text;
+   int wildcard = 0;
   
-  char lastchar = 'a';
-  unsigned i;
-  unsigned char charmap[32];
+   char lastchar = 'a';
+   unsigned i;
+   unsigned char charmap[32];
   
   
    while (*txt)
