@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2002/03/24 13:46:44  swa
+ *    name change related issue.
+ *
  *    Revision 1.19  2002/03/24 13:25:42  swa
  *    name change related issues
  *
@@ -318,7 +321,7 @@
 #undef FEATURE_STATISTICS
 
 /*
- * Allow JunkBuster to be "disabled" so it is just a normal non-blocking
+ * Allow Privoxy to be "disabled" so it is just a normal non-blocking
  * non-anonymizing proxy.  This is useful if you're trying to access a
  * blocked or broken site - just change the setting in the config file,
  * or use the handy "Disable" menu option in the Windows GUI.
