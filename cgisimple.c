@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.2  2001/09/19 18:01:11  oes
+ *    Fixed comments; cosmetics
+ *
  *    Revision 1.1  2001/09/16 17:08:54  jongfoster
  *    Moving simple CGI functions from cgi.c to new file cgisimple.c
  *
@@ -173,9 +176,7 @@ int cgi_send_banner(struct client_state *csp, struct http_response *rsp,
  *           2 :  rsp = http_response data structure for output
  *           3 :  parameters = map of cgi parameters
  *
- * CGI Parameters :
- *           type : Selects the type of banner between "trans" and "jb".
- *                  Defaults to "jb" if absent or != "trans".
+ * CGI Parameters : none
  *
  * Returns     :  0
  *
@@ -190,6 +191,7 @@ int cgi_show_version(struct client_state *csp, struct http_response *rsp,
    rsp->body = template_load(csp, "show-version");
    template_fill(&rsp->body, exports);
    free_map(exports);
+
    return(0);
 
 }
@@ -207,9 +209,7 @@ int cgi_show_version(struct client_state *csp, struct http_response *rsp,
  *           2 :  rsp = http_response data structure for output
  *           3 :  parameters = map of cgi parameters
  *
- * CGI Parameters :
- *           type : Selects the type of banner between "trans" and "jb".
- *                  Defaults to "jb" if absent or != "trans".
+ * CGI Parameters : none
  *
  * Returns     :  0
  *
@@ -591,6 +591,7 @@ int cgi_robots_txt(struct client_state *csp, struct http_response *rsp,
    enlist_unique_header(rsp->headers, "Expires", buf);
 
    return 0;
+
 }
 
 
@@ -706,6 +707,7 @@ static void show_defines(struct map *exports)
 #endif /* ndef STATIC_PCRS */
 
    map(exports, "FORCE_PREFIX", 1, FORCE_PREFIX, 1);
+
 }
 
 
@@ -803,6 +805,7 @@ static char *show_rcs(void)
 #undef SHOW_RCS
 
    return(b);
+
 }
 
 
