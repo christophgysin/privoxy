@@ -8,8 +8,8 @@
  * Purpose     :  Functions for creating, setting and destroying the
  *                workspace tray icon
  *
- * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ * Copyright   :  Written by and Copyright (C) 2001-2002 members of
+ *                the Privoxy team.  http://privoxy.org/
  *
  *                Written by and Copyright (C) 1999 Adam Lock
  *                <locka@iol.ie>
@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2002/03/24 12:03:47  jongfoster
+ *    Name change
+ *
  *    Revision 1.2  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.

@@ -6,8 +6,8 @@ const char w32log_rcs[] = "$Id$";
  * Purpose     :  Functions for creating and destroying the log window,
  *                ouputting strings, processing messages and so on.
  *
- * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ * Copyright   :  Written by and Copyright (C) 2001-2002 members of
+ *                the Privoxy team.  http://privoxy.org/
  *
  *                Written by and Copyright (C) 1999 Adam Lock
  *                <locka@iol.ie>
@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2002/03/24 12:03:47  jongfoster
+ *    Name change
+ *
  *    Revision 1.19  2002/01/17 21:04:17  jongfoster
  *    Replacing hard references to the URL of the config interface
  *    with #defines from project.h
@@ -341,14 +344,14 @@ BOOL InitLogWindow(void)
    g_hiconIdle = LoadIcon(g_hInstance, MAKEINTRESOURCE(IDI_IDLE));
    for (i = 0; i < ANIM_FRAMES; i++)
    {
-      g_hiconAnim[i] = LoadIcon(g_hInstance, MAKEINTRESOURCE(IDI_JUNKBUSTER1 + i));
+      g_hiconAnim[i] = LoadIcon(g_hInstance, MAKEINTRESOURCE(IDI_ANIMATED1 + i));
    }
-   g_hiconApp = LoadIcon(g_hInstance, MAKEINTRESOURCE(IDI_JUNKBUSTER));
+   g_hiconApp = LoadIcon(g_hInstance, MAKEINTRESOURCE(IDI_MAINICON));
 
    /* Create the user interface */
    g_hwndLogFrame = CreateLogWindow(g_hInstance, g_nCmdShow);
    g_hwndTray = CreateTrayWindow(g_hInstance);
-   TrayAddIcon(g_hwndTray, 1, g_hiconApp, "Junkbuster");
+   TrayAddIcon(g_hwndTray, 1, g_hiconApp, "Privoxy");
 
    /* Create pattern matching buffers (for highlighting */
    LogCreatePatternMatchingBuffers();
@@ -769,7 +772,7 @@ void LogClipBuffer(void)
  *********************************************************************/
 HWND CreateHiddenLogOwnerWindow(HINSTANCE hInstance)
 {
-   static const char *szWndName = "JunkbusterLogLogOwner";
+   static const char *szWndName = "PrivoxyLogOwner";
    WNDCLASS wc;
    HWND hwnd;
 
@@ -832,8 +835,8 @@ LRESULT CALLBACK LogOwnerWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
  *********************************************************************/
 HWND CreateLogWindow(HINSTANCE hInstance, int nCmdShow)
 {
-   static const char *szWndName = "JunkbusterLogWindow";
-   static const char *szWndTitle = "Junkbuster";
+   static const char *szWndName = "PrivoxyLogWindow";
+   static const char *szWndTitle = "Privoxy";
 
    HWND hwnd = NULL;
    HWND hwndOwner = (g_bShowOnTaskBar) ? NULL : CreateHiddenLogOwnerWindow(hInstance);
@@ -1088,7 +1091,7 @@ void OnLogCommand(int nCommand)
 
 #ifdef FEATURE_TOGGLE
       /* by haroon - change toggle to its opposite value */
-      case ID_TOGGLE_IJB:
+      case ID_TOGGLE_ENABLED:
          g_bToggleIJB = !g_bToggleIJB;
          if (g_bToggleIJB)
          {
@@ -1101,7 +1104,7 @@ void OnLogCommand(int nCommand)
          break;
 #endif /* def FEATURE_TOGGLE */
 
-      case ID_TOOLS_EDITJUNKBUSTER:
+      case ID_TOOLS_EDITCONFIG:
          EditFile(configfile);
          break;
 
@@ -1135,8 +1138,8 @@ void OnLogCommand(int nCommand)
          ShellExecute(g_hwndLogFrame, "open", CGI_PREFIX "show-status", NULL, NULL, SW_SHOWNORMAL);
          break;
 
-      case ID_HELP_ABOUTJUNKBUSTER:
-         MessageBox(g_hwndLogFrame, win32_blurb, "Junkbuster Information", MB_OK);
+      case ID_HELP_ABOUT:
+         MessageBox(g_hwndLogFrame, win32_blurb, "About Privoxy", MB_OK);
          break;
 
       default:
@@ -1176,7 +1179,7 @@ void OnLogInitMenu(HMENU hmenu)
    CheckMenuItem(hmenu, ID_VIEW_ACTIVITYANIMATION, MF_BYCOMMAND | (g_bShowActivityAnimation ? MF_CHECKED : MF_UNCHECKED));
 #ifdef FEATURE_TOGGLE
    /* by haroon - menu item for Enable toggle on/off */
-   CheckMenuItem(hmenu, ID_TOGGLE_IJB, MF_BYCOMMAND | (g_bToggleIJB ? MF_CHECKED : MF_UNCHECKED));
+   CheckMenuItem(hmenu, ID_TOGGLE_ENABLED, MF_BYCOMMAND | (g_bToggleIJB ? MF_CHECKED : MF_UNCHECKED));
 #endif /* def FEATURE_TOGGLE */
 
 }

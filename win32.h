@@ -7,8 +7,8 @@
  *
  * Purpose     :  Win32 User Interface initialization and message loop
  *
- * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ * Copyright   :  Written by and Copyright (C) 2001-2002 members of
+ *                the Privoxy team.  http://privoxy.org/
  *
  *                Written by and Copyright (C) 1999 Adam Lock
  *                <locka@iol.ie>
@@ -33,6 +33,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2002/03/24 12:03:47  jongfoster
+ *    Name change
+ *
  *    Revision 1.3  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx

@@ -7,8 +7,8 @@
  *
  * Purpose     :  Identifiers for Windows GUI resources.
  *
- * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ * Copyright   :  Written by and Copyright (C) 2001-2002 members of
+ *                the Privoxy team.  http://privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2002/03/24 12:03:47  jongfoster
+ *    Name change
+ *
  *    Revision 1.10  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -114,18 +117,18 @@
 #define IDR_POPUP_SELECTION               105
 
 
-#define IDI_JUNKBUSTER                    200
-#define IDI_JUNKBUSTER1                   201
-#define IDI_JUNKBUSTER2                   202
-#define IDI_JUNKBUSTER3                   203
-#define IDI_JUNKBUSTER4                   204
-#define IDI_JUNKBUSTER5                   205
-#define IDI_JUNKBUSTER6                   206
-#define IDI_JUNKBUSTER7                   207
-#define IDI_JUNKBUSTER8                   208
+#define IDI_MAINICON                      200
+#define IDI_ANIMATED1                     201
+#define IDI_ANIMATED2                     202
+#define IDI_ANIMATED3                     203
+#define IDI_ANIMATED4                     204
+#define IDI_ANIMATED5                     205
+#define IDI_ANIMATED6                     206
+#define IDI_ANIMATED7                     207
+#define IDI_ANIMATED8                     208
 
 #define ID_SHOWWINDOW                     4000
-#define ID_HELP_ABOUTJUNKBUSTER           4001
+#define ID_HELP_ABOUT                     4001
 #define ID_FILE_EXIT                      4002
 #define ID_VIEW_CLEARLOG                  4003
 #define ID_VIEW_LOGMESSAGES               4004
@@ -137,11 +140,11 @@
 #define ID_HELP_GPL                       4010
 #define ID_HELP_STATUS                    4011
 #ifdef FEATURE_TOGGLE
-#define ID_TOGGLE_IJB                     4012
+#define ID_TOGGLE_ENABLED                 4012
 #endif /* def FEATURE_TOGGLE */
 
 /* Break these out so they are easier to extend, but keep consecutive */
-#define ID_TOOLS_EDITJUNKBUSTER           5000
+#define ID_TOOLS_EDITCONFIG               5000
 #define ID_TOOLS_EDITACTIONS              5001
 #define ID_TOOLS_EDITPERLRE               5002
 
