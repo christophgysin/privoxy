@@ -33,6 +33,9 @@ const char pcrs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2002/03/08 13:45:48  oes
+ *    Hiding internal functions
+ *
  *    Revision 1.16  2001/11/30 21:32:14  jongfoster
  *    Fixing signed/unsigned comparison (Andreas please check this!)
  *    One tab->space
@@ -128,6 +131,14 @@ const char pcrs_rcs[] = "$Id$";
 
 const char pcrs_h_rcs[] = PCRS_H_VERSION;
 
+/*
+ * Internal prototypes
+ */
+
+static int              pcrs_parse_perl_options(const char *optstring, int *flags);
+static pcrs_substitute *pcrs_compile_replacement(const char *replacement, int trivialflag,
+                        int capturecount, int *errptr);
+
 /*********************************************************************
  *
  * Function    :  pcrs_strerror
@@ -195,7 +206,7 @@ const char *pcrs_strerror(const int error)
  * Returns     :  option integer suitable for pcre 
  *
  *********************************************************************/
-int pcrs_parse_perl_options(const char *optstring, int *flags)
+static int pcrs_parse_perl_options(const char *optstring, int *flags)
 {
    size_t i;
    int rc = 0;
@@ -248,7 +259,7 @@ int pcrs_parse_perl_options(const char *optstring, int *flags)
  *                the reason.
  *
  *********************************************************************/
-pcrs_substitute *pcrs_compile_replacement(const char *replacement, int trivialflag, int capturecount, int *errptr)
+static pcrs_substitute *pcrs_compile_replacement(const char *replacement, int trivialflag, int capturecount, int *errptr)
 {
    int length, i, k, l, quoted;
    char *text;
@@ -328,7 +339,7 @@ pcrs_substitute *pcrs_compile_replacement(const char *replacement, int trivialfl
                      text[k++] = '\f';
                      break;
                   case 'a':
-                     text[k++] = '\a';
+                     text[k++] = 7;
                      break;
                   case 'e':
                      text[k++] = 27;
