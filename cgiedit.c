@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.34  2002/04/26 12:54:17  oes
+ *    Adaptions to changes in actions.c
+ *
  *    Revision 1.33  2002/04/24 02:17:47  oes
  *     - Moved get_char_param, get_string_param and get_number_param to cgi.c
  *     - Comments
@@ -809,9 +812,6 @@ jb_err edit_write_file(struct editable_file * file)
          }
          if (cur_line->unprocessed)
          {
-            /* This should be a single line - sanity check. */
-            assert(NULL == strchr(cur_line->unprocessed, '\r'));
-            assert(NULL == strchr(cur_line->unprocessed, '\n'));
 
             if (NULL != strchr(cur_line->unprocessed, '#'))
             {
@@ -2421,7 +2421,7 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
       snprintf(buf, 150, "%d", line_number + 2);
       if (!err) err = map(exports, "all-urls-s-next", 1, buf, 1);
       if (!err) err = map(exports, "all-urls-actions", 1,
-                          actions_to_html(cur_line->data.action), 0);
+                          actions_to_html(cur_line->data.action, csp), 0);
 
        /* Skip the 2 lines */
       cur_line = cur_line->next->next;
@@ -2532,7 +2532,7 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
       snprintf(buf, 150, "%d", line_number);
       err = map(section_exports, "s", 1, buf, 1);
       if (!err) err = map(section_exports, "actions", 1,
-                          actions_to_html(cur_line->data.action), 0);
+                          actions_to_html(cur_line->data.action, csp), 0);
 
       if ( (!err)
         && (cur_line->next != NULL)
