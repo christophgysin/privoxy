@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/07/01 17:04:11  oes
+ *    Bugfix: accept_connection no longer uses the obsolete hstrerror() function
+ *
  *    Revision 1.11  2001/06/29 21:45:41  oes
  *    Indentation, CRLF->LF, Tab-> Space
  *
@@ -446,7 +449,6 @@ int accept_connection(struct client_state * csp, int fd)
    struct sockaddr_in *lap = (struct sockaddr_in *) &laddr;
    struct hostent *host = NULL;
    int   afd, raddrlen, laddrlen;
-   extern int h_errno;
    char *p;
 
    raddrlen = sizeof raddr;
@@ -471,7 +473,7 @@ int accept_connection(struct client_state * csp, int fd)
       host = gethostbyaddr(laddr.sa_data + 2, 4, AF_INET);
       if (host == NULL)
       {
-         log_error(LOG_LEVEL_ERROR, "Unable to get my own hostname: %s\n", hstrerror(h_errno)); 
+         log_error(LOG_LEVEL_ERROR, "Unable to get my own hostname: %E\n");
       }
       else
       {
