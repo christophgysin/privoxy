@@ -7,6 +7,7 @@
 <!entity seealso SYSTEM "seealso.sgml">
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
+<!entity license SYSTEM "license.sgml">
 <!entity p-version "2.9.15">
 <!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
@@ -46,6 +47,30 @@
 
     <pubdate>$Id$</pubdate>
 
+   <copyright>
+    <year>2001</year>
+    <year>2002</year>
+    <holder>Privoxy Developers</holder>
+   </copyright>
+
+<!--
+
+Note: this should generate a separate page, and a live link to it. 
+But it doesn't for some mysterious reason. Please leave commented
+unless it can be fixed proper. For the time being, the copyright 
+statement will be in copyright.smgl.
+
+Hal.
+
+<legalnotice id="legalnotice"> 
+ <para>
+  text goes here ........
+ </para>
+</legalnotice>
+
+-->
+
+<!--
     <authorgroup>
       <author>
         <affiliation>
@@ -53,7 +78,7 @@
         </affiliation>
       </author>
     </authorgroup>
-
+-->
     <abstract>
 <![%dummy;[
  <para>
@@ -2627,8 +2652,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
 <!-- end contacting -->
   </sect1>
   
-  <!--   ~~~~~       New section      ~~~~~     -->
-  <sect1 id="copyright"><title>Copyright and History</title>
+
+<!--   ~~~~~~~~       New section Header    ~~~~~~~~~     -->
+<sect1 id="copyright"><title>Copyright, License and History</title>
 
 <sect2><title>Copyright</title>
 <!-- Include copyright.sgml -->
@@ -2636,13 +2662,22 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
 <!-- end -->
 </sect2>
 
+<!--   ~~~~~       New section      ~~~~~     -->
+<sect2><title>License</title>
+<!-- Include copyright.sgml: -->
+ &license;
+<!-- end copyright -->
+</sect2>
+<!--  ~  End section  ~  -->
+
+<!--   ~~~~~       New section      ~~~~~     -->
 <sect2><title>History</title>
 <!-- Include history.sgml -->
  &history;
 <!-- end -->
 </sect2>
 
-  </sect1>
+</sect1>
   
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="seealso"><title>See also</title>
@@ -2673,6 +2708,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.42  2002/05/05 20:26:02  hal9
+  Sorting out license vs copyright in these docs.
+
   Revision 1.41  2002/05/04 08:44:44  swa
   bumped version
 
