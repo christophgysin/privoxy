@@ -18,8 +18,6 @@
 #                                                                 #
 ###################################################################
 
-#user-manual http://www.privoxy.org/user-manual/
-
 #  I. INTRODUCTION
 #  ===============
 #
@@ -303,6 +301,39 @@ jarfile jarfile
 #      over time.
 #  
 #trustfile trust
+
+
+#  1.8. user-manual
+#  ================
+# 
+#  Specifies:
+#    
+#      Location of the Privoxy User Manual.
+#     
+#  Type of value:
+#    
+#      A fully qualified URI
+#    
+#  Default value:
+#    
+#      http://www.privoxy.org/user-manual/
+#    
+#  Effect if unset:
+#    
+#      The default will be used.
+#    
+#  Notes:
+#    
+#     The User Manual is used for help hints from some of the internal
+#     CGI pages. It is normally packaged with the binary distributions,
+#     and would make more sense to have this pointed at a locally
+#     installed copy.
+#    
+#     A more useful example (Unix):
+#    
+#       user-manual  file:///usr/share/doc/privoxy-2.9.14/user-manual/
+#    
+#user-manual http://www.privoxy.org/user-manual/
 
 
 #  2. LOCAL SET-UP DOCUMENTATION
