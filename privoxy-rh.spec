@@ -36,7 +36,7 @@ Name: privoxy
 # Version and release should be updated acordingly on configure.in and
 # configure. Otherwise, the package can be build with the wrong value
 Version: 2.9.13
-Release: 4
+Release: 5
 Summary: Privoxy - privacy enhancing proxy
 License: GPL
 Vendor: http://www.privoxy.org
@@ -225,33 +225,38 @@ fi
 %config %{privoxyconf}/default.filter
 %config %{privoxyconf}/trust
 
-%config %{privoxyconf}/templates/blocked
-%config %{privoxyconf}/templates/cgi-error-404
-%config %{privoxyconf}/templates/cgi-error-bad-param
-%config %{privoxyconf}/templates/cgi-error-disabled
-%config %{privoxyconf}/templates/cgi-error-file
-%config %{privoxyconf}/templates/cgi-error-modified
-%config %{privoxyconf}/templates/cgi-error-parse
-%config %{privoxyconf}/templates/cgi-style.css
-%config %{privoxyconf}/templates/connect-failed
+%config %{privoxyconf}/templates/untrusted
+%config %{privoxyconf}/templates/toggle-mini
 %config %{privoxyconf}/templates/default
-%config %{privoxyconf}/templates/edit-actions-add-url-form
-%config %{privoxyconf}/templates/edit-actions-for-url
-%config %{privoxyconf}/templates/edit-actions-for-url-filter
-%config %{privoxyconf}/templates/edit-actions-list
-%config %{privoxyconf}/templates/edit-actions-list-section
-%config %{privoxyconf}/templates/edit-actions-list-url
-%config %{privoxyconf}/templates/edit-actions-remove-url-form
+%config %{privoxyconf}/templates/connect-failed
+%config %{privoxyconf}/templates/show-status-file
+%config %{privoxyconf}/templates/cgi-error-bad-param
+%config %{privoxyconf}/templates/show-version
+%config %{privoxyconf}/templates/cgi-error-file
+%config %{privoxyconf}/templates/cgi-error-404
+%config %{privoxyconf}/templates/cgi-error-parse
 %config %{privoxyconf}/templates/edit-actions-url-form
 %config %{privoxyconf}/templates/no-such-domain
+%config %{privoxyconf}/templates/edit-actions-add-url-form
+%config %{privoxyconf}/templates/cgi-style.css
+%config %{privoxyconf}/templates/edit-actions-for-url-filter
+%config %{privoxyconf}/templates/cgi-error-disabled
+%config %{privoxyconf}/templates/edit-actions-remove-url-form
 %config %{privoxyconf}/templates/show-request
-%config %{privoxyconf}/templates/show-status
-%config %{privoxyconf}/templates/show-status-file
-%config %{privoxyconf}/templates/show-url-info
-%config %{privoxyconf}/templates/show-version
+%config %{privoxyconf}/templates/cgi-error-modified
+%config %{privoxyconf}/templates/mod-unstable-warning
+%config %{privoxyconf}/templates/edit-actions-list
 %config %{privoxyconf}/templates/toggle
-%config %{privoxyconf}/templates/toggle-mini
-%config %{privoxyconf}/templates/untrusted
+%config %{privoxyconf}/templates/edit-actions-list-section
+%config %{privoxyconf}/templates/mod-title
+%config %{privoxyconf}/templates/edit-actions-list-url
+%config %{privoxyconf}/templates/show-status
+%config %{privoxyconf}/templates/blocked
+%config %{privoxyconf}/templates/mod-support-and-service
+%config %{privoxyconf}/templates/mod-local-help
+%config %{privoxyconf}/templates/show-url-info
+%config %{privoxyconf}/templates/edit-actions-for-url
+
 %config %{_sysconfdir}/logrotate.d/%{name}
 %config %attr(0744,root,root) %{_sysconfdir}/rc.d/init.d/%{name}
 %ghost %attr(-,root,root) %{_sysconfdir}/rc.d/rc0.d/K09%{name}
@@ -265,6 +270,10 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Wed Apr 10 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
++ privoxy-2.9.13-5
+- Relisting template files on the %%files section
+
 * Tue Apr 09 2002 Hal Burgiss <hal@foobox.net>
 + privoxy-2.9.13-4
 - Removed 'make dok'. Docs are all maintained in CVS (and tarball) now.
@@ -559,6 +568,10 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.23  2002/04/10 18:14:45  morcego
+# - (privoxy-rh.spec only) Relisting template files on the %%files section
+# - (configure.in, privoxy-rh.spec) Bumped package release to 5
+#
 # Revision 1.22  2002/04/09 22:06:12  hal9
 # Remove 'make dok'.
 #
