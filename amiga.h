@@ -31,6 +31,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/29 20:05:06  joergs
+ *    Fixed exit() macro not exiting if called before InitAmiga()
+ *    (junkbuster --help and --version).
+ *
  *    Revision 1.3  2001/05/25 21:53:27  jongfoster
  *    Fixing indentation
  *
@@ -77,19 +81,25 @@ void amiga_exit(void);
 void __memCleanUp(void);
 __saveds ULONG server_thread(void);
 
-#define exit(x)\
-{\
-   if(main_task)\
-   {\
-      if(main_task == FindTask(NULL))\
-      {\
-         while(childs) Delay(10*TICKS_PER_SECOND); exit(x);\
-      } else {\
-         CloseLibrary(SocketBase);\
-         childs--;\
-         RemTask(NULL);\
-      }\
-   }\
+#define exit(x)                                             \
+{                                                           \
+   if(main_task)                                            \
+   {                                                        \
+      if(main_task == FindTask(NULL))                       \
+      {                                                     \
+         while(childs) Delay(10*TICKS_PER_SECOND); exit(x); \
+      }                                                     \
+      else                                                  \
+      {                                                     \
+         CloseLibrary(SocketBase);                          \
+         childs--;                                          \
+         RemTask(NULL);                                     \
+      }                                                     \
+   }                                                        \
+   else                                                     \
+   {                                                        \
+      exit(x);                                              \
+   }                                                        \
 }
 
 #define EINTR 0
