@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2001/07/29 12:17:48  oes
+ *    Applied pthread fix by Paul Lieverse
+ *
  *    Revision 1.30  2001/07/25 22:57:13  jongfoster
  *    __BEOS__ no longer overrides FEATURE_PTHREAD.
  *    This is because FEATURE_PTHREAD will soon be widely used, so I
@@ -1393,6 +1396,7 @@ static void listen_loop(void)
             pthread_attr_t attrs;
 
             pthread_attr_init(&attrs);
+            pthread_attr_setdetachstate(&attrs, PTHREAD_CREATE_DETACHED);
             child_id = (pthread_create(&the_thread, &attrs,
                (void*)serve, csp) ? -1 : 0);
             pthread_attr_destroy(&attrs);
