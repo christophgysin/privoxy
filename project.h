@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/06/09 10:57:39  jongfoster
+ *    Adding definition of BUFFER_SIZE.
+ *    Changing struct cgi_dispatcher to use "const" strings.
+ *
  *    Revision 1.17  2001/06/07 23:15:09  jongfoster
  *    Merging ACL and forward files into config file.
  *    Moving struct gateway members into struct forward_spec
@@ -286,6 +290,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define BUFFER_SIZE 5000
 
 #define FOREVER 1
 
@@ -593,10 +599,10 @@ struct parsers
 
 struct cgi_dispatcher
 {
-   char *name;
-   int   name_length;
-   int   (*handler)(struct client_state *csp, struct http_response *rsp, struct map *parameters);
-   char *description;
+   const char *name;
+   int         name_length;
+   int         (*handler)(struct client_state *csp, struct http_response *rsp, struct map *parameters);
+   const char *description;
 };
 
 struct file_list
