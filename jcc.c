@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.47  2001/10/10 16:44:36  oes
+ *    Added CONNECT destination port limitation check
+ *
  *    Revision 1.46  2001/10/08 15:17:41  oes
  *    Re-enabled SSL forwarding
  *
@@ -609,6 +612,28 @@ static void chat(struct client_state *csp)
    }
 
 #ifdef FEATURE_COOKIE_JAR
+
+   /*
+    * Check if a CONNECT request is allowable:
+    * In the absence of a +limit-connect action, allow only port 443.
+    * If there is an action, allow whatever matches the specificaton.
+    */
+   if(http->ssl)
+   {
+      if(  ( !(csp->action->flags & ACTION_LIMIT_CONNECT) && csp->http->port != 443) 
+           || (csp->action->flags & ACTION_LIMIT_CONNECT
+              && !match_portlist(csp->action->string[ACTION_STRING_LIMIT_CONNECT], csp->http->port)) )
+      {
+         strcpy(buf, CFORBIDDEN);
+         write_socket(csp->cfd, buf, strlen(buf));
+         
+         log_error(LOG_LEVEL_CONNECT, "Denying suspicious CONNECT request from %s", csp->ip_addr_str);
+         log_error(LOG_LEVEL_CLF, "%s - - [%T] \" \" 403 0", csp->ip_addr_str);
+
+         return;
+      }
+   }
+            
 
    /*
     * Downgrade http version from 1.1 to 1.0 if +downgrade
