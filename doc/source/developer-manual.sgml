@@ -389,6 +389,11 @@
  Look at any of the existing docs for examples of all these and more.
 </para>
 
+<para>
+ You might also find <quote><ulink
+ url="http://www.bureau-cornavin.com/opensource/crash-course/">Writing Documentation
+ Using DocBook - A Crash Course</ulink></quote> useful.
+</para>
 </sect2>
 
 <!--   ~~~~~       New section      ~~~~~     -->
@@ -2537,6 +2542,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.35  2002/04/17 15:16:15  oes
+  Added link to docbook crash course
+
   Revision 1.34  2002/04/15 23:39:32  oes
    - Extended & fixed the release section
    - Added CVS guideline sections
