@@ -28,6 +28,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.35  2001/10/15 22:14:59  joergs
+# Removed -O2 and -Wall from AmigaOS-only CFLAGS since they are now in
+#  the general CFLAGS already.
+#
 # Revision 1.34  2001/10/15 18:28:06  steudten
 # remove config.cache for target clobber.
 # Cleanup make dist for RH and S.u.S.E.
@@ -459,7 +463,7 @@ w32.res: w32.rc w32res.h icons/ico00001.ico icons/ico00002.ico icons/ico00003.ic
 
 # AmigaOS
 @AMIGAOS_ONLY@OBJS += amiga.o
-@AMIGAOS_ONLY@CFLAGS += -D__AMIGAVERSION__=\"$(VERSION_MAJOR).$(VERSION_MINOR)$(VERSION_POINT)\" -D__AMIGADATE__=\"`date +%d.%m.%Y`\" -W -Wall -m68020 -Os -noixemul -fbaserel -msmall-code
+@AMIGAOS_ONLY@CFLAGS += -D__AMIGAVERSION__=\"$(VERSION_MAJOR).$(VERSION_MINOR)$(VERSION_POINT)\" -D__AMIGADATE__=\"`date +%d.%m.%Y`\" -W -m68020 -noixemul -fbaserel -msmall-code
 @AMIGAOS_ONLY@LDFLAGS += -m68020 -noixemul -fbaserel
 @AMIGAOS_ONLY@LIBS = -lm /gg/lib/libb/libm020/libnix/swapstack.o
 @AMIGAOS_ONLY@amiga.o: amiga.c amiga.h config.h
