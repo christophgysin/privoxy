@@ -33,7 +33,7 @@
 
 Name: privoxy
 Version: 2.9.13
-Release: 2
+Release: 1
 Summary: Privoxy - privacy enhancing proxy
 License: GPL
 Vendor: http://ijbswa.sourceforge.net
@@ -201,6 +201,7 @@ fi
 %doc doc/text/developer-manual.txt doc/text/user-manual.txt
 %doc doc/webserver/developer-manual
 %doc doc/webserver/user-manual
+%doc doc/webserver/faq
 %doc doc/webserver/ijb_docs.css
 
 %dir %{privoxyconf}
@@ -520,6 +521,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.11  2002/03/25 03:09:51  hal9
+# Added faq to docs.
+#
 # Revision 1.10  2002/03/24 22:16:14  morcego
 # Just removing some old commentaries.
 #
