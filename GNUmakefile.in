@@ -526,7 +526,7 @@ dok-man: doc/source/ldpOK.dsl
 	rm -rf doc/man doc/webserver/man-page
 	mkdir -p doc/man -p doc/webserver/man-page
 	if [ "$(MAN2HTML)" != "false" ]; then \
-		$(ECHO) "<html><head><title>Privoxy|Doc/Man page</title><link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\"></head><body><H2>NAME</H2>" > doc/webserver/man-page/privoxy-man-page.html; \
+		$(ECHO) "<html><head><title>Privoxy Man page</title><link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\"></head><body><H2>NAME</H2>" > doc/webserver/man-page/privoxy-man-page.html; \
 		man ./privoxy.1 | $(MAN2HTML) -bare \
 		 >> doc/webserver/man-page/privoxy-man-page.html; \
 		$(ECHO) "</body></html>" >> doc/webserver/man-page/privoxy-man-page.html; \
@@ -732,6 +732,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.63  2002/04/04 21:06:22  swa
+# cosmetics.
+#
 # Revision 1.62  2002/04/04 20:49:50  swa
 # attempt to consolidate the
 # different dokbook versions.
