@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.57  2001/11/16 00:47:43  jongfoster
+ *    Changing the tty-disconnection code to use setsid().
+ *
  *    Revision 1.56  2001/11/13 20:20:54  jongfoster
  *    Tabs->spaces, fixing a bug with missing {} around an if()
  *
@@ -1484,7 +1487,9 @@ int main(int argc, const char *argv[])
 #if defined(unix)
 {
    pid_t pid = 0;
+#if 0
    int   fd;
+#endif
 
    /*
     * we make us a real daemon
@@ -1515,11 +1520,15 @@ int main(int argc, const char *argv[])
       exit( 0 );
    }
    /* child */
+#if 1
+   /* Should be more portable, but not as well tested */
+   setsid();
+#else /* !1 */
 #ifdef __FreeBSD__
    setpgrp(0,0);
-#else
+#else /* ndef __FreeBSD__ */
    setpgrp();
-#endif
+#endif /* ndef __FreeBSD__ */
    fd = open("/dev/tty", O_RDONLY);
    if ( fd )
    {
@@ -1527,6 +1536,7 @@ int main(int argc, const char *argv[])
       ioctl( fd, TIOCNOTTY,0 );
       close ( fd );
    }
+#endif /* !1 */
    /* should close stderr (fd 2) here too, but the test for existence
    ** and load config file is done in listen_loop() and puts
    ** some messages on stderr there.
