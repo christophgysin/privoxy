@@ -35,6 +35,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2002/01/22 23:28:07  jongfoster
+ *    Adding convenience function html_encode_and_free_original()
+ *    Making all functions accept NULL paramaters - in this case, they
+ *    simply return NULL.  This allows error-checking to be deferred.
+ *
  *    Revision 1.2  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -54,6 +59,8 @@ extern char * html_encode(const char *s);
 extern char * cookie_encode(const char *s);
 extern char * url_encode(const char *s);
 extern char * url_decode(const char *str);
+
+extern char * html_encode_and_free_original(char *s);
 
 /* Revision control strings from this header and associated .c file */
 extern const char encode_rcs[];

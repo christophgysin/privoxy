@@ -33,6 +33,11 @@ const char encode_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2002/01/22 23:28:07  jongfoster
+ *    Adding convenience function html_encode_and_free_original()
+ *    Making all functions accept NULL paramaters - in this case, they
+ *    simply return NULL.  This allows error-checking to be deferred.
+ *
  *    Revision 1.3  2001/11/13 00:16:40  jongfoster
  *    Replacing references to malloc.h with the standard stdlib.h
  *    (See ANSI or K&R 2nd Ed)
@@ -162,12 +167,20 @@ static const char * const cookie_code_map[256] = {
  *
  * Returns     :  Encoded string, newly allocated on the heap. 
  *                Caller is responsible for freeing it with free().
+ *                If s is NULL, or on out-of memory, returns NULL.
  *
  *********************************************************************/
 char * html_encode(const char *s)
 {
+   char * buf;
+   
+   if (s == NULL)
+   {
+      return NULL;
+   }
+
    /* each input char can expand to at most 6 chars */
-   char * buf = (char *) malloc((strlen(s) * 6) + 1);
+   buf = (char *) malloc((strlen(s) * 6) + 1);
 
    if (buf)
    {
@@ -193,6 +206,41 @@ char * html_encode(const char *s)
    return(buf);
 }
 
+
+/*********************************************************************
+ *
+ * Function    :  html_encode_and_free_original
+ *
+ * Description :  Encodes a string so it's not interpreted as
+ *                containing HTML tags or entities.
+ *                Replaces <, >, &, and " with the appropriate HTML
+ *                entities.  Free()s original string.
+ *                If original string is NULL, simply returns NULL.
+ *
+ * Parameters  :
+ *          1  :  s = String to encode.  Null-terminated.
+ *
+ * Returns     :  Encoded string, newly allocated on the heap. 
+ *                Caller is responsible for freeing it with free().
+ *                If s is NULL, or on out-of memory, returns NULL.
+ *
+ *********************************************************************/
+char * html_encode_and_free_original(char *s)
+{
+   char * result;
+   
+   if (s == NULL)
+   {
+      return NULL;
+   }
+
+   result = html_encode(s);
+   free(s);
+
+   return result;
+}
+
+
 /*********************************************************************
  *
  * Function    :  cookie_encode
@@ -206,12 +254,20 @@ char * html_encode(const char *s)
  *
  * Returns     :  Encoded string, newly allocated on the heap. 
  *                Caller is responsible for freeing it with free().
+ *                If s is NULL, or on out-of memory, returns NULL.
  *
  *********************************************************************/
 char * cookie_encode(const char *s)
 {
+   char * buf;
+
+   if (s == NULL)
+   {
+      return NULL;
+   }
+
    /* each input char can expand to at most 3 chars */
-   char * buf = (char *) malloc((strlen(s) * 3) + 1);
+   buf = (char *) malloc((strlen(s) * 3) + 1);
 
    if (buf)
    {
@@ -250,12 +306,20 @@ char * cookie_encode(const char *s)
  *
  * Returns     :  Encoded string, newly allocated on the heap. 
  *                Caller is responsible for freeing it with free().
+ *                If s is NULL, or on out-of memory, returns NULL.
  *
  *********************************************************************/
 char * url_encode(const char *s)
 {
+   char * buf;
+
+   if (s == NULL)
+   {
+      return NULL;
+   }
+
    /* each input char can expand to at most 3 chars */
-   char * buf = (char *) malloc((strlen(s) * 3) + 1);
+   buf = (char *) malloc((strlen(s) * 3) + 1);
 
    if (buf)
    {
