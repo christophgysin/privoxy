@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/05/26 15:21:28  jongfoster
+ *    Activity animation in Win32 GUI now works even if debug==0
+ *
  *    Revision 1.6  2001/05/25 21:55:08  jongfoster
  *    Now cleans up properly on FATAL (removes taskbar icon etc)
  *
@@ -254,6 +257,18 @@ void log_error(int loglevel, char *fmt, ...)
    char * src = fmt;
    int outc = 0;
    long this_thread = 1;  /* was: pthread_t this_thread;*/
+
+#if defined(_WIN32) && !defined(_WIN_CONSOLE)
+   /*
+    * Irrespective of debug setting, a GET/POST/CONNECT makes
+    * the taskbar icon animate.  (There is an option to disable
+    * this but checking that is handled inside LogShowActivity()).
+    */
+   if (loglevel == LOG_LEVEL_GPC)
+   {
+      LogShowActivity();
+   }
+#endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
 
    /* verify if loglevel applies to current settings and bail out if negative */
    if(!(loglevel & debug))
@@ -511,7 +526,6 @@ void log_error(int loglevel, char *fmt, ...)
 #if defined(_WIN32) && !defined(_WIN_CONSOLE)
    /* Write to display */
    LogPutString(outbuf);
-   LogShowActivity();
 #endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
 
 }
