@@ -33,6 +33,10 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/11/07 00:06:06  steudten
+ *    Add line number in error output for lineparsing for
+ *    actionsfile.
+ *
  *    Revision 1.17  2001/10/25 03:40:47  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -1151,6 +1155,7 @@ int load_actions_file(struct client_state *csp)
    struct action_spec * cur_action = NULL;
    int cur_action_used = 0;
    struct action_alias * alias_list = NULL;
+   unsigned long linenum = 0;
 
    if (!check_file_changed(current_actions_file, csp->config->actions_file, &fs))
    {
@@ -1183,7 +1188,7 @@ int load_actions_file(struct client_state *csp)
       return 1; /* never get here */
    }
 
-   while (read_config_line(buf, sizeof(buf), fp) != NULL)
+   while (read_config_line(buf, sizeof(buf), fp, &linenum) != NULL)
    {
       if (*buf == '{')
       {
@@ -1199,8 +1204,8 @@ int load_actions_file(struct client_state *csp)
                /* too short */
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
-                  "can't load actions file '%s': invalid line: %s",
-                  csp->config->actions_file, buf);
+                  "can't load actions file '%s': invalid line (%lu): %s", 
+                  csp->config->actions_file, linenum, buf);
                return 1; /* never get here */
             }
 
@@ -1213,8 +1218,8 @@ int load_actions_file(struct client_state *csp)
                /* too short */
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
-                  "can't load actions file '%s': invalid line: {{ }}",
-                  csp->config->actions_file);
+                  "can't load actions file '%s': invalid line (%lu): {{ }}",
+                  csp->config->actions_file, linenum);
                return 1; /* never get here */
             }
 
@@ -1245,8 +1250,8 @@ int load_actions_file(struct client_state *csp)
                    */
                   fclose(fp);
                   log_error(LOG_LEVEL_FATAL,
-                     "can't load actions file '%s': {{settings}} must only appear once, and it must be before anything else.",
-                     csp->config->actions_file);
+                     "can't load actions file '%s': line %lu: {{settings}} must only appear once, and it must be before anything else.",
+                     csp->config->actions_file, linenum);
                }
                mode = MODE_SETTINGS;
             }
@@ -1259,8 +1264,8 @@ int load_actions_file(struct client_state *csp)
                    */
                   fclose(fp);
                   log_error(LOG_LEVEL_FATAL,
-                     "can't load actions file '%s': {{description}} must only appear once, and only a {{settings}} block may be above it.",
-                     csp->config->actions_file);
+                     "can't load actions file '%s': line %lu: {{description}} must only appear once, and only a {{settings}} block may be above it.",
+                     csp->config->actions_file, linenum);
                }
                mode = MODE_DESCRIPTION;
             }
@@ -1281,8 +1286,8 @@ int load_actions_file(struct client_state *csp)
                    */
                   fclose(fp);
                   log_error(LOG_LEVEL_FATAL,
-                     "can't load actions file '%s': {{alias}} must only appear once, and it must be before all actions.",
-                     csp->config->actions_file, start);
+                     "can't load actions file '%s': line %lu: {{alias}} must only appear once, and it must be before all actions.",
+                     csp->config->actions_file, linenum);
                }
                mode = MODE_ALIAS;
             }
@@ -1291,8 +1296,8 @@ int load_actions_file(struct client_state *csp)
                /* invalid {{something}} block */
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
-                  "can't load actions file '%s': invalid line: {{%s}}",
-                  csp->config->actions_file, start);
+                  "can't load actions file '%s': invalid line (%lu): {{%s}}",
+                  csp->config->actions_file, linenum, start);
                return 1; /* never get here */
             }
          }
@@ -1338,8 +1343,8 @@ int load_actions_file(struct client_state *csp)
                /* No closing } */
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
-                  "can't load actions file '%s': invalid line: %s",
-                  csp->config->actions_file, buf);
+                  "can't load actions file '%s': invalid line (%lu): %s",
+                  csp->config->actions_file, linenum, buf);
                return 1; /* never get here */
             }
             *end = '\0';
@@ -1352,8 +1357,8 @@ int load_actions_file(struct client_state *csp)
                /* error */
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
-                  "can't load actions file '%s': invalid line: %s",
-                  csp->config->actions_file, buf);
+                  "can't load actions file '%s': invalid line (%lu): %s",
+                  csp->config->actions_file, linenum, buf);
                return 1; /* never get here */
             }
          }
@@ -1387,8 +1392,8 @@ int load_actions_file(struct client_state *csp)
          if ((start == NULL) || (start == buf))
          {
             log_error(LOG_LEVEL_FATAL,
-               "can't load actions file '%s': invalid alias line: %s",
-               csp->config->actions_file, buf);
+               "can't load actions file '%s': invalid alias line (%lu): %s",
+               csp->config->actions_file, linenum, buf);
             return 1; /* never get here */
          }
 
@@ -1422,8 +1427,8 @@ int load_actions_file(struct client_state *csp)
          if (*start == '\0')
          {
             log_error(LOG_LEVEL_FATAL,
-               "can't load actions file '%s': invalid alias line: %s",
-               csp->config->actions_file, buf);
+               "can't load actions file '%s': invalid alias line (%lu): %s",
+               csp->config->actions_file, linenum, buf);
             return 1; /* never get here */
          }
 
@@ -1436,8 +1441,8 @@ int load_actions_file(struct client_state *csp)
             /* error */
             fclose(fp);
             log_error(LOG_LEVEL_FATAL,
-               "can't load actions file '%s': invalid alias line: %s = %s",
-               csp->config->actions_file, buf, start);
+               "can't load actions file '%s': invalid alias line (%lu): %s = %s",
+               csp->config->actions_file, linenum, buf, start);
             return 1; /* never get here */
          }
 
@@ -1467,8 +1472,8 @@ int load_actions_file(struct client_state *csp)
          {
             fclose(fp);
             log_error(LOG_LEVEL_FATAL,
-               "can't load actions file '%s': cannot create URL pattern from: %s",
-               csp->config->actions_file, buf);
+               "can't load actions file '%s': line %lu: cannot create URL pattern from: %s",
+               csp->config->actions_file, linenum, buf);
             return 1; /* never get here */
          }
 
@@ -1481,8 +1486,8 @@ int load_actions_file(struct client_state *csp)
          /* oops - please have a {} line as 1st line in file. */
          fclose(fp);
          log_error(LOG_LEVEL_FATAL,
-            "can't load actions file '%s': first line is invalid: %s",
-            csp->config->actions_file, buf);
+            "can't load actions file '%s': first needed line (%lu) is invalid: %s",
+            csp->config->actions_file, linenum, buf);
          return 1; /* never get here */
       }
       else
