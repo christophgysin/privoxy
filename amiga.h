@@ -31,8 +31,11 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:46  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/23 00:13:58  joergs
+ *    AmigaOS support fixed.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:58:46  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -46,6 +49,7 @@
 #include <proto/socket.h>
 #undef __NOLIBBASE__
 
+#define __CONSTLIBBASEDECL__ const
 #include <proto/exec.h>
 #include <exec/tasks.h>
 #include <proto/dos.h>

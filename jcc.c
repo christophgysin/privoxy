@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/23 00:13:58  joergs
+ *    AmigaOS support fixed.
+ *
  *    Revision 1.5  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -177,7 +180,12 @@ int urls_rejected = 0;     /* total nr of urls rejected */
 
 static void listen_loop(void);
 static void chat(struct client_state *csp);
+#ifdef AMIGA
+void serve(struct client_state *csp);
+#else /* ifndef AMIGA */
 static void serve(struct client_state *csp);
+#endif /* def AMIGA */
+
 #ifdef __BEOS__
 static int32 server_thread(void *data);
 #endif /* def __BEOS__ */
@@ -448,6 +456,10 @@ static void chat(struct client_state *csp)
             p = (char *)malloc(strlen(HTTP_REDIRECT_TEMPLATE) + strlen(tinygifurl));
 	         sprintf(p, HTTP_REDIRECT_TEMPLATE, tinygifurl);
             write_socket(csp->cfd, p, strlen(p));
+         }
+         else
+         {
+            write_socket(csp->cfd, JBGIF, sizeof(JBGIF)-1);
          }
       }
       else
@@ -843,7 +855,11 @@ static void chat(struct client_state *csp)
  * Returns     :  N/A
  *
  *********************************************************************/
+#ifdef AMIGA
+void serve(struct client_state *csp)
+#else /* ifndef AMIGA */
 static void serve(struct client_state *csp)
+#endif /* def AMIGA */
 {
    chat(csp);
    close_socket(csp->cfd);
@@ -912,7 +928,9 @@ int main(int argc, const char *argv[])
 #endif
 {
    configfile =
-#ifndef _WIN32
+#ifdef AMIGA
+   "AmiTCP:db/junkbuster.config"
+#elif !defined(_WIN32)
    "config"
 #else
    "junkbstr.txt"
@@ -935,6 +953,10 @@ int main(int argc, const char *argv[])
       exit(2);
    }
 #endif /* !defined(_WIN32) || defined(_WIN_CONSOLE) */
+
+#ifdef AMIGA
+   InitAmiga();
+#endif
 
    Argc = argc;
    Argv = argv;
