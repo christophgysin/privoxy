@@ -1,5 +1,5 @@
 #
-# Logrotate file for Junkbuster RPM
+# Logrotate file for Privoxy RPM
 #
 # ********************************************************************
 # 
@@ -9,7 +9,7 @@
 #                 
 # 
 #  Copyright   :  Written by and Copyright (C) 2001 the SourceForge
-#                 IJBSWA team.  http://ijbswa.sourceforge.net
+#                 PRIVOXY team.  http://ijbswa.sourceforge.net
 # 
 #                 Based on the Internet Junkbuster originally written
 #                 by and Copyright (C) 1997 Anonymous Coders and 
@@ -35,6 +35,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.2  2002/03/24 11:40:14  swa
+#     name change
+#
 #     Revision 1.1  2002/03/24 11:23:44  swa
 #     name change
 #
@@ -72,19 +75,19 @@
 # 
 # ********************************************************************/
 
-/var/log/junkbuster/logfile {
+/var/log/privoxy/logfile {
    compress
    size 1M
    postrotate
-        /sbin/service junkbuster reload  2> /dev/null || true
+        /sbin/service privoxy reload  2> /dev/null || true
    endscript
 }
 
-/var/log/junkbuster/jarfile {
+/var/log/privoxy/jarfile {
    missingok
    compress
    size 1M
    postrotate
-        /sbin/service junkbuster reload  2> /dev/null || true
+        /sbin/service privoxy reload  2> /dev/null || true
    endscript
 }
