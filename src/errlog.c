@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/09/25 12:51:21  oes
+ *    Made log_error safe against NULL string arguments
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -616,6 +619,10 @@ void log_error(int loglevel, char *fmt, ...)
             break;
          case 's':
             sval = va_arg( ap, char * );
+            if (sval == NULL)
+            {
+               sval = "[null]";
+            }
             oldoutc = outc;
             outc += strlen(sval);
             if (outc < BUFFER_SIZE-1) 
@@ -633,6 +640,10 @@ void log_error(int loglevel, char *fmt, ...)
              */
             ival = va_arg( ap, int );
             sval = va_arg( ap, char * );
+            if (sval == NULL)
+            {
+               sval = "[null]";
+            }
             if (ival < 0)
             {
                ival = 0;
