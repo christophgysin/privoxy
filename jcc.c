@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.62  2002/02/20 23:17:23  jongfoster
+ *    Detecting some out-of memory conditions and exiting with a log message.
+ *
  *    Revision 1.61  2002/01/17 21:01:52  jongfoster
  *    Moving all our URL and URL pattern parsing code to urlmatch.c.
  *
@@ -763,10 +766,17 @@ static void chat(struct client_state *csp)
     * Downgrade http version from 1.1 to 1.0 if +downgrade
     * action applies
     */
-   if (!strcmpic(http->ver, "HTTP/1.1") && csp->action->flags & ACTION_DOWNGRADE)
+   if ( (http->ssl == 0)
+     && (!strcmpic(http->ver, "HTTP/1.1"))
+     && (csp->action->flags & ACTION_DOWNGRADE))
    {
       freez(http->ver);
       http->ver = strdup("HTTP/1.0");
+
+      if (http->ver == NULL)
+      {
+         log_error(LOG_LEVEL_FATAL, "Out of memory downgrading HTTP version");
+      }
    }
 
    /*
@@ -777,21 +787,25 @@ static void chat(struct client_state *csp)
    {
       freez(http->cmd);
 
-      http->cmd = strsav(http->cmd, http->gpc);
-      http->cmd = strsav(http->cmd, " ");
+      http->cmd = strdup(http->gpc);
+      string_append(&http->cmd, " ");
 
       if (fwd->forward_host)
       {
-         http->cmd = strsav(http->cmd, http->url);
+         string_append(&http->cmd, http->url);
       }
       else
       {
-         http->cmd = strsav(http->cmd, http->path);
+         string_append(&http->cmd, http->path);
       }
 
-      http->cmd = strsav(http->cmd, " ");
-      http->cmd = strsav(http->cmd, http->ver);
+      string_append(&http->cmd, " ");
+      string_append(&http->cmd, http->ver);
 
+      if (http->cmd == NULL)
+      {
+         log_error(LOG_LEVEL_FATAL, "Out of memory rewiting SSL command");
+      }
    }
    enlist(csp->headers, http->cmd);
 
@@ -944,6 +958,12 @@ static void chat(struct client_state *csp)
    log_error(LOG_LEVEL_CONNECT, "OK");
 
    hdr = sed(client_patterns, add_client_headers, csp);
+   if (hdr == NULL)
+   {
+      /* FIXME Should handle error properly */
+      log_error(LOG_LEVEL_FATAL, "Out of memory parsing client header");
+   }
+
    list_remove_all(csp->headers);
 
    if (fwd->forward_host || (http->ssl == 0))
@@ -1132,6 +1152,12 @@ static void chat(struct client_state *csp)
                   }
 
                   hdr = sed(server_patterns, add_server_headers, csp);
+                  if (hdr == NULL)
+                  {
+                     /* FIXME Should handle error properly */
+                     log_error(LOG_LEVEL_FATAL, "Out of memory parsing server header");
+                  }
+
                   n = strlen(hdr);
 
                   if ((write_socket(csp->cfd, hdr, n) != n)
@@ -1186,6 +1212,12 @@ static void chat(struct client_state *csp)
                   log_error(LOG_LEVEL_ERROR, "Buffer size limit reached! Flushing and stepping back.");
 
                   hdr = sed(server_patterns, add_server_headers, csp);
+                  if (hdr == NULL)
+                  {
+                     /* FIXME Should handle error properly */
+                     log_error(LOG_LEVEL_FATAL, "Out of memory parsing server header");
+                  }
+
                   n   = strlen(hdr);
                   byte_count += n;
 
@@ -1274,6 +1306,12 @@ static void chat(struct client_state *csp)
              */
 
             hdr = sed(server_patterns, add_server_headers, csp);
+            if (hdr == NULL)
+            {
+               /* FIXME Should handle error properly */
+               log_error(LOG_LEVEL_FATAL, "Out of memory parsing server header");
+            }
+
             n   = strlen(hdr);
 
             /* write the server's (modified) header to
