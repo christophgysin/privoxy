@@ -33,6 +33,10 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2002/05/26 12:14:19  roro
+ *    Change unsigned to unsigned long in actions_name struct.  This closes
+ *    SourceForge Bug #539284.
+ *
  *    Revision 1.32  2002/05/12 21:36:29  jongfoster
  *    Correcting function comments
  *
@@ -221,10 +225,10 @@ const char actions_h_rcs[] = ACTIONS_H_VERSION;
 struct action_name
 {
    const char * name;
-   unsigned mask;   /* a bit set to "0" = remove action */
-   unsigned add;    /* a bit set to "1" = add action */
-   int takes_value; /* an AV_... constant */
-   int index;       /* index into strings[] or multi[] */
+   unsigned long mask;   /* a bit set to "0" = remove action */
+   unsigned long add;    /* a bit set to "1" = add action */
+   int takes_value;      /* an AV_... constant */
+   int index;            /* index into strings[] or multi[] */
 };
 
 /*
