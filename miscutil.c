@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/06/07 14:43:17  swa
+ *    slight mistake in make_path, unix path style is /.
+ *
  *    Revision 1.8  2001/06/05 22:32:01  jongfoster
  *    New function make_path() to splice directory and file names together.
  *
@@ -656,7 +659,7 @@ char * make_path(const char * dir, const char * file)
 #ifdef _WIN32
       strcat(path, "\\");
 #else /* ifndef _WIN32 */
-      strcat(path, "\\");
+      strcat(path, "/");
 #endif /* ifndef _WIN32 */
       strcat(path, file);
 
