@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.64  2002/04/03 22:28:03  gliptak
+ *    Removed references to gnu_regex
+ *
  *    Revision 1.63  2002/03/31 17:19:00  jongfoster
  *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
  *
@@ -423,9 +426,9 @@
  * and are included anyway.
  */
 
-#if defined(REGEX_PCRE) || defined (REGEX_GNU)
+#if defined(REGEX_PCRE)
 # define REGEX
-#endif /* defined(REGEX_PCRE) || defined (REGEX_GNU) */
+#endif /* defined(REGEX_PCRE) */
 
 #ifdef STATIC_PCRE
 #  include "pcre.h"
@@ -446,10 +449,6 @@
 #    include <pcreposix.h>
 #  endif
 #endif /* defined(REGEX_PCRE) */
-
-#if defined(REGEX_GNU)
-#  include "gnu_regex.h"
-#endif
 
 #ifdef AMIGA
 #include "amiga.h"

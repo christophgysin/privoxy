@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2002/04/03 22:28:03  gliptak
+ *    Removed references to gnu_regex
+ *
  *    Revision 1.22  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -227,7 +230,6 @@
  * If neither of these are defined then you can ony use prefix matching.
  * Don't bother to change this here! Use configure instead.
  */
-#undef REGEX_GNU
 #undef REGEX_PCRE
 
 /* 
