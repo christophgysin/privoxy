@@ -249,9 +249,11 @@
 --------------------------------------------------------------</LiteralLayout>
 </para>
 
+<!--  <sect1 id="none" label=""><title></title> -->
 <!-- Include contacting.sgml boilerplate: -->
- &contacting;
+<!--   &contacting; -->
 <!-- end boilerplate -->
+<!--  </sect1> -->
 
 <para>
  <LiteralLayout>
