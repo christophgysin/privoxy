@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2002/03/26 23:06:04  jongfoster
+ *    Removing duplicate @ifs on the toggle page
+ *
  *    Revision 1.26  2002/03/26 22:59:17  jongfoster
  *    Fixing /toggle to display status consistently.
  *
@@ -4188,13 +4191,6 @@ jb_err cgi_toggle(struct client_state *csp,
    if (NULL == (exports = default_exports(csp, "toggle")))
    {
       return JB_ERR_MEMORY;
-   }
-
-   err = map_conditional(exports, "enabled", g_bToggleIJB);
-   if (err)
-   {
-      free_map(exports);
-      return err;
    }
 
    template_name = (get_char_param(parameters, "mini")
