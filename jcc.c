@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.44  2001/10/02 18:13:57  oes
+ *    Ooops
+ *
  *    Revision 1.43  2001/10/02 15:32:13  oes
  *    Moved generation of hdr
  *
@@ -744,6 +747,7 @@ static void chat(struct client_state *csp)
    log_error(LOG_LEVEL_CONNECT, "OK");
 
    hdr = sed(client_patterns, add_client_headers, csp);
+   list_remove_all(csp->headers);
 
    if (fwd->forward_host || (http->ssl == 0))
    {
