@@ -1508,7 +1508,7 @@ ACLs: permit-access and deny-access</title>
   <listitem>
    <para>
     <replaceable class="parameter">target_domain</replaceable>[:<replaceable class="parameter">port</replaceable>]
-    <replaceable class="parameter">http_parent</replaceable>[/<replaceable class="parameter">port</replaceable>]
+    <replaceable class="parameter">http_parent</replaceable>[:<replaceable class="parameter">port</replaceable>]
    </para>
    <para>
     Where <replaceable class="parameter">target_domain</replaceable> is a domain name pattern (see the
@@ -1555,7 +1555,7 @@ ACLs: permit-access and deny-access</title>
    </para>
    <para>
     <screen>
-  forward   .*     anon-proxy.example.org:8080
+  forward   .*.    anon-proxy.example.org:8080
   forward   :443   .
 </screen>
    </para>
@@ -1595,8 +1595,8 @@ forward-socks4 and forward-socks4a</title>
   <listitem>
    <para>
     <replaceable class="parameter">target_domain</replaceable>[:<replaceable class="parameter">port</replaceable>]
-    <replaceable class="parameter">socks_proxy</replaceable>[/<replaceable class="parameter">port</replaceable>]
-    <replaceable class="parameter">http_parent</replaceable>[/<replaceable class="parameter">port</replaceable>]
+    <replaceable class="parameter">socks_proxy</replaceable>[:<replaceable class="parameter">port</replaceable>]
+    <replaceable class="parameter">http_parent</replaceable>[:<replaceable class="parameter">port</replaceable>]
    </para>
    <para>
     Where <replaceable class="parameter">target_domain</replaceable> is a domain name pattern (see the
