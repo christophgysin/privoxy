@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/25 21:56:06  jongfoster
+ *    Added FIXME comment to (broken) LOG_LEVEL_LOG
+ *
  *    Revision 1.3  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -101,7 +104,7 @@ extern "C" {
 #define LOG_LEVEL_CONNECT    0x0002
 #define LOG_LEVEL_IO         0x0004
 #define LOG_LEVEL_HEADER     0x0008
-#define LOG_LEVEL_LOG        0x0010
+#define LOG_LEVEL_LOG        0x0010 /* FIXME: What for? Need to put in errlog.c. */
 #ifdef FORCE_LOAD
 #define LOG_LEVEL_FORCE      0x0020
 #endif /* def FORCE_LOAD */
