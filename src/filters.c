@@ -38,6 +38,17 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2002/09/04 15:38:24  oes
+ *    Synced with the stable branch:
+ *        Revision 1.58.2.2  2002/08/01 17:18:28  oes
+ *        Fixed BR 537651 / SR 579724 (MSIE image detect improper for IE/Mac)
+ *
+ *        Revision 1.58.2.1  2002/07/26 15:18:53  oes
+ *        - Bugfix: Executing a filters without jobs no longer results in
+ *          turing off *all* filters.
+ *        - Security fix: Malicious web servers can't cause a seg fault
+ *          through bogus chunk sizes anymore
+ *
  *    Revision 2.1  2002/08/26 11:08:18  sarantis
  *    Fix typo.
  *
@@ -1084,8 +1095,9 @@ struct http_response *redirect_url(struct client_state *csp)
  *
  * Description :  Given a URL, decide whether it is an image or not,
  *                using either the info from a previous +image action
- *                or, #ifdef FEATURE_IMAGE_DETECT_MSIE, the info from
- *                the browser's accept header.
+ *                or, #ifdef FEATURE_IMAGE_DETECT_MSIE, and the browser
+ *                is MSIE and not on a Mac, tell from the browser's accept
+ *                header.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
@@ -1100,7 +1112,7 @@ int is_imageurl(struct client_state *csp)
    char *tmp;
 
    tmp = get_header_value(csp->headers, "User-Agent:");
-   if (tmp && strstr(tmp, "MSIE"))
+   if (tmp && strstr(tmp, "MSIE") && !strstr(tmp, "Mac_"))
    {
       tmp = get_header_value(csp->headers, "Accept:");
       if (tmp && strstr(tmp, "image/gif"))
@@ -1321,7 +1333,7 @@ char *pcrs_filter_response(struct client_state *csp)
             if ( NULL == b->joblist )
             {
                log_error(LOG_LEVEL_RE_FILTER, "Filter %s has empty joblist. Nothing to do.", b->name);
-               return(NULL);
+               continue;
             }
 
             log_error(LOG_LEVEL_RE_FILTER, "re_filtering %s%s (size %d) with filter %s...",
@@ -1472,7 +1484,12 @@ int remove_chunked_transfer_coding(char *buffer, const size_t size)
          log_error(LOG_LEVEL_ERROR, "Parse error while stripping \"chunked\" transfer coding");
          return(0);
       }
-      newsize += chunksize;
+
+      if ((newsize += chunksize) >= size)
+      {
+         log_error(LOG_LEVEL_ERROR, "Chunksize exceeds buffer in  \"chunked\" transfer coding");
+         return(0);
+      }
       from_p += 2;
 
       memmove(to_p, from_p, (size_t) chunksize);
