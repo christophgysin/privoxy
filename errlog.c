@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.40.2.1  2002/09/25 12:47:42  oes
+ *    Make log_error safe against NULL string arguments
+ *
  *    Revision 1.40  2002/05/22 01:27:27  david__schmidt
  *
  *    Add os2_socket_strerr mirroring w32_socket_strerr.
@@ -613,6 +616,10 @@ void log_error(int loglevel, char *fmt, ...)
             break;
          case 's':
             sval = va_arg( ap, char * );
+            if (sval == NULL)
+            {
+               sval = "[null]";
+            }
             oldoutc = outc;
             outc += strlen(sval);
             if (outc < BUFFER_SIZE-1) 
@@ -630,6 +637,10 @@ void log_error(int loglevel, char *fmt, ...)
              */
             ival = va_arg( ap, int );
             sval = va_arg( ap, char * );
+            if (sval == NULL)
+            {
+               sval = "[null]";
+            }
             if (ival < 0)
             {
                ival = 0;
