@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.47  2002/02/20 23:15:13  jongfoster
+ *    Parsing functions now handle out-of-memory gracefully by returning
+ *    an error code.
+ *
  *    Revision 1.46  2002/01/17 21:06:09  jongfoster
  *    Now #defining the URLs of the config interface
  *
@@ -759,13 +763,23 @@ struct client_state
 
 
 /*
+ * A function to add a header
+ */
+typedef jb_err (*add_header_func_ptr)(struct client_state *);
+
+/*
+ * A function to process a header
+ */
+typedef jb_err (*parser_func_ptr    )(struct client_state *, char **);
+
+/*
  * List of functions to run on a list of headers
  */
 struct parsers
 {
    char *str;
    char  len;
-   char *(*parser)(const struct parsers *, const char *, struct client_state *);
+   parser_func_ptr parser;
 };
 
 
