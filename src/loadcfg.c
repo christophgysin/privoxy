@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.3  2002/09/19 03:48:29  iwanttokeepanon
+ *    Just moved "int i" up 3 lines in function unload_configfile, out of the "ifdef FEATURE_ACL" clause.  I disable ACL and it was not compiling because "int i" was ifdef(d) out.  I noticed this in the past, but am just now in a spot where I can change/commit stuff ... long live broadband!
+ *
  *    Revision 2.2  2002/09/04 15:48:33  oes
  *    Synced with the stable branch:
  *        Revision 1.48.2.1  2002/08/21 17:58:05  oes
@@ -476,9 +479,9 @@ void unload_configfile (void * data)
 {
    struct configuration_spec * config = (struct configuration_spec *)data;
    struct forward_spec *cur_fwd = config->forward;
+   int i;
 #ifdef FEATURE_ACL
    struct access_control_list *cur_acl = config->acl;
-   int i;
 
    while (cur_acl != NULL)
    {
