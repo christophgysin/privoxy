@@ -78,7 +78,7 @@ SuSE series: n
 %build
 autoheader
 autoconf
-./configure
+./configure --disable-dynamic-pcre
 make
 
 
@@ -296,6 +296,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.15  2002/04/16 18:49:07  oes
+# Build with static built-in pcre
+#
 # Revision 1.14  2002/04/11 17:57:40  oes
 # Fixed(?) Conflicts: Provides: Obsoletes:
 #
