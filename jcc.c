@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.75  2002/03/06 10:02:19  oes
+ *    Fixed stupid bug when --user was not given
+ *
  *    Revision 1.74  2002/03/06 00:49:31  jongfoster
  *    Fixing warning on Windows
  *    Making #ifdefs that refer to the same variable consistently
@@ -1577,7 +1580,7 @@ int main(int argc, const char *argv[])
 {
    int argc_pos = 0;
 #ifdef unix
-   struct passwd *pw;
+   struct passwd *pw = NULL;
 #endif
 
    Argc = argc;
@@ -1790,7 +1793,7 @@ int main(int argc, const char *argv[])
     */
    write_pid_file();
    
-   if (setuid(pw->pw_uid))
+   if ((NULL != pw) && setuid(pw->pw_uid))
    {
       log_error(LOG_LEVEL_FATAL, "Cannot setuid(): Insufficient permissions.");
    }
