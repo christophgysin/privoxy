@@ -35,6 +35,10 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/25 21:57:54  jongfoster
+ *    Now gives a warning under Windows if you try to bind
+ *    it to a port that's already in use.
+ *
  *    Revision 1.2  2001/05/17 23:01:01  oes
  *     - Cleaned CRLF's from the sources and related files
  *
@@ -350,7 +354,15 @@ int bind_port(const char *hostnam, int portnum)
       return(-1);
    }
 
+#ifndef _WIN32
+   /*
+    * FIXME: This is not needed for Win32 - in fact, it stops
+    * duplicate instances of JunkBuster from being caught.
+    * Is this really needed under UNIX, or should it be taked out?
+    * -- Jon
+    */
    setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char *)&one, sizeof(one));
+#endif /* ndef _WIN32 */
 
    if (bind (fd, (struct sockaddr *)&inaddr, sizeof(inaddr)) < 0)
    {
