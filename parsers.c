@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.41  2001/11/05 23:43:05  steudten
+ *    Add time+date to log files.
+ *
  *    Revision 1.40  2001/10/26 20:13:09  jongfoster
  *    ctype.h is needed in Windows, too.
  *
@@ -1645,9 +1648,23 @@ char *server_http(const struct parsers *v, const char *s, struct client_state *c
 char *server_set_cookie(const struct parsers *v, const char *s, struct client_state *csp)
 {
 #ifdef FEATURE_COOKIE_JAR
+
+       /*
+	* Write timestamp into outbuf.
+	*
+	* Complex because not all OSs have tm_gmtoff or
+	* the %z field in strftime()
+	*/
+       char tempbuf[ BUFFER_SIZE ];
+       time_t now; 
+       struct tm *tm_now; 
+       time (&now); 
+       tm_now = localtime (&now); 
+       strftime (tempbuf, BUFFER_SIZE-6, "%b %d %H:%M:%S ", tm_now); 
+    
    if (csp->config->jar)
    {
-      fprintf(csp->config->jar, "%s\t%s\n", csp->http->host, (s + v->len + 1));
+      fprintf(csp->config->jar, "%s %s\t%s\n", tempbuf, csp->http->host, (s + v->len + 1));
    }
 #endif /* def FEATURE_COOKIE_JAR */
 

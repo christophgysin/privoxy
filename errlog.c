@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.22  2001/11/05 23:43:05  steudten
+ *    Add time+date to log files.
+ *
  *    Revision 1.21  2001/10/25 03:40:47  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -310,6 +313,7 @@ void log_error(int loglevel, char *fmt, ...)
 {
    va_list ap;
    char *outbuf= NULL;
+   char *outbuf_save = NULL;
    char * src = fmt;
    int outc = 0;
    long this_thread = 1;  /* was: pthread_t this_thread;*/
@@ -346,8 +350,23 @@ void log_error(int loglevel, char *fmt, ...)
      this_thread = ptib -> tib_ptib2 -> tib2_ultid;
 #endif /* def FEATURE_PTHREAD */
 
-   outbuf = (char*)malloc(BUFFER_SIZE);
+   outbuf_save = outbuf = (char*)malloc(BUFFER_SIZE);
    assert(outbuf);
+
+    {
+       /*
+	* Write timestamp into tempbuf.
+	*
+	* Complex because not all OSs have tm_gmtoff or
+	* the %z field in strftime()
+	*/
+       time_t now; 
+       struct tm *tm_now; 
+       time (&now); 
+       tm_now = localtime (&now); 
+       strftime (outbuf, BUFFER_SIZE-6, "%b %d %H:%M:%S ", tm_now); 
+       outbuf += strlen( outbuf );
+    }
    switch (loglevel)
    {
       case LOG_LEVEL_ERROR:
@@ -610,9 +629,9 @@ void log_error(int loglevel, char *fmt, ...)
             {
                logfp = stderr;
             }
-            fputs(outbuf, logfp);
+            fputs(outbuf_save, logfp);
             /* FIXME RACE HAZARD: should end critical section error_log_use here */
-            fatal_error(outbuf);
+            fatal_error(outbuf_save);
             /* Never get here */
             break;
 
@@ -656,11 +675,11 @@ void log_error(int loglevel, char *fmt, ...)
       logfp = stderr;
    }
 
-   fputs(outbuf, logfp);
+   fputs(outbuf_save, logfp);
 
    if (loglevel == LOG_LEVEL_FATAL)
    {
-      fatal_error(outbuf);
+      fatal_error(outbuf_save);
       /* Never get here */
    }
 
@@ -668,7 +687,7 @@ void log_error(int loglevel, char *fmt, ...)
 
 #if defined(_WIN32) && !defined(_WIN_CONSOLE)
    /* Write to display */
-   LogPutString(outbuf);
+   LogPutString(outbuf_save);
 #endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
 
 }
