@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.41  2001/10/28 19:12:06  jongfoster
+ *    Adding ijb_toupper()
+ *
  *    Revision 1.40  2001/10/26 17:40:47  oes
  *    Moved ijb_isspace and ijb_tolower to project.h
  *    Removed http->user_agent, csp->referrer and csp->accept_types
@@ -382,7 +385,10 @@ typedef int jb_err;
  * as an array index.  Therefore we need to make sure that high-bit
  * characters generate +ve values, and ideally we also want to make
  * the argument match the declared parameter type of "int".
+ *
+ * Note: Remember to #include <ctype.h> if you use these macros.
  */
+#define ijb_toupper(__X) toupper((int)(unsigned char)(__X))
 #define ijb_tolower(__X) tolower((int)(unsigned char)(__X))
 #define ijb_isspace(__X) isspace((int)(unsigned char)(__X))  
 
