@@ -38,6 +38,10 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.58  2002/04/24 02:11:17  oes
+ *    Jon's multiple AF patch: url_actions now evaluates rules
+ *    from all AFs.
+ *
  *    Revision 1.57  2002/04/08 20:38:34  swa
  *    fixed JB spelling
  *
@@ -1501,16 +1505,21 @@ void url_actions(struct http_request *http,
 {
    struct file_list *fl;
    struct url_actions *b;
+   int i;
 
    init_current_action(csp->action);
 
-   if (((fl = csp->actions_list) == NULL) || ((b = fl->f) == NULL))
+   for (i = 0; i < MAX_ACTION_FILES; i++)
    {
-      return;
+      if (((fl = csp->actions_list[i]) == NULL) || ((b = fl->f) == NULL))
+      {
+         return;
+      }
+
+      apply_url_actions(csp->action, http, b);
    }
 
-   apply_url_actions(csp->action, http, b);
-
+   return;
 }
 
 
