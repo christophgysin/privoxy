@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2001/07/23 13:26:12  oes
+ *    Fixed bug in popup-killing for the first read that caused binary garbage to be sent between headers and body
+ *
  *    Revision 1.27  2001/07/19 19:09:47  haroon
  *    - Added code to take care of the situation where while processing the first
  *      server response (which includes the server header), after finding the end
@@ -40,6 +43,9 @@ const char jcc_rcs[] = "$Id$";
  *      content modification. I enabled it for filter_popups.
  *      Someone else should look to see if other similar operations should be
  *      done to the discarded portion of the buffer.
+ *
+ *      Note 2001/07/20: No, the other content modification mechanisms will process
+ *                       the whole iob later anyway. --oes
  *
  *    Revision 1.26  2001/07/18 12:31:36  oes
  *    cosmetics
@@ -1000,11 +1006,10 @@ static void chat(struct client_state *csp)
             {
                block_popups_now = 1;
                /*
-                    * even though the header has been found, don't forget about the
-                    * left over portion of the buffer which will usually contain body text
-                    */
-               n = strlen(csp->iob->cur);
-               filter_popups(csp->iob->cur, n);
+                * Filter the part of the body that came in the same read
+                * as the last headers:
+                */
+               filter_popups(csp->iob->cur, csp->iob->eod - csp->iob->cur);
             }
 
 #endif /* def KILLPOPUPS */
