@@ -38,6 +38,15 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.40  2001/10/26 17:37:55  oes
+ *    - Re-enabled Netscape 200/404 bug workaround in block_url():
+ *      - Removed OS/2 special case
+ *      - Made block_url() independant from sed() having been run
+ *    - Made trust_url independant from sed() having been run
+ *    - Made is_imageurl independant from sed() having been run.
+ *      It now checks User-Agent: and Accept: by itself.
+ *
+ *
  *    Revision 1.39  2001/10/25 03:40:48  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -690,28 +699,17 @@ struct http_response *block_url(struct client_state *csp)
       jb_err err;
       struct map * exports;
 
-      /* FIXME */
-#ifdef __EMX__
-      /*
-       * The entire OS/2 community will hit the stupid Netscape bug
-       * (all three of us! :-) so we'll just keep ourselves out
-       * of this contentious debate and special-case ourselves.
-       * The problem is... a this point in parsing, we don't know
-       * what the csp->http->user_agent is (yet).  So we can't use
-       * it to decide if we should work around the NS bug or not.
-       */
-      rsp->status = strdup("200 Request for blocked URL");
-#else
       /*
        * Workaround for stupid Netscape bug which prevents
        * pages from being displayed if loading a referenced
        * JavaScript or style sheet fails. So make it appear
        * as if it succeeded.
        */
-      if (csp->http->user_agent
-          && !strncmpic(csp->http->user_agent, "mozilla", 7)
-          && !strstr(csp->http->user_agent, "compatible")
-          && !strstr(csp->http->user_agent, "Opera"))
+      if ( NULL != (p = get_header_value(csp->headers, "User-Agent:"))
+           && !strncmpic(p, "mozilla", 7) /* Catch Netscape but */
+           && !strstr(p, "Gecko")         /* save Mozilla, */
+           && !strstr(p, "compatible")    /* MSIE */
+           && !strstr(p, "Opera"))        /* and Opera. */
       {
          rsp->status = strdup("200 Request for blocked URL");
       }
@@ -719,7 +717,7 @@ struct http_response *block_url(struct client_state *csp)
       {
          rsp->status = strdup("404 Request for blocked URL");
       }
-#endif /* __EMX__ */
+
       if (rsp->status == NULL)
       {
          free_http_response(rsp);
@@ -819,10 +817,10 @@ struct http_response *trust_url(struct client_state *csp)
       || map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0)
       || map(exports, "path-html", 1, html_encode(csp->http->path), 0);
 
-   if (csp->referrer && strlen(csp->referrer) > 9)
+   if (NULL != (p = get_header_value(csp->headers, "Referer:")))
    {
-      err = err || map(exports, "referrer", 1, csp->referrer + 9, 1);
-      err = err || map(exports, "referrer-html", 1, html_encode(csp->referrer + 9), 0);
+      err = err || map(exports, "referrer", 1, p, 1);
+      err = err || map(exports, "referrer-html", 1, html_encode(p), 0);
    }
    else
    {
@@ -993,17 +991,23 @@ struct http_response *redirect_url(struct client_state *csp)
 int is_imageurl(struct client_state *csp)
 {
 #ifdef FEATURE_IMAGE_DETECT_MSIE
-   if ((csp->accept_types
-       & (ACCEPT_TYPE_IS_MSIE|ACCEPT_TYPE_MSIE_IMAGE|ACCEPT_TYPE_MSIE_HTML))
-       == (ACCEPT_TYPE_IS_MSIE|ACCEPT_TYPE_MSIE_IMAGE))
+   char *tmp;
+
+   tmp = get_header_value(csp->headers, "User-Agent:");
+   if (tmp && strstr(tmp, "MSIE"))
    {
-      return 1;
-   }
-   else if ((csp->accept_types
-       & (ACCEPT_TYPE_IS_MSIE|ACCEPT_TYPE_MSIE_IMAGE|ACCEPT_TYPE_MSIE_HTML))
-       == (ACCEPT_TYPE_IS_MSIE|ACCEPT_TYPE_MSIE_HTML))
-   {
-      return 0;
+      tmp = get_header_value(csp->headers, "Accept:");
+      if (tmp && strstr(tmp, "image/gif"))
+      {
+         /* Client will accept HTML.  If this seems counterintuitive,
+          * blame Microsoft.
+          */
+         return(0);
+      }
+      else
+      {
+         return(1);
+      }
    }
 #endif /* def FEATURE_IMAGE_DETECT_MSIE */
 
@@ -1086,7 +1090,7 @@ int is_untrusted_url(struct client_state *csp)
    freez(url->dbuf);
    freez(url->dvec);
 
-   if ((csp->referrer == NULL)|| (strlen(csp->referrer) <= 9))
+   if (NULL == (h = get_header_value(csp->headers, "Referer:")))
    {
       /* no referrer was supplied */
       return(1);
@@ -1098,7 +1102,7 @@ int is_untrusted_url(struct client_state *csp)
 
    p = NULL;
    p = strsav(p, "GET ");
-   p = strsav(p, csp->referrer + 9);   /* skip over "Referer: " */
+   p = strsav(p, h);
    p = strsav(p, " HTTP/1.0");
 
    parse_http_request(p, rhttp, csp);
