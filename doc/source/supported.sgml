@@ -19,9 +19,10 @@
 -->
 <para>
  At present, <application>Privoxy</application> is known to run on Win32, Mac
- OSX, OS/2, AmigaOS, Linux, and many flavors of Unix. There are source 
- and binary releases for these available for download at 
- <ulink url="http://sourceforge.net/project/showfiles.php?group_id=11118">http://sourceforge.net/project/showfiles.php?group_id=11118</ulink>.
+ OSX, OS/2, AmigaOS, Linux (RedHat, Suse, Debian), FreeBSD, and many flavors
+ of Unix. There are source and binary releases for these available for
+ download at <ulink
+ url="http://sourceforge.net/project/showfiles.php?group_id=11118">http://sourceforge.net/project/showfiles.php?group_id=11118</ulink>.
 </para>
 
 <![%p-supp-userman;[
