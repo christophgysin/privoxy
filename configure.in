@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.86  2002/12/13 23:47:10  hal9
+dnl Add openbsd special flags per gunner at styx2002.no-ip.org
+dnl
 dnl Revision 1.85  2002/11/27 12:40:54  oes
 dnl Fixed broken handling of pre-set CFLAGS
 dnl
@@ -923,6 +926,24 @@ case "$host" in
 esac
 
 dnl =================================================================
+dnl Mac OSX specific
+dnl =================================================================
+
+case "$host" in
+*-apple-darwin*) SPECIAL_CFLAGS="-Dunix"
+;;
+esac
+
+dnl =================================================================
+dnl OpenBSD specific
+dnl =================================================================
+
+case "$host" in
+*-openbsd*) SPECIAL_CFLAGS="$SPECIAL_CFLAGS -Dunix"
+;;
+esac
+
+dnl =================================================================
 dnl AmigaOS specific
 dnl =================================================================
 
@@ -1156,7 +1177,6 @@ if test $enableval2 = yes; then
   AC_DEFINE(FEATURE_NO_GIFS,1,
     [ Deine to 1 to use PNG instead of GIF for built-in images. ])
 fi
-
 
 dnl pcre/pcrs is needed for CGI anyway, so
 dnl the choice is only between static and
