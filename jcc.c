@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.68  2002/03/04 20:17:32  oes
+ *    Fixed usage info
+ *
  *    Revision 1.67  2002/03/04 18:18:57  oes
  *    - Removed _DEBUG mode
  *    - Cleand up cmdline parsing
@@ -1508,7 +1511,7 @@ static int32 server_thread(void *data)
 void usage(const char *myname)
 {
    printf("JunkBuster proxy version " VERSION " (" HOME_PAGE_URL ")\n"
-           "Usage: %s [--no-daemon] [--pidfile pidfile] [--help] [configfile]\n"
+           "Usage: %s [--help] [--version] [--no-daemon] [--pidfile pidfile] [configfile]\n"
            "Aborting.\n", myname);
  
    exit(2);
