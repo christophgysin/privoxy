@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2001/09/13 23:52:00  jongfoster
+ *    Support for both static and dynamically generated CGI pages
+ *
  *    Revision 1.29  2001/09/13 23:29:43  jongfoster
  *    Defining FORWARD_SPEC_INITIALIZER
  *
@@ -353,7 +356,9 @@ struct http_response
   char *head;             /* Formatted http response head */
   int   head_length;      /* Length of http response head */
   char *body;             /* HTTP document body */
-  int   content_length;   /* Length of body, REQUIRED if binary body*/
+  int   content_length;   /* Length of body, REQUIRED if binary body */
+  int   is_static;        /* Nonzero if the content will never change and
+                           * should be cached by the broser (e.g. images) */
 };
 
 /* A URL pattern */
