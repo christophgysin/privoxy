@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.83  2002/10/24 16:32:41  hal9
+dnl echo -n does not work with true /bin/sh. Use AC_MSG_CHECKING for docbook stuff.
+dnl
 dnl Revision 1.82  2002/09/27 04:24:07  hal9
 dnl Minor change of "! test" to "test -ne" for Solaris.
 dnl
@@ -431,7 +434,7 @@ if test ! -f src/config.h.in; then
    echo "You need to run autoheader first. "
    echo -n "Shall I do this for you now? (y/n) "
    read answer
-   if test $answer != "y"; then
+   if test "$answer" != "y"; then
       exit 1
    else
       autoheader
@@ -1235,7 +1238,9 @@ DKPREFIX=false
 for i in $DKPREFIXCOPY /usr/share/sgml/docbook/stylesheet/dsssl/modular \
         /usr/share/sgml/docbook/dsssl-stylesheets /usr/share/sgml/docbkdsl \
         /usr/share/sgml/docbook-dsssl; do
-        echo -n "checking for $i/html/docbook.dsl..."
+dnl  echo -n does not fly with /bin/sh.
+dnl      echo -n "checking for $i/html/docbook.dsl..."
+      AC_MSG_CHECKING([for $i])
         if test -f $i/html/docbook.dsl; then
                 echo "yes"
                 DKPREFIX=$i
@@ -1250,7 +1255,8 @@ JADECAT=""
 dnl where are the catalogs?
 for i in /usr/share/sgml/CATALOG.docbk30 \
          /usr/share/sgml/CATALOG.docbk31; do
-        echo -n "checking for $i..."
+dnl     echo -n "checking for $i..."
+      AC_MSG_CHECKING([for $i])
         if test -f $i; then
                 echo "yes"
                 JADECAT="$JADECAT -c $i"
