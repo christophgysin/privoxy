@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.55  2002/04/02 16:13:51  oes
+ *    Fix: No "Go there anyway" for SSL
+ *
  *    Revision 1.54  2002/04/02 14:55:56  oes
  *    Bugfix: is_untrusted_url() now depends on FEATURE_TRUST, not FEATURE_COOKIE_JAR
  *
@@ -821,9 +824,11 @@ struct http_response *block_url(struct client_state *csp)
 
 #ifdef FEATURE_FORCE_LOAD
       err = map(exports, "force-prefix", 1, FORCE_PREFIX, 1);
-#else /* ifndef FEATURE_FORCE_LOAD */
-      err = map_block_killer(exports, "force-support");
+      if (csp->http->ssl != 0)
 #endif /* ndef FEATURE_FORCE_LOAD */
+      {
+         err = map_block_killer(exports, "force-support");
+      }
 
       if (!err) err = map(exports, "hostport", 1, html_encode(csp->http->hostport), 0);
       if (!err) err = map(exports, "path", 1, html_encode(csp->http->path), 0);
