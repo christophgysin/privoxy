@@ -36,6 +36,10 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/08/01 00:19:03  jongfoster
+ *    New function: map_conditional() for an if-then-else syntax.
+ *    Changing to use new version of show_defines()
+ *
  *    Revision 1.13  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -491,16 +495,13 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    exports = map(exports, "options", 1, csp->config->proxy_args, 1);
    s =   show_rcs();
    exports = map(exports, "sourceversions", 1, s, 0);  
-   s =   show_defines();
-   exports = map(exports, "defines", 1, s, 0); 
+   exports = show_defines(exports);
 
 #ifdef FEATURE_STATISTICS
    exports = add_stats(exports);
 #else /* ndef FEATURE_STATISTICS */
    exports = map_block_killer(exports, "statistics");
 #endif /* ndef FEATURE_STATISTICS */
-
-   exports = map_block_killer(exports, "no-split-args");
 
    if (csp->actions_list)
    {
@@ -1008,6 +1009,48 @@ struct map *map_block_killer(struct map *exports, char *name)
    char buf[1000]; /* Will do, since the names are hardwired */
 
    snprintf(buf, 1000, "if-%s-start.*if-%s-end", name, name);
+   exports = map(exports, buf, 1, "", 1);
+
+   return(exports);
+
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  map_conditional
+ *
+ * Description :  Convenience function.
+ *                Adds an "if-then-else" for the conditional HTML-template
+ *                block <name>, i.e. a substitution of the form:
+ *                @if-<name>-then@
+ *                   True text
+ *                @else-not-<name>@
+ *                   False text
+ *                @endif-<name>@
+ *
+ *                The control structure and one of the alternatives
+ *                will be hidden.
+ *
+ * Parameters  :  
+ *          1  :  exports = map to extend
+ *          2  :  name = name of conditional block
+ *          3  :  choose_first = nonzero for first, zero for second.
+ *
+ * Returns     :  extended map
+ *
+ *********************************************************************/
+struct map *map_conditional(struct map *exports, char *name, int choose_first)
+{
+   char buf[1000]; /* Will do, since the names are hardwired */
+
+   snprintf(buf, 1000, (choose_first
+      ? "else-not-%s@.*@endif-%s"
+      : "if-%s-then@.*@else-not-%s"),
+      name, name);
+   exports = map(exports, buf, 1, "", 1);
+
+   snprintf(buf, 1000, (choose_first ? "if-%s-then" : "endif-%s"), name);
    exports = map(exports, buf, 1, "", 1);
 
    return(exports);
