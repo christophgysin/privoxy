@@ -31,6 +31,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.5  2002/01/17 21:21:05  jongfoster
+#    DOS->Unix line endings
+#
 #    Revision 1.4  2001/11/13 00:58:18  jongfoster
 #    New version of actions file editor templates
 #
