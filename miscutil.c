@@ -36,6 +36,10 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/09/13 20:51:29  jongfoster
+ *    Fixing potential problems with characters >=128 in simplematch()
+ *    This was also a compiler warning.
+ *
  *    Revision 1.16  2001/09/10 10:56:59  oes
  *    Silenced compiler warnings
  *
@@ -457,12 +461,12 @@ char *strsav(char *old, const char *text_to_append)
  *********************************************************************/
 int simplematch(char *pattern, char *text)
 {
-   char *fallback = pattern; 
-   char *pat = pattern;
-   char *txt = text;
+   unsigned char *pat = (unsigned char *) pattern;
+   unsigned char *txt = (unsigned char *) text;
+   unsigned char *fallback = pat; 
    int wildcard = 0;
   
-   char lastchar = 'a';
+   unsigned char lastchar = 'a';
    unsigned i;
    unsigned char charmap[32];
   
