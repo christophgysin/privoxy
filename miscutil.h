@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/10/14 22:02:57  jongfoster
+ *    New function string_append() which is like strsav(), but running
+ *    out of memory isn't automatically FATAL.
+ *
  *    Revision 1.10  2001/09/20 13:34:09  steudten
  *
  *    change long to int for prototype hash_string()
@@ -112,6 +116,7 @@ extern int strcmpic(const char *s1, const char *s2);
 extern int strncmpic(const char *s1, const char *s2, size_t n);
 
 extern char *strsav(char *old, const char *text_to_append);
+extern int string_append(char **target_string, const char *text_to_append);
 
 extern char *chomp(char *string);
 extern int simplematch(char *pattern, char *text);
