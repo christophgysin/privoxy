@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.42  2001/11/05 21:42:41  steudten
+ *    Include DBG() macro.
+ *
  *    Revision 1.41  2001/10/28 19:12:06  jongfoster
  *    Adding ijb_toupper()
  *
@@ -358,6 +361,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#ifdef _DEBUG
+extern int ldebug;
+#define DBG(a,b)        { if ( ldebug >= a ) { printf b ; }}
+#else
+#define DBG(a,b)
+#endif /* _DEBUG */
+
 
 
 /*
