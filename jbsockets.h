@@ -1,5 +1,5 @@
-#ifndef _JBSOCKETS_H
-#define _JBSOCKETS_H
+#ifndef JBSOCKETS_H_INCLUDED
+#define JBSOCKETS_H_INCLUDED
 #define JBSOCKETS_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/29 19:01:11  jongfoster
+ *    Changed _FILENAME_H to FILENAME_H_INCLUDED.
+ *    Added forward declarations for needed structures.
+ *
  *    Revision 1.2  2001/06/07 23:06:09  jongfoster
  *    The host parameter to connect_to() is now const.
  *
@@ -50,6 +54,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+struct client_state;
 
 extern int connect_to(const char *host, int portnum, struct client_state *csp);
 extern int write_socket(int fd, const char *buf, int n);
@@ -69,7 +75,7 @@ extern const char jbsockets_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _JBSOCKETS_H */
+#endif /* ndef JBSOCKETS_H_INCLUDED */
 
 /*
   Local Variables:

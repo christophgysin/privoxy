@@ -1,5 +1,5 @@
-#ifndef _FILTERS_H
-#define _FILTERS_H
+#ifndef FILTERS_H_INCLUDED
+#define FILTERS_H_INCLUDED
 #define FILTERS_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -40,6 +40,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/07/29 19:01:11  jongfoster
+ *    Changed _FILENAME_H to FILENAME_H_INCLUDED.
+ *    Added forward declarations for needed structures.
+ *
  *    Revision 1.11  2001/07/13 14:00:18  oes
  *     - Introduced gif_deanimate_response
  *     - Renamed re_process_buffer to pcrs_filter_response
@@ -171,6 +175,16 @@
 extern "C" {
 #endif
 
+
+struct access_control_addr;
+struct client_state;
+struct http_request;
+struct http_response;
+struct current_action_spec;
+struct url_actions;
+struct url_spec;
+
+
 /*
  * ACL checking
  */
@@ -230,7 +244,7 @@ extern const char filters_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _FILTERS_H */
+#endif /* ndef FILTERS_H_INCLUDED */
 
 /*
   Local Variables:

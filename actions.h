@@ -1,5 +1,5 @@
-#ifndef _ACTIONS_H
-#define _ACTIONS_H
+#ifndef ACTIONS_H_INCLUDED
+#define ACTIONS_H_INCLUDED
 #define ACTIONS_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -35,6 +35,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.2  2001/07/29 19:01:11  jongfoster
+ *    Changed _FILENAME_H to FILENAME_H_INCLUDED.
+ *    Added forward declarations for needed structures.
+ *
  *    Revision 1.1  2001/05/31 21:16:46  jongfoster
  *    Moved functions to process the action list into this new file.
  *
@@ -45,6 +49,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
+struct action_spec;
+struct current_action_spec;
+struct client_state;
 
 
 extern void merge_actions (struct action_spec *dest, 
@@ -73,7 +82,7 @@ extern const char actions_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _ERRLOG_H */
+#endif /* ndef ACTIONS_H_INCLUDED */
 
 /*
   Local Variables:
