@@ -36,6 +36,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.38  2001/10/23 21:19:04  jongfoster
+ *    New error-handling support: jb_err type and JB_ERR_xxx constants
+ *    CGI functions now return a jb_err, and their parameters map is const.
+ *    Support for RUNTIME_FEATUREs to enable/disable config editor
+ *    Adding a few comments
+ *
  *    Revision 1.37  2001/10/14 22:14:01  jongfoster
  *    Removing name_length field from struct cgi_dispatcher, as this is
  *    now calculated at runtime from the "name" field.
@@ -339,10 +345,35 @@
 extern "C" {
 #endif
 
+
+/*
+ * Error codes.  Functions returning these should return a jb_err
+ */
+#define JB_ERR_OK         0 /* Success, no error                        */
+#define JB_ERR_MEMORY     1 /* Out of memory                            */
+#define JB_ERR_CGI_PARAMS 2 /* Missing or corrupt CGI parameters        */
+#define JB_ERR_FILE       3 /* Error opening, reading or writing a file */
+#define JB_ERR_PARSE      4 /* Error parsing file                       */
+#define JB_ERR_MODIFIED   5 /* File has been modified outside of the    */
+                            /* CGI actions editor.                      */
+typedef int jb_err;
+
+
+/*
+ * This macro is used to free a pointer that may be NULL
+ */
 #define freez(X)  { if(X) { free(X); X = NULL ; } }
 
+/*
+ * Use for statically allocated buffers if you have no other choice.
+ * Remember to check the length of what you write into the buffer
+ * - we don't want any buffer overflows!
+ */
 #define BUFFER_SIZE 5000
 
+/*
+ * So you can say "while (FOREVER) { ...do something... }"
+ */
 #define FOREVER 1
 
 /* Default IP and port to listen on */
@@ -603,6 +634,9 @@ struct url_actions
 #define CSP_FLAG_REJECTED   0x10 /* Set if request was blocked.  */
 #define CSP_FLAG_TOGGLED_ON 0x20 /* Set if we are toggled on (FEATURE_TOGGLE) */
 
+/*
+ * The state of a JunkBuster processing thread.
+ */
 struct client_state
 {
    /* The proxy's configuration */
@@ -679,6 +713,9 @@ struct client_state
 };
 
 
+/*
+ * List of functions to run on a list of headers
+ */
 struct parsers
 {
    char *str;
@@ -686,13 +723,21 @@ struct parsers
    char *(*parser)(const struct parsers *, const char *, struct client_state *);
 };
 
+
+/*
+ * List of available CGI functions.
+ */
 struct cgi_dispatcher
 {
-   const char *name;
-   int         (*handler)(struct client_state *csp, struct http_response *rsp, struct map *parameters);
-   const char *description;
+   const char * const name;
+   jb_err    (* const handler)(struct client_state *csp, struct http_response *rsp, const struct map *parameters);
+   const char * const description;
 };
 
+
+/*
+ * A data file used by JunkBuster.  Kept in a linked list.
+ */
 struct file_list
 {
    /*
@@ -796,6 +841,11 @@ struct access_control_list
 /* Maximum number of loaders (actions, re_filter, ...) */
 #define NLOADERS 8
 
+
+#define RUNTIME_FEATURE_CGI_EDIT_ACTIONS  1
+#define RUNTIME_FEATURE_CGI_TOGGLE        2
+
+
 /*
  * Data loaded from the configuration file.
  *
@@ -805,6 +855,9 @@ struct configuration_spec
 {
    int debug;
    int multi_threaded;
+
+   /* Features that can be enabled/disabled throuigh the config file */
+   unsigned feature_flags;
 
    const char *logfile;
 
