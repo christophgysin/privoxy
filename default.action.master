@@ -460,7 +460,7 @@ allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
 #############################################################################
 {+handle-as-image}
 #############################################################################
-/.*\.(gif|jpe?g|png|bmp|ico)$
+/.*\.(gif|jpe?g|png|bmp|ico)($|\?)
 
 #############################################################################
 # Generic block patterns (the most effective!):
