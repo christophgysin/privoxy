@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/06/05 20:04:09  jongfoster
+ *    Now uses _snprintf() in place of snprintf() under Win32.
+ *
  *    Revision 1.11  2001/06/04 18:31:58  swa
  *    files are now prefixed with either `confdir' or `logdir'.
  *    `make redhat-dist' replaces both entries confdir and logdir
@@ -231,6 +234,9 @@ const char loadcfg_rcs[] = "$Id$";
 # ifndef _WIN_CONSOLE
 #  include "w32log.h"
 # endif /* ndef _WIN_CONSOLE */
+
+/* VC++ has "_snprintf", not "snprintf" */
+#define snprintf _snprintf
 
 #else /* ifndef _WIN32 */
 
