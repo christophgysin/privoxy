@@ -65,6 +65,9 @@ development. Several other developers are now contributing.
 %setup -q -c
 
 %build
+echo This specfile is broken. Please, wait while we fix it
+echo == morcego
+exit 1
 autoheader
 autoconf
 %configure
@@ -494,6 +497,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.8  2002/03/24 21:13:01  morcego
+# Tis broken.
+#
 # Revision 1.7  2002/03/24 21:07:18  hal9
 # Add autoheader, etc.
 #
