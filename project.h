@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.22  2001/07/15 17:51:41  jongfoster
+ *    Renaming #define STATIC to STATIC_PCRE
+ *
  *    Revision 1.21  2001/07/13 14:03:19  oes
  *     - Reorganized regex header inclusion and #defines to
  *       comply to the scheme in configure.in
@@ -231,7 +234,7 @@
 # define REGEX
 #endif /* defined(REGEX_PCRE) || defined (REGEX_GNU) */
 
-#ifdef STATIC
+#ifdef STATIC_PCRE
 #  include "pcre.h"
 #else
 #  include <pcre.h>
@@ -244,7 +247,7 @@
 #endif
 
 #if defined(REGEX_PCRE)
-#  ifdef STATIC
+#  ifdef STATIC_PCRE
 #    include "pcreposix.h"
 #  else
 #    include <pcreposix.h>
