@@ -32,6 +32,9 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/09/22 16:34:44  jongfoster
+ *    Removing unneeded #includes
+ *
  *    Revision 1.9  2001/07/31 14:44:22  oes
  *    Deleted unused size parameter from filter_popups()
  *
@@ -97,7 +100,6 @@ const char killpopup_rcs[] = "$Id$";
 
 #include "project.h"
 #include "killpopup.h"
-#include "jcc.h"
 #include "errlog.h"
 
 const char killpopup_h_rcs[] = KILLPOPUP_H_VERSION;

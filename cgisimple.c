@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/09/22 16:34:44  jongfoster
+ *    Removing unneeded #includes
+ *
  *    Revision 1.2  2001/09/19 18:01:11  oes
  *    Fixed comments; cosmetics
  *
@@ -64,11 +67,9 @@ const char cgisimple_rcs[] = "$Id$";
 #include "cgisimple.h"
 #include "list.h"
 #include "encode.h"
-#include "ssplit.h"
 #include "jcc.h"
 #include "filters.h"
 #include "actions.h"
-#include "errlog.h"
 #include "miscutil.h"
 #include "loadcfg.h"
 
