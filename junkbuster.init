@@ -36,6 +36,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.3  2001/05/25 10:12:44  oes
+#     Fixed default case in switch statement (# -> *)
+#
 #     Revision 1.2  2001/05/24 07:52:24  swa
 #     added header. removed ^M.
 #
@@ -52,6 +55,7 @@
 # ---------------------------------------------------------------------------
 #
 # SuSE only
+# FIXME: I need to be updated using the latest skeleton script from SuSE
 #
 # ---------------------------------------------------------------------------
 if [ -f /etc/rc.config ]; then
@@ -84,7 +88,7 @@ case "$1" in
     status)
         checkproc /usr/sbin/junkbuster && echo OK || echo No process
         ;;
-   # )
+    *)
         echo "Usage: $0 {start|restart|status|stop}"
         exit 1
 esac
@@ -155,7 +159,7 @@ case "$1" in
                 $0 stop && $0 start
       ;;
 
-  # )
+   *)
       echo "Usage: junkbuster {start|stop|status|restart|reload}"
       exit 1
 esac
