@@ -1,3 +1,4 @@
+/* vim:ts=3: */
 const char loadcfg_rcs[] = "$Id$";
 /*********************************************************************
  *
@@ -35,6 +36,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/06/07 14:46:25  joergs
+ *    Missing make_path() added for re_filterfile.
+ *
  *    Revision 1.13  2001/06/05 22:33:54  jongfoster
  *
  *    Fixed minor memory leak.
@@ -578,7 +582,7 @@ struct configuration_spec * load_config(void)
 #ifdef PCRS
          case hash_re_filterfile :
             freez((char *)config->re_filterfile);
-            config->re_filterfile = strdup(arg);
+            config->re_filterfile = make_path(config->confdir, arg);
             continue;
 #endif /* def PCRS */
 
