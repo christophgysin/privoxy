@@ -42,6 +42,10 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2002/03/16 14:26:42  jongfoster
+ *    First version of modular filters support - READ ONLY!
+ *    Fixing a double-free bug in the out-of-memory handling in map_radio().
+ *
  *    Revision 1.16  2002/03/07 03:46:17  oes
  *    Fixed compiler warnings
  *
@@ -2102,20 +2106,13 @@ static jb_err map_radio(struct map * exports,
          *p = c;
          if (map(exports, buf, 1, "", 1))
          {
-            free(buf);
             return JB_ERR_MEMORY;
          }
       }
    }
 
    *p = value;
-   if (map(exports, buf, 0, "checked", 1))
-   {
-      free(buf);
-      return JB_ERR_MEMORY;
-   }
-
-   return JB_ERR_OK;
+   return map(exports, buf, 0, "checked", 1);
 }
 
 
@@ -2728,6 +2725,8 @@ jb_err cgi_edit_actions_for_url(struct client_state *csp,
    struct file_line * cur_line;
    unsigned line_number;
    jb_err err;
+   struct file_list *filter_file;
+   struct re_filterfile_spec *filter_group;
 
    if (0 == (csp->config->feature_flags & RUNTIME_FEATURE_CGI_EDIT_ACTIONS))
    {
@@ -2775,6 +2774,117 @@ jb_err cgi_edit_actions_for_url(struct client_state *csp,
    if (!err) err = map(exports, "s", 1, url_encode(lookup(parameters, "s")), 0);
 
    if (!err) err = actions_to_radio(exports, cur_line->data.action);
+
+   filter_file = csp->rlist;
+   filter_group = ((filter_file != NULL) ? filter_file->f : NULL);
+
+   if (!err) err = map_conditional(exports, "any-filters-defined", (filter_group != NULL));
+
+   if (err)
+   {
+      edit_free_file(file);
+      free_map(exports);
+      return err;
+   }
+
+   if (filter_group == NULL)
+   {
+      err = map(exports, "filter-params", 1, "", 1);
+   }
+   else
+   {
+      /* We have some entries in the filter list */
+      char * result;
+      int index = 0;
+      char * filter_template;
+
+      err = template_load(csp, &filter_template, "edit-actions-for-url-filter");
+      if (err)
+      {
+         edit_free_file(file);
+         free_map(exports);
+         if (err == JB_ERR_FILE)
+         {
+            return cgi_error_no_template(csp, rsp, "edit-actions-for-url-filter");
+         }
+         return err;
+      }
+
+      result = strdup("");
+
+      for (;(!err) && (filter_group != NULL); filter_group = filter_group->next)
+      {
+         char current_mode = 'x';
+         struct list_entry *filter_name;
+         char * this_line;
+         struct map *line_exports;
+         char number[20];
+
+         filter_name = cur_line->data.action->multi_add[ACTION_MULTI_FILTER]->first;
+         while ((filter_name != NULL)
+             && (0 != strcmp(filter_group->filtername, filter_name->str)))
+         {
+              filter_name = filter_name->next;
+         }
+
+         if (filter_name != NULL)
+         {
+            current_mode = 'y';
+         }
+         else
+         {
+            filter_name = cur_line->data.action->multi_remove[ACTION_MULTI_FILTER]->first;
+            while ((filter_name != NULL)
+                && (0 != strcmp(filter_group->filtername, filter_name->str)))
+            {
+                 filter_name = filter_name->next;
+            }
+            if (filter_name != NULL)
+            {
+               current_mode = 'n';
+            }
+         }
+
+         /* Generate a unique serial number */
+         snprintf(number, sizeof(number), "%x", index++);
+         number[sizeof(number) - 1] = '\0';
+
+         line_exports = new_map();
+         if (line_exports == NULL)
+         {
+            err = JB_ERR_MEMORY;
+            freez(result);
+         }
+         else
+         {
+            if (!err) err = map(line_exports, "index", 1, number, 1);
+            if (!err) err = map(line_exports, "name",  1, filter_group->filtername, 1);
+            if (!err) err = map_radio(line_exports, "this-filter", "ynx", current_mode);
+
+            this_line = NULL;
+            if (!err)
+            {
+               this_line = strdup(filter_template);
+               if (this_line == NULL) err = JB_ERR_MEMORY;
+            }
+            if (!err) err = template_fill(&this_line, line_exports);
+            string_join(&result, this_line);
+
+            free_map(line_exports);
+         }
+      }
+      if (!err)
+      {
+         err = map(exports, "filter-params", 1, result, 0);
+      }
+      else
+      {
+         freez(result);
+      }
+   }
+
+   if (!err) err = map_radio(exports, "filter-all", "nx",
+      (cur_line->data.action->multi_remove_all[ACTION_MULTI_FILTER] ? 'n' : 'x'));
 
    edit_free_file(file);
 
@@ -3891,6 +4001,44 @@ jb_err cgi_toggle(struct client_state *csp,
 
 /*********************************************************************
  *
+ * Function    :  javascriptify
+ *
+ * Description :  Converts a string into a form JavaScript will like.
+ *
+ *                Netscape 4's JavaScript sucks - it doesn't use 
+ *                "id" parameters, so you have to set the "name"
+ *                used to submit a form element to something JavaScript
+ *                will like.  (Or access the elements by index in an
+ *                array.  That array contains >60 elements and will
+ *                be changed whenever we add a new action to the
+ *                editor, so I'm NOT going to use indexes that have
+ *                to be figured out by hand.)
+ *
+ *                Currently the only thing we have to worry about
+ *                is "-" ==> "_" conversion.
+ *
+ *                This is a length-preserving operation so it is
+ *                carried out in-place, no memory is allocated
+ *                or freed.
+ *
+ * Parameters  :
+ *          1  :  identifier = String to make JavaScript-friendly.
+ *
+ * Returns     :  N/A
+ *
+ *********************************************************************/
+static void javascriptify(char * identifier)
+{
+   char * p = identifier;
+   while (NULL != (p = strchr(p, '-')))
+   {
+      *p++ = '_';
+   }
+}
+
+
+/*********************************************************************
+ *
  * Function    :  actions_to_radio
  *
  * Description :  Converts a actionsfile entry into settings for
@@ -4020,44 +4168,6 @@ static jb_err actions_to_radio(struct map * exports,
 
 /*********************************************************************
  *
- * Function    :  javascriptify
- *
- * Description :  Converts a string into a form JavaScript will like.
- *
- *                Netscape 4's JavaScript sucks - it doesn't use 
- *                "id" parameters, so you have to set the "name"
- *                used to submit a form element to something JavaScript
- *                will like.  (Or access the elements by index in an
- *                array.  That array contains >60 elements and will
- *                be changed whenever we add a new action to the
- *                editor, so I'm NOT going to use indexes that have
- *                to be figured out by hand.)
- *
- *                Currently the only thing we have to worry about
- *                is "-" ==> "_" conversion.
- *
- *                This is a length-preserving operation so it is
- *                carried out in-place, no memory is allocated
- *                or freed.
- *
- * Parameters  :
- *          1  :  identifier = String to make JavaScript-friendly.
- *
- * Returns     :  N/A
- *
- *********************************************************************/
-static void javascriptify(char * identifier)
-{
-   char * p = identifier;
-   while (NULL != (p = strchr(p, '-')))
-   {
-      *p++ = '_';
-   }
-}
-
-
-/*********************************************************************
- *
  * Function    :  actions_from_radio
  *
  * Description :  Converts a map of parameters passed to a CGI function
@@ -4074,7 +4184,7 @@ static void javascriptify(char * identifier)
  *
  *********************************************************************/
 static jb_err actions_from_radio(const struct map * parameters,
-                              struct action_spec *action)
+                                 struct action_spec *action)
 {
    static int first_time = 1;
    const char * param;
