@@ -38,6 +38,11 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.47  2002/03/13 00:30:52  jongfoster
+ *    Killing warnings
+ *    Added option of always sending redirect for imageblock,
+ *    currently disabled with #if 0.
+ *
  *    Revision 1.46  2002/03/12 01:42:49  oes
  *    Introduced modular filters
  *
@@ -493,7 +498,7 @@ int acl_addr(char *aspec, struct access_control_addr *aca)
    masklength = 32;
    port       =  0;
 
-   if ((p = strchr(aspec, '/')))
+   if ((p = strchr(aspec, '/')) != NULL)
    {
       *p++ = '\0';
 
@@ -509,7 +514,7 @@ int acl_addr(char *aspec, struct access_control_addr *aca)
       return(-1);
    }
 
-   if ((p = strchr(aspec, ':')))
+   if ((p = strchr(aspec, ':')) != NULL)
    {
       *p++ = '\0';
 
@@ -673,6 +678,8 @@ struct http_response *block_url(struct client_state *csp)
       /* determine HOW images should be blocked */
       p = csp->action->string[ACTION_STRING_IMAGE_BLOCKER];
 
+#if 1 /* Two alternative strategies, use this one for now: */
+
       /* and handle accordingly: */
       if ((p == NULL) || (0 == strcmpic(p, "logo")))
       {
@@ -740,6 +747,35 @@ struct http_response *block_url(struct client_state *csp)
             return cgi_error_memory();
          }
       }
+
+#else /* Following code is disabled for now */
+
+      /* and handle accordingly: */
+      if ((p == NULL) || (0 == strcmpic(p, "logo")))
+      {
+         p = CGI_PREFIX "send-banner?type=logo";
+      }
+      else if (0 == strcmpic(p, "blank"))
+      {
+         p = CGI_PREFIX "send-banner?type=blank";
+      }
+      else if (0 == strcmpic(p, "pattern"))
+      {
+         p = CGI_PREFIX "send-banner?type=pattern";
+      }
+      rsp->status = strdup("302 Local Redirect from Junkbuster");
+      if (rsp->status == NULL)
+      {
+         free_http_response(rsp);
+         return cgi_error_memory();
+      }
+
+      if (enlist_unique_header(rsp->headers, "Location", p))
+      {
+         free_http_response(rsp);
+         return cgi_error_memory();
+      }
+#endif /* Preceeding code is disabled for now */
    }
    else
 #endif /* def FEATURE_IMAGE_BLOCKING */
@@ -885,7 +921,7 @@ struct http_response *trust_url(struct client_state *csp)
     * Export the trust list
     */
    p = strdup("");
-   for (tl = csp->config->trust_list; (t = *tl) ; tl++)
+   for (tl = csp->config->trust_list; (t = *tl) != NULL ; tl++)
    {
       sprintf(buf, "<li>%s</li>\n", t->spec);
       string_append(&p, buf);
@@ -982,7 +1018,7 @@ struct http_response *redirect_url(struct client_state *csp)
    /*
     * find the last URL encoded in the request
     */
-   while ((p = strstr(p, "http://")))
+   while ((p = strstr(p, "http://")) != NULL)
    {
       q = p++;
    }
@@ -1143,7 +1179,7 @@ int is_untrusted_url(struct client_state *csp)
 
          FILE *fp;
 
-         if ((fp = fopen(csp->config->trustfile, "a")))
+         if (NULL != (fp = fopen(csp->config->trustfile, "a")))
          {
             char * path;
             char * path_end;
