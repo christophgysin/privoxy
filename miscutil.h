@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/06/05 22:32:01  jongfoster
+ *    New function make_path() to splice directory and file names together.
+ *
  *    Revision 1.6  2001/06/03 19:12:30  oes
  *    introduced bindup()
  *
@@ -156,7 +159,9 @@ extern char *strsav(char *old, const char *text_to_append);
 extern char *chomp(char *string);
 extern int simplematch(char *pattern, char *text);
 
-char *bindup(const char *string, int n);
+extern char *bindup(const char *string, int n);
+
+extern char *make_path(const char * dir, const char * file);
 
 #ifdef __MINGW32__
 extern char *strdup(const char *s);

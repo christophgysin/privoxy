@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/06/05 22:32:01  jongfoster
+ *    New function make_path() to splice directory and file names together.
+ *
  *    Revision 1.7  2001/06/03 19:12:30  oes
  *    introduced bindup()
  *
@@ -606,6 +609,59 @@ char *bindup(const char *string, int n)
 
    return dup;
 
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  make_path
+ *
+ * Description :  Takes a directory name and a file name, returns 
+ *                the complete path.  Handles windows/unix differences.
+ *                If the file name is already an absolute path, or if
+ *                the directory name is NULL or empty, it returns 
+ *                the filename. 
+ *
+ * Parameters  :
+ *          1  :  dir: Name of directory or NULL for none.
+ *          2  :  file: Name of file.  Should not be NULL or empty.
+ *
+ * Returns     :  "dir/file" (Or on windows, "dir\file").
+ *                It allocates the string on the heap.  Caller frees.
+ *                Returns NULL in error (i.e. NULL file or out of
+ *                memory) 
+ *
+ *********************************************************************/
+char * make_path(const char * dir, const char * file)
+{
+   if ((file == NULL) || (*file == '\0'))
+   {
+      return NULL; /* Error */
+   }
+
+   if ((dir == NULL) || (*dir == '\0') /* No directory specified */
+#ifdef _WIN32
+      || (*file == '\\') || (file[1] == ':') /* Absolute path (DOS) */
+#else /* ifndef _WIN32 */
+      || (*file == '/') /* Absolute path (U*ix) */
+#endif /* ifndef _WIN32 */
+      )
+   {
+      return strdup(file);
+   }
+   else
+   {
+      char * path = malloc(strlen(dir) + strlen(file) + 2);
+      strcpy(path, dir);
+#ifdef _WIN32
+      strcat(path, "\\");
+#else /* ifndef _WIN32 */
+      strcat(path, "\\");
+#endif /* ifndef _WIN32 */
+      strcat(path, file);
+
+      return path;
+   }
 }
 
 
