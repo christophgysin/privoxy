@@ -33,6 +33,11 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2001/07/25 22:57:13  jongfoster
+ *    __BEOS__ no longer overrides FEATURE_PTHREAD.
+ *    This is because FEATURE_PTHREAD will soon be widely used, so I
+ *    want to keep it simple.
+ *
  *    Revision 1.29  2001/07/24 12:47:06  oes
  *    Applied BeOS support update by Eugenia
  *
@@ -264,9 +269,9 @@ const char jcc_rcs[] = "$Id$";
 #include <fcntl.h>
 #include <errno.h>
 
-#if defined(FEATURE_PTHREAD) && !defined(__BEOS__)
+#ifdef FEATURE_PTHREAD
 #include <pthread.h>
-#endif /* def FEATURE_PTHREAD && ndef __BEOS__ */
+#endif /* def FEATURE_PTHREAD */
 
 #ifdef _WIN32
 # ifndef FEATURE_PTHREAD
