@@ -4,9 +4,10 @@ const char miscutil_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  zalloc, hash_string, safe_strerror, strcmpic,
- *                strncmpic, and MinGW32 strdup functions.  These are
- *                each too small to deserve their own file but don't 
- *                really fit in any other file.
+ *                strncmpic, strsav, chomp, and MinGW32 strdup
+ *                functions. 
+ *                These are each too small to deserve their own file
+ *                but don't really fit in any other file.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
  *                IJBSWA team.  http://ijbswa.sourceforge.net
@@ -35,6 +36,12 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/29 23:10:09  oes
+ *
+ *
+ *     - Introduced chomp()
+ *     - Moved strsav() from showargs to miscutil
+ *
  *    Revision 1.2  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -74,6 +81,7 @@ const char miscutil_rcs[] = "$Id$";
 #include <ctype.h>
 
 #include "miscutil.h"
+#include "errlog.h"
 
 const char miscutil_h_rcs[] = MISCUTIL_H_VERSION;
 
@@ -85,6 +93,7 @@ const char miscutil_h_rcs[] = MISCUTIL_H_VERSION;
  * the argument match the declared parameter type of "int".
  */
 #define ijb_tolower(__X) tolower((int)(unsigned char)(__X))
+#define ijb_isspace(__X) isspace((int)(unsigned char)(__X))   
 
 /*********************************************************************
  *
@@ -270,6 +279,117 @@ int strncmpic(const char *s1, const char *s2, size_t n)
 
 }
 
+
+/*********************************************************************
+ *
+ * Function    :  chomp
+ *
+ * Description :  In-situ-eliminate all leading and trailing whitespace
+ *                from a string.
+ *
+ * Parameters  :
+ *          1  :  s : string to be chomped.
+ *
+ * Returns     :  chomped string
+ *
+ *********************************************************************/
+char *chomp(char *string)
+{
+   char *p, *q, *r;
+
+   /* 
+    * strip trailing whitespace
+    */
+   p = string + strlen(string);
+   while (p > string && ijb_isspace(*(p-1)))
+   {
+      p--;
+   }
+   *p = '\0';
+
+   /* 
+    * find end of leading whitespace 
+    */
+   q = r = string;
+   while (*q && ijb_isspace(*q))
+   {
+      q++;
+   }
+
+   /*
+    * if there was any, move the rest forwards
+    */
+   if (q != string)
+   {
+      while (q <= p)
+      {
+         *r++ = *q++;
+      }
+   }
+
+   return(string);
+
+}
+
+/*********************************************************************
+ *
+ * Function    :  strsav
+ *
+ * Description :  Reallocate "old" and append text to it.  This makes
+ *                it easier to append to malloc'd strings.
+ *
+ * Parameters  :
+ *          1  :  old = Old text that is to be extended.  Will be
+ *                free()d by this routine.
+ *          2  :  text_to_append = Text to be appended to old.
+ *
+ * Returns     :  Pointer to newly malloc'ed appended string.
+ *                If there is no text to append, return old.  Caller
+ *                must free().
+ *
+ *********************************************************************/
+char *strsav(char *old, const char *text_to_append)
+{
+   int old_len, new_len;
+   char *p;
+
+   if (( text_to_append == NULL) || (*text_to_append == '\0'))
+   {
+      return(old);
+   }
+
+   if (NULL != old)
+   {
+      old_len = strlen(old);
+   }
+   else
+   {
+      old_len = 0;
+   }
+
+   new_len = old_len + strlen(text_to_append) + 1;
+
+   if (old)
+   {
+      if ((p = realloc(old, new_len)) == NULL)
+      {
+         log_error(LOG_LEVEL_FATAL, "realloc(%d) bytes failed!", new_len);
+         /* Never get here - LOG_LEVEL_FATAL causes program exit */
+      }
+   }
+   else
+   {
+      if ((p = (char *)malloc(new_len)) == NULL)
+      {
+         log_error(LOG_LEVEL_FATAL, "malloc(%d) bytes failed!", new_len);
+         /* Never get here - LOG_LEVEL_FATAL causes program exit */
+      }
+   }
+
+   strcpy(p + old_len, text_to_append);
+   return(p);
+
+}
 
 /*
   Local Variables:

@@ -37,6 +37,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/29 23:10:09  oes
+ *
+ *
+ *     - Introduced chomp()
+ *     - Moved strsav() from showargs to miscutil
+ *
  *    Revision 1.2  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -79,6 +85,9 @@ extern char *safe_strerror(int err);
 
 extern int strcmpic(const char *s1, const char *s2);
 extern int strncmpic(const char *s1, const char *s2, size_t n);
+
+extern char *strsav(char *old, const char *text_to_append);
+extern char *chomp(char *string);
 
 #ifdef __MINGW32__
 extern char *strdup(const char *s);
