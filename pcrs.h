@@ -26,6 +26,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/06/09 10:58:57  jongfoster
+ *    Removing a single unused #define which referenced BUFSIZ
+ *
  *    Revision 1.2  2001/05/25 11:03:55  oes
  *    Added sanity check for NULL jobs to pcrs_exec_substitution
  *
@@ -56,7 +59,6 @@
 #define TRUE 1
 #define PCRS_MAX_MATCHES 300
 #define PCRS_MAX_SUBMATCHES 33
-#define CHARBUFSIZ BUFSIZ * sizeof(char)
 
 #define PCRS_ERR_NOMEM     -10      /* Failed to acquire memory. */
 #define PCRS_ERR_CMDSYNTAX -11      /* Syntax of s///-command */
