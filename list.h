@@ -36,6 +36,60 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/06/03 11:03:48  oes
+ *    Makefile/in
+ *
+ *    introduced cgi.c
+ *
+ *    actions.c:
+ *
+ *    adapted to new enlist_unique arg format
+ *
+ *    conf loadcfg.c
+ *
+ *    introduced confdir option
+ *
+ *    filters.c filtrers.h
+ *
+ *     extracted-CGI relevant stuff
+ *
+ *    jbsockets.c
+ *
+ *     filled comment
+ *
+ *    jcc.c
+ *
+ *     support for new cgi mechansim
+ *
+ *    list.c list.h
+ *
+ *    functions for new list type: "map"
+ *    extended enlist_unique
+ *
+ *    miscutil.c .h
+ *    introduced bindup()
+ *
+ *    parsers.c parsers.h
+ *
+ *    deleted const struct interceptors
+ *
+ *    pcrs.c
+ *    added FIXME
+ *
+ *    project.h
+ *
+ *    added struct map
+ *    added struct http_response
+ *    changes struct interceptors to struct cgi_dispatcher
+ *    moved HTML stuff to cgi.h
+ *
+ *    re_filterfile:
+ *
+ *    changed
+ *
+ *    showargs.c
+ *    NO TIME LEFT
+ *
  *    Revision 1.2  2001/06/01 18:49:17  jongfoster
  *    Replaced "list_share" with "list" - the tiny memory gain was not
  *    worth the extra complexity.
@@ -66,20 +120,23 @@ extern "C" {
 #endif
 
 
-extern void  enlist(struct list *h, const char *s);
-extern void  enlist_unique(struct list *header, const char *str);
+extern void enlist(struct list *h, const char *s);
+extern void enlist_unique(struct list *header, const char *str, int n);
+extern void enlist_first(struct list *header, const char *str);
+extern int   list_remove_item(struct list *header, const char *str);
+
+extern void  list_append_list_unique(struct list *dest, const struct list *src);
+extern void  list_append_list_unique(struct list *dest, const struct list *src);
+extern int   list_remove_list(struct list *header, const struct list *to_remove);
+extern void  list_duplicate(struct list *dest, const struct list *src);
 
 extern void  destroy_list(struct list *h);
 
 extern char *list_to_text(struct list *h);
 
-extern int   list_remove_item(struct list *header, const char *str);
-extern int   list_remove_list(struct list *header, const struct list *to_remove);
-
-extern void  list_append_list_unique(struct list *dest, const struct list *src);
-
-extern void  list_duplicate(struct list *dest, const struct list *src);
-
+extern struct map* map(struct map* map, char *name, int nc, char *value, int vc);
+extern char *lookup(struct map *list, char *name);
+extern void free_map(struct map *list);
 
 /* Revision control strings from this header and associated .c file */
 extern const char list_rcs[];
