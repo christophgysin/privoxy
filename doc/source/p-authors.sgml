@@ -13,6 +13,7 @@
  Junkbusters Corporation.  http://www.junkbusters.com
 
 
+
  ======================================================================
   This file used for inclusion with other documents only.
  ======================================================================
@@ -33,13 +34,13 @@
 ]]>
 
 <literallayout>
- Stefan Waldherr
- Andreas Oesterhelt
  Jon Foster
+ Andreas Oesterhelt
+ Stefan Waldherr
 <![%p-authors-formal;[
  ]]>
- Markus Breitenbach
  Thomas Steudten
+ Rodney Stromlund
 <![%p-authors-formal;[
 </literallayout>
 
@@ -49,18 +50,15 @@
 
 <literallayout>
 ]]>
- David Schmidt (OS/2, Mac OSX ports)
- Gabriel L. Somlo
- Hal Burgiss (docs)
- Haroon Rafique
- John Venvertloh
- Joerg Strohmayer
- Rodney Stromlund
  Rodrigo Barbosa (RPM specfiles)
- Sarantis Paskalis
- Shamim Mohamed
- Gábor Lipták
+ Hal Burgiss (docs)
  Alexander Lazic
+ Gábor Lipták
+ Guy
+ Haroon Rafique
+ David Schmidt (OS/2, Mac OSX ports)
+ Joerg Strohmayer
+ Sarantis Paskalis
 </literallayout>
 
 <![%p-authors-formal;[
@@ -79,17 +77,16 @@
 </para>
 
 <literallayout>
- Aaron Hamid
- Andrew J. Caines
- Bart Schelstraete
- Clifford Caoile
- Darren Wiebe
- Guy
  Ken Arromdee
+ Reiner Buehl
+ Andrew J. Caines
+ Clifford Caoile
+ Peter E
+ Aaron Hamid
  Magnus Holmgren
  Paul Lieverse
- Peter E
- Reiner Buehl
  Roberto Ragusa
+ Bart Schelstraete
+ Darren Wiebe
 </literallayout>
 ]]>
