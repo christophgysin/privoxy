@@ -35,6 +35,13 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/05/26 00:28:36  jongfoster
+ *    Automatic reloading of config file.
+ *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
+ *    Most of the global variables have been moved to a new
+ *    struct configuration_spec, accessed through csp->config->globalname
+ *    Most of the globals remaining are used by the Win32 GUI.
+ *
  *    Revision 1.6  2001/05/23 12:27:33  oes
  *
  *    Fixed ugly indentation of my last changes
@@ -115,10 +122,6 @@ const char loaders_h_rcs[] = LOADERS_H_VERSION;
 #define ijb_isspace(__X) isspace((int)(unsigned char)(__X))
 
 
-#define NLOADERS 8
-static int (*loaders[NLOADERS])(struct client_state *);
-
-
 /*
  * Currently active files.
  * These are also entered in the main linked list of files.
@@ -187,6 +190,13 @@ void sweep(void)
       if (ncsp->active)
       {
          /* mark this client's files as active */
+
+         /*
+          * Always have a configuration file.
+          * (Also note the slightly non-standard extra
+          * indirection here.)
+          */
+         ncsp->config->config_file_list->active = 1;
 
          if (ncsp->blist)     /* block files */
          {
@@ -657,9 +667,9 @@ static void unload_re_filterfile(void *f)
  *                On error: 1 and sets newfl == NULL
  *
  *********************************************************************/
-static int check_file_changed(const struct file_list * current,
-                              const char * filename,
-                              struct file_list ** newfl)
+int check_file_changed(const struct file_list * current,
+                       const char * filename,
+                       struct file_list ** newfl)
 {
    struct file_list *fs;
    struct stat statbuf[1];
@@ -869,7 +879,7 @@ int load_aclfile(struct client_state *csp)
    struct access_control_list *a, *bl;
    struct file_list *fs;
 
-   if (!check_file_changed(current_aclfile, aclfile, &fs))
+   if (!check_file_changed(current_aclfile, csp->config->aclfile, &fs))
    {
       /* No need to load */
       if (csp)
@@ -891,7 +901,7 @@ int load_aclfile(struct client_state *csp)
       goto load_aclfile_error;
    }
 
-   fp = fopen(aclfile, "r");
+   fp = fopen(csp->config->aclfile, "r");
 
    if (fp == NULL)
    {
@@ -978,7 +988,8 @@ int load_aclfile(struct client_state *csp)
    return(0);
 
 load_aclfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load access control list %s: %E", aclfile);
+   log_error(LOG_LEVEL_ERROR, "can't load access control list %s: %E",
+             csp->config->aclfile);
    return(-1);
 
 }
@@ -1006,7 +1017,7 @@ int load_blockfile(struct client_state *csp)
    int reject;
    struct file_list *fs;
 
-   if (!check_file_changed(current_blockfile, blockfile, &fs))
+   if (!check_file_changed(current_blockfile, csp->config->blockfile, &fs))
    {
       /* No need to load */
       if (csp)
@@ -1026,7 +1037,7 @@ int load_blockfile(struct client_state *csp)
       goto load_blockfile_error;
    }
 
-   if ((fp = fopen(blockfile, "r")) == NULL)
+   if ((fp = fopen(csp->config->blockfile, "r")) == NULL)
    {
       goto load_blockfile_error;
    }
@@ -1100,7 +1111,7 @@ int load_blockfile(struct client_state *csp)
    return(0);
 
 load_blockfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load blockfile '%s': %E", blockfile);
+   log_error(LOG_LEVEL_ERROR, "can't load blockfile '%s': %E", csp->config->blockfile);
    return(-1);
 
 }
@@ -1128,7 +1139,7 @@ int load_imagefile(struct client_state *csp)
    int reject;
    struct file_list *fs;
 
-   if (!check_file_changed(current_imagefile, imagefile, &fs))
+   if (!check_file_changed(current_imagefile, csp->config->imagefile, &fs))
    {
       /* No need to load */
       if (csp)
@@ -1148,7 +1159,7 @@ int load_imagefile(struct client_state *csp)
       goto load_imagefile_error;
    }
 
-   if ((fp = fopen(imagefile, "r")) == NULL)
+   if ((fp = fopen(csp->config->imagefile, "r")) == NULL)
    {
       goto load_imagefile_error;
    }
@@ -1222,7 +1233,7 @@ int load_imagefile(struct client_state *csp)
    return(0);
 
 load_imagefile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load imagefile '%s': %E", imagefile);
+   log_error(LOG_LEVEL_ERROR, "can't load imagefile '%s': %E", csp->config->imagefile);
    return(-1);
 
 }
@@ -1252,7 +1263,7 @@ int load_permissions_file(struct client_state *csp)
    struct file_list *fs;
    int i;
 
-   if (!check_file_changed(current_permissions_file, permissions_file, &fs))
+   if (!check_file_changed(current_permissions_file, csp->config->permissions_file, &fs))
    {
       /* No need to load */
       if (csp)
@@ -1272,7 +1283,7 @@ int load_permissions_file(struct client_state *csp)
       goto load_permissions_error;
    }
 
-   if ((fp = fopen(permissions_file, "r")) == NULL)
+   if ((fp = fopen(csp->config->permissions_file, "r")) == NULL)
    {
       goto load_permissions_error;
    }
@@ -1283,7 +1294,7 @@ int load_permissions_file(struct client_state *csp)
     *
     * Reset it to default first.
     */
-   default_permissions = PERMIT_RE_FILTER;
+   csp->config->default_permissions = PERMIT_RE_FILTER;
 
    while (read_config_line(buf, sizeof(buf), fp, fs) != NULL)
    {
@@ -1366,7 +1377,7 @@ int load_permissions_file(struct client_state *csp)
       /* a lines containing only "special" chars sets default */
       if (*buf == '\0')
       {
-         default_permissions = permissions;
+         csp->config->default_permissions = permissions;
          continue;
       }
 
@@ -1420,7 +1431,8 @@ int load_permissions_file(struct client_state *csp)
    return(0);
 
 load_permissions_error:
-   log_error(LOG_LEVEL_ERROR, "can't load permissions file '%s': %E", permissions_file);
+   log_error(LOG_LEVEL_ERROR, "can't load permissions file '%s': %E",
+             csp->config->permissions_file);
    return(-1);
 
 }
@@ -1450,7 +1462,7 @@ int load_trustfile(struct client_state *csp)
    int reject, trusted;
    struct file_list *fs;
 
-   if (!check_file_changed(current_trustfile, trustfile, &fs))
+   if (!check_file_changed(current_trustfile, csp->config->trustfile, &fs))
    {
       /* No need to load */
       if (csp)
@@ -1470,12 +1482,12 @@ int load_trustfile(struct client_state *csp)
       goto load_trustfile_error;
    }
 
-   if ((fp = fopen(trustfile, "r")) == NULL)
+   if ((fp = fopen(csp->config->trustfile, "r")) == NULL)
    {
       goto load_trustfile_error;
    }
 
-   tl = trust_list;
+   tl = csp->config->trust_list;
 
    while (read_config_line(buf, sizeof(buf), fp, fs) != NULL)
    {
@@ -1563,7 +1575,8 @@ int load_trustfile(struct client_state *csp)
    return(0);
 
 load_trustfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load trustfile '%s': %E", trustfile);
+   log_error(LOG_LEVEL_ERROR, "can't load trustfile '%s': %E",
+             csp->config->trustfile);
    return(-1);
 
 }
@@ -1594,7 +1607,7 @@ int load_forwardfile(struct client_state *csp)
    const struct gateway *gw;
    struct url_spec url[1];
 
-   if (!check_file_changed(current_forwardfile, forwardfile, &fs))
+   if (!check_file_changed(current_forwardfile, csp->config->forwardfile, &fs))
    {
       /* No need to load */
       if (csp)
@@ -1615,7 +1628,7 @@ int load_forwardfile(struct client_state *csp)
       goto load_forwardfile_error;
    }
 
-   if ((fp = fopen(forwardfile, "r")) == NULL)
+   if ((fp = fopen(csp->config->forwardfile, "r")) == NULL)
    {
       goto load_forwardfile_error;
    }
@@ -1832,7 +1845,8 @@ int load_forwardfile(struct client_state *csp)
    return(0);
 
 load_forwardfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load forwardfile '%s': %E", forwardfile);
+   log_error(LOG_LEVEL_ERROR, "can't load forwardfile '%s': %E",
+             csp->config->forwardfile);
    return(-1);
 
 }
@@ -1864,7 +1878,7 @@ int load_re_filterfile(struct client_state *csp)
    int error;
    pcrs_job *dummy;
 
-   if (!check_file_changed(current_re_filterfile, re_filterfile, &fs))
+   if (!check_file_changed(current_re_filterfile, csp->config->re_filterfile, &fs))
    {
       /* No need to load */
       if (csp)
@@ -1885,7 +1899,7 @@ int load_re_filterfile(struct client_state *csp)
    }
 
    /* Open the file or fail */
-   if ((fp = fopen(re_filterfile, "r")) == NULL)
+   if ((fp = fopen(csp->config->re_filterfile, "r")) == NULL)
    {
       goto load_re_filterfile_error;
    }
@@ -1937,7 +1951,8 @@ int load_re_filterfile(struct client_state *csp)
    return( 0 );
 
 load_re_filterfile_error:
-   log_error(LOG_LEVEL_ERROR, "can't load re_filterfile '%s': %E", re_filterfile);
+   log_error(LOG_LEVEL_ERROR, "can't load re_filterfile '%s': %E", 
+             csp->config->re_filterfile);
    return(-1);
 
 }
@@ -1954,19 +1969,21 @@ load_re_filterfile_error:
  * Parameters  :
  *          1  :  loader = pointer to a function that can parse and load
  *                the appropriate config file.
+ *          2  :  config = The configuration_spec to add the loader to.
  *
  * Returns     :  N/A
  *
  *********************************************************************/
-void add_loader(int (*loader)(struct client_state *))
+void add_loader(int (*loader)(struct client_state *), 
+                struct configuration_spec * config)
 {
    int i;
 
    for (i=0; i < NLOADERS; i++)
    {
-      if (loaders[i] == NULL)
+      if (config->loaders[i] == NULL)
       {
-         loaders[i] = loader;
+         config->loaders[i] = loader;
          break;
       }
    }
@@ -1985,6 +2002,8 @@ void add_loader(int (*loader)(struct client_state *))
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
+ *                      Must be non-null.  Reads: "csp->config"
+ *                      Writes: various data members.
  *
  * Returns     :  0 => Ok, everything else is an error.
  *
@@ -1996,31 +2015,14 @@ int run_loader(struct client_state *csp)
 
    for (i=0; i < NLOADERS; i++)
    {
-      if (loaders[i] == NULL)
+      if (csp->config->loaders[i] == NULL)
       {
          break;
       }
-      ret |= (loaders[i])(csp);
+      ret |= (csp->config->loaders[i])(csp);
    }
    return(ret);
 
-}
-
-
-/*********************************************************************
- *
- * Function    :  remove_all_loaders
- *
- * Description :  Remove all loaders from the list.
- *
- * Parameters  :  N/A
- *
- * Returns     :  N/A
- *
- *********************************************************************/
-void remove_all_loaders(void)
-{
-   memset( loaders, 0, sizeof( loaders ) );
 }
 
 

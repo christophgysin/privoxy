@@ -37,6 +37,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/26 00:28:36  jongfoster
+ *    Automatic reloading of config file.
+ *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
+ *    Most of the global variables have been moved to a new
+ *    struct configuration_spec, accessed through csp->config->globalname
+ *    Most of the globals remaining are used by the Win32 GUI.
+ *
  *    Revision 1.2  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -65,6 +72,9 @@ extern "C" {
 
 extern void sweep(void);
 extern char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs);
+extern int check_file_changed(const struct file_list * current,
+                              const char * filename,
+                              struct file_list ** newfl);
 
 extern int load_blockfile(struct client_state *csp);
 extern int load_permissions_file(struct client_state *csp);
@@ -86,9 +96,9 @@ extern int load_trustfile(struct client_state *csp);
 extern int load_re_filterfile(struct client_state *csp);
 #endif /* def PCRS */
 
-extern void add_loader(int (*loader)(struct client_state *));
+extern void add_loader(int (*loader)(struct client_state *), 
+                       struct configuration_spec * config);
 extern int run_loader(struct client_state *csp);
-extern void remove_all_loaders(void);
 
 #ifdef PCRS
 extern int load_re_filterfile(struct client_state *csp);

@@ -37,6 +37,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/26 00:28:36  jongfoster
+ *    Automatic reloading of config file.
+ *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
+ *    Most of the global variables have been moved to a new
+ *    struct configuration_spec, accessed through csp->config->globalname
+ *    Most of the globals remaining are used by the Win32 GUI.
+ *
  *    Revision 1.4  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -121,79 +128,7 @@ extern "C" {
 extern int g_bToggleIJB;
 #endif
 
-extern int debug;
-extern int multi_threaded;
-
-#if defined(DETECT_MSIE_IMAGES) || defined(USE_IMAGE_LIST)
-extern int tinygif;
-extern const char *tinygifurl;
-#endif /* defined(DETECT_MSIE_IMAGES) || defined(USE_IMAGE_LIST) */
-
-extern const char *logfile;
-
 extern const char *configfile;
-
-#ifdef ACL_FILES
-extern const char *aclfile;
-#endif /* def ACL_FILES */
-
-extern const char *blockfile;
-extern const char *permissions_file;
-extern const char *forwardfile;
-
-#ifdef USE_IMAGE_LIST
-extern const char *imagefile;
-#endif /* def USE_IMAGE_LIST */
-
-#ifdef TRUST_FILES
-extern const char *trustfile;
-#endif /* def TRUST_FILES */
-
-#ifdef PCRS
-extern const char *re_filterfile;
-#endif /* def PCRS */
-
-#ifdef FAST_REDIRECTS
-extern int fast_redirects;
-#endif /* def FAST_REDIRECTS */
-
-extern int default_permissions;
-
-#ifdef JAR_FILES
-extern const char *jarfile;
-extern FILE *jar;
-#endif /* def JAR_FILES */
-
-extern const char *referrer;
-extern const char *uagent;
-extern const char *from;
-
-#ifndef SPLIT_PROXY_ARGS
-extern const char *suppress_message;
-#endif /* ndef SPLIT_PROXY_ARGS */
-
-extern int suppress_vanilla_wafer;
-extern int add_forwarded;
-
-extern struct list wafer_list[];
-extern struct list xtra_list[];
-
-#ifdef TRUST_FILES
-extern struct list trust_info[];
-extern struct url_spec *trust_list[];
-#endif /* def TRUST_FILES */
-
-extern const char *haddr;
-extern int   hport;
-
-#ifndef SPLIT_PROXY_ARGS
-extern int suppress_blocklists;  /* suppress listing sblock and simage */
-#endif /* ndef SPLIT_PROXY_ARGS */
-
-extern struct proxy_args proxy_args[1];
-
-extern int configret; /* FIXME: This is obsolete, always 0. */
-extern int config_changed;
 
 
 /* The load_config function is now going to call:
@@ -205,7 +140,7 @@ extern int Argc;
 extern const char **Argv;
 
 
-extern void load_config( int );
+extern struct configuration_spec * load_config(void);
 
 
 /* Revision control strings from this header and associated .c file */

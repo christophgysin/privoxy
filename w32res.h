@@ -34,6 +34,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/26 00:28:36  jongfoster
+ *    Automatic reloading of config file.
+ *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
+ *    Most of the global variables have been moved to a new
+ *    struct configuration_spec, accessed through csp->config->globalname
+ *    Most of the globals remaining are used by the Win32 GUI.
+ *
  *    Revision 1.2  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -99,7 +106,6 @@
 #ifdef TOGGLE
 #define ID_TOGGLE_IJB                     4012
 #endif
-#define ID_RELOAD_CONFIG                  4013
 
 /* Break these out so they are easier to extend, but keep consecutive */
 #define ID_TOOLS_EDITJUNKBUSTER           5000

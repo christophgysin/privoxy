@@ -35,8 +35,15 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:03  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/26 00:28:36  jongfoster
+ *    Automatic reloading of config file.
+ *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
+ *    Most of the global variables have been moved to a new
+ *    struct configuration_spec, accessed through csp->config->globalname
+ *    Most of the globals remaining are used by the Win32 GUI.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:03  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -47,10 +54,10 @@ extern "C" {
 #endif
 
 extern char *strsav(char *old, const char *text_to_append);
-extern void savearg(char *c, char *o);
+extern void savearg(char *c, char *o, struct configuration_spec * config);
 
-extern void init_proxy_args(int argc, const char *argv[]);
-extern void end_proxy_args(void);
+extern void init_proxy_args(int argc, const char *argv[], struct configuration_spec * config);
+extern void end_proxy_args(struct configuration_spec * config);
 
 /* Revision control strings from this header and associated .c file */
 extern const char showargs_rcs[];

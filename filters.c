@@ -38,6 +38,13 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/26 00:28:36  jongfoster
+ *    Automatic reloading of config file.
+ *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
+ *    Most of the global variables have been moved to a new
+ *    struct configuration_spec, accessed through csp->config->globalname
+ *    Most of the globals remaining are used by the Win32 GUI.
+ *
  *    Revision 1.5  2001/05/25 22:34:30  jongfoster
  *    Hard tabs->Spaces
  *
@@ -720,7 +727,7 @@ char *trust_url(struct http_request *http, struct client_state *csp)
    /* if splitting the domain fails, punt */
    if (url->dbuf == NULL) goto trust_url_not_trusted;
 
-   for (tl = trust_list; (t = *tl) ; tl++)
+   for (tl = csp->config->trust_list; (t = *tl) ; tl++)
    {
       if ((t->port == 0) || (t->port == rhttp->port))
       {
@@ -744,7 +751,7 @@ char *trust_url(struct http_request *http, struct client_state *csp)
                freez(url->dbuf);
                freez(url->dvec);
 
-               if ((fp = fopen(trustfile, "a")))
+               if ((fp = fopen(csp->config->trustfile, "a")))
                {
                   h = NULL;
 
@@ -922,7 +929,7 @@ int url_permissions(struct http_request *http, struct client_state *csp)
 
    if (((fl = csp->permissions_list) == NULL) || ((b = fl->f) == NULL))
    {
-      return(default_permissions);
+      return(csp->config->default_permissions);
    }
 
    *url = dsplit(http->host);
@@ -930,7 +937,7 @@ int url_permissions(struct http_request *http, struct client_state *csp)
    /* if splitting the domain fails, punt */
    if (url->dbuf == NULL)
    {
-      return(default_permissions);
+      return(csp->config->default_permissions);
    }
 
    for (b = b->next; NULL != b; b = b->next)
@@ -957,7 +964,7 @@ int url_permissions(struct http_request *http, struct client_state *csp)
 
    freez(url->dbuf);
    freez(url->dvec);
-   return(default_permissions);
+   return(csp->config->default_permissions);
 
 }
 
@@ -1301,12 +1308,12 @@ char *show_proxy_args(struct http_request *http, struct client_state *csp)
    }
 #endif /* def SPLIT_PROXY_ARGS */
    
-   s = strsav(s, proxy_args->header);
-   s = strsav(s, proxy_args->invocation);
+   s = strsav(s, csp->config->proxy_args->header);
+   s = strsav(s, csp->config->proxy_args->invocation);
 #ifdef STATISTICS
    s = add_stats(s);
 #endif /* def STATISTICS */
-   s = strsav(s, proxy_args->gateways);
+   s = strsav(s, csp->config->proxy_args->gateways);
 
 #ifdef SPLIT_PROXY_ARGS
    s = strsav(s, 
@@ -1419,7 +1426,7 @@ char *show_proxy_args(struct http_request *http, struct client_state *csp)
 
 #endif /* ndef SPLIT_PROXY_ARGS */
 
-   s = strsav(s, proxy_args->trailer);
+   s = strsav(s, csp->config->proxy_args->trailer);
 
    return(s);
 
@@ -1524,13 +1531,13 @@ char *ij_untrusted_url(struct http_request *http, struct client_state *csp)
 
    p = strsav(p, "<h3>The following referrers are trusted</h3>\n");
 
-   for (tl = trust_list; (t = *tl) ; tl++)
+   for (tl = csp->config->trust_list; (t = *tl) ; tl++)
    {
       sprintf(buf, "%s<br>\n", t->spec);
       p = strsav(p, buf);
    }
 
-   if (trust_info->next)
+   if (csp->config->trust_info->next)
    {
       struct list *l;
 
@@ -1544,7 +1551,7 @@ char *ij_untrusted_url(struct http_request *http, struct client_state *csp)
 
       p = strsav(p, buf);
 
-      for (l = trust_info->next; l ; l = l->next)
+      for (l = csp->config->trust_info->next; l ; l = l->next)
       {
          sprintf(buf,
             "<li> <a href=%s>%s</a><br>\n",

@@ -36,6 +36,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/26 00:28:36  jongfoster
+ *    Automatic reloading of config file.
+ *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
+ *    Most of the global variables have been moved to a new
+ *    struct configuration_spec, accessed through csp->config->globalname
+ *    Most of the globals remaining are used by the Win32 GUI.
+ *
  *    Revision 1.4  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -162,6 +169,9 @@ extern "C" {
 /* Need this for struct gateway */
 struct client_state;
 
+/* Need this for struct client_state */
+struct configuration_spec;
+
 
 struct http_request
 {
@@ -244,6 +254,8 @@ struct list
 
 struct client_state
 {
+   struct configuration_spec * config;
+
    int  permissions;
    
    int  cfd;
@@ -458,6 +470,98 @@ struct access_control_list
    struct access_control_list *next;
 };
 #endif /* def ACL_FILES */
+
+/* Maximum number of loaders (permissions, block, forward, acl...) */
+#define NLOADERS 8
+
+/*
+ * Data loaded from the configuration file.
+ *
+ * (Anomaly: toggle is still handled through a global, not this structure)
+ */
+struct configuration_spec
+{
+   int debug;
+   int multi_threaded;
+
+#if defined(DETECT_MSIE_IMAGES) || defined(USE_IMAGE_LIST)
+   int tinygif;
+   const char *tinygifurl;
+#endif /* defined(DETECT_MSIE_IMAGES) || defined(USE_IMAGE_LIST) */
+
+   const char *logfile;
+
+   const char *blockfile;
+   const char *permissions_file;
+   const char *forwardfile;
+
+#ifdef ACL_FILES
+   const char *aclfile;
+#endif /* def ACL_FILES */
+
+#ifdef USE_IMAGE_LIST
+   const char *imagefile;
+#endif /* def USE_IMAGE_LIST */
+
+#ifdef PCRS
+   const char *re_filterfile;
+#endif /* def PCRS */
+
+   /*
+    * Permissions to use for URLs not in the permissions list.
+    */
+   int default_permissions;
+
+#ifdef JAR_FILES
+   const char * jarfile;
+   FILE * jar;
+#endif /* def JAR_FILES */
+
+   const char *referrer;
+   const char *uagent;
+   const char *from;
+
+   int add_forwarded;
+
+   struct list wafer_list[1];
+   struct list xtra_list[1];
+
+   /*
+    * Port and IP to bind to.
+    * Defaults to HADDR_DEFAULT:HADDR_PORT == 127.0.0.1:8000
+    */
+   const char *haddr;
+   int         hport;
+
+#ifndef SPLIT_PROXY_ARGS
+   const char *suppress_message;
+#endif /* ndef SPLIT_PROXY_ARGS */
+
+#ifndef SPLIT_PROXY_ARGS
+   /* suppress listing sblock and simage */
+   int suppress_blocklists;
+#endif /* ndef SPLIT_PROXY_ARGS */
+
+#ifdef FAST_REDIRECTS
+   int fast_redirects;
+#endif /* def FAST_REDIRECTS */
+
+#ifdef TRUST_FILES
+   const char * trustfile;
+
+   struct list trust_info[1];
+   struct url_spec *trust_list[64];
+#endif /* def TRUST_FILES */
+
+   struct proxy_args proxy_args[1];
+
+   struct file_list *config_file_list;
+
+   int (*loaders[NLOADERS])(struct client_state *);
+
+   int need_bind; /* bool, nonzero if we need to bind() to the new port */
+};
+
 
 #define SZ(X)  (sizeof(X) / sizeof(*X))
 

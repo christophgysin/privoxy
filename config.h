@@ -39,6 +39,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/26 00:28:36  jongfoster
+ *    Automatic reloading of config file.
+ *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
+ *    Most of the global variables have been moved to a new
+ *    struct configuration_spec, accessed through csp->config->globalname
+ *    Most of the globals remaining are used by the Win32 GUI.
+ *
  *    Revision 1.4  2001/05/25 22:17:28  jongfoster
  *    Resurrecting these files which are required for the MS Visual C++
  *    build only.
@@ -128,6 +135,11 @@
  * Bypass filtering for 1 page only
  */
 #define FORCE_LOAD 1
+
+/*
+ * Locally redirect remote script-redirect URLs
+ */
+#define FAST_REDIRECTS 1
 
 /*
  * Split the show-proxy-args page into a page for each config file.
