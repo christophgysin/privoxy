@@ -36,6 +36,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/07/13 13:53:13  oes
+ *    Removed all #ifdef PCRS and related code
+ *
  *    Revision 1.9  2001/06/29 21:45:41  oes
  *    Indentation, CRLF->LF, Tab-> Space
  *
@@ -415,7 +418,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
       }
       break;
 
-#ifdef PCRS
    case 'r':
       if (csp->rlist)
       {
@@ -423,7 +425,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
          file_description = "Regex Filter List";
       }
       break;
-#endif /* def PCRS */
 
 #ifdef TRUST_FILES
    case 't':
@@ -503,7 +504,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
       exports = map(exports, "actions-filename", 1, "None specified", 1);
    }
 
-#ifdef PCRS
    if (csp->rlist)
    {
       exports = map(exports, "re-filter-filename", 1,  csp->rlist->filename, 1);
@@ -512,9 +512,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    {
       exports = map(exports, "re-filter-filename", 1, "None specified", 1);
    }
-#else
-   exports = map_block_killer(exports, "pcrs-support");
-#endif /* ndef PCRS */
 
 #ifdef TRUST_FILES
    if (csp->tlist)
@@ -537,12 +534,10 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
       map(exports, "clist", 1, csp->clist->proxy_args , 1);
    }
 
-#ifdef PCRS
    if (csp->rlist)
    {
       map(exports, "rlist", 1, csp->rlist->proxy_args , 1);
    }
-#endif /* def PCRS */
 
 #ifdef TRUST_FILES
     if (csp->tlist)
