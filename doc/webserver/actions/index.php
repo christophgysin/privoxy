@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.25.2.1  2002/07/27 18:47:49  oes
+  Require Privoxy 2.9.16 and AF 1.3
+
   Revision 1.25  2002/04/29 17:30:20  oes
   Fixed BML link text
 
@@ -126,8 +129,8 @@
 /*
  * Config:
  */
-$required_actions_file_version = "1.2";
-$required_privoxy_version = "2.9.14";
+$required_actions_file_version = "1.3";
+$required_privoxy_version = "2.9.16";
 $actions_file_download = "http://www.privoxy.org/actions/testdrive.action";
 $submit_target = "http://www.oesterhelt.org/actions/step2.php";
 
