@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.68  2002/04/26 12:56:00  oes
+ *    Killed REDIRECT_URL, added USER_MANUAL_URL and HELP_LINK_PREFIX
+ *
  *    Revision 1.67  2002/04/24 02:12:43  oes
  *     - Jon's multiple AF patch:
  *       - Make csp->actions_list an array
@@ -1032,6 +1035,9 @@ struct configuration_spec
    /* A URL with info on this proxy */
    char *proxy_info_url;
 
+   /* URL to the user manual (on our website or local copy) */
+   char *usermanual;
+
    const char *re_filterfile;
 
 #ifdef FEATURE_COOKIE_JAR
@@ -1090,8 +1096,9 @@ struct configuration_spec
 
 
 /* Hardwired URLs */
-#define HOME_PAGE_URL       "http://www.privoxy.org"
-#define REDIRECT_URL        HOME_PAGE_URL "/redirect.php?v=" VERSION "&to="
+#define HOME_PAGE_URL     "http://www.privoxy.org"
+#define USER_MANUAL_URL   HOME_PAGE_URL "/" VERSION "/user-manual/"
+#define HELP_LINK_PREFIX  "configuration.html#"
 
 /*
  * The "hosts" to intercept and display CGI pages.
