@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.42  2002/04/05 15:50:15  oes
+ *    fix for invalid HTML proxy_args
+ *
  *    Revision 1.41  2002/03/31 17:19:00  jongfoster
  *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
  *
@@ -1494,7 +1497,9 @@ static void savearg(char *command, char *argument, struct configuration_spec * c
       freez(config->proxy_args);
       return;
    }
-   string_append(&buf, "<a href=\"" REDIRECT_URL "option#");
+   string_append(&buf, "<a href=\"");
+   string_append(&buf, html_encode(REDIRECT_URL));
+   string_append(&buf, "option#");
    string_append(&buf, s);
    string_append(&buf, "\">");
    string_join  (&buf, s);
