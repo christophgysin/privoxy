@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29.2.1  2003/12/17 16:33:28  oes
+ *    Added prototype of new function cgi_redirect
+ *
  *    Revision 1.29  2002/05/19 11:33:21  jongfoster
  *    If a CGI error was not handled, and propogated back to
  *    dispatch_known_cgi(), then it was assumed to be "out of memory".
@@ -205,6 +208,8 @@ extern jb_err template_fill_for_cgi(struct client_state *csp,
 
 extern void cgi_init_error_messages(void);
 extern struct http_response *cgi_error_memory(void);
+extern jb_err cgi_redirect (struct http_response * rsp, const char *target);
+
 extern jb_err cgi_error_no_template(struct client_state *csp,
                                     struct http_response *rsp,
                                     const char *template_name);
