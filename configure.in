@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.77  2002/09/06 13:23:03  oes
+dnl Removed non-functional test for gcc support for -pthread
+dnl
 dnl Revision 1.76  2002/09/05 14:52:17  oes
 dnl Synced in some changes fromm the stable branch:
 dnl Fixed detection/inclusion of pcre.h, which is in a pcre subdir on RH
@@ -629,17 +632,10 @@ if test $have_pthread = yes; then
   if test "$GCC" = "yes"; then
     # Set a GCC specific switch:
     if test "$target_type" = "unix"; then
-      ac_jgf_save_CFLAGS=$CFLAGS
-      CFLAGS="$CFLAGS -pthread"
-      AC_TRY_LINK([#include <pthread.h>],
-        [void *p = pthread_create;],
-        [
-          # This compiler switch makes GCC on Linux thread-safe
-          # However, it's not supported on most other OS.
-          PTHREAD_LIB=
-          SPECIAL_CFLAGS="-pthread"
-        ])
-      CFLAGS=$ac_jgf_save_CFLAGS
+      # This compiler switch makes GCC on Linux thread-safe
+      # However, it's not supported on most other OS.
+      PTHREAD_LIB=
+      SPECIAL_CFLAGS="-pthread"
     fi
   fi
 else
