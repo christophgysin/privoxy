@@ -578,7 +578,7 @@ dok-readme:
 # webserver files
 dok-webserver: 
 	cd doc/source/webserver && $(DB)-notoc -V nochunks index.sgml > ../../webserver/index.html
-	$(PERL) -pi.bak -e 's/..\/p_doc.css/p_web.css/;\
+	$(PERL) -pi.bak -e 's/..\/p_doc.css/p_doc.css/;\
      s/<\/HEAD/\n<meta name=\"description\" content=\"Privoxy helps consumers reduce unwanted junk email and protect their privacy from direct marketing companies.\"><\/HEAD/;\
 	s/<\/HEAD/\n<meta name="MSSmartTagsPreventParsing" content="TRUE"><\/HEAD/;\
 	s/\.\d\. //'\
@@ -839,6 +839,9 @@ coffee:
 ## end:
 
 # $Log$
+# Revision 1.104  2002/05/24 00:03:49  oes
+# Use p_doc.css for the Homepage for consistency
+#
 # Revision 1.103  2002/05/23 23:19:00  oes
 # Use dsl without TOC for the homepage
 #
