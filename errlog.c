@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2002/03/04 02:08:01  david__schmidt
+ *    Enable web editing of actions file on OS/2 (it had been broken all this time!)
+ *
  *    Revision 1.26  2002/01/09 19:05:45  steudten
  *    Fix big memory leak.
  *
@@ -597,6 +600,8 @@ void log_error(int loglevel, char *fmt, ...)
 #ifdef _WIN32
             ival = WSAGetLastError();
             sval = w32_socket_strerr(ival, tempbuf);
+#elif __OS2__
+            ival = sock_errno();
 #else /* ifndef _WIN32 */
             ival = errno; 
 #ifdef HAVE_STRERROR

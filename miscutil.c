@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2002/03/04 02:08:02  david__schmidt
+ *    Enable web editing of actions file on OS/2 (it had been broken all this time!)
+ *
  *    Revision 1.28  2002/03/03 09:18:03  joergs
  *    Made jumbjuster work on AmigaOS again.
  *
@@ -871,11 +874,11 @@ char * make_path(const char * dir, const char * file)
    }
 
    if ((dir == NULL) || (*dir == '\0') /* No directory specified */
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__OS2__)
       || (*file == '\\') || (file[1] == ':') /* Absolute path (DOS) */
-#else /* ifndef _WIN32 */
+#else /* ifndef _WIN32 || __OS2__ */
       || (*file == '/') /* Absolute path (U*ix) */
-#endif /* ifndef _WIN32 */
+#endif /* ifndef _WIN32 || __OS2__  */
       )
    {
       return strdup(file);
@@ -908,17 +911,17 @@ char * make_path(const char * dir, const char * file)
 
 #endif /* defined unix */
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__OS2__)
       if(path[strlen(path)-1] != '\\')
       {
          strcat(path, "\\");
       }
-#else /* ifndef _WIN32 */
+#else /* ifndef _WIN32 || __OS2__ */
       if(path[strlen(path)-1] != '/')
       {
          strcat(path, "/");
       }
-#endif /* ifndef _WIN32 */
+#endif /* ifndef _WIN32 || __OS2__ */
       strcat(path, file);
 
       return path;

@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.22  2002/03/04 02:08:02  david__schmidt
+ *    Enable web editing of actions file on OS/2 (it had been broken all this time!)
+ *
  *    Revision 1.21  2002/01/09 14:32:33  oes
  *    Added support for gethostbyname_r and gethostbyaddr_r.
  *
@@ -320,6 +323,10 @@ int connect_to(const char *host, int portnum, struct client_state *csp)
  *********************************************************************/
 int write_socket(int fd, const char *buf, int len)
 {
+#ifdef __OS2__
+#define SOCKET_SEND_MAX 65000
+   int write_len = 0, send_len, send_rc = 0, i = 0;
+#endif /* __OS2__ */
    if (len <= 0)
    {
       return(0);
@@ -327,8 +334,25 @@ int write_socket(int fd, const char *buf, int len)
 
    log_error(LOG_LEVEL_LOG, "%N", len, buf);
 
-#if defined(_WIN32) || defined(__BEOS__) || defined(AMIGA) || defined(__OS2__)
+#if defined(_WIN32) || defined(__BEOS__) || defined(AMIGA)
    return( send(fd, buf, len, 0));
+#elif defined(__OS2__)
+   /*
+    * Break the data up into SOCKET_SEND_MAX chunks for sending...
+    * OS/2 seemed to complain when the chunks were too large.
+    */
+   while ((i < len) && (send_rc != -1))
+   {
+      if ((i + SOCKET_SEND_MAX) > len)
+         send_len = len - i;
+      else
+         send_len = SOCKET_SEND_MAX;
+      send_rc = send(fd,(char*)buf + i, send_len, 0);
+      if (send_rc == -1)
+        return(0);
+      i = i + send_len;
+   }
+   return len;
 #else
    return( write(fd, buf, len));
 #endif

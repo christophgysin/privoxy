@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2002/03/04 02:07:59  david__schmidt
+ *    Enable web editing of actions file on OS/2 (it had been broken all this time!)
+ *
  *    Revision 1.12  2002/03/03 09:18:03  joergs
  *    Made jumbjuster work on AmigaOS again.
  *
@@ -706,7 +709,7 @@ jb_err edit_write_file(struct editable_file * file)
    assert(file);
    assert(file->filename);
 
-#ifdef AMIGA
+#if defined(AMIGA) || defined(__OS2__)
    if (NULL == (fp = fopen(file->filename, "w")))
 #else
    if (NULL == (fp = fopen(file->filename, "wt")))
@@ -1537,7 +1540,7 @@ jb_err edit_read_file(struct client_state *csp,
       }
    }
 
-#ifdef AMIGA
+#if defined(AMIGA) || defined(__OS2__)
    if (NULL == (fp = fopen(filename,"r")))
 #else
    if (NULL == (fp = fopen(filename,"rt")))
