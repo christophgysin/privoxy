@@ -2591,6 +2591,10 @@ problem-host.example.com</screen>
     <anchor id="filter-js-events">
     <screen>+filter{js-events}           # Kill all JS event bindings (<emphasis>Radically destructive!</emphasis> Only for extra nasty sites) </screen>
    </para>
+   <para>
+    <anchor id="filter-demoronizer">
+    <screen>+filter{demoronizer}         # Fix non-standard MS font extensions for non-MS browsers</screen>
+   </para>
   </listitem>
  </varlistentry>
 </variablelist>
@@ -5685,6 +5689,10 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 2.7  2002/10/12 01:14:42  hal9
+ Updates for demoronizer filter, Radical profile, and the srvany.exe/icon
+ win32 fix.
+
  Revision 2.6  2002/10/10 04:10:38  hal9
  s/Advanced/Radical/ for standard.action change.
 
