@@ -6,7 +6,7 @@ const char win32_rcs[] = "$Id$";
  * Purpose     :  Win32 User Interface initialization and message loop
  *
  * Copyright   :  Written by and Copyright (C) 2001-2002 members of
- *                the Privoxy team.  http://privoxy.org/
+ *                the Privoxy team.  http://www.privoxy.org/
  *
  *                Written by and Copyright (C) 1999 Adam Lock
  *                <locka@iol.ie>
@@ -31,6 +31,9 @@ const char win32_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2002/03/26 22:57:10  jongfoster
+ *    Web server name should begin www.
+ *
  *    Revision 1.7  2002/03/24 12:03:47  jongfoster
  *    Name change
  *

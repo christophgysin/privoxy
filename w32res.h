@@ -8,7 +8,7 @@
  * Purpose     :  Identifiers for Windows GUI resources.
  *
  * Copyright   :  Written by and Copyright (C) 2001-2002 members of
- *                the Privoxy team.  http://privoxy.org/
+ *                the Privoxy team.  http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2002/03/26 22:57:10  jongfoster
+ *    Web server name should begin www.
+ *
  *    Revision 1.12  2002/03/24 12:07:36  jongfoster
  *    Consistern name for filters file
  *
