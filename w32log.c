@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2002/04/04 00:36:36  gliptak
+ *    always use pcre for matching
+ *
  *    Revision 1.24  2002/03/31 17:19:00  jongfoster
  *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
  *
@@ -256,8 +259,6 @@ const char * g_trustfile = NULL;
 
 /* FIXME: end kludge */
 
-
-#ifdef REGEX
 /* Regular expression for detected URLs */
 #define RE_URL "http:[^ \n\r]*"
 
@@ -303,8 +304,6 @@ static struct _Pattern
    /* this is the terminator statement - do not delete! */
    { NULL,                  STYLE_NONE }
 };
-#endif /* def REGEX */
-
 
 /*
  * Public variables
@@ -420,14 +419,11 @@ void TermLogWindow(void)
  *********************************************************************/
 void LogCreatePatternMatchingBuffers(void)
 {
-#ifdef REGEX
    int i;
    for (i = 0; patterns_to_highlight[i].str != NULL; i++)
    {
       regcomp(&patterns_to_highlight[i].buffer, patterns_to_highlight[i].str, REG_ICASE);
    }
-#endif
-
 }
 
 
@@ -444,14 +440,11 @@ void LogCreatePatternMatchingBuffers(void)
  *********************************************************************/
 void LogDestroyPatternMatchingBuffers(void)
 {
-#ifdef REGEX
    int i;
    for (i = 0; patterns_to_highlight[i].str != NULL; i++)
    {
       regfree(&patterns_to_highlight[i].buffer);
    }
-#endif
-
 }
 
 
@@ -469,7 +462,6 @@ void LogDestroyPatternMatchingBuffers(void)
 char *LogGetURLUnderCursor(void)
 {
    char *szResult = NULL;
-#ifdef REGEX
    regex_t re;
    POINT ptCursor;
    POINTL ptl;
@@ -512,7 +504,6 @@ char *LogGetURLUnderCursor(void)
 
       regfree(&re);
    }
-#endif
    return szResult;
 
 }
@@ -523,7 +514,7 @@ char *LogGetURLUnderCursor(void)
  * Function    :  LogPutString
  *
  * Description :  Inserts text into the logging window.  This is really
- *                a REGEXP aware wrapper function to `LogPutStringNoMatch'.
+ *                a regexp aware wrapper function to `LogPutStringNoMatch'.
  *
  * Parameters  :
  *          1  :  pszText = pointer to string going to the log window
@@ -535,9 +526,7 @@ char *LogGetURLUnderCursor(void)
  *********************************************************************/
 int LogPutString(const char *pszText)
 {
-#ifdef REGEX
    int i;
-#endif
    int result = 0;
 
    if (pszText == NULL || strlen(pszText) == 0)
@@ -555,7 +544,6 @@ int LogPutString(const char *pszText)
     */
    EnterCriticalSection(&g_criticalsection);
 
-#ifdef REGEX
    if (g_bHighlightMessages)
    {
       regmatch_t match;
@@ -610,13 +598,10 @@ int LogPutString(const char *pszText)
          }
       }
    }
-#endif
 
    result = LogPutStringNoMatch(pszText, STYLE_NONE);
 
-#ifdef REGEX
 end:
-#endif
    LeaveCriticalSection(&g_criticalsection);
 
    return result;

@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.24  2002/04/04 00:36:36  gliptak
+ *    always use pcre for matching
+ *
  *    Revision 1.23  2002/04/03 22:28:03  gliptak
  *    Removed references to gnu_regex
  *
@@ -224,13 +227,6 @@
  * Status of the code: "alpha", "beta" or "stable".
  */
 #undef CODE_STATUS
-
-/*
- * Regular expression matching for URLs.  (Highly recommended).
- * If neither of these are defined then you can ony use prefix matching.
- * Don't bother to change this here! Use configure instead.
- */
-#undef REGEX_PCRE
 
 /* 
  * Should pcre be statically built in instead of linkling with libpcre?

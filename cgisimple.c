@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2002/04/04 00:36:36  gliptak
+ *    always use pcre for matching
+ *
  *    Revision 1.25  2002/04/03 22:28:03  gliptak
  *    Removed references to gnu_regex
  *
@@ -1176,12 +1179,6 @@ static jb_err show_defines(struct map *exports)
 #else /* ifndef FEATURE_TRUST */
    if (!err) err = map_conditional(exports, "FEATURE_TRUST", 0);
 #endif /* ndef FEATURE_TRUST */
-
-#ifdef REGEX_PCRE
-   if (!err) err = map_conditional(exports, "REGEX_PCRE", 1);
-#else /* ifndef REGEX_PCRE */
-   if (!err) err = map_conditional(exports, "REGEX_PCRE", 0);
-#endif /* def REGEX_PCRE */
 
 #ifdef STATIC_PCRE
    if (!err) err = map_conditional(exports, "STATIC_PCRE", 1);

@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.65  2002/04/04 00:36:36  gliptak
+ *    always use pcre for matching
+ *
  *    Revision 1.64  2002/04/03 22:28:03  gliptak
  *    Removed references to gnu_regex
  *
@@ -426,10 +429,6 @@
  * and are included anyway.
  */
 
-#if defined(REGEX_PCRE)
-# define REGEX
-#endif /* defined(REGEX_PCRE) */
-
 #ifdef STATIC_PCRE
 #  include "pcre.h"
 #else
@@ -442,13 +441,11 @@
 #  include <pcrs.h>
 #endif
 
-#if defined(REGEX_PCRE)
-#  ifdef STATIC_PCRE
-#    include "pcreposix.h"
-#  else
-#    include <pcreposix.h>
-#  endif
-#endif /* defined(REGEX_PCRE) */
+#ifdef STATIC_PCRE
+#  include "pcreposix.h"
+#else
+#  include <pcreposix.h>
+#endif
 
 #ifdef AMIGA
 #include "amiga.h"
@@ -635,15 +632,9 @@ struct url_spec
    char *path;         /* The path prefix (if not using regex), or source   */
                        /* for the regex.                                    */
    int   pathlen;      /* ==strlen(path).  Needed for prefix matching.      */
-#ifdef REGEX
    regex_t *preg;      /* Regex for matching path part                      */
-#endif
 };
-#ifdef REGEX
 #define URL_SPEC_INITIALIZER { NULL, NULL, NULL, 0, 0, 0, NULL, 0, NULL }
-#else /* ifndef REGEX */
-#define URL_SPEC_INITIALIZER { NULL, NULL, NULL, 0, 0, 0, NULL, 0 }
-#endif /* ndef REGEX */
 
 /* Constants for host part matching in URLs */
 #define ANCHOR_LEFT  1
