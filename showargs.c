@@ -33,6 +33,10 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/06/07 23:15:40  jongfoster
+ *    Removing config->proxy_args_gateways
+ *    Missing return statement added to end_proxy_args().
+ *
  *    Revision 1.13  2001/06/06 09:37:59  sarantis
  *    Fix misplaced comment start.
  *
@@ -294,12 +298,10 @@ void savearg(char *c, char *o, struct configuration_spec * config)
  *********************************************************************/
 void init_proxy_args(int argc, const char *argv[], struct configuration_spec * config)
 {
-   const struct gateway *g;
    char * b = NULL;
    int i;
 
    freez(config->proxy_args_header);
-   freez(config->proxy_args_gateways);
  
    
    for (i=0; i < argc; i++)
@@ -308,14 +310,6 @@ void init_proxy_args(int argc, const char *argv[], struct configuration_spec * c
       b = strsav(b, " ");
    }
    config->proxy_args_header = b;
- 
-   b = NULL;
-   for (g = gateways; g->name; g++)
-   {
-      b = strsav(b, g->name);
-      b = strsav(b, " ");
-   }
-   config->proxy_args_gateways = b;
 }
 
 
@@ -526,6 +520,7 @@ char *end_proxy_args(struct configuration_spec * config)
 
    config->proxy_args_trailer = b;
 
+   return b;
 }
 
 
