@@ -36,6 +36,11 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/08/01 21:33:18  jongfoster
+ *    Changes to fill_template() that reduce memory usage without having
+ *    an impact on performance.  I also renamed some variables so as not
+ *    to clash with the C++ keywords "new" and "template".
+ *
  *    Revision 1.15  2001/08/01 21:19:22  jongfoster
  *    Moving file version information to a separate CGI page.
  *
@@ -902,20 +907,22 @@ void free_http_response(struct http_response *rsp)
  * Returns     :  char * with filled out form, or NULL if failiure
  *
  *********************************************************************/
-char *fill_template(struct client_state *csp, const char *template, struct map *exports)
+char *fill_template(struct client_state *csp, const char *templatename, struct map *exports)
 {
    struct map *m;
-   pcrs_job *job, *joblist = NULL;
+   pcrs_job *job;
    char buf[BUFFER_SIZE];
-   char *new, *old = NULL;
+   char *tmp_out_buffer;
+   char *file_buffer = NULL;
    int size;
+   int error;
    FILE *fp;
 
 
    /*
     * Open template file or fail
     */
-   snprintf(buf, BUFFER_SIZE, "%s/templates/%s", csp->config->confdir, template);
+   snprintf(buf, BUFFER_SIZE, "%s/templates/%s", csp->config->confdir, templatename);
 
    if(NULL == (fp = fopen(buf, "r")))
    {
@@ -925,29 +932,6 @@ char *fill_template(struct client_state *csp, const char *template, struct map *
    
 
    /* 
-    * Assemble pcrs joblist from exports map
-    */
-   for (m = exports; m; m = m->next)
-   {
-      int error;
-
-      /* Enclose name in @@ */
-      snprintf(buf, BUFFER_SIZE, "@%s@", m->name);
-
-      /* Make and chain job */
-      if ( NULL == (job = (pcrs_compile(buf, m->value, "sigTU", &error))) ) 
-      {
-         log_error(LOG_LEVEL_ERROR, "Error compiling template fill job %s: %d", m->name, error);
-      }
-      else
-      {
-         job->next = joblist;
-         joblist = job;
-      }
-   }
-
-
-   /* 
     * Read the file, ignoring comments
     */
    while (fgets(buf, BUFFER_SIZE, fp))
@@ -955,7 +939,7 @@ char *fill_template(struct client_state *csp, const char *template, struct map *
       /* skip lines starting with '#' */
       if(*buf == '#') continue;
    
-      old = strsav(old, buf);
+      file_buffer = strsav(file_buffer, buf);
    }
    fclose(fp);
 
@@ -963,22 +947,38 @@ char *fill_template(struct client_state *csp, const char *template, struct map *
    /*
     * Execute the jobs
     */
-   size = strlen(old) + 1;
-   new = old;
+   size = strlen(file_buffer) + 1;
 
-   for (job = joblist; NULL != job; job = job->next)
+   /* 
+    * Assemble pcrs joblist from exports map
+    */
+   for (m = exports; m != NULL; m = m->next)
    {
-      pcrs_execute(job, old, size, &new, &size);
-      if (old != buf) free(old);
-      old = new;
+      /* Enclose name in @@ */
+      snprintf(buf, BUFFER_SIZE, "@%s@", m->name);
+
+      /* Make and run job */
+      if ( NULL == (job = (pcrs_compile(buf, m->value, "sigTU", &error))) ) 
+      {
+         log_error(LOG_LEVEL_ERROR, "Error compiling template fill job %s: %d", m->name, error);
+      }
+      else
+      {
+         pcrs_execute(job, file_buffer, size, &tmp_out_buffer, &size);
+         if (file_buffer != tmp_out_buffer)
+         {
+            free(file_buffer);
+            file_buffer = tmp_out_buffer;
+         }
+         pcrs_free_job(job);
+      }
    }
 
 
    /*
-    * Free the jobs & return
+    * Return
     */
-   pcrs_free_joblist(joblist);
-   return(new);
+   return(file_buffer);
 
 }
 
