@@ -572,7 +572,7 @@ endif
 
 # readme page
 dok-readme:
-	cd doc/source && $(DB) -V nochunks readme.sgml > tmp.html &&\
+	cd doc/source && $(DB)-notoc -V nochunks readme.sgml > tmp.html &&\
 	$(WDUMP) tmp.html > ../../README && $(RM) -r tmp.html
 
 # webserver files
@@ -839,6 +839,9 @@ coffee:
 ## end:
 
 # $Log$
+# Revision 1.105  2002/05/25 22:48:19  hal9
+# Add -notoc to README build (per oes's dsl magic).
+#
 # Revision 1.104  2002/05/24 00:03:49  oes
 # Use p_doc.css for the Homepage for consistency
 #
