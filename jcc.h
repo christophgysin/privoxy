@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2002/03/04 18:19:49  oes
+ *    Added extern const char *pidfile
+ *
  *    Revision 1.7  2001/11/05 21:41:43  steudten
  *    Add changes to be a real daemon just for unix os.
  *    (change cwd to /, detach from controlling tty, set
@@ -88,9 +91,11 @@ extern int urls_rejected;
 #endif /*def FEATURE_STATISTICS*/
 
 extern struct client_state clients[];
-
 extern struct file_list    files[];
 
+#ifdef unix
+extern const char *pidfile;
+#endif
 
 /* Functions */
 
