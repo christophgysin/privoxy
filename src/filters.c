@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/08/26 11:08:18  sarantis
+ *    Fix typo.
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -218,7 +221,7 @@ const char filters_rcs[] = "$Id$";
  *       generic content modification interface of pcrs_filter_response
  *       and acts as a wrapper to deanimate.c:gif_deanimate()
  *     - Renamed re_process_buffer to pcrs_filter_response
- *     - pcrs_filter_response now returns NULL on failiure
+ *     - pcrs_filter_response now returns NULL on failure
  *     - Removed all #ifdef PCRS
  *
  *    Revision 1.20  2001/07/01 17:01:04  oes

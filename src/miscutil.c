@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2002/08/26 11:16:33  sarantis
+ *    Fix typo.
+ *
  *    Revision 2.1  2002/06/04 17:22:37  jongfoster
  *    Adding comments
  *
@@ -823,7 +826,7 @@ int simplematch(char *pattern, char *text)
       }
       else
       {
-         /* In wildcard mode, just try again after failiure */
+         /* In wildcard mode, just try again after failure */
          if(wildcard)
          {
             pat = fallback;
@@ -858,7 +861,7 @@ int simplematch(char *pattern, char *text)
  *          1  :  string = string to be duplicated
  *          2  :  len = number of bytes to duplicate
  *
- * Returns     :  pointer to copy, or NULL if failiure
+ * Returns     :  pointer to copy, or NULL if failure
  *
  *********************************************************************/
 char *bindup(const char *string, size_t len)
