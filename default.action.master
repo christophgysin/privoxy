@@ -1103,6 +1103,8 @@ printerfriendly.abcnews.com
 www.amazon.de/exec/obidos/clipserve/
 #MASTER# PROBLEM-URL: http://www.lufthansa.de/  http://www.lufthansa.com/  http://cms.lufthansa.com/ 
 .lufthansa.
+#MASTER# REMARKS: These are movie clips, linked from http://us.imdb.com
+.totaleclips.com
 
 #----------------------------------------------------------------------------
 # These animated gifs are either useful or nice:
