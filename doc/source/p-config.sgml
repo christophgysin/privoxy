@@ -959,7 +959,7 @@ actionsfile
 
 <![%config-file;[<literallayout>@@debug   1    # show each GET/POST/CONNECT request</literallayout>]]>
 <![%config-file;[<literallayout>@@debug   4096 # Startup banner and warnings</literallayout>]]>
-<![%config-file;[<literallayout>@@debug   8192 # Errors - *we highly recommended enabling this</literallayout>]]>
+<![%config-file;[<literallayout>@@debug   8192 # Errors - *we highly recommended enabling this*</literallayout>]]>
 </sect3>
 
 
@@ -1991,14 +1991,15 @@ forward-socks4 and forward-socks4a</title>
 <!-- end config content common to both outputs -->
 
 <![%config-file;[
-<!-- These are dummy anchors to keep the processor quiet -->
-<!-- Needed for config-file only -->
+<!-- These are dummy anchors to keep the processor quiet            -->
+<!-- when building config-file only (ie. they are used in u-m only) -->
 <sect1 label="">
 <title></title>
 <anchor id="filter">
 <anchor id="filter-file">
 <anchor id="regex">
 <anchor id="actions-file">
+<anchor id="af-patterns">
 </sect1>
 ]]>
 
