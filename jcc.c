@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.63  2002/03/02 04:14:50  david__schmidt
+ *    Clean up a little CRLF unpleasantness that suddenly appeared
+ *
  *    Revision 1.62  2002/02/20 23:17:23  jongfoster
  *    Detecting some out-of memory conditions and exiting with a log message.
  *

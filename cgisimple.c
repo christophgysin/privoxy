@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2002/03/02 04:14:50  david__schmidt
+ *    Clean up a little CRLF unpleasantness that suddenly appeared
+ *
  *    Revision 1.13  2002/02/21 00:10:37  jongfoster
  *    Adding send-banner?type=auto option
  *
