@@ -296,7 +296,7 @@ redhat-dist: rpm-stuff
 	exit 1;\
 	fi
 
-	$(TAR) ---exclude ".cvsignore" -exclude "CVS" --exclude "privoxy-suse.spec" -czf $(TAR_ARCH) .
+	$(TAR) --exclude ".cvsignore" --exclude "CVS" --exclude "privoxy-suse.spec" -czf $(TAR_ARCH) .
 	$(RPM) --clean -ta  $(TAR_ARCH)
 	if [ -f $(TAR_ARCH) ]; then  $(RM) $(TAR_ARCH); fi
 
@@ -800,6 +800,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.78  2002/04/09 13:37:11  sarantis
+# fix tar options typo
+#
 # Revision 1.77  2002/04/09 13:28:53  swa
 # build suse and gen-dist with html docs
 #
