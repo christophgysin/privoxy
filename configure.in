@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.82  2002/09/27 04:24:07  hal9
+dnl Minor change of "! test" to "test -ne" for Solaris.
+dnl
 dnl Revision 1.81  2002/09/27 00:38:44  hal9
 dnl Some general cleanup of the user/group stuff. Including remove up to ':' to
 dnl make Linux (?) compatible with other *nix. Better AC output stuff.
@@ -531,7 +534,7 @@ dnl Check for user and group validity
 dnl =================================================================
 
 $ID privoxy >/dev/null 2>/dev/null
-if ! test $? -eq 0 ; then
+if test $? -ne 0 ; then
  AC_MSG_WARN(There is no user 'privoxy' on this system)
 fi
 AC_MSG_CHECKING([for user])
