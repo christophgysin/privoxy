@@ -591,6 +591,24 @@ redhat-readme: doc/source/ldpOK.dsl
      # kludge to force recreation on next run. Rodgrigo?
 	@rm -f doc/source/ldpOK.dsl
 
+#### WIP targets HB ##################
+## Make AUTHORS file
+authors: doc/source/ldpOK.dsl
+	cd doc/source && $(DB) -V nochunks authors.sgml > tmp.html && $(WDUMP) \
+          tmp.html > ../../AUTHORS && rm -f tmp.html
+     # kludge to force recreation on next run. Rodgrigo?
+	@rm -f doc/source/ldpOK.dsl
+
+# make a man page, and then (lousy) HTML version.
+man: doc/source/ldpOK.dsl
+	mkdir -p doc/source/man
+	cd doc/source/man && docbook2man ../privoxy-man-page.sgml &&\
+	perl -pi -e 's/ <URL:.*>//; s/\[ /\[/g' privoxy.1
+	cd doc/source/man && $(DB) ../privoxy-man-page.sgml &&\
+     mv -f index.html privoxy-man-page.html
+     # kludge to force recreation on next run. Rodgrigo?
+	@rm -f doc/source/ldpOK.dsl
+
 #############################################################################
 #
 # Webserver
@@ -732,6 +750,10 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.65  2002/04/06 05:16:39  hal9
+# -Add 'authors' and 'man' targets for AUTHORS and man-page (WIP).
+# -Both of these will soon be generated files.
+#
 # Revision 1.64  2002/04/04 22:14:51  oes
 # No longer rely on find honoring -iname
 #
