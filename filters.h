@@ -40,6 +40,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/07/13 14:00:18  oes
+ *     - Introduced gif_deanimate_response
+ *     - Renamed re_process_buffer to pcrs_filter_response
+ *     - Removed all #ifdef PCRS
+ *
  *    Revision 1.10  2001/06/29 13:29:01  oes
  *    Cleaned up and updated to reflect the changesin
  *    filters.c
@@ -212,11 +217,12 @@ extern int domaincmp(struct url_spec *pattern, struct url_spec *fqdn);
 /*
  * Content modification
  */
-#ifdef PCRS
-extern char *re_process_buffer(struct client_state *csp);
-#endif /* def PCRS */
+extern char *pcrs_filter_response(struct client_state *csp);
+extern char *gif_deanimate_response(struct client_state *csp);
 
-/* Revision control strings from this header and associated .c file */
+/* 
+ * Revision control strings from this header and associated .c file
+ */
 extern const char filters_rcs[];
 extern const char filters_h_rcs[];
 
