@@ -37,6 +37,7 @@
 -fast-redirects \
 +filter{js-annoyances} \
 +filter{html-annoyances} \
+-filter{content-cookies} \
 +filter{webbugs} \
 -filter{popups} \
 -filter{frameset-borders} \
@@ -47,6 +48,7 @@
 -filter{fun} \
 +filter{nimda} \
 -filter{shockwave-flash} \
+-filter{quicktime-kioskmode} \
 -filter{js-events} \
 -filter{crude-parental} \
 -handle-as-image \
@@ -78,6 +80,7 @@ standard.Cautious
 -fast-redirects \
 +filter{js-annoyances} \
 +filter{html-annoyances} \
++filter{content-cookies} \
 +filter{webbugs} \
 +filter{popups} \
 -filter{frameset-borders} \
@@ -88,6 +91,7 @@ standard.Cautious
 -filter{fun} \
 +filter{nimda} \
 -filter{shockwave-flash} \
++filter{quicktime-kioskmode} \
 -filter{js-events} \
 -filter{crude-parental} \
 -handle-as-image \
@@ -119,6 +123,7 @@ standard.Medium
 +fast-redirects \
 +filter{js-annoyances} \
 +filter{html-annoyances} \
++filter{content-cookies} \
 +filter{webbugs} \
 +filter{popups} \
 +filter{frameset-borders} \
@@ -129,6 +134,7 @@ standard.Medium
 +filter{fun} \
 +filter{nimda} \
 -filter{shockwave-flash} \
++filter{quicktime-kioskmode} \
 -filter{js-events} \
 -filter{crude-parental} \
 -handle-as-image \
