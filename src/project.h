@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 16:35:56  jongfoster
+ *    Moving three variable declarations to jcc.c from project.h
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -1411,21 +1414,6 @@ struct configuration_spec
  */
 #define CGI_PREFIX  "http://" CGI_SITE_2_HOST CGI_SITE_2_PATH "/"
 
-
-/* HTTP snipplets.
- *
- * FIXME: This is very inefficient.  There could be one copy of these strings
- * for each .c file!!  They should be "extern", not "static".
- */
-static const char CSUCCEED[] =
-   "HTTP/1.0 200 Connection established\n"
-   "Proxy-Agent: Privoxy/" VERSION "\r\n\r\n";
-
-static const char CHEADER[] =
-   "HTTP/1.0 400 Invalid header received from browser\r\n\r\n";
-
-static const char CFORBIDDEN[] =
-   "HTTP/1.0 403 Connection not allowable\r\nX-Hint: If you read this message interactively, then you know why this happens ,-)\r\n\r\n";
 
 #ifdef __cplusplus
 } /* extern "C" */

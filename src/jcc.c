@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 16:35:56  jongfoster
+ *    Moving three variable declarations to jcc.c from project.h
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -666,7 +669,9 @@ const char *pidfile = NULL;
 int received_hup_signal = 0;
 #endif /* defined unix */
 
-/* The vanilla wafer. */
+/**
+ * The vanilla wafer.
+ */
 static const char VANILLA_WAFER[] =
    "NOTICE=TO_WHOM_IT_MAY_CONCERN_"
    "Do_not_send_me_any_copyrighted_information_other_than_the_"
@@ -675,6 +680,29 @@ static const char VANILLA_WAFER[] =
    "are_subject_to_a_claim_of_copyright_by_anybody._"
    "Take_notice_that_I_refuse_to_be_bound_by_any_license_condition_"
    "(copyright_or_otherwise)_applying_to_any_cookie._";
+
+
+/**
+ * HTTP header sent when doing HTTPS tunnelling ("CONNECT" method).
+ */
+static const char CSUCCEED[] =
+   "HTTP/1.0 200 Connection established\n"
+   "Proxy-Agent: Privoxy/" VERSION "\r\n\r\n";
+
+
+/**
+ * HTTP reply sent when the browser sends something unintelligible.
+ */
+static const char CHEADER[] =
+   "HTTP/1.0 400 Invalid header received from browser\r\n\r\n";
+
+
+/**
+ * HTTP reply sent when the browser tries to tunnel ("CONNECT") to something
+ * other than a HTTPS port (as defined by +limit-connect).
+ */
+static const char CFORBIDDEN[] =
+   "HTTP/1.0 403 Connection not allowable\r\nX-Hint: If you read this message interactively, then you know why this happens ,-)\r\n\r\n";
 
 
 #if !defined(_WIN32) && !defined(__OS2__) && !defined(AMIGA)
