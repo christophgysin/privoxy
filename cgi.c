@@ -38,6 +38,15 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2001/09/19 18:00:37  oes
+ *     - Deletef time() FIXME (Can't fail under Linux either, if
+ *       the argument is guaranteed to be in out address space,
+ *       which it is.)
+ *     - Fixed comments
+ *     - Pointer notation cosmetics
+ *     - Fixed a minor bug in template_fill(): Failiure of
+ *       pcrs_execute() now secure.
+ *
  *    Revision 1.27  2001/09/16 17:08:54  jongfoster
  *    Moving simple CGI functions from cgi.c to new file cgisimple.c
  *
@@ -374,6 +383,7 @@ struct http_response *dispatch_cgi(struct client_state *csp)
    /* Can't get here, since cgi_default will match all requests */
    free_http_response(rsp);
    return(NULL);
+
 }
 
 
@@ -476,6 +486,7 @@ struct http_response *error_response(struct client_state *csp, const char *templ
    }
 
    return(finish_http_response(rsp));
+
 }
 
 
@@ -496,7 +507,7 @@ struct http_response *error_response(struct client_state *csp, const char *templ
  * Returns     :  N/A
  *
  *********************************************************************/
-void get_http_time(int time_offset, char * buf)
+void get_http_time(int time_offset, char *buf)
 {
    static const char day_names[7][4] =
       { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
@@ -510,13 +521,6 @@ void get_http_time(int time_offset, char * buf)
    assert(buf);
 
    time(&current_time); /* get current time */
-
-/* FIXME: is this needed?  time() can't fail on Win32.  What about Linux?
-   if(current_time <= 0)
-   {
-      return NULL;
-   }
-*/
 
    current_time += time_offset;
 
@@ -535,6 +539,7 @@ void get_http_time(int time_offset, char * buf)
       t->tm_sec
       );
    buf[32] = '\0';
+
 }
 
 
@@ -641,9 +646,10 @@ struct http_response *finish_http_response(struct http_response *rsp)
  * Returns     :  pointer to a new http_response, or NULL.
  *
  *********************************************************************/
-struct http_response * alloc_http_response(void)
+struct http_response *alloc_http_response(void)
 {
    return (struct http_response *) zalloc(sizeof(struct http_response));
+
 }
 
 
@@ -679,9 +685,8 @@ void free_http_response(struct http_response *rsp)
  * Function    :  fill_template
  *
  * Description :  CGI support function that loads a given HTML
- *                template from the confdir, and fills it in
- *                by replacing @name@ with value using pcrs,
- *                for each item in the output map.
+ *                template from the confdir, ignoring comment
+ *                lines. 
  *
  * Parameters  :
  *           1 :  csp = Current client state (buffers, headers, etc...)
@@ -724,6 +729,7 @@ char *template_load(struct client_state *csp, const char *templatename)
    fclose(fp);
 
    return(file_buffer);
+
 }
 
 
@@ -731,10 +737,13 @@ char *template_load(struct client_state *csp, const char *templatename)
  *
  * Function    :  fill_template
  *
- * Description :  CGI support function that loads a given HTML
- *                template from the confdir, and fills it in
- *                by replacing @name@ with value using pcrs,
- *                for each item in the output map.
+ * Description :  CGI support function that fills in a pre-loaded
+ *                HTML template by replacing @name@ with value using
+ *                pcrs, for each item in the output map.
+ *
+ *                Note that a leading '$' charachter in the export map's
+ *                values will be stripped and toggle on backreference
+ *                interpretation.
  *
  * Parameters  :
  *           1 :  template_ptr = IN: Template to be filled out.
@@ -746,7 +755,7 @@ char *template_load(struct client_state *csp, const char *templatename)
  * Returns     :  N/A
  *
  *********************************************************************/
-void template_fill(char ** template_ptr, struct map *exports)
+void template_fill(char **template_ptr, struct map *exports)
 {
    struct map_entry *m;
    pcrs_job *job;
@@ -755,7 +764,7 @@ void template_fill(char ** template_ptr, struct map *exports)
    char *file_buffer;
    int size;
    int error;
-   const char * flags;
+   const char *flags;
 
    assert(template_ptr);
    assert(*template_ptr);
@@ -804,7 +813,7 @@ void template_fill(char ** template_ptr, struct map *exports)
       else
       {
          pcrs_execute(job, file_buffer, size, &tmp_out_buffer, &size);
-         if (file_buffer != tmp_out_buffer)
+         if (NULL != tmp_out_buffer)
          {
             free(file_buffer);
             file_buffer = tmp_out_buffer;
@@ -817,6 +826,7 @@ void template_fill(char ** template_ptr, struct map *exports)
     * Return
     */
    *template_ptr = file_buffer;
+
 }
 
 
@@ -837,7 +847,7 @@ void template_fill(char ** template_ptr, struct map *exports)
  * Returns     :  NULL if no memory, else map
  *
  *********************************************************************/
-struct map * default_exports(const struct client_state *csp, const char *caller)
+struct map *default_exports(const struct client_state *csp, const char *caller)
 {
    char buf[20];
    struct map * exports = new_map();
@@ -869,6 +879,7 @@ struct map * default_exports(const struct client_state *csp, const char *caller)
    }   
 
    return (exports);
+
 }
 
 
@@ -895,6 +906,7 @@ void map_block_killer(struct map *exports, const char *name)
 
    snprintf(buf, 1000, "if-%s-start.*if-%s-end", name, name);
    map(exports, buf, 1, "", 1);
+
 }
 
 
@@ -934,6 +946,7 @@ void map_conditional(struct map *exports, const char *name, int choose_first)
 
    snprintf(buf, 1000, (choose_first ? "if-%s-then" : "endif-%s"), name);
    map(exports, buf, 1, "", 1);
+
 }
 
 
