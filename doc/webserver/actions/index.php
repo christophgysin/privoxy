@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.26  2002/09/04 09:31:38  oes
+  Require Privoxy 3.0, AF 1.5; Fixed bad help text.
+
   Revision 1.25  2002/04/29 17:30:20  oes
   Fixed BML link text
 
@@ -126,9 +129,9 @@
 /*
  * Config:
  */
-$required_actions_file_version = "1.2";
-$required_privoxy_version = "2.9.14";
-$actions_file_download = "http://www.privoxy.org/actions/testdrive.action";
+$required_actions_file_version = "1.5";
+$required_privoxy_version = "3.0";
+$actions_file_download = "http://sourceforge.net/project/showfiles.php?group_id=11118&release_id=107430";
 $submit_target = "http://www.oesterhelt.org/actions/step2.php";
 
 
@@ -204,11 +207,11 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
                </p>
                <ul>
                 <li><a href=\"http://www.privoxy.org/\" target=\"_blank\">Privoxy</a> version $required_privoxy_version or later</li>
-                <li><a href=\"$actions_file_download\">Actionsfile</a> version  version $required_actions_file_version</li>
+                <li><a href=\"$actions_file_download\">Actionsfile</a> version $required_actions_file_version</li>
                </ul>
                <p>We hope you will understand that we feel unable to maintain concurrent versions of the file.</p>
-               <p><i>Hint: To upgrade your actions file, just right-click the above link, then save as default.action in
-                  your Privoxy config directory</i>
+               <p><i>Hint: To upgrade your actions file, follow the above link, then save as default.action, overwriting 
+                  the old copy in your Privoxy config directory</i>
                </p>");
 }
 
