@@ -21,7 +21,7 @@
 #  * Submit bugs only thru our bug forum:
 #    http://sourceforge.net/tracker/?group_id=11118&atid=111118 
 #    Make sure that the bug has not already been submitted. Please try
-#    to verify that it is a Junkbuster bug, and not a browser or site
+#    to verify that it is a Privoxy bug, and not a browser or site
 #    bug first. If you are using your own custom configuration, please
 #    try the stock configs to see if the problem is a configuration
 #    related bug. And if not using the latest development snapshot,
@@ -258,6 +258,9 @@ s+^.*warez.*$+<html><head><title>No Warez</title></head><body><h3>You're not sea
 #
 #  Revisions   :
 #     $Log$
+#     Revision 1.6  2002/04/03 19:49:52  swa
+#     name change
+#
 #     Revision 1.5  2002/03/27 15:30:26  swa
 #     have a consistent appearance
 #
