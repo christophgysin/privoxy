@@ -37,6 +37,14 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2002/07/12 04:26:17  agotneja
+ *    Re-factored 'chat()' to become understandable and maintainable as
+ *    a first step in adding Transparent Proxy functionality.
+ *
+ *    Added several new static functions in jcc.c, and moved some data
+ *    parameters up into project.h to allow them to be passed between
+ *    the new functions.
+ *
  *    Revision 2.1  2002/06/04 16:35:56  jongfoster
  *    Moving three variable declarations to jcc.c from project.h
  *
@@ -534,6 +542,7 @@ typedef int jb_socket;
  */
 typedef int jb_err;
 
+#define JB_ERR_GENERIC   -1 /* General error return value */
 #define JB_ERR_OK         0 /**< Success, no error                        */
 #define JB_ERR_MEMORY     1 /**< Out of memory                            */
 #define JB_ERR_CGI_PARAMS 2 /**< Missing or corrupt CGI parameters        */
@@ -541,7 +550,7 @@ typedef int jb_err;
 #define JB_ERR_PARSE      4 /**< Error parsing file                       */
 #define JB_ERR_MODIFIED   5 /**< File has been modified outside of the  
                                  CGI actions editor.                      */
-
+#define JB_ERR_INTERCEPT  6 /* This page should be intercepted */
 
 /**
  * This macro is used to free a pointer that may be NULL.
@@ -703,6 +712,9 @@ struct http_request
    char  *dbuffer; /**< Buffer with '\0'-delimited domain name.           */
    char **dvec;    /**< List of pointers to the strings in dbuffer.       */
    int    dcount;  /**< How many parts to this domain? (length of dvec)   */
+
+   const struct forward_spec *fwd ;
+
 };
 
 
@@ -1052,6 +1064,10 @@ struct client_state
 
    /** Next thread in linked list. Only read or modify from the main thread! */
    struct client_state *next;
+
+   char *(*content_filter)() ;
+   int all_headers_read ;
+
 };
 
 
