@@ -33,6 +33,12 @@ const char pcrs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2002/09/04 15:52:02  oes
+ *    Synced with the stable branch:
+ *        Revision 1.19.2.1  2002/08/10 11:23:40  oes
+ *        Include prce.h via project.h, where the appropriate
+ *        source will have been selected
+ *
  *    Revision 2.1  2002/08/26 11:18:24  sarantis
  *    Fix typo.
  *
@@ -135,7 +141,12 @@ const char pcrs_rcs[] = "$Id$";
  *********************************************************************/
 
 
-#include <pcre.h>
+/*
+ * Include project.h just so that the right pcre.h gets
+ * included from there
+ */
+#include "project.h"
+
 #include <string.h>
 #include <ctype.h>
 
