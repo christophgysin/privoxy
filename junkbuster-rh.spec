@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.12  2001/09/10 16:25:04  swa
+# copy all templates. version updated.
+#
 # Revision 1.11  2001/07/03 11:00:25  sarantis
 # replaced permissionsfile with actionsfile
 #
@@ -70,7 +73,7 @@
 Summary: The Internet Junkbuster
 Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
-Version: 2.9.5
+Version: 2.9.8
 Release: 1
 Source0: http://www.waldherr.org/junkbuster/ijbswa.tar.gz
 Copyright: GPL
@@ -115,9 +118,7 @@ cp -f junkbuster.1 $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8
 cp -f actionsfile $RPM_BUILD_ROOT%{ijbconf}/actionsfile
 cp -f re_filterfile $RPM_BUILD_ROOT%{ijbconf}/re_filterfile
 cp -f trust $RPM_BUILD_ROOT%{ijbconf}/trust
-cp -f templates/default $RPM_BUILD_ROOT%{ijbconf}/templates/
-cp -f templates/show-status  $RPM_BUILD_ROOT%{ijbconf}/templates/
-cp -f templates/show-status-file  $RPM_BUILD_ROOT%{ijbconf}/templates/
+cp -f templates/*  $RPM_BUILD_ROOT%{ijbconf}/templates/
 cp -f junkbuster.logrotate $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/junkbuster
 install -m 755 junkbuster.init $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/junkbuster
 install -m 744 -d $RPM_BUILD_ROOT/var/log/junkbuster
