@@ -35,6 +35,14 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.7  2001/12/30 14:07:32  steudten
+#     - Add signal handling (unix)
+#     - Add SIGHUP handler (unix)
+#     - Add creation of pidfile (unix)
+#     - Add action 'top' in rc file (RH)
+#     - Add entry 'SIGNALS' to manpage
+#     - Add exit message to logfile (unix)
+#
 #     Revision 1.6  2001/12/13 23:19:43  steudten
 #     Add 'restart' of junkbuster service after rotate logfiles.
 #     Better we could use the well known 'kill -HUP', but the handler
@@ -65,7 +73,7 @@
    compress
    size 1M
    postrotate
-        /sbin/service junkbuster restart 2> /dev/null || true
+        /sbin/service junkbuster reload  2> /dev/null || true
    endscript
 }
 
@@ -74,6 +82,6 @@
    compress
    size 1M
    postrotate
-        /sbin/service junkbuster restart 2> /dev/null || true
+        /sbin/service junkbuster reload  2> /dev/null || true
    endscript
 }

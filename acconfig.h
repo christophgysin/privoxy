@@ -37,6 +37,14 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/12/30 14:07:31  steudten
+ *    - Add signal handling (unix)
+ *    - Add SIGHUP handler (unix)
+ *    - Add creation of pidfile (unix)
+ *    - Add action 'top' in rc file (RH)
+ *    - Add entry 'SIGNALS' to manpage
+ *    - Add exit message to logfile (unix)
+ *
  *    Revision 1.14  2001/10/23 21:24:09  jongfoster
  *    Support for FEATURE_CGI_EDIT_ACTIONS
  *
@@ -186,6 +194,11 @@
  * Status of the code: "alpha", "beta" or "stable".
  */
 #undef CODE_STATUS
+
+/*
+ * pid file used under unix.
+ */
+#undef PID_FILE_PATH 
 
 /*
  * Regular expression matching for URLs.  (Highly recommended).

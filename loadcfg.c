@@ -35,6 +35,14 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2001/12/30 14:07:32  steudten
+ *    - Add signal handling (unix)
+ *    - Add SIGHUP handler (unix)
+ *    - Add creation of pidfile (unix)
+ *    - Add action 'top' in rc file (RH)
+ *    - Add entry 'SIGNALS' to manpage
+ *    - Add exit message to logfile (unix)
+ *
  *    Revision 1.27  2001/11/07 00:02:13  steudten
  *    Add line number in error output for lineparsing for
  *    actionsfile and configfile.
@@ -354,7 +362,6 @@ static struct file_list *current_configfile = NULL;
 
 static void savearg(char *c, char *o, struct configuration_spec * config);
 
-
 /*********************************************************************
  *
  * Function    :  unload_configfile
@@ -447,7 +454,7 @@ struct configuration_spec * load_config(void)
    unsigned long linenum = 0;
 
    DBG(1, ("load_config() entered..\n") );
-   if (!check_file_changed(current_configfile, configfile, &fs))
+   if ( !check_file_changed(current_configfile, configfile, &fs))
    {
       /* No need to load */
       return ((struct configuration_spec *)current_configfile->f);
@@ -1373,6 +1380,7 @@ struct configuration_spec * load_config(void)
    files->next = fs;
 
    current_configfile = fs;
+   MustReload = 0;
 
    return (config);
 }

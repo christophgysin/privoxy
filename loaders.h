@@ -37,6 +37,14 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2001/12/30 14:07:32  steudten
+ *    - Add signal handling (unix)
+ *    - Add SIGHUP handler (unix)
+ *    - Add creation of pidfile (unix)
+ *    - Add action 'top' in rc file (RH)
+ *    - Add entry 'SIGNALS' to manpage
+ *    - Add exit message to logfile (unix)
+ *
  *    Revision 1.12  2001/11/07 00:02:13  steudten
  *    Add line number in error output for lineparsing for
  *    actionsfile and configfile.
@@ -135,6 +143,7 @@ extern int check_file_changed(const struct file_list * current,
                               const char * filename,
                               struct file_list ** newfl);
 
+extern short int MustReload;
 extern int load_actions_file(struct client_state *csp);
 extern int load_re_filterfile(struct client_state *csp);
 

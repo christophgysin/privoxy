@@ -37,6 +37,14 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/12/30 14:07:32  steudten
+ *    - Add signal handling (unix)
+ *    - Add SIGHUP handler (unix)
+ *    - Add creation of pidfile (unix)
+ *    - Add action 'top' in rc file (RH)
+ *    - Add entry 'SIGNALS' to manpage
+ *    - Add exit message to logfile (unix)
+ *
  *    Revision 1.7  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -145,6 +153,7 @@ extern const char *configfile;
  */
 extern int Argc;
 extern const char **Argv;
+extern short int MustReload;
 
 
 extern struct configuration_spec * load_config(void);

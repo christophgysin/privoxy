@@ -33,6 +33,14 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.24  2001/12/30 14:07:32  steudten
+ *    - Add signal handling (unix)
+ *    - Add SIGHUP handler (unix)
+ *    - Add creation of pidfile (unix)
+ *    - Add action 'top' in rc file (RH)
+ *    - Add entry 'SIGNALS' to manpage
+ *    - Add exit message to logfile (unix)
+ *
  *    Revision 1.23  2001/11/07 00:02:13  steudten
  *    Add line number in error output for lineparsing for
  *    actionsfile and configfile.
@@ -161,6 +169,7 @@ const char errlog_rcs[] = "$Id$";
 
 
 #include "config.h"
+#include "miscutil.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -241,6 +250,10 @@ static void fatal_error(const char * error_message)
    fputs(error_message, stderr);
 #endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
 
+#if defined(unix)
+   deletePidFile();
+#endif /* unix */
+
    exit(1);
 }
 
@@ -271,6 +284,7 @@ void init_error_log(const char *prog_name, const char *logfname, int debuglevel)
 
    if ((logfp != NULL) && (logfp != stderr))
    {
+      log_error(LOG_LEVEL_INFO, "(Re-)Open logfile %s", logfname ? logfname : "none");
       fclose(logfp);
    }
    logfp = stderr;

@@ -36,6 +36,14 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.44  2001/12/30 14:07:32  steudten
+ *    - Add signal handling (unix)
+ *    - Add SIGHUP handler (unix)
+ *    - Add creation of pidfile (unix)
+ *    - Add action 'top' in rc file (RH)
+ *    - Add entry 'SIGNALS' to manpage
+ *    - Add exit message to logfile (unix)
+ *
  *    Revision 1.43  2001/11/22 21:57:51  jongfoster
  *    Making action_spec->flags into an unsigned long rather than just an
  *    unsigned int.
@@ -424,6 +432,10 @@ typedef int jb_err;
 #define HADDR_DEFAULT   "127.0.0.1"
 #define HADDR_PORT      8000
 
+/*
+ * pid file name
+ */
+#define PID_FILE_NAME   "junkbuster.pid"
 
 /* Forward defs for various structures */
 

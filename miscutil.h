@@ -37,6 +37,14 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/12/30 14:07:32  steudten
+ *    - Add signal handling (unix)
+ *    - Add SIGHUP handler (unix)
+ *    - Add creation of pidfile (unix)
+ *    - Add action 'top' in rc file (RH)
+ *    - Add entry 'SIGNALS' to manpage
+ *    - Add exit message to logfile (unix)
+ *
  *    Revision 1.14  2001/11/05 21:43:48  steudten
  *    Add global var 'basedir' for unix os.
  *
@@ -122,6 +130,11 @@ extern "C" {
 
 extern const char *basedir;
 extern void *zalloc(int size);
+
+#if defined(unix)
+extern void writePidFile( void );
+extern void deletePidFile( void );
+#endif /* unix */
 
 extern unsigned int hash_string(const char* s);
 

@@ -28,6 +28,14 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.2  2001/12/30 14:07:31  steudten
+# - Add signal handling (unix)
+# - Add SIGHUP handler (unix)
+# - Add creation of pidfile (unix)
+# - Add action 'top' in rc file (RH)
+# - Add entry 'SIGNALS' to manpage
+# - Add exit message to logfile (unix)
+#
 # Revision 1.1  2001/12/01 11:22:57  jongfoster
 # Renaming Makefile.in to GNUmakefile.in so that non-GNU versions of
 # make break in a more obvious way.
@@ -191,7 +199,6 @@
 #
 #
 
-
 #############################################################################
 # Version number (for RPM)
 #############################################################################
@@ -202,7 +209,7 @@ VERSION_POINT = @VERSION_POINT@
 VERSION       = $(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_POINT)
 # will automatically be postfixed with -$(RPM_PACKAGEV) in the SPECfile
 RPM_VERSION   = $(VERSION)
-RPM_PACKAGEV  = 1
+RPM_PACKAGEV  = 2
 
 
 #############################################################################
@@ -382,6 +389,9 @@ redhat-dist:
 	$(CAT) junkbuster-rh.spec | \
 		$(SED) 's/^Version:.*/Version: $(RPM_VERSION)/g;s/^Release:.*/Release: $(RPM_PACKAGEV)/g' > abc && \
 		$(MV) -f abc junkbuster-rh.spec; \
+	$(CAT) junkbuster.init | \
+		$(SED) 's#JB_PID=.*/\(.*\.pid\).*#JB_PID=@PID_FILE_PATH@/\1#g' > abc && \
+		$(MV) -f abc junkbuster.init; \
 	$(TAR) --exclude "CVS" --exclude "junkbuster-suse.spec" -cvzf $(TAR_ARCH) . ; \
 	$(RPM) --clean -ta  $(TAR_ARCH); \
 	[ -f $(TAR_ARCH) ] && $(RM) $(TAR_ARCH)
@@ -571,7 +581,7 @@ clean:
 	$(RM) a.out core $(OBJS) $(W32_FILES) $(W32_INIS)
 
 clobber: clean
-	$(RM) $(PROGRAM) *.pdb *.lib *.exp TAGS junkbuster.log config.cache
+	$(RM) $(PROGRAM) cscope.* logfile *.pdb *.lib *.exp `find . -name tags` TAGS junkbuster.log config.cache
 
 tags: $(SRCS) $(HDRS)
 	etags $(SRCS) $(HDRS)

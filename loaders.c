@@ -35,6 +35,14 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.34  2001/12/30 14:07:32  steudten
+ *    - Add signal handling (unix)
+ *    - Add SIGHUP handler (unix)
+ *    - Add creation of pidfile (unix)
+ *    - Add action 'top' in rc file (RH)
+ *    - Add entry 'SIGNALS' to manpage
+ *    - Add exit message to logfile (unix)
+ *
  *    Revision 1.33  2001/11/13 00:16:38  jongfoster
  *    Replacing references to malloc.h with the standard stdlib.h
  *    (See ANSI or K&R 2nd Ed)
@@ -576,11 +584,11 @@ int check_file_changed(const struct file_list * current,
        && (current->lastmodified == statbuf->st_mtime)
        && (0 == strcmp(current->filename, filename)))
    {
-      return 0;
+       /* force reload of configfile and all the logs */
+       if ( !MustReload ) return 0;
    }
 
    fs = (struct file_list *)zalloc(sizeof(struct file_list));
-
    if (fs == NULL)
    {
       /* Out of memory error */
@@ -596,11 +604,8 @@ int check_file_changed(const struct file_list * current,
       freez (fs);
       return 1;
    }
-
-
    *newfl = fs;
    return 1;
-
 }
 
 
