@@ -262,6 +262,10 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Sun Mar 24 2002 Hal Burgiss <hal@foobox.net>
++ privoxy-2.9.13-2
+- Added faq to docs.
+
 * Sun Mar 24 2002 Rodrigo Barbosa <rodrigob@suespammers.org>
 + privoxy-2.9.13-2
 - Fixed the init files entries. Now we use %%ghost
@@ -521,6 +525,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.12  2002/03/25 03:11:40  hal9
+# Do it right way this time :/
+#
 # Revision 1.11  2002/03/25 03:09:51  hal9
 # Added faq to docs.
 #
