@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2002/03/31 17:18:59  jongfoster
+ *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
+ *
  *    Revision 1.31  2002/03/29 03:33:13  david__schmidt
  *    Fix Mac OSX compiler warnings
  *
@@ -179,6 +182,9 @@ const char jbsockets_rcs[] = "$Id$";
 
 #ifdef _WIN32
 
+#ifndef STRICT
+#define STRICT
+#endif
 #include <windows.h>
 #include <sys/timeb.h>
 #include <io.h>

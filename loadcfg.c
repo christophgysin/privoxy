@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.41  2002/03/31 17:19:00  jongfoster
+ *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
+ *
  *    Revision 1.40  2002/03/26 22:29:55  swa
  *    we have a new homepage!
  *
@@ -292,6 +295,9 @@ const char loadcfg_rcs[] = "$Id$";
 
 #ifdef _WIN32
 
+# ifndef STRICT
+#  define STRICT
+# endif
 # include <windows.h>
 
 # include "win32.h"

@@ -32,6 +32,9 @@ const char w32taskbar_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2002/03/31 17:19:00  jongfoster
+ *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
+ *
  *    Revision 1.6  2002/03/26 22:57:10  jongfoster
  *    Web server name should begin www.
  *
@@ -58,6 +61,9 @@ const char w32taskbar_rcs[] = "$Id$";
 
 #include <stdio.h>
 
+#ifndef STRICT
+#define STRICT
+#endif
 #include <windows.h>
 
 #include "w32taskbar.h"

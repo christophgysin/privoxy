@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.63  2002/03/31 17:19:00  jongfoster
+ *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
+ *
  *    Revision 1.62  2002/03/26 22:48:49  swa
  *    new homepage url
  *
@@ -457,6 +460,9 @@
  * I don't want to have to #include all this just for the declaration
  * of SOCKET.  However, it looks like we have to...
  */
+#ifndef STRICT
+#define STRICT
+#endif
 #include <windows.h>
 #endif
 

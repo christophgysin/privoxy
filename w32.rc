@@ -31,6 +31,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2002/03/31 17:19:00  jongfoster
+ *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
+ *
  *    Revision 1.16  2002/03/26 22:57:44  jongfoster
  *    Web server name should begin www.
  *
@@ -123,8 +126,13 @@
  *
  *********************************************************************/
 
-#include <windows.h>
 #include "config.h"
+
+#ifndef STRICT
+#define STRICT
+#endif
+#include <windows.h>
+
 #include "w32res.h"
 
 #ifdef __MINGW32__

@@ -31,6 +31,9 @@ const char win32_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2002/03/31 17:19:00  jongfoster
+ *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
+ *
  *    Revision 1.8  2002/03/26 22:57:10  jongfoster
  *    Web server name should begin www.
  *
@@ -73,6 +76,9 @@ const char win32_rcs[] = "$Id$";
 /* Uncomment this if you want to build Win32 as a console app */
 /* #define _WIN_CONSOLE */
 
+#ifndef STRICT
+#define STRICT
+#endif
 #include <windows.h>
 
 #include <stdarg.h>

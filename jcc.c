@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.89  2002/03/31 17:18:59  jongfoster
+ *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
+ *
  *    Revision 1.88  2002/03/27 14:32:43  david__schmidt
  *    More compiler warning message maintenance
  *
@@ -530,6 +533,9 @@ const char jcc_rcs[] = "$Id$";
 
 #ifdef _WIN32
 # ifndef FEATURE_PTHREAD
+#  ifndef STRICT
+#   define STRICT
+#  endif
 #  include <windows.h>
 #  include <process.h>
 # endif /* ndef FEATURE_PTHREAD */
