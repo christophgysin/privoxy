@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2001/09/13 22:44:03  jongfoster
+ *    Adding {} to an if statement
+ *
  *    Revision 1.24  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -841,7 +844,10 @@ static void unload_re_filterfile(void *f)
 {
    struct re_filterfile_spec *b = (struct re_filterfile_spec *)f;
 
-   if (b == NULL) return;
+   if (b == NULL)
+   {
+      return;
+   }
 
    destroy_list(b->patterns);
    pcrs_free_joblist(b->joblist);
