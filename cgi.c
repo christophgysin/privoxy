@@ -38,6 +38,11 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2001/09/20 15:47:44  steudten
+ *
+ *    Fix BUG: Modify int size to size_t size in fill_template()
+ *     - removes big trouble on machines where sizeof(int) != sizeof(size_t).
+ *
  *    Revision 1.28  2001/09/19 18:00:37  oes
  *     - Deletef time() FIXME (Can't fail under Linux either, if
  *       the argument is guaranteed to be in out address space,
@@ -762,7 +767,7 @@ void template_fill(char **template_ptr, struct map *exports)
    char buf[BUFFER_SIZE];
    char *tmp_out_buffer;
    char *file_buffer;
-   int size;
+   size_t  size;
    int error;
    const char *flags;
 
