@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.79  2002/09/07 02:11:06  hal9
+dnl Remove some testing stuff inadvertantly left in.
+dnl
 dnl Revision 1.78  2002/09/06 23:18:08  hal9
 dnl Migrate PCRE_H_IN_SUBDIR from 3.0 branch for pcre/pcre.h on RH, etc.
 dnl
@@ -1261,13 +1264,3 @@ AC_SUBST(PTHREAD_LIB)
 
 AC_OUTPUT(GNUmakefile doc/source/ldp.dsl doc/source/GNUmakefile)
 
-dnl hb:
-echo $prefix
-echo $exec_prefix
-echo $bindir
-echo $sbindir
-echo $sysconfdir
-echo $datadir
-echo $mandir
-echo $localstatedir
-echo host: $host
