@@ -43,6 +43,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/26 13:39:32  jongfoster
+ *    Only crunches Content-Length header if applying RE filtering.
+ *    Without this fix, Microsoft Windows Update wouldn't work.
+ *
  *    Revision 1.2  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -103,6 +107,10 @@ extern char *server_set_cookie(const struct parsers *v, char *s, struct client_s
 #if defined(PCRS) || defined(KILLPOPUPS)
 extern char *content_type(const struct parsers *v, char *s, struct client_state *csp);
 #endif /* defined(PCRS) || defined(KILLPOPUPS) */
+
+#ifdef PCRS
+extern char *content_length(const struct parsers *v, char *s, struct client_state *csp);
+#endif /* def PCRS */
 
 #ifdef FORCE_LOAD
 char *client_host(const struct parsers *v, char *s, struct client_state *csp);
