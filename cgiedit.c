@@ -35,6 +35,10 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2002/01/17 20:56:22  jongfoster
+ *    Replacing hard references to the URL of the config interface
+ *    with #defines from project.h
+ *
  *    Revision 1.8  2001/11/30 23:35:51  jongfoster
  *    Renaming actionsfile to ijb.action
  *
@@ -127,6 +131,7 @@ const char cgiedit_rcs[] = "$Id$";
 #include "errlog.h"
 #include "loadcfg.h"
 /* loadcfg.h is for g_bToggleIJB only */
+#include "urlmatch.h"
 
 const char cgiedit_h_rcs[] = CGIEDIT_H_VERSION;
 
@@ -2602,7 +2607,8 @@ jb_err cgi_edit_actions(struct client_state *csp,
    {
       return JB_ERR_MEMORY;
    }
-   if (enlist_unique_header(rsp->headers, "Location", "http://ijbswa.sourceforge.net/config/edit-actions-list?filename=ijb"))
+   if (enlist_unique_header(rsp->headers, "Location",
+      CGI_PREFIX "edit-actions-list?filename=ijb"))
    {
       free(rsp->status);
       rsp->status = NULL;
@@ -3143,7 +3149,7 @@ jb_err cgi_edit_actions_submit(struct client_state *csp,
       return err;
    }
 
-   target = strdup("http://ijbswa.sourceforge.net/config/edit-actions-list?filename=");
+   target = strdup(CGI_PREFIX "edit-actions-list?filename=");
    string_append(&target, file->identifier);
 
    edit_free_file(file);
@@ -3297,7 +3303,7 @@ jb_err cgi_edit_actions_url(struct client_state *csp,
       return err;
    }
 
-   target = strdup("http://ijbswa.sourceforge.net/config/edit-actions-list?filename=");
+   target = strdup(CGI_PREFIX "edit-actions-list?filename=");
    string_append(&target, file->identifier);
 
    edit_free_file(file);
@@ -3358,6 +3364,7 @@ jb_err cgi_edit_actions_add_url(struct client_state *csp,
    unsigned line_number;
    char * target;
    jb_err err;
+   struct url_spec compiled[1];
 
    if (0 == (csp->config->feature_flags & RUNTIME_FEATURE_CGI_EDIT_ACTIONS))
    {
@@ -3376,6 +3383,14 @@ jb_err cgi_edit_actions_add_url(struct client_state *csp,
    {
       return JB_ERR_CGI_PARAMS;
    }
+
+   /* Check that regex is valid */
+   err = create_url_spec(compiled, newval);
+   if (err)
+   {
+      return (err == JB_ERR_MEMORY) ? JB_ERR_MEMORY : JB_ERR_CGI_PARAMS;
+   }
+   free_url_spec(compiled);
 
    err = edit_read_actions_file(csp, rsp, parameters, 1, &file);
    if (err)
@@ -3439,7 +3454,7 @@ jb_err cgi_edit_actions_add_url(struct client_state *csp,
       return err;
    }
 
-   target = strdup("http://ijbswa.sourceforge.net/config/edit-actions-list?filename=");
+   target = strdup(CGI_PREFIX "edit-actions-list?filename=");
    string_append(&target, file->identifier);
 
    edit_free_file(file);
@@ -3587,7 +3602,7 @@ jb_err cgi_edit_actions_remove_url(struct client_state *csp,
       return err;
    }
 
-   target = strdup("http://ijbswa.sourceforge.net/config/edit-actions-list?filename=");
+   target = strdup(CGI_PREFIX "edit-actions-list?filename=");
    string_append(&target, file->identifier);
 
    edit_free_file(file);
@@ -3720,7 +3735,7 @@ jb_err cgi_edit_actions_section_remove(struct client_state *csp,
       return err;
    }
 
-   target = strdup("http://ijbswa.sourceforge.net/config/edit-actions-list?filename=");
+   target = strdup(CGI_PREFIX "edit-actions-list?filename=");
    string_append(&target, file->identifier);
 
    edit_free_file(file);
@@ -3894,7 +3909,7 @@ jb_err cgi_edit_actions_section_add(struct client_state *csp,
       return err;
    }
 
-   target = strdup("http://ijbswa.sourceforge.net/config/edit-actions-list?filename=");
+   target = strdup(CGI_PREFIX "edit-actions-list?filename=");
    string_append(&target, file->identifier);
 
    edit_free_file(file);
