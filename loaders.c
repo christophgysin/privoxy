@@ -35,6 +35,10 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/05/29 23:25:24  oes
+ *
+ *     - load_config_line() and load_permissions_file() now use chomp()
+ *
  *    Revision 1.10  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -760,61 +764,26 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
          }
       }
       
-      /* Trim leading whitespace */
-      p = linebuf;
-      while (*p && ijb_isspace(*p))
+      /* Remove leading and trailing whitespace */
+      chomp(linebuf);
+
+      if (*linebuf)
       {
-         p++;
-      }
-
-      if (*p)
-      {
-         /* There is something other than whitespace on the line. */
-
-         /* Move the data to the start of buf */
-         if (p != linebuf)
+         strncat(buf, linebuf, buflen - strlen(buf));
+         if (contflag)
          {
-            /* strcpy that can cope with overlap. */
-            q = linebuf;
-            while ((*q++ = *p++) != '\0')
-            {
-               /* Do nothing */
-            }
+            contflag = 0;
+            continue;
          }
-
-         /* Trim trailing whitespace */
-         p = linebuf + strlen(linebuf) - 1;
-
-         /*
-          * Note: the (p >= linebuf) below is paranoia, it's not really needed.
-          * When p == linebuf then ijb_isspace(*p) will be false and we'll drop
-          * out of the loop.
-          */
-         while ((p >= linebuf) && ijb_isspace(*p))
+         else
          {
-            p--;
-         }
-         p[1] = '\0';
-
-         /* More paranoia.  This if statement is always true. */
-         if (*linebuf)
-         {
-            strncat(buf, linebuf, buflen - strlen(buf));
-            if (contflag)
-            {
-               contflag = 0;
-               continue;
-            }
-            else
-            {
-               return buf;
-            }
+            return buf;
          }
       }
    }
-
    /* EOF */
    return NULL;
+
 }
 
 
@@ -1079,19 +1048,8 @@ int load_permissions_file(struct client_state *csp)
             }
 
             /* Trim leading and trailing whitespace. */
-            while ((*end == ' ') || (*end == '\t'))
-            {
-               /*
-                * don't need to worry about going off front of string
-                * because we know there's a '{' there.
-                */
-               end--;
-            }
             end[1] = '\0';
-            while ((*start == ' ') || (*start == '\t'))
-            {
-               start++;
-            }
+            chomp(start);
 
             if (*start == '\0')
             {
@@ -1139,20 +1097,8 @@ int load_permissions_file(struct client_state *csp)
                return 1; /* never get here */
             }
 
-            /* Trim leading and trailing whitespace. */
-            while ((*end == ' ') || (*end == '\t'))
-            {
-               /*
-                * don't need to worry about going off front of string
-                * because we know there's a '{' there.
-                */
-               end--;
-            }
             end[1] = '\0';
-            while ((*start == ' ') || (*start == '\t'))
-            {
-               start++;
-            }
+            chomp(start);
 
             if (*start == '\0')
             {
