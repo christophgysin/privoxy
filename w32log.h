@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/06/07 23:08:12  jongfoster
+ *    Forward and ACL edit options removed.
+ *
  *    Revision 1.4  2001/05/31 21:37:11  jongfoster
  *    GUI changes to rename "permissions file" to "actions file".
  *
@@ -111,10 +114,6 @@ extern int g_nFontSize;
 /* FIXME: this is a kludge */
 
 extern const char * g_actions_file;
-extern const char * g_forwardfile;
-#ifdef ACL_FILES
-extern const char * g_aclfile;
-#endif /* def ACL_FILES */
 #ifdef PCRS
 extern const char * g_re_filterfile;
 #endif

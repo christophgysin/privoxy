@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/06/07 23:08:12  jongfoster
+ *    Forward and ACL edit options removed.
+ *
  *    Revision 1.6  2001/05/31 21:37:11  jongfoster
  *    GUI changes to rename "permissions file" to "actions file".
  *
@@ -150,19 +153,14 @@
 
 /* Break these out so they are easier to extend, but keep consecutive */
 #define ID_TOOLS_EDITJUNKBUSTER           5000
-#define ID_TOOLS_EDITACTIONS          5001
-#define ID_TOOLS_EDITFORWARD              5002
-
-#ifdef ACL_FILES
-#define ID_TOOLS_EDITACLS                 5003
-#endif /* def ACL_FILES */
+#define ID_TOOLS_EDITACTIONS              5001
 
 #ifdef PCRS
-#define ID_TOOLS_EDITPERLRE               5004
+#define ID_TOOLS_EDITPERLRE               5002
 #endif /* def PCRS */
 
 #ifdef TRUST_FILES
-#define ID_TOOLS_EDITTRUST                5005
+#define ID_TOOLS_EDITTRUST                5003
 #endif /* def TRUST_FILES */
 
 /*
