@@ -403,6 +403,13 @@ more through Google.
 </sect1>
 
 <!--   ~~~~~       New section      ~~~~~     -->
+<sect1 id="knownissues"><title>Known Issues</title>
+<para>
+   Fillme.
+</para>
+</sect1>
+
+<!--   ~~~~~       New section      ~~~~~     -->
 <sect1 id="contact"><title>Contact the developers</title>
 <para>Please see the user manual for information on how to contact the developers.
 </para>
@@ -445,6 +452,9 @@ more through Google.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 1.11  2002/03/11 18:42:27  swa
+new section
+
 Revision 1.10  2002/03/11 13:13:27  swa
 correct feedback channels
 
