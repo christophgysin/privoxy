@@ -37,6 +37,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.3  2002/09/05 08:00:23  oes
+ *    Synced with the stable branch:
+ *        Revision 1.72.2.1  2002/08/10 11:25:18  oes
+ *        - Include config.h for access to config data
+ *        - Include <pcre*.h> depending on where they are
+ *
  *    Revision 2.2  2002/07/12 04:26:17  agotneja
  *    Re-factored 'chat()' to become understandable and maintainable as
  *    a first step in adding Transparent Proxy functionality.
@@ -466,6 +472,8 @@
 
 /* Need time_t for file_list */
 #include <time.h>
+/* Needed for pcre choice */
+#include "config.h"
 
 /*
  * Include appropriate regular expression libraries.
@@ -476,7 +484,11 @@
 #ifdef STATIC_PCRE
 #  include "pcre.h"
 #else
-#  include <pcre.h>
+#  ifdef PCRE_H_IN_SUBDIR
+#    include <pcre/pcre.h>
+#  else
+#    include <pcre.h>
+#  endif
 #endif
 
 #ifdef STATIC_PCRS
@@ -488,7 +500,11 @@
 #ifdef STATIC_PCRE
 #  include "pcreposix.h"
 #else
-#  include <pcreposix.h>
+#  ifdef PCRE_H_IN_SUBDIR
+#    include <pcre/pcreposix.h>
+#  else
+#    include <pcreposix.h>
+#  endif
 #endif
 
 #ifdef AMIGA
