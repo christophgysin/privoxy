@@ -3,6 +3,12 @@
 <!entity supported SYSTEM "supported.sgml">
 <!entity newfeatures SYSTEM "newfeatures.sgml">
 <!entity p-intro SYSTEM "privoxy.sgml">
+<!entity p-version "2.9.13">
+<!entity p-status "BETA">
+<!entity % p-not-stable "INCLUDE"> <!-- set to IGNORE for stable release  -->
+<!entity % p-stable "IGNORE">      <!-- set INCLUDE for stable release    -->
+<!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
+<!entity % p-doc "INCLUDE">        <!-- and we are a formal doc           -->
 ]>
 <!--
  File        :  $Source$
@@ -50,10 +56,12 @@
  team. It provides guidance on coding, testing, documentation and other
  issues. 
  </para>
-<!--
- Include privoxy.sgml:
--->
-&p-intro;
+
+<!-- Include privoxy.sgml boilerplate text: -->
+
+ &p-intro;
+
+<!-- end boilerplate -->
 
 <para>
  You can find the latest version of the this manual at <ulink
@@ -1713,9 +1721,11 @@ at sourceforge. Three simple steps:
 	<programlisting>
   os2build
 	</programlisting>
-	And in the <filename>./files</filename> directory you will have the WarpIN-installable executable.
-	Upload this anonymously to <filename>uploads.sourceforge.net/incoming</filename>,
-	create a release for it, and you're done.
+     And in the <filename>./files</filename> directory you will have the
+     WarpIN-installable executable. 
+     Upload this anonymously to
+     <filename>uploads.sourceforge.net/incoming</filename>, create a release
+     for it, and you're done.
 	</para>
     </sect2>
 
@@ -2090,6 +2100,13 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.21  2002/04/04 06:48:37  hal9
+  Structural changes to allow for conditional inclusion/exclusion of content
+  based on entity toggles, e.g. 'entity % p-not-stable  "INCLUDE"'. And
+  definition of internal entities, e.g. 'entity p-version "2.9.13"' that will
+  eventually be set by Makefile.
+  More boilerplate text for use across multiple docs.
+
   Revision 1.20  2002/04/04 03:28:27  david__schmidt
   Add Mac OSX section
 

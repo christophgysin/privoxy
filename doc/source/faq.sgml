@@ -4,6 +4,13 @@
 <!entity newfeatures SYSTEM "newfeatures.sgml">
 <!entity p-intro SYSTEM "privoxy.sgml">
 <!entity seealso SYSTEM "seealso.sgml">
+<!entity p-version "2.9.13">
+<!entity p-status "BETA">
+<!entity % p-not-stable "INCLUDE"> <!-- set to IGNORE for stable release  -->
+<!entity % p-stable "IGNORE">      <!-- set INCLUDE for stable release    -->
+<!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
+<!entity % p-doc "INCLUDE">        <!-- and we are a formal doc           -->
+<!entity % p-supp-userman "INCLUDE"> <!-- Include all from supported.sgml -->
 ]>
 <!--
  File        :  $Source$
@@ -1380,6 +1387,13 @@ This is referenced in the doc header already. HB 03/25/02
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 1.41  2002/04/04 06:48:37  hal9
+Structural changes to allow for conditional inclusion/exclusion of content
+based on entity toggles, e.g. 'entity % p-not-stable  "INCLUDE"'. And
+definition of internal entities, e.g. 'entity p-version "2.9.13"' that will
+eventually be set by Makefile.
+More boilerplate text for use across multiple docs.
+
 Revision 1.40  2002/04/03 04:22:03  hal9
 Fixed several typos.
 
