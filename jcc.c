@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.38  2001/09/16 13:01:46  jongfoster
+ *    Removing redundant function call that zeroed zalloc()'d memory.
+ *
  *    Revision 1.37  2001/09/10 11:12:24  oes
  *    Deleted unused variable
  *
@@ -1314,8 +1317,6 @@ static void listen_loop(void)
          log_error(LOG_LEVEL_FATAL, "malloc(%d) for csp failed: %E", sizeof(*csp));
          continue;
       }
-
-      memset(csp, '\0', sizeof(*csp));
 
       csp->active = 1;
       csp->sfd    = -1;
