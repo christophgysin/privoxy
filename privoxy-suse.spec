@@ -56,9 +56,8 @@ Privoxy is a web proxy with advanced filtering capabilities for
 protecting privacy, filtering web page content, managing cookies,
 controlling access, and removing ads, banners, pop-ups and other
 obnoxious Internet junk. Privoxy has a very flexible configuration and
-can be customized to suit individual needs and tastes. Internet
-Privoxy has application for both stand-alone systems and multi-user
-networks.
+can be customized to suit individual needs and tastes. Privoxy has 
+application for both stand-alone systems and multi-user networks.
 
 Privoxy is based on the code of the Internet Junkbuster. Junkbuster
 was originally written by JunkBusters Corporation, and was released as
@@ -215,6 +214,10 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 # -----------------------------------------------------------------------------
 #
 %changelog
+* Tue Mar 25 2002 Hal Burgiss <hal@foobox.net>
++ privoxy-2.9.13-3
+- Minor fix to description.
+
 * Sun Mar 24 2002 Hal Burgiss <hal@foobox.net>
 - added faq to docs.
 
@@ -287,6 +290,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.7  2002/03/27 00:49:39  hal9
+# Minor fix to description.
+#
 # Revision 1.6  2002/03/26 22:29:55  swa
 # we have a new homepage!
 #
