@@ -41,6 +41,11 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/05/28 17:26:33  jongfoster
+ *    Fixing segfault if last header was crunched.
+ *    Fixing Windows build (snprintf() is _snprintf() under Win32, but we
+ *    can use the cross-platform sprintf() instead.)
+ *
  *    Revision 1.8  2001/05/27 22:17:04  oes
  *
  *    - re_process_buffer no longer writes the modified buffer
@@ -559,7 +564,9 @@ char *sed(const struct parsers pats[], void (* const more_headers[])(struct clie
    }
 
    /* add the blank line at the end of the header, if necessary */
-   if(strlen(csp->headers->last->str) != 0)
+   if ( (csp->headers->last == NULL)
+     || (csp->headers->last->str == NULL)
+     || (*csp->headers->last->str != '\0') )
    {
       enlist(csp->headers, "");
    }
@@ -818,7 +825,7 @@ char *content_length(const struct parsers *v, char *s, struct client_state *csp)
    if (csp->content_length != 0) /* Content has been modified */
 	{
 	   s = (char *) zalloc(100);
-	   snprintf(s, 100, "Content-Length: %d", csp->content_length);
+	   sprintf(s, "Content-Length: %d", csp->content_length);
 		log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", csp->content_length);
 	   return(s);
 	}
