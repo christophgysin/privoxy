@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/06/01 10:32:47  oes
+ *    Added constants for anchoring selection bitmap
+ *
  *    Revision 1.10  2001/05/31 21:33:53  jongfoster
  *    Changes for new actions file, replacing permissionsfile
  *    and parts of the config file.  Also added support for
@@ -272,11 +275,11 @@ struct list_share /* FIXME: Why not separate entries and header? */
 struct url_spec
 {
    char  *spec;
-   char  *domain;
+   char  *domain;        /* fqdn */
    char  *dbuf;
-   char **dvec;
-   int    dcnt;
-   int    unanchored;
+   char **dvec;          /* Domain ptr vector */
+   int    dcnt;          /* How many domains in fqdn? */
+   int    unanchored;    /* bitmap 0: left, 1: right */
 
    char *path;
    int   pathlen;
@@ -285,6 +288,9 @@ struct url_spec
    regex_t *preg;
 #endif
 };
+
+#define ANCHOR_LEFT  1
+#define ANCHOR_RIGHT 2
 
 
 /* An I/O buffer */
