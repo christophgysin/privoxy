@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/09/16 16:59:34  jongfoster
+ *    Bugfix - couldn't build resources with previous version.
+ *
  *    Revision 1.10  2001/09/16 16:19:02  jongfoster
  *    New version based on latest configure.in and acconfig.h
  *
@@ -414,9 +417,9 @@
 #endif /* defined(FEATURE_PTHREAD) && defined(__BEOS__) */
 
 
-#ifndef _MSC_VER
+#if (!defined(_MSC_VER)) && (!defined(RC_INVOKED))
 #error This file is only intended for MS VC++ on Win32.  For other compilers, please run configure.
-#endif /* def _MSC_VER */
+#endif /* (!defined(_MSC_VER)) && (!defined(RC_INVOKED)) */
 
 #endif /* CONFIG_H_INCLUDED */
 
