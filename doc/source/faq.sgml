@@ -1550,7 +1550,7 @@ and related issues?</title>
  activated the <quote><literal>fun</literal></quote> filter which
  is clearly labeled <quote>Text replacements for subversive browsing
  fun!</quote> or you have implicitly activated it by choosing the
- <quote>Advanced</quote> profile in the web-based editor.
+ <quote>Radical</quote> profile in the web-based editor.
 </para>
 </sect2>
 
@@ -1881,6 +1881,9 @@ FIXME: Commented out until we have something to put here. HB 03/18/02.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 2.8  2002/10/15 12:47:23  oes
+Added Microsuck faq; more detail for PHP problem
+
 Revision 2.7  2002/10/12 01:14:42  hal9
 Updates for demoronizer filter, Radical profile, and the srvany.exe/icon
 win32 fix.
