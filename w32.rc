@@ -31,6 +31,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/07/19 19:14:19  haroon
+ *    -  Removed all #ifdef PCRS. The .rc file extension had eluded Andreas.
+ *
  *    Revision 1.9  2001/06/07 23:08:54  jongfoster
  *    Forward and ACL edit options removed.
  *    Config edit option renamed from "&Junkbuster" to "&Configuration".
@@ -162,9 +165,7 @@ BEGIN
             MENUITEM "&Configuration...",           ID_TOOLS_EDITJUNKBUSTER
             MENUITEM                                SEPARATOR
             MENUITEM "&Actions...",                 ID_TOOLS_EDITACTIONS
-#ifdef PCRS
             MENUITEM "Perl &Regexps...",            ID_TOOLS_EDITPERLRE
-#endif /* def PCRS */
 #ifdef TRUST_FILES
             MENUITEM "&Trust...",                   ID_TOOLS_EDITTRUST
 #endif /* def TRUST_FILES */
@@ -205,9 +206,7 @@ BEGIN
         MENUITEM "&Configuration...",           ID_TOOLS_EDITJUNKBUSTER
         MENUITEM                                SEPARATOR
         MENUITEM "&Actions...",                 ID_TOOLS_EDITACTIONS
-#ifdef PCRS
             MENUITEM "Perl &Regexps...",        ID_TOOLS_EDITPERLRE
-#endif /* def PCRS */
 #ifdef TRUST_FILES
             MENUITEM "&Trust...",               ID_TOOLS_EDITTRUST
 #endif /* def TRUST_FILES */
