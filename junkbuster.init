@@ -36,6 +36,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.7  2001/06/28 13:40:26  sarantis
+#     remove single quotes from $JB; it was not expanded.
+#
 #     Revision 1.6  2001/06/28 13:38:42  sarantis
 #     formatting changes; individual return values are returned from the init script.
 #
@@ -82,7 +85,7 @@ start () {
 	# start daemon
 	[ -f /var/lock/subsys/junkbuster ] && exit 0
 	echo -n $"Starting junkbuster: "
-	daemon --user junkbust '$JB' 
+	daemon --user junkbust $JB 
 	RETVAL=$?
 	echo
 	[ $RETVAL = 0 ] && touch /var/lock/subsys/junkbuster
