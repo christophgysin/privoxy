@@ -33,6 +33,13 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.92.2.1  2002/09/25 14:52:24  oes
+ *    Added basic support for OPTIONS and TRACE HTTP methods:
+ *     - New interceptor direct_response() added in chat().
+ *     - sed() moved to earlier in the process, so that the
+ *       Host: header is evaluated before actions and forwarding
+ *       are decided on.
+ *
  *    Revision 1.92  2002/05/08 16:00:46  oes
  *    Chat's buffer handling:
  *     - Fixed bug with unchecked out-of-mem conditions
@@ -981,14 +988,14 @@ static void chat(struct client_state *csp)
       {
          string_append(&http->cmd, http->path);
       }
-
       string_append(&http->cmd, " ");
       string_append(&http->cmd, http->ver);
 
       if (http->cmd == NULL)
       {
-         log_error(LOG_LEVEL_FATAL, "Out of memory rewiting SSL command");
+         log_error(LOG_LEVEL_FATAL, "Out of memory writing HTTP command");
       }
+      log_error(LOG_LEVEL_HEADER, "New HTTP Request-Line: %s", http->cmd);
    }
    enlist(csp->headers, http->cmd);
 
@@ -1042,14 +1049,18 @@ static void chat(struct client_state *csp)
       enlist(csp->headers, p);
       freez(p);
    }
+
    /*
     * We have a request. Now, check to see if we need to
     * intercept it, i.e. If ..
     */
 
    if (
-       /* a CGI call was detected and answered */
-       (NULL != (rsp = dispatch_cgi(csp)))
+       /* We may not forward the request by rfc2616 sect 14.31 */
+       (NULL != (rsp = direct_response(csp)))
+
+       /* or a CGI call was detected and answered */
+       || (NULL != (rsp = dispatch_cgi(csp)))
 
        /* or we are enabled and... */
        || (IS_ENABLED_AND (
@@ -1090,6 +1101,15 @@ static void chat(struct client_state *csp)
       free_http_response(rsp);
       return;
    }
+
+   hdr = sed(client_patterns, add_client_headers, csp);
+   if (hdr == NULL)
+   {
+      /* FIXME Should handle error properly */
+      log_error(LOG_LEVEL_FATAL, "Out of memory parsing client header");
+   }
+
+   list_remove_all(csp->headers);
 
    log_error(LOG_LEVEL_GPC, "%s%s", http->hostport, http->path);
 
@@ -1139,19 +1159,11 @@ static void chat(struct client_state *csp)
       }
 
       free_http_response(rsp);
+      freez(hdr);
       return;
    }
 
    log_error(LOG_LEVEL_CONNECT, "OK");
-
-   hdr = sed(client_patterns, add_client_headers, csp);
-   if (hdr == NULL)
-   {
-      /* FIXME Should handle error properly */
-      log_error(LOG_LEVEL_FATAL, "Out of memory parsing client header");
-   }
-
-   list_remove_all(csp->headers);
 
    if (fwd->forward_host || (http->ssl == 0))
    {
