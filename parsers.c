@@ -41,6 +41,12 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.36  2001/10/13 12:51:51  joergs
+ *    Removed client_host, (was only required for the old 2.0.2-11 http://noijb.
+ *    force-load), instead crumble Host: and add it (again) in client_host_adder
+ *    (in case we get a HTTP/1.0 request without Host: header and forward it to
+ *    a HTTP/1.1 server/proxy).
+ *
  *    Revision 1.35  2001/10/09 22:39:21  jongfoster
  *    assert.h is also required under Win32, so moving out of #ifndef _WIN32
  *    block.
@@ -341,9 +347,7 @@ const struct parsers client_patterns[] = {
 #if defined(FEATURE_IMAGE_DETECT_MSIE)
    { "Accept:",                   7,   client_accept },
 #endif /* defined(FEATURE_IMAGE_DETECT_MSIE) */
-#ifdef FEATURE_FORCE_LOAD
-   { "Host:",                     5,   client_host },
-#endif /* def FEATURE_FORCE_LOAD */
+   { "Host:",                     5,   crumble },
 /* { "if-modified-since:",       18,   crumble }, */
    { "Keep-Alive:",              11,   crumble },
    { "connection:",              11,   crumble },
@@ -367,6 +371,7 @@ const struct parsers server_patterns[] = {
 
 
 void (* const add_client_headers[])(struct client_state *) = {
+   client_host_adder,
    client_cookie_adder,
    client_x_forwarded_adder,
    client_xtra_adder,
@@ -1387,6 +1392,32 @@ char *client_accept(const struct parsers *v, const char *s, struct client_state 
 
 /*********************************************************************
  *
+ * Function    :  client_host_adder
+ *
+ * Description :  (re)adds the host header. Called from `sed'.
+ *
+ * Parameters  :
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *
+ * Returns     :  N/A
+ *
+ *********************************************************************/
+void client_host_adder(struct client_state *csp)
+{
+   char *p = NULL;
+
+   p = strsav(p, "Host: ");
+   p = strsav(p, csp->http->hostport);
+
+   log_error(LOG_LEVEL_HEADER, "addh: %s", p);
+   enlist(csp->headers, p);
+
+   freez(p);
+}
+
+
+/*********************************************************************
+ *
  * Function    :  client_cookie_adder
  *
  * Description :  Used in the add_client_headers list.  Called from `sed'.
@@ -1627,36 +1658,6 @@ char *server_set_cookie(const struct parsers *v, const char *s, struct client_st
 }
 
 
-#ifdef FEATURE_FORCE_LOAD
-/*********************************************************************
- *
- * Function    :  client_host
- *
- * Description :  Clean the FORCE_PREFIX out of the 'host' http
- *                header, if we use force
- *
- * Parameters  :
- *          1  :  v = ignored
- *          2  :  s = header (from sed) to clean
- *          3  :  csp = Current client state (buffers, headers, etc...)
- *
- * Returns     :  A malloc'ed pointer to the cleaned host header 
- *
- *********************************************************************/
-char *client_host(const struct parsers *v, const char *s, struct client_state *csp)
-{
-   char *cleanhost = strdup(s);
- 
-   if(csp->flags & CSP_FLAG_FORCED)
-   {
-      strclean(cleanhost, FORCE_PREFIX);
-   }
- 
-   return(cleanhost);
-}
-#endif /* def FEATURE_FORCE_LOAD */
- 
- 
 #ifdef FEATURE_FORCE_LOAD 
 /*********************************************************************
  *
