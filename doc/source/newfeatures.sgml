@@ -1,3 +1,17 @@
+<!--
+ File        :  $Source$
+
+ Purpose     :  Entity included in other project documents.
+                
+ $Id$
+
+ Written by and Copyright (C) 2001 the SourceForge
+ Privoxy team. http://www.privoxy.org/
+
+ Based on the Internet Junkbuster originally written
+ by and Copyright (C) 1997 Anonymous Coders and 
+ Junkbusters Corporation.  http://www.junkbusters.com
+-->
 <para>
  <itemizedlist>
 
