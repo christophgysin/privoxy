@@ -33,6 +33,29 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/05/29 09:50:24  jongfoster
+ *    Unified blocklist/imagelist/permissionslist.
+ *    File format is still under discussion, but the internal changes
+ *    are (mostly) done.
+ *
+ *    Also modified interceptor behaviour:
+ *    - We now intercept all URLs beginning with one of the following
+ *      prefixes (and *only* these prefixes):
+ *        * http://i.j.b/
+ *        * http://ijbswa.sf.net/config/
+ *        * http://ijbswa.sourceforge.net/config/
+ *    - New interceptors "home page" - go to http://i.j.b/ to see it.
+ *    - Internal changes so that intercepted and fast redirect pages
+ *      are not replaced with an image.
+ *    - Interceptors now have the option to send a binary page direct
+ *      to the client. (i.e. ijb-send-banner uses this)
+ *    - Implemented show-url-info interceptor.  (Which is why I needed
+ *      the above interceptors changes - a typical URL is
+ *      "http://i.j.b/show-url-info?url=www.somesite.com/banner.gif".
+ *      The previous mechanism would not have intercepted that, and
+ *      if it had been intercepted then it then it would have replaced
+ *      it with an image.)
+ *
  *    Revision 1.7  2001/05/26 00:28:36  jongfoster
  *    Automatic reloading of config file.
  *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
@@ -244,7 +267,7 @@ void savearg(char *c, char *o, struct configuration_spec * config)
 
    strcat(buf, "<br>\n");
 
-   config->proxy_args->invocation = strsav(config->proxy_args->invocation, buf);
+   config->proxy_args_invocation = strsav(config->proxy_args_invocation, buf);
 
 }
 
@@ -268,10 +291,10 @@ void init_proxy_args(int argc, const char *argv[], struct configuration_spec * c
    char * b;
    int i;
 
-   freez(config->proxy_args->header);
-   freez(config->proxy_args->invocation);
-   freez(config->proxy_args->gateways);
-   freez(config->proxy_args->trailer);
+   freez(config->proxy_args_header);
+   freez(config->proxy_args_invocation);
+   freez(config->proxy_args_gateways);
+   freez(config->proxy_args_trailer);
    
 
    b = NULL;
@@ -305,10 +328,10 @@ void init_proxy_args(int argc, const char *argv[], struct configuration_spec * c
    }
    b = strsav(b, "<br>\n");
 
-   config->proxy_args->header = b;
+   config->proxy_args_header = b;
 
-   config->proxy_args->invocation = strsav(
-      config->proxy_args->invocation,
+   config->proxy_args_invocation = strsav(
+      config->proxy_args_invocation,
       "<br>\n"
       "and the following options were set in the configuration file"
       "<br><br>\n"
@@ -326,7 +349,7 @@ void init_proxy_args(int argc, const char *argv[], struct configuration_spec * c
    }
    b = strsav(b, "<br>\n");
 
-   config->proxy_args->gateways = b;
+   config->proxy_args_gateways = b;
 }
 
 
@@ -497,11 +520,11 @@ void end_proxy_args(struct configuration_spec * config)
    b = strsav(b, "  <li><code>#undef <b>DETECT_MSIE_IMAGES</b></code> - Disables detecting image requests automatically for MSIE.</li>\n");
 #endif /* ndef DETECT_MSIE_IMAGES */
 
-#ifdef USE_IMAGE_LIST
-   b = strsav(b, "  <li><code>#define <b>USE_IMAGE_LIST</b></code> - Enables using image list to detect images.</li>\n");
-#else /* ifndef USE_IMAGE_LIST */
-   b = strsav(b, "  <li><code>#undef <b>USE_IMAGE_LIST</b></code> - Disables using image list to detect images.</li>\n");
-#endif /* ndef USE_IMAGE_LIST */
+#ifdef IMAGE_BLOCKING
+   b = strsav(b, "  <li><code>#define <b>IMAGE_BLOCKING</b></code> - Enables sending \"blocked\" images instead of HTML.</li>\n");
+#else /* ifndef IMAGE_BLOCKING */
+   b = strsav(b, "  <li><code>#undef <b>IMAGE_BLOCKING</b></code> - Disables sending \"blocked\" images instead of HTML.</li>\n");
+#endif /* ndef IMAGE_BLOCKING */
 
 #ifdef ACL_FILES
    b = strsav(b, "  <li><code>#define <b>ACL_FILES</b></code> - Enables the use of ACL files to control access to the proxy by IP address.</li>\n");
@@ -541,7 +564,7 @@ void end_proxy_args(struct configuration_spec * config)
       "</body></html>\n"
    );
 
-   config->proxy_args->trailer = b;
+   config->proxy_args_trailer = b;
 
 }
 

@@ -34,6 +34,29 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/29 09:50:24  jongfoster
+ *    Unified blocklist/imagelist/permissionslist.
+ *    File format is still under discussion, but the internal changes
+ *    are (mostly) done.
+ *
+ *    Also modified interceptor behaviour:
+ *    - We now intercept all URLs beginning with one of the following
+ *      prefixes (and *only* these prefixes):
+ *        * http://i.j.b/
+ *        * http://ijbswa.sf.net/config/
+ *        * http://ijbswa.sourceforge.net/config/
+ *    - New interceptors "home page" - go to http://i.j.b/ to see it.
+ *    - Internal changes so that intercepted and fast redirect pages
+ *      are not replaced with an image.
+ *    - Interceptors now have the option to send a binary page direct
+ *      to the client. (i.e. ijb-send-banner uses this)
+ *    - Implemented show-url-info interceptor.  (Which is why I needed
+ *      the above interceptors changes - a typical URL is
+ *      "http://i.j.b/show-url-info?url=www.somesite.com/banner.gif".
+ *      The previous mechanism would not have intercepted that, and
+ *      if it had been intercepted then it then it would have replaced
+ *      it with an image.)
+ *
  *    Revision 1.4  2001/05/26 01:26:34  jongfoster
  *    New #define, WIN_GUI_EDIT, enables the (embryonic) Win32 GUI editor.
  *    This #define cannot be set from ./configure - there's no point, it
@@ -124,24 +147,19 @@
 
 /* Break these out so they are easier to extend, but keep consecutive */
 #define ID_TOOLS_EDITJUNKBUSTER           5000
-#define ID_TOOLS_EDITBLOCKERS             5001
-#define ID_TOOLS_EDITPERMISSIONS          5002
-#define ID_TOOLS_EDITFORWARD              5003
+#define ID_TOOLS_EDITPERMISSIONS          5001
+#define ID_TOOLS_EDITFORWARD              5002
 
 #ifdef ACL_FILES
-#define ID_TOOLS_EDITACLS                 5005
+#define ID_TOOLS_EDITACLS                 5003
 #endif /* def ACL_FILES */
 
-#ifdef USE_IMAGE_LIST
-#define ID_TOOLS_EDITIMAGE                5006
-#endif /* def USE_IMAGE_LIST */
-
 #ifdef PCRS
-#define ID_TOOLS_EDITPERLRE               5008
+#define ID_TOOLS_EDITPERLRE               5004
 #endif /* def PCRS */
 
 #ifdef TRUST_FILES
-#define ID_TOOLS_EDITTRUST                5004
+#define ID_TOOLS_EDITTRUST                5005
 #endif /* def TRUST_FILES */
 
 /*

@@ -40,6 +40,29 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/29 09:50:24  jongfoster
+ *    Unified blocklist/imagelist/permissionslist.
+ *    File format is still under discussion, but the internal changes
+ *    are (mostly) done.
+ *
+ *    Also modified interceptor behaviour:
+ *    - We now intercept all URLs beginning with one of the following
+ *      prefixes (and *only* these prefixes):
+ *        * http://i.j.b/
+ *        * http://ijbswa.sf.net/config/
+ *        * http://ijbswa.sourceforge.net/config/
+ *    - New interceptors "home page" - go to http://i.j.b/ to see it.
+ *    - Internal changes so that intercepted and fast redirect pages
+ *      are not replaced with an image.
+ *    - Interceptors now have the option to send a binary page direct
+ *      to the client. (i.e. ijb-send-banner uses this)
+ *    - Implemented show-url-info interceptor.  (Which is why I needed
+ *      the above interceptors changes - a typical URL is
+ *      "http://i.j.b/show-url-info?url=www.somesite.com/banner.gif".
+ *      The previous mechanism would not have intercepted that, and
+ *      if it had been intercepted then it then it would have replaced
+ *      it with an image.)
+ *
  *    Revision 1.5  2001/05/27 22:17:04  oes
  *
  *    - re_process_buffer no longer writes the modified buffer
@@ -136,16 +159,12 @@ extern char *block_url(struct http_request *http, struct client_state *csp);
 #ifdef TRUST_FILES
 extern char *trust_url(struct http_request *http, struct client_state *csp);
 #endif /* def TRUST_FILES */
-extern char *intercept_url(struct http_request *http, struct client_state *csp);
+extern int intercept_url(struct http_request *http, struct client_state *csp);
 extern char *redirect_url(struct http_request *http, struct client_state *csp);
 
-#if defined(DETECT_MSIE_IMAGES) || defined(USE_IMAGE_LIST)
+#ifdef IMAGE_BLOCKING
 extern int block_imageurl(struct http_request *http, struct client_state *csp);
-#endif /* defined(DETECT_MSIE_IMAGES) || defined(USE_IMAGE_LIST) */
-
-#ifdef USE_IMAGE_LIST
-extern int block_imageurl_using_imagelist(struct http_request *http, struct client_state *csp);
-#endif /* def USE_IMAGE_LIST */
+#endif /* def IMAGE_BLOCKING */
 
 extern int url_permissions(struct http_request *http, struct client_state *csp);
 extern const struct gateway *forward_url(struct http_request *http, struct client_state *csp);
@@ -159,6 +178,8 @@ extern char *ijb_send_banner(struct http_request *http, struct client_state *csp
 #ifdef TRUST_FILES
 extern char *ij_untrusted_url(struct http_request *http, struct client_state *csp);
 #endif /* def TRUST_FILES */
+
+char *ijb_show_url_info(struct http_request *http, struct client_state *csp);
 
 #ifdef STATISTICS
 extern char *add_stats(char *s);

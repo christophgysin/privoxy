@@ -37,6 +37,29 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/29 09:50:24  jongfoster
+ *    Unified blocklist/imagelist/permissionslist.
+ *    File format is still under discussion, but the internal changes
+ *    are (mostly) done.
+ *
+ *    Also modified interceptor behaviour:
+ *    - We now intercept all URLs beginning with one of the following
+ *      prefixes (and *only* these prefixes):
+ *        * http://i.j.b/
+ *        * http://ijbswa.sf.net/config/
+ *        * http://ijbswa.sourceforge.net/config/
+ *    - New interceptors "home page" - go to http://i.j.b/ to see it.
+ *    - Internal changes so that intercepted and fast redirect pages
+ *      are not replaced with an image.
+ *    - Interceptors now have the option to send a binary page direct
+ *      to the client. (i.e. ijb-send-banner uses this)
+ *    - Implemented show-url-info interceptor.  (Which is why I needed
+ *      the above interceptors changes - a typical URL is
+ *      "http://i.j.b/show-url-info?url=www.somesite.com/banner.gif".
+ *      The previous mechanism would not have intercepted that, and
+ *      if it had been intercepted then it then it would have replaced
+ *      it with an image.)
+ *
  *    Revision 1.3  2001/05/26 01:26:34  jongfoster
  *    New #define, WIN_GUI_EDIT, enables the (embryonic) Win32 GUI editor.
  *    This #define cannot be set from ./configure - there's no point, it
@@ -173,8 +196,10 @@
 
 /*
  * Detect image requests automatically for MSIE.  Will fall back to
- * other image-detection methods (i.e. USE_IMAGE_LIST) for other
+ * other image-detection methods (i.e. "+image" permission) for other
  * browsers.
+ *
+ * You must also define IMAGE_BLOCKING to use this feature.
  *
  * It detects the following header pair as an image request:
  *
@@ -202,13 +227,12 @@
 #undef DETECT_MSIE_IMAGES
 
 /*
- * Use image list to detect images.
- * If you do not define this then everything is treated as HTML.
+ * Allow blocking using images as well as HTML.
+ * If you do not define this then everything is blocked as HTML.
  *
- * Whatever the setting of this value, DETECT_MSIE_IMAGES will 
- * override it for people using Internet Explorer.
+ * Note that this is required if you want to use DETECT_MSIE_IMAGES.
  */
-#undef USE_IMAGE_LIST
+#undef IMAGE_BLOCKING
 
 /*
  * Allows the use of ACL files to control access to the proxy by IP address.
