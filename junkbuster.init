@@ -33,6 +33,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.12  2002/03/04 20:44:36  oes
+#     Changed to new cmdline syntax
+#
 #     Revision 1.11  2001/12/30 14:07:32  steudten
 #     - Add signal handling (unix)
 #     - Add SIGHUP handler (unix)
@@ -109,7 +112,7 @@ JB="$JB_BIN $JB_CONF"
 start () {
 	# start daemon
 	echo -n $"Starting $JB_PRG: "
-	daemon --user $JB_USER $JB 
+	daemon --user $JB_USER $JB --pidfile $JB_PID
 	RETVAL=$?
 	echo
 	[ $RETVAL = 0 ] && touch /var/lock/subsys/$JB_PRG
