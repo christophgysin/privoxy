@@ -12,6 +12,10 @@ error_reporting(E_NONE);
 //  $Id$
 //
 //  $Log$
+//  Revision 1.3  2002/03/30 20:44:46  swa
+//  have consistent look and feel. part 2.
+//  use correct urls.
+//
 //  Revision 1.2  2002/03/30 19:49:34  swa
 //  have consistent look and feel
 //
@@ -55,8 +59,8 @@ if (!isset($referrer_url))
 	    <link rel=\"stylesheet\" type=\"text/css\" href=\"../p_web.css\">
 		</head>
                 <body><h2>Invalid Feedback Submission</h2>
-                      <p>When submitting your feedback please start with
-                         <a href=\"test.php\">step 1</a>.</p>
+                      <p>When submitting your feedback, please start with
+                         <a href=\"index.php\">step 1</a>.</p>
                  </body>
           </html>");
    exit; 
@@ -72,7 +76,7 @@ if (!isset($problem))
 		</head>
                 <body><h2>Invalid Feedback Submission</h2>
                       <p>You need to select the nature of the problem in
-                         <a href=\"test.php\">step 1</a>.</p>
+                         <a href=\"index.php\">step 1</a>.</p>
                  </body>
           </html>");
    exit; 

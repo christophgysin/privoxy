@@ -13,6 +13,10 @@ error_reporting(E_NONE);
 //  $Id$
 //
 //  $Log$
+//  Revision 1.3  2002/03/30 20:44:46  swa
+//  have consistent look and feel. part 2.
+//  use correct urls.
+//
 //  Revision 1.2  2002/03/30 19:49:34  swa
 //  have consistent look and feel
 //
@@ -52,6 +56,7 @@ error_reporting(E_NONE);
  */
 #$base_url = "http://www.oesterhelt.org/actions";
 $base_url = "http://www.privoxy.org/actions";
+#$base_url = "http://localhost/actions";
 
 /* 
  * Cannot start with step 2:
