@@ -541,7 +541,7 @@ dok-readme: doc/source/ldpOK.dsl
 
 # webserver files
 dok-webserver: doc/source/ldpOK.dsl
-	cd doc/source/webserver && $(DB) -V nochunks index.sgml > ../../webserver/index2.html
+	cd doc/source/webserver && $(DB) -V nochunks index.sgml > ../../webserver/index.html
 
 dok: dok-devel dok-user dok-faq dok-man dok-readme dok-webserver
 # kludge to force recreation on next run. Rodgrigo?
@@ -777,6 +777,13 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.69  2002/04/07 08:10:47  swa
+# create some of the webserver docs
+# automatically (in particular if
+# those docs recycle other documentation
+# fragments). Now committed webserver's
+# index file.
+#
 # Revision 1.68  2002/04/07 07:58:11  swa
 # create some of the webserver docs
 # automatically (in particular if
