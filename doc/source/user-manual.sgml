@@ -286,8 +286,8 @@ You can find the latest version of the user manual at  <ulink url="http://ijbswa
 
 <para>
  <screen>
- autoheader   [suggested for CVS source]
- autoconf     [suggested for CVS source]
+ autoheader
+ autoconf
  ./configure
  make redhat-dist
  </screen>
@@ -330,8 +330,8 @@ You can find the latest version of the user manual at  <ulink url="http://ijbswa
 
 <para>
  <screen>
- autoheader   [suggested for CVS source]
- autoconf     [suggested for CVS source]
+ autoheader
+ autoconf
  ./configure
  make suse-dist
  </screen>
@@ -3945,6 +3945,9 @@ For any other issues, feel free to use the <ulink url="http://sourceforge.net/ma
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.56  2002/03/24 16:17:06  swa
+ configure needs to be generated.
+
  Revision 1.55  2002/03/24 16:08:08  swa
  we are too lazy to make a block-built
  privoxy logo. hence removed the option.
