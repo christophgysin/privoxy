@@ -77,7 +77,7 @@ SuSE series: n
 %build
 autoheader
 autoconf
-./configure
+./configure --enable-no-gifs 
 make
 make dok
 
@@ -272,6 +272,9 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.18  2002/03/11 12:30:31  swa
+# be consistent with rh spec file
+#
 # Revision 1.17  2002/03/08 19:30:23  swa
 # remove user junkbuster after de-installation.
 # synced suse with rh-specfile. installation
