@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.59  2002/03/24 15:23:33  jongfoster
+ *    Name changes
+ *
  *    Revision 1.58  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -762,7 +765,7 @@ struct url_actions
 #define CSP_FLAG_TOGGLED_ON 0x20 /* Set if we are toggled on (FEATURE_TOGGLE) */
 
 /*
- * The state of a JunkBuster processing thread.
+ * The state of a Privoxy processing thread.
  */
 struct client_state
 {
@@ -861,7 +864,7 @@ struct cgi_dispatcher
 
 
 /*
- * A data file used by JunkBuster.  Kept in a linked list.
+ * A data file used by Privoxy.  Kept in a linked list.
  */
 struct file_list
 {
@@ -1050,7 +1053,7 @@ struct configuration_spec
 #define SZ(X)  (sizeof(X) / sizeof(*X))
 
 #ifdef FEATURE_FORCE_LOAD
-#define FORCE_PREFIX "/IJB-FORCE-LOAD"
+#define FORCE_PREFIX "/PRIVOXY-FORCE"
 #endif /* def FEATURE_FORCE_LOAD */
 
 #ifdef FEATURE_NO_GIFS
@@ -1087,7 +1090,7 @@ struct configuration_spec
 /* HTTP snipplets */
 static const char CSUCCEED[] =
    "HTTP/1.0 200 Connection established\n"
-   "Proxy-Agent: IJ/" VERSION "\r\n\r\n";
+   "Proxy-Agent: Privoxy/" VERSION "\r\n\r\n";
 
 static const char CHEADER[] =
    "HTTP/1.0 400 Invalid header received from browser\r\n\r\n";

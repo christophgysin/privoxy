@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.21  2002/03/24 15:23:33  jongfoster
+ *    Name changes
+ *
  *    Revision 1.20  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -255,7 +258,7 @@ jb_err cgi_error_404(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   rsp->status = strdup("404 JunkBuster configuration page not found");
+   rsp->status = strdup("404 Privoxy configuration page not found");
    if (rsp->status == NULL)
    {
       free_map(exports);
@@ -271,7 +274,7 @@ jb_err cgi_error_404(struct client_state *csp,
  *
  * Function    :  cgi_die
  *
- * Description :  CGI function to shut down JunkBuster.
+ * Description :  CGI function to shut down Privoxy.
  *                NOTE: Turning this on in a production build
  *                would be a BAD idea.  An EXTREMELY BAD idea.
  *                In short, don't do it.
@@ -502,7 +505,7 @@ jb_err cgi_transparent_image(struct client_state *csp,
  * Function    :  cgi_show_version
  *
  * Description :  CGI function that returns a a web page describing the
- *                file versions of IJB.
+ *                file versions of Privoxy.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
@@ -545,7 +548,7 @@ jb_err cgi_show_version(struct client_state *csp,
  * Function    :  cgi_show_status
  *
  * Description :  CGI function that returns a a web page describing the
- *                current status of IJB.
+ *                current status of Privoxy.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
@@ -765,7 +768,7 @@ jb_err cgi_show_status(struct client_state *csp,
  * Function    :  cgi_show_url_info
  *
  * Description :  CGI function that determines and shows which actions
- *                junkbuster will perform for a given url, and which
+ *                Privoxy will perform for a given url, and which
  *                matches starting from the defaults have lead to that.
  *
  * Parameters  :

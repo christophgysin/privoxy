@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.85  2002/03/24 15:23:33  jongfoster
+ *    Name changes
+ *
  *    Revision 1.84  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -1610,7 +1613,7 @@ static int32 server_thread(void *data)
  *********************************************************************/
 void usage(const char *myname)
 {
-   printf("JunkBuster proxy version " VERSION " (" HOME_PAGE_URL ")\n"
+   printf("Privoxy version " VERSION " (" HOME_PAGE_URL ")\n"
            "Usage: %s [--help] [--version] [--no-daemon] [--pidfile pidfile] [--user user[.group]] [configfile]\n"
            "Aborting.\n", myname);
  
@@ -1680,7 +1683,7 @@ int main(int argc, const char *argv[])
 
       else if(strcmp(argv[argc_pos], "--version") == 0)
       {
-         printf("Junkbuster version " VERSION " (" HOME_PAGE_URL ")\n");
+         printf("Privoxy version " VERSION " (" HOME_PAGE_URL ")\n");
          exit(0);
       }
 
@@ -1905,7 +1908,7 @@ int main(int argc, const char *argv[])
  *                on failure.
  *
  * Parameters  :
- *          1  :  config = Junkbuster configuration.  Specifies port
+ *          1  :  config = Privoxy configuration.  Specifies port
  *                         to bind to.
  *
  * Returns     :  Port that was opened.
@@ -1944,7 +1947,7 @@ static jb_socket bind_port_helper(struct configuration_spec * config)
       {
          case -3 :
             log_error(LOG_LEVEL_FATAL, "can't bind to %s:%d: "
-               "There may be another junkbuster or some other "
+               "There may be another Privoxy or some other "
                "proxy running on port %d",
                (NULL != config->haddr) ? config->haddr : "INADDR_ANY",
                       config->hport, config->hport);
@@ -2160,7 +2163,7 @@ static void listen_loop(void)
             NP_Entry, (ULONG)server_thread,
             NP_Output, Output(),
             NP_CloseOutput, FALSE,
-            NP_Name, (ULONG)"junkbuster child",
+            NP_Name, (ULONG)"privoxy child",
             NP_StackSize, 200*1024,
             TAG_DONE)))
          {
@@ -2254,6 +2257,9 @@ static void listen_loop(void)
    sweep();
    sweep();
 
+#if defined(unix)
+   free(basedir);
+#endif
 #if defined(_WIN32) && !defined(_WIN_CONSOLE)
    /* Cleanup - remove taskbar icon etc. */
    TermLogWindow();

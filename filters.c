@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.51  2002/03/24 15:23:33  jongfoster
+ *    Name changes
+ *
  *    Revision 1.50  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -743,7 +746,7 @@ struct http_response *block_url(struct client_state *csp)
 
       else
       {
-         rsp->status = strdup("302 Local Redirect from Junkbuster");
+         rsp->status = strdup("302 Local Redirect from Privoxy");
          if (rsp->status == NULL)
          {
             free_http_response(rsp);
@@ -772,7 +775,7 @@ struct http_response *block_url(struct client_state *csp)
       {
          p = CGI_PREFIX "send-banner?type=pattern";
       }
-      rsp->status = strdup("302 Local Redirect from Junkbuster");
+      rsp->status = strdup("302 Local Redirect from Privoxy");
       if (rsp->status == NULL)
       {
          free_http_response(rsp);
@@ -1045,7 +1048,7 @@ struct http_response *redirect_url(struct client_state *csp)
       }
 
       if ( enlist_unique_header(rsp->headers, "Location", q)
-        || (NULL == (rsp->status = strdup("302 Local Redirect from Junkbuster"))) )
+        || (NULL == (rsp->status = strdup("302 Local Redirect from Privoxy"))) )
       {
          free_http_response(rsp);
          return cgi_error_memory();
