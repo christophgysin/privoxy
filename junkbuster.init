@@ -36,6 +36,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.8  2001/06/28 13:50:36  sarantis
+#     swap ?$ with $?; remove bogus ";;"
+#
 #     Revision 1.7  2001/06/28 13:40:26  sarantis
 #     remove single quotes from $JB; it was not expanded.
 #
@@ -96,7 +99,7 @@ stop () {
 	# stop daemon
 	echo -n $"Stopping junkbuster: "
 	killproc junkbuster && rm -f /var/lock/subsys/junkbuster
-	RETVAL=?$
+	RETVAL=$?
 	echo
 	return $RETVAL
 }
@@ -119,7 +122,6 @@ case "$1" in
 		stop
 		start
 		RETVAL=$?
-		;;
 	fi 
 	;;
   status)
