@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/07/29 17:41:10  jongfoster
+ *    Now prints thread ID for each message (pthreads only)
+ *
  *    Revision 1.14  2001/07/19 19:03:48  haroon
  *    - Added case for LOG_LEVEL_POPUPS
  *
@@ -137,7 +140,9 @@ const char errlog_rcs[] = "$Id$";
 #endif /* ndef _WIN32 */
 
 #include <errno.h>
-/* #include <pthread.h> */
+#ifdef FEATURE_PTHREAD
+#include <pthread.h>
+#endif /* def FEATURE_PTHREAD */
 
 #ifdef _WIN32
 #include <windows.h>
@@ -300,7 +305,9 @@ void log_error(int loglevel, char *fmt, ...)
    }
 
    /* FIXME get current thread id */
-   /* this_thread = (long)pthread_self(); */
+#ifdef FEATURE_PTHREAD
+   this_thread = (long)pthread_self();
+#endif /* def FEATURE_PTHREAD */
 
    switch (loglevel)
    {
