@@ -39,7 +39,7 @@
 
 <html><head>
 <title>Privoxy not running</title>
-    <link rel="stylesheet" type="text/css" href="p_web.css">
+    <link rel="stylesheet" type="text/css" href="../p_web.css">
 </head>
 
 <body>
@@ -49,7 +49,7 @@
 <p>If you were redirected to this page, it means that you aren't using
 <a href="http://privoxy.org/">Privoxy</a>. &nbsp; Please check your browser settings.</p>
 
-<p>_Until version 2.9.13, Privoxy was also known as Internet
+<p>Until version 2.9.13, Privoxy was also known as Internet
 Junkbuster. If you recently upgraded, then the web-based interface has
 moved - it is now at <a
 href="http://config.privoxy.org/">http://config.privoxy.org/</a>
