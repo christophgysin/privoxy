@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/06/01 03:27:04  oes
+ *    Fixed line continuation problem
+ *
  *    Revision 1.13  2001/05/31 21:28:49  jongfoster
  *    Removed all permissionsfile code - it's now called the actions
  *    file, and (almost) all the code is in actions.c
@@ -745,24 +748,29 @@ char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
             *p = '\0';
          }
       }
-      
-      /* Remove leading and trailing whitespace */
-      chomp(linebuf);
 
+      /* Write to the buffer */
       if (*linebuf)
       {
          strncat(buf, linebuf, buflen - strlen(buf));
-         if (contflag)
-         {
-            contflag = 0;
-            continue;
-         }
-         else
-         {
-            return buf;
-         }
+      }
+
+      /* Continue? */
+      if (contflag)
+      {
+         contflag = 0;
+			continue;
+      }
+
+      /* Remove leading and trailing whitespace */         
+      chomp(buf);
+
+      if (*buf)
+      {
+         return buf;
       }
    }
+
    /* EOF */
    return NULL;
 
