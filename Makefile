@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.4  2002/04/09 16:38:10  oes
+# Added option to run the whole build process
+#
 # Revision 1.3  2002/03/26 22:29:54  swa
 # we have a new homepage!
 #
@@ -39,23 +42,24 @@
 
 #############################################################################
 
-error: GNUmakefile
-	@echo
-	@echo "ERROR!"
-	@echo "To build this program, you must run ./configure and then run GNU make."
-	@echo
-	@echo "You are not using the GNU version of Make - maybe it's called gmake"
-	@echo "or it's in a different directory?"
-	@echo
-
-GNUmakefile:
-	@echo
-	@echo "ERROR!"
-	@echo "To build this program, you must run ./configure and then run GNU make."
-	@echo
-	@echo "You haven't run ./configure yet."
-	@echo
-	@false
+error:
+	@if [ -f GNUmakefile ]; then \
+	    echo "***"; \
+	    echo "*** You are not using the GNU version of Make - maybe it's called gmake"; \
+	    echo "*** or it's in a different directory?"; \
+	    echo "***"; \
+	    exit 1; \
+	 else \
+	    echo "***"; \
+	    echo "*** To build this program, you must run"; \
+	    echo "*** autoheader && autoconf && ./configure and then run GNU make."; \
+	    echo "***"; \
+	    echo -n "*** Shall I do this for you now? (y/n) "; \
+	    read answer; \
+	    if [ $$answer == "y" ]; then \
+	       autoheader && autoconf && ./configure && make;\
+	    fi; \
+	 fi
 
 .PHONY: error
 
