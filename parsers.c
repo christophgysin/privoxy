@@ -41,6 +41,35 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2001/10/07 15:43:28  oes
+ *    Removed FEATURE_DENY_GZIP and replaced it with client_accept_encoding,
+ *       client_te and client_accept_encoding_adder, triggered by the new
+ *       +no-compression action. For HTTP/1.1 the Accept-Encoding header is
+ *       changed to allow only identity and chunked, and the TE header is
+ *       crunched. For HTTP/1.0, Accept-Encoding is crunched.
+ *
+ *    parse_http_request no longer does anything than parsing. The rewriting
+ *      of http->cmd and version mangling are gone. It now also recognizes
+ *      the put and delete methods and saves the url in http->url. Removed
+ *      unused variable.
+ *
+ *    renamed content_type and content_length to have the server_ prefix
+ *
+ *    server_content_type now only works if csp->content_type != CT_TABOO
+ *
+ *    added server_transfer_encoding, which
+ *      - Sets CT_TABOO to prohibit filtering if encoding compresses
+ *      - Raises the CSP_FLAG_CHUNKED flag if Encoding is "chunked"
+ *      - Change from "chunked" to "identity" if body was chunked
+ *        but has been de-chunked for filtering.
+ *
+ *    added server_content_md5 which crunches any Content-MD5 headers
+ *      if the body was modified.
+ *
+ *    made server_http11 conditional on +downgrade action
+ *
+ *    Replaced 6 boolean members of csp with one bitmap (csp->flags)
+ *
  *    Revision 1.31  2001/10/05 14:25:02  oes
  *    Crumble Keep-Alive from Server
  *
@@ -254,6 +283,7 @@ const char parsers_rcs[] = "$Id$";
 #include <sys/types.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include<assert.h>
 #endif
 
 #include <string.h>
@@ -294,9 +324,8 @@ const struct parsers client_patterns[] = {
    { "from:",                    5,    client_from },
    { "cookie:",                  7,    client_send_cookie },
    { "x-forwarded-for:",         16,   client_x_forwarded },
-#ifdef FEATURE_DENY_GZIP
-   { "Accept-Encoding: gzip",    21,   crumble },
-#endif /* def FEATURE_DENY_GZIP */
+   { "Accept-Encoding:",         16,   client_accept_encoding },
+   { "TE:",                      3,    client_te },
 #if defined(FEATURE_IMAGE_DETECT_MSIE)
    { "Accept:",                   7,   client_accept },
 #endif /* defined(FEATURE_IMAGE_DETECT_MSIE) */
@@ -315,8 +344,10 @@ const struct parsers server_patterns[] = {
    { "HTTP/1.1 ",           9, server_http11 },
    { "set-cookie:",        11, server_set_cookie },
    { "connection:",        11, crumble },
-   { "Content-Type:",      13, content_type },
-   { "Content-Length:",    15, content_length },
+   { "Content-Type:",      13, server_content_type },
+   { "Content-Length:",    15, server_content_length },
+   { "Content-MD5:",       12, server_content_md5 },
+   { "Transfer-Encoding:", 18, server_transfer_encoding },
    { "Keep-Alive:",        11, crumble },
    { NULL, 0, NULL }
 };
@@ -326,7 +357,8 @@ void (* const add_client_headers[])(struct client_state *) = {
    client_cookie_adder,
    client_x_forwarded_adder,
    client_xtra_adder,
-   connection_close_adder,   
+   client_accept_encoding_adder,
+   connection_close_adder, 
    NULL
 };
 
@@ -566,9 +598,12 @@ char *sed(const struct parsers pats[], void (* const more_headers[])(struct clie
  *********************************************************************/
 void free_http_request(struct http_request *http)
 {
+   assert(http);
+
    freez(http->cmd);
    freez(http->gpc);
    freez(http->host);
+   freez(http->url);
    freez(http->hostport);
    freez(http->path);
    freez(http->ver);
@@ -595,12 +630,11 @@ void free_http_request(struct http_request *http)
  *********************************************************************/
 void parse_http_request(char *req, struct http_request *http, struct client_state *csp)
 {
-   char *buf, *v[10], *url, *p, *save_url;
+   char *buf, *v[10], *url, *p;
    int n;
 
    memset(http, '\0', sizeof(*http));
-
-   http->cmd = strdup(req);
+   http->cmd = strdup(req);  
 
    buf = strdup(req);
    n = ssplit(buf, " \r\n", v, SZ(v), 1, 1);
@@ -616,11 +650,14 @@ void parse_http_request(char *req, struct http_request *http, struct client_stat
          http->ver      = strdup(v[2]);
       }
 
-      /* or it could be a GET or a POST (possibly webDAV too) */
+      /* or it could be any other basic HTTP request type */
       if ((0 == strcmpic(v[0], "get"))
        || (0 == strcmpic(v[0], "head"))
        || (0 == strcmpic(v[0], "post"))
-       /* These are the headers as defined in RFC2518 to add webDAV support: */
+       || (0 == strcmpic(v[0], "put"))
+       || (0 == strcmpic(v[0], "delete"))
+
+       /* or a webDAV extension (RFC2518) */
        || (0 == strcmpic(v[0], "propfind"))
        || (0 == strcmpic(v[0], "proppatch"))
        || (0 == strcmpic(v[0], "move"))
@@ -632,25 +669,10 @@ void parse_http_request(char *req, struct http_request *http, struct client_stat
       {
          http->ssl    = 0;
          http->gpc    = strdup(v[0]);
-         url          = v[1];
-         /* since we don't support HTTP/1.1 we must not send it */
-         if (!strcmpic(v[2], "HTTP/1.1"))
-         {
-            http->ver = strdup("HTTP/1.0");
-            /* change cmd too (forwaring) */
-            freez(http->cmd);
-            http->cmd = strsav(http->cmd, http->gpc);
-            http->cmd = strsav(http->cmd, " ");
-            http->cmd = strsav(http->cmd, url);
-            http->cmd = strsav(http->cmd, " ");
-            http->cmd = strsav(http->cmd, http->ver);
-         }
-         else
-         {
-            http->ver = strdup(v[2]);
-         }
+         http->url    = strdup(v[1]);
+         http->ver    = strdup(v[2]);
 
-         save_url = url;
+         url = v[1];
          if (strncmpic(url, "http://",  7) == 0)
          {
             url += 7;
@@ -677,17 +699,8 @@ void parse_http_request(char *req, struct http_request *http, struct client_stat
              */
             else
             {
-               /* Repair hostport & path */
                http->path = strdup("/");
                http->hostport = strdup(url);
-
-               /* Even repair cmd in case we're just forwarding. Boy are we nice ;-)  */
-               freez(http->cmd);
-               http->cmd = strsav(http->cmd, http->gpc);
-               http->cmd = strsav(http->cmd, " ");
-               http->cmd = strsav(http->cmd, save_url);
-               http->cmd = strsav(http->cmd, "/ ");
-               http->cmd = strsav(http->cmd, http->ver);
             }
          }
       }
@@ -738,7 +751,7 @@ void parse_http_request(char *req, struct http_request *http, struct client_stat
 
    if (http->path == NULL)
    {
-      http->path = strdup("");
+      http->path = strdup("/");
    }
 
 }
@@ -772,9 +785,11 @@ char *crumble(const struct parsers *v, const char *s, struct client_state *csp)
 
 /*********************************************************************
  *
- * Function    :  content_type
+ * Function    :  server_content_type
  *
- * Description :  Is this a text/.* or javascript MIME Type?
+ * Description :  Set the content-type for filterable types (text/.*,
+ *                javascript and image/gif) unless filtering has been
+ *                forbidden (CT_TABOO) while parsing earlier headers.
  *
  * Parameters  :
  *          1  :  v = ignored
@@ -784,14 +799,17 @@ char *crumble(const struct parsers *v, const char *s, struct client_state *csp)
  * Returns     :  A duplicate string pointer to this header (ie. pass thru)
  *
  *********************************************************************/
-char *content_type(const struct parsers *v, const char *s, struct client_state *csp)
+char *server_content_type(const struct parsers *v, const char *s, struct client_state *csp)
 {
-   if (strstr(s, " text/") || strstr(s, "application/x-javascript"))
-      csp->content_type = CT_TEXT;
-   else if (strstr(s, " image/gif"))
-      csp->content_type = CT_GIF;
-   else
-      csp->content_type = 0;
+   if (csp->content_type != CT_TABOO)
+   {
+      if (strstr(s, " text/") || strstr(s, "application/x-javascript"))
+         csp->content_type = CT_TEXT;
+      else if (strstr(s, " image/gif"))
+         csp->content_type = CT_GIF;
+      else
+         csp->content_type = 0;
+   }
 
    return(strdup(s));
 
@@ -800,7 +818,56 @@ char *content_type(const struct parsers *v, const char *s, struct client_state *
 
 /*********************************************************************
  *
- * Function    :  content_length
+ * Function    :  server_transfer_encoding
+ *
+ * Description :  - Prohibit filtering (CT_TABOO) if encoding compresses
+ *                - Raise the CSP_FLAG_CHUNKED flag if Encoding is "chunked"
+ *                - Change from "chunked" to "identity" if body was chunked
+ *                  but has been de-chunked for filtering.
+ *
+ * Parameters  :
+ *          1  :  v = ignored
+ *          2  :  s = header string we are "considering"
+ *          3  :  csp = Current client state (buffers, headers, etc...)
+ *
+ * Returns     :  A duplicate string pointer to this header (ie. pass thru)
+ *
+ *********************************************************************/
+char *server_transfer_encoding(const struct parsers *v, const char *s, struct client_state *csp)
+{
+   /*
+    * Turn off pcrs and gif filtering if body compressed
+    */
+   if (strstr(s, "gzip") || strstr(s, "compress") || strstr(s, "deflate"))
+   {
+      csp->content_type = CT_TABOO;
+   }
+
+   /* 
+    * Raise flag if body chunked
+    */
+   if (strstr(s, "chunked"))
+   {
+      csp->flags |= CSP_FLAG_CHUNKED;
+
+      /*
+       * If the body was modified, it has been 
+       * de-chunked first, so adjust the header:
+       */
+      if (csp->flags & CSP_FLAG_MODIFIED)
+      {
+         return(strdup("Transfer-Encoding: identity"));
+      }
+   }
+
+   return(strdup(s));
+
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  server_content_length
  *
  * Description :  Adjust Content-Length header if we modified
  *                the body.
@@ -813,14 +880,14 @@ char *content_type(const struct parsers *v, const char *s, struct client_state *
  * Returns     :  A duplicate string pointer to this header (ie. pass thru)
  *
  *********************************************************************/
-char *content_length(const struct parsers *v, const char *s, struct client_state *csp)
+char *server_content_length(const struct parsers *v, const char *s, struct client_state *csp)
 {
-   if (csp->content_length != 0) /* Content has been modified */
+   if (csp->content_length != 0) /* Content length has been modified */
    {
       char * s2 = (char *) zalloc(100);
       sprintf(s2, "Content-Length: %d", (int) csp->content_length);
 
-   	  log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", (int) csp->content_length);
+      log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", (int) csp->content_length);
       return(s2);
    }
    else
@@ -830,6 +897,104 @@ char *content_length(const struct parsers *v, const char *s, struct client_state
 
 }
 
+
+/*********************************************************************
+ *
+ * Function    :  server_content_md5
+ *
+ * Description :  Crumble any Content-MD5 headers if the document was
+ *                modified. FIXME: Should we re-compute instead?
+ *
+ * Parameters  :
+ *          1  :  v = ignored
+ *          2  :  s = header string we are "considering"
+ *          3  :  csp = Current client state (buffers, headers, etc...)
+ *
+ * Returns     :  A duplicate string pointer to this header (ie. pass thru)
+ *
+ *********************************************************************/
+char *server_content_md5(const struct parsers *v, const char *s, struct client_state *csp)
+{
+   if (csp->flags & CSP_FLAG_MODIFIED)
+   {
+      log_error(LOG_LEVEL_HEADER, "Crunching Content-MD5");
+      return(NULL);
+   }
+   else
+   {
+      return(strdup(s));
+   }
+
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  client_accept_encoding
+ *
+ * Description :  Rewrite the client's Accept-Encoding header so that
+ *                if doesn't allow compression, if the action applies.
+ *                Note: For HTTP/1.0 the absence of the header is enough.
+ *
+ * Parameters  :
+ *          1  :  v = ignored
+ *          2  :  s = header string we are "considering"
+ *          3  :  csp = Current client state (buffers, headers, etc...)
+ *
+ * Returns     :  A copy of the client's original or the modified header.
+ *
+ *********************************************************************/
+char *client_accept_encoding(const struct parsers *v, const char *s, struct client_state *csp)
+{
+   if ((csp->action->flags & ACTION_NO_COMPRESSION) == 0)
+   {
+      return(strdup(s));
+   }
+   else
+   {
+      log_error(LOG_LEVEL_HEADER, "Supressed offer to compress content");
+
+      if (!strcmpic(csp->http->ver, "HTTP/1.1"))
+      {
+         return(strdup("Accept-Encoding: identity;q=1.0, *;q=0"));
+      }
+      else
+      {
+         return(NULL);
+      }
+   }
+
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  client_te
+ *
+ * Description :  Rewrite the client's TE header so that
+ *                if doesn't allow compression, if the action applies.
+ *
+ * Parameters  :
+ *          1  :  v = ignored
+ *          2  :  s = header string we are "considering"
+ *          3  :  csp = Current client state (buffers, headers, etc...)
+ *
+ * Returns     :  A copy of the client's original or the modified header.
+ *
+ *********************************************************************/
+char *client_te(const struct parsers *v, const char *s, struct client_state *csp)
+{
+   if ((csp->action->flags & ACTION_NO_COMPRESSION) == 0)
+   {
+      return(strdup(s));
+   }
+   else
+   {
+      log_error(LOG_LEVEL_HEADER, "Supressed offer to compress transfer");
+      return(NULL);
+   }
+
+}
 
 /*********************************************************************
  *
@@ -1236,6 +1401,32 @@ void client_cookie_adder(struct client_state *csp)
 
 /*********************************************************************
  *
+ * Function    :  client_accept_encoding_adder
+ *
+ * Description :  Add an Accept-Encoding header to the client's request
+ *                that disables compression if the action applies, and
+ *                the header is not already there. Called from `sed'.
+ *                Note: For HTTP/1.0, the absence of the header is enough.
+ *
+ * Parameters  :
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *
+ * Returns     :  N/A
+ *
+ *********************************************************************/
+void client_accept_encoding_adder(struct client_state *csp)
+{
+   if (   ((csp->action->flags & ACTION_NO_COMPRESSION) != 0)
+       && (!strcmpic(csp->http->ver, "HTTP/1.1")) )
+   {
+      enlist_unique(csp->headers, "Accept-Encoding: identity;q=1.0, *;q=0", 16);
+   }
+
+}
+
+
+/*********************************************************************
+ *
  * Function    :  client_xtra_adder
  *
  * Description :  Used in the add_client_headers list.  Called from `sed'.
@@ -1325,25 +1516,34 @@ void connection_close_adder(struct client_state *csp)
  *
  * Function    :  server_http11
  *
- * Description :  Rewrite HTTP/1.1 answers to HTTP/1.0 until we add
- *                HTTP/1.1 support. Called from `sed'.
+ * Description :  Rewrite HTTP/1.1 answers to HTTP/1.0 if +downgrade
+ *                action applies.
  *
  * Parameters  :
  *          1  :  v = parser pattern that matched this header
  *          2  :  s = header that matched this pattern
  *          3  :  csp = Current client state (buffers, headers, etc...)
  *
- * Returns     :  "HTTP/1.0" answer.
+ * Returns     :  Copy of changed  or original answer.
  *
  *********************************************************************/
 char *server_http11(const struct parsers *v, const char *s, struct client_state *csp)
 {
    char *ret;
 
-   ret = strdup(s);
-   ret[7] = '0'; /* "HTTP/1.1 ..." -> "HTTP/1.0 ..." */
+   if ((csp->action->flags & ACTION_DOWNGRADE) != 0)
+   {
+      /* "HTTP/1.1 ..." -> "HTTP/1.0 ..." */
+      ret = strdup(s);
+      ret[7] = '0'; 
 
-   return ret;
+      return(ret);
+   }
+   else
+   {
+      return(strdup(s));
+   }
+
 }
 
 
@@ -1402,7 +1602,7 @@ char *client_host(const struct parsers *v, const char *s, struct client_state *c
 {
    char *cleanhost = strdup(s);
  
-   if(csp->force)
+   if(csp->flags & CSP_FLAG_FORCED)
    {
       strclean(cleanhost, FORCE_PREFIX);
    }
