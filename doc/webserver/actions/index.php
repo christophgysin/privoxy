@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.15  2002/04/07 17:13:08  oes
+  Ooops: fixing submit target url
+
   Revision 1.14  2002/04/07 15:10:12  oes
   Restoring CVS history
 
@@ -93,7 +96,7 @@
 $required_actions_file_version = "1.0";
 $required_privoxy_version = "2.9.13";
 $actions_file_download = "http://www.privoxy.org/actions/testdrive.action";
-$submit_target = "http://www.oesterhelt.org/actions-test/step2.php";
+$submit_target = "http://www.oesterhelt.org/actions/step2.php";
 
 
 /*
