@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.66  2002/04/15 19:06:43  jongfoster
+ *    Typos
+ *
  *    Revision 1.65  2002/04/04 00:36:36  gliptak
  *    always use pcre for matching
  *
@@ -996,7 +999,7 @@ struct configuration_spec
    int debug;
    int multi_threaded;
 
-   /* Features that can be enabled/disabled throuigh the config file */
+   /* Features that can be enabled/disabled through the config file */
    unsigned feature_flags;
 
    const char *logfile;

@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.63  2002/04/15 19:06:43  jongfoster
+ *    Typos
+ *
  *    Revision 1.62  2002/04/10 19:59:46  jongfoster
  *    Fixes to #include in templates:
  *    - Didn't close main file if loading an included template fails.
@@ -560,7 +563,7 @@ static struct map *parse_cgi_parameters(char *argstring);
  * Function    :  dispatch_cgi
  *
  * Description :  Checks if a request URL has either the magical
- *                hostname CGI_SITE_1_HOST (usully http://i.j.b/) or
+ *                hostname CGI_SITE_1_HOST (usually http://p.p/) or
  *                matches CGI_SITE_2_HOST CGI_SITE_2_PATH (usually
  *                http://ijbswa.sourceforge.net/config). If so, it passes
  *                the (rest of the) path onto dispatch_known_cgi, which
