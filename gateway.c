@@ -34,6 +34,30 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2002/03/09 20:03:52  jongfoster
+ *    - Making various functions return int rather than size_t.
+ *      (Undoing a recent change).  Since size_t is unsigned on
+ *      Windows, functions like read_socket that return -1 on
+ *      error cannot return a size_t.
+ *
+ *      THIS WAS A MAJOR BUG - it caused frequent, unpredictable
+ *      crashes, and also frequently caused JB to jump to 100%
+ *      CPU and stay there.  (Because it thought it had just
+ *      read ((unsigned)-1) == 4Gb of data...)
+ *
+ *    - The signature of write_socket has changed, it now simply
+ *      returns success=0/failure=nonzero.
+ *
+ *    - Trying to get rid of a few warnings --with-debug on
+ *      Windows, I've introduced a new type "jb_socket".  This is
+ *      used for the socket file descriptors.  On Windows, this
+ *      is SOCKET (a typedef for unsigned).  Everywhere else, it's
+ *      an int.  The error value can't be -1 any more, so it's
+ *      now JB_INVALID_SOCKET (which is -1 on UNIX, and in
+ *      Windows it maps to the #define INVALID_SOCKET.)
+ *
+ *    - The signature of bind_port has changed.
+ *
  *    Revision 1.11  2002/03/08 17:46:04  jongfoster
  *    Fixing int/size_t warnings
  *
@@ -116,10 +140,10 @@ const char gateway_rcs[] = "$Id$";
 
 const char gateway_h_rcs[] = GATEWAY_H_VERSION;
 
-static int socks4_connect(const struct forward_spec * fwd,
-                          const char * target_host,
-                          int target_port,
-                          struct client_state *csp);
+static jb_socket socks4_connect(const struct forward_spec * fwd,
+                                const char * target_host,
+                                int target_port,
+                                struct client_state *csp);
 
 
 #define SOCKS_REQUEST_GRANTED          90
@@ -163,9 +187,9 @@ static const char socks_userid[] = "anonymous";
  * Returns     :  -1 => failure, else it is the socket file descriptor.
  *
  *********************************************************************/
-int forwarded_connect(const struct forward_spec * fwd,
-                      struct http_request *http,
-                      struct client_state *csp)
+jb_socket forwarded_connect(const struct forward_spec * fwd,
+                            struct http_request *http,
+                            struct client_state *csp)
 {
    const char * dest_host;
    int dest_port;
@@ -198,7 +222,7 @@ int forwarded_connect(const struct forward_spec * fwd,
          /* Should never get here */
          log_error(LOG_LEVEL_FATAL, "SOCKS4 impossible internal error - bad SOCKS type.");
          errno = EINVAL;
-         return(-1);
+         return(JB_INVALID_SOCKET);
    }
 }
 
@@ -221,10 +245,10 @@ int forwarded_connect(const struct forward_spec * fwd,
  * Returns     :  -1 => failure, else a socket file descriptor.
  *
  *********************************************************************/
-static int socks4_connect(const struct forward_spec * fwd,
-                          const char * target_host,
-                          int target_port,
-                          struct client_state *csp)
+static jb_socket socks4_connect(const struct forward_spec * fwd,
+                                const char * target_host,
+                                int target_port,
+                                struct client_state *csp)
 {
    int web_server_addr;
    char cbuf[BUFFER_SIZE];
@@ -233,7 +257,7 @@ static int socks4_connect(const struct forward_spec * fwd,
    struct socks_reply *s = (struct socks_reply *)sbuf;
    size_t n;
    size_t csiz;
-   int sfd;
+   jb_socket sfd;
    int err = 0;
    char *errstr;
 
@@ -252,7 +276,7 @@ static int socks4_connect(const struct forward_spec * fwd,
    if (err)
    {
       errno = EINVAL;
-      return(-1);
+      return(JB_INVALID_SOCKET);
    }
 
    /* build a socks request for connection to the web server */
@@ -268,7 +292,7 @@ static int socks4_connect(const struct forward_spec * fwd,
          if (web_server_addr == INADDR_NONE)
          {
             log_error(LOG_LEVEL_CONNECT, "socks4_connect: could not resolve target host %s", target_host);
-            return(-1);
+            return(JB_INVALID_SOCKET);
          }
          break;
       case SOCKS_4A:
@@ -277,7 +301,7 @@ static int socks4_connect(const struct forward_spec * fwd,
          if (n > sizeof(cbuf))
          {
             errno = EINVAL;
-            return(-1);
+            return(JB_INVALID_SOCKET);
          }
          strcpy(cbuf + csiz, target_host);
          csiz = n;
@@ -286,7 +310,7 @@ static int socks4_connect(const struct forward_spec * fwd,
          /* Should never get here */
          log_error(LOG_LEVEL_FATAL, "SOCKS4 impossible internal error - bad SOCKS type.");
          errno = EINVAL;
-         return(-1);
+         return(JB_INVALID_SOCKET);
    }
 
    c->vn          = 4;
@@ -301,23 +325,23 @@ static int socks4_connect(const struct forward_spec * fwd,
    /* pass the request to the socks server */
    sfd = connect_to(fwd->gateway_host, fwd->gateway_port, csp);
 
-   if (sfd < 0)
+   if (sfd == JB_INVALID_SOCKET)
    {
-      return(-1);
+      return(JB_INVALID_SOCKET);
    }
 
-   if (write_socket(sfd, (char *)c, csiz) != csiz)
+   if (write_socket(sfd, (char *)c, (int)csiz))
    {
       log_error(LOG_LEVEL_CONNECT, "SOCKS4 negotiation write failed...");
       close_socket(sfd);
-      return(-1);
+      return(JB_INVALID_SOCKET);
    }
 
    if (read_socket(sfd, sbuf, sizeof(sbuf)) != sizeof(*s))
    {
       log_error(LOG_LEVEL_CONNECT, "SOCKS4 negotiation read failed...");
       close_socket(sfd);
-      return(-1);
+      return(JB_INVALID_SOCKET);
    }
 
    switch (s->cd)
@@ -350,7 +374,7 @@ static int socks4_connect(const struct forward_spec * fwd,
    log_error(LOG_LEVEL_CONNECT, "socks4_connect: %s ...", errstr);
 
    close_socket(sfd);
-   return(-1);
+   return(JB_INVALID_SOCKET);
 
 }
 

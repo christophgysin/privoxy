@@ -36,6 +36,30 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.54  2002/03/09 20:03:52  jongfoster
+ *    - Making various functions return int rather than size_t.
+ *      (Undoing a recent change).  Since size_t is unsigned on
+ *      Windows, functions like read_socket that return -1 on
+ *      error cannot return a size_t.
+ *
+ *      THIS WAS A MAJOR BUG - it caused frequent, unpredictable
+ *      crashes, and also frequently caused JB to jump to 100%
+ *      CPU and stay there.  (Because it thought it had just
+ *      read ((unsigned)-1) == 4Gb of data...)
+ *
+ *    - The signature of write_socket has changed, it now simply
+ *      returns success=0/failure=nonzero.
+ *
+ *    - Trying to get rid of a few warnings --with-debug on
+ *      Windows, I've introduced a new type "jb_socket".  This is
+ *      used for the socket file descriptors.  On Windows, this
+ *      is SOCKET (a typedef for unsigned).  Everywhere else, it's
+ *      an int.  The error value can't be -1 any more, so it's
+ *      now JB_INVALID_SOCKET (which is -1 on UNIX, and in
+ *      Windows it maps to the #define INVALID_SOCKET.)
+ *
+ *    - The signature of bind_port has changed.
+ *
  *    Revision 1.53  2002/03/08 16:48:55  oes
  *    Added FEATURE_NO_GIFS and BUILTIN_IMAGE_MIMETYPE
  *
@@ -404,9 +428,30 @@
 #include "amiga.h"
 #endif /* def AMIGA */
 
+#ifdef _WIN32
+/*
+ * I don't want to have to #include all this just for the declaration
+ * of SOCKET.  However, it looks like we have to...
+ */
+#include <windows.h>
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/*
+ * The type used by sockets.  On UNIX it's an int.  Microsoft decided to
+ * make it an unsigned.
+ */
+#ifdef _WIN32
+typedef SOCKET jb_socket;
+#define JB_INVALID_SOCKET INVALID_SOCKET
+#else /* ndef _WIN32 */
+typedef int jb_socket;
+#define JB_INVALID_SOCKET (-1)
+#endif /* ndef _WIN32 */
 
 
 /*
@@ -715,10 +760,10 @@ struct client_state
    struct current_action_spec  action[1];
 
    /* socket to talk to client (web browser) */
-   int  cfd;
+   jb_socket cfd;
 
    /* socket to talk to server (web server or proxy) */
-   int  sfd;
+   jb_socket sfd;
 
    /* Multi-purpose flag container, see CSP_FLAG_* above */
    unsigned short int flags;

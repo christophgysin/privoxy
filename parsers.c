@@ -40,6 +40,30 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.49  2002/03/09 20:03:52  jongfoster
+ *    - Making various functions return int rather than size_t.
+ *      (Undoing a recent change).  Since size_t is unsigned on
+ *      Windows, functions like read_socket that return -1 on
+ *      error cannot return a size_t.
+ *
+ *      THIS WAS A MAJOR BUG - it caused frequent, unpredictable
+ *      crashes, and also frequently caused JB to jump to 100%
+ *      CPU and stay there.  (Because it thought it had just
+ *      read ((unsigned)-1) == 4Gb of data...)
+ *
+ *    - The signature of write_socket has changed, it now simply
+ *      returns success=0/failure=nonzero.
+ *
+ *    - Trying to get rid of a few warnings --with-debug on
+ *      Windows, I've introduced a new type "jb_socket".  This is
+ *      used for the socket file descriptors.  On Windows, this
+ *      is SOCKET (a typedef for unsigned).  Everywhere else, it's
+ *      an int.  The error value can't be -1 any more, so it's
+ *      now JB_INVALID_SOCKET (which is -1 on UNIX, and in
+ *      Windows it maps to the #define INVALID_SOCKET.)
+ *
+ *    - The signature of bind_port has changed.
+ *
  *    Revision 1.48  2002/03/07 03:46:53  oes
  *    Fixed compiler warnings etc
  *
@@ -445,17 +469,20 @@ const add_header_func_ptr add_server_headers[] = {
  *                file, the results are not portable.
  *
  *********************************************************************/
-size_t flush_socket(int fd, struct client_state *csp)
+int flush_socket(jb_socket fd, struct client_state *csp)
 {
    struct iob *iob = csp->iob;
-   size_t len = iob->eod - iob->cur;
+   int len = iob->eod - iob->cur;
 
    if (len <= 0)
    {
       return(0);
    }
 
-   len = write_socket(fd, iob->cur, len);
+   if (write_socket(fd, iob->cur, len))
+   {
+      return(-1);
+   }
    iob->eod = iob->cur = iob->buf;
    return(len);
 
