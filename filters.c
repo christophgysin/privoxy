@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.54  2002/04/02 14:55:56  oes
+ *    Bugfix: is_untrusted_url() now depends on FEATURE_TRUST, not FEATURE_COOKIE_JAR
+ *
  *    Revision 1.53  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -1096,7 +1099,7 @@ int is_imageurl(struct client_state *csp)
 #endif /* def FEATURE_IMAGE_BLOCKING */
 
 
-#ifdef FEATURE_COOKIE_JAR
+#ifdef FEATURE_TRUST
 /*********************************************************************
  *
  * Function    :  is_untrusted_url
@@ -1150,15 +1153,10 @@ int is_untrusted_url(struct client_state *csp)
       return 1;
    }
 
+
    /*
     * If not, do we maybe trust its referrer?
     */
-
-
-   /*
-    * Parse the URL from the referrer
-    */
-
    err = parse_http_url(referer, rhttp, csp);
    if (err)
    {
@@ -1220,7 +1218,7 @@ int is_untrusted_url(struct client_state *csp)
    }
    return 1;
 }
-#endif /* def FEATURE_COOKIE_JAR */
+#endif /* def FEATURE_TRUST */
 
 
 /*********************************************************************
