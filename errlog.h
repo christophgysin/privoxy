@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2002/03/06 23:02:57  jongfoster
+ *    Removing tabs
+ *
  *    Revision 1.10  2001/09/13 20:08:06  jongfoster
  *    Adding support for LOG_LEVEL_CGI
  *
@@ -140,7 +143,7 @@ extern "C" {
 
 #define LOG_LEVEL_CLF        0x0200 /* Common Log File format */
 #ifdef FEATURE_KILL_POPUPS
-#define LOG_LEVEL_POPUPS	  0x0400 /* Kill Popups */
+#define LOG_LEVEL_POPUPS     0x0400 /* Kill Popups */
 #endif /* def FEATURE_KILL_POPUPS */
 
 #define LOG_LEVEL_CGI   0x0800 /* CGI / templates */

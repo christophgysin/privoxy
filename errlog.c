@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2002/03/06 23:02:57  jongfoster
+ *    Removing tabs
+ *
  *    Revision 1.30  2002/03/05 22:43:45  david__schmidt
  *    - Better error reporting on OS/2
  *    - Fix double-slash comment (oops)
@@ -399,11 +402,11 @@ void log_error(int loglevel, char *fmt, ...)
 
     {
        /*
-	* Write timestamp into tempbuf.
-	*
-	* Complex because not all OSs have tm_gmtoff or
-	* the %z field in strftime()
-	*/
+        * Write timestamp into tempbuf.
+        *
+        * Complex because not all OSs have tm_gmtoff or
+        * the %z field in strftime()
+        */
        time_t now; 
        struct tm tm_now; 
        time (&now);
@@ -455,7 +458,7 @@ void log_error(int loglevel, char *fmt, ...)
          outc = sprintf(outbuf, "IJB(%ld) Gif-Deanimate: ", this_thread);
          break;
       case LOG_LEVEL_CLF:
-	 outbuf = outbuf_save;
+         outbuf = outbuf_save;
          outc = 0;
          outbuf[0] = '\0';
          break;
