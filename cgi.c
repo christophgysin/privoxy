@@ -36,6 +36,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/08/01 21:19:22  jongfoster
+ *    Moving file version information to a separate CGI page.
+ *
  *    Revision 1.14  2001/08/01 00:19:03  jongfoster
  *    New function: map_conditional() for an if-then-else syntax.
  *    Changing to use new version of show_defines()
@@ -163,10 +166,13 @@ const char cgi_h_rcs[] = CGI_H_VERSION;
 const struct cgi_dispatcher cgi_dispatcher[] = {
    { "show-status", 
          11, cgi_show_status,  
-         "Show information about the version and configuration" }, 
+         "Show information about the current configuration" }, 
    { "show-url-info",
          13, cgi_show_url_info, 
          "Show which actions apply to a URL and why"  },
+   { "show-version", 
+         12, cgi_show_version,  
+         "Show the source code version numbers" }, 
    { "send-banner",
          11, cgi_send_banner, 
          "HIDE Send the transparent or \"Junkbuster\" gif" },
@@ -391,6 +397,39 @@ int cgi_send_banner(struct client_state *csp, struct http_response *rsp,
 
 /*********************************************************************
  *
+ * Function    :  cgi_show_version
+ *
+ * Description :  CGI function that returns a a web page describing the
+ *                file versions of IJB.
+ *
+ * Parameters  :
+ *           1 :  csp = Current client state (buffers, headers, etc...)
+ *           2 :  rsp = http_response data structure for output
+ *           3 :  parameters = map of cgi parameters
+ *
+ * CGI Parameters :
+ *           type : Selects the type of banner between "trans" and "jb".
+ *                  Defaults to "jb" if absent or != "trans".
+ *
+ * Returns     :  0
+ *
+ *********************************************************************/
+int cgi_show_version(struct client_state *csp, struct http_response *rsp,
+                     struct map *parameters)
+{
+   struct map *exports = default_exports(csp, "show-version");
+
+   exports = map(exports, "sourceversions", 1, show_rcs(), 0);  
+
+   rsp->body = fill_template(csp, "show-version", exports);
+   free_map(exports);
+   return(0);
+
+}
+
+ 
+/*********************************************************************
+ *
  * Function    :  cgi_show_status
  *
  * Description :  CGI function that returns a a web page describing the
@@ -493,8 +532,6 @@ int cgi_show_status(struct client_state *csp, struct http_response *rsp,
    exports = map(exports, "invocation", 1, s, 0);
 
    exports = map(exports, "options", 1, csp->config->proxy_args, 1);
-   s =   show_rcs();
-   exports = map(exports, "sourceversions", 1, s, 0);  
    exports = show_defines(exports);
 
 #ifdef FEATURE_STATISTICS
@@ -790,6 +827,15 @@ struct http_response *finish_http_response(struct http_response *rsp)
 
    /* 
     * Fill in the default headers FIXME: Are these correct? sequence OK? check rfc!
+    * FIXME: Should have:
+    *   "JunkBuster" GIF: Last-Modified: any *fixed* date in the past (as now).
+    *                     Expires: 5 minutes after the time when reply sent
+    *   CGI, "blocked", & all other requests:
+    *        Last-Modified: Time when reply sent
+    *        Expires:       Time when reply sent
+    *       "Cache-Control: no-cache"
+    *        
+    * See http://www.w3.org/Protocols/rfc2068/rfc2068
     */
    enlist_unique(rsp->headers, "Last-Modified: Thu Jul 31, 1997 07:42:22 pm GMT", 14);
    enlist_unique(rsp->headers, "Expires:       Thu Jul 31, 1997 07:42:22 pm GMT", 8);

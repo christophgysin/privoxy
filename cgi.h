@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/08/01 21:19:22  jongfoster
+ *    Moving file version information to a separate CGI page.
+ *
  *    Revision 1.9  2001/08/01 00:17:54  jongfoster
  *    Adding prototype for map_conditional
  *
@@ -89,6 +92,8 @@ extern struct map *parse_cgi_parameters(char *argstring);
 /*
  * CGI functions
  */
+extern int cgi_show_version(struct client_state *csp, struct http_response *rsp,
+                            struct map *parameters);
 extern int cgi_default(struct client_state *csp, struct http_response *rsp,
                        struct map *parameters);
 extern int cgi_show_status(struct client_state *csp, struct http_response *rsp,
