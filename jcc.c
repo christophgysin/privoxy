@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.48  2001/10/10 19:56:46  jongfoster
+ *    Moving some code that wasn't cookie-related out of an #ifdef
+ *    FEATURE_COOKIE_JAR
+ *
  *    Revision 1.47  2001/10/10 16:44:36  oes
  *    Added CONNECT destination port limitation check
  *
@@ -611,7 +615,6 @@ static void chat(struct client_state *csp)
       url_actions(http, csp);
    }
 
-#ifdef FEATURE_COOKIE_JAR
 
    /*
     * Check if a CONNECT request is allowable:
@@ -672,6 +675,7 @@ static void chat(struct client_state *csp)
    enlist(csp->headers, http->cmd);
 
 
+#ifdef FEATURE_COOKIE_JAR
    /*
     * If we're logging cookies in a cookie jar, and the user has not
     * supplied any wafers, and the user has not told us to suppress the
@@ -684,6 +688,7 @@ static void chat(struct client_state *csp)
       enlist(csp->action->multi[ACTION_MULTI_WAFER], VANILLA_WAFER);
    }
 #endif /* def FEATURE_COOKIE_JAR */
+
 
 #ifdef FEATURE_KILL_POPUPS
    block_popups               = ((csp->action->flags & ACTION_NO_POPUPS) != 0);
