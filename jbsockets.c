@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2002/04/26 15:50:04  joergs
+ *    AmigaOS: No socklen_t, added AMIGA to the systems using int instead.
+ *
  *    Revision 1.34  2002/04/08 20:31:41  swa
  *    fixed JB spelling
  *
@@ -637,7 +640,7 @@ int accept_connection(struct client_state * csp, jb_socket fd)
    struct sockaddr_in client, server;
    struct hostent *host = NULL;
    jb_socket afd;
-#if defined(_WIN32) || defined(__OS2__) || defined(__APPLE_CC__)
+#if defined(_WIN32) || defined(__OS2__) || defined(__APPLE_CC__) || defined(AMIGA)
    /* Wierdness - fix a warning. */
    int c_length, s_length;
 #else
