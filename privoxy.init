@@ -43,6 +43,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.8.2.1  2002/07/12 09:14:26  kick_
+#     don't use ghost files for rcX.d/*, chkconfig is available to do this job. Enable translation of error messge
+#
 #     Revision 1.8  2002/04/09 02:51:31  hal9
 #     Changed $JB to $PRIVOXY.
 #
@@ -186,8 +189,8 @@ PRIVOXY_LOCK=/var/lock/subsys/$PRIVOXY_PRG
 PRIVOXY="$PRIVOXY_BIN --user $PRIVOXY_USER.$PRIVOXY_USER --pidfile $PRIVOXY_PID $PRIVOXY_CONF"
 
 # some checks for us
-! [ -x $PRIVOXY_BIN  ] && echo "Can't find $PRIVOXY_BIN, exit." && exit 0
-! [ -f $PRIVOXY_CONF ] && echo "Can't find $PRIVOXY_CONF, exit." && exit 0
+! [ -x $PRIVOXY_BIN  ] && echo $"Can't find $PRIVOXY_BIN, exit." && exit 0
+! [ -f $PRIVOXY_CONF ] && echo $"Can't find $PRIVOXY_CONF, exit." && exit 0
 
 # See how we were called.
 
