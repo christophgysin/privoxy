@@ -40,6 +40,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2002/11/10 04:20:38  hal9
+ *    Fix typo: supressed -> suppressed
+ *
  *    Revision 2.1  2002/09/11 11:23:59  oes
  *    Fixed logging of cookies: Killed incoming cookies now logged; incoming/outgoing cookies now distinguished in log
  *
@@ -1003,7 +1006,7 @@ jb_err client_accept_encoding(struct client_state *csp, char **header)
 {
    if ((csp->action->flags & ACTION_NO_COMPRESSION) != 0)
    {
-      log_error(LOG_LEVEL_HEADER, "Supressed offer to compress content");
+      log_error(LOG_LEVEL_HEADER, "Suppressed offer to compress content");
 
       freez(*header);
       if (!strcmpic(csp->http->ver, "HTTP/1.1"))
@@ -1043,7 +1046,7 @@ jb_err client_te(struct client_state *csp, char **header)
    if ((csp->action->flags & ACTION_NO_COMPRESSION) != 0)
    {
       freez(*header);
-      log_error(LOG_LEVEL_HEADER, "Supressed offer to compress transfer");
+      log_error(LOG_LEVEL_HEADER, "Suppressed offer to compress transfer");
    }
 
    return JB_ERR_OK;
