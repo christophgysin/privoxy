@@ -38,6 +38,11 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.34  2001/10/18 22:22:09  david__schmidt
+ *    Only show "Local support" on templates conditionally:
+ *      - if either 'admin-address' or 'proxy-info-url' are uncommented in config
+ *      - if not, no Local support section appears are removed automatically
+ *
  *    Revision 1.33  2001/10/14 22:28:41  jongfoster
  *    Fixing stupid typo.
  *
@@ -933,12 +938,12 @@ void template_fill(char **template_ptr, struct map *exports)
 struct map *default_exports(const struct client_state *csp, const char *caller)
 {
    char buf[20];
+   int local_help_exists = 0;
    struct map * exports = new_map();
 
    map(exports, "version", 1, VERSION, 1);
    map(exports, "my-ip-address", 1, csp->my_ip_addr_str ? csp->my_ip_addr_str : "unknown", 1);
    map(exports, "my-hostname", 1, csp->my_hostname ? csp->my_hostname : "unknown", 1);
-   map(exports, "admin-address", 1, csp->config->admin_address ? csp->config->admin_address : "fill@me.in.please", 1);
    map(exports, "homepage", 1, HOME_PAGE_URL, 1);
    map(exports, "default-cgi", 1, HOME_PAGE_URL "/config", 1);
    map(exports, "menu", 1, make_menu(caller), 0);
@@ -952,14 +957,28 @@ struct map *default_exports(const struct client_state *csp, const char *caller)
       map_block_killer(exports, "unstable");
    }
 
+   if(csp->config->admin_address != NULL)
+   {
+      map(exports, "admin-address", 1, csp->config->admin_address, 1);
+      local_help_exists = 1;
+   }
+   else
+   {
+      map_block_killer(exports, "have-adminaddr-info");
+   }
+
    if(csp->config->proxy_info_url != NULL)
    {
       map(exports, "proxy-info-url", 1, csp->config->proxy_info_url, 1);
+      local_help_exists = 1;
    }
    else
    {
       map_block_killer(exports, "have-proxy-info");
-   }   
+   }
+
+   if (local_help_exists == 0)
+      map_block_killer(exports, "have-help-info");
 
    return (exports);
 
