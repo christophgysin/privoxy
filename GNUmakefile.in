@@ -483,7 +483,8 @@ clean:
 	$(RM) a.out core $(OBJS) $(W32_FILES) $(W32_INIS)
 
 clobber: clean
-	$(RM) $(PROGRAM) cscope.* logfile *.pdb *.lib *.exp `find . -name tags` `find . -name TAGS` config.status config.h.in config.log junkbuster.log privoxy.log config.cache *~ *.tar.gz
+	$(RM) $(PROGRAM) cscope.* logfile *.pdb *.lib *.exp `find . -name tags` `find . -name TAGS` config.status config.h.in config.log junkbuster.log
+privoxy.log config.cache *~ *.tar.gz configure
 
 tags: $(SRCS) $(HDRS)
 	etags $(SRCS) $(HDRS)
@@ -518,6 +519,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.27  2002/03/24 16:13:57  swa
+# generated files are a nono in cvs
+#
 # Revision 1.26  2002/03/24 15:36:02  swa
 # did not build.
 #
