@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.9  2001/10/26 18:17:23  swa
+# new version string
+#
 # Revision 1.8  2001/09/13 16:22:42  swa
 # man page is legacy. suse rpm now contains html
 # documentation.
@@ -68,7 +71,7 @@ Group:        Networking/Utilities
 Provides:     ijb
 Obsoletes:    ijb
 Autoreqprov:  on
-Version: 2.9.8
+Version: 2.9.9
 Release: 1
 Summary:      The Internet Junkbuster
 Source:  http://www.waldherr.org/junkbuster/ijbswa.tar.gz
