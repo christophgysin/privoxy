@@ -36,6 +36,10 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/11/30 23:09:15  jongfoster
+ *    Now reports on FEATURE_CGI_EDIT_ACTIONS
+ *    Removing FEATURE_DENY_GZIP from template
+ *
  *    Revision 1.8  2001/11/13 00:14:07  jongfoster
  *    Fixing stupid bug now I've figured out what || means.
  *    (It always returns 0 or 1, not one of it's paramaters.)
@@ -919,6 +923,12 @@ static jb_err show_defines(struct map *exports)
 #else /* ifndef FEATURE_ACL */
    if (!err) err = map_conditional(exports, "FEATURE_ACL", 0);
 #endif /* ndef FEATURE_ACL */
+
+#ifdef FEATURE_CGI_EDIT_ACTIONS
+   if (!err) err = map_conditional(exports, "FEATURE_CGI_EDIT_ACTIONS", 1);
+#else /* ifndef FEATURE_COOKIE_JAR */
+   if (!err) err = map_conditional(exports, "FEATURE_CGI_EDIT_ACTIONS", 0);
+#endif /* ndef FEATURE_COOKIE_JAR */
 
 #ifdef FEATURE_COOKIE_JAR
    if (!err) err = map_conditional(exports, "FEATURE_COOKIE_JAR", 1);
