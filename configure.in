@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.67  2002/05/03 14:33:59  oes
+dnl Generate doc/soucre/ldp.dsl
+dnl
 dnl Revision 1.66  2002/05/03 00:41:56  oes
 dnl Set version to 2.9.15 to comply with new versioning scheme
 dnl
@@ -1094,4 +1097,4 @@ AC_SUBST(SPECIAL_CFLAGS)
 
 AC_SUBST(PTHREAD_LIB)
 
-AC_OUTPUT(GNUmakefile)
+AC_OUTPUT(GNUmakefile doc/source/ldp.dsl)
