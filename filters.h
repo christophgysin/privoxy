@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/10/07 15:41:40  oes
+ *    Added prototype for remove_chunked_transfer_coding
+ *
  *    Revision 1.13  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -239,6 +242,7 @@ extern int domaincmp(struct url_spec *pattern, struct url_spec *fqdn);
  */
 extern char *pcrs_filter_response(struct client_state *csp);
 extern char *gif_deanimate_response(struct client_state *csp);
+extern int remove_chunked_transfer_coding(char *buffer, const size_t size);
 
 /* 
  * Revision control strings from this header and associated .c file
