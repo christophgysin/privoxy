@@ -33,6 +33,10 @@ const char pcrs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/09/20 16:11:06  steudten
+ *
+ *    Add casting for some string functions.
+ *
  *    Revision 1.14  2001/09/09 21:41:57  oes
  *    Fixing yet another silly bug
  *
@@ -347,9 +351,9 @@ pcrs_substitute *pcrs_compile_replacement(const char *replacement, int trivialfl
             r->block_length[l] = k - r->block_offset[l];
 
             /* Numerical backreferences */
-            if (isdigit(replacement[i + 1]))
+            if (isdigit((int) replacement[i + 1]))
             {
-               while (i < length && isdigit(replacement[++i]))
+               while (i < length && isdigit((int) replacement[++i]))
                {
                   r->backref[l] = r->backref[l] * 10 + replacement[i] - 48;
                }
