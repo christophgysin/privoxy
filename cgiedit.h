@@ -37,6 +37,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/11/13 00:28:51  jongfoster
+ *    Adding new CGIs for use by non-JavaScript browsers:
+ *      edit-actions-url-form
+ *      edit-actions-add-url-form
+ *      edit-actions-remove-url-form
+ *
  *    Revision 1.3  2001/10/23 21:48:19  jongfoster
  *    Cleaning up error handling in CGI functions - they now send back
  *    a HTML error page and should never cause a FATAL error.  (Fixes one
@@ -95,12 +101,21 @@ extern jb_err cgi_edit_actions_submit (struct client_state *csp,
 extern jb_err cgi_edit_actions_url    (struct client_state *csp,
                                        struct http_response *rsp,
                                        const struct map *parameters);
+extern jb_err cgi_edit_actions_url_form(struct client_state *csp,
+                                        struct http_response *rsp,
+                                        const struct map *parameters);
 extern jb_err cgi_edit_actions_add_url(struct client_state *csp,
                                        struct http_response *rsp,
                                        const struct map *parameters);
+extern jb_err cgi_edit_actions_add_url_form(struct client_state *csp,
+                                            struct http_response *rsp,
+                                            const struct map *parameters);
 extern jb_err cgi_edit_actions_remove_url    (struct client_state *csp,
                                               struct http_response *rsp,
                                               const struct map *parameters);
+extern jb_err cgi_edit_actions_remove_url_form(struct client_state *csp,
+                                            struct http_response *rsp,
+                                            const struct map *parameters);
 extern jb_err cgi_edit_actions_section_remove(struct client_state *csp,
                                               struct http_response *rsp,
                                               const struct map *parameters);
