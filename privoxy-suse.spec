@@ -34,7 +34,7 @@ Vendor:       http://www.privoxy.org
 Name:         privoxy-suse
 Distribution: defineme
 Version: 2.9.13
-Release: 1
+Release: 3
 Source: http://www.waldherr.org/%{name}/privoxy-%{version}.tar.gz
 # not sure if this works
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -294,6 +294,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.9  2002/03/30 09:01:52  swa
+# new release
+#
 # Revision 1.8  2002/03/27 23:46:41  hal9
 # ijb_docs.css to p_doc.css
 #
