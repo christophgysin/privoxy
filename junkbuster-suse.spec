@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.12  2002/03/02 15:50:04  swa
+# 2.9.11 version. more input for docs.
+#
 # Revision 1.11  2001/12/02 10:29:26  swa
 # New version made these changes necessary.
 #
@@ -79,7 +82,7 @@ Group:        Networking/Utilities
 Provides:     ijb
 Obsoletes:    ijb
 Autoreqprov:  on
-Version: 2.9.10
+Version: 2.9.11
 Release: 1
 Summary:      The Internet Junkbuster
 Source:  http://www.waldherr.org/junkbuster/ijbswa.tar.gz
