@@ -80,7 +80,6 @@
  <literal>
   <msgtext>
    <literallayout>
-
 /*********************************************************************
  *
  * File        :  $Source$
@@ -113,7 +112,7 @@
  *                Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  *********************************************************************/
-   </literallayout>
+</literallayout>
   </msgtext>
  </literal>
 </para>
@@ -258,7 +257,7 @@
  <LiteralLayout>
  -------------------------------------------------------------------------
  ijbswa-developers@lists.sourceforge.net
- </LiteralLayout>
+</LiteralLayout>
 </para>
 <para>
  $Id$
