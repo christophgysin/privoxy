@@ -9,10 +9,10 @@ const char killpopup_rcs[] = "$Id$";
  *                IJBSWA team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
- *                by and Copyright (C) 1997 Anonymous Coders and 
+ *                by and Copyright (C) 1997 Anonymous Coders and
  *                Junkbusters Corporation.  http://www.junkbusters.com
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at
@@ -32,6 +32,12 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/10/25 03:40:48  david__schmidt
+ *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
+ *    threads to call select() simultaneously.  So, it's time to do a real, live,
+ *    native OS/2 port.  See defines for __EMX__ (the porting layer) vs. __OS2__
+ *    (native). Both versions will work, but using __OS2__ offers multi-threading.
+ *
  *    Revision 1.11  2001/10/07 15:42:41  oes
  *    filter_popups now gets a csp pointer so it can raise the new
  *      CSP_FLAG_MODIFIED flag.
@@ -98,7 +104,7 @@ const char killpopup_rcs[] = "$Id$";
 #include <sys/stat.h>
 #include <ctype.h>
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__OS2__)
 #include <unistd.h>
 #endif
 
@@ -145,7 +151,7 @@ void filter_popups(char *buff, struct client_state *csp)
          csp->flags |= CSP_FLAG_MODIFIED;
       }
    }
-   
+
    while ((popup = strstr( buff, ".resizeTo(" )) != NULL)
    {
       if ( popup )

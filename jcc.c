@@ -3,17 +3,17 @@ const char jcc_rcs[] = "$Id$";
  *
  * File        :  $Source$
  *
- * Purpose     :  Main file.  Contains main() method, main loop, and 
+ * Purpose     :  Main file.  Contains main() method, main loop, and
  *                the main connection-handling function.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
  *                IJBSWA team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
- *                by and Copyright (C) 1997 Anonymous Coders and 
+ *                by and Copyright (C) 1997 Anonymous Coders and
  *                Junkbusters Corporation.  http://www.junkbusters.com
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at
@@ -33,6 +33,12 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.50  2001/10/25 03:40:48  david__schmidt
+ *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
+ *    threads to call select() simultaneously.  So, it's time to do a real, live,
+ *    native OS/2 port.  See defines for __EMX__ (the porting layer) vs. __OS2__
+ *    (native). Both versions will work, but using __OS2__ offers multi-threading.
+ *
  *    Revision 1.49  2001/10/23 21:41:35  jongfoster
  *    Added call to initialize the (statically-allocated of course)
  *    "out of memory" CGI response.
@@ -364,9 +370,11 @@ const char jcc_rcs[] = "$Id$";
 
 #else /* ifndef _WIN32 */
 
+# if !defined (__OS2__)
 # include <unistd.h>
-# include <sys/time.h>
 # include <sys/wait.h>
+# endif /* ndef __OS2__ */
+# include <sys/time.h>
 # include <sys/stat.h>
 # include <signal.h>
 
@@ -375,8 +383,13 @@ const char jcc_rcs[] = "$Id$";
 #  include <OS.h>      /* declarations for threads and stuff. */
 # endif
 
-# ifdef __EMX__
+# if defined(__EMX__) || defined(__OS2__)
 #  include <sys/select.h>  /* OS/2/EMX needs a little help with select */
+# endif
+# ifdef __OS2__
+#define INCL_DOS
+# include <os2.h>
+#define bzero(B,N) memset(B,0x00,n)
 # endif
 
 # ifndef FD_ZERO
@@ -428,6 +441,10 @@ static int32 server_thread(void *data);
 #define sleep(N)  Sleep(((N) * 1000))
 #endif
 
+#ifdef __OS2__
+#define sleep(N)  DosSleep(((N) * 100))
+#endif
+
 
 /* The vanilla wafer. */
 static const char VANILLA_WAFER[] =
@@ -446,7 +463,7 @@ static const char VANILLA_WAFER[] =
  *
  * Description :  Once a connection to the client has been accepted,
  *                this function is called (via serve()) to handle the
- *                main business of the communication.  When this 
+ *                main business of the communication.  When this
  *                function returns, the caller must close the client
  *                socket handle.
  *
@@ -465,7 +482,7 @@ static void chat(struct client_state *csp)
 {
 /*
  * This next lines are a little ugly, but they simplifies the if statements
- * below.  Basically if TOGGLE, then we want the if to test if the 
+ * below.  Basically if TOGGLE, then we want the if to test if the
  * CSP_FLAG_TOGGLED_ON flag ist set, else we don't.  And if FEATURE_FORCE_LOAD,
  * then we want the if to test for CSP_FLAG_FORCED , else we don't
  */
@@ -475,7 +492,7 @@ static void chat(struct client_state *csp)
 #   define IS_TOGGLED_ON_AND
 #endif /* ndef FEATURE_TOGGLE */
 #ifdef FEATURE_FORCE_LOAD
-#   define IS_NOT_FORCED_AND !(csp->flags & CSP_FLAG_FORCED) && 
+#   define IS_NOT_FORCED_AND !(csp->flags & CSP_FLAG_FORCED) &&
 #else /* ifndef FEATURE_FORCE_LOAD */
 #   define IS_NOT_FORCED_AND
 #endif /* def FEATURE_FORCE_LOAD */
@@ -499,7 +516,7 @@ static void chat(struct client_state *csp)
    int gif_deanimate;      /* bool, 1==will deanimate gifs */
 
    /* Function that does the content filtering for the current request */
-   char *(*content_filter)() = NULL; 
+   char *(*content_filter)() = NULL;
 
    /* Skeleton for HTTP response, if we should intercept the request */
    struct http_response *rsp;
@@ -530,7 +547,7 @@ static void chat(struct client_state *csp)
       {
          continue;   /* more to come! */
       }
- 
+
 #ifdef FEATURE_FORCE_LOAD
       /* If this request contains the FORCE_PREFIX,
        * better get rid of it now and set the force flag --oes
@@ -541,7 +558,7 @@ static void chat(struct client_state *csp)
          strclean(req, FORCE_PREFIX);
          log_error(LOG_LEVEL_FORCE, "Enforcing request \"%s\".\n", req);
          csp->flags |= CSP_FLAG_FORCED;
-      } 
+      }
 
 #endif /* def FEATURE_FORCE_LOAD */
 
@@ -577,7 +594,7 @@ static void chat(struct client_state *csp)
     *          full orininal URL (w/url)
     *          Note that the path and/or the HTTP version may
     *          have been altered by now.
-    * 
+    *
     * connect = Open a socket to the host:port of the server
     *           and short-circuit server and client socket.
     *
@@ -589,7 +606,7 @@ static void chat(struct client_state *csp)
     *         parent's). After sending the request to the parent, we simply
     *         tunnel.
     *
-    * here's the matrix: 
+    * here's the matrix:
     *                        SSL
     *                    0        1
     *                +--------+--------+
@@ -604,7 +621,7 @@ static void chat(struct client_state *csp)
     *
     */
 
-   /* 
+   /*
     * Determine the actions for this URL
     */
 #ifdef FEATURE_TOGGLE
@@ -627,20 +644,20 @@ static void chat(struct client_state *csp)
     */
    if(http->ssl)
    {
-      if(  ( !(csp->action->flags & ACTION_LIMIT_CONNECT) && csp->http->port != 443) 
+      if(  ( !(csp->action->flags & ACTION_LIMIT_CONNECT) && csp->http->port != 443)
            || (csp->action->flags & ACTION_LIMIT_CONNECT
               && !match_portlist(csp->action->string[ACTION_STRING_LIMIT_CONNECT], csp->http->port)) )
       {
          strcpy(buf, CFORBIDDEN);
          write_socket(csp->cfd, buf, strlen(buf));
-         
+
          log_error(LOG_LEVEL_CONNECT, "Denying suspicious CONNECT request from %s", csp->ip_addr_str);
          log_error(LOG_LEVEL_CLF, "%s - - [%T] \" \" 403 0", csp->ip_addr_str);
 
          return;
       }
    }
-            
+
 
    /*
     * Downgrade http version from 1.1 to 1.0 if +downgrade
@@ -656,8 +673,8 @@ static void chat(struct client_state *csp)
     * (Re)build the HTTP request for non-SSL requests.
     * If forwarding, use the whole URL, else, use only the path.
     */
-   if (http->ssl == 0)  
-   {  
+   if (http->ssl == 0)
+   {
       freez(http->cmd);
 
       http->cmd = strsav(http->cmd, http->gpc);
@@ -727,14 +744,14 @@ static void chat(struct client_state *csp)
 
    /* We have a request. */
 
-   /* 
+   /*
     * Now, check to see if we need to intercept it, i.e.
     * If
     */
- 
+
    if (
        /* a CGI call was detected and answered */
-   	 (NULL != (rsp = dispatch_cgi(csp))) 
+   	 (NULL != (rsp = dispatch_cgi(csp)))
 
        /* or we are enabled and... */
        || (IS_ENABLED_AND (
@@ -749,7 +766,7 @@ static void chat(struct client_state *csp)
 
           /* ..or a fast redirect kicked in */
 #ifdef FEATURE_FAST_REDIRECTS
-          || (((csp->action->flags & ACTION_FAST_REDIRECTS) != 0) && 
+          || (((csp->action->flags & ACTION_FAST_REDIRECTS) != 0) &&
    		     (NULL != (rsp = redirect_url(csp))))
 #endif /* def FEATURE_FAST_REDIRECTS */
    		 ))
@@ -758,7 +775,7 @@ static void chat(struct client_state *csp)
       /* Write the answer to the client */
       if ((write_socket(csp->cfd, rsp->head, rsp->head_length) != rsp->head_length)
    	     || (write_socket(csp->cfd, rsp->body, rsp->content_length) != rsp->content_length))
-      { 
+      {
          log_error(LOG_LEVEL_ERROR, "write to: %s failed: %E", http->host);
       }
 
@@ -769,7 +786,7 @@ static void chat(struct client_state *csp)
 
       /* Log (FIXME: All intercept reasons apprear as "crunch" with Status 200) */
       log_error(LOG_LEVEL_GPC, "%s%s crunch!", http->hostport, http->path);
-      log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 3", csp->ip_addr_str, http->cmd); 
+      log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 3", csp->ip_addr_str, http->cmd);
 
       /* Clean up and return */
       free_http_response(rsp);
@@ -801,14 +818,14 @@ static void chat(struct client_state *csp)
       {
    	   rsp = error_response(csp, "no-such-domain", errno);
 
-         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 404 0", 
+         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 404 0",
                    csp->ip_addr_str, http->cmd);
       }
       else
       {
    	   rsp = error_response(csp, "connect-failed", errno);
 
-         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0", 
+         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0",
                    csp->ip_addr_str, http->cmd);
       }
 
@@ -817,7 +834,7 @@ static void chat(struct client_state *csp)
    	{
          if ((write_socket(csp->cfd, rsp->head, rsp->head_length) != rsp->head_length)
    	        || (write_socket(csp->cfd, rsp->body, rsp->content_length) != rsp->content_length))
-         { 
+         {
             log_error(LOG_LEVEL_ERROR, "write to: %s failed: %E", http->host);
          }
       }
@@ -845,8 +862,8 @@ static void chat(struct client_state *csp)
          log_error(LOG_LEVEL_CONNECT, "write header to: %s failed: %E",
                     http->hostport);
 
-         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0", 
-                   csp->ip_addr_str, http->cmd); 
+         log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0",
+                   csp->ip_addr_str, http->cmd);
 
          rsp = error_response(csp, "connect-failed", errno);
 
@@ -854,7 +871,7 @@ static void chat(struct client_state *csp)
          {
             if ((write_socket(csp->cfd, rsp->head, n) != n)
    	        || (write_socket(csp->cfd, rsp->body, rsp->content_length) != rsp->content_length))
-            { 
+            {
                log_error(LOG_LEVEL_ERROR, "write to: %s failed: %E", http->host);
             }
          }
@@ -871,8 +888,8 @@ static void chat(struct client_state *csp)
        * so just send the "connect succeeded" message to the
        * client, flush the rest, and get out of the way.
        */
-      log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 2\n", 
-                csp->ip_addr_str, http->cmd); 
+      log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 2\n",
+                csp->ip_addr_str, http->cmd);
 
       if (write_socket(csp->cfd, CSUCCEED, sizeof(CSUCCEED)-1) < 0)
       {
@@ -945,8 +962,8 @@ static void chat(struct client_state *csp)
          {
             log_error(LOG_LEVEL_ERROR, "read from: %s failed: %E", http->host);
 
-            log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0", 
-                      csp->ip_addr_str, http->cmd); 
+            log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 503 0",
+                      csp->ip_addr_str, http->cmd);
 
             rsp = error_response(csp, "connect-failed", errno);
 
@@ -954,7 +971,7 @@ static void chat(struct client_state *csp)
             {
                if ((write_socket(csp->cfd, rsp->head, rsp->head_length) != rsp->head_length)
    	            || (write_socket(csp->cfd, rsp->body, rsp->content_length) != rsp->content_length))
-               { 
+               {
                   log_error(LOG_LEVEL_ERROR, "write to: %s failed: %E", http->host);
    			   }
    			}
@@ -996,7 +1013,7 @@ static void chat(struct client_state *csp)
           */
          if (n == 0)
          {
-            
+
             if (server_body || http->ssl)
             {
                /*
@@ -1036,7 +1053,7 @@ static void chat(struct client_state *csp)
             }
 
             /*
-             * This is NOT the body, so 
+             * This is NOT the body, so
              * Let's pretend the server just sent us a blank line.
              */
             n = sprintf(buf, "\r\n");
@@ -1059,7 +1076,7 @@ static void chat(struct client_state *csp)
          {
             if (content_filter)
             {
-               add_to_iob(csp, buf, n); 
+               add_to_iob(csp, buf, n);
 
                /*
                 * If the buffer limit will be reached on the next read,
@@ -1069,7 +1086,7 @@ static void chat(struct client_state *csp)
                if (csp->iob->eod - csp->iob->buf + BUFFER_SIZE > csp->config->buffer_limit)
                {
                   log_error(LOG_LEVEL_ERROR, "Buffer size limit reached! Flushing and stepping back.");
-                  
+
                   hdr = sed(server_patterns, add_server_headers, csp);
                   n   = strlen(hdr);
                   byte_count += n;
@@ -1241,8 +1258,8 @@ static void chat(struct client_state *csp)
       return; /* huh? we should never get here */
    }
 
-   log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 %d", 
-             csp->ip_addr_str, http->cmd, byte_count); 
+   log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 200 %d",
+             csp->ip_addr_str, http->cmd, byte_count);
 }
 
 
@@ -1319,7 +1336,7 @@ static int32 server_thread(void *data)
  *                any load fails, and can't bind port.
  *
  *                Else main never returns, the process must be signaled
- *                to terminate execution.  Or, on Windows, use the 
+ *                to terminate execution.  Or, on Windows, use the
  *                "File", "Exit" menu option.
  *
  *********************************************************************/
@@ -1373,7 +1390,7 @@ int main(int argc, const char *argv[])
 #endif
 
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__OS2__)
    signal(SIGPIPE, SIG_IGN);
    signal(SIGCHLD, SIG_IGN);
 
@@ -1427,8 +1444,8 @@ static void listen_loop(void)
    {
       log_error(LOG_LEVEL_FATAL, "can't bind %s:%d: %E "
          "- There may be another junkbuster or some other "
-         "proxy running on port %d", 
-         (NULL != config->haddr) ? config->haddr : "INADDR_ANY", 
+         "proxy running on port %d",
+         (NULL != config->haddr) ? config->haddr : "INADDR_ANY",
          config->hport, config->hport
       );
       /* shouldn't get here */
@@ -1440,7 +1457,7 @@ static void listen_loop(void)
 
    while (FOREVER)
    {
-#if !defined(FEATURE_PTHREAD) && !defined(_WIN32) && !defined(__BEOS__) && !defined(AMIGA)
+#if !defined(FEATURE_PTHREAD) && !defined(_WIN32) && !defined(__BEOS__) && !defined(AMIGA) && !defined(__OS2__)
       while (waitpid(-1, NULL, WNOHANG) > 0)
       {
          /* zombie children */
@@ -1484,8 +1501,8 @@ static void listen_loop(void)
          {
             log_error(LOG_LEVEL_FATAL, "can't bind %s:%d: %E "
                "- There may be another junkbuster or some other "
-               "proxy running on port %d", 
-               (NULL != config->haddr) ? config->haddr : "INADDR_ANY", 
+               "proxy running on port %d",
+               (NULL != config->haddr) ? config->haddr : "INADDR_ANY",
                config->hport, config->hport
             );
             /* shouldn't get here */
@@ -1504,7 +1521,7 @@ static void listen_loop(void)
 #ifdef AMIGA
          if(!childs)
          {
-            exit(1); 
+            exit(1);
          }
 #endif
          freez(csp);
@@ -1568,6 +1585,15 @@ static void listen_loop(void)
 #define SELECTED_ONE_OPTION
          child_id = _beginthread(
             (void*)serve,
+            64 * 1024,
+            csp);
+#endif
+
+#if defined(__OS2__) && !defined(SELECTED_ONE_OPTION)
+#define SELECTED_ONE_OPTION
+         child_id = _beginthread(
+            serve,
+            NULL,
             64 * 1024,
             csp);
 #endif

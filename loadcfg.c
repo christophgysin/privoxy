@@ -4,7 +4,7 @@ const char loadcfg_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  Loads settings from the configuration file into
- *                global variables.  This file contains both the 
+ *                global variables.  This file contains both the
  *                routine to load the configuration and the global
  *                variables it writes to.
  *
@@ -12,10 +12,10 @@ const char loadcfg_rcs[] = "$Id$";
  *                IJBSWA team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
- *                by and Copyright (C) 1997 Anonymous Coders and 
+ *                by and Copyright (C) 1997 Anonymous Coders and
  *                Junkbusters Corporation.  http://www.junkbusters.com
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at
@@ -35,6 +35,12 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2001/10/25 03:40:48  david__schmidt
+ *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
+ *    threads to call select() simultaneously.  So, it's time to do a real, live,
+ *    native OS/2 port.  See defines for __EMX__ (the porting layer) vs. __OS2__
+ *    (native). Both versions will work, but using __OS2__ offers multi-threading.
+ *
  *    Revision 1.24  2001/10/23 21:40:30  jongfoster
  *    Added support for enable-edit-actions and enable-remote-toggle config
  *    file options.
@@ -233,9 +239,11 @@ const char loadcfg_rcs[] = "$Id$";
 
 #else /* ifndef _WIN32 */
 
+#ifndef __OS2__
 # include <unistd.h>
-# include <sys/time.h>
 # include <sys/wait.h>
+#endif
+# include <sys/time.h>
 # include <sys/stat.h>
 # include <signal.h>
 
@@ -372,7 +380,7 @@ void unload_configfile (void * data)
       cur_fwd = next_fwd;
    }
    config->forward = NULL;
-   
+
 #ifdef FEATURE_COOKIE_JAR
    if ( NULL != config->jar )
    {
@@ -381,22 +389,22 @@ void unload_configfile (void * data)
    }
 #endif /* def FEATURE_COOKIE_JAR */
 
-   freez((char *)config->confdir);
-   freez((char *)config->logdir);
+   freez(config->confdir);
+   freez(config->logdir);
 
-   freez((char *)config->haddr);
-   freez((char *)config->logfile);
+   freez(config->haddr);
+   freez(config->logfile);
 
-   freez((char *)config->actions_file);
-   freez((char *)config->admin_address);
-   freez((char *)config->proxy_info_url);
-   freez((char *)config->proxy_args);
+   freez(config->actions_file);
+   freez(config->admin_address);
+   freez(config->proxy_info_url);
+   freez(config->proxy_args);
 
 #ifdef FEATURE_COOKIE_JAR
-   freez((char *)config->jarfile);
+   freez(config->jarfile);
 #endif /* def FEATURE_COOKIE_JAR */
 
-   freez((char *)config->re_filterfile);
+   freez(config->re_filterfile);
 
 }
 
@@ -408,7 +416,7 @@ void unload_configfile (void * data)
  * Description :  Load the config file and all parameters.
  *
  * Parameters  :
- *          1  :  csp = Client state (the config member will be 
+ *          1  :  csp = Client state (the config member will be
  *                filled in by this function).
  *
  * Returns     :  0 => Ok, everything else is an error.
@@ -452,9 +460,9 @@ struct configuration_spec * load_config(void)
 
    /*
     * This is backwards from how it's usually done.
-    * Following the usual pattern, "fs" would be stored in a member 
+    * Following the usual pattern, "fs" would be stored in a member
     * variable in "csp", and then we'd access "config" from "fs->f",
-    * using a cast.  However, "config" is used so often that a 
+    * using a cast.  However, "config" is used so often that a
     * cast each time would be very ugly, and the extra indirection
     * would waste CPU cycles.  Therefore we store "config" in
     * "csp->config", and "fs" in "csp->config->config_file_list".
@@ -534,7 +542,7 @@ struct configuration_spec * load_config(void)
  * In confdir by default
  ****************************************************************************/
          case hash_actions_file :
-            freez((char *)config->actions_file);
+            freez(config->actions_file);
             config->actions_file = make_path(config->confdir, arg);
             continue;
 
@@ -542,24 +550,24 @@ struct configuration_spec * load_config(void)
  * admin-address email-address
  ****************************************************************************/
          case hash_admin_address :
-            freez((char *)config->admin_address);
+            freez(config->admin_address);
             config->admin_address = strdup(arg);
-            continue;       
+            continue;
 
 /****************************************************************************
  * buffer-limit n
  ****************************************************************************/
          case hash_buffer_limit :
             config->buffer_limit = (size_t) 1024 * atoi(arg);
-            continue;       
+            continue;
 
 /****************************************************************************
  * confdir directory-name
  ****************************************************************************/
          case hash_confdir :
-            freez((char *)config->confdir);
+            freez(config->confdir);
             config->confdir = strdup(arg);
-            continue;            
+            continue;
 
 /****************************************************************************
  * debug n
@@ -635,7 +643,7 @@ struct configuration_spec * load_config(void)
              * actions file, the last match wins.  However, the internal
              * implementations are different:  The actions file is stored
              * in the same order as the file, and scanned completely.
-             * With the ACL, we reverse the order as we load it, then 
+             * With the ACL, we reverse the order as we load it, then
              * when we scan it we stop as soon as we get a match.
              */
             cur_acl->next  = config->acl;
@@ -817,7 +825,7 @@ struct configuration_spec * load_config(void)
             /* Add to list. */
             cur_fwd->next = config->forward;
             config->forward = cur_fwd;
-            
+
             continue;
 
 /****************************************************************************
@@ -895,7 +903,7 @@ struct configuration_spec * load_config(void)
             /* Add to list. */
             cur_fwd->next = config->forward;
             config->forward = cur_fwd;
-            
+
             continue;
 
 /****************************************************************************
@@ -904,7 +912,7 @@ struct configuration_spec * load_config(void)
  ****************************************************************************/
 #ifdef FEATURE_COOKIE_JAR
          case hash_jarfile :
-            freez((char *)config->jarfile);
+            freez(config->jarfile);
             config->jarfile = make_path(config->logdir, arg);
             continue;
 #endif /* def FEATURE_COOKIE_JAR */
@@ -913,7 +921,7 @@ struct configuration_spec * load_config(void)
  * listen-address [ip][:port]
  ****************************************************************************/
          case hash_listen_address :
-            freez((char *)config->haddr);
+            freez(config->haddr);
             config->haddr = strdup(arg);
             continue;
 
@@ -921,16 +929,16 @@ struct configuration_spec * load_config(void)
  * logdir directory-name
  ****************************************************************************/
          case hash_logdir :
-            freez((char *)config->logdir);
+            freez(config->logdir);
             config->logdir = strdup(arg);
-            continue;            
+            continue;
 
 /****************************************************************************
  * logfile log-file-name
  * In logdir by default
  ****************************************************************************/
          case hash_logfile :
-            freez((char *)config->logfile);
+            freez(config->logfile);
             config->logfile = make_path(config->logdir, arg);
             continue;
 
@@ -1002,7 +1010,7 @@ struct configuration_spec * load_config(void)
              * actions file, the last match wins.  However, the internal
              * implementations are different:  The actions file is stored
              * in the same order as the file, and scanned completely.
-             * With the ACL, we reverse the order as we load it, then 
+             * With the ACL, we reverse the order as we load it, then
              * when we scan it we stop as soon as we get a match.
              */
             cur_acl->next  = config->acl;
@@ -1015,7 +1023,7 @@ struct configuration_spec * load_config(void)
  * proxy-info-url url
  ****************************************************************************/
          case hash_proxy_info_url :
-            freez((char *)config->proxy_info_url);
+            freez(config->proxy_info_url);
             config->proxy_info_url = strdup(arg);
             continue;
 
@@ -1024,7 +1032,7 @@ struct configuration_spec * load_config(void)
  * In confdir by default.
  ****************************************************************************/
          case hash_re_filterfile :
-            freez((char *)config->re_filterfile);
+            freez(config->re_filterfile);
             config->re_filterfile = make_path(config->confdir, arg);
             continue;
 
@@ -1059,7 +1067,7 @@ struct configuration_spec * load_config(void)
  ****************************************************************************/
 #ifdef FEATURE_TRUST
          case hash_trustfile :
-            freez((char *)config->trustfile);
+            freez(config->trustfile);
             config->trustfile = make_path(config->confdir, arg);
             continue;
 #endif /* def FEATURE_TRUST */
@@ -1298,7 +1306,7 @@ struct configuration_spec * load_config(void)
 #ifdef FEATURE_TRUST
    g_trustfile        = config->trustfile;
 #endif /* def FEATURE_TRUST */
-   
+
 
 #endif /* defined(_WIN32) && !defined (_WIN_CONSOLE) */
 /* FIXME: end kludge */

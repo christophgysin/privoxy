@@ -4,18 +4,18 @@ const char cgiedit_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  CGI-based actionsfile editor.
- *                
+ *
  *                Functions declared include:
- * 
+ *
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
  *                IJBSWA team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
- *                by and Copyright (C) 1997 Anonymous Coders and 
+ *                by and Copyright (C) 1997 Anonymous Coders and
  *                Junkbusters Corporation.  http://www.junkbusters.com
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at
@@ -35,6 +35,12 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/10/25 03:40:48  david__schmidt
+ *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
+ *    threads to call select() simultaneously.  So, it's time to do a real, live,
+ *    native OS/2 port.  See defines for __EMX__ (the porting layer) vs. __OS2__
+ *    (native). Both versions will work, but using __OS2__ offers multi-threading.
+ *
  *    Revision 1.4  2001/10/23 21:48:19  jongfoster
  *    Cleaning up error handling in CGI functions - they now send back
  *    a HTML error page and should never cause a FATAL error.  (Fixes one
@@ -91,6 +97,13 @@ const char cgiedit_rcs[] = "$Id$";
 #define snprintf _snprintf
 #endif /* def _WIN32 */
 
+#ifdef __OS2__
+/*
+ * FIXME: gotta write a snprintf routine.  snprintf.  You guys kill me.
+ */
+#define snprintf(X,Y,Z) sprintf(X,Z)
+#endif /* __OS2__ */
+
 #include "project.h"
 #include "cgi.h"
 #include "cgiedit.h"
@@ -115,7 +128,7 @@ struct file_line
    char * prefix;
    char * unprocessed;
    int type;
-   
+
    union
    {
       struct action_spec action[1];
@@ -169,7 +182,7 @@ struct editable_file
                                * significant anyway.
                                */
    struct file_line * parse_error; /* On parse error, this is the offending line. */
-   const char * parse_error_text;  /* On parse error, this is the problem.  
+   const char * parse_error_text;  /* On parse error, this is the problem.
                                     * (Statically allocated) */
 };
 
@@ -227,7 +240,7 @@ static jb_err get_number_param(struct client_state *csp,
 
 /* Internal actionsfile <==> HTML conversion functions */
 static jb_err map_radio(struct map * exports,
-                        const char * optionname, 
+                        const char * optionname,
                         const char * values,
                         char value);
 static jb_err actions_to_radio(struct map * exports,
@@ -274,7 +287,7 @@ static jb_err simple_read_line(char **dest, FILE *fp)
    {
       return JB_ERR_MEMORY;
    }
-   
+
    *buf = '\0';
    len = 0;
 
@@ -301,7 +314,7 @@ static jb_err simple_read_line(char **dest, FILE *fp)
          *dest = buf;
          return JB_ERR_OK;
       }
-      
+
       if (NULL == (newbuf = realloc(buf, len + BUFFER_SIZE)))
       {
          free(buf);
@@ -321,7 +334,7 @@ static jb_err simple_read_line(char **dest, FILE *fp)
  *                and respects escaping of newline and comment char.
  *                Provides the line in 2 alternative forms: raw and
  *                preprocessed.
- *                - raw is the raw data read from the file.  If the 
+ *                - raw is the raw data read from the file.  If the
  *                  line is not modified, then this should be written
  *                  to the new file.
  *                - prefix is any comments and blank lines that were
@@ -408,7 +421,7 @@ static jb_err edit_read_line(FILE *fp, char **raw_out, char **prefix_out, char *
          free(linebuf);
          return JB_ERR_MEMORY;
       }
-      
+
       /* Trim off newline */
       p = linebuf + strlen(linebuf);
       if ((p != linebuf) && ((p[-1] == '\r') || (p[-1] == '\n')))
@@ -511,7 +524,7 @@ static jb_err edit_read_line(FILE *fp, char **raw_out, char **prefix_out, char *
    {
       /* Got at least some data */
 
-      /* Remove trailing whitespace */         
+      /* Remove trailing whitespace */
       chomp(data);
 
       if (raw_out)
@@ -643,7 +656,7 @@ jb_err edit_write_file(struct editable_file * file)
    file->version = (unsigned)statbuf->st_mtime;
 
    /* Correct file->version_str */
-   freez((char *)file->version_str);
+   freez(file->version_str);
    snprintf(version_buf, 22, "%u", file->version);
    version_buf[21] = '\0';
    file->version_str = strdup(version_buf);
@@ -660,7 +673,7 @@ jb_err edit_write_file(struct editable_file * file)
  *
  * Function    :  edit_free_file
  *
- * Description :  Free a complete file in memory.  
+ * Description :  Free a complete file in memory.
  *
  * Parameters  :
  *          1  :  file = Data structure to free.
@@ -677,9 +690,9 @@ void edit_free_file(struct editable_file * file)
    }
 
    edit_free_file_lines(file->lines);
-   freez((char *)file->filename);
-   freez((char *)file->identifier);
-   freez((char *)file->version_str);
+   freez(file->filename);
+   freez(file->identifier);
+   freez(file->version_str);
    file->version = 0;
    file->parse_error_text = NULL; /* Statically allocated */
    file->parse_error = NULL;
@@ -692,7 +705,7 @@ void edit_free_file(struct editable_file * file)
  *
  * Function    :  edit_free_file
  *
- * Description :  Free an entire linked list of file lines.  
+ * Description :  Free an entire linked list of file lines.
  *
  * Parameters  :
  *          1  :  first_line = Data structure to free.
@@ -749,7 +762,7 @@ static void edit_free_file_lines(struct file_line * first_line)
  *
  * Function    :  match_actions_file_header_line
  *
- * Description :  Match an actions file {{header}} line 
+ * Description :  Match an actions file {{header}} line
  *
  * Parameters  :
  *          1  :  line - String from file
@@ -807,7 +820,7 @@ static int match_actions_file_header_line(const char * line, const char * name)
  *
  * Function    :  match_actions_file_header_line
  *
- * Description :  Match an actions file {{header}} line 
+ * Description :  Match an actions file {{header}} line
  *
  * Parameters  :
  *          1  :  line - String from file.  Must not start with
@@ -885,7 +898,7 @@ static jb_err split_line_on_equals(const char * line, char ** pname, char ** pva
  *
  * Function    :  edit_parse_actions_file
  *
- * Description :  Parse an actions file in memory.  
+ * Description :  Parse an actions file in memory.
  *
  *                Passed linked list must have the "data" member
  *                zeroed, and must contain valid "next" and
@@ -920,7 +933,7 @@ jb_err edit_parse_actions_file(struct editable_file * file)
 
    cur_line = file->lines;
 
-   /* A note about blank line support: Blank lines should only 
+   /* A note about blank line support: Blank lines should only
     * ever occur as the last line in the file.  This function
     * is more forgiving than that - FILE_LINE_BLANK can occur
     * anywhere.
@@ -1183,7 +1196,7 @@ jb_err edit_parse_actions_file(struct editable_file * file)
  *
  * Function    :  edit_read_file_lines
  *
- * Description :  Read all the lines of a file into memory.  
+ * Description :  Read all the lines of a file into memory.
  *                Handles whitespace, comments and line continuation.
  *
  * Parameters  :
@@ -1383,7 +1396,7 @@ jb_err edit_read_file(struct client_state *csp,
    }
 
    /* Correct file->version_str */
-   freez((char *)file->version_str);
+   freez(file->version_str);
    snprintf(version_buf, 22, "%u", file->version);
    version_buf[21] = '\0';
    file->version_str = strdup(version_buf);
@@ -1670,7 +1683,7 @@ static jb_err get_number_param(struct client_state *csp,
        *
        * <limits.h> defines UINT_MAX
        *
-       * (UINT_MAX - ch) / 10 is the largest number that 
+       * (UINT_MAX - ch) / 10 is the largest number that
        *     can be safely multiplied by 10 then have ch added.
        */
       if (value > ((UINT_MAX - (unsigned)ch) / 10U))
@@ -1715,7 +1728,7 @@ static jb_err get_number_param(struct client_state *csp,
  *
  *********************************************************************/
 static jb_err map_radio(struct map * exports,
-                        const char * optionname, 
+                        const char * optionname,
                         const char * values,
                         char value)
 {
@@ -1723,7 +1736,7 @@ static jb_err map_radio(struct map * exports,
    char * buf;
    char * p;
    char c;
-   
+
    assert(exports);
    assert(optionname);
    assert(values);
@@ -2032,7 +2045,7 @@ static jb_err actions_from_radio(const struct map * parameters,
  *
  * Description :  CGI function that is called when a file is modified
  *                outside the CGI editor.
- *               
+ *
  * Parameters  :
  *           1 :  csp = Current client state (buffers, headers, etc...)
  *           2 :  rsp = http_response data structure for output
@@ -2041,7 +2054,7 @@ static jb_err actions_from_radio(const struct map * parameters,
  * CGI Parameters : none
  *
  * Returns     :  JB_ERR_OK on success
- *                JB_ERR_MEMORY on out-of-memory error.  
+ *                JB_ERR_MEMORY on out-of-memory error.
  *
  *********************************************************************/
 jb_err cgi_error_modified(struct client_state *csp,
@@ -2077,7 +2090,7 @@ jb_err cgi_error_modified(struct client_state *csp,
  *
  * Description :  CGI function that is called when a file cannot
  *                be parsed by the CGI editor.
- *               
+ *
  * Parameters  :
  *           1 :  csp = Current client state (buffers, headers, etc...)
  *           2 :  rsp = http_response data structure for output
@@ -2086,7 +2099,7 @@ jb_err cgi_error_modified(struct client_state *csp,
  * CGI Parameters : none
  *
  * Returns     :  JB_ERR_OK on success
- *                JB_ERR_MEMORY on out-of-memory error.  
+ *                JB_ERR_MEMORY on out-of-memory error.
  *
  *********************************************************************/
 jb_err cgi_error_parse(struct client_state *csp,
@@ -2131,7 +2144,7 @@ jb_err cgi_error_parse(struct client_state *csp,
  *
  * Description :  CGI function that is called when a file cannot be
  *                opened by the CGI editor.
- *               
+ *
  * Parameters  :
  *           1 :  csp = Current client state (buffers, headers, etc...)
  *           2 :  rsp = http_response data structure for output
@@ -2140,7 +2153,7 @@ jb_err cgi_error_parse(struct client_state *csp,
  * CGI Parameters : none
  *
  * Returns     :  JB_ERR_OK on success
- *                JB_ERR_MEMORY on out-of-memory error.  
+ *                JB_ERR_MEMORY on out-of-memory error.
  *
  *********************************************************************/
 jb_err cgi_error_file(struct client_state *csp,
@@ -2176,7 +2189,7 @@ jb_err cgi_error_file(struct client_state *csp,
  *
  * Description :  CGI function that is called if the parameters
  *                (query string) for a CGI were wrong.
- *               
+ *
  * Parameters  :
  *           1 :  csp = Current client state (buffers, headers, etc...)
  *           2 :  rsp = http_response data structure for output
@@ -2184,7 +2197,7 @@ jb_err cgi_error_file(struct client_state *csp,
  * CGI Parameters : none
  *
  * Returns     :  JB_ERR_OK on success
- *                JB_ERR_MEMORY on out-of-memory error.  
+ *                JB_ERR_MEMORY on out-of-memory error.
  *
  *********************************************************************/
 jb_err cgi_error_disabled(struct client_state *csp,
@@ -2330,7 +2343,7 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
       }
       return err;
    }
-   
+
    err = template_load(csp, &url_template, "edit-actions-list-url");
    if (err)
    {
@@ -2396,7 +2409,7 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
       snprintf(buf, 50, "%d", line_number);
       err = map(section_exports, "sectionid", 1, buf, 1);
 
-      err = err || map(section_exports, "actions", 1, 
+      err = err || map(section_exports, "actions", 1,
                        actions_to_html(cur_line->data.action), 0);
 
       if ((cur_line->next != NULL) && (cur_line->next->type == FILE_LINE_URL))
@@ -2454,7 +2467,7 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
          snprintf(buf, 50, "%d", url_1_2);
          err = err || map(url_exports, "url-1-2", 1, buf, 1);
 
-         err = err || map(url_exports, "url", 1, 
+         err = err || map(url_exports, "url", 1,
                           html_encode(cur_line->unprocessed), 0);
 
          if (err)
@@ -2678,7 +2691,7 @@ jb_err cgi_edit_actions_submit(struct client_state *csp,
                                struct http_response *rsp,
                                const struct map *parameters)
 {
-   int sectionid;
+   unsigned sectionid;
    char * actiontext;
    char * newtext;
    int len;

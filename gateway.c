@@ -11,10 +11,10 @@ const char gateway_rcs[] = "$Id$";
  *                IJBSWA team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
- *                by and Copyright (C) 1997 Anonymous Coders and 
+ *                by and Copyright (C) 1997 Anonymous Coders and
  *                Junkbusters Corporation.  http://www.junkbusters.com
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at
@@ -34,6 +34,12 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/10/25 03:40:48  david__schmidt
+ *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
+ *    threads to call select() simultaneously.  So, it's time to do a real, live,
+ *    native OS/2 port.  See defines for __EMX__ (the porting layer) vs. __OS2__
+ *    (native). Both versions will work, but using __OS2__ offers multi-threading.
+ *
  *    Revision 1.8  2001/09/13 20:10:12  jongfoster
  *    Fixing missing #include under Windows
  *
@@ -91,6 +97,10 @@ const char gateway_rcs[] = "$Id$";
 #include <netdb.h>
 #endif /* def __BEOS__ */
 
+#ifdef __OS2__
+#include <utils.h>
+#endif /* def __OS2__ */
+
 #include "project.h"
 #include "jcc.h"
 #include "errlog.h"
@@ -99,7 +109,7 @@ const char gateway_rcs[] = "$Id$";
 
 const char gateway_h_rcs[] = GATEWAY_H_VERSION;
 
-static int socks4_connect(const struct forward_spec * fwd, 
+static int socks4_connect(const struct forward_spec * fwd,
                           const char * target_host,
                           int target_port,
                           struct client_state *csp);
@@ -146,8 +156,8 @@ static const char socks_userid[] = "anonymous";
  * Returns     :  -1 => failure, else it is the socket file descriptor.
  *
  *********************************************************************/
-int forwarded_connect(const struct forward_spec * fwd, 
-                      struct http_request *http, 
+int forwarded_connect(const struct forward_spec * fwd,
+                      struct http_request *http,
                       struct client_state *csp)
 {
    const char * dest_host;
@@ -204,7 +214,7 @@ int forwarded_connect(const struct forward_spec * fwd,
  * Returns     :  -1 => failure, else a socket file descriptor.
  *
  *********************************************************************/
-static int socks4_connect(const struct forward_spec * fwd, 
+static int socks4_connect(const struct forward_spec * fwd,
                           const char * target_host,
                           int target_port,
                           struct client_state *csp)

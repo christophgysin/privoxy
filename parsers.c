@@ -18,10 +18,10 @@ const char parsers_rcs[] = "$Id$";
  *                IJBSWA team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
- *                by and Copyright (C) 1997 Anonymous Coders and 
+ *                by and Copyright (C) 1997 Anonymous Coders and
  *                Junkbusters Corporation.  http://www.junkbusters.com
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at
@@ -41,6 +41,12 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.38  2001/10/25 03:40:48  david__schmidt
+ *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
+ *    threads to call select() simultaneously.  So, it's time to do a real, live,
+ *    native OS/2 port.  See defines for __EMX__ (the porting layer) vs. __OS2__
+ *    (native). Both versions will work, but using __OS2__ offers multi-threading.
+ *
  *    Revision 1.37  2001/10/23 21:36:02  jongfoster
  *    Documenting sed()'s error behaviou (doc change only)
  *
@@ -309,7 +315,7 @@ const char parsers_rcs[] = "$Id$";
 #include <assert.h>
 #include <string.h>
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__OS2__)
 #include <unistd.h>
 #endif
 
@@ -330,8 +336,8 @@ const char parsers_h_rcs[] = PARSERS_H_VERSION;
  * as an array index.  Therefore we need to make sure that high-bit
  * characters generate +ve values, and ideally we also want to make
  * the argument match the declared parameter type of "int".
- * 
- * Why did they write a character function that can't take a simple 
+ *
+ * Why did they write a character function that can't take a simple
  * "char" argument?  Doh!
  */
 #define ijb_isupper(__X) isupper((int)(unsigned char)(__X))
@@ -354,7 +360,7 @@ const struct parsers client_patterns[] = {
 /* { "if-modified-since:",       18,   crumble }, */
    { "Keep-Alive:",              11,   crumble },
    { "connection:",              11,   crumble },
-   { "proxy-connection:",        17,   crumble },        
+   { "proxy-connection:",        17,   crumble },
    { NULL,                       0,    NULL }
 };
 
@@ -366,7 +372,7 @@ const struct parsers server_patterns[] = {
    { "Content-Type:",      13, server_content_type },
    { "Content-Length:",    15, server_content_length },
    { "Content-MD5:",       12, server_content_md5 },
-   { "Content-Encoding:",  17, server_content_encoding },   
+   { "Content-Encoding:",  17, server_content_encoding },
    { "Transfer-Encoding:", 18, server_transfer_coding },
    { "Keep-Alive:",        11, crumble },
    { NULL, 0, NULL }
@@ -379,13 +385,13 @@ void (* const add_client_headers[])(struct client_state *) = {
    client_x_forwarded_adder,
    client_xtra_adder,
    client_accept_encoding_adder,
-   connection_close_adder, 
+   connection_close_adder,
    NULL
 };
 
 
 void (* const add_server_headers[])(struct client_state *) = {
-   connection_close_adder, 
+   connection_close_adder,
    NULL
 };
 
@@ -587,7 +593,7 @@ char *sed(const struct parsers pats[], void (* const more_headers[])(struct clie
          if (strncmpic(p->str, v->str, v->len) == 0)
          {
             hdr = v->parser(v, p->str, csp);
-            freez((char *)p->str); /* FIXME: Yuck! patching a list...*/
+            freez(p->str); /* FIXME: Yuck! patching a list...*/
             p->str = hdr;
          }
       }
@@ -656,7 +662,7 @@ void parse_http_request(char *req, struct http_request *http, struct client_stat
    int n;
 
    memset(http, '\0', sizeof(*http));
-   http->cmd = strdup(req);  
+   http->cmd = strdup(req);
 
    buf = strdup(req);
    n = ssplit(buf, " \r\n", v, SZ(v), 1, 1);
@@ -716,7 +722,7 @@ void parse_http_request(char *req, struct http_request *http, struct client_stat
                *p = '\0';
                http->hostport = strdup(url);
             }
-            /* 
+            /*
              * Repair broken HTTP requests that don't contain a path
              */
             else
@@ -865,7 +871,7 @@ char *server_transfer_coding(const struct parsers *v, const char *s, struct clie
       csp->content_type = CT_TABOO;
    }
 
-   /* 
+   /*
     * Raise flag if body chunked
     */
    if (strstr(s, "chunked"))
@@ -873,7 +879,7 @@ char *server_transfer_coding(const struct parsers *v, const char *s, struct clie
       csp->flags |= CSP_FLAG_CHUNKED;
 
       /*
-       * If the body was modified, it has been 
+       * If the body was modified, it has been
        * de-chunked first, so adjust the header:
        */
       if (csp->flags & CSP_FLAG_MODIFIED)
@@ -1070,7 +1076,7 @@ char *client_referrer(const struct parsers *v, const char *s, struct client_stat
 #ifdef FEATURE_FORCE_LOAD
    /* Since the referrer can include the prefix even
     * even if the request itself is non-forced, we must
-    * clean it unconditionally 
+    * clean it unconditionally
     */
    strclean(s, FORCE_PREFIX);
 #endif /* def FEATURE_FORCE_LOAD */
@@ -1374,7 +1380,7 @@ char *client_accept(const struct parsers *v, const char *s, struct client_state 
    if (strstr (s, "image/gif"))
    {
       /* Client will accept HTML.  If this seems counterintuitive,
-       * blame Microsoft. 
+       * blame Microsoft.
        */
       csp->accept_types |= ACCEPT_TYPE_MSIE_HTML;
    }
@@ -1610,7 +1616,7 @@ void connection_close_adder(struct client_state *csp)
 char *server_http(const struct parsers *v, const char *s, struct client_state *csp)
 {
    char *ret = strdup(s);
-   
+
    sscanf(ret, "HTTP/%*d.%*d %d", &(csp->http->status));
    if (csp->http->status == 206)
    {
@@ -1662,12 +1668,12 @@ char *server_set_cookie(const struct parsers *v, const char *s, struct client_st
 }
 
 
-#ifdef FEATURE_FORCE_LOAD 
+#ifdef FEATURE_FORCE_LOAD
 /*********************************************************************
  *
  * Function    :  strclean
  *
- * Description :  In-Situ-Eliminate all occurances of substring in 
+ * Description :  In-Situ-Eliminate all occurances of substring in
  *                string
  *
  * Parameters  :
@@ -1687,7 +1693,7 @@ int strclean(const char *string, const char *substring)
       p = pos + len;
       do
       {
-         *(p - len) = *p; 
+         *(p - len) = *p;
       }
       while (*p++ != '\0');
 
