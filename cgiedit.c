@@ -42,6 +42,12 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2002/04/18 19:21:08  jongfoster
+ *    Added code to detect "conventional" action files, that start
+ *    with a set of actions for all URLs (the pattern "/").
+ *    These are special-cased in the "edit-actions-list" CGI, so
+ *    that a special UI can be written for them.
+ *
  *    Revision 1.30  2002/04/10 13:38:35  oes
  *    load_template signature changed
  *
@@ -2537,12 +2543,15 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
       return cgi_error_disabled(csp, rsp);
    }
 
+   /* Load actions file */
    err = edit_read_actions_file(csp, rsp, parameters, 0, &file);
    if (err)
    {
       /* No filename specified, can't read file, or out of memory. */
       return (err == JB_ERR_FILE ? JB_ERR_OK : err);
    }
+
+   /* Set up global exports */
 
    if (NULL == (exports = default_exports(csp, NULL)))
    {
@@ -2560,7 +2569,75 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
       return err;
    }
 
+   /* Find start of actions in file */
+   cur_line = file->lines;
+   line_number = 1;
+   while ((cur_line != NULL) && (cur_line->type != FILE_LINE_ACTION))
+   {
+      cur_line = cur_line->next;
+      line_number++;
+   }
+
+   /*
+    * Conventional actions files should have a match all block
+    * at the start:
+    * cur_line             = {...global actions...}
+    * cur_line->next       = /
+    * cur_line->next->next = {...actions...} or EOF
+    */
+   if ( (cur_line != NULL)
+     && (cur_line->type == FILE_LINE_ACTION)
+     && (cur_line->next != NULL)
+     && (cur_line->next->type == FILE_LINE_URL)
+     && (0 == strcmp(cur_line->next->unprocessed, "/"))
+     && ( (cur_line->next->next == NULL)
+       || (cur_line->next->next->type != FILE_LINE_URL)
+      ) )
+   {
+      /*
+       * Conventional actions file, supply extra editing help.
+       * (e.g. don't allow them to make it an unconventional one).
+       */
+      err = map_conditional(exports, "all-urls-present", 1);
+
+      snprintf(buf, 50, "%d", line_number);
+      if (!err) err = map(exports, "all-urls-s", 1, buf, 1);
+      snprintf(buf, 50, "%d", line_number + 2);
+      if (!err) err = map(exports, "all-urls-s-next", 1, buf, 1);
+      if (!err) err = map(exports, "all-urls-actions", 1,
+                          actions_to_html(cur_line->data.action), 0);
+
+      /* Skip the 2 lines */
+      cur_line = cur_line->next->next;
+      line_number += 2;
+
+      /*
+       * Note that prev_section_line_number is NOT set here.
+       * This is deliberate and not a bug.  It stops a "Move up"
+       * option appearing on the next section.  Clicking "Move
+       * up" would make the actions file unconventional, which
+       * we don't want, so we hide this option.
+       */
+   }
+   else
+   {
+      /*
+       * Non-standard actions file - does not begin with
+       * the "All URLs" section.
+       */
+      err = map_conditional(exports, "all-urls-present", 0);
+   }
+
+   if (err)
+   {
+      edit_free_file(file);
+      free_map(exports);
+      return err;
+   }
+
    /* Should do all global exports above this point */
+
+   /* Load templates */
 
    err = template_load(csp, &section_template, "edit-actions-list-section", 0);
    if (err)
@@ -2604,15 +2681,6 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
       edit_free_file(file);
       free_map(exports);
       return err;
-   }
-
-   /* Find start of actions in file */
-   cur_line = file->lines;
-   line_number = 1;
-   while ((cur_line != NULL) && (cur_line->type != FILE_LINE_ACTION))
-   {
-      cur_line = cur_line->next;
-      line_number++;
    }
 
    if (NULL == (sections = strdup("")))
