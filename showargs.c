@@ -33,6 +33,10 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/05/29 23:11:38  oes
+ *
+ *     - Moved strsav() from showargs to miscutil
+ *
  *    Revision 1.8  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -154,66 +158,6 @@ const char showargs_rcs[] = "$Id$";
 #include "gateway.h"
 
 const char showargs_h_rcs[] = SHOWARGS_H_VERSION;
-
-/*********************************************************************
- *
- * Function    :  strsav
- *
- * Description :  Reallocate "old" and append text to it.  This makes
- *                it easier to append to malloc'd strings.
- *
- * Parameters  :
- *          1  :  old = Old text that is to be extended.  Will be
- *                free()d by this routine.
- *          2  :  text_to_append = Text to be appended to old.
- *
- * Returns     :  Pointer to newly malloc'ed appended string.
- *                If there is no text to append, return old.  Caller
- *                must free().
- *
- *********************************************************************/
-char *strsav(char *old, const char *text_to_append)
-{
-   int old_len, new_len;
-   char *p;
-
-   if (( text_to_append == NULL) || (*text_to_append == '\0'))
-   {
-      return(old);
-   }
-
-   if (NULL != old)
-   {
-      old_len = strlen(old);
-   }
-   else
-   {
-      old_len = 0;
-   }
-
-   new_len = old_len + strlen(text_to_append) + 1;
-
-   if (old)
-   {
-      if ((p = realloc(old, new_len)) == NULL)
-      {
-         log_error(LOG_LEVEL_FATAL, "realloc(%d) bytes for proxy_args failed!", new_len);
-         /* Never get here - LOG_LEVEL_FATAL causes program exit */
-      }
-   }
-   else
-   {
-      if ((p = (char *)malloc(new_len)) == NULL)
-      {
-         log_error(LOG_LEVEL_FATAL, "malloc(%d) bytes for proxy_args failed!", new_len);
-         /* Never get here - LOG_LEVEL_FATAL causes program exit */
-      }
-   }
-
-   strcpy(p + old_len, text_to_append);
-   return(p);
-
-}
 
 
 /*********************************************************************

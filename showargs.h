@@ -35,6 +35,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/29 23:11:38  oes
+ *
+ *     - Moved strsav() from showargs to miscutil
+ *
  *    Revision 1.2  2001/05/26 00:28:36  jongfoster
  *    Automatic reloading of config file.
  *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
@@ -53,7 +57,7 @@
 extern "C" {
 #endif
 
-extern char *strsav(char *old, const char *text_to_append);
+
 extern void savearg(char *c, char *o, struct configuration_spec * config);
 
 extern void init_proxy_args(int argc, const char *argv[], struct configuration_spec * config);
