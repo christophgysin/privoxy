@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2001/07/15 13:56:57  jongfoster
+ *    Removing unused local variable.
+ *
  *    Revision 1.12  2001/07/01 17:04:11  oes
  *    Bugfix: accept_connection no longer uses the obsolete hstrerror() function
  *
@@ -449,7 +452,6 @@ int accept_connection(struct client_state * csp, int fd)
    struct sockaddr_in *lap = (struct sockaddr_in *) &laddr;
    struct hostent *host = NULL;
    int   afd, raddrlen, laddrlen;
-   char *p;
 
    raddrlen = sizeof raddr;
    do
