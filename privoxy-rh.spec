@@ -215,13 +215,8 @@ fi
 #fi
 # We only remove it we this is not an upgrade
 if [ "$1" = "0" ]; then
-	# And only if this is not redhat, once redhat likes to have
-	# the uid and gid allocated even if the package is not
-	# installed
-	if [ ! -r /etc/redhat-release ]; then
-		/bin/grep -E '^%{name}:' /etc/group > /dev/null && /usr/sbin/groupdel %{name} || /bin/true
-		id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
-	fi
+	/bin/grep -E '^%{name}:' /etc/group > /dev/null && /usr/sbin/groupdel %{name} || /bin/true
+	id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 fi
 
 %clean
@@ -299,6 +294,12 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Mon Apr 22 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
++ privoxy-2.9.14-2
+- Removed the redhat hack that prevented the user and group from
+  being dealocated. That was a misundestanding of my part regarding
+  redhat policy.
+
 * Mon Apr 22 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + privoxy-2.9.14-2
 - Using macros to define uid and gid values
@@ -616,6 +617,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.28  2002/04/22 18:51:33  morcego
+# user and group now get removed on rh too.
+#
 # Revision 1.27  2002/04/22 16:32:31  morcego
 # configure.in, *.spec: Bumping release to 2 (2.9.14-2)
 # -rh.spec: uid and gid are now macros
