@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2002/01/22 23:24:48  jongfoster
+ *    Adding edit-actions-section-swap
+ *
  *    Revision 1.4  2001/11/13 00:28:51  jongfoster
  *    Adding new CGIs for use by non-JavaScript browsers:
  *      edit-actions-url-form
@@ -120,6 +123,9 @@ extern jb_err cgi_edit_actions_section_remove(struct client_state *csp,
                                               struct http_response *rsp,
                                               const struct map *parameters);
 extern jb_err cgi_edit_actions_section_add   (struct client_state *csp,
+                                              struct http_response *rsp,
+                                              const struct map *parameters);
+extern jb_err cgi_edit_actions_section_swap  (struct client_state *csp,
                                               struct http_response *rsp,
                                               const struct map *parameters);
 extern jb_err cgi_toggle(struct client_state *csp,
