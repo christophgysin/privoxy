@@ -35,6 +35,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/11/30 23:35:51  jongfoster
+ *    Renaming actionsfile to ijb.action
+ *
  *    Revision 1.7  2001/11/13 00:28:24  jongfoster
  *    - Renaming parameters from edit-actions-for-url so that they only
  *      contain legal JavaScript characters.  If we wanted to write
@@ -2599,7 +2602,7 @@ jb_err cgi_edit_actions(struct client_state *csp,
    {
       return JB_ERR_MEMORY;
    }
-   if (enlist_unique_header(rsp->headers, "Location", "http://ijbswa.sourceforge.net/config/edit-actions-list?filename=edit"))
+   if (enlist_unique_header(rsp->headers, "Location", "http://ijbswa.sourceforge.net/config/edit-actions-list?filename=ijb"))
    {
       free(rsp->status);
       rsp->status = NULL;
