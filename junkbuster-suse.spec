@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.13  2002/03/07 18:25:56  swa
+# synced redhat and suse build process
+#
 # Revision 1.12  2002/03/02 15:50:04  swa
 # 2.9.11 version. more input for docs.
 #
@@ -70,11 +73,12 @@
 # neededforbuild  -ijb
 # usedforbuild    -ijb aaa_base aaa_dir autoconf automake base bash bindutil binutils bison bzip compress cpio cracklib db devs diffutils e2fsprogs file fileutils findutils flex gawk gcc gdbm gdbm-devel gettext glibc glibc-devel gpm gppshare groff gzip kbd less libtool libz lx_suse make mktemp modutils ncurses ncurses-devel net-tools netcfg nkitb pam pam-devel patch perl pgp ps rcs rpm sendmail sh-utils shadow strace syslogd sysvinit texinfo textutils timezone unzip util-linux vim xdevel xf86 xshared
 
+%define ijbconf %{_sysconfdir}/%{name}
+
 Vendor:       http://ijbswa.sourceforge.net
 Distribution: defineme
 Name:         junkbuster-suse
 Packager:     Stefan Waldherr <stefan@waldherr.org>
-
 Copyright:    GPL
 # buildroot does not work under f*cking suse :-(
 #BuildRoot: /tmp/junkbuster-rpmbuild
@@ -85,7 +89,7 @@ Autoreqprov:  on
 Version: 2.9.11
 Release: 1
 Summary:      The Internet Junkbuster
-Source:  http://www.waldherr.org/junkbuster/ijbswa.tar.gz
+Source: http://www.waldherr.org/%{name}/ijbswa-%{version}.tar.gz
 
 #
 # -----------------------------------------------------------------------------
