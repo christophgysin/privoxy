@@ -37,6 +37,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2002/01/17 21:03:08  jongfoster
+ *    Moving all our URL and URL pattern parsing code to urlmatch.c.
+ *
+ *    Renaming free_url to free_url_spec, since it frees a struct url_spec.
+ *
  *    Revision 1.13  2001/12/30 14:07:32  steudten
  *    - Add signal handling (unix)
  *    - Add SIGHUP handler (unix)
@@ -152,9 +157,6 @@ extern int load_trustfile(struct client_state *csp);
 #endif /* def FEATURE_TRUST */
 
 
-
-extern jb_err create_url_spec(struct url_spec * url, char * buf);
-extern void free_url(struct url_spec *url);
 
 extern void add_loader(int (*loader)(struct client_state *), 
                        struct configuration_spec * config);

@@ -35,6 +35,11 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2002/01/17 21:03:08  jongfoster
+ *    Moving all our URL and URL pattern parsing code to urlmatch.c.
+ *
+ *    Renaming free_url to free_url_spec, since it frees a struct url_spec.
+ *
  *    Revision 1.34  2001/12/30 14:07:32  steudten
  *    - Add signal handling (unix)
  *    - Add SIGHUP handler (unix)
@@ -231,6 +236,7 @@ const char loaders_rcs[] = "$Id$";
 #include "miscutil.h"
 #include "errlog.h"
 #include "actions.h"
+#include "urlmatch.h"
 
 const char loaders_h_rcs[] = LOADERS_H_VERSION;
 
@@ -367,174 +373,6 @@ void sweep(void)
          freez(nfl);
       }
    }
-
-}
-
-
-/*********************************************************************
- *
- * Function    :  create_url_spec
- *
- * Description :  Creates a "url_spec" structure from a string.
- *                When finished, free with unload_url().
- *
- * Parameters  :
- *          1  :  url = Target url_spec to be filled in.  Must be
- *                      zeroed out before the call (e.g. using zalloc).
- *          2  :  buf = Source pattern, null terminated.  NOTE: The
- *                      contents of this buffer are destroyed by this
- *                      function.  If this function succeeds, the
- *                      buffer is copied to url->spec.  If this
- *                      function fails, the contents of the buffer
- *                      are lost forever.
- *
- * Returns     :  JB_ERR_OK - Success
- *                JB_ERR_MEMORY - Out of memory
- *                JB_ERR_PARSE - Cannot parse regex (Detailed message
- *                               written to system log)
- *
- *********************************************************************/
-jb_err create_url_spec(struct url_spec * url, char * buf)
-{
-   char *p;
-   struct url_spec tmp_url[1];
-
-   assert(url);
-   assert(buf);
-
-   /* save a copy of the orignal specification */
-   if ((url->spec = strdup(buf)) == NULL)
-   {
-      return JB_ERR_MEMORY;
-   }
-
-   if ((p = strchr(buf, '/')))
-   {
-      if (NULL == (url->path = strdup(p)))
-      {
-         freez(url->spec);
-         return JB_ERR_MEMORY;
-      }
-      url->pathlen = strlen(url->path);
-      *p = '\0';
-   }
-   else
-   {
-      url->path    = NULL;
-      url->pathlen = 0;
-   }
-#ifdef REGEX
-   if (url->path)
-   {
-      int errcode;
-      char rebuf[BUFFER_SIZE];
-
-      if (NULL == (url->preg = zalloc(sizeof(*url->preg))))
-      {
-         freez(url->spec);
-         freez(url->path);
-         return JB_ERR_MEMORY;
-      }
-
-      sprintf(rebuf, "^(%s)", url->path);
-
-      errcode = regcomp(url->preg, rebuf,
-            (REG_EXTENDED|REG_NOSUB|REG_ICASE));
-      if (errcode)
-      {
-         size_t errlen = regerror(errcode,
-            url->preg, rebuf, sizeof(rebuf));
-
-         if (errlen > (sizeof(rebuf) - (size_t)1))
-         {
-            errlen = sizeof(rebuf) - (size_t)1;
-         }
-         rebuf[errlen] = '\0';
-
-         log_error(LOG_LEVEL_ERROR, "error compiling %s: %s",
-            url->spec, rebuf);
-
-         freez(url->spec);
-         freez(url->path);
-         freez(url->preg);
-
-         return JB_ERR_PARSE;
-      }
-   }
-#endif
-   if ((p = strchr(buf, ':')) == NULL)
-   {
-      url->port = 0;
-   }
-   else
-   {
-      *p++ = '\0';
-      url->port = atoi(p);
-   }
-
-   if ((url->domain = strdup(buf)) == NULL)
-   {
-      freez(url->spec);
-      freez(url->path);
-#ifdef REGEX
-      freez(url->preg);
-#endif /* def REGEX */
-      return JB_ERR_MEMORY;
-   }
-
-   /* split domain into components */
-
-   *tmp_url = dsplit(url->domain);
-   if (tmp_url->dbuf == NULL)
-   {
-      freez(url->spec);
-      freez(url->path);
-      freez(url->domain);
-#ifdef REGEX
-      freez(url->preg);
-#endif /* def REGEX */
-      return JB_ERR_MEMORY;
-   }
-
-   url->dbuf = tmp_url->dbuf;
-   url->dcnt = tmp_url->dcnt;
-   url->dvec = tmp_url->dvec;
-   url->unanchored = tmp_url->unanchored;
-
-   return JB_ERR_OK;
-
-}
-
-
-/*********************************************************************
- *
- * Function    :  free_url
- *
- * Description :  Called from the "unloaders".  Freez the url
- *                structure elements.
- *
- * Parameters  :
- *          1  :  url = pointer to a url_spec structure.
- *
- * Returns     :  N/A
- *
- *********************************************************************/
-void free_url(struct url_spec *url)
-{
-   if (url == NULL) return;
-
-   freez(url->spec);
-   freez(url->domain);
-   freez(url->dbuf);
-   freez(url->dvec);
-   freez(url->path);
-#ifdef REGEX
-   if (url->preg)
-   {
-      regfree(url->preg);
-      freez(url->preg);
-   }
-#endif
 
 }
 
@@ -727,7 +565,7 @@ static void unload_trustfile(void *f)
 
    unload_trustfile(b->next); /* Stack is cheap, isn't it? */
 
-   free_url(b->url);
+   free_url_spec(b->url);
 
    freez(b);
 
@@ -839,6 +677,7 @@ int load_trustfile(struct client_state *csp)
       if (trusted)
       {
          *tl++ = b->url;
+         /* FIXME BUFFER OVERFLOW if >=64 entries */
       }
    }
 
