@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.4  2002/11/12 14:30:04  oes
+ *    Proper backtracking in simplematch; fixes bug #632888
+ *
  *    Revision 2.3  2002/09/25 13:00:41  oes
  *    Made strcmpic and strncmpic safe against NULL arguments
  *    (which are now treated as empty strings).
@@ -830,25 +833,28 @@ int simplematch(char *pattern, char *text)
       if ((*pat == *txt)  
       || ((*pat == ']') && (charmap[*txt / 8] & (1 << (*txt % 8)))) )
       {
-         /* Sucess, go ahead */
+         /* 
+          * Sucess: Go ahead
+          */
          pat++;
       }
-      else
+      else if (!wildcard)
       {
-         /* In wildcard mode, just try again after failure */
-         if(wildcard)
-         {
-            pat = fallback;
-         }
-
-         /* Else, bad luck */
-         else
-         {
-            return 1;
-         }
+         /* 
+          * No match && no wildcard: No luck
+          */
+         return 1;
+      }
+      else if (pat != fallback)
+      {
+         /*
+          * Wildcard mode && nonmatch beyond fallback: Rewind pattern
+          */
+         pat = fallback;
+         continue;
       }
       txt++;
-   }
+   } 
 
    /* Cut off extra '*'s */
    if(*pat == '*')  pat++;
