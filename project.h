@@ -36,8 +36,8 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.14  2001/06/03 19:12:58  oes
- *    added struct map, added struct http_response, changed struct interceptors to struct cgi_dispatcher, moved HTML stuff to cgi.h
+ *    Revision 1.15  2001/06/04 11:28:53  swa
+ *    redirect did not work due to missing /
  *
  *    Revision 1.14  2001/06/03 11:03:48  oes
  *    Makefile/in
@@ -772,7 +772,7 @@ struct configuration_spec
 
 /* Shouldn't end with '/' */
 #define HOME_PAGE_URL  "http://ijbswa.sourceforge.net"
-#define REDIRECT_URL HOME_PAGE_URL "redirect.php?v=" VERSION "&to="
+#define REDIRECT_URL HOME_PAGE_URL "/redirect.php?v=" VERSION "&to="
 
 #define CGI_PREFIX_HOST "i.j.b"
 
