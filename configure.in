@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.45  2002/03/24 14:19:55  swa
+dnl set rpm package release in configure.in. nowhere else.
+dnl
 dnl Revision 1.44  2002/03/24 13:25:43  swa
 dnl name change related issues
 dnl
@@ -321,6 +324,7 @@ dnl =================================================================
 VERSION_MAJOR=2
 VERSION_MINOR=9
 VERSION_POINT=13
+VERSION_RPM_PACKAGE=1
 CODE_STATUS="beta"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
@@ -333,12 +337,14 @@ dnl =================================================================
 AC_SUBST(VERSION_MAJOR)
 AC_SUBST(VERSION_MINOR)
 AC_SUBST(VERSION_POINT)
+AC_SUBST(VERSION_RPM_PACKAGE)
 AC_SUBST(CODE_STATUS)
 
 dnl
 AC_DEFINE_UNQUOTED(VERSION_MAJOR,${VERSION_MAJOR})
 AC_DEFINE_UNQUOTED(VERSION_MINOR,${VERSION_MINOR})
 AC_DEFINE_UNQUOTED(VERSION_POINT,${VERSION_POINT})
+AC_DEFINE_UNQUOTED(VERSION_RPM_PACKAGE,${VERSION_RPM_PACKAGE})
 AC_DEFINE_UNQUOTED(VERSION,"${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_POINT}")
 AC_DEFINE_UNQUOTED(CODE_STATUS,"${CODE_STATUS}")
 

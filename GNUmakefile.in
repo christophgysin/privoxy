@@ -39,7 +39,7 @@ CODE_STATUS   = @CODE_STATUS@
 VERSION       = $(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_POINT)
 # will automatically be postfixed with -$(RPM_PACKAGEV) in the SPECfile
 RPM_VERSION   = $(VERSION)
-RPM_PACKAGEV  = 1
+RPM_PACKAGEV  = @VERSION_RPM_PACKAGE@
 
 
 #############################################################################
@@ -518,6 +518,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.24  2002/03/24 14:19:55  swa
+# set rpm package release in configure.in. nowhere else.
+#
 # Revision 1.23  2002/03/24 13:06:49  swa
 # suse-clean now runs fine
 #
