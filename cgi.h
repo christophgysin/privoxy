@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2002/01/21 00:33:52  jongfoster
+ *    Adding map_block_keep() to save a few bytes in the edit-actions-list HTML.
+ *
  *    Revision 1.18  2001/11/16 00:46:31  jongfoster
  *    Fixing compiler warnings
  *
@@ -147,6 +150,7 @@ extern struct http_response *finish_http_response(struct http_response *rsp);
 extern struct map * default_exports(const struct client_state *csp, const char *caller);
 
 extern jb_err map_block_killer (struct map *exports, const char *name);
+extern jb_err map_block_keep   (struct map *exports, const char *name);
 extern jb_err map_conditional  (struct map *exports, const char *name, int choose_first);
 
 extern jb_err template_load(struct client_state *csp, char ** template_ptr, 
