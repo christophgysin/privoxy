@@ -31,6 +31,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.12  2002/04/26 12:58:11  oes
+#    Central "button" link style in cgi-style.css
+#
 #    Revision 1.11  2002/04/24 02:14:03  oes
 #    Changed shortcuts, Cosmetics
 #
@@ -84,7 +87,7 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="3" class="framed">
 <tr class="actions" valign="top">
  <td class="header" align="right">Actions:</td>
- <td align="center"><a name="l@s@" href="eafu?f=@f@&amp;v=@v@&amp;s=@s@">Edit</a></td>
+ <td class="buttons" align="center"><a name="l@s@" href="eafu?f=@f@&amp;v=@v@&amp;s=@s@">Edit</a></td>
  <td class="action" align="left">@actions@</td>
 </tr>
 <tr class="rule">
@@ -92,7 +95,7 @@
 </tr>
 <tr class="url1" valign="top">
  <td class="header" align="right">URL patterns:</td>
- <td align="center"><a href="eaa?f=@f@&amp;v=@v@&amp;s=@s@">Add</a></td>
+ <td class="buttons" align="center"><a href="eaa?f=@f@&amp;v=@v@&amp;s=@s@">Add</a></td>
  <td align="left">&nbsp;</td>
 </tr>
 @urls@
@@ -101,9 +104,9 @@
 </tr>
 <tr class="adv" valign="top">
  <td class="header" align="right"><b>Advanced:</b></td>
- <td colspan="2">
+ <td class="buttons" colspan="2">
   <table border="0" cellspacing="0" cellpadding="4">
-   <tr valign="middle" align="center">
+   <tr class="buttons" valign="middle" align="center">
     <td class="nbr"> &nbsp; @if-s-prev-exists-start@<a href="eass?f=@f@&amp;v=@v@&amp;s1=@s-prev@&amp;s2=@s@#l@s-prev@">Move section up</a> &nbsp; @if-s-prev-exists-end@</td>
     <td class="nbr"> &nbsp; <a href="easa?f=@f@&amp;v=@v@&amp;s=@s@#l@s-next@">Insert new section below</a> &nbsp; </td>
    </tr>

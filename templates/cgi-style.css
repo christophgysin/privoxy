@@ -65,6 +65,37 @@ p.important { border: solid black 1px; background-color: #ffdddd; font-weight: b
 p.whiteframed { margin: 5px; padding: 5px; border: solid black 1px; text-align: center; background-color: #eeeeee; }
 
 /*
+ * Links as buttons:
+ */
+
+td.buttons {
+  padding: 2px;
+}
+
+a.cmd, td.buttons a {
+  white-space: nowrap;
+  width: auto;
+  padding: 2px;
+  background-color: #dddddd;
+  color:            #000000;
+  text-decoration: none;
+  border-top:    1px solid #ffffff;
+  border-left:   1px solid #ffffff;
+  border-bottom: 1px solid #000000;
+  border-right:  1px solid #000000;
+}
+a.cmd:hover, td.buttons a:hover {
+  background-color: #eeeeee;
+}
+a.cmd:active, td.buttons a:active {
+  border-top:    1px solid #000000;
+  border-left:   1px solid #000000;
+  border-bottom: 1px solid #ffffff;
+  border-right:  1px solid #ffffff;
+}
+
+
+/*
  * Special red emphasis:
  */
 em.warning { color: #ff0000 }
