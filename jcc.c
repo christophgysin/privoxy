@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.46  2001/10/08 15:17:41  oes
+ *    Re-enabled SSL forwarding
+ *
  *    Revision 1.45  2001/10/07 15:42:11  oes
  *    Replaced 6 boolean members of csp with one bitmap (csp->flags)
  *
@@ -558,23 +561,34 @@ static void chat(struct client_state *csp)
     * we have to do one of the following:
     *
     * create = use the original HTTP request to create a new
-    *          HTTP request that has only the path component
-    *          without the http://domainspec
-    * pass   = pass the original HTTP request unchanged
+    *          HTTP request that has either the path component
+    *          without the http://domainspec (w/path) or the
+    *          full orininal URL (w/url)
+    *          Note that the path and/or the HTTP version may
+    *          have been altered by now.
+    * 
+    * connect = Open a socket to the host:port of the server
+    *           and short-circuit server and client socket.
     *
-    * drop   = drop the HTTP request
+    * pass =  Pass the request unchanged if forwarding a CONNECT
+    *         request to a parent proxy. Note that we'll be sending
+    *         the CFAIL message ourselves if connecting to the parent
+    *         fails, but we won't send a CSUCCEED message if it works,
+    *         since that would result in a double message (ours and the
+    *         parent's). After sending the request to the parent, we simply
+    *         tunnel.
     *
-    * here's the matrix:
+    * here's the matrix: 
     *                        SSL
     *                    0        1
     *                +--------+--------+
     *                |        |        |
-    *             0  | create | drop   |
-    *                |        |        |
+    *             0  | create | connect|
+    *                | w/path |        |
     *  Forwarding    +--------+--------+
     *                |        |        |
-    *             1  | pass   | pass   |
-    *                |        |        |
+    *             1  | create | pass   |
+    *                | w/url  |        |
     *                +--------+--------+
     *
     */
@@ -607,10 +621,10 @@ static void chat(struct client_state *csp)
    }
 
    /*
-    * (Re)build the HTTP request. If forwarding, use the whole URL,
-    * else, use only the path.
+    * (Re)build the HTTP request for non-SSL requests.
+    * If forwarding, use the whole URL, else, use only the path.
     */
-   if (http->ssl == 0)
+   if (http->ssl == 0)  
    {  
       freez(http->cmd);
 
@@ -629,8 +643,8 @@ static void chat(struct client_state *csp)
       http->cmd = strsav(http->cmd, " ");
       http->cmd = strsav(http->cmd, http->ver);
 
-      enlist(csp->headers, http->cmd);
    }
+   enlist(csp->headers, http->cmd);
 
 
    /*
