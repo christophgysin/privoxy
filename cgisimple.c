@@ -36,6 +36,10 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2002/04/26 18:29:13  jongfoster
+ *    Fixing this Visual C++ warning:
+ *    cgisimple.c(775) : warning C4018: '<' : signed/unsigned mismatch
+ *
  *    Revision 1.31  2002/04/26 12:54:36  oes
  *     - Kill obsolete REDIRECT_URL code
  *     - Error handling fixes
@@ -681,6 +685,7 @@ jb_err cgi_show_status(struct client_state *csp,
 {
    char *s = NULL;
    unsigned i;
+   int j;
 
    FILE * fp;
    char buf[BUFFER_SIZE];
@@ -772,9 +777,9 @@ jb_err cgi_show_status(struct client_state *csp,
    }
 
    s = strdup("");
-   for (i = 0; (s != NULL) && (i < Argc); i++)
+   for (j = 0; (s != NULL) && (j < Argc); j++)
    {
-      if (!err) err = string_join  (&s, html_encode(Argv[i]));
+      if (!err) err = string_join  (&s, html_encode(Argv[j]));
       if (!err) err = string_append(&s, " ");
    }
    if (!err) err = map(exports, "invocation", 1, s, 0);
