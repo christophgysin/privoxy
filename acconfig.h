@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27.2.1  2002/08/10 11:22:31  oes
+ *    - Add two AC_DEFINEs that indicate if the pcre*.h headers
+ *      are located in a pcre/ subdir to the include path.
+ *
  *    Revision 1.27  2002/04/25 19:13:57  morcego
  *    Removed RPM release number declaration on configure.in
  *    Changed makefile to use given value for RPM_PACKAGEV when on uploading
@@ -392,6 +396,13 @@
  */
 #undef socklen_t
 
+/* Define if pcre.h must be included as <pcre/pcre.h>
+ */
+#undef PCRE_H_IN_SUBDIR
+
+/* Define if pcreposix.h must be included as <pcre/pcreposix.h>
+ */
+#undef PCREPOSIX_H_IN_SUBDIR
 
 @BOTTOM@
 
