@@ -204,7 +204,7 @@ fi
 %doc doc/webserver/developer-manual
 %doc doc/webserver/user-manual
 %doc doc/webserver/faq
-%doc doc/webserver/ijb_docs.css
+%doc doc/webserver/p_doc.css
 
 %dir %{privoxyconf}
 %dir %{privoxyconf}/templates
@@ -264,6 +264,10 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Thu Mar 28 2002 Sarantis Paskalis <sarantis@cnl.di.uoa.gr>
++ privoxy-2.9.13-3
+- Include correct documentation file.
+
 * Tue Mar 26 2002 Hal Burgiss <hal@foobox.net>
 + privoxy-2.9.13-3
 - Fix typo in Description.
@@ -544,6 +548,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.19  2002/03/27 22:44:59  sarantis
+# Include correct documentation file.
+#
 # Revision 1.18  2002/03/27 22:10:14  sarantis
 # bumped Hal's last commit 1 day to the future to make rpm build again.
 #
