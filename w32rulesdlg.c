@@ -32,6 +32,11 @@ const char w32rulesdlg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/26 01:26:34  jongfoster
+ *    New #define, WIN_GUI_EDIT, enables the (embryonic) Win32 GUI editor.
+ *    This #define cannot be set from ./configure - there's no point, it
+ *    doesn't work yet.  See feature request # 425722
+ *
  *    Revision 1.3  2001/05/22 18:56:28  oes
  *    CRLF -> LF
  *
@@ -61,7 +66,10 @@ const char w32rulesdlg_rcs[] = "$Id$";
 
 const char w32rulesdlg_h_rcs[] = W32RULESDLG_H_VERSION;
 
+
 #ifndef _WIN_CONSOLE /* entire file */
+#ifdef WIN_GUI_EDIT /* entire file */
+
 
 const int nSmallIconWidth = 16;
 const int nSmallIconHeight = 16;
@@ -535,6 +543,7 @@ static BOOL CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM l
 
 }
 
+#endif /* def WIN_GUI_EDIT - entire file */
 #endif /* ndef _WIN_CONSOLE - entire file */
 
 /*

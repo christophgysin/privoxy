@@ -32,6 +32,11 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/05/26 01:26:34  jongfoster
+ *    New #define, WIN_GUI_EDIT, enables the (embryonic) Win32 GUI editor.
+ *    This #define cannot be set from ./configure - there's no point, it
+ *    doesn't work yet.  See feature request # 425722
+ *
  *    Revision 1.6  2001/05/26 00:31:30  jongfoster
  *    Fixing compiler warning about comparing signed/unsigned.
  *
@@ -954,7 +959,9 @@ void OnLogRButtonUp(int nModifier, int x, int y)
    if (hMenu != NULL)
    {
       HMENU hMenuPopup = GetSubMenu(hMenu, 0);
+#ifdef WIN_GUI_EDIT
       char *szURL;
+#endif /* def WIN_GUI_EDIT */
 
       /* Check if there is a selection */
       CHARRANGE range;
@@ -968,6 +975,7 @@ void OnLogRButtonUp(int nModifier, int x, int y)
          EnableMenuItem(hMenuPopup, ID_EDIT_COPY, MF_BYCOMMAND | MF_ENABLED);
       }
 
+#ifdef WIN_GUI_EDIT
       /* Check if cursor is over a link */
       szURL = LogGetURLUnderCursor();
       if (szURL)
@@ -999,6 +1007,7 @@ void OnLogRButtonUp(int nModifier, int x, int y)
 
          free(szURL);
       }
+#endif /* def WIN_GUI_EDIT */
 
       /* Display the popup */
       TrackPopupMenu(hMenuPopup, TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RIGHTBUTTON, x, y, 0, g_hwndLogFrame, NULL);
@@ -1115,9 +1124,11 @@ void OnLogCommand(int nCommand)
          break;
 #endif /* def TRUST_FILES */
 
+#ifdef WIN_GUI_EDIT
       case ID_NEW_BLOCKER:
          ShowRulesDialog(g_hwndLogFrame);
          break;
+#endif /* def WIN_GUI_EDIT */
 
       case ID_HELP_GPL:
          ShellExecute(g_hwndLogFrame, "open", "gpl.html", NULL, NULL, SW_SHOWNORMAL);

@@ -34,6 +34,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/26 01:26:34  jongfoster
+ *    New #define, WIN_GUI_EDIT, enables the (embryonic) Win32 GUI editor.
+ *    This #define cannot be set from ./configure - there's no point, it
+ *    doesn't work yet.  See feature request # 425722
+ *
  *    Revision 1.3  2001/05/26 00:28:36  jongfoster
  *    Automatic reloading of config file.
  *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
@@ -60,17 +65,22 @@
  *
  *********************************************************************/
 
+#ifdef WIN_GUI_EDIT
 #define IDS_NEW_BLOCKER                   1
 
 #define ID_NEW_BLOCKER                    100
+#endif /* def WIN_GUI_EDIT */
+
 #define IDR_TRAYMENU                      101
 #define IDI_IDLE                          102
 #define IDR_LOGVIEW                       103
 #define IDR_ACCELERATOR                   104
 #define IDR_POPUP_SELECTION               105
+
+#ifdef WIN_GUI_EDIT
 #define IDD_RULES                         106
-#define IDI_DENYRULE                      107
-#define IDI_ALLOWRULE                     108
+#endif /* def WIN_GUI_EDIT */
+
 
 #define IDI_JUNKBUSTER                    200
 #define IDI_JUNKBUSTER1                   201
@@ -82,6 +92,10 @@
 #define IDI_JUNKBUSTER7                   207
 #define IDI_JUNKBUSTER8                   208
 
+#ifdef WIN_GUI_EDIT
+#define IDI_DENYRULE                      209
+#define IDI_ALLOWRULE                     210
+
 #define IDC_NEW                           300
 #define IDC_ACTION                        301
 #define IDC_RULES                         302
@@ -90,6 +104,7 @@
 #define IDC_MOVEDOWN                      305
 #define IDC_DELETE                        306
 #define IDC_SAVE                          307
+#endif /* def WIN_GUI_EDIT */
 
 #define ID_SHOWWINDOW                     4000
 #define ID_HELP_ABOUTJUNKBUSTER           4001

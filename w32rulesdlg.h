@@ -34,8 +34,13 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:08  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/26 01:26:34  jongfoster
+ *    New #define, WIN_GUI_EDIT, enables the (embryonic) Win32 GUI editor.
+ *    This #define cannot be set from ./configure - there's no point, it
+ *    doesn't work yet.  See feature request # 425722
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:08  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -45,8 +50,14 @@
 extern "C" {
 #endif
 
+#ifndef _WIN_CONSOLE /* entire file */
+#ifdef WIN_GUI_EDIT /* entire file */
+
 extern int ShowRulesDialog(HWND hwndParent);
 extern void SetDefaultRule(const char *pszRule);
+
+#endif /* def WIN_GUI_EDIT - entire file */
+#endif /* ndef _WIN_CONSOLE - entire file */
 
 /* Revision control strings from this header and associated .c file */
 extern const char w32rulesdlg_rcs[];

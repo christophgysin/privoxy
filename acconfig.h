@@ -37,6 +37,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/26 01:26:34  jongfoster
+ *    New #define, WIN_GUI_EDIT, enables the (embryonic) Win32 GUI editor.
+ *    This #define cannot be set from ./configure - there's no point, it
+ *    doesn't work yet.  See feature request # 425722
+ *
  *    Revision 1.2  2001/05/22 17:43:35  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -224,6 +229,13 @@
  * Use PCRE rather than GNU Regex
  */
 #undef PCRE
+
+/*
+ * Define this to use the Windows GUI for editing the blocklist.
+ * FIXME: This feature is only partially implemented and does not work
+ * FIXME: This #define can never be set by ./configure.
+ */
+#undef WIN_GUI_EDIT
 
 @BOTTOM@
 
