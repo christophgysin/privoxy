@@ -263,7 +263,7 @@ dist-check:
            $(ECHO) "***                                             ***"; \
            $(ECHO) "***************************************************"; \
            $(ECHO) "Type \"yes i am sure\" if you are sure that you"; \
-           $(ECHO) -n "want to continue: "; \
+           $(ECHO) -n "really want to proceed: "; \
            read answer; \
            if [ "$$answer" != "yes i am sure" ]; then exit 1; fi \
          fi;
@@ -464,14 +464,15 @@ win-dist:
 
 
 #############################################################################
-# Tarball distribution. Only source files. No binaries.
+# Tarball distribution: No CVS dirs, dotfiles, debian build dir,
+# (FIXME:) only parts of the static / generated docs mix in doc/webserver
 #############################################################################
 
 tarball-dist: dist-check clean clobber
 	$(LN) -s current ../privoxy-$(VERSION)-$(CODE_STATUS)
 
-	for i in `find . -type f -a -not \( -path "*/CVS*" -o -path "*/results*" \
-	 -o -name ".cvsignore" -o -path "*/debian/*" \)`; do \
+	for i in `find . -type f -a -not \( -path "*/CVS*" -o -name ".*" \
+	-o -path "*/debian/*" -o -path "*/actions/*" -o -name "*.php" \)`; do \
 	   files="$$files privoxy-$(VERSION)-$(CODE_STATUS)/$$i"; \
 	done &&  \
 	cd .. && $(TAR) cvhf privoxy-$(VERSION)-$(CODE_STATUS)-src.tar $$files ; \
@@ -785,6 +786,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.83  2002/04/12 09:39:25  oes
+# Excluding yet more files from tarball; making dist warning yet more scary
+#
 # Revision 1.82  2002/04/11 21:07:11  oes
 # Excluding more files from tarball build
 #
