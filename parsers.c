@@ -40,6 +40,17 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.56.2.1  2002/09/25 14:52:45  oes
+ *    Added basic support for OPTIONS and TRACE HTTP methods:
+ *     - New parser function client_max_forwards which decrements
+ *       the Max-Forwards HTTP header field of OPTIONS and TRACE
+ *       requests by one before forwarding
+ *     - New parser function client_host which extracts the host
+ *       and port information from the HTTP header field if the
+ *       request URI was not absolute
+ *     - Don't crumble and re-add the Host: header, but only generate
+ *       and append if missing
+ *
  *    Revision 1.56  2002/05/12 15:34:22  jongfoster
  *    Fixing typo in a comment
  *
@@ -436,12 +447,13 @@ const struct parsers client_patterns[] = {
    { "cookie:",                  7,    client_send_cookie },
    { "x-forwarded-for:",         16,   client_x_forwarded },
    { "Accept-Encoding:",         16,   client_accept_encoding },
-   { "TE:",                      3,    client_te },
-   { "Host:",                     5,   crumble },
+   { "TE:",                       3,   client_te },
+   { "Host:",                     5,   client_host },
 /* { "if-modified-since:",       18,   crumble }, */
    { "Keep-Alive:",              11,   crumble },
    { "connection:",              11,   crumble },
    { "proxy-connection:",        17,   crumble },
+   { "max-forwards:",            13,   client_max_forwards },
    { NULL,                       0,    NULL }
 };
 
@@ -1335,13 +1347,120 @@ jb_err client_x_forwarded(struct client_state *csp, char **header)
    return JB_ERR_OK;
 }
 
+
+/*********************************************************************
+ *
+ * Function    :  client_max_forwards
+ *
+ * Description :  If the HTTP method is OPTIONS or TRACE, subtract one
+ *                from the value of the Max-Forwards header field.
+ *
+ * Parameters  :
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  header = On input, pointer to header to modify.
+ *                On output, pointer to the modified header, or NULL
+ *                to remove the header.  This function frees the
+ *                original string if necessary.
+ *
+ * Returns     :  JB_ERR_OK on success, or
+ *                JB_ERR_MEMORY on out-of-memory error.
+ *
+ *********************************************************************/
+jb_err client_max_forwards(struct client_state *csp, char **header)
+{
+   unsigned int max_forwards;
+
+   if ((0 == strcmpic(csp->http->gpc, "trace"))
+      || (0 == strcmpic(csp->http->gpc, "options")))
+   {
+      if (1 == sscanf(*header, "Max-Forwards: %u", &max_forwards))
+      {
+         if (max_forwards-- >= 1)
+         {
+            sprintf(*header, "Max-Forwards: %u", max_forwards);
+            log_error(LOG_LEVEL_HEADER, "Max forwards of %s request now %d", csp->http->gpc, max_forwards);
+         }
+         else
+         {
+            log_error(LOG_LEVEL_ERROR, "Non-intercepted %s request with Max-Forwards zero!", csp->http->gpc);
+         }
+      }
+   }
+
+   return JB_ERR_OK;
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  client_host
+ *
+ * Description :  If the request URI did not contain host and
+ *                port information, parse and evaluate the Host
+ *                header field.
+ *
+ * Parameters  :
+ *          1  :  csp = Current client state (buffers, headers, etc...)
+ *          2  :  header = On input, pointer to header to modify.
+ *                On output, pointer to the modified header, or NULL
+ *                to remove the header.  This function frees the
+ *                original string if necessary.
+ *
+ * Returns     :  JB_ERR_OK on success, or
+ *                JB_ERR_MEMORY on out-of-memory error.
+ *
+ *********************************************************************/
+jb_err client_host(struct client_state *csp, char **header)
+{
+   char *p, *q;
+
+   if (!csp->http->hostport || (*csp->http->hostport == '*') ||  
+       *csp->http->hostport == ' ' || *csp->http->hostport == '\0')
+   {
+      
+      if (NULL == (p = strdup((*header)+6)))
+      {
+         return JB_ERR_MEMORY;
+      }
+      chomp(p);
+      if (NULL == (q = strdup(p)))
+      {
+         freez(p);
+         return JB_ERR_MEMORY;
+      }
+
+      freez(csp->http->hostport);
+      csp->http->hostport = p;
+      freez(csp->http->host);
+      csp->http->host = q;
+      q = strchr(csp->http->host, ':');
+      if (q != NULL)
+      {
+         /* Terminate hostname and evaluate port string */
+         *q++ = '\0';
+         csp->http->port = atoi(q);
+      }
+      else
+      {
+         csp->http->port = csp->http->ssl ? 443 : 80;
+      }
+
+      log_error(LOG_LEVEL_HEADER, "New host and port from Host field: %s = %s:%d",
+                csp->http->hostport, csp->http->host, csp->http->port);
+   }
+
+   return JB_ERR_OK;
+}
+
+
 /* the following functions add headers directly to the header list */
 
 /*********************************************************************
  *
  * Function    :  client_host_adder
  *
- * Description :  (re)adds the host header. Called from `sed'.
+ * Description :  Adds the Host: header field if it is missing.
+ *                Called from `sed'.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
@@ -1353,7 +1472,6 @@ jb_err client_x_forwarded(struct client_state *csp, char **header)
 jb_err client_host_adder(struct client_state *csp)
 {
    char *p;
-   char *pos;
    jb_err err;
 
    if ( !csp->http->hostport || !*(csp->http->hostport))
@@ -1361,31 +1479,22 @@ jb_err client_host_adder(struct client_state *csp)
       return JB_ERR_OK;
    }
 
-   p = strdup("Host: ");
    /*
-   ** remove 'user:pass@' from 'proto://user:pass@host'
-   */
-   if ( (pos = strchr( csp->http->hostport, '@')) != NULL )
+    * remove 'user:pass@' from 'proto://user:pass@host'
+    */
+   if ( (p = strchr( csp->http->hostport, '@')) != NULL )
    {
-       string_append(&p, pos+1);
+      p++;
    }
    else
    {
-      string_append(&p, csp->http->hostport);
+      p = csp->http->hostport;
    }
 
-   if (p == NULL)
-   {
-      return JB_ERR_MEMORY;
-   }
-
-   log_error(LOG_LEVEL_HEADER, "addh: %s", p);
-
-   err = enlist(csp->headers, p);
-
-   freez(p);
-
+   log_error(LOG_LEVEL_HEADER, "addh-unique: Host: %s", p);
+   err = enlist_unique_header(csp->headers, "Host", p);
    return err;
+
 }
 
 
