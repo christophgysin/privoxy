@@ -70,9 +70,7 @@
 <para>
  You can find the latest version of the this manual at <ulink
  url="http://www.privoxy.org/developer-manual/">http://www.privoxy.org/developer-manual/</ulink>.
- Please see the Contact section of the <ulink
- url="../user-manual/contact.html">User Manual</ulink> on how to contact the
- developers.
+ Please see the Contact section on how to contact the developers.
 </para>
 
 <!--        <para> -->
@@ -82,8 +80,18 @@
     </abstract>
   </artheader>
 
-  <!--   ~~~~~       New section      ~~~~~     -->
-  <sect1 id="introduction"><title>Introduction</title>
+<!--   ~~~~~       New section      ~~~~~     -->
+<sect1 id="intro" label=""><title></title>
+<!-- dummy section to force TOC on page by itself -->
+<!-- DO NOT REMOVE! please ;) -->
+<para> </para>
+</sect1>
+
+<!--   ~~~~~       New section      ~~~~~     -->
+
+
+<!--   ~~~~~       New section      ~~~~~     -->
+  <sect1 label="1" id="introduction"><title>Introduction</title>
 <!--
 
  I don't like seeing blank space :) So added *something* here.
@@ -2058,7 +2066,7 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   </sect1>
   
   <!--   ~~~~~       New section      ~~~~~     -->
-  <sect1 id="contact"><title>Contact the developers</title>
+  <sect1 id="contact"><title>Contacting the developers, Bug Reporting and Feature Requests</title>
 <!-- Include contacting.sgml  -->
  &contacting;
 <!-- end contacting -->
@@ -2110,6 +2118,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.23  2002/04/04 18:46:47  swa
+  consistent look. reuse of copyright, history et. al.
+
   Revision 1.22  2002/04/04 17:27:56  swa
   more single file to be included at multiple points. make maintaining easier
 
