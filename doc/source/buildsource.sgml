@@ -105,6 +105,12 @@
  <![%p-readme;[See the user-manual for OS/2 build instructions.]]>
 </para>
 
+<para>
+ For more detailed instructions on how to build Redhat and SuSE RPMs,
+ Windows self-extracting installers etc, please consult the <ulink
+ url="../developer-manual/newrelease.html">developer manual</ulink>.
+</para>
+
  <![%p-readme;[
  <para>
   For binary RPM installation, and other platforms, see the user-manual 
