@@ -38,6 +38,13 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.4  2003/09/25 01:44:33  david__schmidt
+ *    Resyncing HEAD with v_3_0_branch for two OSX fixes:
+ *    Making thread IDs look sane in the logfile for Mach kernels,
+ *    and fixing multithreading crashes due to thread-unsafe
+ *    system calls.
+ *    and
+ *
  *    Revision 2.3  2002/11/12 16:19:18  oes
  *    Fix: g_bToggleIJB was used outside #ifdef FEATURE_TOGGLE
  *
@@ -429,6 +436,11 @@ const char cgi_rcs[] = "$Id$";
 #endif /* def FEATURE_CGI_EDIT_ACTIONS */
 #include "loadcfg.h"
 /* loadcfg.h is for g_bToggleIJB only */
+#ifdef FEATURE_PTHREAD
+#include <pthread.h>
+#include "jcc.h"
+/* jcc.h is for mutex semaphore globals only */
+#endif /* def FEATURE_PTHREAD */
 
 const char cgi_h_rcs[] = CGI_H_VERSION;
 
@@ -1445,6 +1457,15 @@ void get_http_time(int time_offset, char *buf)
 
    struct tm *t;
    time_t current_time;
+#if defined(HAVE_GMTIME_R) && !defined(OSX_DARWIN)
+   /*
+    * Declare dummy up here (instead of inside get/set gmt block) so it
+    * doesn't go out of scope before it's potentially used in snprintf later.
+    * Wrapping declaration inside HAVE_GMTIME_R keeps the compiler quiet when
+    * !defined HAVE_GMTIME_R.
+    */
+   struct tm dummy; 
+#endif
 
    assert(buf);
 
@@ -1454,8 +1475,11 @@ void get_http_time(int time_offset, char *buf)
 
    /* get and save the gmt */
    {
-#ifdef HAVE_GMTIME_R
-      struct tm dummy;
+#ifdef OSX_DARWIN
+      pthread_mutex_lock(&gmtime_mutex);
+      t = gmtime(&current_time);
+      pthread_mutex_unlock(&gmtime_mutex);
+#elif HAVE_GMTIME_R
       t = gmtime_r(&current_time, &dummy);
 #else
       t = gmtime(&current_time);

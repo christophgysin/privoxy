@@ -40,6 +40,13 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.5  2003/09/25 01:44:33  david__schmidt
+ *    Resyncing HEAD with v_3_0_branch for two OSX fixes:
+ *    Making thread IDs look sane in the logfile for Mach kernels,
+ *    and fixing multithreading crashes due to thread-unsafe
+ *    system calls.
+ *    and
+ *
  *    Revision 2.4  2003/01/26 20:24:26  david__schmidt
  *    Updated activity console instrumentation locations
  *
@@ -418,6 +425,11 @@ const char parsers_rcs[] = "$Id$";
 #include <unistd.h>
 #endif
 
+#ifdef OSX_DARWIN
+#include <pthread.h>
+#include "jcc.h"
+/* jcc.h is for mutex semapores only */
+#endif /* def OSX_DARWIN */
 #include "project.h"
 #include "list.h"
 #include "parsers.h"
@@ -1697,6 +1709,10 @@ jb_err server_set_cookie(struct client_state *csp, char **header)
       time (&now); 
 #ifdef HAVE_LOCALTIME_R
       tm_now = *localtime_r(&now, &tm_now);
+#elif OSX_DARWIN
+      pthread_mutex_lock(&localtime_mutex);
+      tm_now = *localtime (&now); 
+      pthread_mutex_unlock(&localtime_mutex);
 #else
       tm_now = *localtime (&now); 
 #endif

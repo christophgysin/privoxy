@@ -35,6 +35,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2003/09/25 01:44:33  david__schmidt
+ *    Resyncing HEAD with v_3_0_branch for two OSX fixes:
+ *    Making thread IDs look sane in the logfile for Mach kernels,
+ *    and fixing multithreading crashes due to thread-unsafe
+ *    system calls.
+ *    and
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -120,6 +127,13 @@ extern int no_daemon;
 #ifdef FEATURE_GRACEFUL_TERMINATION
 extern int g_terminate;
 #endif
+
+#ifdef OSX_DARWIN
+extern pthread_mutex_t gmtime_mutex;
+extern pthread_mutex_t localtime_mutex;
+extern pthread_mutex_t gethostbyaddr_mutex;
+extern pthread_mutex_t gethostbyname_mutex;
+#endif /* def OSX_DARWIN */
 
 /* Functions */
 

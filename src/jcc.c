@@ -33,6 +33,13 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.7  2003/09/25 01:44:33  david__schmidt
+ *    Resyncing HEAD with v_3_0_branch for two OSX fixes:
+ *    Making thread IDs look sane in the logfile for Mach kernels,
+ *    and fixing multithreading crashes due to thread-unsafe
+ *    system calls.
+ *    and
+ *
  *    Revision 2.6  2003/06/24 12:24:24  oes
  *    Added a line plus Fix-me as a reminder to fix broken force handling in trunk. Thanks to lionel for the hint
  *
@@ -677,8 +684,18 @@ static int32 server_thread(void *data);
 #define sleep(N)  DosSleep(((N) * 100))
 #endif
 
+#ifdef OSX_DARWIN
+/*
+ * Hit OSX over the head with a hammer.  Protect all *_r functions.
+ */
+pthread_mutex_t gmtime_mutex;
+pthread_mutex_t localtime_mutex;
+pthread_mutex_t gethostbyaddr_mutex;
+pthread_mutex_t gethostbyname_mutex;
+#endif /* def OSX_DARWIN */
+
 #if defined(unix) || defined(__EMX__)
-const char *basedir;
+const char *basedir = NULL;
 const char *pidfile = NULL;
 int received_hup_signal = 0;
 #endif /* defined unix */
@@ -1129,6 +1146,16 @@ int main(int argc, const char *argv[])
 #elif defined(_WIN32)
    InitWin32();
 #endif
+
+#ifdef OSX_DARWIN
+   /*
+    * Prepare global mutex semaphores
+    */
+   pthread_mutex_init(&gmtime_mutex,0);
+   pthread_mutex_init(&localtime_mutex,0);
+   pthread_mutex_init(&gethostbyaddr_mutex,0);
+   pthread_mutex_init(&gethostbyname_mutex,0);
+#endif /* def OSX_DARWIN */
 
    /*
     * Unix signal handling

@@ -28,6 +28,13 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.89  2003/09/25 01:44:33  david__schmidt
+dnl Resyncing HEAD with v_3_0_branch for two OSX fixes:
+dnl Making thread IDs look sane in the logfile for Mach kernels,
+dnl and fixing multithreading crashes due to thread-unsafe
+dnl system calls.
+dnl and
+dnl
 dnl Revision 1.88  2003/03/23 02:15:51  hal9
 dnl Apply Docbook/FreeBSD patch from a.go at tiscali.nl. Thanks!
 dnl
@@ -928,17 +935,8 @@ dnl Mac OSX specific
 dnl =================================================================
     
 case "$host" in
-*-apple-darwin*) SPECIAL_CFLAGS="-Dunix"
+*-apple-darwin*) SPECIAL_CFLAGS="-Dunix -DOSX_DARWIN"
 ;;  
-esac
-
-dnl =================================================================
-dnl Mac OSX specific
-dnl =================================================================
-
-case "$host" in
-*-apple-darwin*) SPECIAL_CFLAGS="-Dunix"
-;;
 esac
 
 dnl =================================================================

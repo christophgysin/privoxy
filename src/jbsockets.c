@@ -35,6 +35,13 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2003/09/25 01:44:33  david__schmidt
+ *    Resyncing HEAD with v_3_0_branch for two OSX fixes:
+ *    Making thread IDs look sane in the logfile for Mach kernels,
+ *    and fixing multithreading crashes due to thread-unsafe
+ *    system calls.
+ *    and
+ *
  *    Revision 2.1  2002/12/30 19:56:16  david__schmidt
  *    End of initial drop of statistics console infrastructure.  Data stream
  *    is transmitted on the stats port every interval, provided the data has
@@ -239,6 +246,12 @@ const char jbsockets_rcs[] = "$Id$";
 #endif
 
 #endif
+
+#ifdef OSX_DARWIN
+#include <pthread.h>
+#include "jcc.h"
+/* jcc.h is for mutex semaphores only */
+#endif /* def OSX_DARWIN */
 
 #include "project.h"
 #include "jbsockets.h"
@@ -600,11 +613,11 @@ int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
 #ifndef _WIN32
    /*
     * This is not needed for Win32 - in fact, it stops
-    * duplicate instances of Junkbuster from being caught.
+    * duplicate instances of Privoxy from being caught.
     *
     * On UNIX, we assume the user is sensible enough not
     * to start Junkbuster multiple times on the same IP.
-    * Without this, stopping and restarting Junkbuster
+    * Without this, stopping and restarting Privoxy
     * from a script fails.
     * Note: SO_REUSEADDR is meant to only take over
     * sockets which are *not* in listen state in Linux,
@@ -727,6 +740,11 @@ int accept_connection(struct client_state * csp, jb_socket fd)
       {
          host = NULL;
       }
+#elif defined(OSX_DARWIN)
+      pthread_mutex_lock(&gethostbyaddr_mutex);
+      host = gethostbyaddr((const char *)&server.sin_addr, 
+                           sizeof(server.sin_addr), AF_INET);
+      pthread_mutex_unlock(&gethostbyaddr_mutex);
 #else
       host = gethostbyaddr((const char *)&server.sin_addr, 
                            sizeof(server.sin_addr), AF_INET);
@@ -801,10 +819,20 @@ unsigned long resolve_hostname_to_ip(const char *host)
       {
          hostp = NULL;
       }
+#elif OSX_DARWIN
+      pthread_mutex_lock(&gethostbyname_mutex);
+      hostp = gethostbyname(host);
+      pthread_mutex_unlock(&gethostbyname_mutex);
 #else
       hostp = gethostbyname(host);
 #endif /* def HAVE_GETHOSTBYNAME_R_(6|5|3)_ARGS */
-      if (hostp == NULL)
+      /*
+       * On Mac OSX, if a domain exists but doesn't have a type A
+       * record associated with it, the h_addr member of the struct
+       * hostent returned by gethostbyname is NULL, even if h_length
+       * is 4. Therefore the second test below.
+       */
+      if (hostp == NULL || hostp->h_addr == NULL)
       {
          errno = EINVAL;
          log_error(LOG_LEVEL_ERROR, "could not resolve hostname %s", host);

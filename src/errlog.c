@@ -33,6 +33,13 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2003/09/25 01:44:33  david__schmidt
+ *    Resyncing HEAD with v_3_0_branch for two OSX fixes:
+ *    Making thread IDs look sane in the logfile for Mach kernels,
+ *    and fixing multithreading crashes due to thread-unsafe
+ *    system calls.
+ *    and
+ *
  *    Revision 2.1  2002/09/25 12:51:21  oes
  *    Made log_error safe against NULL string arguments
  *
@@ -426,6 +433,15 @@ void log_error(int loglevel, char *fmt, ...)
    /* FIXME get current thread id */
 #ifdef FEATURE_PTHREAD
    this_thread = (long)pthread_self();
+#ifdef __MACH__
+   /*
+    * Mac OSX (and perhaps other Mach instances) doesn't have a debuggable
+    * value at the first 4 bytes of pthread_self()'s return value, a pthread_t.
+    * pthread_t is supposed to be opaque... but it's fairly random, though, so
+    * we make it mostly presentable.
+    */
+   this_thread = abs(this_thread % 1000);
+#endif /* def __MACH__ */
 #elif defined(_WIN32)
    this_thread = GetCurrentThreadId();
 #elif defined(__OS2__)
@@ -453,6 +469,10 @@ void log_error(int loglevel, char *fmt, ...)
        time (&now);
 #ifdef HAVE_LOCALTIME_R
        tm_now = *localtime_r(&now, &tm_now);
+#elif OSX_DARWIN
+       pthread_mutex_lock(&localtime_mutex);
+       tm_now = *localtime (&now); 
+       pthread_mutex_unlock(&localtime_mutex);
 #else
        tm_now = *localtime (&now); 
 #endif
@@ -716,11 +736,19 @@ void log_error(int loglevel, char *fmt, ...)
                time (&now); 
 #ifdef HAVE_GMTIME_R
                gmt = *gmtime_r(&now, &gmt);
+#elif OSX_DARWIN
+               pthread_mutex_lock(&gmtime_mutex);
+               gmt = *gmtime(&now);
+               pthread_mutex_unlock(&gmtime_mutex);
 #else
                gmt = *gmtime(&now);
 #endif
 #ifdef HAVE_LOCALTIME_R
                tm_now = localtime_r(&now, &dummy);
+#elif OSX_DARWIN
+               pthread_mutex_lock(&localtime_mutex);
+               tm_now = localtime (&now); 
+               pthread_mutex_unlock(&localtime_mutex);
 #else
                tm_now = localtime (&now); 
 #endif
