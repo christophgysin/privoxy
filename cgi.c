@@ -38,6 +38,12 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.59  2002/04/05 15:51:51  oes
+ *     - added send-stylesheet CGI
+ *     - bugfix: error-pages now get correct request protocol
+ *     - fixed
+ *     - kludged CGI descriptions and menu not to break JS syntax
+ *
  *    Revision 1.58  2002/03/29 03:33:13  david__schmidt
  *    Fix Mac OSX compiler warnings
  *
@@ -360,6 +366,11 @@ const char cgi_rcs[] = "$Id$";
 
 const char cgi_h_rcs[] = CGI_H_VERSION;
 
+/*
+ * List of CGI functions: name, handler, description
+ * Note: Do NOT use single quotes in the description;
+ *       this will break the dynamic "blocked" template!
+ */
 static const struct cgi_dispatcher cgi_dispatchers[] = {
    { "",
          cgi_default,
@@ -367,7 +378,8 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
 #ifdef FEATURE_GRACEFUL_TERMINATION
    { "die", 
          cgi_die,  
-         "<b>Shut down</b> - <font color=red size='+1'>Do not deploy this build in a production environment, this is a one click Denial Of Service attack!!!</font>" }, 
+         "<b>Shut down</b> - <em class=\"warning\">Do not deploy this build in a production environment, "
+         "this is a one click Denial Of Service attack!!!</em>" }, 
 #endif
    { "show-status", 
          cgi_show_status,  
@@ -377,7 +389,7 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
          "Show the source code version numbers" }, 
    { "show-request", 
          cgi_show_request,  
-         "Show the client's request headers." }, 
+         "Show the request headers." }, 
    { "show-url-info",
          cgi_show_url_info, 
          "Show which actions apply to a URL and why"  },
@@ -454,6 +466,9 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
    { "send-banner",
          cgi_send_banner, 
          NULL /* Send a built-in image */ },
+   { "send-stylesheet",
+         cgi_send_stylesheet, 
+         NULL /* Send templates/cgi-style.css */ },
    { "t",
          cgi_transparent_image, 
          NULL /* Send a transparent image (short name) */ },
@@ -783,6 +798,7 @@ struct http_response *error_response(struct client_state *csp,
    if (!err) err = map(exports, "hostport", 1, html_encode(csp->http->hostport), 0);
    if (!err) err = map(exports, "path", 1, html_encode(csp->http->path), 0);
    if (!err) err = map(exports, "error", 1, html_encode_and_free_original(safe_strerror(sys_err)), 0);
+   if (!err) err = map(exports, "protocol", 1, csp->http->ssl ? "https://" : "http://", 1); 
    if (!err)
    {
      err = map(exports, "host-ip", 1, html_encode(csp->http->host_ip_addr_str), 0);
@@ -1245,7 +1261,7 @@ void free_http_response(struct http_response *rsp)
  *                JB_ERR_FILE if the template file cannot be read
  *
  *********************************************************************/
-jb_err template_load(struct client_state *csp, char ** template_ptr, 
+jb_err template_load(struct client_state *csp, char **template_ptr, 
                      const char *templatename)
 {
    char *templates_dir_path;
@@ -1711,7 +1727,7 @@ char *make_menu(const char *self)
          string_append(&result, d->name);
          string_append(&result, "\">");
          string_append(&result, d->description);
-         string_append(&result, "</a></li>\n");
+         string_append(&result, "</a></li>");
       }
    }
 
