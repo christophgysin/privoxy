@@ -35,6 +35,10 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/11/16 00:48:48  jongfoster
+ *    Enabling duplicate-socket detection for all platforms, not
+ *    just Win32.
+ *
  *    Revision 1.19  2001/10/25 03:40:47  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -415,7 +419,11 @@ int bind_port(const char *hostnam, int portnum)
 {
    struct sockaddr_in inaddr;
    int fd;
+#if 0
+#ifndef _WIN32
    int one = 1;
+#endif /* ndef _WIN32 */
+#endif
 
    memset((char *)&inaddr, '\0', sizeof inaddr);
 
@@ -442,6 +450,7 @@ int bind_port(const char *hostnam, int portnum)
       return(-1);
    }
 
+#if 0
 #ifndef _WIN32
    /*
     * FIXME: This is not needed for Win32 - in fact, it stops
@@ -451,6 +460,7 @@ int bind_port(const char *hostnam, int portnum)
     */
    setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char *)&one, sizeof(one));
 #endif /* ndef _WIN32 */
+#endif
 
    if (bind (fd, (struct sockaddr *)&inaddr, sizeof(inaddr)) < 0)
    {
