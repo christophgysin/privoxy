@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.23  2002/04/13 14:13:19  oes
+  Require exact AF version; Added hint where to go for BRs, FRs and SRs
+
   Revision 1.22  2002/04/11 10:11:04  oes
   Actionsfile Version 1.2
 
@@ -187,7 +190,7 @@ else
  */
 $headers = getallheaders();
 
-if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Version"] < $required_actions_file_version)
+if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Version"] != $required_actions_file_version)
 {
 
    error_abort("invalid", "<p>As much as we welcome your feedback, please note that
@@ -195,7 +198,7 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
                </p>
                <ul>
                 <li><a href=\"http://www.privoxy.org/\" target=\"_blank\">Privoxy</a> version $required_privoxy_version or later</li>
-                <li><a href=\"$actions_file_download\">Actionsfile</a> version  version $required_actions_file_version or later</li>
+                <li><a href=\"$actions_file_download\">Actionsfile</a> version  version $required_actions_file_version</li>
                </ul>
                <p>We hope you will understand that we feel unable to maintain concurrent versions of the file.</p>
                <p><i>Hint: To upgrade your actions file, just right-click the above link, then save as default.action in
@@ -224,6 +227,14 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
     The Privoxy team relies on <b>your</b> feedback to maintain an efficient actions file!
     <br>Please fill the below form and click to proceed to step 2.
    </p>
+
+   <p>
+    Please keep in mind that this is <b>not</b> the place for
+    <a href="http://sourceforge.net/tracker/?group_id=11118&amp;atid=211118" target="_blank">support requests</a>,
+    <br><a href="http://sourceforge.net/tracker/?group_id=11118&amp;atid=111118" target="_blank">bug reports</a> or
+    <a href="http://sourceforge.net/tracker/?atid=361118&amp;group_id=11118" target="_blank">feature requests</a>.
+   </p>
+
   </div>
 
   <div class="box">
