@@ -231,17 +231,18 @@ sufficient for our purposes.
 
 Some common elements that you likely will use:
 
-<para></para>, paragraph delimiter. Most text needs to be within paragraph     
-elements (there are some exceptions).                                          
-<emphasis></emphasis>, the stylesheets make this italics.                      
-<filename></filename>, files and directories.                                  
-<command></command>, command examples.                                         
-<literallayout></literllayout>, like <pre>, more or less.                      
-<itemizedlist></itemizdelist>, list with bullets.                              
-<listitem></listitem>, member of the above.                                    
-<screen></screen>, screen output, implies <literallayout>.                     
-<ulink url="example.com"></ulink>, like HTML <a> tag.                          
-<quote></quote>, for, doh, quoting text.                                       
+, paragraph delimiter. Most text needs to be within paragraph elements (there  
+are some exceptions).                                                          
+, the stylesheets make this italics.                                           
+, files and directories.                                                       
+, command examples.                                                            
+, like                                                                         
+, more or less.                                                                
+, list with bullets.                                                           
+, member of the above.                                                         
+, screen output, implies .                                                     
+, like HTML tag.                                                               
+, for, doh, quoting text.                                                      
 
 Look at any of the existing docs for examples of all these and more.
 
@@ -1012,13 +1013,13 @@ other header files.
 
 Example:
 
-#include <iostream.h>     /* This is not a local include */                    
+#include      /* This is not a local include */                                
 #include "config.h"       /* This IS a local include */                        
 
 Exception:
 
 /* This is not a local include, but requires a path element. */                
-#include <sys/fileName.h>                                                      
+#include                                                                       
 
 Note: Please! do not add "-I." to the Makefile without a _very_ good reason.
 This duplicates the #include "file.h" behaviour.
@@ -1335,8 +1336,8 @@ const char FILENAME_rcs[] = "$Id$";
  *                                                                                              
  * Revisions   :                                                                                
  *    $Log$
- *    Revision 1.20  2002/04/08 23:04:53  hal9
- *    Reset versions, etc.
+ *    Revision 1.21  2002/04/10 18:45:15  swa
+ *    generated
  *                                                                                     
  *                                                                                              
  *********************************************************************/                         
@@ -1394,8 +1395,8 @@ Example for file header comments:
  *                                                                                            
  * Revisions   :                                                                              
  *    $Log$
- *    Revision 1.20  2002/04/08 23:04:53  hal9
- *    Reset versions, etc.
+ *    Revision 1.21  2002/04/10 18:45:15  swa
+ *    generated
  *                                                                                   
  *                                                                                            
  *********************************************************************/                       
@@ -1883,12 +1884,12 @@ note:
 
   *  Use the Sourceforge Support Forum to get help:
        
-     http://sourceforge.net/tracker/?group_id=11118&atid=211118
+        http://sourceforge.net/tracker/?group_id=11118&atid=211118
        
    
   *  Submit bugs only through our Sourceforge Bug Forum:
      
-     http://sourceforge.net/tracker/?group_id=11118&atid=111118. 
+        http://sourceforge.net/tracker/?group_id=11118&atid=111118. 
         
    
     Make sure that the bug has not already been submitted. Please try to verify
@@ -1900,19 +1901,21 @@ note:
     platform, browser, any pertinent log data, any other relevant details
     (please be specific) and, if possible, some way to reproduce the bug.
    
-  *  Submit feature requests only through our Sourceforge feature request 
-     forum:
+  *  Submit feature requests only through our Sourceforge feature request forum:
      
-     http://sourceforge.net/tracker/?atid=361118&group_id=11118&func=browse.
+        http://sourceforge.net/tracker/?atid=361118&group_id=11118&func=browse.
        
    
-  * We will soon have an automated way to submit advertisements, incorrectly
-    blocked images, popups and the like. Check back.
+  *  Submit missed ads and banners, and incorrectly blocked images, popups, etc:
+          
+        http://p.p/, and select "actions file feedback system"
        
+   
+    This page can also be reached from many of the internal CGI pages.
    
   *  For any other issues, feel free to use the mailing lists:
      
-     http://sourceforge.net/mail/?group_id=11118.
+        http://sourceforge.net/mail/?group_id=11118.
      
    
     Anyone interested in actively participating in development and related
@@ -1947,7 +1950,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 Privoxy is evolved, and derived from, the Internet Junkbuster, with many
 improvments and enhancements over the original.
 
-Junkbuster was originally written by Anonymous Coders and Junkbuster's
+Junkbuster was originally written by Anonymous Coders and Junkbusters
 Corporation, and was released as free open-source software under the GNU GPL. 
 Stefan Waldherr made many improvements, and started the SourceForge project
 Privoxy to rekindle development. There are now several active developers
@@ -1967,6 +1970,9 @@ Sourceforge.
 
 http://p.p/, access Privoxy from your browser. Alternately, http://            
 config.privoxy.org may work in some situations where the first does not.       
+
+http://p.p/, and select "actions file feedback system" to submit "misses" to   
+the developers.                                                                
 
 http://www.junkbusters.com/ht/en/cookies.html
 
