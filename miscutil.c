@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/06/01 10:31:51  oes
+ *    Added character class matching to trivimatch; renamed to simplematch
+ *
  *    Revision 1.4  2001/05/31 17:32:31  oes
  *
  *     - Enhanced domain part globbing with infix and prefix asterisk
@@ -399,14 +402,12 @@ char *strsav(char *old, const char *text_to_append)
 
 /*********************************************************************
  *
- * Function    :  trivimatch
+ * Function    :  simplematch
  *
- * Description :  Trivial string matching, with only one metacharacter,
- *                namely '*', which stands for zero or more arbitrary
- *                characters.
- *
- *                Note: The * is greedy, i.e. it will try to match as
- *                      much text es possible.
+ * Description :  String matching, with a (greedy) '*' wildcard that
+ *                stands for zero or more arbitrary characters and
+ *                character classes in [], which take both enumerations
+ *                and ranges.
  *
  * Parameters  :
  *          1  :  pattern = pattern for matching
@@ -415,15 +416,21 @@ char *strsav(char *old, const char *text_to_append)
  * Returns     :  0 if match, else nonzero
  *
  *********************************************************************/
-int trivimatch(char *pattern, char *text)
+int simplematch(char *pattern, char *text)
 {
-   char *fallback; 
-   char *pat = pattern;
-   char *txt = text;
-   int wildcard = 0;
+  char *fallback; 
+  char *pat = pattern;
+  char *txt = text;
+  int wildcard = 0;
+  
+  char lastchar = 'a';
+  unsigned i;
+  unsigned char charmap[32];
+  
   
    while (*txt)
    {
+
       /* EOF pattern but !EOF text? */
       if (*pat == '\0')
       {
@@ -433,46 +440,78 @@ int trivimatch(char *pattern, char *text)
       /* '*' in the pattern?  */
       if (*pat == '*') 
       {
-
+     
          /* The pattern ends afterwards? Speed up the return. */
          if (*++pat == '\0')
          {
             return 0;
          }
-
+     
          /* Else, set wildcard mode and remember position after '*' */
          wildcard = 1;
          fallback = pat;
       }
 
-      /* Compare: */
-      if (*pat != *txt)
+      /* Character range specification? */
+      if (*pat == '[')
       {
-         /* In wildcard mode, just try again */
+         memset(charmap, '\0', sizeof(charmap));
+
+         while (*++pat != ']')
+         {
+            if (!*pat)
+            { 
+               return 1;
+            }
+            else if (*pat == '-')
+            {
+               if ((*++pat == ']') || *pat == '\0')
+               {
+                  return(1);
+               }
+               for(i = lastchar; i <= *pat; i++)
+               {
+                  charmap[i / 8] |= (1 << (i % 8));
+               } 
+            }
+            else
+            {
+               charmap[*pat / 8] |= (1 << (*pat % 8));
+               lastchar = *pat;
+            }
+         }
+      } /* -END- if Character range specification */
+
+
+      /* Compare: Char match, or char range match*/
+      if ((*pat == *txt)  
+      || ((*pat == ']') && (charmap[*txt / 8] & (1 << (*txt % 8)))) )
+      {
+         /* Sucess, go ahead */
+         pat++;
+      }
+      else
+      {
+         /* In wildcard mode, just try again after failiure */
          if(wildcard)
          {
-            /* Without wildcard mode, this is fatal! */
             pat = fallback;
          }
 
-         /* Bad luck otherwise */
+         /* Else, bad luck */
          else
          {
             return 1;
          }
       }
-      /* We had a match, advance */
-      else
-      {
-         pat++;
-      }
       txt++;
-  }
+   }
 
-  if(*pat == '*')  pat++;
+   /* Cut off extra '*'s */
+   if(*pat == '*')  pat++;
 
-  /* Hey, we've made it all the way through! */
-  return(*pat);
+   /* If this is the pattern's end, fine! */
+   return(*pat);
 
 }
 
