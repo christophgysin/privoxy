@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2002/03/08 16:43:59  oes
+ *    Renamed cgi_transparent_png to cgi_transparent_image
+ *
  *    Revision 1.6  2002/03/07 03:48:59  oes
  *     - Changed built-in images from GIF to PNG
  *       (with regard to Unisys patent issue)
@@ -103,7 +106,7 @@ extern jb_err cgi_show_version (struct client_state *csp,
 extern jb_err cgi_show_request (struct client_state *csp,
                                 struct http_response *rsp,
                                 const struct map *parameters);
-extern jb_err cgi_transparent_png (struct client_state *csp,
+extern jb_err cgi_transparent_image (struct client_state *csp,
                                    struct http_response *rsp,
                                    const struct map *parameters);
 
