@@ -42,17 +42,6 @@
 </para>
 
 <para>
- <application>Privoxy</application> is based on the code of the 
- <application>Internet Junkbuster</application> (tm).
- <application>Junkbuster</application> was originally written by Junkbusters
- Corporation, and was released as free open-source software under the GNU GPL.
- Stefan Waldherr made many improvements, and started the SourceForge project
- to continue development.
+ <application>Privoxy</application> is based on <application>Internet
+ Junkbuster</application> (tm).
 </para>
-
-<para>
- <application>Privoxy</application> continues the
- <application>Junkbuster</application> tradition, but adds many 
- refinements, enhancements and new features.
-</para>
-
