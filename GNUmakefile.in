@@ -309,7 +309,7 @@ suse-upload:
 
 # handle with care. use with root.
 suse-clean:
-	rpm -e junkbuster-suse
+	rpm -e junkbuster-suse || true
 	rm -rf /etc/junkbuster
 	rm -rf /etc/rc.d/junkbuster*
 	rm -rf /var/run/junkbuster.pid 
@@ -318,7 +318,7 @@ suse-clean:
 	rm -f /usr/sbin/junkbuster
 	rm -f /usr/sbin/rcjunkbuster
 	rm -f /usr/share/man/man1/junkbuster.1.gz
-	rpm -e privoxy-suse
+	rpm -e privoxy-suse || true
 	rm -rf /etc/privoxy
 	rm -rf /etc/rc.d/privoxy*
 	rm -rf /var/run/privoxy.pid 
@@ -518,6 +518,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.23  2002/03/24 13:06:49  swa
+# suse-clean now runs fine
+#
 # Revision 1.22  2002/03/24 12:56:21  swa
 # name change related issues.
 #
