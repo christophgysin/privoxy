@@ -1,9 +1,9 @@
 *.txt
 GNUmakefile
 Makefile
-config
 config.cache
 config.h
+config.h.in
 config.log
 config.status
 jarfile
@@ -12,6 +12,8 @@ junkbuster
 junkbuster.log
 logfile
 permissionsfile
+privoxy
+privoxy.exe
 re_filterfile
 vc_debug
 vc_debug_winthr
@@ -22,6 +24,3 @@ vc_release
 vc_release_winthr
 w32.aps
 w32.res
-privoxy
-privoxy.exe
-config.h.in
