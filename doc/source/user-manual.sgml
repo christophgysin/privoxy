@@ -3715,13 +3715,16 @@ For any other issues, feel free to use the <ulink url="http://sourceforge.net/ma
  us a problem inadvertantly. It can be a little daunting to look at 
  the actions files themselves, since they tend to be filled with 
  <quote>regular expressions</quote> whose consequences are not always 
- so obvious.
-</para>
+ so obvious. <application>Junkbuster</application> provides the 
+ <ulink url="http://ijbswa.sourceforge.net/config/show-url-info">http://ijbswa.sourceforge.net/config/show-url-info</ulink>
+ page that can show us very specifically how <application>actions</application>
+ are being applied to any given URL. This is a big help for troubleshooting.
+ </para>
 
 <para>
- First, you enter one URL (or partial URL), and this page will tell you how
- the currently configured <application>Junkbuster</application>
- <quote>actions</quote> are being applied to that specific URL. This will not
+ First, enter one URL (or partial URL) at the prompt, and then
+ <application>Junkbuster</application> will tell us 
+ how current configuration will handle it. This will not
  help with filtering effects from the <filename>re_filterfile</filename>! It
  also will not tell you about any other URLs that may be embedded within the
  URL you are testing. For instance, images such as ads are expressed as URLs
@@ -3940,6 +3943,9 @@ For any other issues, feel free to use the <ulink url="http://sourceforge.net/ma
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.50  2002/03/23 05:06:21  hal9
+ Touch up.
+
  Revision 1.49  2002/03/21 17:01:05  hal9
  New section in Appendix.
 
