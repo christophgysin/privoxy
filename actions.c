@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/06/07 23:04:34  jongfoster
+ *    Made get_actions() static.
+ *
  *    Revision 1.5  2001/06/03 19:11:48  oes
  *    adapted to new enlist_unique arg format
  *
@@ -123,6 +126,8 @@ const char actions_rcs[] = "$Id$";
 
 const char actions_h_rcs[] = ACTIONS_H_VERSION;
 
+
+/* Turn off everything except forwarding */
 /* This structure is used to hold user-defined aliases */
 struct action_alias
 {
@@ -134,9 +139,9 @@ struct action_alias
 
 /*
  * Must declare this in this file for the above structure.
- * FIXME: Make this static or put structure in header.
  */
-extern int get_actions (char *line, struct action_alias * alias_list,
+static int get_actions (char *line, 
+                        struct action_alias * alias_list,
                         struct action_spec *cur_action);
 
 /*
@@ -455,8 +460,9 @@ int get_action_token(char **line, char **name, char **value)
  *                nonzero => Error (line was trashed anyway)
  *
  *********************************************************************/
-int get_actions(char *line, struct action_alias * alias_list,
-                struct action_spec *cur_action)
+static int get_actions(char *line,
+                       struct action_alias * alias_list,
+                       struct action_spec *cur_action)
 {
    memset(cur_action, '\0', sizeof(*cur_action));
    cur_action->mask = ACTION_MASK_ALL;
