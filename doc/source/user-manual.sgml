@@ -3373,8 +3373,11 @@ communication (bugs, feature requests, etc.)
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.37  2002/03/05 23:53:49  hal9
+ jade barfs on '--' embedded in comments. --user option broke it.
+
  Revision 1.36  2002/03/05 22:53:28  hal9
- Add new --user option.
+ Add new - - user option.
 
  Revision 1.35  2002/03/05 00:17:27  hal9
  Added section on command line options.
