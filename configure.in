@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.55  2002/04/03 03:54:38  gliptak
+dnl Checking pcre version
+dnl
 dnl Revision 1.54  2002/04/01 00:54:24  gliptak
 dnl More changes needed around regex support.
 dnl
@@ -858,8 +861,9 @@ dnl Checks for libraries.
 dnl =================================================================
 dnl Note: Some systems may have the library but not the system header
 dnl       file, so we must check for both.
-AC_CHECK_LIB(pcre, pcre_compile, [AC_CHECK_HEADER(pcre.h, [have_pcre=yes], [have_pcre=no])], [have_pcre=no])
-AC_CHECK_LIB(pcreposix, regcomp, [AC_CHECK_HEADER(pcreposix.h, [have_pcreposix=yes], [have_pcreposix=no])], [have_pcreposix=no], -lpcre)
+dnl       Also check for correct version
+AC_CHECK_LIB(pcre, pcre_compile, [AC_CHECK_HEADER(pcre.h, [AC_EGREP_HEADER(pcre_fullinfo, pcre.h, [have_pcre=yes], [AC_MSG_WARN([[pcre old version installed]]); have_pcre=no])], [have_pcre=no])], [have_pcre=no])
+AC_CHECK_LIB(pcreposix, regcomp, [AC_CHECK_HEADER(pcreposix.h, [AC_EGREP_HEADER(pcreposix_regerror, pcreposix.h, [AC_MSG_WARN([[pcreposix old version installed]]); have_pcreposix=no], [have_pcreposix=yes])], [have_pcreposix=no])], [have_pcreposix=no], -lpcre)
 AC_CHECK_LIB(pcrs, pcrs_compile, [AC_CHECK_HEADER(pcrs.h, [have_pcrs=yes], [have_pcrs=no])], [have_pcrs=no])
 
 
