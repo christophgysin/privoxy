@@ -34,6 +34,10 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/09/12 17:58:26  steudten
+ *
+ *    add #include <string.h>
+ *
  *    Revision 1.6  2001/09/10 10:41:16  oes
  *    Added #include in.h
  *
@@ -70,6 +74,7 @@ const char gateway_rcs[] = "$Id$";
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <errno.h>
+#include <string.h>
 
 #ifdef _WIN32
 #include <winsock2.h>
