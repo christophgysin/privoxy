@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.3  2001/06/07 17:28:10  swa
+# cosmetics
+#
 # Revision 1.2  2001/06/07 17:18:44  swa
 # header fixed
 #
@@ -43,12 +46,15 @@ Group:        Networking/Utilities
 Provides:     ijb
 Obsoletes:    ijb
 Autoreqprov:  on
-Version:      2.0
-Release:      14
+Version: 2.9
+Release: 4
 Summary:      The Internet Junkbuster
 Source:  http://www.waldherr.org/junkbuster/ijbswa.tar.gz
 atch:   ijb20.dif
 
+#
+# -----------------------------------------------------------------------------
+#
 %description
 The Internet Junkbuster (TM) blocks unwanted banner ads and protects
 your privacy from cookies and other threats. It's free under the GPL
@@ -64,10 +70,16 @@ Authors:
 
 SuSE series: n
 
+#
+# -----------------------------------------------------------------------------
+#
 %prep
 %setup -n ijb20
 %patch
 
+#
+# -----------------------------------------------------------------------------
+#
 %build
 make
 cat > /etc/init.d/junkbuster << EOT
@@ -120,6 +132,9 @@ EOT
 chmod 755 /etc/init.d/junkbuster
 ln -sf /etc/init.d/junkbuster /usr/sbin/rcjunkbuster
 
+#
+# -----------------------------------------------------------------------------
+#
 %install
 install -m 755 junkbuster /usr/sbin
 install -d /etc/ijb
@@ -127,12 +142,21 @@ install -m 644 *.ini /etc/ijb
 install -m 644 junkbuster.1 /usr/share/man/man1
 %{?suse_check}
 
+#
+# -----------------------------------------------------------------------------
+#
 %post
 sbin/insserv etc/init.d/junkbuster
 
+#
+# -----------------------------------------------------------------------------
+#
 %postun
 sbin/insserv etc/init.d/
 
+#
+# -----------------------------------------------------------------------------
+#
 %files
 %doc README *.html
 /usr/sbin/junkbuster
@@ -141,6 +165,9 @@ sbin/insserv etc/init.d/
 /etc/init.d/junkbuster
 /usr/sbin/rcjunkbuster
 
+#
+# -----------------------------------------------------------------------------
+#
 %changelog -n junkbuster
 * Wed Feb 14 2001 - uli@suse.de
 - fixed init script
