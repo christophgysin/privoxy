@@ -28,6 +28,11 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.68  2002/05/25 16:54:54  jongfoster
+dnl Detect if the compiler supports -pthread.
+dnl Hopefully this will fix bug 560442.  (I don't have a HP PA-RISC
+dnl machine to test this!)
+dnl
 dnl Revision 1.67  2002/05/03 14:33:59  oes
 dnl Generate doc/soucre/ldp.dsl
 dnl
@@ -676,11 +681,17 @@ if test $have_pthread = yes; then
   if test "$GCC" = "yes"; then
     # Set a GCC specific switch:
     if test "$target_type" = "unix"; then
-      # This compiler switch makes Linux thread-safe
-      # Don't know about other OS's?  Is this switch
-      # supported?
-      PTHREAD_LIB=
-      SPECIAL_CFLAGS="-pthread"
+      ac_jgf_save_CFLAGS=$CFLAGS
+      CFLAGS="$CFLAGS -pthread"
+      AC_TRY_LINK([#include <pthread.h>],
+        [void *p = pthread_create;],
+        [
+          # This compiler switch makes GCC on Linux thread-safe
+          # However, it's not supported on most other OS.
+          PTHREAD_LIB=
+          SPECIAL_CFLAGS="-pthread"
+        ])
+      CFLAGS=$ac_jgf_save_CFLAGS
     fi
   fi
 else
