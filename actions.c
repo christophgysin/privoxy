@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.21  2002/01/17 20:54:44  jongfoster
+ *    Renaming free_url to free_url_spec, since it frees a struct url_spec.
+ *
  *    Revision 1.20  2001/11/22 21:56:49  jongfoster
  *    Making action_spec->flags into an unsigned long rather than just an
  *    unsigned int.
@@ -137,6 +140,7 @@ const char actions_rcs[] = "$Id$";
 #ifdef FEATURE_CGI_EDIT_ACTIONS
 #include "encode.h"
 #endif /* def FEATURE_CGI_EDIT_ACTIONS */
+#include "urlmatch.h"
 
 const char actions_h_rcs[] = ACTIONS_H_VERSION;
 
@@ -1096,7 +1100,7 @@ void unload_actions_file(void *file_data)
    while (cur != NULL)
    {
       next = cur->next;
-      free_url(cur->url);
+      free_url_spec(cur->url);
       free_action(cur->action);
       freez(cur);
       cur = next;
