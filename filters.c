@@ -38,6 +38,13 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.43  2002/01/22 23:51:59  jongfoster
+ *    Replacing strsav() with the safer string_append().
+ *
+ *    Adding missing html_encode() to error message generators.  Where encoded
+ *    and unencoded versions of a string were provided, removing the unencoded
+ *    one.
+ *
  *    Revision 1.42  2002/01/17 21:00:32  jongfoster
  *    Moving all our URL and URL pattern parsing code to urlmatch.c.
  *
@@ -828,18 +835,14 @@ struct http_response *trust_url(struct client_state *csp)
     */
    err = map(exports, "hostport", 1, csp->http->hostport, 1);
    if (!err) err = map(exports, "path", 1, csp->http->path, 1);
-   if (!err) err = map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0);
-   if (!err) err = map(exports, "path-html", 1, html_encode(csp->http->path), 0);
 
    if (NULL != (p = get_header_value(csp->headers, "Referer:")))
    {
-      if (!err) err = map(exports, "referrer", 1, p, 1);
-      if (!err) err = map(exports, "referrer-html", 1, html_encode(p), 0);
+      if (!err) err = map(exports, "referrer", 1, html_encode(p), 0);
    }
    else
    {
       if (!err) err = map(exports, "referrer", 1, "unknown", 1);
-      if (!err) err = map(exports, "referrer-html", 1, "unknown", 1);
    }
 
    if (err)
@@ -1055,7 +1058,7 @@ int is_untrusted_url(struct client_state *csp)
    struct block_spec *b;
    struct url_spec **trusted_url;
    struct http_request rhttp[1];
-   char *p, *h;
+   const char * referer;
    jb_err err;
 
    /*
@@ -1079,7 +1082,7 @@ int is_untrusted_url(struct client_state *csp)
       }
    }
 
-   if (NULL == (h = get_header_value(csp->headers, "Referer:")))
+   if (NULL == (referer = get_header_value(csp->headers, "Referer:")))
    {
       /* no referrer was supplied */
       return 1;
@@ -1094,7 +1097,7 @@ int is_untrusted_url(struct client_state *csp)
     * Parse the URL from the referrer
     */
 
-   err = parse_http_url(h, rhttp, csp);
+   err = parse_http_url(referer, rhttp, csp);
    if (err)
    {
       return 1;
@@ -1113,28 +1116,41 @@ int is_untrusted_url(struct client_state *csp)
 
          if ((fp = fopen(csp->config->trustfile, "a")))
          {
-            h = NULL;
+            char * path;
+            char * path_end;
+            char * new_entry = strdup("~");
 
-            h = strsav(h, "~");
-            h = strsav(h, csp->http->hostport);
+            string_append(&new_entry, csp->http->hostport);
 
-            p = csp->http->path;
-            if ((*p++ == '/')
-            && (*p++ == '~'))
+            path = csp->http->path;
+            if ( (path[0] == '/')
+              && (path[1] == '~')
+              && ((path_end = strchr(path + 2, '/')) != NULL))
             {
                /* since this path points into a user's home space
                 * be sure to include this spec in the trustfile.
                 */
-               if ((p = strchr(p, '/')))
+               int path_len = path_end - path; /* save offset */
+               path = strdup(path); /* Copy string */
+               if (path != NULL)
                {
-                  *p = '\0'; /* FIXME: writing to csp->http->path is a bad idea */
-                  h = strsav(h, csp->http->path);
-                  h = strsav(h, "/");
+                  path_end = path + path_len; /* regenerate ptr to new buffer */
+                  *(path_end + 1) = '\0'; /* Truncate path after '/' */
                }
+               string_join(&new_entry, path);
             }
 
-            fprintf(fp, "%s\n", h);
-            freez(h);
+            if (new_entry != NULL)
+            {
+               fprintf(fp, "%s\n", new_entry);
+               free(new_entry);
+            }
+            else
+            {
+               /* FIXME: No way to handle out-of memory, so mostly ignoring it */
+               log_error(LOG_LEVEL_ERROR, "Out of memory adding pattern to trust file");
+            }
+
             fclose(fp);
          }
          return 0;
