@@ -157,6 +157,8 @@ fi
 #if [ "$1" -ge "1" ]; then
 #	/sbin/service %{name} condrestart > /dev/null 2>&1
 #fi
+# dont forget to remove user and group junkbuster
+id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -424,6 +426,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.39  2002/03/08 18:57:29  swa
+# remove user junkbuster after de-installation.
+#
 # Revision 1.38  2002/03/08 13:45:27  morcego
 # Adding libtool to Buildrequires
 #
