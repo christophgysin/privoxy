@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.57  2002/03/16 20:28:34  oes
+ *    Added descriptions to the filters so users will know what they select in the cgi editor
+ *
  *    Revision 1.56  2002/03/13 20:27:30  oes
  *    Fixing bug with CT_TABOO
  *
@@ -935,7 +938,8 @@ struct forward_spec
  */
 struct re_filterfile_spec
 {
-   char *filtername;                /* Name from FILTER: statement in re_filterfile (or "default") */
+   char *name;                      /* Name from FILTER: statement in re_filterfile */
+   char *description;               /* Description from FILTER: statement in re_filterfile */
    struct list patterns[1];         /* The patterns from the re_filterfile */
    pcrs_job *joblist;               /* The resulting compiled pcrs_jobs */
    struct re_filterfile_spec *next; /* The pointer for chaining */
