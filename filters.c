@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/25 22:34:30  jongfoster
+ *    Hard tabs->Spaces
+ *
  *    Revision 1.4  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -872,27 +875,27 @@ char *redirect_url(struct http_request *http, struct client_state *csp)
    char *p, *q;
 
    p = q = csp->http->path;
-	log_error(LOG_LEVEL_REDIRECTS, "checking path: %s", p);
+   log_error(LOG_LEVEL_REDIRECTS, "checking path: %s", p);
 
    /* find the last URL encoded in the request */
    while (p = strstr(p, "http://"))
-		{
-		  q = p++;
-		}
+   {
+      q = p++;
+   }
 
    /* if there was any, generate and return a HTTP redirect */
-	if (q != csp->http->path)
-	{
-	  log_error(LOG_LEVEL_REDIRECTS, "redirecting to: %s", q);
+   if (q != csp->http->path)
+   {
+      log_error(LOG_LEVEL_REDIRECTS, "redirecting to: %s", q);
 
-	  p = (char *)malloc(strlen(HTTP_REDIRECT_TEMPLATE) + strlen(q));
-	  sprintf(p, HTTP_REDIRECT_TEMPLATE, q);
-	  return(p);
+      p = (char *)malloc(strlen(HTTP_REDIRECT_TEMPLATE) + strlen(q));
+      sprintf(p, HTTP_REDIRECT_TEMPLATE, q);
+      return(p);
    }
-	else
+   else
    {
       return(NULL);
-	}
+   }
 
 }
 #endif /* def FAST_REDIRECTS */
@@ -1590,11 +1593,11 @@ char *add_stats(char *s)
     * Need to alter the stats not to include the fetch of this
     * page.
     *
-	 * Can't do following thread safely! doh!
-	 *
+    * Can't do following thread safely! doh!
+    *
     * urls_read--;
     * urls_rejected--; * This will be incremented subsequently *
-	 */
+    */
 
    s = strsav(s,"<h2>Statistics for this " BANNER ":</h2>\n");
 

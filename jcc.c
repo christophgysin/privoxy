@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/05/25 22:34:30  jongfoster
+ *    Hard tabs->Spaces
+ *
  *    Revision 1.6  2001/05/23 00:13:58  joergs
  *    AmigaOS support fixed.
  *
@@ -279,19 +282,19 @@ static void chat(struct client_state *csp)
  
 #ifdef FORCE_LOAD
       /* If this request contains the FORCE_PREFIX,
- 		 * better get rid of it now and set the force flag --oes
+       * better get rid of it now and set the force flag --oes
        */
 
- 		if(strstr(req, FORCE_PREFIX))
+      if (strstr(req, FORCE_PREFIX))
       {
- 		   strclean(req, FORCE_PREFIX);
- 		   log_error(LOG_LEVEL_FORCE, "Enforcing request \"%s\".\n", req);
- 		   csp->force = 1;
- 		} 
+         strclean(req, FORCE_PREFIX);
+         log_error(LOG_LEVEL_FORCE, "Enforcing request \"%s\".\n", req);
+         csp->force = 1;
+      } 
       else
       {
- 		   csp->force = 0;
- 		}
+         csp->force = 0;
+      }
 #endif /* def FORCE_LOAD */
   
       parse_http_request(req, http, csp);
@@ -413,8 +416,8 @@ static void chat(struct client_state *csp)
 
    destroy_list(csp->headers);
 
- 	/* Check the request against all rules, unless
- 	 * we're toggled off or in force mode. 
+   /* Check the request against all rules, unless
+    * we're toggled off or in force mode. 
     */
  
    if (IS_TOGGLED_ON
@@ -454,7 +457,7 @@ static void chat(struct client_state *csp)
          else if ((tinygif == 3) && (tinygifurl))
          {
             p = (char *)malloc(strlen(HTTP_REDIRECT_TEMPLATE) + strlen(tinygifurl));
-	         sprintf(p, HTTP_REDIRECT_TEMPLATE, tinygifurl);
+            sprintf(p, HTTP_REDIRECT_TEMPLATE, tinygifurl);
             write_socket(csp->cfd, p, strlen(p));
          }
          else

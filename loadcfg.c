@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/25 22:34:30  jongfoster
+ *    Hard tabs->Spaces
+ *
  *    Revision 1.4  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -644,7 +647,7 @@ void load_config( int signum )
                continue;
 
 #ifdef FAST_REDIRECTS
-			   case hash_fast_redirects :
+            case hash_fast_redirects :
                fast_redirects = 1;
                continue;
 #endif /* def FAST_REDIRECTS */
