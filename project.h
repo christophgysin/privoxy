@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.48  2002/03/03 14:50:40  oes
+ *    Fixed CLF logging: Added ocmd member for client's request to struct http_request
+ *
  *    Revision 1.47  2002/02/20 23:15:13  jongfoster
  *    Parsing functions now handle out-of-memory gracefully by returning
  *    an error code.
@@ -502,6 +505,7 @@ struct map
 struct http_request
 {
    char *cmd;      /* Whole command line: method, URL, Version */
+   char *ocmd;     /* Backup of original cmd for CLF logging */
    char *gpc;      /* HTTP method: GET, POST, .. */
    char *url;      /* The URL */
    char *ver;      /* Protocol version */

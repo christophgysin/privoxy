@@ -33,6 +33,9 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2002/03/03 14:51:11  oes
+ *    Fixed CLF logging: Added ocmd member for client's request to struct http_request
+ *
  *    Revision 1.2  2002/01/21 00:14:09  jongfoster
  *    Correcting comment style
  *    Fixing an uninitialized memory bug in create_url_spec()
@@ -113,6 +116,7 @@ void free_http_request(struct http_request *http)
    assert(http);
 
    freez(http->cmd);
+   freez(http->ocmd);
    freez(http->gpc);
    freez(http->host);
    freez(http->url);
