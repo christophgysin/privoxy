@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.24  2001/07/25 17:22:51  oes
+ *    Added workaround for Netscape bug that prevents display of page when loading a component fails.
+ *
  *    Revision 1.23  2001/07/23 13:40:12  oes
  *    Fixed bug that caused document body to be dropped when pcrs joblist was empty.
  *
@@ -509,7 +512,21 @@ struct http_response *block_url(struct client_state *csp)
       rsp->body = fill_template(csp, "blocked", exports);
       free_map(exports);
   
-      rsp->status = strdup("403 Request for blocked URL"); 
+      /*
+       * Workaround for stupid Netscape bug which prevents
+       * pages from being displayed if loading a referenced
+       * JavaScript or style sheet fails. So make it appear
+       * as if it succeeded.
+       */
+      if (csp->http->user_agent && !strncmpic(csp->http->user_agent, "mozilla", 7))
+      {
+         rsp->status = strdup("200 Request for blocked URL"); 
+      }
+      else
+      {
+         rsp->status = strdup("404 Request for blocked URL"); 
+      }
+
    }
 
    return(finish_http_response(rsp));
