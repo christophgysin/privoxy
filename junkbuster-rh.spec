@@ -58,7 +58,7 @@ systems and multi-user networks.
 %setup -q -c -n ijbswa
 
 %build
-%configure --enable-no-gifs 
+%configure
 make 
 make redhat-dok
 
@@ -221,6 +221,10 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Mon Mar 11 2002 Hal Burgiss <hal@foobox.net>
++ junkbuster-2.9.11-8 
+- Take out --enable-no-gifs, breaks some browsers.
+
 * Sun Mar 10 2002 Hal Burgiss <hal@foobox.net>
 + junkbuster-2.9.11-8 
 - Add --enable-no-gifs to configure.
@@ -430,8 +434,8 @@ id junkbuster > /dev/null 2>&1 && /usr/sbin/userdel junkbuster || /bin/true
 	additional "-r @" flag.
 
 # $Log$
-# Revision 1.40  2002/03/11 00:34:58  hal9
-# Add --enable-no-gifs to configure.
+# Revision 1.41  2002/03/11 22:58:32  hal9
+# Remove --enable-no-gifs
 #
 # Revision 1.39  2002/03/08 18:57:29  swa
 # remove user junkbuster after de-installation.
