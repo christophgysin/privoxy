@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.6  2003/06/24 12:24:24  oes
+ *    Added a line plus Fix-me as a reminder to fix broken force handling in trunk. Thanks to lionel for the hint
+ *
  *    Revision 2.5  2003/01/26 20:24:26  david__schmidt
  *    Updated activity console instrumentation locations
  *
@@ -2174,11 +2177,13 @@ static jb_err process_client_headers( struct client_state *csp, struct http_requ
       /* If this request contains the FORCE_PREFIX,
        * better get rid of it now and set the force flag --oes
        * Changed to use the http structure rather than the req field --jaa
+       * FIXME: This isn't enough -- there is the path and referrer etc! *
        */
 
       if (strstr(http->url, FORCE_PREFIX))
       {
          strclean(http->url, FORCE_PREFIX);
+         strclean(http->path, FORCE_PREFIX);
          log_error(LOG_LEVEL_FORCE, "Enforcing request \"%s\".\n", http->url);
          csp->flags |= CSP_FLAG_FORCED;
       }
