@@ -489,9 +489,8 @@ tarball-upload:
 	@$(ECHO) ... and release the files.
 	@$(ECHO) -------------------------------------------------------
 
-# handle with care
 tarball-clean:
-	$(RM) ../rivoxy-$(VERSION)-$(CODE_STATUS)-src.tar.gz
+	$(RM) ../privoxy-$(VERSION)-$(CODE_STATUS)-src.tar.gz
 
 #############################################################################
 #
@@ -785,6 +784,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.81  2002/04/11 14:40:27  oes
+# Fixed typo -- Thanks, Moritz!
+#
 # Revision 1.80  2002/04/11 12:50:00  oes
 # Fixed tarball-dist target
 #
