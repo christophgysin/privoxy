@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2001/07/26 10:09:46  oes
+ *    Made browser detection a little less naive
+ *
  *    Revision 1.24  2001/07/25 17:22:51  oes
  *    Added workaround for Netscape bug that prevents display of page when loading a component fails.
  *
@@ -518,7 +521,10 @@ struct http_response *block_url(struct client_state *csp)
        * JavaScript or style sheet fails. So make it appear
        * as if it succeeded.
        */
-      if (csp->http->user_agent && !strncmpic(csp->http->user_agent, "mozilla", 7))
+      if (csp->http->user_agent
+          && !strncmpic(csp->http->user_agent, "mozilla", 7)
+          && !strstr(csp->http->user_agent, "compatible")
+          && !strstr(csp->http->user_agent, "Opera"))
       {
          rsp->status = strdup("200 Request for blocked URL"); 
       }
