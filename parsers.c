@@ -41,6 +41,11 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2001/09/20 15:45:25  steudten
+ *
+ *    add casting from size_t to int for printf()
+ *    remove local variable shadow s2
+ *
  *    Revision 1.26  2001/09/16 17:05:14  jongfoster
  *    Removing unused #include showarg.h
  *
@@ -784,9 +789,9 @@ char *content_length(const struct parsers *v, const char *s, struct client_state
    if (csp->content_length != 0) /* Content has been modified */
    {
       char * s2 = (char *) zalloc(100);
-      sprintf(s2, "Content-Length: %d", csp->content_length);
+      sprintf(s2, "Content-Length: %d", (int) csp->content_length);
 
-   	  log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", csp->content_length);
+   	  log_error(LOG_LEVEL_HEADER, "Adjust Content-Length to %d", (int) csp->content_length);
       return(s2);
    }
    else
@@ -873,13 +878,13 @@ char *client_referrer(const struct parsers *v, const char *s, struct client_stat
       /*
        * We have a specific (fixed) referer we want to send.
        */
-      char * s2;
+      char * s3;
 
       log_error(LOG_LEVEL_HEADER, "modified");
 
-      s2 = strsav( NULL, "Referer: " );
-      s2 = strsav( s2, newval );
-      return(s2);
+      s3 = strsav( NULL, "Referer: " );
+      s3 = strsav( s3, newval );
+      return(s3);
    }
 
    /* Should never get here! */
