@@ -777,6 +777,10 @@ automatically start Privoxy in the boot process.
  127.0.0.1 (or localhost) for the proxy address, and port 8118 (earlier versions
  used port 8000). This is the one configuration step that must be done!
 </para>
+<para>
+ Please note that <application>Privoxy</application> can only proxy HTTP and 
+ HTTPS traffic. It will not work with FTP or other protocols.
+</para>
 
  <!-- image of Mozilla Proxy configuration -->
  <para>
@@ -5529,6 +5533,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.128  2002/07/25 21:51:24  hal9
+ Warnings on non-HTTP traffic.
+
  Revision 1.127  2002/06/09 16:37:31  hal9
  Sync with filtering clarifications in 3.0 branch.
 
