@@ -28,6 +28,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.8  2002/03/05 14:07:42  morcego
+# configure now detects rpm topdir, and change GNUmakefile acordingly
+#    (based on sugestion by Sarantis Paskalis)
+#
 # Revision 1.7  2002/03/05 13:43:28  morcego
 # Checking for text browser, so redhat-dok can work.
 #
@@ -274,7 +278,7 @@ DOSFILTER  = perl -p -e 's/\n/\r\n/'
 #############################################################################
 
 TAR_ARCH = /tmp/ijbswa-$(RPM_VERSION).tar.gz
-RPM_BASE = /usr/src/redhat
+RPM_BASE = @RPM_BASE@
 
 #############################################################################
 # Filenames and libraries

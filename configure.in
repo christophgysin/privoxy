@@ -28,6 +28,10 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.32  2002/03/05 14:07:43  morcego
+dnl configure now detects rpm topdir, and change GNUmakefile acordingly
+dnl    (based on sugestion by Sarantis Paskalis)
+dnl
 dnl Revision 1.31  2002/03/05 13:43:28  morcego
 dnl Checking for text browser, so redhat-dok can work.
 dnl
@@ -384,6 +388,7 @@ else
 fi
 AC_SUBST(WIN_ONLY)
 
+dnl Checking which text html browser we have avaliable
 if test $target_type = unix; then
 	AC_CHECK_PROGS(WDUMP,w3m lynx links,false)
 	if test "$WDUMP" = false; then
@@ -391,6 +396,16 @@ if test $target_type = unix; then
 	fi
 fi
 AC_SUBST(WDUMP)
+
+dnl If we use rpm, we need to check where %_topdir is
+AC_CHECK_PROGS(RPMBIN,rpm,false)
+if test $RPMBIN != false; then
+		RPM_BASE=`rpm --eval "%{_topdir}"`
+		if test "$RPM_BASE" = ""; then
+			RPM_BASE=/usr/src/redhat
+		fi
+fi
+AC_SUBST(RPM_BASE)
 
 dnl Save old CFLAGS so we can restore them later, then add SPECIAL_CFLAGS
 old_CFLAGS_nospecial=$CFLAGS
