@@ -1,5 +1,4 @@
 #  Sample Configuration file for Privoxy
-
 #
 # $Id$
 #
@@ -18,6 +17,8 @@
 #       6. WINDOWS GUI OPTIONS                                    #
 #                                                                 #
 ###################################################################
+
+#user-manual http://www.privoxy.org/user-manual/
 
 #  I. INTRODUCTION
 #  ===============
