@@ -26,6 +26,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/08/05 13:13:11  jongfoster
+ *    Making parameters "const" where possible.
+ *
  *    Revision 1.6  2001/07/29 18:52:06  jongfoster
  *    Renaming _PCRS_H, and adding "extern C {}"
  *
@@ -126,8 +129,8 @@ typedef struct PCRS_JOB {
  */
 
 /* Main usage */
-extern pcrs_job        *pcrs_compile_command(char *command, int *errptr);
-extern pcrs_job        *pcrs_compile(char *pattern, char *substitute, char *options, int *errptr);
+extern pcrs_job        *pcrs_compile_command(const char *command, int *errptr);
+extern pcrs_job        *pcrs_compile(const char *pattern, const char *substitute, const char *options, int *errptr);
 extern int              pcrs_execute(pcrs_job *job, char *subject, int subject_length, char **result, int *result_length);
 
 /* Freeing jobs */
@@ -135,8 +138,8 @@ extern pcrs_job        *pcrs_free_job(pcrs_job *job);
 extern void             pcrs_free_joblist(pcrs_job *joblist);
 
 /* Expert usage */
-extern int              pcrs_compile_perl_options(char *optstring, int *flags);
-extern pcrs_substitute *pcrs_compile_replacement(char *replacement, int trivialflag, int *errptr);
+extern int              pcrs_compile_perl_options(const char *optstring, int *flags);
+extern pcrs_substitute *pcrs_compile_replacement(const char *replacement, int trivialflag, int *errptr);
 
 #ifdef __cplusplus
 } /* extern "C" */

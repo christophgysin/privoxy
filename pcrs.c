@@ -38,6 +38,9 @@ const char pcrs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/08/05 13:13:11  jongfoster
+ *    Making parameters "const" where possible.
+ *
  *    Revision 1.9  2001/07/18 17:27:00  oes
  *    Changed interface; Cosmetics
  *
@@ -174,7 +177,7 @@ const char pcrs_h_rcs[] = PCRS_H_VERSION;
  * Returns     :  option integer suitable for pcre 
  *
  *********************************************************************/
-int pcrs_compile_perl_options(char *optstring, int *flags)
+int pcrs_compile_perl_options(const char *optstring, int *flags)
 {
    size_t i;
    int rc = 0;
@@ -220,7 +223,7 @@ int pcrs_compile_perl_options(char *optstring, int *flags)
  *                the reason.
  *
  *********************************************************************/
-pcrs_substitute *pcrs_compile_replacement(char *replacement, int trivialflag, int *errptr)
+pcrs_substitute *pcrs_compile_replacement(const char *replacement, int trivialflag, int *errptr)
 {
    int length, i, k = 0, l = 0, quoted = 0, idx;
    char *text, *num_ptr, *numbers = "0123456789";
@@ -389,7 +392,7 @@ void pcrs_free_joblist(pcrs_job *joblist)
  *                has the reason.
  *
  *********************************************************************/
-pcrs_job *pcrs_compile_command(char *command, int *errptr)
+pcrs_job *pcrs_compile_command(const char *command, int *errptr)
 {
    int i, k, l, limit, quoted = FALSE;
    char delimiter;
@@ -475,7 +478,7 @@ pcrs_job *pcrs_compile_command(char *command, int *errptr)
  *                has the reason.
  *
  *********************************************************************/
-pcrs_job *pcrs_compile(char *pattern, char *substitute, char *options, int *errptr)
+pcrs_job *pcrs_compile(const char *pattern, const char *substitute, const char *options, int *errptr)
 {
    pcrs_job *newjob;
    int flags;
