@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.69  2002/05/08 16:00:16  oes
+ *    Added size member to struct iob, so it can
+ *    be alloced larger than needed.
+ *
  *    Revision 1.68  2002/04/26 12:56:00  oes
  *    Killed REDIRECT_URL, added USER_MANUAL_URL and HELP_LINK_PREFIX
  *
@@ -661,9 +665,10 @@ struct url_spec
 /* An I/O buffer */
 struct iob
 {
-   char *buf;
-   char *cur;
-   char *eod;
+   char *buf;    /* Start of buffer        */
+   char *cur;    /* Start of relevant data */
+   char *eod;    /* End of relevant data   */
+   size_t size;  /* Size as malloc()ed     */
 };
 
 
