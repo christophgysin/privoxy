@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/05/31 21:37:11  jongfoster
+ *    GUI changes to rename "permissions file" to "actions file".
+ *
  *    Revision 1.9  2001/05/31 17:33:13  oes
  *
  *    CRLF -> LF
@@ -194,7 +197,7 @@ int g_nFontSize = DEFAULT_LOG_FONT_SIZE;
 
 /* FIXME: this is a kludge */
 
-const char * g_permissions_file = NULL;
+const char * g_actions_file = NULL;
 const char * g_forwardfile = NULL;
 #ifdef ACL_FILES
 const char * g_aclfile = NULL;
@@ -1111,8 +1114,8 @@ void OnLogCommand(int nCommand)
          EditFile(configfile);
          break;
 
-      case ID_TOOLS_EDITPERMISSIONS:
-         EditFile(g_permissions_file);
+      case ID_TOOLS_EDITACTIONS:
+         EditFile(g_actions_file);
          break;
 
       case ID_TOOLS_EDITFORWARD:
@@ -1187,7 +1190,7 @@ void OnLogCommand(int nCommand)
 void OnLogInitMenu(HMENU hmenu)
 {
    /* Only enable editors if there is a file to edit */
-   EnableMenuItem(hmenu, ID_TOOLS_EDITPERMISSIONS, MF_BYCOMMAND | (g_permissions_file ? MF_ENABLED : MF_GRAYED));
+   EnableMenuItem(hmenu, ID_TOOLS_EDITACTIONS, MF_BYCOMMAND | (g_actions_file ? MF_ENABLED : MF_GRAYED));
    EnableMenuItem(hmenu, ID_TOOLS_EDITFORWARD, MF_BYCOMMAND | (g_forwardfile ? MF_ENABLED : MF_GRAYED));
 #ifdef ACL_FILES
    EnableMenuItem(hmenu, ID_TOOLS_EDITACLS, MF_BYCOMMAND | (g_aclfile ? MF_ENABLED : MF_GRAYED));

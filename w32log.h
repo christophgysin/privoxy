@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/31 21:37:11  jongfoster
+ *    GUI changes to rename "permissions file" to "actions file".
+ *
  *    Revision 1.3  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -107,7 +110,7 @@ extern int g_nFontSize;
 
 /* FIXME: this is a kludge */
 
-extern const char * g_permissions_file;
+extern const char * g_actions_file;
 extern const char * g_forwardfile;
 #ifdef ACL_FILES
 extern const char * g_aclfile;

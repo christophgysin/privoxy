@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/31 21:37:11  jongfoster
+ *    GUI changes to rename "permissions file" to "actions file".
+ *
  *    Revision 1.5  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -147,7 +150,7 @@
 
 /* Break these out so they are easier to extend, but keep consecutive */
 #define ID_TOOLS_EDITJUNKBUSTER           5000
-#define ID_TOOLS_EDITPERMISSIONS          5001
+#define ID_TOOLS_EDITACTIONS          5001
 #define ID_TOOLS_EDITFORWARD              5002
 
 #ifdef ACL_FILES
