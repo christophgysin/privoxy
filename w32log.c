@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/20 15:07:54  jongfoster
+ *    File is now ignored if _WIN_CONSOLE is defined.
+ *
  *    Revision 1.2  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -78,6 +81,8 @@ const char cygwin_h_rcs[] = CYGWIN_H_VERSION;
 #endif
 
 const char w32log_h_rcs[] = W32LOG_H_VERSION;
+
+#ifndef _WIN_CONSOLE /* entire file */
 
 /*
  * Timers and the various durations
@@ -1320,6 +1325,7 @@ LRESULT CALLBACK LogWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 
 }
 
+#endif /* ndef _WIN_CONSOLE - entire file */
 
 /*
   Local Variables:

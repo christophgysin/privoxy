@@ -32,8 +32,11 @@ const char w32taskbar_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:08  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/20 15:07:54  jongfoster
+ *    File is now ignored if _WIN_CONSOLE is defined.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:08  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -50,6 +53,8 @@ const char w32taskbar_rcs[] = "$Id$";
 #include "w32log.h"
 
 const char w32taskbar_h_rcs[] = W32TASKBAR_H_VERSION;
+
+#ifndef _WIN_CONSOLE /* entire file */
 
 #define WM_TRAYMSG WM_USER+1
 
@@ -257,6 +262,8 @@ LRESULT CALLBACK TrayProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 }
 
+
+#endif /* ndef _WIN_CONSOLE - entire file */
 
 /*
   Local Variables:

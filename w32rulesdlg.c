@@ -32,8 +32,11 @@ const char w32rulesdlg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:08  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/20 15:07:54  jongfoster
+ *    File is now ignored if _WIN_CONSOLE is defined.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:08  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -54,6 +57,8 @@ const char w32rulesdlg_rcs[] = "$Id$";
 #endif
 
 const char w32rulesdlg_h_rcs[] = W32RULESDLG_H_VERSION;
+
+#ifndef _WIN_CONSOLE /* entire file */
 
 const int nSmallIconWidth = 16;
 const int nSmallIconHeight = 16;
@@ -527,6 +532,7 @@ static BOOL CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM l
 
 }
 
+#endif /* ndef _WIN_CONSOLE - entire file */
 
 /*
   Local Variables:
