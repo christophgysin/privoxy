@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2002/02/21 00:10:37  jongfoster
+ *    Adding send-banner?type=auto option
+ *
  *    Revision 1.12  2002/01/23 01:03:32  jongfoster
  *    Fixing gcc [CygWin] compiler warnings
  *
@@ -311,8 +314,10 @@ jb_err cgi_show_request(struct client_state *csp,
  *           3 :  parameters = map of cgi parameters
  *
  * CGI Parameters :
- *           type : Selects the type of banner between "trans" and "jb".
- *                  Defaults to "jb" if absent or != "trans".
+ *           type : Selects the type of banner between "trans", "logo",
+ *                  and "auto". Defaults to "logo" if absent or invalid.
+ *                  "auto" means to select as if we were image-blocking.
+ *                  (Only the first character really counts).
  *
  * Returns     :  JB_ERR_OK on success
  *                JB_ERR_MEMORY on out-of-memory error.  
@@ -322,7 +327,28 @@ jb_err cgi_send_banner(struct client_state *csp,
                        struct http_response *rsp,
                        const struct map *parameters)
 {
-   if (strcmp(lookup(parameters, "type"), "trans"))
+   char imagetype = lookup(parameters, "type")[0];
+
+   if (imagetype == 'a') /* auto */
+   {
+      /* Default to logo */
+      imagetype = 'l';
+#ifdef FEATURE_IMAGE_BLOCKING
+      if ((csp->action->flags & ACTION_IMAGE_BLOCKER) != 0)
+      {
+         /* determine HOW images should be blocked */
+         const char * p = csp->action->string[ACTION_STRING_IMAGE_BLOCKER];
+
+         /* and handle accordingly: */
+         if ((p != NULL) && (0 == strcmpic(p, "blank")))
+         {
+            imagetype = 't';
+         }
+      }
+#endif /* def FEATURE_IMAGE_BLOCKING */
+   }
+      
+   if ((imagetype != 't') && (imagetype != 'b')) /* transparant/blank */
    {
       rsp->body = bindup(image_junkbuster_gif_data, image_junkbuster_gif_length);
       rsp->content_length = image_junkbuster_gif_length;
