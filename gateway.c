@@ -34,6 +34,9 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2002/05/12 21:36:29  jongfoster
+ *    Correcting function comments
+ *
  *    Revision 1.15  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -189,11 +192,11 @@ static const char socks_userid[] = "anonymous";
  *                a HTTP proxy and/or a SOCKS proxy.
  *
  * Parameters  :
- *          1  :  gw = pointer to a gateway structure (such as gw_default)
+ *          1  :  fwd = the proxies to use when connecting.
  *          2  :  http = the http request and apropos headers
  *          3  :  csp = Current client state (buffers, headers, etc...)
  *
- * Returns     :  -1 => failure, else it is the socket file descriptor.
+ * Returns     :  JB_INVALID_SOCKET => failure, else it is the socket file descriptor.
  *
  *********************************************************************/
 jb_socket forwarded_connect(const struct forward_spec * fwd,
@@ -247,11 +250,12 @@ jb_socket forwarded_connect(const struct forward_spec * fwd,
  *                normal (non-SOCKS) socket.
  *
  * Parameters  :
- *          1  :  gw = pointer to a gateway structure (such as gw_default)
- *          2  :  http = the http request and apropos headers
- *          3  :  csp = Current client state (buffers, headers, etc...)
+ *          1  :  fwd = Specifies the SOCKS proxy to use.
+ *          2  :  target_host = The final server to connect to.
+ *          3  :  target_port = The final port to connect to.
+ *          4  :  csp = Current client state (buffers, headers, etc...)
  *
- * Returns     :  -1 => failure, else a socket file descriptor.
+ * Returns     :  JB_INVALID_SOCKET => failure, else a socket file descriptor.
  *
  *********************************************************************/
 static jb_socket socks4_connect(const struct forward_spec * fwd,

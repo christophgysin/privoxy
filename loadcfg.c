@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.47  2002/05/12 21:36:29  jongfoster
+ *    Correcting function comments
+ *
  *    Revision 1.46  2002/04/26 12:55:14  oes
  *     - New option "user-manual", defaults to our site
  *       via project.h #define
@@ -535,11 +538,9 @@ void unload_current_config_file(void)
  *
  * Description :  Load the config file and all parameters.
  *
- * Parameters  :
- *          1  :  csp = Client state (the config member will be
- *                filled in by this function).
+ * Parameters  :  None
  *
- * Returns     :  0 => Ok, everything else is an error.
+ * Returns     :  The configuration_spec, or NULL on error.
  *
  *********************************************************************/
 struct configuration_spec * load_config(void)
@@ -1525,6 +1526,7 @@ struct configuration_spec * load_config(void)
  * Parameters  :
  *          1  :  command = config setting that was found
  *          2  :  argument = the setting's argument (if any)
+ *          3  :  config = Configuration to save into.
  *
  * Returns     :  N/A
  *

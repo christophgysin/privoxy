@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.68  2002/05/12 21:36:29  jongfoster
+ *    Correcting function comments
+ *
  *    Revision 1.67  2002/04/30 12:02:07  oes
  *    Nit: updated a comment
  *
@@ -757,7 +760,7 @@ static struct http_response *dispatch_known_cgi(struct client_state * csp,
  *                pairs and store them in a struct map list.
  *
  * Parameters  :
- *          1  :  string = string to be parsed.  Will be trashed.
+ *          1  :  argstring = string to be parsed.  Will be trashed.
  *
  * Returns     :  pointer to param list, or NULL if out of memory.
  *
@@ -1108,14 +1111,10 @@ void cgi_init_error_messages(void)
  * Description :  Called if a CGI function runs out of memory.
  *                Returns a statically-allocated error response.
  *
- * Parameters  :
- *          1  :  csp = Current client state (buffers, headers, etc...)
- *          2  :  rsp = http_response data structure for output
- *          3  :  template_name = Name of template that could not
- *                                be loaded.
+ * Parameters  :  N/A
  *
- * Returns     :  JB_ERR_OK on success
- *                JB_ERR_MEMORY on out-of-memory error.  
+ * Returns     :  http_response data structure for output.  This is
+ *                statically allocated, for obvious reasons.
  *
  *********************************************************************/
 struct http_response *cgi_error_memory(void)
@@ -1252,6 +1251,7 @@ jb_err cgi_error_bad_param(struct client_state *csp,
  * Parameters  :  
  *          1  :  item = item (will NOT be free()d.) 
  *                       It is assumed to be HTML-safe.
+ *          2  :  config = The current configuration.
  *
  * Returns     :  String with item embedded in link, or NULL on
  *                out-of-memory
@@ -1508,7 +1508,7 @@ void free_http_response(struct http_response *rsp)
  *          1  :  csp = Current client state (buffers, headers, etc...)
  *          2  :  template_ptr = Destination for pointer to loaded
  *                               template text.
- *          3  :  template = name of the HTML template to be used
+ *          3  :  templatename = name of the HTML template to be used
  *          4  :  recursive = Flag set if this function calls itself
  *                            following an #include statament
  *
@@ -1755,6 +1755,7 @@ jb_err template_fill(char **template_ptr, const struct map *exports)
  *          2  :  templatename = name of the HTML template to be used
  *          3  :  exports = map with fill in symbol -> name pairs.
  *                          Will be freed by this function.
+ *          4  :  rsp = Response structure to fill in.
  *
  * Returns     :  JB_ERR_OK on success
  *                JB_ERR_MEMORY on out-of-memory error
