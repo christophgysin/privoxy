@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/25 21:55:08  jongfoster
+ *    Now cleans up properly on FATAL (removes taskbar icon etc)
+ *
  *    Revision 1.5  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -161,8 +164,12 @@ static void fatal_error(const char * error_message);
 static void fatal_error(const char * error_message)
 {
 #if defined(_WIN32) && !defined(_WIN_CONSOLE)
-   MessageBox(NULL, error_message, "Internet JunkBuster Error", 
+   MessageBox(g_hwndLogFrame, error_message, "Internet JunkBuster Error", 
       MB_OK | MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND | MB_TOPMOST);  
+
+   /* Cleanup - remove taskbar icon etc. */
+   TermLogWindow();
+
 #else /* if !defined(_WIN32) || defined(_WIN_CONSOLE) */
    fputs(error_message, stderr);
 #endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
@@ -251,7 +258,7 @@ void log_error(int loglevel, char *fmt, ...)
    /* verify if loglevel applies to current settings and bail out if negative */
    if(!(loglevel & debug))
    {
-		return;
+      return;
    }
 
    /* FIXME get current thread id */
@@ -259,6 +266,7 @@ void log_error(int loglevel, char *fmt, ...)
 
    switch (loglevel)
    {
+      /* FIXME: What about LOG_LEVEL_LOG ??? */
       case LOG_LEVEL_ERROR:
          outc = sprintf(outbuf, "IJB(%d) Error: ", this_thread);
          break;
