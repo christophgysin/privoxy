@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/06/29 13:31:51  oes
+ *    Various adaptions
+ *
  *    Revision 1.16  2001/06/09 10:55:28  jongfoster
  *    Changing BUFSIZ ==> BUFFER_SIZE
  *
@@ -266,6 +269,9 @@ void sweep(void)
          csp->next = ncsp->next;
 
          freez(ncsp->ip_addr_str);
+         freez(ncsp->my_ip_addr_str);
+         freez(ncsp->my_hostname);
+
 #ifdef TRUST_FILES
          freez(ncsp->referrer);
 #endif /* def TRUST_FILES */
@@ -841,15 +847,13 @@ load_trustfile_error:
  *********************************************************************/
 static void unload_re_filterfile(void *f)
 {
-   pcrs_job *joblist;
    struct re_filterfile_spec *b = (struct re_filterfile_spec *)f;
 
    if (b == NULL) return;
 
    destroy_list(b->patterns);
 
-   joblist = b->joblist;
-   while ( NULL != (joblist = pcrs_free_job(joblist)) ) {}
+   pcrs_free_joblist(b->joblist);
 
    freez(b);
 
@@ -912,7 +916,7 @@ int load_re_filterfile(struct client_state *csp)
       enlist( bl->patterns, buf );
 
       /* We have a meaningful line -> make it a job */
-      if ((dummy = pcrs_make_job(buf, &error)) == NULL)
+      if ((dummy = pcrs_compile(buf, &error)) == NULL)
       {
          log_error(LOG_LEVEL_RE_FILTER, 
                "Adding re_filter job %s failed with error %d.", buf, error);
