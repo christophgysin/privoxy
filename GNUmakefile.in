@@ -641,6 +641,14 @@ else
 	rm -fr doc/source/*bak doc/source/*/*bak
 endif
 
+dok-pdf: doc/source/ldpOK.dsl dok-release 
+	cp doc/source/*.sgml doc/pdf
+	cp doc/source/*.dsl doc/pdf
+	cd doc/pdf && db2pdf --pdf -s ldpOK.dsl user-manual.sgml && mv user-manual.pdf privoxy-user-manual.pdf
+	cd doc/pdf && db2pdf --pdf -s ldpOK.dsl developer-manual.sgml && mv developer-manual.pdf privoxy-developer-manual.pdf
+	cd doc/pdf && db2pdf --pdf -s ldpOK.dsl faq.sgml && mv faq.pdf privoxy-faq.pdf
+	rm -f doc/pdf/*.sgml doc/pdf/*.dsl doc/pdf/*.out doc/pdf/*.tex doc/pdf/*.log doc/pdf/*.aux
+
 #############################################################################
 #
 # Webserver
@@ -787,6 +795,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.87  2002/04/23 14:10:59  swa
+# now create pdf documents
+#
 # Revision 1.86  2002/04/15 04:30:27  hal9
 # Missed two -pi.bak's on perl/cygwin problem.
 #
