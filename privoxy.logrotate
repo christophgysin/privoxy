@@ -5,7 +5,7 @@
 # 
 #  File        :  $Source$
 # 
-#  Purpose     :  Rotates all potential Junkbuster logfiles
+#  Purpose     :  Rotates all potential Privoxy logfiles
 #                 
 # 
 #  Copyright   :  Written by and Copyright (C) 2001 the SourceForge
@@ -35,6 +35,9 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.3  2002/03/24 15:19:57  swa
+#     name change related issue.
+#
 #     Revision 1.2  2002/03/24 11:40:14  swa
 #     name change
 #
