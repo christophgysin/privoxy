@@ -4,7 +4,7 @@ const char miscutil_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  zalloc, hash_string, safe_strerror, strcmpic,
- *                strncmpic, strsav, chomp, and MinGW32 strdup
+ *                strncmpic, chomp, and MinGW32 strdup
  *                functions. 
  *                These are each too small to deserve their own file
  *                but don't really fit in any other file.
@@ -36,6 +36,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.27  2002/01/21 00:52:32  jongfoster
+ *    Adding string_join()
+ *
  *    Revision 1.26  2001/12/30 14:07:32  steudten
  *    - Add signal handling (unix)
  *    - Add SIGHUP handler (unix)
@@ -526,8 +529,8 @@ char *strsav(char *old, const char *text_to_append)
  *
  * Description :  Reallocate target_string and append text to it.  
  *                This makes it easier to append to malloc'd strings.
- *                This is similar to strsav(), but running out of
- *                memory isn't catastrophic.
+ *                This is similar to the (removed) strsav(), but
+ *                running out of memory isn't catastrophic.
  *
  *                Programming style:
  *
@@ -601,6 +604,59 @@ jb_err string_append(char **target_string, const char *text_to_append)
 
    *target_string = new_string;
    return JB_ERR_OK;
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  string_join
+ *
+ * Description :  Join two strings together.  Frees BOTH the original
+ *                strings.  If either or both input strings are NULL,
+ *                fails as if it had run out of memory.
+ *
+ *                For comparison, string_append requires that the
+ *                second string is non-NULL, and doesn't free it.
+ *
+ *                Rationale: Too often, we want to do
+ *                string_append(s, html_encode(s2)).  That assert()s
+ *                if s2 is NULL or if html_encode() runs out of memory.
+ *                It also leaks memory.  Proper checking is cumbersome.
+ *                The solution: string_join(s, html_encode(s2)) is safe,
+ *                and will free the memory allocated by html_encode().
+ *
+ * Parameters  :
+ *          1  :  target_string = Pointer to old text that is to be
+ *                extended.  *target_string will be free()d by this
+ *                routine.  target_string must be non-NULL.
+ *          2  :  text_to_append = Text to be appended to old.
+ *
+ * Returns     :  JB_ERR_OK on success, and sets *target_string
+ *                   to newly malloc'ed appended string.  Caller
+ *                   must free(*target_string).
+ *                JB_ERR_MEMORY on out-of-memory, or if
+ *                   *target_string or text_to_append is NULL.  (In
+ *                   this case, frees *target_string and text_to_append,
+ *                   sets *target_string to NULL).
+ *
+ *********************************************************************/
+jb_err string_join(char **target_string, char *text_to_append)
+{
+   jb_err err;
+
+   assert(target_string);
+
+   if (text_to_append == NULL)
+   {
+      freez(*target_string);
+      return JB_ERR_MEMORY;
+   }
+
+   err = string_append(target_string, text_to_append);
+
+   free(text_to_append);
+
+   return err;
 }
 
 
