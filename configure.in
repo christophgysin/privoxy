@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.59  2002/04/06 20:23:55  jongfoster
+dnl Removing unnessacery tests (C++, ranlib)
+dnl
 dnl Revision 1.58  2002/04/04 20:49:20  swa
 dnl attempt to consolidate the
 dnl different dokbook versions.
@@ -395,12 +398,9 @@ dnl Checks for programs needed to build.
 dnl =================================================================
 AC_PROG_CC
 AC_PROG_CPP
-AC_PROG_CXX
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-dnl RANLIB is for PCRE:
-AC_PROG_RANLIB
 
 AC_CHECK_PROG(GDB,gdb,yes,no)
 
