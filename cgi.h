@@ -38,6 +38,18 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2002/05/19 11:33:21  jongfoster
+ *    If a CGI error was not handled, and propogated back to
+ *    dispatch_known_cgi(), then it was assumed to be "out of memory".
+ *    This gave a very misleading error message.
+ *
+ *    Now other errors will cause a simple message giving the error
+ *    number and asking the user to report a bug.
+ *
+ *    Bug report:
+ *    http://sourceforge.net/tracker/index.php?func=detail
+ *    &aid=557905&group_id=11118&atid=111118
+ *
  *    Revision 1.28  2002/04/26 12:54:03  oes
  *    New function add_help_link
  *
@@ -198,6 +210,9 @@ extern jb_err cgi_error_no_template(struct client_state *csp,
                                     const char *template_name);
 extern jb_err cgi_error_bad_param(struct client_state *csp,
                                   struct http_response *rsp);
+jb_err cgi_error_unknown(struct client_state *csp,
+                         struct http_response *rsp,
+                         jb_err error_to_report);
 
 extern jb_err get_number_param(struct client_state *csp,
                                const struct map *parameters,
