@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/08/01 00:17:54  jongfoster
+ *    Adding prototype for map_conditional
+ *
  *    Revision 1.8  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -106,6 +109,7 @@ extern void free_http_response(struct http_response *rsp);
 
 extern struct map *default_exports(struct client_state *csp, char *caller);
 extern struct map *map_block_killer(struct map *map, char *name);
+extern struct map *map_conditional(struct map *exports, char *name, int choose_first);
 extern char *fill_template(struct client_state *csp, const char *template, struct map *exports);
 
 
