@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.25  2002/01/04 15:27:18  oes
+dnl Changed quoting of CODE_STATUS for use in make
+dnl
 dnl Revision 1.24  2001/12/30 14:07:31  steudten
 dnl - Add signal handling (unix)
 dnl - Add SIGHUP handler (unix)
@@ -224,7 +227,7 @@ dnl =================================================================
 VERSION_MAJOR=2
 VERSION_MINOR=9
 VERSION_POINT=10
-CODE_STATUS="\"beta\""
+CODE_STATUS="beta"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
 dnl used for CGI output
@@ -236,13 +239,14 @@ dnl =================================================================
 AC_SUBST(VERSION_MAJOR)
 AC_SUBST(VERSION_MINOR)
 AC_SUBST(VERSION_POINT)
+AC_SUBST(CODE_STATUS)
 
 dnl
 AC_DEFINE_UNQUOTED(VERSION_MAJOR,${VERSION_MAJOR})
 AC_DEFINE_UNQUOTED(VERSION_MINOR,${VERSION_MINOR})
 AC_DEFINE_UNQUOTED(VERSION_POINT,${VERSION_POINT})
 AC_DEFINE_UNQUOTED(VERSION,"${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_POINT}")
-AC_DEFINE_UNQUOTED(CODE_STATUS,${CODE_STATUS})
+AC_DEFINE_UNQUOTED(CODE_STATUS,"${CODE_STATUS}")
 
 dnl =================================================================
 dnl pid file only for unix 
