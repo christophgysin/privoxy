@@ -69,7 +69,7 @@
 # can be left out:
 # 
 # www.example.com 
-#   is a domain-only pattern and will match any request to www.yahoo.com
+#   is a domain-only pattern and will match any request to www.example.com
 # 
 # www.example.com/
 #   means exactly the same (but is slightly less efficient)
