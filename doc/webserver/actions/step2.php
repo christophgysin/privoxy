@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.14  2002/04/13 15:26:07  oes
+  Allow https:// URLs
+
   Revision 1.13  2002/04/09 13:08:21  oes
   declare script type
 
@@ -301,7 +304,7 @@ if (!isset($problem) || $problem == "INVALID")
 /*
  * If the protocol is missing from $referrer_url, prepend "http://"
  */
-if (strncmp("http://", $referrer_url, 7))
+if (!preg_match('|^https?://|i', $referrer_url, $dummy))
 {
    $referrer_url = "http://" . $referrer_url;
 }
