@@ -115,7 +115,8 @@
  <listitem>
   <para>
    Builds from source on most UNIX-like systems. Packages available for: Linux
-   (RedHat, SuSE, or Debian), Windows, Sun Solaris, Mac OSX, OS/2, HP-UX 11 and AmigaOS.
+   (RedHat, SuSE, or Debian), Windows, Sun Solaris, Mac OSX, OS/2, HP-UX 11,
+   NetBSD and AmigaOS.
   </para>
  </listitem> 
 
