@@ -33,6 +33,9 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2002/04/03 23:32:47  jongfoster
+ *    Fixing memory leak on error
+ *
  *    Revision 1.7  2002/03/26 22:29:55  swa
  *    we have a new homepage!
  *
@@ -668,6 +671,7 @@ jb_err create_url_spec(struct url_spec * url, const char * buf)
 
          freez(url->spec);
          freez(url->path);
+         regfree(url->preg);
          freez(url->preg);
 
          return JB_ERR_PARSE;
@@ -707,6 +711,7 @@ jb_err create_url_spec(struct url_spec * url, const char * buf)
          freez(url->spec);
          freez(url->path);
 #ifdef REGEX
+         regfree(url->preg);
          freez(url->preg);
 #endif /* def REGEX */
          return JB_ERR_MEMORY;
@@ -726,6 +731,7 @@ jb_err create_url_spec(struct url_spec * url, const char * buf)
          freez(url->spec);
          freez(url->path);
 #ifdef REGEX
+         regfree(url->preg);
          freez(url->preg);
 #endif /* def REGEX */
          freez(url->dbuffer);
@@ -744,6 +750,7 @@ jb_err create_url_spec(struct url_spec * url, const char * buf)
             freez(url->spec);
             freez(url->path);
 #ifdef REGEX
+            regfree(url->preg);
             freez(url->preg);
 #endif /* def REGEX */
             freez(url->dbuffer);
