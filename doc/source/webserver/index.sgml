@@ -176,7 +176,7 @@
   <colspec colname=c1 align="center">
   <tbody>
    <row>
-    <entry align="center">Developed on:</entry>
+    <entry align="center">Prixoxy is developed on:</entry>
    </row>
    <row>
     <entry align="center">
@@ -229,6 +229,9 @@
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.16  2002/05/24 10:06:31  oes
+ Nit
+
  Revision 1.15  2002/05/24 00:02:05  oes
  Tried to make more useful and concise:
    Reordered, no more TOC, link to instead of include info,
