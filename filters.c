@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/20 16:44:47  jongfoster
+ *    Removing last hardcoded JunkBusters.com URLs.
+ *
  *    Revision 1.2  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -1199,17 +1202,9 @@ char *show_proxy_args(struct http_request *http, struct client_state *csp)
          "<p><a href=\"show-proxy-args\">Back to proxy status</a></p>\n"
          "<br>\n"
          "<small><small><p>\n"
-         "Code and documentation of the " BANNER " Proxy"
-         "<sup><small>TM</small></sup>\n"
-         "<a href=\"http://www.junkbusters.com/ht/en/legal.html#copy\">\n" "Copyright</a>&#169; 1997 Junkbusters Corporation\n"
-         "<a href=\"http://www.junkbusters.com/ht/en/legal.html#marks\"><sup><small>TM</small></sup></a><br>\n"
-         "Copying and distribution permitted under the"
-         "<a href=\"http://www.gnu.org/copyleft/gpl.html\">\n"
-         "<small>GNU</small></a> "
-         "General Public License.\n"
-         "</small>"
-         "<address><kbd>webmaster@junkbusters.com</kbd></address>"
-         "</small>"
+         "The " BANNER " Proxy - \n"
+         "<a href=\"" HOME_PAGE_URL "\">" HOME_PAGE_URL "</a>\n"
+         "</small></small>"
          "</body></html>\n");
       return(s);
    }

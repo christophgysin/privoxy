@@ -33,6 +33,9 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/20 16:44:47  jongfoster
+ *    Removing last hardcoded JunkBusters.com URLs.
+ *
  *    Revision 1.3  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -349,6 +352,7 @@ void end_proxy_args(void)
    SHOW_RCS(ssplit_h_rcs)
    SHOW_RCS(ssplit_rcs)
 #ifdef _WIN32
+#ifndef _WIN_CONSOLE
    SHOW_RCS(w32log_h_rcs)
    SHOW_RCS(w32log_rcs)
    SHOW_RCS(w32res_h_rcs)
@@ -356,6 +360,7 @@ void end_proxy_args(void)
    SHOW_RCS(w32rulesdlg_rcs)
    SHOW_RCS(w32taskbar_h_rcs)
    SHOW_RCS(w32taskbar_rcs)
+#endif /* ndef _WIN_CONSOLE */
    SHOW_RCS(win32_h_rcs)
    SHOW_RCS(win32_rcs)
 #endif /* def _WIN32 */
@@ -460,17 +465,13 @@ void end_proxy_args(void)
 
    b = strsav(b,
       "<small><small><p>\n"
-      "Code and documentation of the " BANNER " Proxy"
-      "<sup><small>TM</small></sup>\n"
-      "<a href=\"http://www.junkbusters.com/ht/en/legal.html#copy\">\n" "Copyright</a>&#169; 1997 Junkbusters Corporation\n"
-      "<a href=\"http://www.junkbusters.com/ht/en/legal.html#marks\"><sup><small>TM</small></sup></a><br>\n"
-      "Copying and distribution permitted under the"
-      "<a href=\"http://www.gnu.org/copyleft/gpl.html\">\n"
-      "<small>GNU</small></a> "
-      "General Public License.\n"
-      "</small>"
-      "<address><kbd>webmaster@junkbusters.com</kbd></address>"
-      "</small>"
+      "The " BANNER " Proxy - \n"
+      "<a href=\"" HOME_PAGE_URL "\">" HOME_PAGE_URL "</a><p>\n"
+      "Copyright &#169; 2001 <a href=\"" HOME_PAGE_URL "\">the SourceForge IJBSWA team</a><br>\n"
+      "Copyright &#169; 1997 <a href=\"http://www.junkbusters.com/\">\n" "Junkbusters Corporation</a><br>\n"
+      "Copying and distribution permitted under the "
+      "<a href=\"http://www.gnu.org/copyleft/gpl.html\">GNU General Public License.</a>\n"
+      "</small></small>"
       "</body></html>\n"
    );
 
