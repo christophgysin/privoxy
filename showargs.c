@@ -34,6 +34,9 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/07/18 17:27:22  oes
+ *    Adapted to new #defines
+ *
  *    Revision 1.19  2001/07/13 14:11:36  oes
  *     - Included SHOW_RCS for deanimate.*
  *     - Removed all #ifdef PCRS
@@ -367,17 +370,35 @@ char *show_defines(void)
 {
    char *b = NULL;
 
-#ifdef REGEX
-   b = strsav(b, "  <li><code>#define <b>REGEX</b></code> - Support for regular expressions in the path specs.</li>\n");
-#else /* ifndef REGEX */
+#ifdef FEATURE_PTHREAD
+   b = strsav(b, "  <li><code>#define <b>FEATURE_PTHREAD</b></code> - Support POSIX threads.</li>\n");
+#else
+   b = strsav(b, "  <li><code>#undef <b>FEATURE_PTHREAD</b></code> - No support POSIX threads.</li>\n");
+#endif
+
+#ifdef REGEX_GNU
+   b = strsav(b, "  <li><code>#define <b>REGEX_GNU</b></code> - Support for GNU style regular expressions in the path specs.</li>\n");
+#endif /* def REGEX_GNU */
+
+#ifdef REGEX_PCRE
+   b = strsav(b, "  <li><code>#define <b>REGEX_PCRE</b></code> - Support for pcre style regular expressions in the path specs.</li>\n");
+#endif /* def REGEX_PCRE */
+
+#ifndef REGEX
    b = strsav(b, "  <li><code>#undef <b>REGEX</b></code> - No support for regular expressions in the path specs.</li>\n");
 #endif /* ndef REGEX */
 
-#ifdef PCRE
-   b = strsav(b, "  <li><code>#define <b>PCRE</b></code> - Use PCRE rather than old GNU regex library.</li>\n");
-#else /* ifndef PCRE */
-   b = strsav(b, "  <li><code>#undef <b>PCRE</b></code> - Use old GNU regex library rather than PCRE.</li>\n");
-#endif /* ndef PCRE */
+#ifdef STATIC_PCRE
+   b = strsav(b, "  <li><code>#define <b>STATIC_PCRE</b></code> - Using static built-in pcre rather than libpcre.</li>\n");
+#else /* ifndef STATIC_PCRE */
+   b = strsav(b, "  <li><code>#undef <b>STATIC_PCRE</b></code> - Using libpcre rather than static built-in pcre.</li>\n");
+#endif /* ndef STATIC_PCRE */
+
+#ifdef STATIC_PCRS
+   b = strsav(b, "  <li><code>#define <b>STATIC_PCRS</b></code> - Using static built-in pcrs rather than libpcrs.</li>\n");
+#else /* ifndef STATIC_PCRS */
+   b = strsav(b, "  <li><code>#undef <b>STATIC_PCRS</b></code> - Using libpcrs rather than static built-in pcrs.</li>\n");
+#endif /* ndef STATIC_PCRS */
 
 #ifdef TOGGLE
    b = strsav(b, "  <li><code>#define <b>TOGGLE</b></code> - Allow JunkBuster to be \"disabled\" so it is just a normal non-blocking non-anonymizing proxy.</li>\n");
