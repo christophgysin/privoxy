@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.55  2002/03/12 01:42:50  oes
+ *    Introduced modular filters
+ *
  *    Revision 1.54  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on
@@ -646,20 +649,19 @@ struct iob
 #define ACTION_DEANIMATE       0x00000002UL
 #define ACTION_DOWNGRADE       0x00000004UL
 #define ACTION_FAST_REDIRECTS  0x00000008UL
-#define ACTION_FILTER          0x00000010UL
-#define ACTION_HIDE_FORWARDED  0x00000020UL
-#define ACTION_HIDE_FROM       0x00000040UL
-#define ACTION_HIDE_REFERER    0x00000080UL /* sic - follow HTTP, not English */
-#define ACTION_HIDE_USER_AGENT 0x00000100UL
-#define ACTION_IMAGE           0x00000200UL
-#define ACTION_IMAGE_BLOCKER   0x00000400UL
-#define ACTION_NO_COMPRESSION  0x00000800UL
-#define ACTION_NO_COOKIE_KEEP  0x00001000UL
-#define ACTION_NO_COOKIE_READ  0x00002000UL
-#define ACTION_NO_COOKIE_SET   0x00004000UL
-#define ACTION_NO_POPUPS       0x00008000UL
-#define ACTION_VANILLA_WAFER   0x00010000UL
-#define ACTION_LIMIT_CONNECT   0x00020000UL
+#define ACTION_HIDE_FORWARDED  0x00000010UL
+#define ACTION_HIDE_FROM       0x00000020UL
+#define ACTION_HIDE_REFERER    0x00000040UL /* sic - follow HTTP, not English */
+#define ACTION_HIDE_USER_AGENT 0x00000080UL
+#define ACTION_IMAGE           0x00000100UL
+#define ACTION_IMAGE_BLOCKER   0x00000200UL
+#define ACTION_NO_COMPRESSION  0x00000400UL
+#define ACTION_NO_COOKIE_KEEP  0x00000800UL
+#define ACTION_NO_COOKIE_READ  0x00001000UL
+#define ACTION_NO_COOKIE_SET   0x00002000UL
+#define ACTION_NO_POPUPS       0x00004000UL
+#define ACTION_VANILLA_WAFER   0x00008000UL
+#define ACTION_LIMIT_CONNECT   0x00010000UL
 
 #define ACTION_STRING_DEANIMATE     0
 #define ACTION_STRING_FROM          1
@@ -671,7 +673,9 @@ struct iob
 
 #define ACTION_MULTI_ADD_HEADER     0
 #define ACTION_MULTI_WAFER          1
-#define ACTION_MULTI_COUNT          2
+#define ACTION_MULTI_FILTER         2
+#define ACTION_MULTI_COUNT          3
+
 
 /*
  * This structure contains a list of actions to apply to a URL.
@@ -920,12 +924,18 @@ struct forward_spec
 #define FORWARD_SPEC_INITIALIZER { { URL_SPEC_INITIALIZER }, 0, NULL, 0, NULL, 0, NULL }
 
 
+/*
+ * This struct represents one filter (one block) from
+ * the re_filterfile. If there is more than one filter
+ * in the file, the file will be represented by a
+ * chained list of re_filterfile specs.
+ */
 struct re_filterfile_spec
 {
-   char *username;
-   char *filtername;
-   struct list patterns[1];
-   pcrs_job *joblist;
+   char *filtername;                /* Name from FILTER: statement in re_filterfile (or "default") */
+   struct list patterns[1];         /* The patterns from the re_filterfile */
+   pcrs_job *joblist;               /* The resulting compiled pcrs_jobs */
+   struct re_filterfile_spec *next; /* The pointer for chaining */
 };
 
 #ifdef FEATURE_ACL

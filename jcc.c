@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.81  2002/03/12 01:42:50  oes
+ *    Introduced modular filters
+ *
  *    Revision 1.80  2002/03/11 22:07:05  david__schmidt
  *    OS/2 port maintenance:
  *    - Fixed EMX build - it had decayed a little
@@ -950,7 +953,7 @@ static void chat(struct client_state *csp)
 #endif /* def FEATURE_KILL_POPUPS */
 
    pcrs_filter                = (csp->rlist != NULL) &&  /* There are expressions to be used */
-                                ((csp->action->flags & ACTION_FILTER) != 0);
+                                (!list_is_empty(csp->action->multi[ACTION_MULTI_FILTER]));
 
    gif_deanimate              = ((csp->action->flags & ACTION_DEANIMATE) != 0);
 
