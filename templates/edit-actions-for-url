@@ -32,6 +32,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.21  2002/04/08 17:05:18  oes
+#    Inline a style exception
+#
 #    Revision 1.20  2002/04/05 16:01:30  oes
 #    Correct HTML, external Stylesheets, eye candy, some fixes
 #
@@ -187,6 +190,7 @@ th.enh       { background-color: #99ff99 }
 th.dish      { background-color: #ff9999 }
 th.noch      { background-color: #9999ff }
 table.wide   { padding: 5px; }
+td.green     { border: solid black 1px; background-color: #ddffdd; }
 </style>
 
 <!--
@@ -339,7 +343,7 @@ function show_wafer_opts(tf)
       <td class="title">
         <h1>
           This is <a href="@homepage@">Privoxy</a> @version@ on @my-hostname@ (@my-ip-address@), port @my-port@,
-          @if-enabled-display-then@Enabled@else-not-enabled-display@Disabled@endif-enabled-display@
+          @if-enabled-display-then@enabled@else-not-enabled-display@disabled@endif-enabled-display@
         </h1>
       </td>
     </tr>
@@ -774,7 +778,7 @@ function show_wafer_opts(tf)
 </td></tr>
 
     <tr>
-      <td class="submit" align="center">
+      <td class="green" align="center">
         <p><input type="submit" value="Submit" name="Submit"></p>
       </td>
     </tr>
