@@ -210,7 +210,7 @@
 #    The +fast-redirects option enables interception of these requests
 #    by junkbuster, who will cut off all but the last valid URL in the
 #    request and send a local redirect back to your browser without
-#    contacting the remote site.
+#    contacting the intermediate sites.
 #
 # +filter{name}
 #    Filter the website through one or more regular expression filters.
