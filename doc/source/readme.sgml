@@ -38,7 +38,8 @@
  ======================================================================
  NOTE: The left margin spacing is *important* when using 'literallayout'
  WYSISWYG!!! Don't mess this up!!! Careful with linebreaks too, ie 
- the para tag forces a linebreak. Tags need to be carefully placed as a result.
+ the para tag forces a linebreak. Tags need to be carefully placed as a result
+ to avoid extra blank lines, etc.
  ======================================================================
 
  For stable releases, change 
@@ -47,7 +48,7 @@
  
  to 
  
-  entity % not-stable "IGNORE" 
+  entity % p-not-stable "IGNORE" 
   
  in the DTD at the top. This will toggle various text 'off'. BOTH
  MUST be toggled in this case.
