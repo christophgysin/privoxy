@@ -35,6 +35,11 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.46  2002/04/26 12:55:14  oes
+ *     - New option "user-manual", defaults to our site
+ *       via project.h #define
+ *     - savearg now embeds option names in help links
+ *
  *    Revision 1.45  2002/04/24 02:11:54  oes
  *    Jon's multiple AF patch: Allow up to MAX_ACTION_FILES actionsfile options
  *
@@ -342,6 +347,7 @@ const char loadcfg_rcs[] = "$Id$";
 #include "ssplit.h"
 #include "encode.h"
 #include "urlmatch.h"
+#include "cgi.h"
 
 const char loadcfg_h_rcs[] = LOADCFG_H_VERSION;
 
@@ -409,7 +415,7 @@ static struct file_list *current_configfile = NULL;
 #define hash_toggle                        447966ul /* "toggle" */
 #define hash_trust_info_url             430331967ul /* "trust-info-url" */
 #define hash_trustfile                   56494766ul /* "trustfile" */
-
+#define hash_usermanual                1416668518ul /* "user-manual" */
 #define hash_activity_animation        1817904738ul /* "activity-animation" */
 #define hash_close_button_minimizes    3651284693ul /* "close-button-minimizes" */
 #define hash_hide_console              2048809870ul /* "hide-console" */
@@ -488,6 +494,7 @@ void unload_configfile (void * data)
    freez(config->admin_address);
    freez(config->proxy_info_url);
    freez(config->proxy_args);
+   freez(config->usermanual);
 
 #ifdef FEATURE_COOKIE_JAR
    freez(config->jarfile);
@@ -587,10 +594,10 @@ struct configuration_spec * load_config(void)
    /*
     * Set to defaults
     */
-
    config->multi_threaded    = 1;
    config->hport             = HADDR_PORT;
    config->buffer_limit      = 4096 * 1024;
+   config->usermanual        = strdup(USER_MANUAL_URL);
    config->proxy_args        = strdup("");
 
    if ((configfp = fopen(configfile, "r")) == NULL)
@@ -1208,6 +1215,13 @@ struct configuration_spec * load_config(void)
             continue;
 #endif /* def FEATURE_TRUST */
 
+/* *************************************************************************
+ * usermanual url
+ * *************************************************************************/
+         case hash_usermanual :
+            freez(config->usermanual);
+            config->usermanual = strdup(arg);
+            continue;
 
 /* *************************************************************************
  * Win32 Console options:
@@ -1525,21 +1539,13 @@ static void savearg(char *command, char *argument, struct configuration_spec * c
    assert(argument);
 
    buf = strdup("");
+   string_join(&buf, add_help_link(command, config));
 
-   s = html_encode(command);
-   if (NULL == s)
+   if (NULL == buf)
    {
-      freez(buf);
       freez(config->proxy_args);
       return;
    }
-   string_append(&buf, "<a href=\"");
-   string_append(&buf, html_encode(REDIRECT_URL));
-   string_append(&buf, "option#");
-   string_append(&buf, s);
-   string_append(&buf, "\">");
-   string_join  (&buf, s);
-   string_append(&buf, "</a> ");
 
    if ( (NULL != argument) && ('\0' != *argument) )
    {
