@@ -31,6 +31,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.25  2002/05/21 21:02:52  oes
+#    Added more help links
+#
 #    Revision 1.24  2002/05/21 19:11:40  oes
 #     - Added client-side JavaScript versions of edit and add URL forms
 #     - Moved jump targets to before container table cell
@@ -300,7 +303,7 @@ function a_p(section)
     <tr>
       <td class="container"><a name="l@all-urls-s@"></a>
         <table border="0" width="100%" cellspacing="2" cellpadding="3" class="framed">
-          <tr class="actions"><td class="header">Actions</td></tr>
+          <tr class="actions"><td class="header"><a href="@user-manual@@actions-help-prefix@ACTIONS">Actions</a>:</td></tr>
           <tr class="actions">
             <td class="indentbuttons">
               <a href="eafu?f=@f@&amp;v=@v@&amp;s=@all-urls-s@">Edit</a>
@@ -308,9 +311,9 @@ function a_p(section)
             </td>
           </tr>
           <tr class="actions"><td class="action">@all-urls-actions@</td></tr>
-          <tr class="url"><td class="header">URL patterns</td></tr>
+          <tr class="url"><td class="header"><a href="@user-manual@@actions-help-prefix@AF-PATTERNS">URL patterns</a>:</td></tr>
           <tr class="url"><td class="indentbuttons">/ &nbsp; <i>(Matches all requests)</a></td></tr>
-          <tr class="adv"><td class="header">Advanced</td></tr>
+          <tr class="adv"><td class="header">Advanced:</td></tr>
           <tr class="adv">
             <td class="indentbuttons">
               <a href="easa?f=@f@&amp;v=@v@&amp;s=@all-urls-s@#l@all-urls-s-next@">Insert new section below</a>
