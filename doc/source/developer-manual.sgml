@@ -3,6 +3,10 @@
 <!entity supported SYSTEM "supported.sgml">
 <!entity newfeatures SYSTEM "newfeatures.sgml">
 <!entity p-intro SYSTEM "privoxy.sgml">
+<!entity history SYSTEM "history.sgml">
+<!entity seealso SYSTEM "seealso.sgml">
+<!entity contacting SYSTEM "contacting.sgml">
+<!entity copyright SYSTEM "copyright.sgml">
 <!entity p-version "2.9.13">
 <!entity p-status "BETA">
 <!entity % p-not-stable "INCLUDE"> <!-- set to IGNORE for stable release  -->
@@ -2055,28 +2059,34 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="contact"><title>Contact the developers</title>
-    <para>
-     Please see the contact page in the <ulink
-     url="../user-manual/contact.html">user-manual</ulink> for details.
-    </para>
+<!-- Include contacting.sgml  -->
+ &contacting;
+<!-- end contacting -->
   </sect1>
   
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="copyright"><title>Copyright and History</title>
-    <para>
-     Please see the <ulink
-     url="../user-manual/copyright.html#HISTORY">user-manual</ulink> for
-     information on Copyright and History.
-  </para>
+
+<sect2><title>Copyright</title>
+<!-- Include copyright.sgml -->
+ &copyright;
+<!-- end -->
+</sect2>
+
+<sect2><title>History</title>
+<!-- Include history.sgml -->
+ &history;
+<!-- end -->
+</sect2>
+
   </sect1>
   
   <!--   ~~~~~       New section      ~~~~~     -->
   <sect1 id="seealso"><title>See also</title>
-    <para>
-      Please see the <ulink
-      url="../user-manual/seealso.html">user-manual</ulink> for others
-      references.
-    </para>
+<!-- Include seealso.sgml -->
+ &seealso;
+<!-- end  -->
+
   </sect1>
 
   <!--
@@ -2100,6 +2110,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.22  2002/04/04 17:27:56  swa
+  more single file to be included at multiple points. make maintaining easier
+
   Revision 1.21  2002/04/04 06:48:37  hal9
   Structural changes to allow for conditional inclusion/exclusion of content
   based on entity toggles, e.g. 'entity % p-not-stable  "INCLUDE"'. And
