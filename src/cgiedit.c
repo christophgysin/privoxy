@@ -42,6 +42,14 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/09/04 15:21:18  oes
+ *    Synced with the stable branch:
+ *        Revision 1.41.2.2  2002/08/05 20:02:59  oes
+ *        Bugfix: "Insert new section at top" did not work properly if first non-comment line in file was of type FILE_LINE_ACTION
+ *
+ *        Revision 1.41.2.1  2002/08/02 12:43:14  oes
+ *        Fixed bug #588514: first_time now set on a per-string basis in actions_from_radio; javascriptify now called on copies
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -2880,12 +2888,13 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
 
       /* Could also do section-specific exports here, but it wouldn't be as fast */
 
+      snprintf(buf, 150, "%d", line_number);
+      if (!err) err = map(section_exports, "s-next", 1, buf, 1);
+
       if ( (cur_line != NULL)
         && (cur_line->type == FILE_LINE_ACTION))
       {
          /* Not last section */
-         snprintf(buf, 150, "%d", line_number);
-         if (!err) err = map(section_exports, "s-next", 1, buf, 1);
          if (!err) err = map_block_keep(section_exports, "s-next-exists");
       }
       else
@@ -4002,10 +4011,10 @@ jb_err cgi_edit_actions_section_add(struct client_state *csp,
    line_number = 1;
    cur_line = file->lines;
 
-   if (sectionid < 1U)
+   if (sectionid <= 1U)
    {
       /* Add to start of file */
-      if (cur_line != NULL)
+      if (cur_line != NULL && cur_line->type != FILE_LINE_ACTION)
       {
          /* There's something in the file, find the line before the first
           * action.
@@ -4016,6 +4025,11 @@ jb_err cgi_edit_actions_section_add(struct client_state *csp,
             cur_line = cur_line->next;
             line_number++;
          }
+      }
+      else
+      {
+         /* File starts with action line, so insert at top */
+         cur_line = NULL;
       }
    }
    else
@@ -4583,7 +4597,6 @@ static jb_err actions_to_radio(struct map * exports,
 static jb_err actions_from_radio(const struct map * parameters,
                                  struct action_spec *action)
 {
-   static int first_time = 1;
    const char * param;
    char * param_dup;
    char ch;
@@ -4597,16 +4610,22 @@ static jb_err actions_from_radio(const struct map * parameters,
     * but in this case we're safe and don't need semaphores.
     * Be careful if you modify this function.
     * - Jon
+    * The js_name_arr's are never free()d, but this is no
+    * problem, since they will only be created once and
+    * used by all threads thereafter. -oes
     */
 
 #define JAVASCRIPTIFY(dest_var, string)               \
    {                                                  \
-      static char js_name_arr[] = string;             \
+     static int first_time = 1;                       \
+     static char *js_name_arr;                        \
       if (first_time)                                 \
       {                                               \
+         js_name_arr = strdup(string);                \
          javascriptify(js_name_arr);                  \
       }                                               \
       dest_var = js_name_arr;                         \
+      first_time = 0;                                 \
    }                                                  \
 
 #define DEFINE_ACTION_BOOL(name, bit)                 \
@@ -4701,8 +4720,6 @@ static jb_err actions_from_radio(const struct map * parameters,
 #undef DEFINE_ACTION_BOOL
 #undef DEFINE_ACTION_ALIAS
 #undef JAVASCRIPTIFY
-
-   first_time = 0;
 
    return err;
 }
