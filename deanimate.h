@@ -1,5 +1,5 @@
-#ifndef _DEANIMATE_H
-#define _DEANIMATE_H
+#ifndef DEANIMATE_H_INCLUDED
+#define DEANIMATE_H_INCLUDED
 #define DEANIMATE_H_VERSION "$Id$"
 /*********************************************************************
  *
@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/07/29 18:50:04  jongfoster
+ *    Fixing "extern C" block, and renaming #define _DEANIMATE_H
+ *
  *    Revision 1.3  2001/07/18 12:29:05  oes
  *    Updated prototype for gif_deanimate
  *
@@ -49,6 +52,10 @@
  *
  *********************************************************************/
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*
  * A struct that holds a buffer, a read/write offset,
@@ -77,7 +84,7 @@ extern const char deanimate_h_rcs[];
 } /* extern "C" */
 #endif
 
-#endif /* ndef _DEANIMATE_H */
+#endif /* ndef DEANIMATE_H_INCLUDED */
 
 /*
   Local Variables:
