@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.11  2001/07/03 11:00:25  sarantis
+# replaced permissionsfile with actionsfile
+#
 # Revision 1.10  2001/07/03 09:34:44  sarantis
 # bumped up version number.
 #
@@ -109,7 +112,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_sbindir} \
 
 install -s -m 744 junkbuster $RPM_BUILD_ROOT%{_sbindir}/junkbuster
 cp -f junkbuster.1 $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8
-cp -f permissionsfile $RPM_BUILD_ROOT%{ijbconf}/permissionsfile
+cp -f actionsfile $RPM_BUILD_ROOT%{ijbconf}/actionsfile
 cp -f re_filterfile $RPM_BUILD_ROOT%{ijbconf}/re_filterfile
 cp -f trust $RPM_BUILD_ROOT%{ijbconf}/trust
 cp -f templates/default $RPM_BUILD_ROOT%{ijbconf}/templates/
