@@ -42,9 +42,9 @@
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
 <!entity authors SYSTEM "p-authors.sgml">
-<!entity p-version "2.9.15">
-<!entity p-status "beta">
-<!entity % p-not-stable "INCLUDE">
+<!entity p-version SYSTEM "doc_version.tmp">
+<!entity p-status SYSTEM "doc_status.tmp">
+<!entity % p-not-stable "IGNORE">
 <!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">           <!-- define we are not a text only doc -->
 <!entity % p-authors-formal "IGNORE"> <!-- exclude additional formating      -->

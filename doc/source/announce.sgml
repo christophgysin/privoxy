@@ -5,9 +5,9 @@
 <!entity contacting SYSTEM "../contacting.sgml">
 <!entity history SYSTEM "../history.sgml">
 <!entity newfeatures SYSTEM "../newfeatures.sgml">
-<!entity p-version "2.9.15">
-<!entity p-status "beta">
-<!entity % p-not-stable "INCLUDE">
+<!entity p-version SYSTEM "doc_version.tmp">
+<!entity p-status SYSTEM "doc_status.tmp">
+<!entity % p-not-stable "IGNORE">
 <!entity % p-stable "IGNORE">
 <!entity % p-supp-userman "IGNORE">
 <!entity % p-text "INCLUDE">       <!-- define we are a text only doc    -->

@@ -5,9 +5,9 @@
 <!entity history SYSTEM "history.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
-<!entity p-version "2.9.15">
-<!entity p-status "beta">
-<!entity % p-not-stable "INCLUDE">
+<!entity p-version SYSTEM "doc_version.tmp">
+<!entity p-status SYSTEM "doc_status.tmp">
+<!entity % p-not-stable "IGNORE">
 <!entity % p-stable "IGNORE">
 <!entity  my-copy "&copy;">        <!-- kludge for docbook2man            -->
 <!entity % p-homepage "IGNORE">    <!-- toggle for webserver index.html   -->
@@ -245,6 +245,11 @@
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.20  2002/06/05 00:31:55  hal9
+ Mass commit for new entities, most significantly so docs can read version
+ and code status info from tmp files, so perl is no longer used. Also, docs can
+ differentiate on alpha -> beta -> stable now.
+
  Revision 1.19  2002/06/03 00:28:17  hal9
  Sync with various changes from 3.0 branch. Add two new files for config stuff.
 

@@ -11,10 +11,10 @@
 <!entity license SYSTEM "license.sgml">
 <!entity p-authors SYSTEM "p-authors.sgml">
 <!entity config SYSTEM "p-config.sgml">
-<!entity p-version "2.9.15">
-<!entity p-status "beta">
+<!entity p-version SYSTEM "doc_version.tmp">
+<!entity p-status SYSTEM "doc_status.tmp">
 <!entity % p-authors-formal "INCLUDE"> <!-- include additional text, etc  -->
-<!entity % p-not-stable "INCLUDE">
+<!entity % p-not-stable "IGNORE">
 <!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
 <!entity % p-doc "INCLUDE">        <!-- and we are a formal doc           -->
@@ -5507,6 +5507,11 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.126  2002/06/05 00:31:55  hal9
+ Mass commit for new entities, most significantly so docs can read version
+ and code status info from tmp files, so perl is no longer used. Also, docs can
+ differentiate on alpha -> beta -> stable now.
+
  Revision 1.125  2002/06/03 00:28:17  hal9
  Sync with various changes from 3.0 branch. Add two new files for config stuff.
 
