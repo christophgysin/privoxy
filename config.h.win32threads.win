@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/10/23 21:24:09  jongfoster
+ *    Support for FEATURE_CGI_EDIT_ACTIONS
+ *
  *    Revision 1.7  2001/10/07 15:33:14  oes
  *    Removed FEATURE_DENY_GZIP
  *    Bumped up version number
@@ -215,6 +218,12 @@
  * Allows the use of an ACL to control access to the proxy by IP address.
  */
 #define FEATURE_ACL 1
+
+/*
+ * Enables the web-based configuration (actionsfile) editor.  If you
+ * have a shared proxy, you might want to turn this off.
+ */
+#define FEATURE_CGI_EDIT_ACTIONS 1
 
 /*
  * Allows the use of jar files to capture cookies.
