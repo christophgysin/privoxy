@@ -22,6 +22,7 @@
   developer-manual
   README
   user-manual
+  webserver/index.sgml
 
 -->
 
@@ -65,6 +66,16 @@
  forum:
  
  <ulink url="http://sourceforge.net/tracker/?atid=361118&#38;group_id=11118&#38;func=browse"></ulink>.
+   </literallayout>
+  </listitem>
+
+
+  <listitem>
+   <literallayout>
+<!-- FIXME -->
+We will soon have an automated way to submit advertisements, incorrectly
+blocked images, popups and the like. Check back.
+<!--  <ulink url="http://sourceforge.net/tracker/?atid=361118&#38;group_id=11118&#38;func=browse"></ulink>. -->
    </literallayout>
   </listitem>
 
