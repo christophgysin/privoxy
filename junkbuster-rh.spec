@@ -26,24 +26,8 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
-# Revision 1.15  2001/09/14 23:28:29  hal9
-#
-# %changelog
-# * Thu Sep 13 2001 Hal Burgiss <hal@foobox.net>
-# - Added $RPM_OPT_FLAGS support, renaming of old logfile, and
-# - made sure no default shell exists for user junkbust.
-#
-# Stefan and Thomas -- if you see this, see what you think of the CFLAGS
-# handling. The Makefile changed how this is handled recently, and what I've now
-# done is:
-#
-# OPT_FLAGS="$RPM_OPT_FLAGS -Ipcre -Wall"
-# ./configure
-# make "CFLAGS=$OPT_FLAGS"
-#
-# Which 'works', but not sure what the best way to handle this. If I use
-# OTHER_FLAGS instead, I get duplicate gcc flag output like '-02 -03....'. Not
-# sure this is so bad, but at best, seems sloppy.
+# Revision 1.16  2001/09/24 20:56:23  hal9
+# Minor changes.
 #
 # Revision 1.13  2001/09/10 17:44:43  swa
 # integrate three pieces of documentation. needs work.
@@ -138,7 +122,8 @@ mkdir -p ${RPM_BUILD_ROOT}%{_sbindir} \
          ${RPM_BUILD_ROOT}%{_sysconfdir}/rc.d/init.d
 
 install -s -m 744 junkbuster $RPM_BUILD_ROOT%{_sbindir}/junkbuster
-cp -f junkbuster.1 $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8
+# Out temporarily
+#cp -f junkbuster.1 $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8
 cp -f actionsfile $RPM_BUILD_ROOT%{ijbconf}/actionsfile
 cp -f re_filterfile $RPM_BUILD_ROOT%{ijbconf}/re_filterfile
 cp -f trust $RPM_BUILD_ROOT%{ijbconf}/trust
@@ -166,6 +151,7 @@ if [ "$1" = "1" ]; then
 fi
 # for upgrade from 2.0.x
 chown junkbust:junkbust /var/log/junkbuster/* 2>/dev/null
+chown junkbust:junkbust /etc/junkbuster 2>/dev/null
 [ -f /var/log/junkbuster/junkbuster ] &&\
  mv -f /var/log/junkbuster/junkbuster /var/log/junkbuster/logfile || true
 
@@ -185,18 +171,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc faq.html user-manual.html developer-manual.html
+%doc doc/webserver/developer-manual doc/webserver/user-manual README
 %doc junkbuster.weekly junkbuster.monthly
 %dir %{ijbconf}
 %config %{ijbconf}/*
 %attr(0744,junkbust,junkbust) %dir /var/log/junkbuster
 %config %{_sysconfdir}/logrotate.d/junkbuster
 %attr(0744,junkbust,junkbust)/usr/sbin/junkbuster
-%{_mandir}/man8/*
+#temporarily out until it is updated.
+#%{_mandir}/man8/*
 %config %{_sysconfdir}/rc.d/init.d/junkbuster
 
 
 %changelog
+* Sun Sep 23 2001 Hal Burgiss <hal@foobox.net>
+- Change of $RPM_OPT_FLAGS handling. Added new HTML doc files.
+- Changed owner of /etc/junkbuster to shut up PAM/xauth log noise.
+
 * Thu Sep 13 2001 Hal Burgiss <hal@foobox.net>
 - Added $RPM_OPT_FLAGS support, renaming of old logfile, and 
 - made sure no default shell exists for user junkbust.
