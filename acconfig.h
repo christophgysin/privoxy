@@ -37,6 +37,16 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/07/13 13:48:37  oes
+ *     - (Fix:) Copied CODE_STATUS #define from config.h.in
+ *     - split REGEX #define into REGEX_GNU and REGEX_PCRE
+ *       and removed PCRE.
+ *       (REGEX = REGEX_GNU || REGEX_PCRE per project.h)
+ *     - Moved STATIC (for pcre) here from Makefile.in
+ *     - Introduced STATIC_PCRS #define to allow for dynaimc linking with
+ *       libpcrs
+ *     - Removed PCRS #define, since pcrs is now needed for CGI anyway
+ *
  *    Revision 1.4  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes
@@ -138,10 +148,33 @@
 #undef VERSION
 
 /*
- * Regular expression matching for URLs.  (Highly recommended).  If this is 
- * not defined then you can ony use prefix matching.
+ * Status of the code: alpha, beta or stable
  */
-#undef REGEX
+#undef CODE_STATUS
+
+/*
+ * Regular expression matching for URLs.  (Highly recommended).  If none of these 
+ * is defined then you can ony use prefix matching.
+ * Don't bother to change this here! Use configure instead.
+ */
+#undef REGEX_GNU
+#undef REGEX_PCRE
+
+/* 
+ * Should pcre be statically built in instead of linkling with libpcre?
+ * (This is determined by configure depending on the availiability of
+ * libpcre and user preferences). The name is ugly, but pcre needs it.
+ * Don't bother to change this here! Use configure instead.
+ */
+#undef STATIC
+
+/* 
+ * Should pcrs be statically built in instead of linkling with libpcrs?
+ * (This is determined by configure depending on the availiability of
+ * libpcrs and user preferences).
+ * Don't bother to change this here! Use configure instead.
+ */
+#undef STATIC_PCRS
 
 /*
  * Allow JunkBuster to be "disabled" so it is just a normal non-blocking
@@ -151,11 +184,6 @@
  * GUI).
  */
 #undef TOGGLE
-
-/*
- * Enables arbitrary content modification regexps
- */
-#undef PCRS
 
 /*
  * If a stream is compressed via gzip (Netscape specific I think), then
@@ -248,11 +276,6 @@
  * Allows the use of jar files to capture cookies.
  */
 #undef JAR_FILES
-
-/*
- * Use PCRE rather than GNU Regex
- */
-#undef PCRE
 
 /*
  * Define this to use the Windows GUI for editing the blocklist.
