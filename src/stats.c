@@ -3,8 +3,8 @@ const char stats_rcs[] = "$Id$";
  *
  * File        :  $Source$
  *
- * Purpose     :  
- *                
+ * Purpose     :  Functions and definitions for accumulating and
+ *                sending statistics to an "external" stats console
  *
  * Copyright   :  Written by and Copyright (C) 2002, 2003 the SourceForge
  *                Privoxy team. http://www.privoxy.org/
