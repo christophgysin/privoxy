@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/08/01 00:19:40  jongfoster
+ *    Changing prototype of show_defines() to modify a map directly
+ *
  *    Revision 1.6  2001/07/29 18:51:02  jongfoster
  *    Adding editor control block, and renaming _SHOWARGS_H
  *
@@ -68,7 +71,7 @@ extern "C" {
 
 extern void savearg(char *c, char *o, struct configuration_spec * config);
 extern char *show_rcs(void);
-extern char *show_defines(void);
+struct map * show_defines(struct map *exports);
 
 /* Revision control strings from this header and associated .c file */
 extern const char showargs_rcs[];
