@@ -33,6 +33,9 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2001/06/06 09:37:59  sarantis
+ *    Fix misplaced comment start.
+ *
  *    Revision 1.12  2001/06/04 10:41:52  swa
  *    show version string of cgi.h and cgi.c
  *
@@ -517,7 +520,7 @@ char *end_proxy_args(struct configuration_spec * config)
    b = strsav(b, "  <li><code>#define <b>FAST_REDIRECTS</b></code> - Enables intercepting remote script redirects.</li>\n");
 #else /* ifndef FAST_REDIRECTS */
    b = strsav(b, "  <li><code>#undef <b>FAST_REDIRECTS</b></code> - Disables intercepting remote script redirects.</li>\n");
-#endif  ndef /* FAST_REDIRECTS */
+#endif /* ndef FAST_REDIRECTS */
 
    b = strsav(b, "</ul>\n<br>\n");
 
