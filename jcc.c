@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.49  2001/10/23 21:41:35  jongfoster
+ *    Added call to initialize the (statically-allocated of course)
+ *    "out of memory" CGI response.
+ *
  *    Revision 1.48  2001/10/10 19:56:46  jongfoster
  *    Moving some code that wasn't cookie-related out of an #ifdef
  *    FEATURE_COOKIE_JAR
@@ -1383,6 +1387,9 @@ int main(int argc, const char *argv[])
 # endif /* def _WIN_CONSOLE */
 #endif /* def _WIN32 */
 
+
+   /* Initialize the CGI subsystem */
+   cgi_init_error_messages();
 
    listen_loop();
 
