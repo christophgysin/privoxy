@@ -31,6 +31,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.14  2002/05/21 19:14:10  oes
+#    Added button style and jumptarget "cancel" link
+#
 #    Revision 1.13  2002/04/10 13:32:53  oes
 #    Made templates modular
 #
@@ -97,6 +100,7 @@
 # s - section
 # p - pattern
 # u - old value of URL
+# jumptarget - append to eal URL to jump to relevant section
 #
 #############################################################################
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -161,7 +165,7 @@ function validate(text)
             <input type="text" name="u" value="@u@" size="78"><br>
             <input type="submit" value="Submit"> &nbsp;
             <input type="reset" value="Reset"> &nbsp;
-            <a href="edit-actions-list?f=@f@">Cancel</a>
+            <a class="cmd" href="edit-actions-list?f=@f@@jumptarget@">Cancel</a>
           </p>
         </form>
       </td>
