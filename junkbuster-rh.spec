@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.24  2001/12/01 21:43:14  hal9
+# Allowed for new ijb.action file.
+#
 # Revision 1.23  2001/11/06 12:09:03  steudten
 # Compress doc files. Install README and AUTHORS at last as document.
 #
@@ -101,7 +104,7 @@
 Summary: The Internet Junkbuster
 Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
-Version: 2.9.9
+Version: 2.9.10
 Release: 1
 Source0: http://www.waldherr.org/junkbuster/ijbswa-%{version}.tar.gz
 Copyright: GPL
@@ -147,7 +150,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_sbindir} \
 gzip README AUTHORS junkbuster.1
 install -s -m 744 junkbuster $RPM_BUILD_ROOT%{_sbindir}/junkbuster
 cp -f junkbuster.1.gz $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8.gz
-cp -f actionsfile $RPM_BUILD_ROOT%{ijbconf}/actionsfile
+cp -f ijb.action $RPM_BUILD_ROOT%{ijbconf}/ijb.action
 cp -f re_filterfile $RPM_BUILD_ROOT%{ijbconf}/re_filterfile
 cp -f trust $RPM_BUILD_ROOT%{ijbconf}/trust
 cp -f templates/*  $RPM_BUILD_ROOT%{ijbconf}/templates/
@@ -167,8 +170,8 @@ cat config | \
 #    sed 's/^aclfile.*/aclfile \/etc\/junkbuster\/aclfile/g' > \
     sed 's/^logdir.*/logdir \/var\/log\/junkbuster/g' > \
     $RPM_BUILD_ROOT%{ijbconf}/config
-perl -pe 's/{-no-cookies}/{-no-cookies}\n\.redhat.com/' actionsfile >\
-    $RPM_BUILD_ROOT%{ijbconf}/actionsfile
+perl -pe 's/{-no-cookies}/{-no-cookies}\n\.redhat.com/' ijb.action >\
+    $RPM_BUILD_ROOT%{ijbconf}/ijb.action
 
 %post
 # for upgrade from 2.0.x
@@ -210,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Dec  1 2001 Hal Burgiss <hal@foobox.net>
+- actionsfile is now ijb.action.
+
 * Tue Nov  6 2001 Thomas Steudten <thomas@steudten.ch>
 - Compress manpage
 - Add more documents for installation
