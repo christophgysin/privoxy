@@ -34,6 +34,9 @@ const char list_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/08/07 14:00:20  oes
+ *    Fixed comment
+ *
  *    Revision 1.7  2001/08/05 16:06:20  jongfoster
  *    Modifiying "struct map" so that there are now separate header and
  *    "map_entry" structures.  This means that functions which modify a
@@ -101,6 +104,7 @@ const char list_rcs[] = "$Id$";
 #include "miscutil.h"
 
 const char list_h_rcs[] = LIST_H_VERSION;
+
 
 /*********************************************************************
  *
@@ -233,8 +237,8 @@ void enlist_unique(struct list *header, const char *str, int n)
  *
  * Parameters  :
  *          1  :  header = pointer to list 'dummy' header
- *          2  :  first = first string to add to the list (maybe NULL)
- *          3  :  second = number of chars to use for uniqueness test
+ *          2  :  name = name of header to be added
+ *          3  :  value = value of header to be added
  *
  * Returns     :  N/A
  *
@@ -541,6 +545,7 @@ void map(struct map *the_map, const char *name, int nc, const char *value, int v
    {
       the_map->last = the_map->first = new_entry;
    }
+
 }
 
 
