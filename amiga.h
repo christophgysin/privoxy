@@ -31,6 +31,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/25 21:53:27  jongfoster
+ *    Fixing indentation
+ *
  *    Revision 1.2  2001/05/23 00:13:58  joergs
  *    AmigaOS support fixed.
  *
@@ -57,8 +60,8 @@
 
 struct UserData
 {
-	struct Library *sb;
-	int eno;
+   struct Library *sb;
+   int eno;
 };
 
 #define SocketBase ((struct Library *)(((struct UserData *)(FindTask(NULL)->tc_UserData))->sb))
