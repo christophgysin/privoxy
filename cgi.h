@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/09/16 17:08:54  jongfoster
+ *    Moving simple CGI functions from cgi.c to new file cgisimple.c
+ *
  *    Revision 1.15  2001/09/16 15:02:35  jongfoster
  *    Adding i.j.b/robots.txt.
  *    Inlining add_stats() since it's only ever called from one place.
@@ -114,28 +117,6 @@ extern "C" {
 extern struct http_response *dispatch_cgi(struct client_state *csp);
 extern struct map *parse_cgi_parameters(char *argstring);
 
-/*
- * CGI functions
- */
-extern int cgi_default             (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_robots_txt          (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_send_banner         (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_show_status         (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_show_url_info       (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-extern int cgi_show_version        (struct client_state *csp,
-                                    struct http_response *rsp,
-                                    struct map *parameters);
-
 /* Not exactly a CGI */
 extern struct http_response * error_response(struct client_state *csp,
                                              const char *templatename,
@@ -150,12 +131,14 @@ extern void free_http_response(struct http_response *rsp);
 extern struct http_response *finish_http_response(struct http_response *rsp);
 
 extern struct map * default_exports(const struct client_state *csp, const char *caller);
-extern void map_block_killer(struct map *map, const char *name);
-extern void map_conditional(struct map *exports, const char *name, int choose_first);
+
+extern void map_block_killer (struct map *exports, const char *name);
+extern void map_conditional  (struct map *exports, const char *name, int choose_first);
 
 extern char *template_load(struct client_state *csp, const char *templatename);
 extern void template_fill(char ** template_ptr, struct map *exports);
 
+extern void get_http_time(int time_offset, char * buf);
 
 /*
  * Text generators
