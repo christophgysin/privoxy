@@ -38,6 +38,11 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2001/09/13 23:32:40  jongfoster
+ *    Moving image data to cgi.c rather than cgi.h
+ *    Fixing a GPF under Win32 (and any other OS that protects global
+ *    constants from being written to).
+ *
  *    Revision 1.28  2001/09/10 10:18:51  oes
  *    Silenced compiler warnings
  *
@@ -491,15 +496,15 @@ struct http_response *block_url(struct client_state *csp)
       /* and handle accordingly: */
       if ((p == NULL) || (0 == strcmpic(p, "logo")))
       {
-         rsp->body = bindup(JBGIF, sizeof(JBGIF));
-         rsp->content_length = sizeof(JBGIF);
+         rsp->body = bindup(image_junkbuster_gif_data, image_junkbuster_gif_length);
+         rsp->content_length = image_junkbuster_gif_length;
          enlist_unique_header(rsp->headers, "Content-Type", "image/gif");
       }
 
       else if (0 == strcmpic(p, "blank"))
       {
-         rsp->body = bindup(BLANKGIF, sizeof(BLANKGIF));
-         rsp->content_length = sizeof(BLANKGIF);
+         rsp->body = bindup(image_blank_gif_data, image_blank_gif_length);
+         rsp->content_length = image_blank_gif_length;
          enlist_unique_header(rsp->headers, "Content-Type", "image/gif");
       }
 
@@ -1150,11 +1155,9 @@ void apply_url_actions(struct current_action_spec *action,
 const struct forward_spec * forward_url(struct http_request *http,
                                         struct client_state *csp)
 {
-   static const struct forward_spec fwd_default[1];
+   static const struct forward_spec fwd_default[1] = { FORWARD_SPEC_INITIALIZER };
    struct forward_spec *fwd = csp->config->forward;
    struct url_spec url[1];
-
-   memset(&fwd_default, '\0', sizeof(struct forward_spec));
 
    if (fwd == NULL)
    {
