@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.48  2002/04/05 00:56:09  gliptak
+ *    Correcting typo to clean up on realloc failure
+ *
  *    Revision 1.47  2002/03/26 22:29:55  swa
  *    we have a new homepage!
  *
@@ -613,7 +616,7 @@ jb_err simple_read_line(FILE *fp, char **dest, int *newline)
       if (++len >= buflen)
       {
          buflen += BUFFER_SIZE;
-         if (NULL == (p = realloc(buf, buflen)));
+         if (NULL == (p = realloc(buf, buflen)))
          {
             free(buf);
             return JB_ERR_MEMORY;
