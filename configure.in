@@ -28,6 +28,10 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.76  2002/09/05 14:52:17  oes
+dnl Synced in some changes fromm the stable branch:
+dnl Fixed detection/inclusion of pcre.h, which is in a pcre subdir on RH
+dnl
 dnl Revision 1.75  2002/09/04 12:19:33  oes
 dnl Resurrected acconfig.h and removed double quotes from AC_DEFINE params to enable build on older systems
 dnl
@@ -903,10 +907,27 @@ dnl =================================================================
 dnl Note: Some systems may have the library but not the system header
 dnl       file, so we must check for both.
 dnl       Also check for correct version
-AC_CHECK_LIB(pcre, pcre_compile, [AC_CHECK_HEADER(pcre.h, [AC_EGREP_HEADER(pcre_fullinfo, pcre.h, [have_pcre=yes], [AC_MSG_WARN([[pcre old version installed]]); have_pcre=no])], [have_pcre=no])], [have_pcre=no])
-AC_CHECK_LIB(pcreposix, regcomp, [AC_CHECK_HEADER(pcreposix.h, [AC_EGREP_HEADER(pcreposix_regerror, pcreposix.h, [AC_MSG_WARN([[pcreposix old version installed]]); have_pcreposix=no], [have_pcreposix=yes])], [have_pcreposix=no])], [have_pcreposix=no], -lpcre)
-AC_CHECK_LIB(pcrs, pcrs_compile, [AC_CHECK_HEADER(pcrs.h, [have_pcrs=yes], [have_pcrs=no])], [have_pcrs=no])
+AC_CHECK_LIB(pcre, pcre_compile, [
+   AC_CHECK_HEADER(pcre.h, [
+      AC_EGREP_HEADER(pcre_fullinfo, pcre.h, [have_pcre=yes], [AC_MSG_WARN([[pcre old version installed]]); have_pcre=no])
+   ], [
+      AC_CHECK_HEADER(pcre/pcre.h, [
+         AC_EGREP_HEADER(pcre_fullinfo, pcre/pcre.h, [have_pcre=yes]; [AC_DEFINE(PCRE_H_IN_SUBDIR)], [AC_MSG_WARN([[pcre old version installed]]); have_pcre=no])
+      ], [have_pcre=no])
+   ])
+], [have_pcre=no])
+ 
+AC_CHECK_LIB(pcreposix, regcomp, [
+   AC_CHECK_HEADER(pcreposix.h, [
+      AC_EGREP_HEADER(pcreposix_regerror, pcreposix.h, [AC_MSG_WARN([[pcreposix old version installed]]); have_pcreposix=no], [have_pcreposix=yes])
+   ], [
+      AC_CHECK_HEADER(pcre/pcreposix.h, [
+         AC_EGREP_HEADER(pcreposix_regerror, pcre/pcreposix.h, [AC_MSG_WARN([[pcreposix old version installed]]); have_pcreposix=no], [have_pcreposix=yes]; [AC_DEFINE(PCREPOSIX_H_IN_SUBDIR)])
+      ], [have_pcreposix=no])
+   ])
+], [have_pcreposix=no], -lpcre) 
 
+AC_CHECK_LIB(pcrs, pcrs_compile, [AC_CHECK_HEADER(pcrs.h, [have_pcrs=yes], [have_pcrs=no])], [have_pcrs=no], -lpcre)
 
 dnl =================================================================
 dnl Always defined
