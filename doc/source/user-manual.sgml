@@ -6614,7 +6614,11 @@ Requests</title>
     <ulink url="javascript:w=Math.floor(screen.width/2);h=Math.floor(screen.height*0.9);void(window.open('http://www.privoxy.org/actions/index.php?url='+escape(location.href),'Feedback','screenx='+w+',width='+w+',height='+h+',scrollbars=yes,toolbar=no,location=no,directories=no,status=no,menubar=no,copyhistory=no').focus());">Privoxy - Submit Actions File Feedback</ulink>
    </para>
   </listitem> 
-
+  <listitem>
+   <para>
+    <ulink url="javascript:void(window.open('http://config.privoxy.org/show-url-info?url='+escape(location.href),'Why').focus());">Privoxy - Why?</ulink>
+   </para>
+  </listitem> 
  </itemizedlist>
 </para>
 
@@ -7138,6 +7142,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.122  2002/05/24 13:24:08  oes
+ Added Bookmarklet for one-click pre-filled access to show-url-info
+
  Revision 1.121  2002/05/23 23:20:17  oes
   - Changed more (all?) references to actions to the
     <literal><link> style.
