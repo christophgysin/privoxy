@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.26  2002/01/09 18:21:10  hal9
+# A few minor updates.
+#
 # Revision 1.25  2001/12/28 01:45:36  steudten
 # Add paranoia check and BuildReq: gzip
 #
@@ -139,7 +142,7 @@ make "CFLAGS=$RPM_OPT_FLAGS -Ipcre -Wall"
 strip junkbuster
 
 %pre
-/usr/sbin/useradd -d /etc/junkbuster -u 73 -r junkbuster -s "" > /dev/null 2>&1 || /bin/true
+/usr/sbin/useradd -d /etc/junkbuster -r junkbuster -s "/bin/false" > /dev/null 2>&1 || /bin/true
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -153,7 +156,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_sbindir} \
 gzip README AUTHORS junkbuster.1 || /bin/true
 install -s -m 744 junkbuster $RPM_BUILD_ROOT%{_sbindir}/junkbuster
 cp -f junkbuster.1.gz $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8.gz
-cp -f ijb.action $RPM_BUILD_ROOT%{ijbconf}/ijb.action
+cp -f *.action $RPM_BUILD_ROOT%{ijbconf}/
 cp -f re_filterfile $RPM_BUILD_ROOT%{ijbconf}/re_filterfile
 cp -f trust $RPM_BUILD_ROOT%{ijbconf}/trust
 cp -f templates/*  $RPM_BUILD_ROOT%{ijbconf}/templates/
@@ -186,6 +189,8 @@ if [ "$1" = "1" ]; then
      /sbin/chkconfig --add junkbuster
 	/sbin/service junkbuster condrestart > /dev/null 2>&1
 fi
+# 01/09/02 HB, getting rid of any user=junkbust
+grep junkbust: /etc/passwd >/dev/null && userdel junkbust || /bin/true
 
 %preun
 if [ "$1" = "0" ]; then
@@ -203,8 +208,9 @@ fi
 
 %files
 %defattr(-,root,root)
-%doc README.gz AUTHORS.gz 
-#%doc doc/webserver/developer-manual doc/webserver/user-manual README 
+%doc README.gz AUTHORS.gz ChangeLog.gz
+%doc doc/webserver/developer-manual doc/webserver/user-manual
+%doc doc/webserver/user-manual
 #%doc junkbuster.weekly junkbuster.monthly AUTHORS
 %dir %{ijbconf}
 %config %{ijbconf}/*
@@ -216,6 +222,11 @@ fi
 
 
 %changelog
+* Wed Jan 09 2002 Hal Burgiss <hal@foobox.net>
+- Removed UID 73. Included user-manual and developer-manual in docs.
+  Include other actions files. Default shell is now /bin/false.
+  Userdel user=junkbust.
+
 * Fri Dec 28 2001 Thomas Steudten <thomas@steudten.ch>
 - add paranoia check for 'rm -rf $RPM_BUILD_ROOT'
 - add gzip to 'BuildRequires'
