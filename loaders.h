@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2001/10/23 21:38:53  jongfoster
+ *    Adding error-checking to create_url_spec()
+ *
  *    Revision 1.10  2001/09/22 16:36:59  jongfoster
  *    Removing unused parameter fs from read_config_line()
  *
@@ -136,7 +139,7 @@ extern int load_trustfile(struct client_state *csp);
 
 
 
-extern int create_url_spec(struct url_spec * url, char * buf);
+extern jb_err create_url_spec(struct url_spec * url, char * buf);
 extern void free_url(struct url_spec *url);
 
 extern void add_loader(int (*loader)(struct client_state *), 
