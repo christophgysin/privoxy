@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.7  2001/06/11 12:17:26  sarantis
+# fix typo in %post
+#
 # Revision 1.6  2001/06/11 11:28:25  sarantis
 # Further optimizations and adaptations in the spec file.
 #
@@ -118,7 +121,7 @@ cat config | \
     $RPM_BUILD_ROOT/etc/junkbuster/config
 
 %post
-if {[ "$1" = "1" ]; then
+if [ "$1" = "1" ]; then
         /sbin/chkconfig --add junkbuster
 fi
 
