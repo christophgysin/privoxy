@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/10/14 22:00:32  jongfoster
+ *    Adding support for a 404 error when an invalid CGI page is requested.
+ *
  *    Revision 1.5  2001/10/07 15:30:41  oes
  *    Removed FEATURE_DENY_GZIP
  *
@@ -129,6 +132,37 @@ int cgi_default(struct client_state *csp, struct http_response *rsp,
    free_map(exports);
    return(0);
 
+}
+
+
+
+
+/*********************************************************************
+ *
+ * Function    :  cgi_error_404
+ *
+ * Description :  CGI function that is called if an unknow action was
+ *                given.
+ *               
+ * Parameters  :
+ *           1 :  csp = Current client state (buffers, headers, etc...)
+ *           2 :  rsp = http_response data structure for output
+ *           3 :  parameters = map of cgi parameters
+ *
+ * Returns     :  0
+ *
+ *********************************************************************/
+int cgi_error_404(struct client_state *csp,
+                  struct http_response *rsp,
+                  struct map *parameters)
+{
+   struct map *exports = default_exports(csp, NULL);
+
+   rsp->status = strdup("404 JunkBuster configuration page not found");
+   rsp->body = template_load(csp, "cgi-error-404");
+   template_fill(&rsp->body, exports);
+   free_map(exports);
+   return 0;
 }
 
 

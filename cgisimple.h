@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/10/14 22:00:32  jongfoster
+ *    Adding support for a 404 error when an invalid CGI page is requested.
+ *
  *    Revision 1.2  2001/10/02 15:31:20  oes
  *    Introduced show-request cgi
  *
@@ -58,6 +61,9 @@ extern "C" {
  * CGI functions
  */
 extern int cgi_default             (struct client_state *csp,
+                                    struct http_response *rsp,
+                                    struct map *parameters);
+extern int cgi_error_404           (struct client_state *csp,
                                     struct http_response *rsp,
                                     struct map *parameters);
 extern int cgi_robots_txt          (struct client_state *csp,
