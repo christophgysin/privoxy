@@ -39,6 +39,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2002/03/08 18:19:14  jongfoster
+ *    Adding +image-blocker{pattern} option to edit interface
+ *
  *    Revision 1.9  2001/11/22 21:58:41  jongfoster
  *    Adding action +no-cookies-keep
  *
@@ -99,9 +102,10 @@ DEFINE_ACTION_STRING     ("hide-user-agent", ACTION_HIDE_USER_AGENT, ACTION_STRI
 DEFINE_CGI_PARAM_NO_RADIO("hide-user-agent", ACTION_HIDE_USER_AGENT, ACTION_STRING_USER_AGENT,    "JunkBuster/3.0 (Anonymized)")
 DEFINE_ACTION_BOOL       ("image",           ACTION_IMAGE)
 DEFINE_ACTION_STRING     ("image-blocker",   ACTION_IMAGE_BLOCKER,   ACTION_STRING_IMAGE_BLOCKER)
-DEFINE_CGI_PARAM_RADIO   ("image-blocker",   ACTION_IMAGE_BLOCKER,   ACTION_STRING_IMAGE_BLOCKER, "logo", 1)
+DEFINE_CGI_PARAM_RADIO   ("image-blocker",   ACTION_IMAGE_BLOCKER,   ACTION_STRING_IMAGE_BLOCKER, "pattern", 1)
+DEFINE_CGI_PARAM_RADIO   ("image-blocker",   ACTION_IMAGE_BLOCKER,   ACTION_STRING_IMAGE_BLOCKER, "logo", 0)
 DEFINE_CGI_PARAM_RADIO   ("image-blocker",   ACTION_IMAGE_BLOCKER,   ACTION_STRING_IMAGE_BLOCKER, "blank", 0)
-DEFINE_CGI_PARAM_CUSTOM  ("image-blocker",   ACTION_IMAGE_BLOCKER,   ACTION_STRING_IMAGE_BLOCKER, "http://")
+DEFINE_CGI_PARAM_CUSTOM  ("image-blocker",   ACTION_IMAGE_BLOCKER,   ACTION_STRING_IMAGE_BLOCKER, CGI_PREFIX "show-banner?type=pattern")
 DEFINE_ACTION_STRING     ("limit-connect",   ACTION_LIMIT_CONNECT,   ACTION_STRING_LIMIT_CONNECT)
 DEFINE_CGI_PARAM_NO_RADIO("limit-connect",   ACTION_LIMIT_CONNECT,   ACTION_STRING_LIMIT_CONNECT,  "443")
 DEFINE_ACTION_BOOL       ("no-compression",  ACTION_NO_COMPRESSION)
