@@ -31,6 +31,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.10  2002/05/21 19:13:14  oes
+#    Added client-side JavaScript versions of edit and add URL forms
+#
 #    Revision 1.9  2002/05/12 15:45:33  jongfoster
 #    Applying [Patch 552094] New templates for edit-actions-list
 #    This cleans up the templates by:
@@ -80,5 +83,5 @@
 <tr class="url" valign="top">
 <td class="indentbuttons"><a name="l@p@"
 href="ear?f=@f@&amp;v=@v@&amp;p=@p@" onclick="return rm_p(@p@,'@url@');">Remove</a>&nbsp;&nbsp;&nbsp;<a
-href="eau?f=@f@&amp;v=@v@&amp;p=@p@">Edit</a>&nbsp; @url-html@</td>
+href="eau?f=@f@&amp;v=@v@&amp;p=@p@" onclick="return  e_p(@p@,'@url@');">Edit</a>&nbsp; @url-html@</td>
 </tr>
