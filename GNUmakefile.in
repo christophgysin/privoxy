@@ -553,7 +553,7 @@ webserver:
 	@$(ECHO) Note that this command scps all stuff to the webserver,
 	@$(ECHO) it will not remove obsolete documents.
 	@$(ECHO) -------------------------------------------------------
-	chmod -R 664 doc/webserver
+	find doc/webserver -type f -exec chmod 664 {} \;
 # not sure if we need next line.swa.
 	chmod 775 doc/webserver/redirect.php
 	find doc/webserver -type d -exec chmod a+rx {} \;
@@ -657,6 +657,9 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.43  2002/03/29 07:40:03  swa
+# fixed make webserver. doh
+#
 # Revision 1.42  2002/03/29 06:59:04  swa
 # other users could not modify files on webserver
 #
