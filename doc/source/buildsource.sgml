@@ -34,7 +34,7 @@
 <para>
  When building from a source tarball (either release version or
  <ulink
- url="http://cvs.sourceforge.net/cvstarballs/ijbswa-cvsroot.tar.gz">nightly CVS
+ url="http://cvs.sourceforge.net/cvstarballs/ijbswa-cvsroot.tar.bz2">nightly CVS
  tarball</ulink>), first unpack the source: 
 </para>
 
