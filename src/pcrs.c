@@ -33,6 +33,9 @@ const char pcrs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.5  2003/01/21 02:53:08  david__schmidt
+ *    I will compile before committing.  I will compile before committing.
+ *
  *    Revision 2.4  2003/01/21 02:49:27  david__schmidt
  *    Developer TODO 612294: src: C++ keyword as variable name
  *    I changed all ocurrences of 'new' to 'new_something' wherever I found
@@ -774,7 +777,7 @@ int pcrs_execute_list(pcrs_job *joblist, char *subject, size_t subject_length, c
       }
    }
 
-   *result = new;
+   *result = new_item;
    return(total_hits);
 
 }
