@@ -39,7 +39,7 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.6  2001/07/15 20:08:40  jongfoster
+ *    Revision 1.1  2001/07/15 20:08:40  jongfoster
  *    New build files for VC++ which provide the option of POSIX
  *    or Win32 threads.
  *
@@ -304,7 +304,7 @@
 /*
  * Use POSIX threads instead of native threads.
  */
-#define FEATURE_PTHREAD 1
+/* #undef FEATURE_PTHREAD */
 
 /* Define if you have the bcopy function.  */
 #define HAVE_BCOPY 1
