@@ -66,7 +66,7 @@ Privoxy is based on the Internet Junkbuster.
 %build
 autoheader
 autoconf
-%configure
+%configure --disable-dynamic-pcre
 make 
 # Docs are in CVS and tarball now.
 #%%make dok
@@ -266,6 +266,10 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Tue Apr 16 2002 Hal Burgiss <hal@foobox.net>
++ privoxy-2.9.13-6
+- Add --disable-dynamic-pcre to configure.
+
 * Wed Apr 10 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + privoxy-2.9.13-5
 - Relisting template files on the %%files section
@@ -564,6 +568,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.25  2002/04/17 01:59:12  hal9
+# Add --disable-dynamic-pcre.
+#
 # Revision 1.24  2002/04/11 10:09:20  oes
 # Version 2.9.14
 #
