@@ -32,6 +32,9 @@ const char w32rulesdlg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/22 18:56:28  oes
+ *    CRLF -> LF
+ *
  *    Revision 1.2  2001/05/20 15:07:54  jongfoster
  *    File is now ignored if _WIN_CONSOLE is defined.
  *
