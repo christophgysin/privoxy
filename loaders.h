@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/07/13 14:01:54  oes
+ *    Removed all #ifdef PCRS
+ *
  *    Revision 1.6  2001/06/07 23:14:38  jongfoster
  *    Removing ACL and forward file loaders - these files have
  *    been merged into the config file.
@@ -108,14 +111,13 @@ extern int check_file_changed(const struct file_list * current,
                               struct file_list ** newfl);
 
 extern int load_actions_file(struct client_state *csp);
-  
+extern int load_re_filterfile(struct client_state *csp);
+
 #ifdef TRUST_FILES
 extern int load_trustfile(struct client_state *csp);
 #endif /* def TRUST_FILES */
 
-#ifdef PCRS
-extern int load_re_filterfile(struct client_state *csp);
-#endif /* def PCRS */
+
 
 extern int create_url_spec(struct url_spec * url, char * buf);
 extern void free_url(struct url_spec *url);

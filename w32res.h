@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/07/13 14:04:59  oes
+ *    Removed all #ifdef PCRS
+ *
  *    Revision 1.7  2001/06/07 23:08:12  jongfoster
  *    Forward and ACL edit options removed.
  *
@@ -154,10 +157,7 @@
 /* Break these out so they are easier to extend, but keep consecutive */
 #define ID_TOOLS_EDITJUNKBUSTER           5000
 #define ID_TOOLS_EDITACTIONS              5001
-
-#ifdef PCRS
 #define ID_TOOLS_EDITPERLRE               5002
-#endif /* def PCRS */
 
 #ifdef TRUST_FILES
 #define ID_TOOLS_EDITTRUST                5003

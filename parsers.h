@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/07/13 14:01:54  oes
+ *    Removed all #ifdef PCRS
+ *
  *    Revision 1.7  2001/06/29 13:32:14  oes
  *    Removed logentry from cancelled commit
  *
@@ -115,13 +118,8 @@ extern void client_xtra_adder(struct client_state *csp);
 extern void client_x_forwarded_adder(struct client_state *csp);
 extern char *server_set_cookie(const struct parsers *v, char *s, struct client_state *csp);
 
-#if defined(PCRS) || defined(KILLPOPUPS)
 extern char *content_type(const struct parsers *v, char *s, struct client_state *csp);
-#endif /* defined(PCRS) || defined(KILLPOPUPS) */
-
-#ifdef PCRS
 extern char *content_length(const struct parsers *v, char *s, struct client_state *csp);
-#endif /* def PCRS */
 
 #ifdef FORCE_LOAD
 char *client_host(const struct parsers *v, char *s, struct client_state *csp);

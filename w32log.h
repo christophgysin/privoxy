@@ -34,6 +34,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/07/13 14:04:59  oes
+ *    Removed all #ifdef PCRS
+ *
  *    Revision 1.5  2001/06/07 23:08:12  jongfoster
  *    Forward and ACL edit options removed.
  *
@@ -114,15 +117,12 @@ extern int g_nFontSize;
 /* FIXME: this is a kludge */
 
 extern const char * g_actions_file;
-#ifdef PCRS
 extern const char * g_re_filterfile;
-#endif
 #ifdef TRUST_FILES
 extern const char * g_trustfile;
 #endif /* def TRUST_FILES */
 
 /* FIXME: end kludge */
-
 
 extern int LogPutString(const char *pszText);
 extern BOOL InitLogWindow(void);

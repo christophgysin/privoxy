@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/07/13 14:04:59  oes
+ *    Removed all #ifdef PCRS
+ *
  *    Revision 1.11  2001/06/07 23:08:12  jongfoster
  *    Forward and ACL edit options removed.
  *
@@ -201,9 +204,7 @@ int g_nFontSize = DEFAULT_LOG_FONT_SIZE;
 /* FIXME: this is a kludge */
 
 const char * g_actions_file = NULL;
-#ifdef PCRS
 const char * g_re_filterfile = NULL;
-#endif
 #ifdef TRUST_FILES
 const char * g_trustfile = NULL;
 #endif /* def TRUST_FILES */
@@ -1117,11 +1118,9 @@ void OnLogCommand(int nCommand)
          EditFile(g_actions_file);
          break;
 
-#ifdef PCRS
       case ID_TOOLS_EDITPERLRE:
          EditFile(g_re_filterfile);
          break;
-#endif
 
 #ifdef TRUST_FILES
       case ID_TOOLS_EDITTRUST:
@@ -1180,9 +1179,7 @@ void OnLogInitMenu(HMENU hmenu)
 {
    /* Only enable editors if there is a file to edit */
    EnableMenuItem(hmenu, ID_TOOLS_EDITACTIONS, MF_BYCOMMAND | (g_actions_file ? MF_ENABLED : MF_GRAYED));
-#ifdef PCRS
    EnableMenuItem(hmenu, ID_TOOLS_EDITPERLRE, MF_BYCOMMAND | (g_re_filterfile ? MF_ENABLED : MF_GRAYED));
-#endif
 #ifdef TRUST_FILES
    EnableMenuItem(hmenu, ID_TOOLS_EDITTRUST, MF_BYCOMMAND | (g_trustfile ? MF_ENABLED : MF_GRAYED));
 #endif /* def TRUST_FILES */
