@@ -43,6 +43,7 @@
 <article id="index">
 
 <artheader>
+<title>Privoxy - Homepage</title>
 
 <!-- copyright is at bottom of page -->
 
@@ -245,6 +246,9 @@ page</ulink> on Sourceforge
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.13  2002/05/05 20:29:59  hal9
+ Ooops, fixing an accidental delete of title element.
+
  Revision 1.12  2002/05/05 20:26:02  hal9
  Sorting out license vs copyright in these docs.
 
