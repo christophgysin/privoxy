@@ -26,6 +26,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.13  2001/09/10 17:44:43  swa
+# integrate three pieces of documentation. needs work.
+# will not build cleanly under redhat.
+#
 # Revision 1.12  2001/09/10 16:25:04  swa
 # copy all templates. version updated.
 #
@@ -157,7 +161,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-# %doc ijbfaq.html ijbman.html README README.TOO gpl.html
+%doc faq.html user-manual.html developer-manual.html
 %doc junkbuster.weekly junkbuster.monthly
 %dir %{ijbconf}
 %config %{ijbconf}/*
