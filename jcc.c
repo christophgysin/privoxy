@@ -33,6 +33,25 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.45  2001/10/07 15:42:11  oes
+ *    Replaced 6 boolean members of csp with one bitmap (csp->flags)
+ *
+ *    Moved downgrading of the HTTP version from parse_http_request to
+ *      chat(), since we can't decide if it is necessary before we have
+ *      determined the actions for the URL. The HTTP command is now
+ *      *always* re-built so the repairs need no longer be special-cased.
+ *
+ *    filter_popups now gets a csp pointer so it can raise the new
+ *      CSP_FLAG_MODIFIED flag.
+ *
+ *    Bugfix
+ *
+ *    Added configurable size limit for the IOB. If the IOB grows so
+ *      large that the next read would exceed the limit, the header
+ *      is generated, and the header & unfiltered buffer are flushed
+ *      to the client. Chat then continues in non-buffering,
+ *      non-filtering body mode.
+ *
  *    Revision 1.44  2001/10/02 18:13:57  oes
  *    Ooops
  *
@@ -432,17 +451,17 @@ static void chat(struct client_state *csp)
 {
 /*
  * This next lines are a little ugly, but they simplifies the if statements
- * below.  Basically if TOGGLE, then we want the if to test "csp->toggled_on",
- * else we don't.  And if FEATURE_FORCE_LOAD, then we want the if to test
- * "csp->toggled_on", else we don't
+ * below.  Basically if TOGGLE, then we want the if to test if the 
+ * CSP_FLAG_TOGGLED_ON flag ist set, else we don't.  And if FEATURE_FORCE_LOAD,
+ * then we want the if to test for CSP_FLAG_FORCED , else we don't
  */
 #ifdef FEATURE_TOGGLE
-#   define IS_TOGGLED_ON_AND (csp->toggled_on) &&
+#   define IS_TOGGLED_ON_AND (csp->flags & CSP_FLAG_TOGGLED_ON) &&
 #else /* ifndef FEATURE_TOGGLE */
 #   define IS_TOGGLED_ON_AND
 #endif /* ndef FEATURE_TOGGLE */
 #ifdef FEATURE_FORCE_LOAD
-#   define IS_NOT_FORCED_AND (!csp->force) && 
+#   define IS_NOT_FORCED_AND !(csp->flags & CSP_FLAG_FORCED) && 
 #else /* ifndef FEATURE_FORCE_LOAD */
 #   define IS_NOT_FORCED_AND
 #endif /* def FEATURE_FORCE_LOAD */
@@ -507,12 +526,9 @@ static void chat(struct client_state *csp)
       {
          strclean(req, FORCE_PREFIX);
          log_error(LOG_LEVEL_FORCE, "Enforcing request \"%s\".\n", req);
-         csp->force = 1;
+         csp->flags |= CSP_FLAG_FORCED;
       } 
-      else
-      {
-         csp->force = 0;
-      }
+
 #endif /* def FEATURE_FORCE_LOAD */
 
       parse_http_request(req, http, csp);
@@ -563,31 +579,11 @@ static void chat(struct client_state *csp)
     *
     */
 
-   if (fwd->forward_host)
-   {
-      /* if forwarding, just pass the request as is */
-      enlist(csp->headers, http->cmd);
-   }
-   else
-   {
-      if (http->ssl == 0)
-      {
-         /* otherwise elide the host information from the url */
-         p = NULL;
-         p = strsav(p, http->gpc);
-         p = strsav(p, " ");
-         p = strsav(p, http->path);
-         p = strsav(p, " ");
-         p = strsav(p, http->ver);
-         enlist(csp->headers, p);
-         freez(p);
-      }
-   }
-
-   /* decide what we're to do with cookies */
-
+   /* 
+    * Determine the actions for this URL
+    */
 #ifdef FEATURE_TOGGLE
-   if (!csp->toggled_on)
+   if (!(csp->flags & CSP_FLAG_TOGGLED_ON))
    {
       /* Most compatible set of actions (i.e. none) */
       init_current_action(csp->action);
@@ -599,6 +595,44 @@ static void chat(struct client_state *csp)
    }
 
 #ifdef FEATURE_COOKIE_JAR
+
+   /*
+    * Downgrade http version from 1.1 to 1.0 if +downgrade
+    * action applies
+    */
+   if (!strcmpic(http->ver, "HTTP/1.1") && csp->action->flags & ACTION_DOWNGRADE)
+   {
+      freez(http->ver);
+      http->ver = strdup("HTTP/1.0");
+   }
+
+   /*
+    * (Re)build the HTTP request. If forwarding, use the whole URL,
+    * else, use only the path.
+    */
+   if (http->ssl == 0)
+   {  
+      freez(http->cmd);
+
+      http->cmd = strsav(http->cmd, http->gpc);
+      http->cmd = strsav(http->cmd, " ");
+
+      if (fwd->forward_host)
+      {
+         http->cmd = strsav(http->cmd, http->url);
+      }
+      else
+      {
+         http->cmd = strsav(http->cmd, http->path);
+      }
+
+      http->cmd = strsav(http->cmd, " ");
+      http->cmd = strsav(http->cmd, http->ver);
+
+      enlist(csp->headers, http->cmd);
+   }
+
+
    /*
     * If we're logging cookies in a cookie jar, and the user has not
     * supplied any wafers, and the user has not told us to suppress the
@@ -682,7 +716,7 @@ static void chat(struct client_state *csp)
 
 #ifdef FEATURE_STATISTICS
       /* Count as a rejected request */
-      csp->rejected = 1;
+      csp->flags |= CSP_FLAG_REJECTED;
 #endif /* def FEATURE_STATISTICS */
 
       /* Log (FIXME: All intercept reasons apprear as "crunch" with Status 200) */
@@ -890,7 +924,7 @@ static void chat(struct client_state *csp)
          /* Filter the popups on this read. */
          if (block_popups_now)
          {
-            filter_popups(buf);
+            filter_popups(buf, csp);
          }
 #endif /* def FEATURE_KILL_POPUPS */
 
@@ -940,12 +974,14 @@ static void chat(struct client_state *csp)
                   if ((write_socket(csp->cfd, hdr, n) != n)
                       || (write_socket(csp->cfd, p != NULL ? p : csp->iob->cur, csp->content_length) != (int)csp->content_length))
                   {
-                     log_error(LOG_LEVEL_CONNECT, "write modified content to client failed: %E");
+                     log_error(LOG_LEVEL_ERROR, "write modified content to client failed: %E");
                      return;
                   }
 
                   freez(hdr);
-                  freez(p);
+                  if (NULL != p) {
+                     freez(p);
+                  }
                }
 
                break; /* "game over, man" */
@@ -976,6 +1012,36 @@ static void chat(struct client_state *csp)
             if (content_filter)
             {
                add_to_iob(csp, buf, n); 
+
+               /*
+                * If the buffer limit will be reached on the next read,
+                * switch to non-filtering mode, i.e. make & write the
+                * header, flush the socket and get out of the way.
+                */
+               if (csp->iob->eod - csp->iob->buf + BUFFER_SIZE > csp->config->buffer_limit)
+               {
+                  log_error(LOG_LEVEL_ERROR, "Buffer size limit reached! Flushing and stepping back.");
+                  
+                  hdr = sed(server_patterns, add_server_headers, csp);
+                  n   = strlen(hdr);
+                  byte_count += n;
+
+                  if (((write_socket(csp->cfd, hdr, n) != n)
+                       || (n = flush_socket(csp->cfd, csp) < 0)))
+                  {
+                     log_error(LOG_LEVEL_CONNECT, "write header to client failed: %E");
+
+                     freez(hdr);
+                     return;
+                  }
+
+                  freez(hdr);
+                  byte_count += n;
+
+                  content_filter = NULL;
+                  server_body = 1;
+
+               }
             }
             else
             {
@@ -1064,7 +1130,7 @@ static void chat(struct client_state *csp)
                 * Filter the part of the body that came in the same read
                 * as the last headers:
                 */
-               filter_popups(csp->iob->cur);
+               filter_popups(csp->iob->cur, csp);
             }
 
 #endif /* def FEATURE_KILL_POPUPS */
@@ -1159,7 +1225,7 @@ static void serve(struct client_state *csp)
       close_socket(csp->sfd);
    }
 
-   csp->active = 0;
+   csp->flags &= ~CSP_FLAG_ACTIVE;
 
 }
 
@@ -1337,7 +1403,7 @@ static void listen_loop(void)
          continue;
       }
 
-      csp->active = 1;
+      csp->flags |= CSP_FLAG_ACTIVE;
       csp->sfd    = -1;
 
       csp->config = config = load_config();
@@ -1399,8 +1465,10 @@ static void listen_loop(void)
       }
 
 #ifdef FEATURE_TOGGLE
-      /* by haroon - most of credit to srt19170 */
-      csp->toggled_on = g_bToggleIJB;
+      if (g_bToggleIJB)
+      {
+         csp->flags |= CSP_FLAG_TOGGLED_ON;
+      }
 #endif /* def FEATURE_TOGGLE */
 
       if (run_loader(csp))
@@ -1512,7 +1580,7 @@ static void listen_loop(void)
             wait( NULL );
 #endif /* !defined(_WIN32) && defined(__CYGWIN__) */
             close_socket(csp->cfd);
-            csp->active = 0;
+            csp->flags &= ~CSP_FLAG_ACTIVE;
          }
 #endif
 
@@ -1529,7 +1597,7 @@ static void listen_loop(void)
 
             write_socket(csp->cfd, buf, strlen(buf));
             close_socket(csp->cfd);
-            csp->active = 0;
+            csp->flags &= ~CSP_FLAG_ACTIVE;
             sleep(5);
             continue;
          }
