@@ -91,18 +91,9 @@
     </abstract>
   </artheader>
 
-<!--   ~~~~~       New section      ~~~~~     -->
-<sect1 id="intro" label=""><title></title>
-<!-- dummy section to force TOC on page by itself -->
-<!-- DO NOT REMOVE! please ;) -->
-<para> </para>
-</sect1>
 
 <!--   ~~~~~       New section      ~~~~~     -->
-
-
-<!--   ~~~~~       New section      ~~~~~     -->
-  <sect1 label="1" id="introduction"><title>Introduction</title>
+  <sect1 id="introduction"><title>Introduction</title>
 <!--
 
  I don't like seeing blank space :) So added *something* here.
@@ -121,10 +112,9 @@
      One does not have to be a programmer to contribute. Packaging, testing,
      and porting, are all important jobs as well.
     </para>
-  </sect1>
 
   <!--   ~~~~~       New section      ~~~~~     -->
-  <sect1 id="quickstart"><title>Quickstart to Privoxy Development</title>
+  <sect2 id="quickstart"><title>Quickstart to Privoxy Development</title>
     <para>
       You'll need an account on <ulink
       url="http://sourceforge.net/">Sourceforge</ulink> to support our
@@ -136,6 +126,7 @@
       For the time being (read, this section is under construction), please
       refer to the extensive comments in the source code.
     </para>
+   </sect2>
   </sect1>
 
   <!--   ~~~~~       New section      ~~~~~     -->
@@ -2682,6 +2673,10 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.40  2002/05/04 00:43:43  hal9
+  -Remove TOC/first page kludge with proper stylesheet fix.
+  -Combined the two very brief sections: Intro and Quickstart.
+
   Revision 1.39  2002/05/02 15:08:25  oes
   Added explanation about version numbers and RPM package revisions
 
