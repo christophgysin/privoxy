@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.29  2002/02/28 14:20:53  oes
+dnl Fixed detection of gethost*_r functions on Solaris
+dnl
 dnl Revision 1.28  2002/02/27 15:02:38  oes
 dnl Incremented version number
 dnl
@@ -433,6 +436,9 @@ dnl =================================================================
 dnl Support for thread-safe versions of gethostbyaddr, gethostbyname,
 dnl gmtime and localtime
 dnl =================================================================
+
+dnl Next line needed to find the gethost*_r functions on Solaris
+AC_CHECK_LIB(nsl, gethostbyname)
 
 AC_CHECK_FUNC(gethostbyaddr_r, [
   AC_MSG_CHECKING([signature of gethostbyaddr_r])
