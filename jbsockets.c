@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/26 00:37:42  jongfoster
+ *    Cosmetic indentation correction.
+ *
  *    Revision 1.3  2001/05/25 21:57:54  jongfoster
  *    Now gives a warning under Windows if you try to bind
  *    it to a port that's already in use.
@@ -234,7 +237,10 @@ int connect_to(char *host, int portnum, struct client_state *csp)
  *********************************************************************/
 int write_socket(int fd, const char *buf, int len)
 {
-   if (len <= 0) return(0);
+   if (len <= 0)
+   {
+      return(0);
+   }
 
    /* if (DEBUG(LOG)) fwrite(buf, n, 1, logfp); */
 
