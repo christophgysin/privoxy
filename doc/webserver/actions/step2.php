@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.8  2002/04/04 19:48:11  oes
+  Reactivating the scripts ,-)
+
   Revision 1.7  2002/04/03 19:36:04  swa
   consistent look
 
@@ -48,7 +51,7 @@
  -->
 
  <head>
-    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
+  <link rel="stylesheet" type="text/css" href="../p_feedback.css">
 
   <script language="javascript">
    //
@@ -111,7 +114,6 @@ error_reporting(E_NONE);
 if (!isset($referrer_url))
 {
    echo ("  <title>Invalid Feedback Submission</title>
-	    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
            </head>
            <body>
             <div class=\"title\">Invalid Feedback Submission</div>
@@ -132,7 +134,6 @@ if (!isset($referrer_url))
 if (!isset($problem) || $problem == "INVALID")
 {
    echo ("  <title>Invalid Feedback Submission</title>
-	    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
            </head>
            <body>
             <div class=\"title\">Invalid Feedback Submission</div>
@@ -173,7 +174,6 @@ curl_close ($ch);
 if (!$success)
 {
    echo ("  <title>Invalid Feedback Submission</title>
-	    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
            </head>
            <body>
             <div class=\"title\">Invalid Feedback Submission</div>
@@ -208,7 +208,6 @@ switch($problem)
 ?>
 
   <title>Privoxy Action List Feedback - Step 2 of 2</title>
-    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
  </head>
  <body>
 

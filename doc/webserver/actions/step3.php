@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.8  2002/04/04 19:48:11  oes
+  Reactivating the scripts ,-)
+
   Revision 1.7  2002/04/04 10:29:58  oes
   Keeping feedback confidential
 
@@ -51,7 +54,7 @@
  -->
 
  <head>
-    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
+  <link rel="stylesheet" type="text/css" href="../p_feedback.css">
 
 <?php
 
@@ -74,7 +77,6 @@ error_reporting(E_NONE);
 if (!isset($referrer_url))
 {
    echo ("  <title>Invalid Feedback Submission</title>
-	    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
            </head>
            <body>
             <div class=\"title\">Invalid Feedback Submission</div>
@@ -95,7 +97,6 @@ if (!isset($referrer_url))
 if (!isset($problem))
 {
    echo ("  <title>Invalid Feedback Submission</title>
-	    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
            </head>
            <body>
             <div class=\"title\">Invalid Feedback Submission</div>
@@ -127,7 +128,6 @@ $fp = fopen($logfile, "a");
 if(!$fp)
 {
    echo ("  <title>Internal Script Error</title>
-	    <link rel="stylesheet" type="text/css" href="../p_feedback.css">
            </head>
            <body>
             <div class=\"title\">Internal Script Error</div>
@@ -213,7 +213,6 @@ fclose($fp);
 ?>
 
   <title>Privoxy Action List Feedback - Result</title>
-  <link rel="stylesheet" type="text/css" href="../p_feedback.css">
  </head>
 
  <body>
