@@ -35,6 +35,10 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.31  2001/10/26 17:39:01  oes
+ *    Removed csp->referrer
+ *    Moved ijb_isspace and ijb_tolower to project.h
+ *
  *    Revision 1.30  2001/10/25 03:40:48  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -214,16 +218,6 @@ const char loaders_rcs[] = "$Id$";
 
 const char loaders_h_rcs[] = LOADERS_H_VERSION;
 
-/* Fix a problem with Solaris.  There should be no effect on other
- * platforms.
- * Solaris's isspace() is a macro which uses it's argument directly
- * as an array index.  Therefore we need to make sure that high-bit
- * characters generate +ve values, and ideally we also want to make
- * the argument match the declared parameter type of "int".
- */
-#define ijb_isspace(__X) isspace((int)(unsigned char)(__X))
-
-
 /*
  * Currently active files.
  * These are also entered in the main linked list of files.
@@ -317,10 +311,6 @@ void sweep(void)
             freez(ncsp->ip_addr_str);
             freez(ncsp->my_ip_addr_str);
             freez(ncsp->my_hostname);
-
-#ifdef FEATURE_TRUST
-            freez(ncsp->referrer);
-#endif /* def FEATURE_TRUST */
             freez(ncsp->x_forwarded);
             freez(ncsp->iob->buf);
 
