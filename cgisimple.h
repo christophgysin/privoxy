@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2002/04/05 15:50:53  oes
+ *    added send-stylesheet CGI
+ *
  *    Revision 1.10  2002/03/26 22:29:54  swa
  *    we have a new homepage!
  *
@@ -120,8 +123,11 @@ extern jb_err cgi_show_request (struct client_state *csp,
                                 struct http_response *rsp,
                                 const struct map *parameters);
 extern jb_err cgi_transparent_image (struct client_state *csp,
-                                   struct http_response *rsp,
-                                   const struct map *parameters);
+                                     struct http_response *rsp,
+                                     const struct map *parameters);
+extern jb_err cgi_send_stylesheet(struct client_state *csp,
+                                  struct http_response *rsp,
+                                  const struct map *parameters);
 
 #ifdef FEATURE_GRACEFUL_TERMINATION
 extern jb_err cgi_die (struct client_state *csp,
