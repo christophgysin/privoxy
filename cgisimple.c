@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2002/05/12 21:44:44  jongfoster
+ *    Adding amiga.[ch] revision information, if on an amiga.
+ *
  *    Revision 1.34  2002/04/30 12:06:12  oes
  *    Deleted unused code from default_cgi
  *
@@ -1340,6 +1343,10 @@ static char *show_rcs(void)
    /* In alphabetical order */
    SHOW_RCS(actions_h_rcs)
    SHOW_RCS(actions_rcs)
+#ifdef AMIGA
+   SHOW_RCS(amiga_h_rcs)
+   SHOW_RCS(amiga_rcs)
+#endif /* def AMIGA */
    SHOW_RCS(cgi_h_rcs)
    SHOW_RCS(cgi_rcs)
 #ifdef FEATURE_CGI_EDIT_ACTIONS
