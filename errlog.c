@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2002/01/09 14:32:08  oes
+ *    Added support for gmtime_r and localtime_r.
+ *
  *    Revision 1.24  2001/12/30 14:07:32  steudten
  *    - Add signal handling (unix)
  *    - Add SIGHUP handler (unix)
@@ -380,10 +383,14 @@ void log_error(int loglevel, char *fmt, ...)
 	* the %z field in strftime()
 	*/
        time_t now; 
-       struct tm *tm_now; 
-       time (&now); 
-       tm_now = localtime (&now); 
-       strftime (outbuf, BUFFER_SIZE-6, "%b %d %H:%M:%S ", tm_now); 
+       struct tm tm_now; 
+       time (&now);
+#ifdef HAVE_LOCALTIME_R
+       tm_now = *localtime_r(&now, &tm_now);
+#else
+       tm_now = *localtime (&now); 
+#endif
+       strftime(outbuf, BUFFER_SIZE-6, "%b %d %H:%M:%S ", &tm_now); 
        outbuf += strlen( outbuf );
     }
    switch (loglevel)
@@ -618,11 +625,22 @@ void log_error(int loglevel, char *fmt, ...)
                 */
                time_t now; 
                struct tm *tm_now; 
-               struct tm gmt; 
+               struct tm gmt;
+#ifdef HAVE_LOCALTIME_R
+               struct tm dummy;
+#endif
                int days, hrs, mins; 
                time (&now); 
-               gmt = *gmtime (&now); 
+#ifdef HAVE_GMTIME_R
+               gmt = *gmtime_r(&now, &gmt);
+#else
+               gmt = *gmtime(&now);
+#endif
+#ifdef HAVE_LOCALTIME_R
+               tm_now = localtime_r(&now, &dummy);
+#else
                tm_now = localtime (&now); 
+#endif
                days = tm_now->tm_yday - gmt.tm_yday; 
                hrs = ((days < -1 ? 24 : 1 < days ? -24 : days * 24) + tm_now->tm_hour - gmt.tm_hour); 
                mins = hrs * 60 + tm_now->tm_min - gmt.tm_min; 
