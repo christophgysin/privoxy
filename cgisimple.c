@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.22  2002/03/24 16:18:15  jongfoster
+ *    Removing old logo
+ *
  *    Revision 1.21  2002/03/24 15:23:33  jongfoster
  *    Name changes
  *
@@ -404,7 +407,7 @@ jb_err cgi_send_banner(struct client_state *csp,
 
    if (imagetype == 'a') /* auto */
    {
-      /* Default to logo */
+      /* Default to pattern */
       imagetype = 'p';
 #ifdef FEATURE_IMAGE_BLOCKING
       if ((csp->action->flags & ACTION_IMAGE_BLOCKER) != 0)
@@ -431,11 +434,6 @@ jb_err cgi_send_banner(struct client_state *csp,
       rsp->content_length = image_blank_length;
 
    }
-   else  if (imagetype == 'l') /* logo */
-   {
-      rsp->body = bindup(image_logo_data, image_logo_length);
-      rsp->content_length = image_logo_length;
-   }   
    else /* pattern */
    {
       rsp->body = bindup(image_pattern_data, image_pattern_length);

@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2002/03/24 16:18:15  jongfoster
+ *    Removing old logo
+ *
  *    Revision 1.22  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -191,8 +194,6 @@ extern char *dump_map(const struct map *the_map);
 /*
  * Ad replacement images.
  */
-extern const char image_logo_data[];
-extern const size_t  image_logo_length;
 extern const char image_pattern_data[];
 extern const size_t  image_pattern_length;
 extern const char image_blank_data[];
