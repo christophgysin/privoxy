@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/07/19 19:02:53  haroon
+ *    Added define for LOG_LEVEL_POPUPS
+ *
  *    Revision 1.6  2001/07/13 13:59:22  oes
  *     - Added LOG_LEVEL_DEANIMATE
  *     - Changed LOG_LEVEL_CLF
@@ -123,6 +126,9 @@ extern "C" {
 #define LOG_LEVEL_DEANIMATE  0x0100
 
 #define LOG_LEVEL_CLF        0x0200 /* Common Log File format */
+#ifdef KILLPOPUPS
+#define LOG_LEVEL_POPUPS	0x0400 /* Kill Popups */
+#endif /* def KILLPOPUPS */
 
 /* Following are always on: */
 #define LOG_LEVEL_INFO    0x1000
