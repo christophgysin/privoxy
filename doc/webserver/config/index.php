@@ -37,9 +37,12 @@
 
 -->
 
-<html><head>
-<title>Privoxy is not being used</title>
-    <link rel="stylesheet" type="text/css" href="../p_web.css">
+<html>
+<head>
+  <title>Privoxy is not being used</title>
+  <link rel="stylesheet" type="text/css" href="../p_web.css">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
 </head>
 
 <body>
