@@ -1375,7 +1375,8 @@ must find a better place for this paragraph
     file</link>) can be used to re-write the raw page content, including
     viewable text as well as embedded HTML and JavaScript, and whatever else
     lurks on any given web page. The filtering jobs are only pre-defined here;
-    whether to apply them or not is up to the actions files.
+    whether to apply them or not is up to the actions files. Only one filter 
+    file may be defined.
    </para>
   </listitem> 
 
@@ -5764,6 +5765,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 2.9  2003/04/11 03:14:53  hal9
+ Add small note about one filter file may be defined.
+
  Revision 2.8  2002/10/21 02:46:09  hal9
  Port changes to user.action examples section from 3.0.
 
