@@ -41,6 +41,10 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2001/10/09 22:39:21  jongfoster
+ *    assert.h is also required under Win32, so moving out of #ifndef _WIN32
+ *    block.
+ *
  *    Revision 1.34  2001/10/07 18:50:55  oes
  *    Added server_content_encoding, renamed server_transfer_encoding
  *
@@ -291,9 +295,9 @@ const char parsers_rcs[] = "$Id$";
 #include <sys/types.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include<assert.h>
 #endif
 
+#include <assert.h>
 #include <string.h>
 
 #ifndef _WIN32
