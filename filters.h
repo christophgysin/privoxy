@@ -39,6 +39,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2002/03/25 22:12:45  oes
+ *    Added fix for undefined INADDR_NONE on Solaris by Bart Schelstraete
+ *
  *    Revision 1.17  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -249,6 +252,13 @@ extern const struct forward_spec *forward_url(struct http_request *http, struct 
 extern char *pcrs_filter_response(struct client_state *csp);
 extern char *gif_deanimate_response(struct client_state *csp);
 extern int remove_chunked_transfer_coding(char *buffer, const size_t size);
+
+/*
+ * Solaris fix:
+ */
+#ifndef INADDR_NONE
+#define INADDR_NONE -1
+#endif     
 
 /* 
  * Revision control strings from this header and associated .c file

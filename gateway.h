@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2002/03/25 22:12:45  oes
+ *    Added fix for undefined INADDR_NONE on Solaris by Bart Schelstraete
+ *
  *    Revision 1.5  2002/03/24 13:25:43  swa
  *    name change related issues
  *
@@ -94,7 +97,16 @@ extern jb_socket forwarded_connect(const struct forward_spec * fwd,
                                    struct http_request *http, 
                                    struct client_state *csp);
 
-/* Revision control strings from this header and associated .c file */
+/*
+ * Solaris fix
+ */
+#ifndef INADDR_NONE
+#define INADDR_NONE -1
+#endif
+
+/*
+ * Revision control strings from this header and associated .c file
+ */
 extern const char gateway_rcs[];
 extern const char gateway_h_rcs[];
 
