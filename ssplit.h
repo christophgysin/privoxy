@@ -34,8 +34,13 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:04  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/29 08:54:25  jongfoster
+ *    Rewrote the innards of ssplit() to be easier to understand,
+ *    faster, and to use less memory.  Didn't change the interface
+ *    except to give the parameters meaningful names.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:04  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -45,7 +50,8 @@
 extern "C" {
 #endif
 
-extern int ssplit(char *s, char *c, char *v[], int n, int m, int l);
+extern int ssplit(char *str, const char *delim, char *vec[], int vec_len, 
+                  int dont_save_empty_fields, int ignore_leading);
 
 /* Revision control strings from this header and associated .c file */
 extern const char ssplit_rcs[];
