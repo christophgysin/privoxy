@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.3  2002/09/12 14:30:32  oes
+ *    Uncheck the "Show Privoxy Window" taskbar menu item when window gets minimized. Fixes bug #606804
+ *
  *    Revision 2.2  2002/09/05 08:43:11  oes
  *    Synced with the stable branch:
  *        Revision 1.25.2.1  2002/08/21 17:59:05  oes
@@ -1358,6 +1361,7 @@ LRESULT CALLBACK LogWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
          return 0;
 
       case WM_SHOWWINDOW:
+         g_bShowLogWindow = wParam;
       case WM_SIZE:
          /* Resize the logging window to fit the new frame */
          if (g_hwndLogBox)
