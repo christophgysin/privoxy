@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.16.2.1  2002/08/23 12:25:31  oes
+  Fixed Typo
+
   Revision 1.16  2002/04/13 14:34:59  oes
   Include unique ID in tracker and log; Include URL in tracker summary; add more newlines in tracker
 
@@ -286,7 +289,7 @@ switch($problem)
 {
    case "P1": $category_id="412811"; $summary = "Ad not blocked "; break;
    case "P2": $category_id="412810"; $summary = "Image blocked ";break;
-   case "P3": $category_id="412812"; $summary = "Page plocked ";break;
+   case "P3": $category_id="412812"; $summary = "Page blocked ";break;
    case "P4": $category_id="412813"; $summary = "Popups blocked ";break;
    case "P5": $category_id="412814"; $summary = "Other problem ";break;
    default:   $category_id="412814"; $summary = "IMPOSSIBLE ";break;
