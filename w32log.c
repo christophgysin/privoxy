@@ -32,6 +32,10 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/05/31 17:33:13  oes
+ *
+ *    CRLF -> LF
+ *
  *    Revision 1.8  2001/05/29 09:50:24  jongfoster
  *    Unified blocklist/imagelist/permissionslist.
  *    File format is still under discussion, but the internal changes

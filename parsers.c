@@ -41,6 +41,10 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/05/31 17:33:13  oes
+ *
+ *    CRLF -> LF
+ *
  *    Revision 1.11  2001/05/29 20:11:19  joergs
  *    '/* inside comment' warning removed.
  *
