@@ -41,8 +41,9 @@ $headers = getallheaders();
     <link rel="stylesheet" type="text/css" href="../p_web.css">
 </head>
 
-<h1>Confirm Ad Submission</h1>
+<h1>Privoxy Feedback</h1>
 
+<h2>Confirm Ad Submission</h2>
 
 <p>We have detemined that ...</p>
 
@@ -51,6 +52,9 @@ $headers = getallheaders();
 
 <!--
 	$Log$
+	Revision 1.2  2002/03/29 09:55:21  swa
+	.
+	
 	Revision 1.1  2002/03/29 09:38:52  swa
 	2nd page
 	
