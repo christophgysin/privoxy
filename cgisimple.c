@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2002/01/23 01:03:32  jongfoster
+ *    Fixing gcc [CygWin] compiler warnings
+ *
  *    Revision 1.11  2002/01/23 00:01:04  jongfoster
  *    Adding cgi_transparent_gif() for http://i.j.b/t
  *    Adding missing html_encode() to many CGI functions.
@@ -679,7 +682,6 @@ jb_err cgi_show_url_info(struct client_state *csp,
                          const struct map *parameters)
 {
    char *url_param;
-   char *host = NULL;
    struct map *exports;
 
    assert(csp);

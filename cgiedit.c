@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.11  2002/01/23 01:03:31  jongfoster
+ *    Fixing gcc [CygWin] compiler warnings
+ *
  *    Revision 1.10  2002/01/23 00:22:59  jongfoster
  *    Adding new function cgi_edit_actions_section_swap(), to reorder
  *    the actions file.
@@ -319,10 +322,11 @@ static jb_err actions_from_radio(const struct map * parameters,
 static jb_err map_copy_parameter_html(struct map *out,
                                       const struct map *in,
                                       const char *name);
+#if 0 /* unused function */
 static jb_err map_copy_parameter_url(struct map *out,
                                      const struct map *in,
                                      const char *name);
-
+#endif /* unused function */
 
 /*********************************************************************
  *
@@ -372,6 +376,7 @@ static jb_err map_copy_parameter_html(struct map *out,
 }
 
 
+#if 0 /* unused function */
 /*********************************************************************
  *
  * Function    :  map_copy_parameter_html
@@ -418,7 +423,7 @@ static jb_err map_copy_parameter_url(struct map *out,
       return JB_ERR_OK;
    }
 }
-
+#endif /* 0 - unused function */
 
 /*********************************************************************
  *
