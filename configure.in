@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.46  2002/03/24 18:55:06  jongfoster
+dnl Making Docbook work under Windows
+dnl
 dnl Revision 1.45  2002/03/24 14:19:55  swa
 dnl set rpm package release in configure.in. nowhere else.
 dnl
@@ -503,12 +506,12 @@ dnl Checking for the docbook.dsl stylesheet file
 dnl It is still not portable (directory slash)
 if test $dodk = yes; then
   if test $DKPREFIX = none; then
-    for i in /usr/share/sgml/docbook/dsssl-stylesheets /usr/share/sgml/docbkdsl; do
+    for i in /usr/share/sgml/docbook/dsssl-stylesheets /usr/share/sgml/docbkdsl /usr/share/sgml/docbook-dsssl; do
       echo -n "checking for $i/html/docbook.dsl..."
       if test -f $i/html/docbook.dsl; then
         echo "yes"
         DKPREFIX=$i
-	break
+        break
       else
         echo "no"
       fi
