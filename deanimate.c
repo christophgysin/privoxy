@@ -37,6 +37,9 @@ const char deanimate_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/15 13:57:50  jongfoster
+ *    Adding #includes string.h and miscutil.h
+ *
  *    Revision 1.2  2001/07/13 13:46:20  oes
  *    Introduced GIF deanimation feature
  *
@@ -45,10 +48,13 @@ const char deanimate_rcs[] = "$Id$";
 
 
 #include "config.h"
+
+#include <string.h>
+#include <fcntl.h>
+
 #include "project.h"
 #include "deanimate.h"
-
-#include <fcntl.h>
+#include "miscutil.h"
 
 const char deanimate_h_rcs[] = DEANIMATE_H_VERSION;
 
