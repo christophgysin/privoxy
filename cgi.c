@@ -36,6 +36,12 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2001/09/16 15:47:37  jongfoster
+ *    First version of CGI-based edit interface.  This is very much a
+ *    work-in-progress, and you can't actually use it to edit anything
+ *    yet.  You must #define FEATURE_CGI_EDIT_ACTIONS for these changes
+ *    to have any effect.
+ *
  *    Revision 1.25  2001/09/16 15:02:35  jongfoster
  *    Adding i.j.b/robots.txt.
  *    Inlining add_stats() since it's only ever called from one place.
@@ -204,6 +210,9 @@ const char cgi_rcs[] = "$Id$";
 #include "miscutil.h"
 #include "showargs.h"
 #include "loadcfg.h"
+#ifdef FEATURE_CGI_EDIT_ACTIONS
+#include "cgiedit.h"
+#endif /* def FEATURE_CGI_EDIT_ACTIONS */
 
 const char cgi_h_rcs[] = CGI_H_VERSION;
 
@@ -223,6 +232,17 @@ const struct cgi_dispatcher cgi_dispatcher[] = {
    { "send-banner",
          11, cgi_send_banner, 
          "HIDE Send the transparent or \"Junkbuster\" gif" },
+#ifdef FEATURE_CGI_EDIT_ACTIONS
+   { "edit-actions-list",
+         17, cgi_edit_actions_list, 
+         "Edit the actions list" },
+   { "edit-actions-submit",
+         19, cgi_edit_actions_submit, 
+         "HIDE Change the actions for (a) specified URL(s)" },
+   { "edit-actions",
+         12, cgi_edit_actions, 
+         "HIDE Edit the actions for (a) specified URL(s)" },
+#endif /* def FEATURE_CGI_EDIT_ACTIONS */
    { "",
          0, cgi_default,
          "Junkbuster main page" },
@@ -314,6 +334,7 @@ struct http_response *dispatch_cgi(struct client_state *csp)
    {
       return NULL;
    }
+
 
    /* Remove leading slash */
    if (*argstring == '/')

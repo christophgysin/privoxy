@@ -1,12 +1,14 @@
-#ifndef ACTIONS_H_INCLUDED
-#define ACTIONS_H_INCLUDED
-#define ACTIONS_H_VERSION "$Id$"
+#ifndef CGIEDIT_H_INCLUDED
+#define CGIEDIT_H_INCLUDED
+#define CGIEDIT_H_VERSION "$Id$"
 /*********************************************************************
  *
  * File        :  $Source$
  *
- * Purpose     :  Declares functions to work with actions files
- *                Functions declared include: FIXME
+ * Purpose     :  CGI-based actionsfile editor.
+ *                
+ *                Functions declared include:
+ * 
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
  *                IJBSWA team.  http://ijbswa.sourceforge.net
@@ -35,70 +37,50 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.4  2001/09/16 15:47:37  jongfoster
+ *    Revision 1.1  2001/09/16 15:47:37  jongfoster
  *    First version of CGI-based edit interface.  This is very much a
  *    work-in-progress, and you can't actually use it to edit anything
  *    yet.  You must #define FEATURE_CGI_EDIT_ACTIONS for these changes
  *    to have any effect.
  *
- *    Revision 1.3  2001/09/14 00:17:32  jongfoster
- *    Tidying up memory allocation. New function init_action().
  *
- *    Revision 1.2  2001/07/29 19:01:11  jongfoster
- *    Changed _FILENAME_H to FILENAME_H_INCLUDED.
- *    Added forward declarations for needed structures.
- *
- *    Revision 1.1  2001/05/31 21:16:46  jongfoster
- *    Moved functions to process the action list into this new file.
- *
- *
- *********************************************************************/
+ **********************************************************************/
 
+
+#include "project.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
-struct action_spec;
-struct current_action_spec;
-struct client_state;
-
-extern void init_action(struct action_spec *dest);
-extern void free_action(struct action_spec *src);
-extern void merge_actions (struct action_spec *dest, 
-                           const struct action_spec *src);
-extern void copy_action (struct action_spec *dest, 
-                         const struct action_spec *src);
-extern char * actions_to_text     (struct action_spec *action);
+/*
+ * CGI functions
+ */
 #ifdef FEATURE_CGI_EDIT_ACTIONS
-extern char * actions_to_html     (struct action_spec *action);
+extern int cgi_edit_actions        (struct client_state *csp,
+                                    struct http_response *rsp,
+                                    struct map *parameters);
+extern int cgi_edit_actions_list   (struct client_state *csp,
+                                    struct http_response *rsp,
+                                    struct map *parameters);
+extern int cgi_edit_actions_submit (struct client_state *csp,
+                                    struct http_response *rsp,
+                                    struct map *parameters);
 #endif /* def FEATURE_CGI_EDIT_ACTIONS */
-
-extern void init_current_action     (struct current_action_spec *dest);
-extern void free_current_action     (struct current_action_spec *src);
-extern void merge_current_action    (struct current_action_spec *dest, 
-                                     const struct action_spec *src);
-extern char * current_action_to_text(struct current_action_spec *action);
-
-extern int get_action_token(char **line, char **name, char **value);
-extern void unload_actions_file(void *file_data);
-extern int load_actions_file(struct client_state *csp);
 
 
 /* Revision control strings from this header and associated .c file */
-extern const char actions_rcs[];
-extern const char actions_h_rcs[];
+extern const char cgiedit_rcs[];
+extern const char cgiedit_h_rcs[];
 
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
 
-#endif /* ndef ACTIONS_H_INCLUDED */
+#endif /* ndef CGI_H_INCLUDED */
 
 /*
   Local Variables:
   tab-width: 3
   end:
 */
-

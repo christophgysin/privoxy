@@ -34,6 +34,12 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2001/09/16 15:47:37  jongfoster
+ *    First version of CGI-based edit interface.  This is very much a
+ *    work-in-progress, and you can't actually use it to edit anything
+ *    yet.  You must #define FEATURE_CGI_EDIT_ACTIONS for these changes
+ *    to have any effect.
+ *
  *    Revision 1.24  2001/08/05 16:06:20  jongfoster
  *    Modifiying "struct map" so that there are now separate header and
  *    "map_entry" structures.  This means that functions which modify a
@@ -314,6 +320,10 @@ char *show_rcs(void)
    SHOW_RCS(actions_rcs)
    SHOW_RCS(cgi_h_rcs)
    SHOW_RCS(cgi_rcs)
+#ifdef FEATURE_CGI_EDIT_ACTIONS
+   SHOW_RCS(cgiedit_rcs)
+   SHOW_RCS(cgiedit_h_rcs)
+#endif /* def FEATURE_CGI_EDIT_ACTIONS */
 #ifdef __MINGW32__
    SHOW_RCS(cygwin_h_rcs)
 #endif

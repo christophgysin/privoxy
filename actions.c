@@ -33,6 +33,12 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2001/09/16 15:47:37  jongfoster
+ *    First version of CGI-based edit interface.  This is very much a
+ *    work-in-progress, and you can't actually use it to edit anything
+ *    yet.  You must #define FEATURE_CGI_EDIT_ACTIONS for these changes
+ *    to have any effect.
+ *
  *    Revision 1.12  2001/09/16 13:21:27  jongfoster
  *    Changes to use new list functions.
  *
@@ -90,6 +96,9 @@ const char actions_rcs[] = "$Id$";
 #include "miscutil.h"
 #include "errlog.h"
 #include "loaders.h"
+#ifdef FEATURE_CGI_EDIT_ACTIONS
+#include "encode.h"
+#endif /* def FEATURE_CGI_EDIT_ACTIONS */
 
 const char actions_h_rcs[] = ACTIONS_H_VERSION;
 
@@ -656,6 +665,106 @@ char * actions_to_text(struct action_spec *action)
 
    return result;
 }
+
+
+#ifdef FEATURE_CGI_EDIT_ACTIONS
+/*********************************************************************
+ *
+ * Function    :  actions_to_html
+ *
+ * Description :  Converts a actionsfile entry from numeric form
+ *                ("mask" and "add") to a <br>-seperated HTML string.
+ *
+ * Parameters  :
+ *          1  :  mask = As from struct url_actions
+ *          2  :  add  = As from struct url_actions
+ *
+ * Returns     :  A string.  Caller must free it.
+ *
+ *********************************************************************/
+char * actions_to_html(struct action_spec *action)
+{
+   unsigned mask = action->mask;
+   unsigned add  = action->add;
+   char * result = strdup("");
+   char * enc_str;
+   struct list_entry * lst;
+
+   /* sanity - prevents "-feature +feature" */
+   mask |= add;
+
+
+#define DEFINE_ACTION_BOOL(__name, __bit)      \
+   if (!(mask & __bit))                        \
+   {                                           \
+      result = strsav(result, "\n<br>-" __name); \
+   }                                           \
+   else if (add & __bit)                       \
+   {                                           \
+      result = strsav(result, "\n<br>+" __name); \
+   }
+
+#define DEFINE_ACTION_STRING(__name, __bit, __index) \
+   if (!(mask & __bit))                              \
+   {                                                 \
+      result = strsav(result, "\n<br>-" __name);       \
+   }                                                 \
+   else if (add & __bit)                             \
+   {                                                 \
+      result = strsav(result, "\n<br>+" __name "{");   \
+      enc_str = html_encode(action->string[__index]);\
+      result = strsav(result, enc_str);              \
+      freez(enc_str);                                \
+      result = strsav(result, "}");                  \
+   }
+
+#define DEFINE_ACTION_MULTI(__name, __index)         \
+   if (action->multi_remove_all[__index])            \
+   {                                                 \
+      result = strsav(result, "\n<br>-" __name "{*}"); \
+   }                                                 \
+   else                                              \
+   {                                                 \
+      lst = action->multi_remove[__index]->first;    \
+      while (lst)                                    \
+      {                                              \
+         result = strsav(result, "\n<br>-" __name "{");\
+         enc_str = html_encode(lst->str);            \
+         result = strsav(result, enc_str);           \
+         freez(enc_str);                             \
+         result = strsav(result, "}");               \
+         lst = lst->next;                            \
+      }                                              \
+   }                                                 \
+   lst = action->multi_add[__index]->first;          \
+   while (lst)                                       \
+   {                                                 \
+      result = strsav(result, "\n<br>+" __name "{");   \
+      result = strsav(result, lst->str);             \
+      result = strsav(result, "}");                  \
+      lst = lst->next;                               \
+   }
+
+#define DEFINE_ACTION_ALIAS 0 /* No aliases for output */
+
+#include "actionlist.h"
+
+#undef DEFINE_ACTION_MULTI
+#undef DEFINE_ACTION_STRING
+#undef DEFINE_ACTION_BOOL
+#undef DEFINE_ACTION_ALIAS
+
+   /* trim leading <br> */
+   if (result && *result)
+   {
+      char * s = result;
+      result = strdup(result + 5);
+      free(s);
+   }
+
+   return result;
+}
+#endif /* def FEATURE_CGI_EDIT_ACTIONS */
 
 
 /*********************************************************************
