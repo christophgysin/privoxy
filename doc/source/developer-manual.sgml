@@ -14,6 +14,7 @@
 <!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
 <!entity % p-doc "INCLUDE">        <!-- and we are a formal doc           -->
+<!entity  my-copy "&copy;">        <!-- kludge for docbook2man            -->
 ]>
 <!--
  File        :  $Source$
@@ -24,13 +25,8 @@
                 
  $Id$
 
- Written by and Copyright (C) 2001 the SourceForge
- Privoxy team. http://www.privoxy.org/
-
- Based on the Internet Junkbuster originally written
- by and Copyright (C) 1997 Anonymous Coders and 
- Junkbusters Corporation.  http://www.junkbusters.com
-
+ Copyright (C) 2001, 2002 Privoxy Developers <developers@privoxy.org>
+ See LICENSE.
 
  ========================================================================
  NOTE: Please read developer-manual/documentation.html before touching 
@@ -44,14 +40,17 @@
 <article id="index">
   <artheader>
     <title>Privoxy Developer Manual</title>
+    <pubdate>
+     <subscript>
+    <!-- Completely the wrong markup, but very little is allowed  -->
+    <!-- in this part of an article. FIXME -->
+      <link linkend="copyright">Copyright</link> &my-copy; 2001, 2002 by 
+      <ulink url="http://www.privoxy.org">Privoxy Developers</ulink>
+     </subscript>
+    </pubdate>
+
 
     <pubdate>$Id$</pubdate>
-
-   <copyright>
-    <year>2001</year>
-    <year>2002</year>
-    <holder>Privoxy Developers</holder>
-   </copyright>
 
 <!--
 
@@ -70,16 +69,8 @@ Hal.
 
 -->
 
-<!--
-    <authorgroup>
-      <author>
-        <affiliation>
-          <orgname>By: Privoxy Developers</orgname>
-        </affiliation>
-      </author>
-    </authorgroup>
--->
     <abstract>
+
 <![%dummy;[
  <para>
  <comment>
@@ -2654,13 +2645,11 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   
 
 <!--   ~~~~~~~~       New section Header    ~~~~~~~~~     -->
-<sect1 id="copyright"><title>Copyright, License and History</title>
+<sect1 id="copyright"><title>Privoxy Copyright, License and History</title>
 
-<sect2><title>Copyright</title>
 <!-- Include copyright.sgml -->
  &copyright;
 <!-- end -->
-</sect2>
 
 <!--   ~~~~~       New section      ~~~~~     -->
 <sect2><title>License</title>
@@ -2708,6 +2697,11 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.43  2002/05/10 01:48:19  hal9
+  This is mostly proposed copyright/licensing additions and changes. Docs
+  are still GPL, but licensing and copyright are more visible. Also, copyright
+  changed in doc header comments (eliminate references to JB except FAQ).
+
   Revision 1.42  2002/05/05 20:26:02  hal9
   Sorting out license vs copyright in these docs.
 

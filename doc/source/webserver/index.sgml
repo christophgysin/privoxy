@@ -12,6 +12,7 @@
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
 <!entity % p-doc "INCLUDE">        <!-- and we are a formal doc           -->
 <!entity % p-readme "IGNORE">
+<!entity  my-copy "&copy;">        <!-- kludge for docbook2man            -->
 ]>
 <!--
  File        :  $Source$
@@ -22,13 +23,8 @@
                 
  $Id$
 
- Written by and Copyright (C) 2001, 2002 the SourceForge
- Privoxy team. http://www.privoxy.org/
-
- Based on the Internet Junkbuster originally written
- by and Copyright (C) 1997 Anonymous Coders and 
- Junkbusters Corporation.  http://www.junkbusters.com
-
+ Copyright (C) 2001, 2002 Privoxy Developers <developers@privoxy.org>
+ See LICENSE.
 
  ========================================================================
  NOTE: Please read developer-manual/documentation.html before touching 
@@ -175,6 +171,9 @@ page</ulink> on Sourceforge
 <sect1 label="">
 <title>License</title>
 <!-- Include copyright.sgml -->
+ &copyright;
+<!-- end -->
+<!-- Include license.sgml -->
  &license;
 <!-- end -->
 </sect1>
@@ -220,7 +219,9 @@ page</ulink> on Sourceforge
 
 <!-- Formal copyright markup does not work here. HB. -->
 <para>
+ <subscript>
   Copyright &copy; 2001, 2002 by Privoxy Developers
+ </subscript>
 </para>
 
 </sect1>
@@ -246,6 +247,11 @@ page</ulink> on Sourceforge
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.14  2002/05/10 01:48:20  hal9
+ This is mostly proposed copyright/licensing additions and changes. Docs
+ are still GPL, but licensing and copyright are more visible. Also, copyright
+ changed in doc header comments (eliminate references to JB except FAQ).
+
  Revision 1.13  2002/05/05 20:29:59  hal9
  Ooops, fixing an accidental delete of title element.
 
