@@ -26,6 +26,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.33  2002/03/05 13:13:57  morcego
+# - Added "make redhat-dok" to the build phase
+# - Added docbook-utils to BuildRequires
+#
 # Revision 1.32  2002/03/05 12:34:24  morcego
 # - Changing section internaly on the manpage from 1 to 8
 # - We now require packages, not files, to avoid issues with apt
@@ -144,7 +148,7 @@ Summary: The Internet Junkbuster
 Vendor: http://ijbswa.sourceforge.net
 Name: junkbuster
 Version: 2.9.11
-Release: 4
+Release: 5
 Source0: http://www.waldherr.org/%{name}/ijbswa-%{version}.tar.gz
 License: GPL
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -153,7 +157,7 @@ URL: http://ijbswa.sourceforge.net/
 Obsoletes: junkbuster-raw junkbuster-blank
 # Prereq: /usr/sbin/useradd , /sbin/chkconfig , /sbin/service 
 Prereq: shadow-utils, chkconfig, initscripts
-BuildRequires: perl gzip sed
+BuildRequires: perl gzip sed docbook-utils
 Conflicts: junkbuster-raw junkbuster-blank
 
 %description
@@ -171,6 +175,7 @@ systems and multi-user networks.
 %build
 %configure
 make 
+make redhat-dok
 
 ## Explicitily stripping is not recomended.
 ## This is handled altomaticaly by RPM, and can couse troubles if
@@ -315,6 +320,11 @@ fi
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Tue Mar 05 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
++ junkbuster-2.9.11-5
+- Added "make redhat-dok" to the build process
+- Added docbook-utils to BuildRequires
+
 * Tue Mar 05 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + junkbuster-2.9.11-4
 - Changing man section in the manpage from 1 to 8
