@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.13  2002/04/09 13:08:21  oes
+  declare script type
+
   Revision 1.12  2002/04/08 17:04:05  oes
   Adapt to unified stylesheet
 
@@ -74,6 +77,7 @@
  <head>
   <meta http-equiv="Content-Style-Type" content="text/css">
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
   <link rel="stylesheet" type="text/css" href="../privoxy.css">
   <link rel="stylesheet" type="text/css" href="../p_feedback.css">
 
