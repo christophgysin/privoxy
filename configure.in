@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.88  2003/03/23 02:15:51  hal9
+dnl Apply Docbook/FreeBSD patch from a.go at tiscali.nl. Thanks!
+dnl
 dnl Revision 1.87  2002/12/28 04:10:22  david__schmidt
 dnl Initial drop of dashboard instrumentation - enabled with
 dnl --enable-activity-console
@@ -1280,7 +1283,7 @@ DKPREFIXCOPY=$DKPREFIX
 DKPREFIX=false
 for i in $DKPREFIXCOPY /usr/share/sgml/docbook/stylesheet/dsssl/modular \
         /usr/share/sgml/docbook/dsssl-stylesheets /usr/share/sgml/docbkdsl \
-        /usr/share/sgml/docbook-dsssl; do
+        /usr/share/sgml/docbook-dsssl /usr/local/share/sgml/docbook/dsssl/modular; do
 dnl  echo -n does not fly with /bin/sh.
 dnl      echo -n "checking for $i/html/docbook.dsl..."
       AC_MSG_CHECKING([for $i])
@@ -1297,7 +1300,10 @@ AC_SUBST(DKPREFIX)
 JADECAT=""
 dnl where are the catalogs?
 for i in /usr/share/sgml/CATALOG.docbk30 \
-         /usr/share/sgml/CATALOG.docbk31; do
+         /usr/share/sgml/CATALOG.docbk31 \
+	 /usr/local/share/sgml/docbook/3.0/docbook.cat \
+	 /usr/local/share/sgml/docbook/3.1/docbook.cat \
+	 ; do
 dnl     echo -n "checking for $i..."
       AC_MSG_CHECKING([for $i])
         if test -f $i; then
