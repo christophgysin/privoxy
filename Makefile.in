@@ -28,6 +28,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.26  2001/09/12 23:44:54  david__schmidt
+# Mac OSX (Darwin) support added.
+#
 # Revision 1.25  2001/09/12 22:55:45  joergs
 # AmigaOS support added.
 #
@@ -159,7 +162,7 @@ CC         = @CC@
 ECHO       = echo
 GZIP_PROG  = gzip
 INSTALL    = cp -f
-LD         = gcc
+LD         = @CC@
 OBJEXT     = @OBJEXT@
 RM         = rm -f
 STRIP_PROG = strip

@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.17  2001/09/12 23:44:55  david__schmidt
+dnl Mac OSX (Darwin) support added.
+dnl
 dnl Revision 1.16  2001/09/12 22:55:45  joergs
 dnl AmigaOS support added.
 dnl
@@ -335,7 +338,7 @@ AC_CANONICAL_HOST
 SOCKET_LIB=
 
 case "$host" in
-*-solaris*) SOCKET_LIB=-lsocket -lnsl
+*-solaris*) SOCKET_LIB="-lsocket -lnsl"
             AC_DEFINE(__EXTENSIONS__)
             if test "$GCC" = "yes"; then
               # Set a GCC specific switch:
