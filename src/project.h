@@ -37,6 +37,15 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.6  2004/10/05 02:03:18  david__schmidt
+ *    Add the ability to check jpeg images for invalid
+ *    lengths of comment blocks.  Defensive strategy
+ *    against the exploit:
+ *    Microsoft Security Bulletin MS04-028
+ *       Buffer Overrun in JPEG Processing (GDI+) Could
+ *       Allow Code Execution (833987)
+ *    Enabled with +inspect-jpegs in actions files.
+ *
  *    Revision 2.5  2003/09/22 00:33:01  david__schmidt
  *    Enable sending a custom 'blocked' image.  Shows up as
  *    "image-blocker-custom-file" parameter in config, and
@@ -836,6 +845,8 @@ struct iob
                          Suitable for GIF filtering.  */
 #define CT_TABOO  4 /**< csp->content_type bitmask:
                          DO NOT filter, irrespective of other flags. */
+#define CT_JPEG   8 /**< csp->content_type bitmask:
+                         Suitable for JPEG filtering.  */
 
 /**
  * The mask which includes all actions.
@@ -881,6 +892,8 @@ struct iob
 #define ACTION_VANILLA_WAFER   0x00008000UL
 /** Action bitmap: Limit CONNECT requests to safe ports. */
 #define ACTION_LIMIT_CONNECT   0x00010000UL
+/** Action bitmap: Inspect if it's a JPEG. */
+#define ACTION_JPEG_INSPECT    0x00020000UL
 
 /** Action string index: How to deanimate GIFs */
 #define ACTION_STRING_DEANIMATE     0

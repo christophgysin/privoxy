@@ -40,6 +40,15 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.7  2004/10/05 02:03:18  david__schmidt
+ *    Add the ability to check jpeg images for invalid
+ *    lengths of comment blocks.  Defensive strategy
+ *    against the exploit:
+ *    Microsoft Security Bulletin MS04-028
+ *       Buffer Overrun in JPEG Processing (GDI+) Could
+ *       Allow Code Execution (833987)
+ *    Enabled with +inspect-jpegs in actions files.
+ *
  *    Revision 2.6  2003/10/02 19:41:23  david__schmidt
  *    Updated header debug logging to show the header text that is
  *    being crunched; refactored functions in parsers.c to have a
@@ -849,6 +858,8 @@ jb_err server_content_type(struct client_state *csp, char **header)
          csp->content_type = CT_TEXT;
       else if (strstr(*header, " image/gif"))
          csp->content_type = CT_GIF;
+      else if (strstr(*header, " image/jpeg"))
+         csp->content_type = CT_JPEG;
       else
          csp->content_type = 0;
    }

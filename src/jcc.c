@@ -33,6 +33,15 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.8  2004/10/05 02:03:18  david__schmidt
+ *    Add the ability to check jpeg images for invalid
+ *    lengths of comment blocks.  Defensive strategy
+ *    against the exploit:
+ *    Microsoft Security Bulletin MS04-028
+ *       Buffer Overrun in JPEG Processing (GDI+) Could
+ *       Allow Code Execution (833987)
+ *    Enabled with +inspect-jpegs in actions files.
+ *
  *    Revision 2.7  2003/09/25 01:44:33  david__schmidt
  *    Resyncing HEAD with v_3_0_branch for two OSX fixes:
  *    Making thread IDs look sane in the logfile for Mach kernels,
@@ -1733,6 +1742,7 @@ static jb_err relay_server_traffic( struct client_state *csp )
 
    int pcrs_filter;        /* bool, 1==will filter through pcrs */
    int gif_deanimate;      /* bool, 1==will deanimate gifs */
+   int jpeg_inspect;       /* bool, 1==will inspect jpegs */
 
 #ifdef FEATURE_KILL_POPUPS
    block_popups               = ((csp->action->flags & ACTION_NO_POPUPS) != 0);
@@ -1743,6 +1753,7 @@ static jb_err relay_server_traffic( struct client_state *csp )
 
    gif_deanimate              = ((csp->action->flags & ACTION_DEANIMATE) != 0);
 
+   jpeg_inspect               = ((csp->action->flags & ACTION_JPEG_INSPECT) != 0);
 
    fflush (0);
    len = read_socket (csp->sfd, buf, sizeof (buf) - 1);
@@ -2036,6 +2047,16 @@ static jb_err relay_server_traffic( struct client_state *csp )
       {
          csp->content_filter = gif_deanimate_response;
       }
+
+      /* Buffer and jpg_inspect this if appropriate. */
+
+      if ((csp->content_type & CT_JPEG)  &&      /* It's an image/jpeg MIME-Type */
+          !csp->http->ssl &&                     /* We talk plaintext */
+          jpeg_inspect)                          /* Policy allows */
+      {
+         csp->content_filter = jpeg_inspect_response;
+      }
+
       /*
        * Only write if we're not buffering for content modification
        */
