@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/10/07 18:01:55  oes
+ *    Changed server_http11 to server_http
+ *
  *    Revision 1.14  2001/10/07 15:45:48  oes
  *    added client_accept_encoding, client_te, client_accept_encoding_adder
  *
@@ -154,7 +157,7 @@ extern char *server_content_type(const struct parsers *v, const char *s, struct 
 extern char *server_content_length(const struct parsers *v, const char *s, struct client_state *csp);
 extern char *server_content_md5(const struct parsers *v, const char *s, struct client_state *csp);
 extern char *server_transfer_encoding(const struct parsers *v, const char *s, struct client_state *csp);
-extern char *server_http11(const struct parsers *v, const char *s, struct client_state *csp);
+extern char *server_http(const struct parsers *v, const char *s, struct client_state *csp);
 
 #ifdef FEATURE_FORCE_LOAD
 extern char *client_host(const struct parsers *v, const char *s, struct client_state *csp);
