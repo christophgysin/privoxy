@@ -26,6 +26,11 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.10  2001/10/31 19:27:27  swa
+# consistent description. new name for suse since
+# we had troubles with rpms of identical names
+# on the webserver.
+#
 # Revision 1.9  2001/10/26 18:17:23  swa
 # new version string
 #
@@ -61,7 +66,7 @@
 
 Vendor:       http://ijbswa.sourceforge.net
 Distribution: defineme
-Name:         junkbuster
+Name:         junkbuster-suse
 Packager:     Stefan Waldherr <stefan@waldherr.org>
 
 Copyright:    GPL
@@ -80,10 +85,13 @@ Source:  http://www.waldherr.org/junkbuster/ijbswa.tar.gz
 # -----------------------------------------------------------------------------
 #
 %description
-The Internet Junkbuster is an application that provides privacy and
-security to the user of the world wide web. It controls cookies,
-removes advertisements or pop-up windows. You can actually modify the
-content of web pages on-the-fly.
+Internet Junkbuster is a web proxy with advanced filtering
+capabilities for protecting privacy, filtering web page content,
+managing cookies, controlling access, and removing ads, banners,
+pop-ups and other obnoxious Internet Junk. Junkbuster has a very
+flexible configuration and can be customized to suit individual needs
+and tastes. Internet Junkbuster has application for both stand-alone
+systems and multi-user networks.
 
 Authors:
 --------
