@@ -38,6 +38,11 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.34  2001/09/20 15:49:36  steudten
+ *
+ *    Fix BUG: Change int size to size_t size in pcrs_filter_response().
+ *    See cgi.c fill_template().
+ *
  *    Revision 1.33  2001/09/16 17:05:14  jongfoster
  *    Removing unused #include showarg.h
  *
@@ -965,7 +970,7 @@ int is_untrusted_url(struct client_state *csp)
 char *pcrs_filter_response(struct client_state *csp)
 {
    int hits=0;
-   int size = csp->iob->eod - csp->iob->cur;
+   size_t size;
 
    char *old = csp->iob->cur, *new = NULL;
    pcrs_job *job;
@@ -974,10 +979,11 @@ char *pcrs_filter_response(struct client_state *csp)
    struct re_filterfile_spec *b;
 
    /* Sanity first ;-) */
-   if (size <= 0)
+   if (csp->iob->cur >= csp->iob->eod)
    {
       return(NULL);
    }
+   size = csp->iob->eod - csp->iob->cur;
 
    if ( ( NULL == (fl = csp->rlist) ) || ( NULL == (b = fl->f) ) )
    {
