@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.63  2002/04/11 11:00:21  oes
+dnl Applied Moritz' fix for socklen_t on Solaris
+dnl
 dnl Revision 1.62  2002/04/11 10:09:20  oes
 dnl Version 2.9.14
 dnl
@@ -806,6 +809,10 @@ AC_CHECK_FUNC(localtime_r, [
 dnl =================================================================
 dnl Solaris specific
 dnl FIXME: Not tested on Solaris yet...
+dnl ISFIXED: Have tested it on Solaris, but there are other ways to
+dnl 	make these checks generic, e.g.:
+dnl AC_CHECK_FUNC(getsockopt, , AC_CHECK_LIB(socket, getsockopt))
+dnl	(Moritz Barsnick <moritz@barsnick.net>)
 dnl =================================================================
 
 
@@ -827,6 +834,17 @@ case "$host" in
 esac
 
 AC_SUBST(SOCKET_LIB)
+
+dnl =================================================================
+dnl Solaris problem, and others perhaps (socklen_t is undefined)
+dnl =================================================================
+
+AC_MSG_CHECKING([for socklen_t])
+AC_EGREP_HEADER(socklen_t, sys/socket.h, AC_MSG_RESULT([yes]),
+	AC_MSG_RESULT([no])
+	AC_DEFINE(socklen_t,int,
+		[ Define to 'int' if <sys/socket.h> doesn't have it. ]))
+
 
 dnl =================================================================
 dnl OS/2 specific
