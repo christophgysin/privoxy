@@ -35,6 +35,63 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/06/03 19:12:07  oes
+ *    filled comment
+ *
+ *    Revision 1.8  2001/06/03 11:03:48  oes
+ *    Makefile/in
+ *
+ *    introduced cgi.c
+ *
+ *    actions.c:
+ *
+ *    adapted to new enlist_unique arg format
+ *
+ *    conf loadcfg.c
+ *
+ *    introduced confdir option
+ *
+ *    filters.c filtrers.h
+ *
+ *     extracted-CGI relevant stuff
+ *
+ *    jbsockets.c
+ *
+ *     filled comment
+ *
+ *    jcc.c
+ *
+ *     support for new cgi mechansim
+ *
+ *    list.c list.h
+ *
+ *    functions for new list type: "map"
+ *    extended enlist_unique
+ *
+ *    miscutil.c .h
+ *    introduced bindup()
+ *
+ *    parsers.c parsers.h
+ *
+ *    deleted const struct interceptors
+ *
+ *    pcrs.c
+ *    added FIXME
+ *
+ *    project.h
+ *
+ *    added struct map
+ *    added struct http_response
+ *    changes struct interceptors to struct cgi_dispatcher
+ *    moved HTML stuff to cgi.h
+ *
+ *    re_filterfile:
+ *
+ *    changed
+ *
+ *    showargs.c
+ *    NO TIME LEFT
+ *
  *    Revision 1.7  2001/05/28 16:14:00  jongfoster
  *    Fixing bug in LOG_LEVEL_LOG
  *
@@ -237,10 +294,9 @@ int connect_to(char *host, int portnum, struct client_state *csp)
  *          2  :  buf = pointer to data to be written.
  *          3  :  len = length of data to be written to the socket "fd".
  *
- * Returns     :  Win32: If no error occurs, returns the total number of
+ * Returns     :  Win32 & Unix: If no error occurs, returns the total number of
  *                bytes sent, which can be less than the number
  *                indicated by len. Otherwise, returns (-1).
- *                Unix: ??? (Please fill me in!)
  *
  *********************************************************************/
 int write_socket(int fd, const char *buf, int len)
