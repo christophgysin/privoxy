@@ -53,7 +53,7 @@
  <application>Junkbuster</application> was originally written by JunkBusters
  Corporation, and was released as free open-source software under the GNU GPL.
  Stefan Waldherr made many improvements, and started the SourceForge project
- to continue development.
+ to continue development. Other developers have since joined Stefan.
 </para>
 
 <para>
@@ -1513,6 +1513,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.13  2002/03/27 01:16:41  hal9
+  ditto
+
   Revision 1.12  2002/03/27 01:02:51  hal9
   Touch up on name change...
 
