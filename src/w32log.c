@@ -32,6 +32,11 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.4  2003/10/02 19:41:23  david__schmidt
+ *    Updated header debug logging to show the header text that is
+ *    being crunched; refactored functions in parsers.c to have a
+ *    single, common exit point
+ *
  *    Revision 2.3  2002/09/12 14:30:32  oes
  *    Uncheck the "Show Privoxy Window" taskbar menu item when window gets minimized. Fixes bug #606804
  *
@@ -307,6 +312,7 @@ static struct _Pattern
 /* { "[a-zA-Z0-9]+\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+\\.[^ \n\r]*", STYLE_LINK }, */
    /* interesting text to highlight */
    { "crunch!",           STYLE_HIGHLIGHT },
+   { "crunch:",           STYLE_HIGHLIGHT },
    /* http headers */
    { "referer:",            STYLE_HEADER },
    { "proxy-connection:",   STYLE_HEADER },

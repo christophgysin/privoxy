@@ -36,6 +36,11 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.5  2003/10/02 19:41:23  david__schmidt
+ *    Updated header debug logging to show the header text that is
+ *    being crunched; refactored functions in parsers.c to have a
+ *    single, common exit point
+ *
  *    Revision 2.4  2002/11/12 14:30:04  oes
  *    Proper backtracking in simplematch; fixes bug #632888
  *
@@ -643,9 +648,8 @@ jb_err string_append(char **target_string, const char *text_to_append)
    if (NULL == (new_string = realloc(*target_string,
           strlen(text_to_append) + old_len + 1)))
    {
-      free(*target_string);
+      freez(*target_string);
 
-      *target_string = NULL;
       return JB_ERR_MEMORY;
    }
 
