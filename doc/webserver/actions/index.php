@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.21  2002/04/10 13:51:19  oes
+  Updated to new Bookmarklet
+
   Revision 1.20  2002/04/10 00:07:35  oes
   Moved window sizing and positioning code to Bookmarklet
 
@@ -159,9 +162,9 @@ function error_abort($title, $message)
  * Bookmarklet that leads here:
  */
 $my_address = "http://" . $HTTP_SERVER_VARS["HTTP_HOST"] . $PHP_SELF;
-$bookmarklet = "javascript:void(window.open('$my_address?url='+escape(location.href), 'Feedback', " .
-               "'width=600,scrollbars=yes,toolbar=no,location=no,directories=no,status=no,menubar=no,copyhistory=no').focus());";
-
+$bookmarklet = "javascript:w=Math.floor(screen.width/2);h=Math.floor(screen.height*0.9);void(window.open('$my_address?url='+escape(location.href)," .
+               "'Feedback','screenx='+w+',width='+w+',height='+h+',scrollbars=yes,toolbar=no,location=no,directories=no,status=no,menubar=no," .
+               "copyhistory=no').focus());";
 
 /* 
  * Provide default if URL unset
