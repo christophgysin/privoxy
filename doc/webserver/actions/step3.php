@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.14  2002/04/08 17:04:05  oes
+  Adapt to unified stylesheet
+
   Revision 1.13  2002/04/07 17:11:40  oes
   Tracker submit via curl (no need for user to see), fixing problems, removing monster comments
 
@@ -83,8 +86,8 @@
  <head>
   <meta http-equiv="Content-Style-Type" content="text/css">
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <link rel="stylesheet" type="text/css" href="../privoxy.css">
   <link rel="stylesheet" type="text/css" href="../p_feedback.css">
-
 
 <?php
 
@@ -121,7 +124,7 @@ function error_abort($title, $message)
               </h1>
              </div>
             <center>
-             <div class=\"errorbox\">
+             <div class=\"warning\">
               $message
              </div>
             </center>
@@ -183,7 +186,7 @@ if(!$fp)
               <h1><a href=\"http://www.privoxy.org/\">Privoxy</a>: Internal Script Error</h1>
             </div>
             <center>
-             <div class=\"errorbox\">
+             <div class=\"warning\">
               <p>
                This script was unable to open its logfile.
               </p>
