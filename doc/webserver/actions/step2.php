@@ -11,11 +11,8 @@
   $Id$
 
   $Log$
-  Revision 1.8  2002/04/04 19:48:11  oes
-  Reactivating the scripts ,-)
-
-  Revision 1.7  2002/04/03 19:36:04  swa
-  consistent look
+  Revision 1.9  2002/04/06 11:34:44  oes
+  Cosmetics
 
   Revision 1.6  2002/04/02 07:22:19  oes
   Elimnating duplicate images; using relative link for step3
@@ -51,9 +48,21 @@
  -->
 
  <head>
-  <link rel="stylesheet" type="text/css" href="../p_feedback.css">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <style type="text/css">
+   body,td,th { font-family:helvetica,helv,arial,sans-serif; font-size:10px }
+   body { background-color: #ffffff; color: #000000 }
+   h1 { font-size: 140%; marign: 0px; }
+   h2 { font-size: 120%; marign: 0px; }
+   div.title    { background-color:#dddddd; border:solid black 1px; margin:20px; padding:20px; }
+   div.box      { background-color:#eeeeee; border:solid black 1px; margin:20px; padding:20px; }
+   div.infobox  { background-color:#ccccff; border:solid black 1px; margin:20px; padding:20px; width: 60%; }
+   div.errorbox { background-color:#ffdddd; border:solid black 1px; margin:20px; padding:20px; width: 60%; }
+  </style>
 
-  <script language="javascript">
+  <script language="javascript" type="text/javascript">
+  <!--
    //
    // Could be as easy as style="max-wdith: 300px; max-height..." inside the
    // <img> tag, but IE doesn't do that. Setting the values directly also
@@ -95,6 +104,7 @@
          image.height = newheight
       }
    }
+  //-->
   </script>
 
 
@@ -116,12 +126,13 @@ if (!isset($referrer_url))
    echo ("  <title>Invalid Feedback Submission</title>
            </head>
            <body>
-            <div class=\"title\">Invalid Feedback Submission</div>
-            <div align=\"center\">
-             <div class=\"errorbox\" align=\"left\">When submitting your feedback please start with
+            <div class=\"title\"><h1>Invalid Feedback Submission</h1></div>
+            <center>
+             <div class=\"errorbox\">When submitting your feedback please start with
               <a href=\"index.php\">step 1</a>.
              </div>
-            </div>
+            </center>
+            <p>Valid <a href=\"http://validator.w3.org/\">HTML 4.01 Transitional</a></p>
            </body>
           </html>\n");
    exit; 
@@ -136,12 +147,13 @@ if (!isset($problem) || $problem == "INVALID")
    echo ("  <title>Invalid Feedback Submission</title>
            </head>
            <body>
-            <div class=\"title\">Invalid Feedback Submission</div>
-            <div align=\"center\">
-             <div class=\"errorbox\" align=\"left\">You need to select the nature of the problem in
+            <div class=\"title\"><h1>Invalid Feedback Submission</h1></div>
+            <center>
+             <div class=\"errorbox\">You need to select the nature of the problem in
               <a href=\"javascript:history.back();\">step 1</a>.
              </div>
-            </div>
+            </center>
+           <p>Valid <a href=\"http://validator.w3.org/\">HTML 4.01 Transitional</a></p>
            </body>
           </html>\n");
    exit; 
@@ -176,16 +188,17 @@ if (!$success)
    echo ("  <title>Invalid Feedback Submission</title>
            </head>
            <body>
-            <div class=\"title\">Invalid Feedback Submission</div>
-            <div align=\"center\">
-             <div class=\"errorbox\" align=\"left\">
+            <div class=\"title\"><h1>Invalid Feedback Submission</h1></div>
+            <center>
+             <div class=\"errorbox\">
               <p>The URL that you entered (<a href=\"$referrer_url\">$referrer_url</a>)
                <br>could not be retrieved.
               </p>
               <p>Make sure the URL is correct and publicly accessible.</p>
               <p><a href=\"javascript:history.back();\">Back to step 1</a></p>
              </div>
-            </div>
+            </center>
+            <p>Valid <a href=\"http://validator.w3.org/\">HTML 4.01 Transitional</a></p>
            </body>
           </html>\n");
    exit; 
@@ -211,7 +224,11 @@ switch($problem)
  </head>
  <body>
 
-  <div class="title"><a href="http://www.privoxy.org" target="_blank">Privoxy</a> Action List Feedback - Step 2 of 2</div>
+  <div class="title">
+   <h1>
+     <a href="http://www.privoxy.org" target="_blank">Privoxy</a> Action List Feedback - Step 2 of 2
+   </h1>
+  </div>
 
   <div class="box">
    <b>You are about to report that <?php echo ($problem_description) ?> on
@@ -305,7 +322,7 @@ else
           * Print the row(s):
           */
          echo ("       <tr>
-                        <td rowspan=2>
+                        <td rowspan=\"2\">
                          <input type=\"checkbox\" name=\"block_image[$i]\" value=\"off\">
                         </td>
                         <td>
@@ -393,12 +410,14 @@ else
 
      <dt>&nbsp;</dt>
      <dd>
-      <input type=submit value="Submit">
+      <input type="submit" value="Submit">
      </dd>
 
     </dl>
    </form>
   </div>
+
+  <p>Valid <a href="http://validator.w3.org/">HTML 4.01 Transitional</a></p>
 
  </body>
 </html>
