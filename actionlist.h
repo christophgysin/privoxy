@@ -39,6 +39,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/11/22 21:58:41  jongfoster
+ *    Adding action +no-cookies-keep
+ *
  *    Revision 1.8  2001/10/10 16:42:52  oes
  *    Fixed a bug, Added +limit-connect string action
  *
@@ -102,6 +105,7 @@ DEFINE_CGI_PARAM_CUSTOM  ("image-blocker",   ACTION_IMAGE_BLOCKER,   ACTION_STRI
 DEFINE_ACTION_STRING     ("limit-connect",   ACTION_LIMIT_CONNECT,   ACTION_STRING_LIMIT_CONNECT)
 DEFINE_CGI_PARAM_NO_RADIO("limit-connect",   ACTION_LIMIT_CONNECT,   ACTION_STRING_LIMIT_CONNECT,  "443")
 DEFINE_ACTION_BOOL       ("no-compression",  ACTION_NO_COMPRESSION)
+DEFINE_ACTION_BOOL       ("no-cookies-keep", ACTION_NO_COOKIE_KEEP)
 DEFINE_ACTION_BOOL       ("no-cookies-read", ACTION_NO_COOKIE_READ)
 DEFINE_ACTION_BOOL       ("no-cookies-set",  ACTION_NO_COOKIE_SET)
 DEFINE_ACTION_BOOL       ("no-popups",       ACTION_NO_POPUPS)
