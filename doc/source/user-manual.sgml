@@ -197,6 +197,8 @@
 <para>
  Note that if you have a <application>Junkbuster</application> RPM installed
  on your system, you need to remove it first, because the packages conflict.
+ Otherwise, RPM will try removing Junkbuster automaticaly, before installing
+ privoxy. 
 </para>
 </sect3>
 
@@ -4425,6 +4427,9 @@ Requests</title>
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.83  2002/04/18 18:21:12  oes
+ Added RPM install detail
+
  Revision 1.82  2002/04/18 12:04:50  oes
  Cosmetics
 
