@@ -41,6 +41,11 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2001/10/07 18:04:49  oes
+ *    Changed server_http11 to server_http and its pattern to "HTTP".
+ *      Additional functionality: it now saves the HTTP status into
+ *      csp->http->status and sets CT_TABOO for Status 206 (partial range)
+ *
  *    Revision 1.32  2001/10/07 15:43:28  oes
  *    Removed FEATURE_DENY_GZIP and replaced it with client_accept_encoding,
  *       client_te and client_accept_encoding_adder, triggered by the new
@@ -341,7 +346,7 @@ const struct parsers client_patterns[] = {
 
 
 const struct parsers server_patterns[] = {
-   { "HTTP/1.1 ",           9, server_http11 },
+   { "HTTP",                4, server_http },
    { "set-cookie:",        11, server_set_cookie },
    { "connection:",        11, crumble },
    { "Content-Type:",      13, server_content_type },
@@ -1514,10 +1519,13 @@ void connection_close_adder(struct client_state *csp)
 
 /*********************************************************************
  *
- * Function    :  server_http11
+ * Function    :  server_http
  *
- * Description :  Rewrite HTTP/1.1 answers to HTTP/1.0 if +downgrade
- *                action applies.
+ * Description :  - Save the HTTP Status into csp->http->status
+ *                - Set CT_TABOO to prevent filtering if the answer
+ *                  is a partial range (HTTP status 206)
+ *                - Rewrite HTTP/1.1 answers to HTTP/1.0 if +downgrade
+ *                  action applies.
  *
  * Parameters  :
  *          1  :  v = parser pattern that matched this header
@@ -1527,22 +1535,22 @@ void connection_close_adder(struct client_state *csp)
  * Returns     :  Copy of changed  or original answer.
  *
  *********************************************************************/
-char *server_http11(const struct parsers *v, const char *s, struct client_state *csp)
+char *server_http(const struct parsers *v, const char *s, struct client_state *csp)
 {
-   char *ret;
+   char *ret = strdup(s);
+   
+   sscanf(ret, "HTTP/%*d.%*d %d", &(csp->http->status));
+   if (csp->http->status == 206)
+   {
+      csp->content_type = CT_TABOO;
+   }
 
    if ((csp->action->flags & ACTION_DOWNGRADE) != 0)
    {
-      /* "HTTP/1.1 ..." -> "HTTP/1.0 ..." */
-      ret = strdup(s);
-      ret[7] = '0'; 
-
-      return(ret);
+      ret[7] = '0';
+      log_error(LOG_LEVEL_HEADER, "Downgraded answer to HTTP/1.0");
    }
-   else
-   {
-      return(strdup(s));
-   }
+   return(ret);
 
 }
 
