@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.62  2002/04/11 10:09:20  oes
+dnl Version 2.9.14
+dnl
 dnl Revision 1.61  2002/04/10 18:14:45  morcego
 dnl - (privoxy-rh.spec only) Relisting template files on the %%files section
 dnl - (configure.in, privoxy-rh.spec) Bumped package release to 5
@@ -387,8 +390,8 @@ dnl =================================================================
 
 VERSION_MAJOR=2
 VERSION_MINOR=9
-VERSION_POINT=13
-VERSION_RPM_PACKAGE=5
+VERSION_POINT=14
+VERSION_RPM_PACKAGE=1
 CODE_STATUS="beta"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be

@@ -35,8 +35,8 @@ Name: privoxy
 # ATTENTION
 # Version and release should be updated acordingly on configure.in and
 # configure. Otherwise, the package can be build with the wrong value
-Version: 2.9.13
-Release: 5
+Version: 2.9.14
+Release: 1
 Summary: Privoxy - privacy enhancing proxy
 License: GPL
 Vendor: http://www.privoxy.org
@@ -58,11 +58,7 @@ obnoxious Internet junk. Privoxy has a very flexible configuration and
 can be customized to suit individual needs and tastes. Privoxy has application
 for both stand-alone systems and multi-user networks.
 
-Privoxy is based on the code of the Internet Junkbuster. Junkbuster
-was originally written by Junkbusters Corporation, and was released as
-free open-source software under the GNU GPL. Stefan Waldherr made many
-improvements, and started the SourceForge project to continue
-development. Several other developers are now contributing.
+Privoxy is based on the Internet Junkbuster.
 
 %prep
 %setup -q -c
@@ -568,6 +564,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.24  2002/04/11 10:09:20  oes
+# Version 2.9.14
+#
 # Revision 1.23  2002/04/10 18:14:45  morcego
 # - (privoxy-rh.spec only) Relisting template files on the %%files section
 # - (configure.in, privoxy-rh.spec) Bumped package release to 5
