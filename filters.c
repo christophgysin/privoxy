@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.45  2002/03/08 16:47:50  oes
+ *    Added choice beween GIF and PNG built-in images
+ *
  *    Revision 1.44  2002/03/07 03:49:31  oes
  *     - Fixed compiler warnings etc
  *     - Changed built-in images from GIF to PNG
@@ -678,7 +681,7 @@ struct http_response *block_url(struct client_state *csp)
          }
          rsp->content_length = image_logo_length;
 
-         if (enlist_unique_header(rsp->headers, "Content-Type", "image/png"))
+         if (enlist_unique_header(rsp->headers, "Content-Type", BUILTIN_IMAGE_MIMETYPE))
          {
             free_http_response(rsp);
             return cgi_error_memory();
@@ -695,7 +698,7 @@ struct http_response *block_url(struct client_state *csp)
          }
          rsp->content_length = image_blank_length;
 
-         if (enlist_unique_header(rsp->headers, "Content-Type", "image/png"))
+         if (enlist_unique_header(rsp->headers, "Content-Type", BUILTIN_IMAGE_MIMETYPE))
          {
             free_http_response(rsp);
             return cgi_error_memory();
@@ -712,7 +715,7 @@ struct http_response *block_url(struct client_state *csp)
          }
          rsp->content_length = image_pattern_length;
 
-         if (enlist_unique_header(rsp->headers, "Content-Type", "image/png"))
+         if (enlist_unique_header(rsp->headers, "Content-Type", BUILTIN_IMAGE_MIMETYPE))
          {
             free_http_response(rsp);
             return cgi_error_memory();
