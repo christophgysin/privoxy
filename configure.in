@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.11  2001/07/21 18:00:07  jongfoster
+dnl Bumping version number to 2.9.7
+dnl
 dnl Revision 1.10  2001/07/18 17:25:04  oes
 dnl Fixed a typo
 dnl
@@ -151,7 +154,7 @@ AC_CONFIG_HEADER(config.h)
 
 VERSION_MAJOR=2
 VERSION_MINOR=9
-VERSION_POINT=6
+VERSION_POINT=7
 
 AC_SUBST(VERSION_MAJOR)
 AC_SUBST(VERSION_MINOR)
