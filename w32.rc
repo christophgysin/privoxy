@@ -31,6 +31,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/06/07 23:08:54  jongfoster
+ *    Forward and ACL edit options removed.
+ *    Config edit option renamed from "&Junkbuster" to "&Configuration".
+ *
  *    Revision 1.8  2001/05/31 21:37:11  jongfoster
  *    GUI changes to rename "permissions file" to "actions file".
  *
@@ -155,13 +159,9 @@ BEGIN
         MENUITEM                       SEPARATOR
         POPUP "&Options"
         BEGIN
-            MENUITEM "&Junkbuster...",              ID_TOOLS_EDITJUNKBUSTER
+            MENUITEM "&Configuration...",           ID_TOOLS_EDITJUNKBUSTER
             MENUITEM                                SEPARATOR
             MENUITEM "&Actions...",                 ID_TOOLS_EDITACTIONS
-            MENUITEM "&Forward...",                 ID_TOOLS_EDITFORWARD
-#ifdef ACL_FILES
-            MENUITEM "Access &Control Lists...",    ID_TOOLS_EDITACLS
-#endif /* def ACL_FILES */
 #ifdef PCRS
             MENUITEM "Perl &Regexps...",            ID_TOOLS_EDITPERLRE
 #endif /* def PCRS */
@@ -202,13 +202,9 @@ BEGIN
         MENUITEM "&Enable",                     ID_TOGGLE_IJB, CHECKED
         MENUITEM                                SEPARATOR
 #endif
-        MENUITEM "&Junkbuster...",              ID_TOOLS_EDITJUNKBUSTER
+        MENUITEM "&Configuration...",           ID_TOOLS_EDITJUNKBUSTER
         MENUITEM                                SEPARATOR
         MENUITEM "&Actions...",                 ID_TOOLS_EDITACTIONS
-        MENUITEM "&Forward...",                 ID_TOOLS_EDITFORWARD
-#ifdef ACL_FILES
-            MENUITEM "&Access Control Lists...",ID_TOOLS_EDITACLS
-#endif /* def ACL_FILES */
 #ifdef PCRS
             MENUITEM "Perl &Regexps...",        ID_TOOLS_EDITPERLRE
 #endif /* def PCRS */
