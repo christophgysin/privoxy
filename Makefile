@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.7  2002/10/22 02:22:18  hal9
+# Look for gmake first, and fall back to make. More Solaris trouble.
+#
 # Revision 1.6  2002/09/05 14:35:17  oes
 # Change make to gmake to fix auto-build on Solaris
 #
@@ -63,7 +66,12 @@ error:
 	    echo -n "*** Shall I do this for you now? (y/n) "; \
 	    read answer; \
 	    if [ $$answer = "y" ]; then \
-	       autoheader && autoconf && ./configure && gmake; \
+	       autoheader && autoconf && ./configure || exit 1; \
+		  	if which gmake >/dev/null 2>/dev/null ; then \
+			   gmake ;\
+			else \
+			   make ;\
+			fi ;\
 	    fi; \
 	 fi
 
