@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.21  2002/03/24 14:31:08  swa
+ *    remove more crappy files. set RPM
+ *    release version correctly.
+ *
  *    Revision 1.20  2002/03/24 13:46:44  swa
  *    name change related issue.
  *
@@ -199,6 +203,11 @@
  * Version number - Point (_._.X)
  */
 #undef VERSION_POINT
+
+/*
+ * Version number - RPM-release
+ */
+#undef VERSION_RPM_PACKAGE
 
 /*
  * Version number, as a string

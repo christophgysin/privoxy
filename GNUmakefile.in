@@ -483,7 +483,7 @@ clean:
 	$(RM) a.out core $(OBJS) $(W32_FILES) $(W32_INIS)
 
 clobber: clean
-	$(RM) $(PROGRAM) cscope.* logfile *.pdb *.lib *.exp `find . -name tags` TAGS junkbuster.log privoxy.log config.cache *~ *.tar.gz
+	$(RM) $(PROGRAM) cscope.* logfile *.pdb *.lib *.exp `find . -name tags` `find . -name TAGS` config.status config.h.in config.log junkbuster.log privoxy.log config.cache *~ *.tar.gz
 
 tags: $(SRCS) $(HDRS)
 	etags $(SRCS) $(HDRS)
@@ -518,6 +518,10 @@ install: all
 ## end:
 
 # $Log$
+# Revision 1.25  2002/03/24 14:31:08  swa
+# remove more crappy files. set RPM
+# release version correctly.
+#
 # Revision 1.24  2002/03/24 14:19:55  swa
 # set rpm package release in configure.in. nowhere else.
 #
