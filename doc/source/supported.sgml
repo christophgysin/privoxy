@@ -16,6 +16,14 @@
   This file used for inclusion with other documents only.
  ======================================================================
 
+ If you make changes to this file, please verify the finished 
+ docs all display as intended.
+
+ This file is included into:
+
+  user-manual
+  faq
+
 -->
 <para>
  At present, <application>Privoxy</application> is known to run on Win32, Mac

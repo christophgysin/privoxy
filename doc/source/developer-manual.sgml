@@ -336,7 +336,7 @@ following guidelines for changing stuff in the code. If it is
    </listitem> 
    <listitem>
     <para>
-      Tags should be nested like:
+      Tags should be nested and step indented like:
        <literallayout>
  &lt;para&gt;
   &lt;itemizedlist&gt;
@@ -369,6 +369,13 @@ following guidelines for changing stuff in the code. If it is
    <para>
      We have an international audience. Refrain from slang, or English 
      idiosyncrasies (too many to list :).
+   </para>
+  </listitem> 
+  <listitem>
+   <para>
+    Try to keep overall line lengths in source files to 80 characters or less
+    for obvious reasons. This is not always possible, with lenghty URLs for
+    instance.
    </para>
   </listitem> 
   <listitem>
@@ -2401,6 +2408,12 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.25  2002/04/06 05:07:28  hal9
+  -Add privoxy-man-page.sgml, for man page.
+  -Add authors.sgml for AUTHORS (and p-authors.sgml)
+  -Reworked various aspects of various docs.
+  -Added additional comments to sub-docs.
+
   Revision 1.24  2002/04/04 21:33:37  hal9
   More on documenting the documents.
 
