@@ -33,6 +33,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 16:34:52  jongfoster
+ *    Adding a missing #if
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -68,11 +71,15 @@ extern const char win32_blurb[];
 extern void InitWin32(void);
 
 #ifdef _WIN_CONSOLE
+
 extern int hideConsole;
-#endif /*def _WIN_CONSOLE */
+
+#else  /* ndef _WIN_CONSOLE */
 
 extern HINSTANCE g_hInstance;
 extern int g_nCmdShow;
+
+#endif  /* ndef _WIN_CONSOLE */
 
 extern int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 
