@@ -38,6 +38,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2002/01/09 14:27:25  oes
+ *    Added #defines for use and selection of the right
+ *    signature of the thread-safe *_r calls.
+ *
  *    Revision 1.15  2001/12/30 14:07:31  steudten
  *    - Add signal handling (unix)
  *    - Add SIGHUP handler (unix)
@@ -363,6 +367,26 @@
 
 /* Define if you have the strerror function.  */
 #undef HAVE_STRERROR
+
+/* If the (nonstandard and thread-safe) function gethostbyname_r
+ * is available, select which signature to use
+ */
+#undef HAVE_GETHOSTBYNAME_R_6_ARGS
+#undef HAVE_GETHOSTBYNAME_R_5_ARGS
+#undef HAVE_GETHOSTBYNAME_R_3_ARGS
+
+/* If the (nonstandard and thread-safe) function gethostbyaddr_r
+ * is available, select which signature to use
+ */
+#undef HAVE_GETHOSTBYADDR_R_8_ARGS
+#undef HAVE_GETHOSTBYADDR_R_7_ARGS
+#undef HAVE_GETHOSTBYADDR_R_5_ARGS
+
+/* Define if you have gmtime_r and localtime_r with a signature
+ * of (struct time *, struct tm *)
+ */
+#undef HAVE_GMTIME_R
+#undef HAVE_LOCALTIME_R
 
 /*
  * Defined always.
