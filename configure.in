@@ -28,6 +28,10 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.58  2002/04/04 20:49:20  swa
+dnl attempt to consolidate the
+dnl different dokbook versions.
+dnl
 dnl Revision 1.57  2002/04/04 00:36:36  gliptak
 dnl always use pcre for matching
 dnl
@@ -572,6 +576,7 @@ AC_SUBST(MAN2HTML)
 
 dnl Checking for the docbook.dsl stylesheet file
 dnl It is still not portable (directory slash)
+JADECAT=""
 if test $dodk = yes; then
   if test $DKPREFIX = none; then
     for i in /usr/share/sgml/docbook/dsssl-stylesheets /usr/share/sgml/docbkdsl /usr/share/sgml/docbook-dsssl; do
@@ -584,8 +589,19 @@ if test $dodk = yes; then
         echo "no"
       fi
     done
+# where are the catalogs?
+    for i in /usr/share/sgml/CATALOG.docbk30 /usr/share/sgml/CATALOG.docbk31; do
+      echo -n "checking for $i..."
+      if test -f $i; then
+        echo "yes"
+        JADECAT="$JADECAT -c $i"
+      else
+        echo "no"
+      fi
+    done
   fi
 fi
+AC_SUBST(JADECAT)
 AC_SUBST(DKPREFIX)
 
 dnl Save old CFLAGS so we can restore them later, then add SPECIAL_CFLAGS
