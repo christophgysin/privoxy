@@ -86,11 +86,10 @@ href="http://config.privoxy.org/">http://config.privoxy.org/</a>
 (Short form: <a href="http://ijbswa.sourceforge.net/config/">p.p</a>
 [Privoxy Proxy]).</small></p>
 
-<p>If you read the <a href="http://www.privoxy.org/user-manual/">user
+<p>If you have read the <a href="http://www.privoxy.org/user-manual/">user
 manual</a> and still have trouble, feel free to <a
 href="http://sourceforge.net/tracker/?group_id=11118&atid=211118">submit
-a support request</a>.</p>
+a support request</a> to get help.</p>
 
 </body>
 </html>
-
