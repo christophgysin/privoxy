@@ -1100,7 +1100,7 @@ FIXME: commented out until we have data. HB 03/18/02.
 
 <sect2 renderas="sect3" id="newads"><title>How can I submit new ads?</title>
 <para>
-Please see the <ulink url="contact.html">Contact section</ulink>.
+Please see the <link linkend="contact">Contact section</link>.
 </para>
 
 <para>
@@ -1513,6 +1513,9 @@ FIXME: Commented out until we have something to put here. HB 03/18/02.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 1.59  2002/05/15 04:03:30  hal9
+Fix ulink -> link markup.
+
 Revision 1.58  2002/05/10 01:48:20  hal9
 This is mostly proposed copyright/licensing additions and changes. Docs
 are still GPL, but licensing and copyright are more visible. Also, copyright
