@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/05/21 19:34:01  jongfoster
+ *    Made failure to bind() a fatal error.
+ *
  *    Revision 1.3  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.
  *    - Merged popupfile and cookiefile, and added control over PCRS
@@ -1052,11 +1055,12 @@ static void listen_loop(void)
 
    if (bfd < 0)
    {
-      log_error(LOG_LEVEL_ERROR, "can't bind %s:%d: %E "
+      log_error(LOG_LEVEL_FATAL, "can't bind %s:%d: %E "
          "- There may be another junkbuster or some other "
          "proxy running on port %d", 
          (NULL != haddr) ? haddr : "INADDR_ANY", hport, hport
       );
+      /* shouldn't get here */
       return;
    }
 
