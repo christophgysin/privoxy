@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2001/10/14 22:28:41  jongfoster
+ *    Fixing stupid typo.
+ *
  *    Revision 1.32  2001/10/14 22:20:18  jongfoster
  *    - Changes to CGI dispatching method to match CGI names exactly,
  *      rather than doing a prefix match.
@@ -380,7 +383,7 @@ struct http_response *dispatch_cgi(struct client_state *csp)
     * This is a CGI call.
     */
 
-   return dispatch_cgi_2(csp, path);
+   return dispatch_known_cgi(csp, path);
 }
 
 
