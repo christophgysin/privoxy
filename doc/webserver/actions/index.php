@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.17  2002/04/08 10:32:00  oes
+  cosmetics again
+
   Revision 1.16  2002/04/08 08:11:04  oes
   Bumped up actions file number
 
@@ -193,11 +196,11 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
   <div class="box">
    <p>
     <b>Thank you for reporting a missing or invalid action!</b> 
-    <br>The Privoxy team relies on <b>your</b> feedback to maintain an efficient actions file!
    </p>
 
    <p>
-    Please fill the below form and click to proceed to step 2.
+    The Privoxy team relies on <b>your</b> feedback to maintain an efficient actions file!
+    <br>Please fill the below form and click to proceed to step 2.
    </p>
   </div>
 
