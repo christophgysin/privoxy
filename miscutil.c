@@ -37,6 +37,9 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/06/09 10:55:28  jongfoster
+ *    Changing BUFSIZ ==> BUFFER_SIZE
+ *
  *    Revision 1.11  2001/06/07 23:09:19  jongfoster
  *    Cosmetic indentation changes.
  *
@@ -162,6 +165,11 @@ const char miscutil_rcs[] = "$Id$";
 #include <malloc.h>
 #include <ctype.h>
 
+/*
+ * FIXME: Only need project.h for BUFFER_SIZE.  It would be nice
+ * to remove this dependency.
+ */
+#include "project.h"
 #include "miscutil.h"
 #include "errlog.h"
 
@@ -282,7 +290,7 @@ char *strdup( const char *s )
 char *safe_strerror(int err)
 {
    char *s = NULL;
-   char buf[BUFSIZ];
+   char buf[BUFFER_SIZE];
 
 
 #ifdef HAVE_STRERROR

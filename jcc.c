@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/06/09 10:55:28  jongfoster
+ *    Changing BUFSIZ ==> BUFFER_SIZE
+ *
  *    Revision 1.19  2001/06/07 23:12:52  jongfoster
  *    Replacing function pointer in struct gateway with a directly
  *    called function forwarded_connect().
@@ -384,7 +387,8 @@ static void chat(struct client_state *csp)
 
 #define IS_ENABLED_AND   IS_TOGGLED_ON_AND IS_NOT_FORCED_AND
 
-   char buf[BUFSIZ], *hdr, *p, *req;
+   char buf[BUFFER_SIZE];
+   char *hdr, *p, *req;
    char *err = NULL;
    char *eno;
    fd_set rfds;
@@ -1433,7 +1437,7 @@ static void listen_loop(void)
 
          if (child_id < 0) /* failed */
          {
-            char buf[BUFSIZ];
+            char buf[BUFFER_SIZE];
 
             log_error(LOG_LEVEL_ERROR, "can't fork: %E");
 

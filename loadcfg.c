@@ -36,6 +36,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/06/09 10:55:28  jongfoster
+ *    Changing BUFSIZ ==> BUFFER_SIZE
+ *
  *    Revision 1.15  2001/06/07 23:13:40  jongfoster
  *    Merging ACL and forward files into config file.
  *    Cosmetic: Sorting config file options alphabetically.
@@ -438,7 +441,7 @@ void unload_configfile (void * data)
  *********************************************************************/
 struct configuration_spec * load_config(void)
 {
-   char buf[BUFSIZ];
+   char buf[BUFFER_SIZE];
    char *p, *q;
    FILE *configfp = NULL;
    struct configuration_spec * config = NULL;
@@ -501,9 +504,9 @@ struct configuration_spec * load_config(void)
 
    while (read_config_line(buf, sizeof(buf), configfp, fs) != NULL)
    {
-      char cmd[BUFSIZ];
-      char arg[BUFSIZ];
-      char tmp[BUFSIZ];
+      char cmd[BUFFER_SIZE];
+      char arg[BUFFER_SIZE];
+      char tmp[BUFFER_SIZE];
 #ifdef ACL_FILES
       struct access_control_list *cur_acl;
 #endif /* def ACL_FILES */

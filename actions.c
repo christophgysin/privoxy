@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/06/09 10:55:28  jongfoster
+ *    Changing BUFSIZ ==> BUFFER_SIZE
+ *
  *    Revision 1.6  2001/06/07 23:04:34  jongfoster
  *    Made get_actions() static.
  *
@@ -909,7 +912,7 @@ int load_actions_file(struct client_state *csp)
 
    struct url_actions *last_perm;
    struct url_actions *perm;
-   char  buf[BUFSIZ];
+   char  buf[BUFFER_SIZE];
    struct file_list *fs;
 #define MODE_START_OF_FILE 1
 #define MODE_ACTIONS       2
@@ -1006,7 +1009,7 @@ int load_actions_file(struct client_state *csp)
          {
             /* It's an actions block */
 
-            char  actions_buf[BUFSIZ];
+            char  actions_buf[BUFFER_SIZE];
             char * end;
 
             /* set mode */
@@ -1058,7 +1061,7 @@ int load_actions_file(struct client_state *csp)
       else if (mode == MODE_ALIAS)
       {
          /* define an alias */
-         char  actions_buf[BUFSIZ];
+         char  actions_buf[BUFFER_SIZE];
          struct action_alias * new_alias;
          int more = 1;
 

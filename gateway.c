@@ -34,6 +34,9 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/06/09 10:55:28  jongfoster
+ *    Changing BUFSIZ ==> BUFFER_SIZE
+ *
  *    Revision 1.2  2001/06/07 23:11:38  jongfoster
  *    Removing gateways[] list - no longer used.
  *    Replacing function pointer in struct gateway with a directly
@@ -180,8 +183,8 @@ static int socks4_connect(const struct forward_spec * fwd,
                           struct client_state *csp)
 {
    int web_server_addr;
-   unsigned char cbuf[BUFSIZ];
-   unsigned char sbuf[BUFSIZ];
+   unsigned char cbuf[BUFFER_SIZE];
+   unsigned char sbuf[BUFFER_SIZE];
    struct socks_op    *c = (struct socks_op    *)cbuf;
    struct socks_reply *s = (struct socks_reply *)sbuf;
    int n;

@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/06/09 10:55:28  jongfoster
+ *    Changing BUFSIZ ==> BUFFER_SIZE
+ *
  *    Revision 1.15  2001/06/07 23:14:14  jongfoster
  *    Removing ACL and forward file loaders - these
  *    files have been merged into the config file.
@@ -365,7 +368,7 @@ int create_url_spec(struct url_spec * url, char * buf)
    if (url->path)
    {
       int errcode;
-      char rebuf[BUFSIZ];
+      char rebuf[BUFFER_SIZE];
 
       if (NULL == (url->preg = zalloc(sizeof(*url->preg))))
       {
@@ -575,7 +578,7 @@ int check_file_changed(const struct file_list * current,
 char *read_config_line(char *buf, int buflen, FILE *fp, struct file_list *fs)
 {
    char *p, *q;
-   char linebuf[BUFSIZ];
+   char linebuf[BUFFER_SIZE];
    int contflag = 0;
 
    *buf = '\0';
@@ -698,7 +701,7 @@ int load_trustfile(struct client_state *csp)
    struct block_spec *b, *bl;
    struct url_spec **tl;
 
-   char  buf[BUFSIZ], *p, *q;
+   char  buf[BUFFER_SIZE], *p, *q;
    int reject, trusted;
    struct file_list *fs;
 
@@ -873,7 +876,7 @@ int load_re_filterfile(struct client_state *csp)
    struct re_filterfile_spec *bl;
    struct file_list *fs;
 
-   char  buf[BUFSIZ];
+   char  buf[BUFFER_SIZE];
    int error;
    pcrs_job *dummy;
 

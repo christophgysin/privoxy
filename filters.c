@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/06/09 10:55:28  jongfoster
+ *    Changing BUFSIZ ==> BUFFER_SIZE
+ *
  *    Revision 1.16  2001/06/07 23:10:26  jongfoster
  *    Allowing unanchored domain patterns to back off and retry
  *    if they partially match.  Optimized right-anchored patterns.
@@ -950,7 +953,7 @@ const struct forward_spec * forward_url(struct http_request *http,
 struct url_spec dsplit(char *domain)
 {
    struct url_spec ret[1];
-   char *v[BUFSIZ];
+   char *v[BUFFER_SIZE];
    int size;
    char *p;
 

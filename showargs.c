@@ -33,6 +33,9 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/06/09 10:55:28  jongfoster
+ *    Changing BUFSIZ ==> BUFFER_SIZE
+ *
  *    Revision 1.14  2001/06/07 23:15:40  jongfoster
  *    Removing config->proxy_args_gateways
  *    Missing return statement added to end_proxy_args().
@@ -244,7 +247,7 @@ const char showargs_h_rcs[] = SHOWARGS_H_VERSION;
  *********************************************************************/
 void savearg(char *c, char *o, struct configuration_spec * config)
 {
-   char buf[BUFSIZ];
+   char buf[BUFFER_SIZE];
 
    *buf = '\0';
 
@@ -327,7 +330,7 @@ void init_proxy_args(int argc, const char *argv[], struct configuration_spec * c
 char *end_proxy_args(struct configuration_spec * config)
 {
    char *b = NULL;
-   char buf[BUFSIZ];
+   char buf[BUFFER_SIZE];
 
    /* Instead of including *all* dot h's in the project (thus creating a
     * tremendous amount of dependencies), I will concede to declaring them
