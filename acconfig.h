@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2002/09/06 12:14:12  oes
+ *    Added missing preproc symbols PCRE*_H_IN_SUBDIR
+ *
  *    Revision 1.29  2002/09/04 12:03:18  oes
  *    re-enable build on older setups
  *
@@ -254,6 +257,16 @@
  * Don't bother to change this here! Use configure instead.
  */
 #undef STATIC_PCRS
+
+/* 
+ * Does pcre.h need to be included as <pcre/pcre.h>?
+ */
+#undef PCRE_H_IN_SUBDIR
+
+/* 
+ * Does pcreposix.h need to be included as <pcre/pcre.h>?
+ */
+#undef PCREPOSIX_H_IN_SUBDIR
 
 /*
  * Allows the use of an ACL to control access to the proxy by IP address.
