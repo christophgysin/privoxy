@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2001/07/29 18:47:05  jongfoster
+ *    Adding missing #include "loadcfg.h"
+ *
  *    Revision 1.31  2001/07/29 12:17:48  oes
  *    Applied pthread fix by Paul Lieverse
  *
@@ -320,6 +323,7 @@ const char jcc_rcs[] = "$Id$";
 #include "gateway.h"
 #include "actions.h"
 #include "cgi.h"
+#include "loadcfg.h"
 
 const char jcc_h_rcs[] = JCC_H_VERSION;
 const char project_h_rcs[] = PROJECT_H_VERSION;

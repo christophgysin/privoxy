@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/07/29 18:47:05  jongfoster
+ *    Adding missing #include "loadcfg.h"
+ *
  *    Revision 1.13  2001/07/19 19:15:14  haroon
  *    - Added a FIXME for EditFile but didn't fix :-)
  *
@@ -129,6 +132,7 @@ const char w32log_rcs[] = "$Id$";
 #include "jcc.h"
 #include "miscutil.h"
 #include "errlog.h"
+#include "loadcfg.h"
 
 const char w32res_h_rcs[] = W32RES_H_VERSION;
 

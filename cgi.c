@@ -36,6 +36,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/07/29 18:47:05  jongfoster
+ *    Adding missing #include "loadcfg.h"
+ *
  *    Revision 1.11  2001/07/18 17:24:37  oes
  *    Changed to conform to new pcrs interface
  *
@@ -143,6 +146,7 @@ const char cgi_rcs[] = "$Id$";
 #include "errlog.h"
 #include "miscutil.h"
 #include "showargs.h"
+#include "loadcfg.h"
 
 const char cgi_h_rcs[] = CGI_H_VERSION;
 
