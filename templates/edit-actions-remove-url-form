@@ -33,6 +33,9 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.12  2002/04/08 17:08:14  oes
+#    Cosmetic: make status in title lowercase
+#
 #    Revision 1.11  2002/04/05 16:01:30  oes
 #    Correct HTML, external Stylesheets, eye candy, some fixes
 #
@@ -115,7 +118,7 @@
       <td class="title">
         <h1>
           This is <a href="@homepage@">Privoxy</a> @version@ on @my-hostname@ (@my-ip-address@), port @my-port@,
-          @if-enabled-display-then@Enabled@else-not-enabled-display@Disabled@endif-enabled-display@
+          @if-enabled-display-then@enabled@else-not-enabled-display@disabled@endif-enabled-display@
         </h1>
       </td>
     </tr>
