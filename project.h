@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.56  2002/03/13 20:27:30  oes
+ *    Fixing bug with CT_TABOO
+ *
  *    Revision 1.55  2002/03/12 01:42:50  oes
  *    Introduced modular filters
  *
@@ -636,10 +639,10 @@ struct iob
 #define IOB_PEEK(CSP) ((CSP->iob->cur > CSP->iob->eod) ? (CSP->iob->eod - CSP->iob->cur) : 0)
 #define IOB_RESET(CSP) if(CSP->iob->buf) free(CSP->iob->buf); memset(CSP->iob, '\0', sizeof(CSP->iob));
 
-/* Keys for csp->content_type */
+/* Bits for csp->content_type */
 #define CT_TEXT   1 /* Suitable for pcrs filtering */
 #define CT_GIF    2 /* Suitable for GIF filtering */
-#define CT_TABOO  3 /* DONT filter */
+#define CT_TABOO  4 /* DONT filter */
 
 #define ACTION_MASK_ALL        (~0U)
 
