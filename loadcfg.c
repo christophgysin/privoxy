@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2001/10/07 15:36:00  oes
+ *    Introduced new config option "buffer-limit"
+ *
  *    Revision 1.22  2001/09/22 16:36:59  jongfoster
  *    Removing unused parameter fs from read_config_line()
  *
@@ -289,6 +292,7 @@ static struct file_list *current_configfile = NULL;
 
 #define hash_actions_file              1196306641ul /* "actionsfile" */
 #define hash_admin_address             4112573064ul /* "admin-address" */
+#define hash_buffer_limit              1881726070ul /* "buffer-limit */
 #define hash_confdir                      1978389ul /* "confdir" */
 #define hash_debug                          78263ul /* "debug" */
 #define hash_deny_access               1227333715ul /* "deny-access" */
@@ -457,6 +461,7 @@ struct configuration_spec * load_config(void)
 
    config->multi_threaded    = 1;
    config->hport             = HADDR_PORT;
+   config->buffer_limit      = 4096 * 1024;
 
    if ((configfp = fopen(configfile, "r")) == NULL)
    {
@@ -533,6 +538,13 @@ struct configuration_spec * load_config(void)
          case hash_admin_address :
             freez((char *)config->admin_address);
             config->admin_address = strdup(arg);
+            continue;       
+
+/****************************************************************************
+ * buffer-limit n
+ ****************************************************************************/
+         case hash_buffer_limit :
+            config->buffer_limit = (size_t) 1024 * atoi(arg);
             continue;       
 
 /****************************************************************************
