@@ -36,8 +36,8 @@ Summary:      Privoxy - privacy enhancing proxy
 Vendor:       Privoxy.Org
 Name:         privoxy-suse
 Distribution: defineme
-Version: 2.9.14
-Release: 3
+Version: 2.9.15
+Release: 1
 # Needs makefile change: Source: http://prdownloads.sourceforge.net/ijbswa/privoxy-%{version}-%{status}-src.tar.gz
 Source: http://prdownloads.sourceforge.net/ijbswa/privoxy-%{version}.tar.gz
 # not sure if this works
@@ -214,6 +214,10 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 # -----------------------------------------------------------------------------
 #
 %changelog
+* Fri May 03 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
++ privoxy-suse-2.9.15-1
+- Version bump
+
 * Fri Apr 26 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + privoxy-suse-2.9.14-3
 - Changing Vendor to Privoxy.Org
@@ -310,6 +314,12 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.19  2002/05/03 17:14:36  morcego
+# *.spec: Version bump to 2.9.15
+# -rh.spec: noreplace for %%{privoxyconf}/config
+#           Will interrupt the build if versions from configure.in and
+# 		specfile do not match
+#
 # Revision 1.18  2002/04/27 20:26:59  swa
 # uid, gui 73 incorporated
 #
