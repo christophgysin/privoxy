@@ -33,6 +33,10 @@
 # 
 #  Revisions   :
 #     $Log$
+#     Revision 1.10  2001/11/05 21:30:23  steudten
+#     Make JB startup without & due to be a 'real' daemon right now.
+#     Make the script easy to change.
+#
 #     Revision 1.9  2001/09/15 01:53:12  steudten
 #
 #     Remove test for subsys flag in start. Some minor changes.
@@ -79,8 +83,9 @@
 #  Check that networking is up.
 [ ${NETWORKING} = "no" ] && exit 0
 
-JB_BIN="/usr/sbin/junkbuster"
-JB_CONF="/etc/junkbuster/config"
+JB_PRG="junkbuster"
+JB_BIN="/usr/sbin/$JB_PRG"
+JB_CONF="/etc/$JB_PRG/config"
 JB_USER="junkbuster"
 
 # some checks for us
@@ -89,22 +94,22 @@ JB_USER="junkbuster"
 
 # See how we were called.
 
-JB="$JB_BIN $JB_CONF &"
+JB="$JB_BIN $JB_CONF"
 
 start () {
 	# start daemon
-	echo -n $"Starting junkbuster: "
+	echo -n $"Starting $JB_PRG: "
 	daemon --user $JB_USER $JB 
 	RETVAL=$?
 	echo
-	[ $RETVAL = 0 ] && touch /var/lock/subsys/junkbuster
+	[ $RETVAL = 0 ] && touch /var/lock/subsys/$JB_PRG
 	return $RETVAL
 }
 
 stop () {
 	# stop daemon
-	echo -n $"Stopping junkbuster: "
-	killproc junkbuster && rm -f /var/lock/subsys/junkbuster
+	echo -n $"Stopping $JB_PRG: "
+	killproc $JB_PRG && rm -f /var/lock/subsys/$JB_PRG
 	RETVAL=$?
 	echo
 	return $RETVAL
@@ -124,18 +129,18 @@ case "$1" in
 	;;
   condrestart)
 	# restart only if already running
-	if [ -f /var/lock/subsys/junkbuster ] ; then
+	if [ -f /var/lock/subsys/$JB_PRG ] ; then
 		stop
 		start
 		RETVAL=$?
 	fi 
 	;;
   status)
-	status junkbuster
+	status $JB_PRG 
 	RETVAL=$?
 	;;
   *)
-	echo $"Usage: junkbuster {start|stop|reload|restart|condrestart|status}"
+	echo $"Usage: $JB_PRG {start|stop|reload|restart|condrestart|status}"
 	exit 1
 esac
 
