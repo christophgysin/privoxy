@@ -801,6 +801,8 @@ login.passport.com/logout\.(asp|srf)\?
 #MASTER# PROBLEM-URL: http://www.fileplanet.com
 download.com.com/redir\?
 www.fileplanet.com/redir\.asp\?
+#MASTER# PROBLEM-URL: http://www.washingtonpost.com/
+.washingtonpost.com
 
 #----------------------------------------------------------------------------
 # No filtering for sourcecode
