@@ -41,6 +41,10 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2001/09/24 21:09:24  jongfoster
+ *    Fixing 2 memory leaks that Guy spotted, where the paramater to
+ *    enlist() was not being free()d.
+ *
  *    Revision 1.28  2001/09/22 16:32:28  jongfoster
  *    Removing unused #includes.
  *
@@ -1269,6 +1273,7 @@ void client_x_forwarded_adder(struct client_state *csp)
    log_error(LOG_LEVEL_HEADER, "addh: %s", p);
    enlist(csp->headers, p);
 
+   freez(p);
 }
 
 
@@ -1289,8 +1294,7 @@ void client_x_forwarded_adder(struct client_state *csp)
  *********************************************************************/
 void connection_close_adder(struct client_state *csp)
 {
-   enlist(csp->headers, strdup("Connection: close"));
-
+   enlist(csp->headers, "Connection: close");
 }
 
 
@@ -1350,7 +1354,9 @@ char *client_host(const struct parsers *v, const char *s, struct client_state *c
    char *cleanhost = strdup(s);
  
    if(csp->force)
+   {
       strclean(cleanhost, FORCE_PREFIX);
+   }
  
    return(cleanhost);
 }
