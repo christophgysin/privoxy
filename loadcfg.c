@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.35  2002/03/07 03:52:44  oes
+ *    Set logging to tty for --no-daemon mode
+ *
  *    Revision 1.34  2002/03/06 23:14:35  jongfoster
  *    Trivial cosmetic changes to make function comments easier to find.
  *
@@ -984,7 +987,7 @@ struct configuration_spec * load_config(void)
  * *************************************************************************/
          case hash_logfile :
             freez(config->logfile);
-            config->logfile = make_path(config->logdir, arg);
+            config->logfile = no_daemon ? NULL : make_path(config->logdir, arg);
             continue;
 
 /* *************************************************************************

@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2002/03/07 03:52:44  oes
+ *    Set logging to tty for --no-daemon mode
+ *
  *    Revision 1.8  2002/03/04 18:19:49  oes
  *    Added extern const char *pidfile
  *
@@ -96,6 +99,7 @@ extern struct file_list    files[];
 #ifdef unix
 extern const char *pidfile;
 #endif
+extern int no_daemon;
 
 /* Functions */
 
