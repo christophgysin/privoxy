@@ -6,7 +6,7 @@ const char amiga_rcs[] = "$Id$";
  * Purpose     :  Amiga-specific declarations.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                This program is free software; you can redistribute it 
  *                and/or modify it under the terms of the GNU General
@@ -28,6 +28,9 @@ const char amiga_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.6  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on

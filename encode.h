@@ -9,7 +9,7 @@
  *                encode cookies and HTML text.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.3  2002/01/22 23:28:07  jongfoster
  *    Adding convenience function html_encode_and_free_original()
  *    Making all functions accept NULL paramaters - in this case, they

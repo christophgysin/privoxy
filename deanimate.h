@@ -11,7 +11,7 @@
  *                
  *
  * Copyright   :  Written by and Copyright (C) 2001 Andreas S. Oesterhelt
- *                for the SourceForge IJBSWA team. http://ijbswa.sourceforge.net
+ *                for the SourceForge Privoxy team. http://ijbswa.sourceforge.net
  *
  *                Based on ideas from the Image::DeAnim Perl module by
  *                Ken MacFarlane, <ksm+cpan@universal.dca.net>
@@ -40,6 +40,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.6  2002/03/08 17:46:04  jongfoster
  *    Fixing int/size_t warnings
  *

@@ -12,7 +12,7 @@ const char filters_rcs[] = "$Id$";
  *                   'ijb_send_banner', and `trust_url'
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and
@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.50  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.49  2002/03/16 20:29:14  oes
  *    Cosmetics
  *

@@ -12,7 +12,7 @@ const char cgi_rcs[] = "$Id$";
  * 
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -38,6 +38,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.51  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.50  2002/03/16 23:54:06  jongfoster
  *    Adding graceful termination feature, to help look for memory leaks.
  *    If you enable this (which, by design, has to be done by hand
@@ -339,7 +342,7 @@ const char cgi_h_rcs[] = CGI_H_VERSION;
 static const struct cgi_dispatcher cgi_dispatchers[] = {
    { "",
          cgi_default,
-         "Junkbuster main page" },
+         "Privoxy main page" },
 #ifdef FEATURE_GRACEFUL_TERMINATION
    { "die", 
          cgi_die,  

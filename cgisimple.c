@@ -3,14 +3,14 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * File        :  $Source$
  *
- * Purpose     :  Simple CGIs to get information about JunkBuster's
+ * Purpose     :  Simple CGIs to get information about Privoxy's
  *                status.
  *                
  *                Functions declared include:
  * 
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.19  2002/03/16 23:54:06  jongfoster
  *    Adding graceful termination feature, to help look for memory leaks.
  *    If you enable this (which, by design, has to be done by hand
@@ -1043,7 +1046,7 @@ jb_err cgi_robots_txt(struct client_state *csp,
    jb_err err;
 
    rsp->body = strdup(
-      "# This is the Internet Junkbuster control interface.\n"
+      "# This is the Privoxy control interface.\n"
       "# It isn't very useful to index it, and you're likely to break stuff.\n"
       "# So go away!\n"
       "\n"

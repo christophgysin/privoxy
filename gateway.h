@@ -10,7 +10,7 @@
  *                proxy).  Also contains the list of gateway types.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.4  2002/03/09 20:03:52  jongfoster
  *    - Making various functions return int rather than size_t.
  *      (Undoing a recent change).  Since size_t is unsigned on

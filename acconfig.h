@@ -11,7 +11,7 @@
  *                getting ludicrously long with feature defines.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2002/03/24 13:25:42  swa
+ *    name change related issues
+ *
  *    Revision 1.18  2002/03/08 16:40:28  oes
  *    Added FEATURE_NO_GIFS
  *

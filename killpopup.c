@@ -6,7 +6,7 @@ const char killpopup_rcs[] = "$Id$";
  * Purpose     :  Handles the filtering of popups.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and
@@ -32,6 +32,9 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.14  2002/03/07 03:46:53  oes
  *    Fixed compiler warnings etc
  *

@@ -9,7 +9,7 @@ const char jbsockets_rcs[] = "$Id$";
  *                on many platforms.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.28  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.27  2002/03/13 00:27:05  jongfoster
  *    Killing warnings
  *

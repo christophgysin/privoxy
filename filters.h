@@ -13,7 +13,7 @@
  *                   `show_proxy_args', and `trust_url'
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -39,6 +39,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.16  2002/01/17 21:01:02  jongfoster
  *    Moving all our URL and URL pattern parsing code to urlmatch.c.
  *

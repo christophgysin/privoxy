@@ -9,7 +9,7 @@
  * Purpose     :  Amiga-specific declarations.
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                This program is free software; you can redistribute it 
  *                and/or modify it under the terms of the GNU General
@@ -31,6 +31,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.7  2002/03/03 09:18:03  joergs
  *    Made jumbjuster work on AmigaOS again.
  *

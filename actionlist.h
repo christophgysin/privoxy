@@ -13,7 +13,7 @@
  *                    DEFINE_ACTION_ALIAS
  *
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
- *                IJBSWA team.  http://ijbswa.sourceforge.net
+ *                Privoxy team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and 
@@ -39,6 +39,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2002/03/24 13:25:43  swa
+ *    name change related issues
+ *
  *    Revision 1.11  2002/03/12 01:42:49  oes
  *    Introduced modular filters
  *
