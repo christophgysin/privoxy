@@ -24,12 +24,6 @@
  The 'replaceable' and 'command' tags are used here somewhat unconventionally,
  since it seems to generate the proper formatting (at least for me :).
 
- Create man page: 'make man'
-
- Requires docbook2man (short perl script), see CVS
- http://sources.redhat.com/docbook-tools/. Also requires openjade and SGMLSpm
- perl module. 
- 
  For man page references, see:
  http://www.linuxdoc.org/HOWTO/mini/DocBook-Install/using.html
  http://docbook.org/tdg/en/html/ch02.html#making-refentry
