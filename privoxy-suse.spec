@@ -199,7 +199,7 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 %doc doc/webserver/faq
 %doc doc/webserver/p_doc.css
 %doc doc/webserver/p_web.css
-%doc doc/webserver/index.html
+%doc doc/webserver/privoxy-index.html
 %doc doc/webserver/images
 #%doc privoxy.weekly privoxy.monthly AUTHORS
 %dir %{privoxyconf}
@@ -215,6 +215,10 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 # -----------------------------------------------------------------------------
 #
 %changelog
+* Mon May 27 2002 Hal Burgiss <hal@foobox.net>
++ privoxy-2.9.15-1
+- Index.html is now privoxy-index.html.
+
 * Fri May 24 2002 Hal Burgiss <hal@foobox.net>
 + privoxy-2.9.15-1
 - Add doc/images directory.
@@ -319,6 +323,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.21  2002/05/28 03:56:59  hal9
+# Index.html re-vamped as privoxy-index.html for docs.
+#
 # Revision 1.20  2002/05/25 02:08:23  hal9
 # Add doc/images directory.
 # Redhat: alphabetized list of templates (and I think added one in the process)
