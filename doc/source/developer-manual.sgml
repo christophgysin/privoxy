@@ -32,21 +32,36 @@
 
     <abstract>
       <para>
-The developer manual gives the users information on how to help the developer
-team. It provides guidance on coding, testing, documentation and other
-issues. <application>Privoxy</application> is a web proxy with advanced
-filtering capabilities for protecting privacy, filtering web page content,
-managing cookies, controlling access, and removing ads, banners, pop-ups and
-other obnoxious Internet Junk. <application>Privoxy</application> has a very
-flexible configuration and can be customized to suit individual needs and
-tastes. <application>Privoxy</application> has application for both stand-alone
-systems and multi-user networks.
+ The developer manual gives the users information on how to help the developer
+ team. It provides guidance on coding, testing, documentation and other
+ issues. 
  </para>
-      <para>
-You can find the latest version of the user manual at <ulink
-url="http://www.privoxy.org/developer-manual/">http://www.privoxy.org/developer-manual/</ulink>.
-Please see the Contact section in the user-manual if you want to contact the developers.
- </para>
+
+<para>
+ <application>Privoxy</application> is a web proxy with advanced filtering
+ capabilities for protecting privacy, filtering web page content, managing
+ cookies, controlling access, and removing ads, banners, pop-ups and other
+ obnoxious Internet junk. <application>Privoxy</application> has a very
+ flexible configuration and can be customized to suit individual needs and
+ tastes. <application>Privoxy</application> has application for both
+ stand-alone systems and multi-user networks.
+</para>
+
+<para>
+ <application>Privoxy</application> is based on the code of the 
+ <application>Internet Junkbuster</application>.
+ <application>Junkbuster</application> was originally written by JunkBusters
+ Corporation, and was released as free open-source software under the GNU GPL.
+ Stefan Waldherr made many improvements, and started the SourceForge project
+ to continue development.
+</para>
+
+<para>
+ You can find the latest version of the user manual at <ulink
+ url="http://www.privoxy.org/developer-manual/">http://www.privoxy.org/developer-manual/</ulink>.
+ Please see the Contact section in the user-manual if you want to contact the
+ developers.
+</para>
 
 <!--        <para> -->
 <!--    Feel free to send a note to the developers at <email>ijbswa-developers@lists.sourceforge.net</email>. -->
@@ -1498,6 +1513,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.12  2002/03/27 01:02:51  hal9
+  Touch up on name change...
+
   Revision 1.11  2002/03/26 22:29:55  swa
   we have a new homepage!
 
