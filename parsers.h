@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/10/13 12:47:32  joergs
+ *    Removed client_host, added client_host_adder
+ *
  *    Revision 1.16  2001/10/07 18:50:16  oes
  *    Added server_content_encoding, renamed server_transfer_encoding
  *
@@ -148,6 +151,7 @@ extern char *client_x_forwarded(const struct parsers *v, const char *s, struct c
 extern char *client_accept_encoding(const struct parsers *v, const char *s, struct client_state *csp);
 extern char *client_te(const struct parsers *v, const char *s, struct client_state *csp);
 
+extern void client_host_adder(struct client_state *csp);
 extern void client_cookie_adder(struct client_state *csp);
 extern void client_xtra_adder(struct client_state *csp);
 extern void client_accept_encoding_adder(struct client_state *csp);
@@ -164,7 +168,6 @@ extern char *server_transfer_coding(const struct parsers *v, const char *s, stru
 extern char *server_http(const struct parsers *v, const char *s, struct client_state *csp);
 
 #ifdef FEATURE_FORCE_LOAD
-extern char *client_host(const struct parsers *v, const char *s, struct client_state *csp);
 extern int strclean(const char *string, const char *substring);
 #endif /* def FEATURE_FORCE_LOAD */
 
