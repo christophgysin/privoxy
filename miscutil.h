@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/09/20 13:34:09  steudten
+ *
+ *    change long to int for prototype hash_string()
+ *
  *    Revision 1.9  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -100,7 +104,7 @@ extern "C" {
 
 extern void *zalloc(int size);
 
-extern unsigned long hash_string(const char* s);
+extern unsigned int hash_string(const char* s);
 
 extern char *safe_strerror(int err);
 
