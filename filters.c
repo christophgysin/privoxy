@@ -38,6 +38,11 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.22  2001/07/18 12:29:34  oes
+ *    - Made gif_deanimate_response respect
+ *      csp->action->string[ACTION_STRING_DEANIMATE]
+ *    - Logging cosmetics
+ *
  *    Revision 1.21  2001/07/13 13:59:53  oes
  *     - Introduced gif_deanimate_response which shares the
  *       generic content modification interface of pcrs_filter_response
@@ -963,16 +968,16 @@ char *gif_deanimate_response(struct client_state *csp)
    if (  (NULL == (in =  (struct binbuffer *)zalloc(sizeof *in )))
       || (NULL == (out = (struct binbuffer *)zalloc(sizeof *out))) )
    {
-      log_error(LOG_LEVEL_DEANIMATE, "failed! (No Mem!)");
+      log_error(LOG_LEVEL_DEANIMATE, "failed! (no mem)");
       return NULL;
    }
 
    in->buffer = csp->iob->cur;
    in->size = size;
 
-   if (gif_deanimate(in, out))
+   if (gif_deanimate(in, out, strncmp("last", csp->action->string[ACTION_STRING_DEANIMATE], 4)))
    {
-      log_error(LOG_LEVEL_DEANIMATE, "failed! (size %d)", size);
+      log_error(LOG_LEVEL_DEANIMATE, "failed! (gif parsing)");
       free(in);
       buf_free(out);
       return(NULL);
