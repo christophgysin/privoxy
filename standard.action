@@ -96,7 +96,7 @@ standard.Cautious
 -filter{tiny-textforms} \
 +filter{jumping-windows} \
 -filter{frameset-borders} \
-+filter{demoronizer} \
+-filter{demoronizer} \
 -filter{shockwave-flash} \
 -filter{quicktime-kioskmode} \
 -filter{fun} \
