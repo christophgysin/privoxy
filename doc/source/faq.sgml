@@ -96,7 +96,7 @@ Please see the Contact section in the user-manual if you want to contact the dev
 </sect3>
 
 <sect3 id="configfiles"> <title>What are the differences between
-ijb-intermediate.action, ijb-basci.action, etc.?</title>
+ijb-intermediate.action, ijb-basic.action, etc.?</title>
  <para>
 Configuring the Internet Junkbuster is not easy. To help you get started, we
 provide you with three different default configurations. The following table
@@ -452,6 +452,9 @@ more through Google.
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $Log$
+Revision 1.12  2002/03/11 20:13:21  swa
+typo
+
 Revision 1.11  2002/03/11 18:42:27  swa
 new section
 
