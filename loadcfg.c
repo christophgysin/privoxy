@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.38  2002/03/24 13:05:48  jongfoster
+ *    Renaming re_filterfile to filterfile
+ *
  *    Revision 1.37  2002/03/16 23:54:06  jongfoster
  *    Adding graceful termination feature, to help look for memory leaks.
  *    If you enable this (which, by design, has to be done by hand
@@ -367,6 +370,7 @@ static struct file_list *current_configfile = NULL;
 #define hash_deny_access               1227333715ul /* "deny-access" */
 #define hash_enable_edit_actions       2517097536ul /* "enable-edit-actions" */
 #define hash_enable_remote_toggle      2979744683ul /* "enable-remote-toggle" */
+#define hash_filterfile                 250887266ul /* "filterfile" */
 #define hash_forward                      2029845ul /* "forward" */
 #define hash_forward_socks4            3963965521ul /* "forward-socks4" */
 #define hash_forward_socks4a           2639958518ul /* "forward-socks4a" */
@@ -376,7 +380,6 @@ static struct file_list *current_configfile = NULL;
 #define hash_logfile                      2114766ul /* "logfile" */
 #define hash_permit_access             3587953268ul /* "permit-access" */
 #define hash_proxy_info_url            3903079059ul /* "proxy-info-url" */
-#define hash_re_filterfile             3877522444ul /* "re_filterfile" */
 #define hash_single_threaded           4250084780ul /* "single-threaded" */
 #define hash_suppress_blocklists       1948693308ul /* "suppress-blocklists" */
 #define hash_toggle                        447966ul /* "toggle" */
@@ -1113,7 +1116,7 @@ struct configuration_spec * load_config(void)
  * re_filterfile file-name
  * In confdir by default.
  * *************************************************************************/
-         case hash_re_filterfile :
+         case hash_filterfile :
             freez(config->re_filterfile);
             config->re_filterfile = make_path(config->confdir, arg);
             continue;
