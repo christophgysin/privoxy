@@ -26,6 +26,7 @@ h4 { color: #99001d; font-size: 110%; }
 div.sect1 { margin-left: 2%; }
 h1,h2,h3,h4 {margin-left: -2%; }
 h1.title { margin-left: 0; }
+h2.subtitle { margin-left: 0; }
 
 /*
  * Underlined links disturb the examples;
