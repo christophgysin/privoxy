@@ -558,6 +558,14 @@ automatically start Privoxy in the boot process.
 
  <listitem>
   <para>
+   For easy access to Privoxy's most important controls, drag the provided
+   <link linkend="bookmarklets">Bookmarklets</link> into your browser's
+   personal toolbar.
+  </para>
+ </listitem> 
+
+ <listitem>
+  <para>
    Please see the section <link linkend="contact">Contacting the
    Developers</link> on how to report bugs or problems with websites or to get
    help. 
@@ -6287,6 +6295,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.123.2.39  2004/01/30 22:31:40  oes
+ Added a hint re bookmarklets to Quickstart section
+
  Revision 1.123.2.38  2004/01/30 16:47:51  oes
  Some minor clarifications
 
