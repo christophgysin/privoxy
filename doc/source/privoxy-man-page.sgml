@@ -42,7 +42,7 @@
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
 <!entity authors SYSTEM "p-authors.sgml">
-<!entity p-version "3.0.1">
+<!entity p-version "3.0.2">
 <!entity p-status "stable">
 <!entity % p-not-stable "IGNORE">
 <!entity % p-stable "INCLUDE">
@@ -76,6 +76,7 @@
   <arg><option>--no-daemon</option></arg>
   <arg><option>--pidfile </option><replaceable class="parameter">pidfile</replaceable></arg>  
   <arg><option>--user </option><replaceable class="parameter">user[.group]</replaceable></arg> 
+  <arg><option>--chroot</option></arg>
   <arg><replaceable class="parameter">configfile</replaceable></arg>        
   <command>&nbsp;(UNIX)</command>
  </cmdsynopsis>
