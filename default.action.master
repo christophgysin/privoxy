@@ -862,6 +862,9 @@ www.acm.org
 www.motel6.com/maps/detailmap_tracker.asp
 #MASTER# UNBLOCK-REFERRER: http://adzapper.sourceforge.net/
 adzapper.
+#MASTER# UNBLOCK-REFERRER: http://de.altavista.com/web/adv
+.altavista.com/web/adv
+
 
 #############################################################################
 # Site-specific special rules:
@@ -1130,6 +1133,14 @@ www.spiegel.de/static/js/flash-plugin\.js
 #MASTER# PROBLEM-URL: http://www.quelle-bausparkasse.de/
 www.quelle-bausparkasse.de/$
 
+#----------------------------------------------------------------------------
+# Content under these TLDs is most probably in character sets which the
+# demoronizer filter would mess up
+#----------------------------------------------------------------------------
+{-filter{demoronizer}}
+.jp
+.cn
+.tw
 
 #----------------------------------------------------------------------------
 # Misc special rules:
