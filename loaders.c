@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.49  2002/04/19 16:53:25  jongfoster
+ *    Optimize away a function call by using an equivalent macro
+ *
  *    Revision 1.48  2002/04/05 00:56:09  gliptak
  *    Correcting typo to clean up on realloc failure
  *
@@ -549,7 +552,7 @@ jb_err simple_read_line(FILE *fp, char **dest, int *newline)
 
    for (;;)
    {
-      ch = fgetc(fp);
+      ch = getc(fp);
       if (ch == EOF)
       {
          if (len > 0)
