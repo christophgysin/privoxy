@@ -28,6 +28,9 @@ const char amiga_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/10/07 15:35:13  oes
+ *    Replaced 6 boolean members of csp with one bitmap (csp->flags)
+ *
  *    Revision 1.3  2001/09/12 22:54:51  joergs
  *    Stacksize of main thread increased.
  *
@@ -78,12 +81,12 @@ __saveds ULONG server_thread(void)
          Signal(main_task,SIGF_SINGLE);
          serve((struct client_state *) local_csp);
       } else {
-         local_csp->active = 0;
+         local_csp->flags &= ~CSP_FLAG_ACTIVE;
          Signal(main_task,SIGF_SINGLE);
       }
       CloseLibrary(SocketBase);
    } else {
-      local_csp->active = 0;
+      local_csp->flags &= ~CSP_FLAG_ACTIVE;
       Signal(main_task,SIGF_SINGLE);
    }
    childs--;
