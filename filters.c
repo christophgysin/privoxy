@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.49  2002/03/16 20:29:14  oes
+ *    Cosmetics
+ *
  *    Revision 1.48  2002/03/13 20:25:34  oes
  *    Better logging for content filters
  *
@@ -1298,18 +1301,18 @@ char *pcrs_filter_response(struct client_state *csp)
       for (filtername = csp->action->multi[ACTION_MULTI_FILTER]->first;
            filtername ; filtername = filtername->next)
       {
-         if (strcmp(b->filtername, filtername->str) == 0)
+         if (strcmp(b->name, filtername->str) == 0)
          {
             int current_hits = 0;
 
             if ( NULL == b->joblist )
             {
-               log_error(LOG_LEVEL_RE_FILTER, "Filter %s has empty joblist. Nothing to do.", b->filtername);
+               log_error(LOG_LEVEL_RE_FILTER, "Filter %s has empty joblist. Nothing to do.", b->name);
                return(NULL);
             }
 
             log_error(LOG_LEVEL_RE_FILTER, "re_filtering %s%s (size %d) with filter %s...",
-                      csp->http->hostport, csp->http->path, size, b->filtername);
+                      csp->http->hostport, csp->http->path, size, b->name);
 
             /* Apply all jobs from the joblist */
             for (job = b->joblist; NULL != job; job = job->next)
