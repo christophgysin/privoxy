@@ -28,6 +28,11 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.31  2001/09/23 10:13:48  swa
+# upload process established. run make webserver and
+# the documentation is moved to the webserver. documents
+# are now linked correctly.
+#
 # Revision 1.30  2001/09/19 17:55:49  oes
 # Fixed CFLAGS
 #
@@ -373,6 +378,22 @@ dok:
 	cd doc/source && db2html -s ldp.dsl faq.sgml && mv faq ../webserver
 	cd doc/source && db2html -s ldp.dsl --nochunks faq.sgml > tmp.html && lynx -dump tmp.html > ../text/faq.txt && rm -rf tmp.html faq
 
+#############################################################################
+#
+# Webserver
+#
+# moves dokumentation to webserver
+#
+#############################################################################
+webserver:
+	$(ECHO) -------------------------------------------------------
+	$(ECHO) You have run make dok before, right?
+	$(ECHO) Note that this command scps all stuff to the webserver,
+	$(ECHO) it will not remove obsolete documents.
+	$(ECHO) -------------------------------------------------------
+	chmod -R a+r doc/webserver
+	find doc/webserver -type d -exec chmod a+rx {} \;
+	cd doc/webserver && scp -Cr . ijbswa.sourceforge.net:/home/groups/i/ij/ijbswa/htdocs/
 
 #############################################################################
 # Source file dependencies
