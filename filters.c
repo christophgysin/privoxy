@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2001/07/23 13:40:12  oes
+ *    Fixed bug that caused document body to be dropped when pcrs joblist was empty.
+ *
  *    Revision 1.22  2001/07/18 12:29:34  oes
  *    - Made gif_deanimate_response respect
  *      csp->action->string[ACTION_STRING_DEANIMATE]
@@ -919,6 +922,12 @@ char *pcrs_filter_response(struct client_state *csp)
    if ( ( NULL == (fl = csp->rlist) ) || ( NULL == (b = fl->f) ) )
    {
       log_error(LOG_LEVEL_ERROR, "Unable to get current state of regexp filtering.");
+      return(NULL);
+   }
+
+   if ( NULL == b->joblist )
+   {
+      log_error(LOG_LEVEL_RE_FILTER, "Empty joblist. Nothing to do.");
       return(NULL);
    }
 
