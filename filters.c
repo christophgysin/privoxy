@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/07/01 17:01:04  oes
+ *    Added comments and missing return statement in is_untrusted_url()
+ *
  *    Revision 1.19  2001/06/29 21:45:41  oes
  *    Indentation, CRLF->LF, Tab-> Space
  *
@@ -727,11 +730,18 @@ int is_untrusted_url(struct client_state *csp)
    struct http_request rhttp[1];
    char *p, *h;
 
+   /*
+    * If we don't have a trustlist, we trust everybody
+    */
    if (((fl = csp->tlist) == NULL) || ((b  = fl->f) == NULL))
    {
       return(0);
    }
 
+
+   /*
+    * Do we trust the request URL itself?
+    */
    *url = dsplit(csp->http->host);
 
    /* if splitting the domain fails, punt */
@@ -790,6 +800,10 @@ int is_untrusted_url(struct client_state *csp)
       return(1);
    }
 
+
+   /*
+    * If not, do we maybe trust its referrer?
+    */
    *url = dsplit(rhttp->host);
 
    /* if splitting the domain fails, punt */
@@ -850,7 +864,7 @@ int is_untrusted_url(struct client_state *csp)
          }
       }
    }
-
+   return(1);
 }
 #endif /* def TRUST_FILES */
 
