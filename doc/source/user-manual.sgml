@@ -301,8 +301,8 @@ configuration section below.
 <sect1 id="configuration"><title>Junkbuster Configuration</title>
 <para>
  For Unix and Linux, all configuraton files are located in
- <filename>/etc/junkbuster/</filename> by default. For MS Windows, these 
- are all in the same directory as the <application>Junkbuster</application>
+ <filename>/etc/junkbuster/</filename> by default. For MS Windows and OS/2,
+ these are all in the same directory as the <application>Junkbuster</application>
  executable. The name and number of configuration files has changed from
  previous versions, and is subject to change as development progresses.
 </para>
@@ -319,7 +319,7 @@ configuration section below.
   <listitem>
    <para>
      The main configuration file is named <filename>config</filename>
-     on Linux and Unix, and <filename>junkbustr.txt</filename> on Windows.
+     on Linux, Unix and OS/2, and <filename>junkbustr.txt</filename> on Windows.
    </para>
   </listitem> 
 
@@ -356,7 +356,7 @@ configuration section below.
 <title>The Main Configuration File</title>
 <para>
  Again, the main configuration file is named <filename>config</filename> on
- Linux and Unix, and <filename>junkbustr.txt</filename> on Windows.
+ Linux, Unix and OS/2, and <filename>junkbustr.txt</filename> on Windows.
  Configuration lines consist of an initial keyword followed by a list of
  values, all separated by whitespace (any number of spaces or tabs). For
  example:
@@ -419,7 +419,7 @@ configuration section below.
 
 <para>
  On <application>Windows</application>, <application>Junkbuster</application>
- looks for these files in the same directory as the executable.  On Unix,
+ looks for these files in the same directory as the executable.  On Unix and OS/2,
  <application>Junkbuster</application> looks for these files in the current
  working directory.  In either case, an absolute path name can be used to
  avoid problems.
@@ -2468,6 +2468,9 @@ communication (bugs, feature requests, etc.)
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.5  2001/09/24 04:18:43  david__schmidt
+ Added info about where OS/2 puts its log file vs. Unix and Windows.
+
  Revision 1.4  2001/09/24 01:27:56  hal9
  Draft. Unfinished.
 
