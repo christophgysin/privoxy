@@ -4,6 +4,6 @@
  *
  * $Id$
  */
-body,td,th { font-size:10px; }
-div.infobox  { width: 60%; }
-div.errorbox { width: 60%; text-align: left; } 
+body,td,th  { font-size:10px; }
+div.info    { width: 60%; }
+div.warning { width: 60%; text-align: left; } 
