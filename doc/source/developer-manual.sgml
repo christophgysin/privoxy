@@ -7,7 +7,7 @@
 <!entity seealso SYSTEM "seealso.sgml">
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
-<!entity p-version "2.9.14">
+<!entity p-version "2.9.15">
 <!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
@@ -2673,6 +2673,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.41  2002/05/04 08:44:44  swa
+  bumped version
+
   Revision 1.40  2002/05/04 00:43:43  hal9
   -Remove TOC/first page kludge with proper stylesheet fix.
   -Combined the two very brief sections: Intro and Quickstart.

@@ -45,7 +45,7 @@
 <!entity seealso SYSTEM "seealso.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity authors SYSTEM "p-authors.sgml">
-<!entity p-version "2.9.14">
+<!entity p-version "2.9.15">
 <!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">

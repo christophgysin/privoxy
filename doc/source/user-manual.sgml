@@ -8,7 +8,7 @@
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity history SYSTEM "history.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
-<!entity p-version "2.9.14">
+<!entity p-version "2.9.15">
 <!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
@@ -5922,6 +5922,9 @@ Requests</title>
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.104  2002/05/04 08:44:45  swa
+ bumped version
+
  Revision 1.103  2002/05/04 00:40:53  hal9
  -Remove the TOC first page kludge. It's fixed proper now in ldp.dsl.in.
  -Some minor additions to Quickstart.

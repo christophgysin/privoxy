@@ -4,7 +4,7 @@
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity history SYSTEM "history.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
-<!entity p-version "2.9.14">
+<!entity p-version "2.9.15">
 <!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
@@ -238,6 +238,9 @@ page</ulink> on Sourceforge
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.11  2002/05/04 08:44:45  swa
+ bumped version
+
  Revision 1.10  2002/04/26 17:24:31  swa
  bookmarks cleaned, changed structure of user manual, screen and programlisting cleanups, and numerous other changes that I forgot
 
