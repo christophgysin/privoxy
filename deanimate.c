@@ -37,6 +37,9 @@ const char deanimate_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2002/03/09 19:42:47  jongfoster
+ *    Fixing more warnings
+ *
  *    Revision 1.7  2002/03/08 17:46:04  jongfoster
  *    Fixing int/size_t warnings
  *
@@ -123,7 +126,7 @@ int buf_extend(struct binbuffer *buf, size_t length)
 
    if (buf->offset + length > buf->size)
    {
-      buf->size = ((buf->size + length + 1023) & ~1023);
+      buf->size = ((buf->size + length + (size_t)1023) & ~(size_t)1023);
       newbuf = (char *)realloc(buf->buffer, buf->size);
 
       if (newbuf == NULL)
