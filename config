@@ -499,7 +499,27 @@ toggle 1
 #   forward localhost.localdomain . # Loopback address
 #   forward www.ukc.mirror.ac.uk  . # Specific host
 #
-
+#
+# Note: If you intend to chain junkbuster and squid locally, the chain
+#       broswer -> squid -> junkbuster is the recommended way.
+#
+#       Your squid configuration could then look like this:
+#
+#       # Define junkbuster as parent cache 
+#       cache_peer 127.0.0.1 8000 parent 0 no-query 
+#
+#       # Define ACL for protocol FTP 
+#       acl FTP proto FTP 
+#
+#       # Do not forward ACL FTP to junkbuster 
+#       always_direct allow FTP 
+#
+#       # Do not forward ACL CONNECT (https) to junkbuster 
+#       always_direct allow CONNECT 
+#
+#       # Forward the rest to junkbuster 
+#       never_direct allow all 
+#
 
 #############################################################################
 #  5. WINDOWS GUI OPTIONS
