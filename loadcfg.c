@@ -35,6 +35,63 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/06/03 19:11:54  oes
+ *    introduced confdir option
+ *
+ *    Revision 1.10  2001/06/03 11:03:48  oes
+ *    Makefile/in
+ *
+ *    introduced cgi.c
+ *
+ *    actions.c:
+ *
+ *    adapted to new enlist_unique arg format
+ *
+ *    conf loadcfg.c
+ *
+ *    introduced confdir option
+ *
+ *    filters.c filtrers.h
+ *
+ *     extracted-CGI relevant stuff
+ *
+ *    jbsockets.c
+ *
+ *     filled comment
+ *
+ *    jcc.c
+ *
+ *     support for new cgi mechansim
+ *
+ *    list.c list.h
+ *
+ *    functions for new list type: "map"
+ *    extended enlist_unique
+ *
+ *    miscutil.c .h
+ *    introduced bindup()
+ *
+ *    parsers.c parsers.h
+ *
+ *    deleted const struct interceptors
+ *
+ *    pcrs.c
+ *    added FIXME
+ *
+ *    project.h
+ *
+ *    added struct map
+ *    added struct http_response
+ *    changes struct interceptors to struct cgi_dispatcher
+ *    moved HTML stuff to cgi.h
+ *
+ *    re_filterfile:
+ *
+ *    changed
+ *
+ *    showargs.c
+ *    NO TIME LEFT
+ *
  *    Revision 1.9  2001/06/01 20:06:24  jongfoster
  *    Removed support for "tinygif" option - moved to actions file.
  *
@@ -238,6 +295,7 @@ static struct file_list *current_configfile = NULL;
 #define hash_aclfile                      1908516ul
 #define hash_actions_file              3825730796ul /* FIXME "permissionsfile" */
 #define hash_debug                          78263ul
+#define hash_confdir                      1978389lu
 #define hash_forwardfile               1268669141ul
 #define hash_jarfile                      2046641ul
 #define hash_listen_address            1255650842ul
@@ -450,6 +508,10 @@ struct configuration_spec * load_config(void)
          case hash_debug :
             config->debug |= atoi(arg);
             continue;
+
+         case hash_confdir :
+            config->confdir = strdup(arg);
+            continue;            
 
          case hash_single_threaded :
             config->multi_threaded = 0;
@@ -705,8 +767,6 @@ struct configuration_spec * load_config(void)
       /* Never get here - LOG_LEVEL_FATAL causes program exit */
    }
    freez(fake_csp);
-
-   end_proxy_args(config);
 
 #ifndef SPLIT_PROXY_ARGS
    if (!suppress_blocklists)
