@@ -37,8 +37,11 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:54  oes
- *    Initial revision
+ *    Revision 1.2  2001/06/07 23:06:09  jongfoster
+ *    The host parameter to connect_to() is now const.
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:58:54  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -48,7 +51,7 @@
 extern "C" {
 #endif
 
-extern int connect_to(char *host, int portnum, struct client_state *csp);
+extern int connect_to(const char *host, int portnum, struct client_state *csp);
 extern int write_socket(int fd, const char *buf, int n);
 extern int read_socket(int fd, char *buf, int n);
 extern void close_socket(int fd);

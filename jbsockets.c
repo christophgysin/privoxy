@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/06/07 23:06:09  jongfoster
+ *    The host parameter to connect_to() is now const.
+ *
  *    Revision 1.8  2001/06/03 19:12:07  oes
  *    filled comment
  *
@@ -176,7 +179,7 @@ const char jbsockets_h_rcs[] = JBSOCKETS_H_VERSION;
  * Returns     :  -1 => failure, else it is the socket file descriptor.
  *
  *********************************************************************/
-int connect_to(char *host, int portnum, struct client_state *csp)
+int connect_to(const char *host, int portnum, struct client_state *csp)
 {
    struct sockaddr_in inaddr;
    int   fd, addr;
