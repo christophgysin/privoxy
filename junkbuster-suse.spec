@@ -26,6 +26,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.8  2001/09/13 16:22:42  swa
+# man page is legacy. suse rpm now contains html
+# documentation.
+#
 # Revision 1.7  2001/09/10 17:44:22  swa
 # integrate three pieces of documentation.
 #
@@ -73,10 +77,10 @@ Source:  http://www.waldherr.org/junkbuster/ijbswa.tar.gz
 # -----------------------------------------------------------------------------
 #
 %description
-The Internet Junkbuster stops your browser from displaying the
-advertisement images that pervade many commercial web pages.  Since
-your browser has to download fewer images, surfing the web should be
-faster.
+The Internet Junkbuster is an application that provides privacy and
+security to the user of the world wide web. It controls cookies,
+removes advertisements or pop-up windows. You can actually modify the
+content of web pages on-the-fly.
 
 Authors:
 --------
@@ -103,7 +107,7 @@ strip junkbuster
 #
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/{var/log/junkbuster,usr/{sbin,share/man/man1,share/doc/packages/junkbuster},etc/{junkbuster,junkbuster/templates,init.d}}
+mkdir -p $RPM_BUILD_ROOT/{var/log/junkbuster,usr/{sbin,share/man/man1,share/doc/packages/junkbuster,share/doc/packages/junkbuster/user-manual,share/doc/packages/junkbuster/developer-manual,share/doc/packages/junkbuster/faq},etc/{junkbuster,junkbuster/templates,init.d}}
 
 # make sure that we can write in the log directory
 chown nobody.nogroup $RPM_BUILD_ROOT/var/log/junkbuster
@@ -133,10 +137,10 @@ install -m 644 config $RPM_BUILD_ROOT/etc/junkbuster
 #install -m 644 forward $RPM_BUILD_ROOT/etc/junkbuster
 install -m 644 trust $RPM_BUILD_ROOT/etc/junkbuster
 install -m 644 templates/* $RPM_BUILD_ROOT/etc/junkbuster/templates
-install -m 644 junkbuster.1 $RPM_BUILD_ROOT/usr/share/man/man1
-install -m 644 doc/webserver/user-manual.html $RPM_BUILD_ROOT/usr/share/doc/packages/junkbuster
-install -m 644 doc/webserver/developer-manual.html $RPM_BUILD_ROOT/usr/share/doc/packages/junkbuster
-install -m 644 doc/webserver/faq.html $RPM_BUILD_ROOT/usr/share/doc/packages/junkbuster
+# install -m 644 junkbuster.1 $RPM_BUILD_ROOT/usr/share/man/man1
+cp -r doc/webserver/user-manual $RPM_BUILD_ROOT/usr/share/doc/packages/junkbuster
+cp -r doc/webserver/developer-manual $RPM_BUILD_ROOT/usr/share/doc/packages/junkbuster
+cp -r doc/webserver/faq $RPM_BUILD_ROOT/usr/share/doc/packages/junkbuster
 %{?suse_check}
 
 #
@@ -155,11 +159,11 @@ sbin/insserv etc/init.d/
 # -----------------------------------------------------------------------------
 #
 %files
-%doc /usr/share/doc/packages/junkbuster/faq.html
-%doc /usr/share/doc/packages/junkbuster/user-manual.html
-%doc /usr/share/doc/packages/junkbuster/developer-manual.html
+%doc /usr/share/doc/packages/junkbuster/faq/
+%doc /usr/share/doc/packages/junkbuster/user-manual/
+%doc /usr/share/doc/packages/junkbuster/developer-manual/
 /usr/sbin/junkbuster
-/usr/share/man/man1/junkbuster.1.gz
+#/usr/share/man/man1/junkbuster.1.gz
 %config(noreplace) /etc/junkbuster
 /etc/init.d/junkbuster
 /usr/sbin/rcjunkbuster
