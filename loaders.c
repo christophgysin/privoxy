@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/05/26 00:55:20  jongfoster
+ *    Removing duplicated code.  load_forwardfile() now uses create_url_spec()
+ *
  *    Revision 1.7  2001/05/26 00:28:36  jongfoster
  *    Automatic reloading of config file.
  *    Removed obsolete SIGHUP support (Unix) and Reload menu option (Win32).
@@ -1602,10 +1605,9 @@ int load_forwardfile(struct client_state *csp)
    struct forward_spec *b, *bl;
    char  buf[BUFSIZ], *p, *q, *tmp;
    char  *vec[4];
-   int port, n, reject;
+   int n, reject;
    struct file_list *fs;
    const struct gateway *gw;
-   struct url_spec url[1];
 
    if (!check_file_changed(current_forwardfile, csp->config->forwardfile, &fs))
    {
@@ -1672,9 +1674,6 @@ int load_forwardfile(struct client_state *csp)
 
       /* allocate a new node */
       if (((b = zalloc(sizeof(*b))) == NULL)
-#ifdef REGEX
-      || ((b->url->preg = zalloc(sizeof(*b->url->preg))) == NULL)
-#endif
       )
       {
          fclose(fp);
@@ -1685,77 +1684,14 @@ int load_forwardfile(struct client_state *csp)
       b->next  = bl->next;
       bl->next = b;
 
-      /* save a copy of the orignal specification */
-      if ((b->url->spec = strdup(buf)) == NULL)
-      {
-         fclose(fp);
-         goto load_forwardfile_error;
-      }
-
       b->reject = reject;
 
-      if ((p = strchr(buf, '/')))
-      {
-         b->url->path    = strdup(p);
-         b->url->pathlen = strlen(b->url->path);
-         *p = '\0';
-      }
-      else
-      {
-         b->url->path    = NULL;
-         b->url->pathlen = 0;
-      }
-#ifdef REGEX
-      if (b->url->path)
-      {
-         int errcode;
-         char rebuf[BUFSIZ];
-
-         sprintf(rebuf, "^(%s)", b->url->path);
-
-         errcode = regcomp(b->url->preg, rebuf,
-               (REG_EXTENDED|REG_NOSUB|REG_ICASE));
-
-         if (errcode)
-         {
-            size_t errlen = regerror(errcode, b->url->preg, buf, sizeof(buf));
-
-            buf[errlen] = '\0';
-
-            log_error(LOG_LEVEL_ERROR, "error compiling %s: %s",
-                    b->url->spec, buf);
-            fclose(fp);
-            goto load_forwardfile_error;
-         }
-      }
-      else
-      {
-         freez(b->url->preg);
-      }
-#endif
-      if ((p = strchr(buf, ':')) == NULL)
-      {
-         port = 0;
-      }
-      else
-      {
-         *p++ = '\0';
-         port = atoi(p);
-      }
-
-      b->url->port = port;
-
-      if ((b->url->domain = strdup(buf)) == NULL)
+      /* Save the URL pattern */
+      if (create_url_spec(b->url, buf))
       {
          fclose(fp);
          goto load_forwardfile_error;
       }
-
-      /* split domain into components */
-      *url = dsplit(b->url->domain);
-      b->url->dbuf = url->dbuf;
-      b->url->dcnt = url->dcnt;
-      b->url->dvec = url->dvec;
 
       /* now parse the gateway specs */
 
