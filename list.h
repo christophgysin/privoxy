@@ -36,6 +36,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/09/16 13:20:29  jongfoster
+ *    Rewrite of list library.  Now has seperate header and list_entry
+ *    structures.  Also added a large sprinking of assert()s to the list
+ *    code.
+ *
  *    Revision 1.6  2001/08/05 16:06:20  jongfoster
  *    Modifiying "struct map" so that there are now separate header and
  *    "map_entry" structures.  This means that functions which modify a
@@ -85,26 +90,50 @@ extern "C" {
 #endif
 
 
-extern void enlist(struct list *h, const char *s);
-extern void enlist_unique(struct list *header, const char *str, int n);
-extern void enlist_unique_header(struct list *header, const char *name, const char *value);
-extern void enlist_first(struct list *header, const char *str);
+/*
+ * struct list
+ *
+ * A linked list class.
+ */
 
-extern int   list_remove_item(struct list *header, const char *str);
+extern void init_list    (struct list *the_list);
+extern void destroy_list (struct list *the_list);
 
-extern void  list_append_list_unique(struct list *dest, const struct list *src);
-extern void  list_append_list_unique(struct list *dest, const struct list *src);
-extern int   list_remove_list(struct list *header, const struct list *to_remove);
+extern int  list_is_valid(const struct list *the_list);
 
-extern void  list_duplicate(struct list *dest, const struct list *src);
+extern int  enlist                 (struct list *the_list, const char *str);
+extern int  enlist_unique          (struct list *the_list, const char *str, int num_significant_chars);
+extern int  enlist_unique_header   (struct list *the_list, const char *name, const char *value);
+extern int  enlist_first           (struct list *the_list, const char *str);
+extern int  list_append_list_unique(struct list *dest,     const struct list *src);
+extern int  list_duplicate         (struct list *dest,     const struct list *src);
 
-extern void  destroy_list(struct list *h);
-extern char *list_to_text(struct list *h);
+extern int  list_remove_item(struct list *the_list, const char *str);
+extern int  list_remove_list(struct list *dest,     const struct list *src);
+extern void list_remove_all (struct list *the_list);
 
-extern struct map *new_map(void);
-extern void free_map(struct map *list);
-extern void map(struct map* map, const char *name, int nc, const char *value, int vc);
-extern const char *lookup(const struct map *list, const char *name);
+extern int  list_is_empty(const struct list *the_list);
+
+extern char * list_to_text(const struct list *the_list);
+
+
+/*
+ * struct map
+ *
+ * A class which maps names to values.
+ *
+ * Note: You must allocate this through new_map() and free it
+ * through free_map().
+ */
+
+extern struct map * new_map  (void);
+extern void         free_map (struct map * the_map);
+
+extern int          map      (struct map * the_map,
+                              const char * name, int name_needs_copying,
+                              const char * value, int value_needs_copying);
+extern const char * lookup   (const struct map * the_map, const char * name);
+
 
 /* Revision control strings from this header and associated .c file */
 extern const char list_rcs[];
