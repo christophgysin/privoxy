@@ -36,6 +36,17 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2002/04/24 02:18:08  oes
+ *     - show-status is now the starting point for editing
+ *       the actions files, generate list of all AFs with buttons
+ *       for viewing and editing, new look for file list (Jon:
+ *       buttons now aligned ;-P ), view mode now supports multiple
+ *       AFs, name changes, no view links for unspecified files,
+ *       no edit link for standard.action.
+ *
+ *     - Jon's multiple AF patch: cgi_show_url_info now uses all
+ *       AFs and marks the output accordingly
+ *
  *    Revision 1.29  2002/04/10 13:38:35  oes
  *    load_template signature changed
  *
@@ -659,7 +670,7 @@ jb_err cgi_show_status(struct client_state *csp,
                        const struct map *parameters)
 {
    char *s = NULL;
-   int i;
+   unsigned i;
 
    FILE * fp;
    char buf[BUFFER_SIZE];
@@ -670,6 +681,8 @@ jb_err cgi_show_status(struct client_state *csp,
    int local_urls_read;
    int local_urls_rejected;
 #endif /* ndef FEATURE_STATISTICS */
+   struct file_list * fl;
+   struct url_actions * b;
    jb_err err;
 
    struct map *exports;
@@ -685,19 +698,19 @@ jb_err cgi_show_status(struct client_state *csp,
 
    switch (*(lookup(parameters, "file")))
    {
-   case 'p':
-      if (csp->actions_list)
+   case 'a':
+      if (!get_number_param(csp, parameters, "index", &i) && i < MAX_ACTION_FILES && csp->actions_list[i])
       {
-         filename = csp->actions_list->filename;
-         file_description = "Actions List";
+         filename = csp->actions_list[i]->filename;
+         file_description = "Actions File";
       }
       break;
 
-   case 'r':
+   case 'f':
       if (csp->rlist)
       {
          filename = csp->rlist->filename;
-         file_description = "Regex Filter List";
+         file_description = "Filter File";
       }
       break;
 
@@ -706,7 +719,7 @@ jb_err cgi_show_status(struct client_state *csp,
       if (csp->tlist)
       {
          filename = csp->tlist->filename;
-         file_description = "Trust List";
+         file_description = "Trust File";
       }
       break;
 #endif /* def FEATURE_TRUST */
@@ -807,14 +820,39 @@ jb_err cgi_show_status(struct client_state *csp,
 #else /* ndef FEATURE_STATISTICS */
    err = err || map_block_killer(exports, "statistics");
 #endif /* ndef FEATURE_STATISTICS */
-
-   if (csp->actions_list)
+   
+   /* 
+    * List all action files in use, together with view and edit links,
+    * except for standard.action, which should only be viewable. (Not
+    * enforced in the editor itself)
+    * FIXME: Shouldn't include hardwired HTML here, use line template instead!
+    */
+   s = strdup("");
+   for (i = 0; i < MAX_ACTION_FILES; i++)
    {
-      if (!err) err = map(exports, "actions-filename", 1, html_encode(csp->actions_list->filename), 0);
+      if (((fl = csp->actions_list[i]) != NULL) && ((b = fl->f) != NULL))
+      {
+         if (!err) err = string_append(&s, "<tr><td>");
+         if (!err) err = string_join(&s, html_encode(csp->actions_list[i]->filename));
+         snprintf(buf, 100, "</td><td class=\"cmd\"><a href=\"/show-status?file=actions&index=%d\">View</a> ", i);
+         if (!err) err = string_append(&s, buf);
+
+         if (NULL == strstr(csp->actions_list[i]->filename, "standard.action") && NULL != csp->config->actions_file_short[i])
+         {
+            snprintf(buf, 100, "<a href=\"/edit-actions-list?f=%s\">Edit</a>", csp->config->actions_file_short[i]);
+            if (!err) err = string_append(&s, buf);
+         }
+
+         if (!err) err = string_append(&s, "</td></tr>\n");
+      }
+   }
+   if (*s != '\0')   
+   {
+      if (!err) err = map(exports, "actions-filenames", 1, s, 0);
    }
    else
    {
-      if (!err) err = map(exports, "actions-filename", 1, "None specified", 1);
+      if (!err) err = map(exports, "actions-filenames", 1, "<tr><td>None specified</td></tr>", 1);
    }
 
    if (csp->rlist)
@@ -824,6 +862,7 @@ jb_err cgi_show_status(struct client_state *csp,
    else
    {
       if (!err) err = map(exports, "re-filter-filename", 1, "None specified", 1);
+      if (!err) err = map_block_killer(exports, "have-filterfile");
    }
 
 #ifdef FEATURE_TRUST
@@ -834,6 +873,7 @@ jb_err cgi_show_status(struct client_state *csp,
    else
    {
       if (!err) err = map(exports, "trust-filename", 1, "None specified", 1);
+      if (!err) err = map_block_killer(exports, "have-trustfile");
    }
 #else
    if (!err) err = map_block_killer(exports, "trust-support");
@@ -972,6 +1012,7 @@ jb_err cgi_show_url_info(struct client_state *csp,
       struct url_actions *b;
       struct http_request url_to_query[1];
       struct current_action_spec action[1];
+      int i;
       
       if (map(exports, "url", 1, html_encode(url_param), 0))
       {
@@ -991,22 +1032,6 @@ jb_err cgi_show_url_info(struct client_state *csp,
          return JB_ERR_MEMORY;
       }
 
-      if (((fl = csp->actions_list) == NULL) || ((b = fl->f) == NULL))
-      {
-         err = map(exports, "matches", 1, "none" , 1);
-         if (!err) err = map(exports, "final", 1, lookup(exports, "default"), 1);
-
-         free_current_action(action);
-         free(url_param);
-
-         if (err)
-         {
-            free_map(exports);
-            return JB_ERR_MEMORY;
-         }
-
-         return template_fill_for_cgi(csp, "show-url-info", exports, rsp);
-      }
 
       err = parse_http_url(url_param, url_to_query, csp);
 
@@ -1051,26 +1076,51 @@ jb_err cgi_show_url_info(struct client_state *csp,
 
       matches = strdup("");
 
-      for (b = b->next; (b != NULL) && (matches != NULL); b = b->next)
+      for (i = 0; i < MAX_ACTION_FILES; i++)
       {
-         if (url_match(b->url, url_to_query))
+         b = NULL;
+         hits = 1;
+         if ((fl = csp->actions_list[i]) != NULL)
          {
-            string_append(&matches, "<b>{");
-            string_join  (&matches, html_encode_and_free_original(
-                                    actions_to_text(b->action)));
-            string_append(&matches, " }</b><br>\n<code>");
-            string_join  (&matches, html_encode(b->url->spec));
-            string_append(&matches, "</code><br>\n<br>\n");
-
-            if (merge_current_action(action, b->action))
+            if ((b = fl->f) != NULL)
             {
-               freez(matches);
-               free_http_request(url_to_query);
-               free_current_action(action);
-               free_map(exports);
-               return JB_ERR_MEMORY;
+               string_append(&matches, "<b>--- <a href=\"edit-actions-list?f=");
+               string_join  (&matches, html_encode(csp->config->actions_file_short[i]));
+               string_append(&matches, "\">File ");
+               string_join  (&matches, html_encode(csp->config->actions_file_short[i]));
+               string_append(&matches, "</a> ---</b><br>\n<br>\n");
+
+               hits = 0;
+               b = b->next;
             }
-            hits++;
+         }
+
+         for (; (b != NULL) && (matches != NULL); b = b->next)
+         {
+            if (url_match(b->url, url_to_query))
+            {
+               string_append(&matches, "<b>{");
+               string_join  (&matches, html_encode_and_free_original(
+                                       actions_to_text(b->action)));
+               string_append(&matches, " }</b><br>\n<code>");
+               string_join  (&matches, html_encode(b->url->spec));
+               string_append(&matches, "</code><br>\n<br>\n");
+
+               if (merge_current_action(action, b->action))
+               {
+                  freez(matches);
+                  free_http_request(url_to_query);
+                  free_current_action(action);
+                  free_map(exports);
+                  return JB_ERR_MEMORY;
+               }
+               hits++;
+            }
+         }
+
+         if (!hits)
+         {
+            string_append(&matches, "(no matches in this file)\n<br>\n");
          }
       }
 
@@ -1083,11 +1133,6 @@ jb_err cgi_show_url_info(struct client_state *csp,
          return JB_ERR_MEMORY;
       }
 
-      if (!hits)
-      {
-         free(matches);
-         matches = strdup("none");
-      }
       if (map(exports, "matches", 1, matches , 0))
       {
          free_current_action(action);
