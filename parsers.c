@@ -41,6 +41,10 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.44  2001/12/14 01:22:54  steudten
+ *    Remove 'user:pass@' from 'proto://user:pass@host' for the
+ *    new added header 'Host: ..'. (See Req ID 491818)
+ *
  *    Revision 1.43  2001/11/23 00:26:38  jongfoster
  *    Fixing two really stupid errors in my previous commit
  *
@@ -1416,11 +1420,22 @@ char *client_x_forwarded(const struct parsers *v, const char *s, struct client_s
  *********************************************************************/
 void client_host_adder(struct client_state *csp)
 {
-   char *p = NULL;
+   char *p = NULL,
+        *pos = NULL;
 
+   if ( !csp->http->hostport || !*(csp->http->hostport)) return;
    p = strsav(p, "Host: ");
-   p = strsav(p, csp->http->hostport);
-
+   /*
+   ** remove 'user:pass@' from 'proto://user:pass@host'
+   */
+   if ( (pos = strchr( csp->http->hostport, '@')) != NULL )
+   {
+       p = strsav(p, pos+1);
+   }
+   else
+   {
+      p = strsav(p, csp->http->hostport);
+   }
    log_error(LOG_LEVEL_HEADER, "addh: %s", p);
    enlist(csp->headers, p);
 
