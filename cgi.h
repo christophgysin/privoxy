@@ -38,6 +38,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.7  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -109,9 +115,9 @@ extern char *fill_template(struct client_state *csp, const char *template, struc
 extern char *make_menu(const char *self);
 extern char *dump_map(struct map *map);
 
-#ifdef STATISTICS
+#ifdef FEATURE_STATISTICS
 extern struct map *add_stats(struct map *exports);
-#endif /* def STATISTICS */
+#endif /* def FEATURE_STATISTICS */
 
 
 /*

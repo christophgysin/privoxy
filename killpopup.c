@@ -32,6 +32,12 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.7  2001/07/20 19:29:25  haroon
  *    - In v1.5 forgot to add that I implemented LOG_LEVEL_POPUPS in errlog.c,
  *      errlog.h and killpopup.c. In that case, it is superfluous to have define for
@@ -93,7 +99,7 @@ const char killpopup_rcs[] = "$Id$";
 
 const char killpopup_h_rcs[] = KILLPOPUP_H_VERSION;
 
-#ifdef KILLPOPUPS
+#ifdef FEATURE_KILL_POPUPS
 
 /*********************************************************************
  *
@@ -169,7 +175,7 @@ void filter_popups(char *buff, int size)
 
 }
 
-#endif /* def KILLPOPUPS */
+#endif /* def FEATURE_KILL_POPUPS */
 
 /*
   Local Variables:

@@ -35,6 +35,12 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.15  2001/07/29 17:40:43  jongfoster
  *    Fixed compiler warning by adding a cast
  *
@@ -155,9 +161,9 @@ int connect_to(const char *host, int portnum, struct client_state *csp)
    int   flags;
 #endif /* !defined(_WIN32) && !defined(__BEOS__) && !defined(AMIGA) */
 
-#ifdef ACL_FILES
+#ifdef FEATURE_ACL
    struct access_control_addr dst[1];
-#endif /* def ACL_FILES */
+#endif /* def FEATURE_ACL */
 
    memset((char *)&inaddr, 0, sizeof inaddr);
 
@@ -167,7 +173,7 @@ int connect_to(const char *host, int portnum, struct client_state *csp)
       return(-1);
    }
 
-#ifdef ACL_FILES
+#ifdef FEATURE_ACL
    dst->addr = ntohl(addr);
    dst->port = portnum;
 
@@ -176,7 +182,7 @@ int connect_to(const char *host, int portnum, struct client_state *csp)
       errno = EPERM;
       return(-1);
    }
-#endif /* def ACL_FILES */
+#endif /* def FEATURE_ACL */
 
    inaddr.sin_addr.s_addr = addr;
    inaddr.sin_family      = AF_INET;

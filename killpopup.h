@@ -34,6 +34,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.3  2001/07/29 18:59:21  jongfoster
  *    - Changing #define _KILLPOPUP_H to KILLPOPUP_H_INCLUDED
  *    - Adding extern "C" {}
@@ -64,11 +70,11 @@
 extern "C" {
 #endif
 
-#ifdef KILLPOPUPS
+#ifdef FEATURE_KILL_POPUPS
 
 extern void filter_popups(char *buff, int size);
 
-#endif /* def KILLPOPUPS */
+#endif /* def FEATURE_KILL_POPUPS */
 
 /* Revision control strings from this header and associated .c file */
 extern const char killpopup_rcs[];

@@ -37,6 +37,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.8  2001/07/29 18:58:15  jongfoster
  *    Removing nested #includes, adding forward declarations for needed
  *    structures, and changing the #define _FILENAME_H to FILENAME_H_INCLUDED.
@@ -121,9 +127,9 @@ extern int check_file_changed(const struct file_list * current,
 extern int load_actions_file(struct client_state *csp);
 extern int load_re_filterfile(struct client_state *csp);
 
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
 extern int load_trustfile(struct client_state *csp);
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
 
 

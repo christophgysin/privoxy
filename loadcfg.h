@@ -37,6 +37,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.7  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.6  2001/07/29 18:58:15  jongfoster
  *    Removing nested #includes, adding forward declarations for needed
  *    structures, and changing the #define _FILENAME_H to FILENAME_H_INCLUDED.
@@ -124,10 +130,10 @@ struct configuration_spec;
 
 /* Global variables */
 
-#ifdef TOGGLE
+#ifdef FEATURE_TOGGLE
 /* indicates if ijb is enabled */
 extern int g_bToggleIJB;
-#endif
+#endif /* def FEATURE_TOGGLE */
 
 extern const char *configfile;
 

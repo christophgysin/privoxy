@@ -35,6 +35,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.5  2001/07/29 19:32:00  jongfoster
  *    Renaming _main() [mingw32 only] to real_main(), for ANSI compliance.
  *
@@ -68,10 +74,10 @@ struct file_list;
 
 /* Global variables */
 
-#ifdef STATISTICS
+#ifdef FEATURE_STATISTICS
 extern int urls_read;
 extern int urls_rejected;
-#endif /*def STATISTICS*/
+#endif /*def FEATURE_STATISTICS*/
 
 extern struct client_state clients[];
 

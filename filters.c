@@ -38,6 +38,12 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.25  2001/07/26 10:09:46  oes
  *    Made browser detection a little less naive
  *
@@ -289,7 +295,7 @@ const char filters_h_rcs[] = FILTERS_H_VERSION;
 #define ijb_isdigit(__X) isdigit((int)(unsigned char)(__X))
 
 
-#ifdef ACL_FILES
+#ifdef FEATURE_ACL
 /*********************************************************************
  *
  * Function    :  block_acl
@@ -423,7 +429,7 @@ int acl_addr(char *aspec, struct access_control_addr *aca)
    return(0);
 
 }
-#endif /* def ACL_FILES */
+#endif /* def FEATURE_ACL */
 
 
 /*********************************************************************
@@ -440,7 +446,9 @@ int acl_addr(char *aspec, struct access_control_addr *aca)
  *********************************************************************/
 struct http_response *block_url(struct client_state *csp)
 {
+#ifdef FEATURE_IMAGE_BLOCKING
    char *p;
+#endif /* def FEATURE_IMAGE_BLOCKING */
    struct http_response *rsp;
    struct map *exports = NULL;
 
@@ -464,7 +472,7 @@ struct http_response *block_url(struct client_state *csp)
     * If it's an image-url, send back an image or redirect
     * as specified by the relevant +image action
     */
-#ifdef IMAGE_BLOCKING
+#ifdef FEATURE_IMAGE_BLOCKING
    if (((csp->action->flags & ACTION_IMAGE_BLOCKER) != 0)
         && is_imageurl(csp))
    {
@@ -493,7 +501,7 @@ struct http_response *block_url(struct client_state *csp)
       }
    }  
    else
-#endif /* def IMAGE_BLOCKING */
+#endif /* def FEATURE_IMAGE_BLOCKING */
 
    /* 
     * Else, generate an HTML "blocked" message:
@@ -501,11 +509,11 @@ struct http_response *block_url(struct client_state *csp)
    {
 
       exports = default_exports(csp, NULL);	   
-#ifdef FORCE_LOAD
+#ifdef FEATURE_FORCE_LOAD
       exports = map(exports, "force-prefix", 1, FORCE_PREFIX, 1);
-#else
+#else /* ifndef FEATURE_FORCE_LOAD */
       exports = map_block_killer(exports, "force-support");
-#endif /* ndef FORCE_LOAD */
+#endif /* ndef FEATURE_FORCE_LOAD */
 
       exports = map(exports, "hostport", 1, csp->http->hostport, 1);
       exports = map(exports, "hostport-html", 1, html_encode(csp->http->hostport), 0);
@@ -540,7 +548,7 @@ struct http_response *block_url(struct client_state *csp)
 }
 
 
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
 /*********************************************************************
  *
  * Function    :  trust_url FIXME: I should be called distrust_url
@@ -630,11 +638,11 @@ struct http_response *trust_url(struct client_state *csp)
    /*
     * Export the force prefix or the force conditional block killer
     */
-#ifdef FORCE_LOAD
+#ifdef FEATURE_FORCE_LOAD
    exports = map(exports, "force-prefix", 1, FORCE_PREFIX, 1);
-#else
+#else /* ifndef FEATURE_FORCE_LOAD */
    exports = map_block_killer(exports, "force-support");
-#endif /* ndef FORCE_LOAD */
+#endif /* ndef FEATURE_FORCE_LOAD */
 
    /*
     * Build the response
@@ -645,10 +653,10 @@ struct http_response *trust_url(struct client_state *csp)
    return(finish_http_response(rsp));
 
 }
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
 
-#ifdef FAST_REDIRECTS
+#ifdef FEATURE_FAST_REDIRECTS
 /*********************************************************************
  *
  * Function    :  redirect_url
@@ -701,18 +709,18 @@ struct http_response *redirect_url(struct client_state *csp)
    }
 
 }
-#endif /* def FAST_REDIRECTS */
+#endif /* def FEATURE_FAST_REDIRECTS */
 
 
-#ifdef IMAGE_BLOCKING
+#ifdef FEATURE_IMAGE_BLOCKING
 /*********************************************************************
  *
  * Function    :  is_imageurl
  *
  * Description :  Given a URL, decide whether it is an image or not,
  *                using either the info from a previous +image action
- *                or, #ifdef DETECT_MSIE_IMAGES, the info from the
- *                browser's accept header.
+ *                or, #ifdef FEATURE_IMAGE_DETECT_MSIE, the info from
+ *                the browser's accept header.
  *                
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
@@ -723,7 +731,7 @@ struct http_response *redirect_url(struct client_state *csp)
  *********************************************************************/
 int is_imageurl(struct client_state *csp)
 {
-#ifdef DETECT_MSIE_IMAGES
+#ifdef FEATURE_IMAGE_DETECT_MSIE
    if ((csp->accept_types 
        & (ACCEPT_TYPE_IS_MSIE|ACCEPT_TYPE_MSIE_IMAGE|ACCEPT_TYPE_MSIE_HTML))
        == (ACCEPT_TYPE_IS_MSIE|ACCEPT_TYPE_MSIE_IMAGE))
@@ -736,15 +744,15 @@ int is_imageurl(struct client_state *csp)
    {
       return 0;
    }
-#endif
+#endif /* def FEATURE_IMAGE_DETECT_MSIE */
 
    return ((csp->action->flags & ACTION_IMAGE) != 0);
 
 }
-#endif /* def IMAGE_BLOCKING */
+#endif /* def FEATURE_IMAGE_BLOCKING */
 
 
-#ifdef TRUST_FILES
+#ifdef FEATURE_COOKIE_JAR
 /*********************************************************************
  *
  * Function    :  is_untrusted_url
@@ -906,7 +914,7 @@ int is_untrusted_url(struct client_state *csp)
    }
    return(1);
 }
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_COOKIE_JAR */
 
 
 /*********************************************************************

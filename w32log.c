@@ -32,6 +32,12 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.14  2001/07/29 18:47:05  jongfoster
  *    Adding missing #include "loadcfg.h"
  *
@@ -126,7 +132,6 @@ const char w32log_rcs[] = "$Id$";
 #include "project.h"
 #include "w32log.h"
 #include "w32taskbar.h"
-#include "w32rulesdlg.h"
 #include "win32.h"
 #include "w32res.h"
 #include "jcc.h"
@@ -212,9 +217,9 @@ int g_nFontSize = DEFAULT_LOG_FONT_SIZE;
 
 const char * g_actions_file = NULL;
 const char * g_re_filterfile = NULL;
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
 const char * g_trustfile = NULL;
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
 /* FIXME: end kludge */
 
@@ -994,9 +999,6 @@ void OnLogRButtonUp(int nModifier, int x, int y)
    if (hMenu != NULL)
    {
       HMENU hMenuPopup = GetSubMenu(hMenu, 0);
-#ifdef WIN_GUI_EDIT
-      char *szURL;
-#endif /* def WIN_GUI_EDIT */
 
       /* Check if there is a selection */
       CHARRANGE range;
@@ -1009,40 +1011,6 @@ void OnLogRButtonUp(int nModifier, int x, int y)
       {
          EnableMenuItem(hMenuPopup, ID_EDIT_COPY, MF_BYCOMMAND | MF_ENABLED);
       }
-
-#ifdef WIN_GUI_EDIT
-      /* Check if cursor is over a link */
-      szURL = LogGetURLUnderCursor();
-      if (szURL)
-      {
-         MENUITEMINFO item;
-         TCHAR szMenuItemTemplate[1000];
-         char *szMenuItem;
-
-         memset(&item, 0, sizeof(item));
-         item.cbSize = sizeof(item);
-         item.fMask = MIIM_TYPE | MIIM_ID | MIIM_STATE;
-         item.fType = MFT_STRING;
-         item.fState = MFS_ENABLED;
-         item.wID = ID_NEW_BLOCKER;
-
-         /* Put the item into the menu */
-         memset(szMenuItemTemplate, 0, sizeof(szMenuItemTemplate));
-         LoadString(g_hInstance, IDS_NEW_BLOCKER, szMenuItemTemplate, sizeof(szMenuItemTemplate) / sizeof(szMenuItemTemplate[0]));
-
-         szMenuItem = (char *)malloc(strlen(szMenuItemTemplate) + strlen(szURL) + 1);
-         sprintf(szMenuItem, szMenuItemTemplate, szURL);
-
-         item.dwTypeData = szMenuItem;
-         item.cch = strlen(szMenuItem);
-
-         InsertMenuItem(hMenuPopup, 1, TRUE, &item);
-
-         SetDefaultRule(szURL);
-
-         free(szURL);
-      }
-#endif /* def WIN_GUI_EDIT */
 
       /* Display the popup */
       TrackPopupMenu(hMenuPopup, TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RIGHTBUTTON, x, y, 0, g_hwndLogFrame, NULL);
@@ -1104,7 +1072,7 @@ void OnLogCommand(int nCommand)
          /* SaveLogSettings(); */
          break;
 
-#ifdef TOGGLE
+#ifdef FEATURE_TOGGLE
       /* by haroon - change toggle to its opposite value */
       case ID_TOGGLE_IJB:
          g_bToggleIJB = !g_bToggleIJB;
@@ -1117,7 +1085,7 @@ void OnLogCommand(int nCommand)
             log_error(LOG_LEVEL_INFO, "Now toggled OFF.");
          }
          break;
-#endif
+#endif /* def FEATURE_TOGGLE */
 
       case ID_TOOLS_EDITJUNKBUSTER:
          EditFile(configfile);
@@ -1131,17 +1099,11 @@ void OnLogCommand(int nCommand)
          EditFile(g_re_filterfile);
          break;
 
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
       case ID_TOOLS_EDITTRUST:
          EditFile(g_trustfile);
          break;
-#endif /* def TRUST_FILES */
-
-#ifdef WIN_GUI_EDIT
-      case ID_NEW_BLOCKER:
-         ShowRulesDialog(g_hwndLogFrame);
-         break;
-#endif /* def WIN_GUI_EDIT */
+#endif /* def FEATURE_TRUST */
 
       case ID_HELP_GPL:
          ShellExecute(g_hwndLogFrame, "open", "gpl.html", NULL, NULL, SW_SHOWNORMAL);
@@ -1189,19 +1151,19 @@ void OnLogInitMenu(HMENU hmenu)
    /* Only enable editors if there is a file to edit */
    EnableMenuItem(hmenu, ID_TOOLS_EDITACTIONS, MF_BYCOMMAND | (g_actions_file ? MF_ENABLED : MF_GRAYED));
    EnableMenuItem(hmenu, ID_TOOLS_EDITPERLRE, MF_BYCOMMAND | (g_re_filterfile ? MF_ENABLED : MF_GRAYED));
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
    EnableMenuItem(hmenu, ID_TOOLS_EDITTRUST, MF_BYCOMMAND | (g_trustfile ? MF_ENABLED : MF_GRAYED));
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
    /* Check/uncheck options */
    CheckMenuItem(hmenu, ID_VIEW_LOGMESSAGES, MF_BYCOMMAND | (g_bLogMessages ? MF_CHECKED : MF_UNCHECKED));
    CheckMenuItem(hmenu, ID_VIEW_MESSAGEHIGHLIGHTING, MF_BYCOMMAND | (g_bHighlightMessages ? MF_CHECKED : MF_UNCHECKED));
    CheckMenuItem(hmenu, ID_VIEW_LIMITBUFFERSIZE, MF_BYCOMMAND | (g_bLimitBufferSize ? MF_CHECKED : MF_UNCHECKED));
    CheckMenuItem(hmenu, ID_VIEW_ACTIVITYANIMATION, MF_BYCOMMAND | (g_bShowActivityAnimation ? MF_CHECKED : MF_UNCHECKED));
-#ifdef TOGGLE
+#ifdef FEATURE_TOGGLE
    /* by haroon - menu item for Enable toggle on/off */
    CheckMenuItem(hmenu, ID_TOGGLE_IJB, MF_BYCOMMAND | (g_bToggleIJB ? MF_CHECKED : MF_UNCHECKED));
-#endif
+#endif /* def FEATURE_TOGGLE */
 
 }
 

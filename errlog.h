@@ -35,6 +35,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.8  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -120,19 +126,19 @@ extern "C" {
 #define LOG_LEVEL_IO         0x0004
 #define LOG_LEVEL_HEADER     0x0008
 #define LOG_LEVEL_LOG        0x0010
-#ifdef FORCE_LOAD
+#ifdef FEATURE_FORCE_LOAD
 #define LOG_LEVEL_FORCE      0x0020
-#endif /* def FORCE_LOAD */
+#endif /* def FEATURE_FORCE_LOAD */
 #define LOG_LEVEL_RE_FILTER  0x0040
-#ifdef FAST_REDIRECTS
+#ifdef FEATURE_FAST_REDIRECTS
 #define LOG_LEVEL_REDIRECTS  0x0080
-#endif /* def FAST_REDIRECTS */
+#endif /* def FEATURE_FAST_REDIRECTS */
 #define LOG_LEVEL_DEANIMATE  0x0100
 
 #define LOG_LEVEL_CLF        0x0200 /* Common Log File format */
-#ifdef KILLPOPUPS
+#ifdef FEATURE_KILL_POPUPS
 #define LOG_LEVEL_POPUPS	0x0400 /* Kill Popups */
-#endif /* def KILLPOPUPS */
+#endif /* def FEATURE_KILL_POPUPS */
 
 /* Following are always on: */
 #define LOG_LEVEL_INFO    0x1000

@@ -33,6 +33,12 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.15  2001/07/29 17:41:10  jongfoster
  *    Now prints thread ID for each message (pthreads only)
  *
@@ -335,16 +341,16 @@ void log_error(int loglevel, char *fmt, ...)
       case LOG_LEVEL_RE_FILTER:
          outc = sprintf(outbuf, "IJB(%d) Re-Filter: ", this_thread);
          break;
-#ifdef FORCE_LOAD
+#ifdef FEATURE_FORCE_LOAD
       case LOG_LEVEL_FORCE:
          outc = sprintf(outbuf, "IJB(%d) Force: ", this_thread);
          break;
-#endif /* def FORCE_LOAD */
-#ifdef FAST_REDIRECTS
+#endif /* def FEATURE_FORCE_LOAD */
+#ifdef FEATURE_FAST_REDIRECTS
       case LOG_LEVEL_REDIRECTS:
          outc = sprintf(outbuf, "IJB(%d) Redirect: ", this_thread);
          break;
-#endif /* def FAST_REDIRECTS */
+#endif /* def FEATURE_FAST_REDIRECTS */
       case LOG_LEVEL_DEANIMATE:
          outc = sprintf(outbuf, "IJB(%d) Gif-Deanimate: ", this_thread);
          break;
@@ -352,11 +358,11 @@ void log_error(int loglevel, char *fmt, ...)
          outc = 0;
          outbuf[0] = '\0';
          break;
-#ifdef KILLPOPUPS
+#ifdef FEATURE_KILL_POPUPS
       case LOG_LEVEL_POPUPS:
          outc = sprintf(outbuf, "IJB(%d) Kill-Popups: ", this_thread);
          break;
-#endif /* def KILLPOPUPS */
+#endif /* def FEATURE_KILL_POPUPS */
       default:
          outc = sprintf(outbuf, "IJB(%d) UNKNOWN LOG TYPE(%d): ", this_thread, loglevel);
          break;

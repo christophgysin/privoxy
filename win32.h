@@ -33,6 +33,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.2  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -70,7 +76,7 @@ extern const char win32_h_rcs[];
 #endif
 
 #endif /* ndef WIN32_H_INCLUDED */
-
+  
 /*
   Local Variables:
   tab-width: 3

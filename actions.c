@@ -33,6 +33,12 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.9  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.8  2001/06/29 13:19:52  oes
  *    Removed logentry from cancelled commit
  *
@@ -1141,13 +1147,6 @@ int load_actions_file(struct client_state *csp)
       free(alias_list);
       alias_list = next;
    }
-
-#ifndef SPLIT_PROXY_ARGS
-   if (!suppress_blocklists)
-   {
-      fs->proxy_args = strsav(fs->proxy_args, "</pre>");
-   }
-#endif /* ndef SPLIT_PROXY_ARGS */
 
    /* the old one is now obsolete */
    if (current_actions_file)

@@ -36,6 +36,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.25  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -472,7 +478,7 @@ struct url_actions
 
 /* Constants defining bitmask for csp->accept_types */
 
-#ifdef DETECT_MSIE_IMAGES
+#ifdef FEATURE_IMAGE_DETECT_MSIE
 
 /* MSIE detected by user-agent string */
 #define ACCEPT_TYPE_IS_MSIE     0x0001
@@ -490,7 +496,7 @@ struct url_actions
  */
 #define ACCEPT_TYPE_MSIE_HTML   0x0004
 
-#endif /* def DETECT_MSIE_IMAGES */
+#endif /* def FEATURE_IMAGE_DETECT_MSIE */
 
 
 struct client_state
@@ -508,20 +514,20 @@ struct client_state
    int  sfd;
 
 
-#ifdef STATISTICS
+#ifdef FEATURE_STATISTICS
    /* 1 if this URL was rejected, 0 otherwise. Allows actual stats inc to 
     * occur in main thread only for thread-safety. 
     */
    int  rejected;
-#endif /* def STATISTICS */
+#endif /* def FEATURE_STATISTICS */
 
-#ifdef FORCE_LOAD
+#ifdef FEATURE_FORCE_LOAD
    int force;
-#endif /* def FORCE_LOAD */
+#endif /* def FEATURE_FORCE_LOAD */
 
-#ifdef TOGGLE
+#ifdef FEATURE_TOGGLE
    int   toggled_on;
-#endif /* def TOGGLE */
+#endif /* def FEATURE_TOGGLE */
 
    /*
     * Client PC's IP address, as reported by the accept()_ function.
@@ -538,17 +544,17 @@ struct client_state
    char *my_ip_addr_str;
    char *my_hostname;
 
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
    /* The referer in this request, if one was specified. */
    char *referrer;
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
-#if defined(DETECT_MSIE_IMAGES)
+#if defined(FEATURE_IMAGE_DETECT_MSIE)
    /* Types the client will accept.
     * Bitmask - see ACCEPT_TYPE_XXX constants.
     */
    int accept_types;
-#endif /* defined(DETECT_MSIE_IMAGES) */
+#endif /* defined(FEATURE_IMAGE_DETECT_MSIE) */
 
    /* The URL that was requested */
    struct http_request http[1];
@@ -580,9 +586,9 @@ struct client_state
    struct file_list *rlist;   /* pcrs job file */
    size_t content_length;     /* Length after content modification */ 
 
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
    struct file_list *tlist;   /* trustfile */
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
    struct client_state *next;
 };
@@ -622,13 +628,6 @@ struct file_list
    /* Used internally by sweep().  Do not access from elsewhere. */
    int active;
 
-#ifndef SPLIT_PROXY_ARGS
-   /* String to be displayed as part of show-proxy-args display.
-    * Read-only once the structure has been created.
-    */
-   char *proxy_args;
-#endif /* ndef SPLIT_PROXY_ARGS */
-
    /* Following variables allow us to check if file has been changed.
     * Read-only once the structure has been created.
     */
@@ -645,14 +644,14 @@ struct file_list
 };
 
 
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
 struct block_spec
 {
    struct url_spec url[1];
    int    reject;
    struct block_spec *next;
 };
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
 
 #define SOCKS_NONE    0    /* Don't use a SOCKS server */
@@ -686,7 +685,7 @@ struct re_filterfile_spec
    pcrs_job *joblist;
 };
 
-#ifdef ACL_FILES
+#ifdef FEATURE_ACL
 #define ACL_PERMIT   1  /* accept connection request */
 #define ACL_DENY     2  /* reject connection request */
 
@@ -705,7 +704,7 @@ struct access_control_list
    short action;
    struct access_control_list *next;
 };
-#endif /* def ACL_FILES */
+#endif /* def FEATURE_ACL */
 
 
 /* Maximum number of loaders (actions, re_filter, ...) */
@@ -735,10 +734,10 @@ struct configuration_spec
 
    const char *re_filterfile;
 
-#ifdef JAR_FILES
+#ifdef FEATURE_COOKIE_JAR
    const char * jarfile;
    FILE * jar;
-#endif /* def JAR_FILES */
+#endif /* def FEATURE_COOKIE_JAR */
 
    /*
     * Port and IP to bind to.
@@ -747,25 +746,16 @@ struct configuration_spec
    const char *haddr;
    int         hport;
 
-#ifndef SPLIT_PROXY_ARGS
-   const char *suppress_message;
-#endif /* ndef SPLIT_PROXY_ARGS */
-
-#ifndef SPLIT_PROXY_ARGS
-   /* suppress listing config files */
-   int suppress_blocklists;
-#endif /* ndef SPLIT_PROXY_ARGS */
-
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
    const char * trustfile;
 
    struct list trust_info[1];
    struct url_spec *trust_list[64];
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
-#ifdef ACL_FILES
+#ifdef FEATURE_ACL
    struct access_control_list *acl;
-#endif /* def ACL_FILES */
+#endif /* def FEATURE_ACL */
 
    struct forward_spec *forward;
 
@@ -785,9 +775,9 @@ struct configuration_spec
 
 #define SZ(X)  (sizeof(X) / sizeof(*X))
 
-#ifdef FORCE_LOAD
+#ifdef FEATURE_FORCE_LOAD
 #define FORCE_PREFIX "/IJB-FORCE-LOAD"
-#endif /* def FORCE_LOAD */
+#endif /* def FEATURE_FORCE_LOAD */
 
 /* Hardwired URLs */
 #define HOME_PAGE_URL  "http://ijbswa.sourceforge.net"

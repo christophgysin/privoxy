@@ -34,6 +34,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/07/30 22:08:36  jongfoster
+ *    Tidying up #defines:
+ *    - All feature #defines are now of the form FEATURE_xxx
+ *    - Permanently turned off WIN_GUI_EDIT
+ *    - Permanently turned on WEBDAV and SPLIT_PROXY_ARGS
+ *
  *    Revision 1.7  2001/07/29 18:43:08  jongfoster
  *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
  *    ANSI C rules.
@@ -122,9 +128,9 @@ extern int g_nFontSize;
 
 extern const char * g_actions_file;
 extern const char * g_re_filterfile;
-#ifdef TRUST_FILES
+#ifdef FEATURE_TRUST
 extern const char * g_trustfile;
-#endif /* def TRUST_FILES */
+#endif /* def FEATURE_TRUST */
 
 /* FIXME: end kludge */
 
