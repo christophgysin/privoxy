@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.85  2002/11/27 12:40:54  oes
+dnl Fixed broken handling of pre-set CFLAGS
+dnl
 dnl Revision 1.84  2002/10/24 22:24:57  hal9
 dnl Make install: Minor clean up for variable handling.
 dnl
@@ -486,7 +489,9 @@ dnl Checks for programs needed to build.
 dnl =================================================================
 
 dnl Keep AC_PROG_CC from setting its own defaults:
-CFLAGS=" "
+if test "X$CFLAGS" = "X"; then
+   CFLAGS = " "
+fi
 
 AC_PROG_CC
 AC_PROG_CPP
@@ -512,23 +517,21 @@ AC_ARG_WITH(debug,
                     if test $ac_cv_prog_cc_g = yes; then
                       if test "$GCC" = yes; then
                         if test "$GDB"; then
-                          CFLAGS="-ggdb"
+                          CFLAGS="$CFLAGS -ggdb"
                         else
-                          CFLAGS="-g"
+                          CFLAGS="$CFLAGS -g"
                         fi
                         CFLAGS="$CFLAGS -Wshadow  -Wconversion"
                       else
-                        CFLAGS="-g"
+                        CFLAGS="$CFLAGS -g"
                       fi
                    fi
                 fi
         ],
         [
-            if test "X$CFLAGS" = "X"; then # if CFLAGS are unset
+            if test "X$CFLAGS" = "X "; then # if CFLAGS were unset (see above)
               if test "$GCC" = yes; then
                 CFLAGS="-O2"
-              else
-                CFLAGS=
               fi
             fi
         ]
