@@ -28,6 +28,10 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.80  2002/09/26 18:47:46  hal9
+dnl This is most of Al's patch for --with-user and --with-group which tests that
+dnl these are valid values, if specified. If not specified, they are left empty.
+dnl
 dnl Revision 1.79  2002/09/07 02:11:06  hal9
 dnl Remove some testing stuff inadvertantly left in.
 dnl
@@ -477,8 +481,13 @@ AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+AC_PROG_AWK
 
 AC_CHECK_PROG(GDB,gdb,yes,no)
+AC_PATH_PROG(BGROUPS,groups,no,/bin:/usr/bin:/usr/local/bin)
+AC_PATH_PROG(ID,id,no,/bin:/usr/bin:/usr/local/bin)
+AC_SUBST(ID)
+AC_SUBST(BGROUPS)
 
 dnl =================================================================
 dnl debug, gcc and gdb support 
@@ -514,16 +523,35 @@ AC_ARG_WITH(debug,
 )
 
 AC_ARG_WITH(user,
-        [  --with-user=privoxy            Set user under which privoxy run],
+        [  --with-user=privoxy          Set user under which privoxy will run],
         [
                 if test "x$withval" != "xyes"; then
-                    USER=$with_user;
+                  if test $ID = no ; then
+                    AC_MSG_ERROR(There is no 'id' program on this system)
+                  else
+                    $ID $with_user 2>/dev/null >/dev/null
+                    if test $? -eq 0 ; then
+                      USER=$with_user;
+                    else
+                      AC_MSG_ERROR(There is no user '$with_user' on this system)
+                    fi
+                  fi
                   else
                    AC_MSG_ERROR(We need a user if you give me this parameter)
                 fi
         ],
         [
-          USER=privoxy;
+          if test $ID = no ; then
+            AC_MSG_ERROR(There is no 'id' programm on this system)
+          else
+            $ID privoxy >/dev/null
+            if test $? -eq 0 ; then
+              USER=privoxy;
+            else
+              AC_MSG_WARN(There is no user 'privoxy' on this system)
+              USER=$with_user
+            fi
+          fi
         ]
 )
 AC_SUBST(USER)
@@ -532,13 +560,41 @@ AC_ARG_WITH(group,
         [  --with-group=privoxy         Set group for privoxy],
         [
                 if test "x$withval" != "xyes"; then
-                    GROUP=$with_group;
+                  if test $BGROUPS = no ; then
+                    AC_MSG_ERROR(There is no 'groups' program on this system)
                   else
+                    $BGROUPS $USER >/dev/null
+                    if test $? -eq 0 ; then
+                    # FIXME: this fails if valid group, but not first group
+                    # listed.
+                      if test "$with_group" != "`$BGROUPS $USER 2>/dev/null |$AWK '{print $3}'`" ; then
+                        AC_MSG_ERROR(The given value '$withval' does not match group entry)
+                      else
+                        GROUP=$with_group;
+                      fi
+                    else
+                      AC_MSG_ERROR(There is no group entry for user '$USER')
+                    fi
+                  fi
+                else
                    AC_MSG_ERROR(We need a group if you give me this parameter)
                 fi
         ],
         [
-          GROUP=privoxy;
+          if test $BGROUPS = no ; then
+            AC_MSG_ERROR(There is no 'groups' programm on this system)
+          else
+            $BGROUPS $USER >/dev/null
+            if test $? -eq 0 ; then
+              if test "$with_group" != "`$BGROUPS $USER 2>/dev/null |$AWK '{print $3}'`" -a "$with_group" != "" ; then
+                AC_MSG_ERROR('$USER' isn't a member of '$with_group' group)
+              else
+                GROUP=$with_group;
+              fi
+            else
+              AC_MSG_ERROR(There is no group entry for user '$USER')
+            fi
+          fi
         ]
 )
 AC_SUBST(GROUP)
