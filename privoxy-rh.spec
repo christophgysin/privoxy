@@ -292,6 +292,7 @@ fi
 %config %{privoxyconf}/templates/mod-local-help
 %config %{privoxyconf}/templates/show-url-info
 %config %{privoxyconf}/templates/edit-actions-for-url
+%config %{privoxyconf}/templates/edit-actions-list-button
 
 %config %{_sysconfdir}/logrotate.d/%{name}
 %config %attr(0744,root,root) %{_sysconfdir}/rc.d/init.d/%{name}
@@ -306,6 +307,10 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Wed May 15 2002 Hal Burgiss <hal@foobox.net>
++ privoxy-2.9.15-1
+- Add templates/edit-actions-list-button
+
 * Fri May 03 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + privoxy-2.9.15-1
 - Version bump
@@ -644,6 +649,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.32  2002/05/16 01:37:29  hal9
+# Add new template file so CGI stuff works :)
+#
 # Revision 1.31  2002/05/03 17:14:35  morcego
 # *.spec: Version bump to 2.9.15
 # -rh.spec: noreplace for %%{privoxyconf}/config
