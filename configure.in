@@ -28,6 +28,11 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.73  2002/06/05 00:26:21  hal9
+dnl Move all doc build stuff to doc/source/GNUmakefile, leaving a 'make dok'
+dnl target only in toplevel. Add DOC_STATUS variable so docs can be built without
+dnl touching sgml source.
+dnl
 dnl Revision 1.72  2002/06/04 15:52:25  jongfoster
 dnl Removing need for acconfig.h (apparently using acconfig.h is an
 dnl obsolete coding style).
@@ -1269,6 +1274,19 @@ dnl Check for man2html for docs.
 AC_CHECK_PROGS(MAN2HTML,man2html,false)
 AC_SUBST(MAN2HTML)
 
+dnl Set doc status, used for conditional content inclusions
+DOC_STATUS=""
+if  test $CODE_STATUS = alpha; then
+     DOC_STATUS="-ip-alpha -ip-not-stable"
+fi
+if  test $CODE_STATUS = beta; then
+     DOC_STATUS="-ip-beta -ip-not-stable"
+fi
+if  test $CODE_STATUS = stable; then
+     DOC_STATUS="-ip-stable"
+fi
+echo "checking for doc status flags... $DOC_STATUS"
+AC_SUBST(DOC_STATUS)
 
 dnl =================================================================
 dnl RPM stuff
@@ -1296,4 +1314,4 @@ AC_SUBST(SPECIAL_CFLAGS)
 
 AC_SUBST(PTHREAD_LIB)
 
-AC_OUTPUT(GNUmakefile doc/source/ldp.dsl)
+AC_OUTPUT(GNUmakefile doc/source/ldp.dsl doc/source/GNUmakefile)
