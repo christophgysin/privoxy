@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2001/09/16 13:21:27  jongfoster
+ *    Changes to use new list functions.
+ *
  *    Revision 1.31  2001/09/16 11:38:02  jongfoster
  *    Splitting fill_template() into 2 functions:
  *    template_load() loads the file
@@ -645,11 +648,11 @@ struct http_response *trust_url(struct client_state *csp)
    /*
     * Export the trust info, if available
     */
-   if (csp->config->trust_info->next)
+   if (csp->config->trust_info->first)
    {
-      struct list *l;
+      struct list_entry *l;
 
-      for (l = csp->config->trust_info->next; l ; l = l->next)
+      for (l = csp->config->trust_info->first; l ; l = l->next)
       {
          sprintf(buf, "<li> <a href=%s>%s</a><br>\n",l->str, l->str);
          p = strsav(p, buf);

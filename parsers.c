@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2001/09/16 13:21:27  jongfoster
+ *    Changes to use new list functions.
+ *
  *    Revision 1.24  2001/09/13 23:05:50  jongfoster
  *    Changing the string paramater to the header parsers a "const".
  *
@@ -492,14 +495,14 @@ char *get_header(struct client_state *csp)
  *********************************************************************/
 char *sed(const struct parsers pats[], void (* const more_headers[])(struct client_state *), struct client_state *csp)
 {
-   struct list *p;
+   struct list_entry *p;
    const struct parsers *v;
    char *hdr;
    void (* const *f)();
 
    for (v = pats; v->str ; v++)
    {
-      for (p = csp->headers->next; p ; p = p->next)
+      for (p = csp->headers->first; p ; p = p->next)
       {
          /* Header crunch()ed in previous run? -> ignore */
          if (p->str == NULL) continue;
@@ -509,7 +512,7 @@ char *sed(const struct parsers pats[], void (* const more_headers[])(struct clie
          if (strncmpic(p->str, v->str, v->len) == 0)
          {
             hdr = v->parser(v, p->str, csp);
-            freez(p->str);
+            freez((char *)p->str); /* FIXME: Yuck! patching a list...*/
             p->str = hdr;
          }
       }
@@ -1153,11 +1156,11 @@ char *client_accept(const struct parsers *v, const char *s, struct client_state 
  *********************************************************************/
 void client_cookie_adder(struct client_state *csp)
 {
-   struct list *lst;
+   struct list_entry *lst;
    char *tmp = NULL;
    char *e;
 
-   for (lst = csp->cookie_list->next; lst ; lst = lst->next)
+   for (lst = csp->cookie_list->first; lst ; lst = lst->next)
    {
       if (tmp)
       {
@@ -1166,7 +1169,7 @@ void client_cookie_adder(struct client_state *csp)
       tmp = strsav(tmp, lst->str);
    }
 
-   for (lst = csp->action->multi[ACTION_MULTI_WAFER]->next;  lst ; lst = lst->next)
+   for (lst = csp->action->multi[ACTION_MULTI_WAFER]->first;  lst ; lst = lst->next)
    {
       if (tmp)
       {
@@ -1209,9 +1212,9 @@ void client_cookie_adder(struct client_state *csp)
  *********************************************************************/
 void client_xtra_adder(struct client_state *csp)
 {
-   struct list *lst;
+   struct list_entry *lst;
 
-   for (lst = csp->action->multi[ACTION_MULTI_ADD_HEADER]->next;
+   for (lst = csp->action->multi[ACTION_MULTI_ADD_HEADER]->first;
         lst ; lst = lst->next)
    {
       log_error(LOG_LEVEL_HEADER, "addh: %s", lst->str);
