@@ -417,6 +417,13 @@ privacy.net
 
 
 #############################################################################
+# Needed for automatic feedback evaluation; Please don't delete!
+#############################################################################
+{+add-header{X-Actions-File-Version: 1.0}}
+.privoxy.org/actions
+
+
+#############################################################################
 # Test for new GIF deanimation feature.
 # Just try http://www.oesterhelt.org/deanimate-demo with and without it.
 #############################################################################
