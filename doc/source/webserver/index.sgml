@@ -187,7 +187,7 @@
   <colspec colname=c1 align="center">
   <tbody>
    <row>
-    <entry align="center">Prixoxy is developed on:</entry>
+    <entry align="center">Privoxy is developed on:</entry>
    </row>
    <row>
     <entry align="center">
@@ -246,6 +246,9 @@
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.22  2002/06/09 18:59:44  hal9
+ Correct typo.
+
  Revision 1.21  2002/06/09 16:37:31  hal9
  Sync with filtering clarifications in 3.0 branch.
 
