@@ -35,8 +35,11 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:58  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/17 23:01:01  oes
+ *     - Cleaned CRLF's from the sources and related files
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:58:58  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
