@@ -1216,6 +1216,7 @@ sgml('sdata',sub
 {
 	if($_[0] =~ /\[minus \]/) { output "-"; }
 	elsif($_[0] =~ /\[copy  \]/) { output "(C)"; }
+	elsif($_[0] =~ /\[nbsp  \]/) { output " "; }
 	else { die "Unknown SDATA: " . $_[0]; }
 });
 sgml('pi',sub { die "Unknown processing instruction: " . $_[0]; });
