@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.26  2002/05/08 15:59:53  oes
+ *    Changed add_to_iob signature (now returns jb_err)
+ *
  *    Revision 1.25  2002/03/26 22:29:55  swa
  *    we have a new homepage!
  *
@@ -179,7 +182,7 @@ extern const add_header_func_ptr add_client_headers[];
 extern const add_header_func_ptr add_server_headers[];
 
 extern int flush_socket(jb_socket fd, struct client_state *csp);
-extern void add_to_iob(struct client_state *csp, char *buf, int n);
+extern jb_err add_to_iob(struct client_state *csp, char *buf, int n);
 extern char *get_header(struct client_state *csp);
 extern char *get_header_value(const struct list *header_list, const char *header_name);
 extern char *sed(const struct parsers pats[], const add_header_func_ptr more_headers[], struct client_state *csp);
