@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.37  2002/03/08 12:58:21  oes
+dnl Tiny bugfix in AC_ARG_WITH(debug)
+dnl
 dnl Revision 1.36  2002/03/06 23:50:36  morcego
 dnl Will not test for a text browser if we are not using docbook.
 dnl
@@ -328,7 +331,7 @@ dnl =================================================================
 AC_ARG_WITH(debug,
         [  --with-debug            Enable debug mode],
         [
-                if test "x$withval" != "$xno" ; then
+                if test "x$withval" != "xno" ; then
 		    if test $ac_cv_prog_cc_g = yes; then
 		      if test "$GCC" = yes; then
 			if test "$GDB"; then
@@ -453,9 +456,12 @@ AC_SUBST(JADEBIN)
 
 dnl Checking for the docbook.dsl stylesheet file
 if test $dodk = yes; then
-	if test $DKPREFIX = none; then
-		AC_CHECK_FILE(/usr/share/sgml/docbook/dsssl-stylesheets/html/docbook.dsl,DKPREFIX=/usr/share/sgml/docbook/dsssl-stylesheets,AC_CHECK_FILE(/usr/share/sgml/docbkdsl/html/docbook.dsl,DKPREFIX=/usr/share/sgml/docbkdsl))
-	fi
+  if test $DKPREFIX = none; then
+    AC_CHECK_FILE(/usr/share/sgml/docbook/dsssl-stylesheets/html/docbook.dsl,
+      DKPREFIX=/usr/share/sgml/docbook/dsssl-stylesheets,
+      AC_CHECK_FILE(/usr/share/sgml/docbkdsl/html/docbook.dsl,
+        DKPREFIX=/usr/share/sgml/docbkdsl))
+  fi
 fi
 AC_SUBST(DKPREFIX)
 
