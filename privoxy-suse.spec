@@ -30,11 +30,11 @@
 %define privoxyconf %{_sysconfdir}/privoxy
 
 Summary:      Privoxy - privacy enhancing proxy
-Vendor:       http://www.privoxy.org
+Vendor:       Privoxy.Org
 Name:         privoxy-suse
 Distribution: defineme
 Version: 2.9.14
-Release: 2
+Release: 3
 # Needs makefile change: Source: http://prdownloads.sourceforge.net/ijbswa/privoxy-%{version}-%{status}-src.tar.gz
 Source: http://prdownloads.sourceforge.net/ijbswa/privoxy-%{version}.tar.gz
 # not sure if this works
@@ -211,6 +211,10 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 # -----------------------------------------------------------------------------
 #
 %changelog
+* Fri Apr 26 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
++ privoxy-suse-2.9.14-3
+- Changing Vendor to Privoxy.Org
+
 * Mon Apr 22 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + privoxy-suse-2.9.14-2
 - Bumping release to reflect the new value on configure.in
@@ -303,6 +307,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.17  2002/04/26 15:51:05  morcego
+# Changing Vendor value to Privoxy.Org
+#
 # Revision 1.16  2002/04/22 16:32:31  morcego
 # configure.in, *.spec: Bumping release to 2 (2.9.14-2)
 # -rh.spec: uid and gid are now macros
