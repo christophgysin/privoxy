@@ -13,10 +13,10 @@
  *                IJBSWA team.  http://ijbswa.sourceforge.net
  *
  *                Based on the Internet Junkbuster originally written
- *                by and Copyright (C) 1997 Anonymous Coders and 
+ *                by and Copyright (C) 1997 Anonymous Coders and
  *                Junkbusters Corporation.  http://www.junkbusters.com
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at
@@ -36,6 +36,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.39  2001/10/25 03:45:02  david__schmidt
+ *    Adding a (void*) cast to freez() because Visual Age C++ won't expand the
+ *    macro when called with a cast; so moving the cast to the macro def'n
+ *    seems to both eliminate compiler warnings (on darwin and OS/2, anyway) and
+ *    doesn't make macro expansion complain.  Hope this works for everyone else
+ *    too...
+ *
  *    Revision 1.38  2001/10/23 21:19:04  jongfoster
  *    New error-handling support: jb_err type and JB_ERR_xxx constants
  *    CGI functions now return a jb_err, and their parameters map is const.
@@ -320,9 +327,9 @@
 #endif
 
 #ifdef STATIC_PCRS
-#  include "pcrs.h" 
+#  include "pcrs.h"
 #else
-#  include <pcrs.h> 
+#  include <pcrs.h>
 #endif
 
 #if defined(REGEX_PCRE)
@@ -337,8 +344,8 @@
 #  include "gnu_regex.h"
 #endif
 
-#ifdef AMIGA 
-#include "amiga.h" 
+#ifdef AMIGA
+#include "amiga.h"
 #endif /* def AMIGA */
 
 #ifdef __cplusplus
@@ -362,7 +369,7 @@ typedef int jb_err;
 /*
  * This macro is used to free a pointer that may be NULL
  */
-#define freez(X)  { if(X) { free(X); X = NULL ; } }
+#define freez(X)  { if(X) { free((void*)X); X = NULL ; } }
 
 /*
  * Use for statically allocated buffers if you have no other choice.
@@ -608,7 +615,7 @@ struct url_actions
 /*
  * *If* this is MSIE, it wants an image.  (Or this is a shift-reload, or
  * it's got an image from this URL before...  yuck!)
- * Only meaningful if ACCEPT_TYPE_IS_MSIE set 
+ * Only meaningful if ACCEPT_TYPE_IS_MSIE set
  */
 #define ACCEPT_TYPE_MSIE_IMAGE  0x0002
 
@@ -703,7 +710,7 @@ struct client_state
    struct file_list *actions_list;
 
    struct file_list *rlist;   /* pcrs job file */
-   size_t content_length;     /* Length after content modification */ 
+   size_t content_length;     /* Length after content modification */
 
 #ifdef FEATURE_TRUST
    struct file_list *tlist;   /* trustfile */
@@ -745,11 +752,11 @@ struct file_list
     * Read-only once the structure has been created.
     */
    void *f;
-   
+
    /* Normally NULL.  When we are finished with file (i.e. when we have
     * loaded a new one), set to a pointer to an unloader function.
     * Unloader will be called by sweep() (called from main loop) when
-    * all clients using this file are done.  This prevents threading 
+    * all clients using this file are done.  This prevents threading
     * problems.
     */
    void (*unloader)(void *);
