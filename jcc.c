@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/05/25 22:43:18  jongfoster
+ *    Fixing minor memory leak and buffer overflow.
+ *
  *    Revision 1.7  2001/05/25 22:34:30  jongfoster
  *    Hard tabs->Spaces
  *
@@ -450,13 +453,14 @@ static void chat(struct client_state *csp)
          {
             write_socket(csp->cfd, JBGIF, sizeof(JBGIF)-1);
          }
-         if (tinygif == 1)
+         else if (tinygif == 1)
          {
             write_socket(csp->cfd, BLANKGIF, sizeof(BLANKGIF)-1);
          }
          else if ((tinygif == 3) && (tinygifurl))
          {
-            p = (char *)malloc(strlen(HTTP_REDIRECT_TEMPLATE) + strlen(tinygifurl));
+            freez(p);
+            p = (char *)malloc(sizeof(HTTP_REDIRECT_TEMPLATE) + strlen(tinygifurl));
             sprintf(p, HTTP_REDIRECT_TEMPLATE, tinygifurl);
             write_socket(csp->cfd, p, strlen(p));
          }
