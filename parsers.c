@@ -41,6 +41,10 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/06/01 18:49:17  jongfoster
+ *    Replaced "list_share" with "list" - the tiny memory gain was not
+ *    worth the extra complexity.
+ *
  *    Revision 1.13  2001/05/31 21:30:33  jongfoster
  *    Removed list code - it's now in list.[ch]
  *    Renamed "permission" to "action", and changed many features
@@ -1107,7 +1111,6 @@ char *client_accept(const struct parsers *v, char *s, struct client_state *csp)
 void client_cookie_adder(struct client_state *csp)
 {
    struct list *lst;
-   struct list_share *lsts;
    char *tmp = NULL;
    char *e;
 
@@ -1120,14 +1123,14 @@ void client_cookie_adder(struct client_state *csp)
       tmp = strsav(tmp, lst->str);
    }
 
-   for (lsts = csp->action->multi[ACTION_MULTI_WAFER]->next;  lsts ; lsts = lsts->next)
+   for (lst = csp->action->multi[ACTION_MULTI_WAFER]->next;  lst ; lst = lst->next)
    {
       if (tmp)
       {
          tmp = strsav(tmp, "; ");
       }
 
-      if ((e = cookie_encode(lsts->str)))
+      if ((e = cookie_encode(lst->str)))
       {
          tmp = strsav(tmp, e);
          freez(e);
@@ -1163,12 +1166,12 @@ void client_cookie_adder(struct client_state *csp)
  *********************************************************************/
 void client_xtra_adder(struct client_state *csp)
 {
-   struct list_share *l = csp->action->multi[ACTION_MULTI_ADD_HEADER];
+   struct list *lst = csp->action->multi[ACTION_MULTI_ADD_HEADER];
 
-   for (l = l->next; l ; l = l->next)
+   for (lst = lst->next; lst ; lst = lst->next)
    {
-      log_error(LOG_LEVEL_HEADER, "addh: %s", l->str);
-      enlist(csp->headers, l->str);
+      log_error(LOG_LEVEL_HEADER, "addh: %s", lst->str);
+      enlist(csp->headers, lst->str);
    }
 
 }

@@ -33,6 +33,10 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/06/01 18:49:17  jongfoster
+ *    Replaced "list_share" with "list" - the tiny memory gain was not
+ *    worth the extra complexity.
+ *
  *    Revision 1.2  2001/05/31 21:40:00  jongfoster
  *    Removing some commented out, obsolete blocks of code.
  *
@@ -630,7 +634,7 @@ char * current_action_to_text(struct current_action_spec *action)
 {
    unsigned flags  = action->flags;
    char * result = strdup("");
-   struct list_share * lst;
+   struct list * lst;
 
 #define DEFINE_ACTION_BOOL(__name, __bit)   \
    if (flags & __bit)                       \
@@ -746,13 +750,13 @@ void merge_current_action (struct current_action_spec *dest,
       if (src->multi_remove_all[i])
       {
          /* Remove everything from dest */
-         destroy_list_share(dest->multi[i]);
-         list_duplicate_share(dest->multi[i], src->multi_add[i]);
+         destroy_list(dest->multi[i]);
+         list_duplicate(dest->multi[i], src->multi_add[i]);
       }
       else
       {
-         list_remove_list_share(dest->multi[i], src->multi_remove[i]);
-         list_append_list_unique_share(dest->multi[i], src->multi_add[i]);
+         list_remove_list(dest->multi[i], src->multi_remove[i]);
+         list_append_list_unique(dest->multi[i], src->multi_add[i]);
       }
    }
 }
@@ -776,7 +780,7 @@ void free_current_action (struct current_action_spec *src)
 
    for (i = 0; i < ACTION_MULTI_COUNT; i++)
    {
-      destroy_list_share(src->multi[i]);
+      destroy_list(src->multi[i]);
    }
 
    memset(src, '\0', sizeof(*src));

@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/06/01 18:49:17  jongfoster
+ *    Replaced "list_share" with "list" - the tiny memory gain was not
+ *    worth the extra complexity.
+ *
  *    Revision 1.15  2001/05/31 21:24:47  jongfoster
  *    Changed "permission" to "action" throughout.
  *    Removed DEFAULT_USER_AGENT - it must now be specified manually.
@@ -469,7 +473,7 @@ static void chat(struct client_state *csp)
        && (csp->action->multi[ACTION_MULTI_WAFER]->next == NULL)
        && ((csp->action->flags & ACTION_VANILLA_WAFER) != 0))
    {
-      enlist_share(csp->action->multi[ACTION_MULTI_WAFER], VANILLA_WAFER);
+      enlist(csp->action->multi[ACTION_MULTI_WAFER], VANILLA_WAFER);
    }
 #endif /* def JAR_FILES */
 

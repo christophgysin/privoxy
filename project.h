@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/06/01 18:49:17  jongfoster
+ *    Replaced "list_share" with "list" - the tiny memory gain was not
+ *    worth the extra complexity.
+ *
  *    Revision 1.11  2001/06/01 10:32:47  oes
  *    Added constants for anchoring selection bitmap
  *
@@ -262,15 +266,6 @@ struct list /* FIXME: Why not separate entries and header? */
 };
 
 
-/* Generic linked list of strings */
-struct list_share /* FIXME: Why not separate entries and header? */
-{
-   const char *       str;  /* valid in an entry */
-   struct list_share *last; /* valid in header */
-   struct list_share *next;
-};
-
-
 /* A URL pattern */
 struct url_spec
 {
@@ -344,7 +339,7 @@ struct current_action_spec
    char * string[ACTION_STRING_COUNT];
 
    /* Strings to add */
-   struct list_share multi[ACTION_MULTI_COUNT][1];
+   struct list multi[ACTION_MULTI_COUNT][1];
 };
 
 struct action_spec

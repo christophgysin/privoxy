@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.2  2001/06/01 18:49:17  jongfoster
+ *    Replaced "list_share" with "list" - the tiny memory gain was not
+ *    worth the extra complexity.
+ *
  *    Revision 1.1  2001/05/31 21:11:53  jongfoster
  *    - Moved linked list support to new "list.c" file.
  *      Structure definitions are still in project.h,
@@ -62,25 +66,20 @@ extern "C" {
 #endif
 
 
-extern void enlist(struct list *h, const char *s);
-extern void destroy_list(struct list *h);
+extern void  enlist(struct list *h, const char *s);
+extern void  enlist_unique(struct list *header, const char *str);
+
+extern void  destroy_list(struct list *h);
+
 extern char *list_to_text(struct list *h);
 
-void enlist_unique(struct list *header, const char *str);
+extern int   list_remove_item(struct list *header, const char *str);
+extern int   list_remove_list(struct list *header, const struct list *to_remove);
 
-int list_remove_item(struct list *header, const char *str);
-int list_remove_list(struct list *header, const struct list *to_remove);
+extern void  list_append_list_unique(struct list *dest, const struct list *src);
 
-void list_duplicate(struct list *dest, const struct list *src);
-void list_append_list_unique(struct list *dest, const struct list *src);
+extern void  list_duplicate(struct list *dest, const struct list *src);
 
-void destroy_list_share(struct list_share *h);
-void enlist_share(struct list_share *header, const char *str);
-void enlist_unique_share(struct list_share *header, const char *str);
-int list_remove_item_share(struct list_share *header, const char *str);
-int list_remove_list_share(struct list_share *dest, const struct list *src);
-void list_duplicate_share(struct list_share *dest, const struct list *src);
-void list_append_list_unique_share(struct list_share *dest, const struct list *src);
 
 /* Revision control strings from this header and associated .c file */
 extern const char list_rcs[];
