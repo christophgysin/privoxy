@@ -43,6 +43,9 @@ const char pcrs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/05/25 11:03:55  oes
+ *    Added sanity check for NULL jobs to pcrs_exec_substitution
+ *
  *    Revision 1.2  2001/05/22 18:46:04  oes
  *
  *    - Enabled filtering banners by size rather than URL
@@ -518,6 +521,13 @@ int pcrs_exec_substitution(pcrs_job *job, char *subject, int subject_length, cha
       offset = 0, i=0, k, matches_found, newsize, submatches;
    pcrs_match matches[PCRS_MAX_MATCHES];
    char *result_offset;
+
+   /* Sanity first */
+   if (job == NULL || job->pattern == NULL || job->substitute == NULL)
+   {
+      *result = NULL;
+      return(PCRS_ERR_BADJOB);
+   }
 
    newsize=subject_length;
 

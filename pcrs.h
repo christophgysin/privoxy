@@ -26,8 +26,11 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:59:02  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/25 11:03:55  oes
+ *    Added sanity check for NULL jobs to pcrs_exec_substitution
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:59:02  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *    Revision 1.4  2001/05/11 01:57:02  rodney
  *    Added new file header standard w/RCS control tags.
@@ -58,6 +61,7 @@
 #define PCRS_ERR_NOMEM     -10      /* Failed to acquire memory. */
 #define PCRS_ERR_CMDSYNTAX -11      /* Syntax of s///-command */
 #define PCRS_ERR_STUDY     -12      /* pcre error while studying the pattern */
+#define PCRS_ERR_BADJOB    -13      /* NULL job pointer, pattern or substitute */
 
 typedef struct S_PCRS_SUBSTITUTE {
   char *text;
