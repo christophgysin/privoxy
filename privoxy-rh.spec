@@ -264,7 +264,7 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
-* Tue Mar 25 2002 Hal Burgiss <hal@foobox.net>
+* Tue Mar 26 2002 Hal Burgiss <hal@foobox.net>
 + privoxy-2.9.13-3
 - Fix typo in Description.
 
@@ -544,6 +544,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.18  2002/03/27 22:10:14  sarantis
+# bumped Hal's last commit 1 day to the future to make rpm build again.
+#
 # Revision 1.17  2002/03/27 00:48:23  hal9
 # Fix up descrition.
 #
