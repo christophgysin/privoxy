@@ -33,6 +33,12 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.22  2002/01/21 00:27:02  jongfoster
+ *    Allowing free_action(NULL).
+ *    Moving the functions that #include actionlist.h to the end of the file,
+ *    because the Visual C++ 97 debugger gets extremely confused if you try
+ *    to debug any code that comes after them in the file.
+ *
  *    Revision 1.21  2002/01/17 20:54:44  jongfoster
  *    Renaming free_url to free_url_spec, since it frees a struct url_spec.
  *
@@ -359,6 +365,11 @@ void free_action (struct action_spec *src)
 {
    int i;
 
+   if (src == NULL)
+   {
+      return;
+   }
+
    for (i = 0; i < ACTION_STRING_COUNT; i++)
    {
       freez(src->string[i]);
@@ -655,293 +666,6 @@ jb_err get_actions(char *line,
 
 /*********************************************************************
  *
- * Function    :  actions_to_text
- *
- * Description :  Converts a actionsfile entry from numeric form
- *                ("mask" and "add") to text.
- *
- * Parameters  :
- *          1  :  mask = As from struct url_actions
- *          2  :  add  = As from struct url_actions
- *
- * Returns     :  A string.  Caller must free it.
- *                NULL on out-of-memory error.
- *
- *********************************************************************/
-char * actions_to_text(struct action_spec *action)
-{
-   unsigned mask = action->mask;
-   unsigned add  = action->add;
-   char * result = strdup("");
-   struct list_entry * lst;
-
-   /* sanity - prevents "-feature +feature" */
-   mask |= add;
-
-
-#define DEFINE_ACTION_BOOL(__name, __bit)    \
-   if (!(mask & __bit))                      \
-   {                                         \
-      string_append(&result, " -" __name);   \
-   }                                         \
-   else if (add & __bit)                     \
-   {                                         \
-      string_append(&result, " +" __name);   \
-   }
-
-#define DEFINE_ACTION_STRING(__name, __bit, __index)   \
-   if (!(mask & __bit))                                \
-   {                                                   \
-      string_append(&result, " -" __name);             \
-   }                                                   \
-   else if (add & __bit)                               \
-   {                                                   \
-      string_append(&result, " +" __name "{");         \
-      string_append(&result, action->string[__index]); \
-      string_append(&result, "}");                     \
-   }
-
-#define DEFINE_ACTION_MULTI(__name, __index)         \
-   if (action->multi_remove_all[__index])            \
-   {                                                 \
-      string_append(&result, " -" __name);           \
-   }                                                 \
-   else                                              \
-   {                                                 \
-      lst = action->multi_remove[__index]->first;    \
-      while (lst)                                    \
-      {                                              \
-         string_append(&result, " -" __name "{");    \
-         string_append(&result, lst->str);           \
-         string_append(&result, "}");                \
-         lst = lst->next;                            \
-      }                                              \
-   }                                                 \
-   lst = action->multi_add[__index]->first;          \
-   while (lst)                                       \
-   {                                                 \
-      string_append(&result, " +" __name "{");       \
-      string_append(&result, lst->str);              \
-      string_append(&result, "}");                   \
-      lst = lst->next;                               \
-   }
-
-#define DEFINE_ACTION_ALIAS 0 /* No aliases for output */
-
-#include "actionlist.h"
-
-#undef DEFINE_ACTION_MULTI
-#undef DEFINE_ACTION_STRING
-#undef DEFINE_ACTION_BOOL
-#undef DEFINE_ACTION_ALIAS
-
-   return result;
-}
-
-
-#ifdef FEATURE_CGI_EDIT_ACTIONS
-/*********************************************************************
- *
- * Function    :  actions_to_html
- *
- * Description :  Converts a actionsfile entry from numeric form
- *                ("mask" and "add") to a <br>-seperated HTML string.
- *
- * Parameters  :
- *          1  :  mask = As from struct url_actions
- *          2  :  add  = As from struct url_actions
- *
- * Returns     :  A string.  Caller must free it.
- *                NULL on out-of-memory error.
- *
- *********************************************************************/
-char * actions_to_html(struct action_spec *action)
-{
-   unsigned mask = action->mask;
-   unsigned add  = action->add;
-   char * result = strdup("");
-   char * enc_str;
-   struct list_entry * lst;
-
-   /* sanity - prevents "-feature +feature" */
-   mask |= add;
-
-
-#define DEFINE_ACTION_BOOL(__name, __bit)       \
-   if (!(mask & __bit))                         \
-   {                                            \
-      string_append(&result, "\n<br>-" __name); \
-   }                                            \
-   else if (add & __bit)                        \
-   {                                            \
-      string_append(&result, "\n<br>+" __name); \
-   }
-
-#define DEFINE_ACTION_STRING(__name, __bit, __index) \
-   if (!(mask & __bit))                              \
-   {                                                 \
-      string_append(&result, "\n<br>-" __name);      \
-   }                                                 \
-   else if (add & __bit)                             \
-   {                                                 \
-      string_append(&result, "\n<br>+" __name "{");  \
-      if (NULL == result)                            \
-      {                                              \
-         return NULL;                                \
-      }                                              \
-      enc_str = html_encode(action->string[__index]);\
-      if (NULL == enc_str)                           \
-      {                                              \
-         free(result);                               \
-         return NULL;                                \
-      }                                              \
-      string_append(&result, enc_str);               \
-      free(enc_str);                                 \
-      string_append(&result, "}");                   \
-   }
-
-#define DEFINE_ACTION_MULTI(__name, __index)          \
-   if (action->multi_remove_all[__index])             \
-   {                                                  \
-      string_append(&result, "\n<br>-" __name);       \
-   }                                                  \
-   else                                               \
-   {                                                  \
-      lst = action->multi_remove[__index]->first;     \
-      while (lst)                                     \
-      {                                               \
-         string_append(&result, "\n<br>-" __name "{");\
-         if (NULL == result)                          \
-         {                                            \
-            return NULL;                              \
-         }                                            \
-         enc_str = html_encode(lst->str);             \
-         if (NULL == enc_str)                         \
-         {                                            \
-            free(result);                             \
-            return NULL;                              \
-         }                                            \
-         string_append(&result, enc_str);             \
-         free(enc_str);                               \
-         string_append(&result, "}");                 \
-         lst = lst->next;                             \
-      }                                               \
-   }                                                  \
-   lst = action->multi_add[__index]->first;           \
-   while (lst)                                        \
-   {                                                  \
-      string_append(&result, "\n<br>+" __name "{");   \
-      if (NULL == result)                             \
-      {                                               \
-         return NULL;                                 \
-      }                                               \
-      enc_str = html_encode(lst->str);                \
-      if (NULL == enc_str)                            \
-      {                                               \
-         free(result);                                \
-         return NULL;                                 \
-      }                                               \
-      string_append(&result, enc_str);                \
-      free(enc_str);                                  \
-      string_append(&result, "}");                    \
-      lst = lst->next;                                \
-   }
-
-#define DEFINE_ACTION_ALIAS 0 /* No aliases for output */
-
-#include "actionlist.h"
-
-#undef DEFINE_ACTION_MULTI
-#undef DEFINE_ACTION_STRING
-#undef DEFINE_ACTION_BOOL
-#undef DEFINE_ACTION_ALIAS
-
-   /* trim leading <br> */
-   if (result && *result)
-   {
-      char * s = result;
-      result = strdup(result + 5);
-      free(s);
-   }
-
-   return result;
-}
-#endif /* def FEATURE_CGI_EDIT_ACTIONS */
-
-
-/*********************************************************************
- *
- * Function    :  current_actions_to_text
- *
- * Description :  Converts a actionsfile entry to text.
- *
- * Parameters  :
- *          1  :  action = Action
- *
- * Returns     :  A string.  Caller must free it.
- *                NULL on out-of-memory error.
- *
- *********************************************************************/
-char * current_action_to_text(struct current_action_spec *action)
-{
-   unsigned long flags  = action->flags;
-   char * result = strdup("");
-   struct list_entry * lst;
-
-#define DEFINE_ACTION_BOOL(__name, __bit)  \
-   if (flags & __bit)                      \
-   {                                       \
-      string_append(&result, " +" __name); \
-   }                                       \
-   else                                    \
-   {                                       \
-      string_append(&result, " -" __name); \
-   }
-
-#define DEFINE_ACTION_STRING(__name, __bit, __index)   \
-   if (flags & __bit)                                  \
-   {                                                   \
-      string_append(&result, " +" __name "{");         \
-      string_append(&result, action->string[__index]); \
-      string_append(&result, "}");                     \
-   }                                                   \
-   else                                                \
-   {                                                   \
-      string_append(&result, " -" __name);             \
-   }
-
-#define DEFINE_ACTION_MULTI(__name, __index)           \
-   lst = action->multi[__index]->first;                \
-   if (lst == NULL)                                    \
-   {                                                   \
-      string_append(&result, " -" __name);             \
-   }                                                   \
-   else                                                \
-   {                                                   \
-      while (lst)                                      \
-      {                                                \
-         string_append(&result, " +" __name "{");      \
-         string_append(&result, lst->str);             \
-         string_append(&result, "}");                  \
-         lst = lst->next;                              \
-      }                                                \
-   }
-
-#define DEFINE_ACTION_ALIAS 0 /* No aliases for output */
-
-#include "actionlist.h"
-
-#undef DEFINE_ACTION_MULTI
-#undef DEFINE_ACTION_STRING
-#undef DEFINE_ACTION_BOOL
-#undef DEFINE_ACTION_ALIAS
-
-   return result;
-}
-
-
-/*********************************************************************
- *
  * Function    :  init_current_action
  *
  * Description :  Zero out an action.
@@ -997,7 +721,7 @@ void init_action (struct action_spec *dest)
  *          2  :  src = Action to add.
  *
  * Returns  0  :  no error
- *        !=0  :  error
+ *        !=0  :  error, probably JB_ERR_MEMORY.
  *
  *********************************************************************/
 jb_err merge_current_action (struct current_action_spec *dest,
@@ -1542,4 +1266,291 @@ int load_actions_file(struct client_state *csp)
 
    return(0);
 
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  actions_to_text
+ *
+ * Description :  Converts a actionsfile entry from numeric form
+ *                ("mask" and "add") to text.
+ *
+ * Parameters  :
+ *          1  :  mask = As from struct url_actions
+ *          2  :  add  = As from struct url_actions
+ *
+ * Returns     :  A string.  Caller must free it.
+ *                NULL on out-of-memory error.
+ *
+ *********************************************************************/
+char * actions_to_text(struct action_spec *action)
+{
+   unsigned mask = action->mask;
+   unsigned add  = action->add;
+   char * result = strdup("");
+   struct list_entry * lst;
+
+   /* sanity - prevents "-feature +feature" */
+   mask |= add;
+
+
+#define DEFINE_ACTION_BOOL(__name, __bit)    \
+   if (!(mask & __bit))                      \
+   {                                         \
+      string_append(&result, " -" __name);   \
+   }                                         \
+   else if (add & __bit)                     \
+   {                                         \
+      string_append(&result, " +" __name);   \
+   }
+
+#define DEFINE_ACTION_STRING(__name, __bit, __index)   \
+   if (!(mask & __bit))                                \
+   {                                                   \
+      string_append(&result, " -" __name);             \
+   }                                                   \
+   else if (add & __bit)                               \
+   {                                                   \
+      string_append(&result, " +" __name "{");         \
+      string_append(&result, action->string[__index]); \
+      string_append(&result, "}");                     \
+   }
+
+#define DEFINE_ACTION_MULTI(__name, __index)         \
+   if (action->multi_remove_all[__index])            \
+   {                                                 \
+      string_append(&result, " -" __name);           \
+   }                                                 \
+   else                                              \
+   {                                                 \
+      lst = action->multi_remove[__index]->first;    \
+      while (lst)                                    \
+      {                                              \
+         string_append(&result, " -" __name "{");    \
+         string_append(&result, lst->str);           \
+         string_append(&result, "}");                \
+         lst = lst->next;                            \
+      }                                              \
+   }                                                 \
+   lst = action->multi_add[__index]->first;          \
+   while (lst)                                       \
+   {                                                 \
+      string_append(&result, " +" __name "{");       \
+      string_append(&result, lst->str);              \
+      string_append(&result, "}");                   \
+      lst = lst->next;                               \
+   }
+
+#define DEFINE_ACTION_ALIAS 0 /* No aliases for output */
+
+#include "actionlist.h"
+
+#undef DEFINE_ACTION_MULTI
+#undef DEFINE_ACTION_STRING
+#undef DEFINE_ACTION_BOOL
+#undef DEFINE_ACTION_ALIAS
+
+   return result;
+}
+
+
+#ifdef FEATURE_CGI_EDIT_ACTIONS
+/*********************************************************************
+ *
+ * Function    :  actions_to_html
+ *
+ * Description :  Converts a actionsfile entry from numeric form
+ *                ("mask" and "add") to a <br>-seperated HTML string.
+ *
+ * Parameters  :
+ *          1  :  mask = As from struct url_actions
+ *          2  :  add  = As from struct url_actions
+ *
+ * Returns     :  A string.  Caller must free it.
+ *                NULL on out-of-memory error.
+ *
+ *********************************************************************/
+char * actions_to_html(struct action_spec *action)
+{
+   unsigned mask = action->mask;
+   unsigned add  = action->add;
+   char * result = strdup("");
+   char * enc_str;
+   struct list_entry * lst;
+
+   /* sanity - prevents "-feature +feature" */
+   mask |= add;
+
+
+#define DEFINE_ACTION_BOOL(__name, __bit)       \
+   if (!(mask & __bit))                         \
+   {                                            \
+      string_append(&result, "\n<br>-" __name); \
+   }                                            \
+   else if (add & __bit)                        \
+   {                                            \
+      string_append(&result, "\n<br>+" __name); \
+   }
+
+#define DEFINE_ACTION_STRING(__name, __bit, __index) \
+   if (!(mask & __bit))                              \
+   {                                                 \
+      string_append(&result, "\n<br>-" __name);      \
+   }                                                 \
+   else if (add & __bit)                             \
+   {                                                 \
+      string_append(&result, "\n<br>+" __name "{");  \
+      if (NULL == result)                            \
+      {                                              \
+         return NULL;                                \
+      }                                              \
+      enc_str = html_encode(action->string[__index]);\
+      if (NULL == enc_str)                           \
+      {                                              \
+         free(result);                               \
+         return NULL;                                \
+      }                                              \
+      string_append(&result, enc_str);               \
+      free(enc_str);                                 \
+      string_append(&result, "}");                   \
+   }
+
+#define DEFINE_ACTION_MULTI(__name, __index)          \
+   if (action->multi_remove_all[__index])             \
+   {                                                  \
+      string_append(&result, "\n<br>-" __name);       \
+   }                                                  \
+   else                                               \
+   {                                                  \
+      lst = action->multi_remove[__index]->first;     \
+      while (lst)                                     \
+      {                                               \
+         string_append(&result, "\n<br>-" __name "{");\
+         if (NULL == result)                          \
+         {                                            \
+            return NULL;                              \
+         }                                            \
+         enc_str = html_encode(lst->str);             \
+         if (NULL == enc_str)                         \
+         {                                            \
+            free(result);                             \
+            return NULL;                              \
+         }                                            \
+         string_append(&result, enc_str);             \
+         free(enc_str);                               \
+         string_append(&result, "}");                 \
+         lst = lst->next;                             \
+      }                                               \
+   }                                                  \
+   lst = action->multi_add[__index]->first;           \
+   while (lst)                                        \
+   {                                                  \
+      string_append(&result, "\n<br>+" __name "{");   \
+      if (NULL == result)                             \
+      {                                               \
+         return NULL;                                 \
+      }                                               \
+      enc_str = html_encode(lst->str);                \
+      if (NULL == enc_str)                            \
+      {                                               \
+         free(result);                                \
+         return NULL;                                 \
+      }                                               \
+      string_append(&result, enc_str);                \
+      free(enc_str);                                  \
+      string_append(&result, "}");                    \
+      lst = lst->next;                                \
+   }
+
+#define DEFINE_ACTION_ALIAS 0 /* No aliases for output */
+
+#include "actionlist.h"
+
+#undef DEFINE_ACTION_MULTI
+#undef DEFINE_ACTION_STRING
+#undef DEFINE_ACTION_BOOL
+#undef DEFINE_ACTION_ALIAS
+
+   /* trim leading <br> */
+   if (result && *result)
+   {
+      char * s = result;
+      result = strdup(result + 5);
+      free(s);
+   }
+
+   return result;
+}
+#endif /* def FEATURE_CGI_EDIT_ACTIONS */
+
+
+/*********************************************************************
+ *
+ * Function    :  current_actions_to_text
+ *
+ * Description :  Converts a actionsfile entry to text.
+ *
+ * Parameters  :
+ *          1  :  action = Action
+ *
+ * Returns     :  A string.  Caller must free it.
+ *                NULL on out-of-memory error.
+ *
+ *********************************************************************/
+char * current_action_to_text(struct current_action_spec *action)
+{
+   unsigned long flags  = action->flags;
+   char * result = strdup("");
+   struct list_entry * lst;
+
+#define DEFINE_ACTION_BOOL(__name, __bit)  \
+   if (flags & __bit)                      \
+   {                                       \
+      string_append(&result, " +" __name); \
+   }                                       \
+   else                                    \
+   {                                       \
+      string_append(&result, " -" __name); \
+   }
+
+#define DEFINE_ACTION_STRING(__name, __bit, __index)   \
+   if (flags & __bit)                                  \
+   {                                                   \
+      string_append(&result, " +" __name "{");         \
+      string_append(&result, action->string[__index]); \
+      string_append(&result, "}");                     \
+   }                                                   \
+   else                                                \
+   {                                                   \
+      string_append(&result, " -" __name);             \
+   }
+
+#define DEFINE_ACTION_MULTI(__name, __index)           \
+   lst = action->multi[__index]->first;                \
+   if (lst == NULL)                                    \
+   {                                                   \
+      string_append(&result, " -" __name);             \
+   }                                                   \
+   else                                                \
+   {                                                   \
+      while (lst)                                      \
+      {                                                \
+         string_append(&result, " +" __name "{");      \
+         string_append(&result, lst->str);             \
+         string_append(&result, "}");                  \
+         lst = lst->next;                              \
+      }                                                \
+   }
+
+#define DEFINE_ACTION_ALIAS 0 /* No aliases for output */
+
+#include "actionlist.h"
+
+#undef DEFINE_ACTION_MULTI
+#undef DEFINE_ACTION_STRING
+#undef DEFINE_ACTION_BOOL
+#undef DEFINE_ACTION_ALIAS
+
+   return result;
 }
