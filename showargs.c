@@ -33,6 +33,9 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.6  2001/05/25 22:32:56  jongfoster
+ *    CRLF->LF
+ *
  *    Revision 1.5  2001/05/22 18:54:49  oes
  *
  *    - Enabled filtering banners by size rather than URL
