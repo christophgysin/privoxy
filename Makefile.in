@@ -28,6 +28,10 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.40  2001/12/01 00:24:11  jongfoster
+# Renaming various config files
+# Fixing CR->CRLF under Win32 (I hope)
+#
 # Revision 1.39  2001/11/06 12:07:30  steudten
 # Add --clean for building rpm in target redhat-dist.
 #
@@ -224,6 +228,15 @@ MV	   = mv
 TAR        = tar
 MAKE       = make
 
+# Program to do LF->CRLF
+#
+# The sed version should be the most portable, but it doesn't for for me,
+# the other two do.  FIXME.
+#   - Jon
+#DOSFILTER  = $(SED) -e $$'s,$$,\r,'
+#DOSFILTER  = gawk -v ORS='\r\n' '{print $0;}'
+DOSFILTER  = perl -p -e 's/\n/\r\n/'
+
 #############################################################################
 # Setup for make distribution rh and suse for now 
 #############################################################################
@@ -247,7 +260,7 @@ W32_FILES = @WIN_ONLY@w32.res
 W32_OBJS  = @WIN_ONLY@$(W32_SRC:.c=.@OBJEXT@) $(W32_FILES)
 W32_HDRS  = @WIN_ONLY@w32log.h w32taskbar.h win32.h w32res.h
 W32_LIB   = @WIN_ONLY@-lwsock32 -lcomctl32
-W32_INIS  = @WIN_ONLY@junkbstr.txt sactions.txt strust.txt sregexp.txt
+W32_INIS  = @WIN_ONLY@config.txt trust.txt re_filterfile.txt
 
 PCRS_SRC     = @STATIC_PCRS_ONLY@pcrs.c
 PCRS_OBJS    = @STATIC_PCRS_ONLY@$(PCRS_SRC:.c=.@OBJEXT@)
@@ -321,24 +334,24 @@ all: $(PROGRAM)
 # Win32 config files
 #############################################################################
 
-%.txt:
-	sed -e $$'s,$$,\r,' < $< > $@ 
-
 inifiles: $(W32_INIS)
 
-junkbstr.txt: config
-	sed	-e 's!\actionsfile!sactions.txt!' \
-			-e 's!\trust!strust.txt!' \
-			-e 's!\jarfile!jar.log!' \
-			-e 's!\logfile!junkbstr.log!' \
-			-e 's!\re_filterfile!sregexp.txt!' \
-			-e $$'s,$$,\r,' \
-			-e 's!#Win32-only: !!' \
-	< $< > $@
+config.txt: config
+	$(SED) -e 's!\trustfile trust!trustfile trust.txt!' \
+	       -e 's!\jarfile jarfile!jarfile jar.log!' \
+	       -e 's!\logfile logfile!logfile junkbuster.log!' \
+	       -e 's!\re_filterfile re_filterfile!re_filterfile re_filterfile.txt!' \
+	       -e 's!#Win32-only: !!' \
+	       < $< | \
+	       $(DOSFILTER) > $@
+	# LF to CRLF in ijb.action
+	$(DOSFILTER) <ijb.action >ijb.action.txt && mv ijb.action.txt ijb.action
 
-sactions.txt: actionsfile
-strust.txt: trust
-sregexp.txt: re_filterfile
+trust.txt: trust
+	$(DOSFILTER) < $< > $@ 
+
+re_filterfile.txt: re_filterfile
+	$(DOSFILTER) < $< > $@ 
 
 
 #############################################################################
@@ -563,7 +576,7 @@ install: all
 	mkdir -p $(DEST)/templates
 	cp -r doc/webserver/user-manual $(DEST)
 	cp -r templates $(DEST)
-	$(INSTALL) config actionsfile re_filterfile trust $(DEST)
+	$(INSTALL) config ijb.action re_filterfile trust $(DEST)
 	# FIXME $(ECHO) junkbuster.logrotate junkbuster.monthly junkbuster.weekly
 	# FIXME: Need new manual! $(GZIP_PROG) -c junkbuster.1 > $(MAN_DEST)/junkbuster.1.gz
 	$(INSTALL) junkbuster.init /etc/init.d/junkbuster
