@@ -1,4 +1,3 @@
-/* vim:ts=3: */
 const char loadcfg_rcs[] = "$Id$";
 /*********************************************************************
  *
@@ -36,6 +35,10 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/07/13 14:01:14  oes
+ *     - Removed all #ifdef PCRS
+ *     - Removed vim-settings
+ *
  *    Revision 1.17  2001/06/29 13:31:03  oes
  *    - Improved comments
  *    - Fixed (actionsfile) and sorted hashes
@@ -379,9 +382,7 @@ void unload_configfile (void * data)
    freez((char *)config->suppress_message);
 #endif /* ndef SPLIT_PROXY_ARGS */
 
-#ifdef PCRS
    freez((char *)config->re_filterfile);
-#endif /* def PCRS */
 
 }
 
@@ -968,12 +969,10 @@ struct configuration_spec * load_config(void)
  * re_filterfile file-name
  * In confdir by default.
  ****************************************************************************/
-#ifdef PCRS
          case hash_re_filterfile :
             freez((char *)config->re_filterfile);
             config->re_filterfile = make_path(config->confdir, arg);
             continue;
-#endif /* def PCRS */
 
 /****************************************************************************
  * single-threaded
@@ -1128,9 +1127,6 @@ struct configuration_spec * load_config(void)
 #ifndef ACL_FILES
          case hash_permit_access:
 #endif /* ndef ACL_FILES */
-#ifndef PCRS
-         case hash_re_filterfile :
-#endif /* ndef PCRS */
 #ifdef SPLIT_PROXY_ARGS
          case hash_suppress_blocklists :
 #endif /* def SPLIT_PROXY_ARGS */
@@ -1189,12 +1185,10 @@ struct configuration_spec * load_config(void)
       add_loader(load_actions_file, config);
    }
 
-#ifdef PCRS
    if (config->re_filterfile)
    {
       add_loader(load_re_filterfile, config);
    }
-#endif /* def PCRS */
 
 #ifdef TRUST_FILES
    if (config->trustfile)
@@ -1270,9 +1264,8 @@ struct configuration_spec * load_config(void)
 #if defined(_WIN32) && !defined (_WIN_CONSOLE)
 
    g_actions_file     = config->actions_file;
-#ifdef PCRS
    g_re_filterfile    = config->re_filterfile;
-#endif
+
 #ifdef TRUST_FILES
    g_trustfile        = config->trustfile;
 #endif
