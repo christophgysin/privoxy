@@ -33,6 +33,9 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2002/05/12 21:40:37  jongfoster
+ *    - Removing some unused code
+ *
  *    Revision 1.9  2002/04/04 00:36:36  gliptak
  *    always use pcre for matching
  *
@@ -102,19 +105,6 @@ const char urlmatch_rcs[] = "$Id$";
 #include "errlog.h"
 
 const char urlmatch_h_rcs[] = URLMATCH_H_VERSION;
-
-/* Fix a problem with Solaris.  There should be no effect on other
- * platforms.
- * Solaris's isspace() is a macro which uses it's argument directly
- * as an array index.  Therefore we need to make sure that high-bit
- * characters generate +ve values, and ideally we also want to make
- * the argument match the declared parameter type of "int".
- *
- * Why did they write a character function that can't take a simple
- * "char" argument?  Doh!
- */
-#define ijb_isupper(__X) isupper((int)(unsigned char)(__X))
-#define ijb_tolower(__X) tolower((int)(unsigned char)(__X))
 
 
 /*********************************************************************
