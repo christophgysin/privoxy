@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.21  2001/11/30 21:35:54  jongfoster
+dnl Bumping version number to 2.9.10
+dnl
 dnl Revision 1.20  2001/10/23 21:24:09  jongfoster
 dnl Support for FEATURE_CGI_EDIT_ACTIONS
 dnl
@@ -205,7 +208,7 @@ dnl =================================================================
 
 VERSION_MAJOR=2
 VERSION_MINOR=9
-VERSION_POINT=9
+VERSION_POINT=10
 CODE_STATUS="\"alpha\""
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be

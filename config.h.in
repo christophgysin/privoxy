@@ -38,7 +38,10 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.13  2001/10/23 21:24:09  jongfoster
+ *    Revision 1.14  2001/11/30 21:35:53  jongfoster
+ *    Bumping version number to 2.9.10
+ *
+ *    Revision 1.14  2001/10/23 21:24:09  jongfoster
  *    Support for FEATURE_CGI_EDIT_ACTIONS
  *
  *    Revision 1.13  2001/10/07 15:30:41  oes
