@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.30  2002/01/22 23:31:43  jongfoster
+ *    Replacing strsav() with string_append()
+ *
  *    Revision 1.29  2002/01/17 21:02:30  jongfoster
  *    Moving all our URL and URL pattern parsing code to urlmatch.c.
  *
@@ -251,6 +254,7 @@ const char loadcfg_rcs[] = "$Id$";
 #include <fcntl.h>
 #include <errno.h>
 #include <ctype.h>
+#include <assert.h>
 
 #ifdef _WIN32
 
@@ -366,7 +370,7 @@ static struct file_list *current_configfile = NULL;
 #define hash_show_on_task_bar           215410365ul /* "show-on-task-bar" */
 
 
-static void savearg(char *c, char *o, struct configuration_spec * config);
+static void savearg(char *command, char *argument, struct configuration_spec * config);
 
 /*********************************************************************
  *
@@ -507,6 +511,7 @@ struct configuration_spec * load_config(void)
    config->multi_threaded    = 1;
    config->hport             = HADDR_PORT;
    config->buffer_limit      = 4096 * 1024;
+   config->proxy_args        = strdup("");
 
    if ((configfp = fopen(configfile, "r")) == NULL)
    {
@@ -619,7 +624,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for "
                      "deny-access directive in configuration file.");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "deny-access directive in configuration file.<br><br>\n");
                continue;
@@ -640,12 +645,12 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Invalid source IP for deny-access "
                      "directive in configuration file: \"%s\"", vec[0]);
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Invalid source IP for deny-access directive"
                   " in configuration file: \"");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   vec[0]);
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "\"<br><br>\n");
                freez(cur_acl);
                continue;
@@ -656,12 +661,12 @@ struct configuration_spec * load_config(void)
                {
                   log_error(LOG_LEVEL_ERROR, "Invalid destination IP for deny-access "
                         "directive in configuration file: \"%s\"", vec[0]);
-                  config->proxy_args = strsav( config->proxy_args,
+                  string_append(&config->proxy_args,
                      "<br>\nWARNING: Invalid destination IP for deny-access directive"
                      " in configuration file: \"");
-                  config->proxy_args = strsav( config->proxy_args,
+                  string_append(&config->proxy_args,
                      vec[0]);
-                  config->proxy_args = strsav( config->proxy_args,
+                  string_append(&config->proxy_args,
                      "\"<br><br>\n");
                   freez(cur_acl);
                   continue;
@@ -725,7 +730,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for forward "
                      "directive in configuration file.");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "forward directive in configuration file.");
                continue;
@@ -747,7 +752,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Bad URL specifier for forward "
                      "directive in configuration file.");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward directive in configuration file.");
                continue;
@@ -788,7 +793,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for "
                      "forward-socks4 directive in configuration file.");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "forward-socks4 directive in configuration file.");
                continue;
@@ -810,7 +815,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Bad URL specifier for forward-socks4 "
                      "directive in configuration file.");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward-socks4 directive in configuration file.");
                continue;
@@ -869,7 +874,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for "
                      "forward-socks4a directive in configuration file.");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "forward-socks4a directive in configuration file.");
                continue;
@@ -891,7 +896,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Bad URL specifier for forward-socks4a "
                      "directive in configuration file.");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward-socks4a directive in configuration file.");
                continue;
@@ -984,7 +989,7 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Wrong number of parameters for "
                      "permit-access directive in configuration file.");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Wrong number of parameters for "
                   "permit-access directive in configuration file.<br><br>\n");
 
@@ -1006,12 +1011,12 @@ struct configuration_spec * load_config(void)
             {
                log_error(LOG_LEVEL_ERROR, "Invalid source IP for permit-access "
                      "directive in configuration file: \"%s\"", vec[0]);
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "<br>\nWARNING: Invalid source IP for permit-access directive"
                   " in configuration file: \"");
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   vec[0]);
-               config->proxy_args = strsav( config->proxy_args,
+               string_append(&config->proxy_args,
                   "\"<br><br>\n");
                freez(cur_acl);
                continue;
@@ -1023,12 +1028,12 @@ struct configuration_spec * load_config(void)
                   log_error(LOG_LEVEL_ERROR, "Invalid destination IP for "
                         "permit-access directive in configuration file: \"%s\"",
                         vec[0]);
-                  config->proxy_args = strsav( config->proxy_args,
+                  string_append(&config->proxy_args,
                      "<br>\nWARNING: Invalid destination IP for permit-access directive"
                      " in configuration file: \"");
-                  config->proxy_args = strsav( config->proxy_args,
+                  string_append(&config->proxy_args,
                      vec[0]);
-                  config->proxy_args = strsav( config->proxy_args,
+                  string_append(&config->proxy_args,
                      "\"<br><br>\n");
                   freez(cur_acl);
                   continue;
@@ -1245,9 +1250,9 @@ struct configuration_spec * load_config(void)
             /* log_error(LOG_LEVEL_ERROR, "Unrecognized directive (%luul) in "
                   "configuration file: \"%s\"", hash_string( cmd ), buf);
  	    */
-            config->proxy_args = strsav( config->proxy_args, "<br>\nWARNING: unrecognized directive : ");
-            config->proxy_args = strsav( config->proxy_args, buf);
-            config->proxy_args = strsav( config->proxy_args, "<br><br>\n");
+            string_append(&config->proxy_args, "<br>\nWARNING: unrecognized directive : ");
+            string_append(&config->proxy_args, buf);
+            string_append(&config->proxy_args, "<br><br>\n");
             continue;
 
 /****************************************************************************/
@@ -1255,6 +1260,11 @@ struct configuration_spec * load_config(void)
    } /* end while ( read_config_line(...) ) */
 
    fclose(configfp);
+
+   if (NULL == config->proxy_args)
+   {
+      log_error(LOG_LEVEL_FATAL, "Out of memory loading config - insufficient memory for config->proxy_args");
+   }
 
    init_error_log(Argv[0], config->logfile, config->debug);
 
@@ -1397,54 +1407,69 @@ struct configuration_spec * load_config(void)
  * Function    :  savearg
  *
  * Description :  Called from `load_config'.  It saves each non-empty
- *                and non-comment line from config into a list.  This
- *                list is used to create the show-proxy-args page.
+ *                and non-comment line from config into
+ *                config->proxy_args.  This is used to create the
+ *                show-proxy-args page.  On error, frees
+ *                config->proxy_args and sets it to NULL
  *
  * Parameters  :
- *          1  :  c = config setting that was found
- *          2  :  o = the setting's argument (if any)
+ *          1  :  command = config setting that was found
+ *          2  :  argument = the setting's argument (if any)
  *
  * Returns     :  N/A
  *
  *********************************************************************/
-static void savearg(char *c, char *o, struct configuration_spec * config)
+static void savearg(char *command, char *argument, struct configuration_spec * config)
 {
-   char buf[BUFFER_SIZE];
+   char * buf;
+   char * s;
 
-   *buf = '\0';
+   assert(command);
+   assert(*command);
+   assert(argument);
 
-   if ( ( NULL != c ) && ( '\0' != *c ) )
+   buf = strdup("");
+
+   s = html_encode(command);
+   if (NULL == s)
    {
-      if ((c = html_encode(c)))
-      {
-         sprintf(buf, "<a href=\"" REDIRECT_URL "option#%s\">%s</a> ", c, c);
-      }
-      freez(c);
+      freez(buf);
+      freez(config->proxy_args);
+      return;
    }
-   if ( ( NULL != o ) && ( '\0' != *o ) )
+   string_append(&buf, "<a href=\"" REDIRECT_URL "option#");
+   string_append(&buf, s);
+   string_append(&buf, "\">");
+   string_join  (&buf, s);
+   string_append(&buf, "</a> ");
+
+   if ( (NULL != argument) && ('\0' != *argument) )
    {
-      if ((o = html_encode(o)))
+      s = html_encode(argument);
+      if (NULL == s)
       {
-         if (strncmpic(o, "http://", 7) == 0)
-         {
-            strcat(buf, "<a href=\"");
-            strcat(buf, o);
-            strcat(buf, "\">");
-            strcat(buf, o);
-            strcat(buf, "</a>");
-         }
-         else
-         {
-            strcat(buf, o);
-         }
+         freez(buf);
+         freez(config->proxy_args);
+         return;
       }
-      freez(o);
+
+      if (strncmpic(argument, "http://", 7) == 0)
+      {
+         string_append(&buf, "<a href=\"");
+         string_append(&buf, s);
+         string_append(&buf, "\">");
+         string_join  (&buf, s);
+         string_append(&buf, "</a>");
+      }
+      else
+      {
+         string_join  (&buf, s);
+      }
    }
 
-   strcat(buf, "<br>\n");
+   string_append(&buf, "<br>\n");
 
-   config->proxy_args = strsav(config->proxy_args, buf);
-
+   string_join(&config->proxy_args, buf);
 }
 
 
