@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.84  2002/10/24 22:24:57  hal9
+dnl Make install: Minor clean up for variable handling.
+dnl
 dnl Revision 1.83  2002/10/24 16:32:41  hal9
 dnl echo -n does not work with true /bin/sh. Use AC_MSG_CHECKING for docbook stuff.
 dnl
@@ -429,7 +432,6 @@ dnl =================================================================
 
 AC_REVISION($Revision$)
 AC_INIT(src/jcc.c)
-
 if test ! -f src/config.h.in; then
    echo "You need to run autoheader first. "
    echo -n "Shall I do this for you now? (y/n) "
