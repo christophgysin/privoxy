@@ -32,6 +32,10 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2002/01/17 21:04:17  jongfoster
+ *    Replacing hard references to the URL of the config interface
+ *    with #defines from project.h
+ *
  *    Revision 1.18  2001/11/30 23:37:24  jongfoster
  *    Renaming the Win32 config file to config.txt - this is almost the
  *    same as the corresponding UNIX name "config"
@@ -1128,7 +1132,7 @@ void OnLogCommand(int nCommand)
          break;
 
       case ID_HELP_STATUS:
-         ShellExecute(g_hwndLogFrame, "open", HOME_PAGE_URL "/config/show-status", NULL, NULL, SW_SHOWNORMAL);
+         ShellExecute(g_hwndLogFrame, "open", CGI_PREFIX "show-status", NULL, NULL, SW_SHOWNORMAL);
          break;
 
       case ID_HELP_ABOUTJUNKBUSTER:
