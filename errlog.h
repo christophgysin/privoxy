@@ -35,8 +35,13 @@
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.1  2001/05/15 13:58:51  oes
- *    Initial revision
+ *    Revision 1.2  2001/05/20 01:11:40  jongfoster
+ *    Added support for LOG_LEVEL_FATAL
+ *    Renamed LOG_LEVEL_FRC to LOG_LEVEL_FORCE,
+ *    and LOG_LEVEL_REF to LOG_LEVEL_RE_FILTER
+ *
+ *    Revision 1.1.1.1  2001/05/15 13:58:51  oes
+ *    Initial import of version 2.9.3 source tree
  *
  *
  *********************************************************************/
@@ -48,19 +53,20 @@ extern "C" {
 
 /* Debug level for errors */
 
-#define LOG_LEVEL_GPC     0x0001
-#define LOG_LEVEL_CONNECT 0x0002
-#define LOG_LEVEL_IO      0x0004
-#define LOG_LEVEL_HEADER  0x0008
-#define LOG_LEVEL_LOG     0x0010
+#define LOG_LEVEL_GPC        0x0001
+#define LOG_LEVEL_CONNECT    0x0002
+#define LOG_LEVEL_IO         0x0004
+#define LOG_LEVEL_HEADER     0x0008
+#define LOG_LEVEL_LOG        0x0010
 #ifdef PCRS
-#define LOG_LEVEL_FRC     0x0020
-#define LOG_LEVEL_REF     0x0040
+#define LOG_LEVEL_FORCE      0x0020
+#define LOG_LEVEL_RE_FILTER  0x0040
 #endif /* def PCRS */
 
 /* Following are always on: */
-#define LOG_LEVEL_ERROR   0x1000
-#define LOG_LEVEL_INFO    0x2000
+#define LOG_LEVEL_INFO    0x1000
+#define LOG_LEVEL_ERROR   0x2000
+#define LOG_LEVEL_FATAL   0x4000 /* Exits after writing log */
 
 extern void init_error_log(const char *prog_name, const char *logfname, int debuglevel);
 extern void log_error(int loglevel, char *fmt, ...);
