@@ -36,6 +36,10 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.37  2002/04/26 18:29:43  jongfoster
+ *    Fixing this Visual C++ warning:
+ *    miscutil.c(710) : warning C4090: '=' : different 'const' qualifiers
+ *
  *    Revision 1.36  2002/04/26 12:55:38  oes
  *    New function string_toupper
  *
@@ -700,7 +704,8 @@ jb_err string_join(char **target_string, char *text_to_append)
  *********************************************************************/
 char *string_toupper(const char *string)
 {
-   char *result, *q, *p;
+   char *result, *p;
+   const char *q;
 
    if (!string || ((result = (char *) zalloc(strlen(string) + 1)) == NULL))
    {
