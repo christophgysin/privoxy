@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl 
 dnl $Id$
 dnl 
-dnl Written by and Copyright (C) 2001 the SourceForge
+dnl Written by and Copyright (C) 2001, 2002 the SourceForge
 dnl Privoxy team. http://www.privoxy.org/
 dnl
 dnl Based on the Internet Junkbuster originally written
@@ -28,6 +28,11 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.49  2002/03/27 02:19:52  david__schmidt
+dnl More Mac OSX support:
+dnl - Get rid of extraneous, noisy -pthread warnings
+dnl - Define unix so we get oes' unix-tagged changes
+dnl
 dnl Revision 1.48  2002/03/26 22:29:54  swa
 dnl we have a new homepage!
 dnl
@@ -738,6 +743,15 @@ case "$host" in
 esac
 
 AC_SUBST(SOCKET_LIB)
+
+dnl =================================================================
+dnl Mac OSX specific
+dnl =================================================================
+    
+case "$host" in
+*-apple-darwin*) SPECIAL_CFLAGS="-Dunix"
+;;  
+esac
 
 dnl =================================================================
 dnl AmigaOS specific
