@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2002/03/04 18:24:53  oes
+ *    Re-enabled output of unknown config directive hash
+ *
  *    Revision 1.31  2002/03/03 15:07:20  oes
  *    Re-enabled automatic config reloading
  *
@@ -478,9 +481,7 @@ struct configuration_spec * load_config(void)
                 configfile);
    }
 
-   /*
    log_error(LOG_LEVEL_INFO, "loading configuration file '%s':", configfile);
-   */
 
 #ifdef FEATURE_TOGGLE
    g_bToggleIJB      = 1;
@@ -1248,11 +1249,8 @@ struct configuration_spec * load_config(void)
              * error.  To change back to an error, just change log level
              * to LOG_LEVEL_FATAL.
              */
-            log_error(LOG_LEVEL_ERROR, "Unrecognized directive '%s' in line %lu in "
-                  "configuration file (%s).",  buf, linenum, configfile);
-            /* log_error(LOG_LEVEL_ERROR, "Unrecognized directive (%luul) in "
-                  "configuration file: \"%s\"", hash_string( cmd ), buf);
- 	    */
+            log_error(LOG_LEVEL_ERROR, "Unrecognized directive '%s' (%luul) in line %lu in "
+                  "configuration file (%s).",  buf, hash_string(cmd), linenum, configfile);
             string_append(&config->proxy_args, "<br>\nWARNING: unrecognized directive : ");
             string_append(&config->proxy_args, buf);
             string_append(&config->proxy_args, "<br><br>\n");
