@@ -38,6 +38,14 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.14  2001/09/16 11:38:02  jongfoster
+ *    Splitting fill_template() into 2 functions:
+ *    template_load() loads the file
+ *    template_fill() performs the PCRS regexps.
+ *    This is because the CGI edit interface has a "table row"
+ *    template which is used many times in the page - this
+ *    change means it's only loaded from disk once.
+ *
  *    Revision 1.13  2001/09/16 11:00:10  jongfoster
  *    New function alloc_http_response, for symmetry with free_http_response
  *
@@ -130,7 +138,9 @@ extern struct http_response *finish_http_response(struct http_response *rsp);
 extern struct map * default_exports(const struct client_state *csp, const char *caller);
 extern void map_block_killer(struct map *map, const char *name);
 extern void map_conditional(struct map *exports, const char *name, int choose_first);
-extern char *fill_template(struct client_state *csp, const char *templatename, struct map *exports);
+
+extern char *template_load(struct client_state *csp, const char *templatename);
+extern void template_fill(char ** template_ptr, struct map *exports);
 
 
 /*
