@@ -28,6 +28,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.30  2001/09/19 17:55:49  oes
+# Fixed CFLAGS
+#
 # Revision 1.29  2001/09/16 17:34:27  jongfoster
 # Removing showargs.[ch], adding cgi(simple|edit).[ch]
 # Replacing $(OBJEXT) with @OBJEXT@ - this seems to be a common source
@@ -244,8 +247,8 @@ SPECIAL_CFLAGS = @SPECIAL_CFLAGS@
 # Add your flags here 
 OTHER_CFLAGS =   
 
-CFLAGS = @CFLAGS@ @CPPFLAGS@ $(OTHER_CFLAGS) $(SPECIAL_CFLAGS) \
-         @STATIC_PCRE_ONLY@ -Ipcre -Wall
+CFLAGS = @CFLAGS@ @CPPFLAGS@ $(OTHER_CFLAGS) $(SPECIAL_CFLAGS) -Wall \
+         @STATIC_PCRE_ONLY@ -Ipcre 
 
 LDFLAGS = $(DEBUG_CFLAGS) $(SPECIAL_CFLAGS)
 
