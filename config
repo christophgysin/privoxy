@@ -1060,4 +1060,16 @@ buffer-limit 4096
 #  
 #hide-console
 
+#  The experimental "activity-console-address" option is used to
+#  specify where statistical information should be sent for monitoring
+#  by the activity console.
+#
+#activity-console-address 127.0.0.1:8119
+
+#  The experimental "activity-console-update-freq" option is used to
+#  specify how often (in seconds) statistics should be forwarded to the
+#  activity console.
+#
+#activity-console-update-freq 5
+
 #  
