@@ -33,6 +33,10 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/06/01 20:03:42  jongfoster
+ *    Better memory management - current_action->strings[] now
+ *    contains copies of the strings, not the original.
+ *
  *    Revision 1.3  2001/06/01 18:49:17  jongfoster
  *    Replaced "list_share" with "list" - the tiny memory gain was not
  *    worth the extra complexity.
@@ -741,7 +745,8 @@ void merge_current_action (struct current_action_spec *dest,
       char * str = src->string[i];
       if (str)
       {
-         dest->string[i] = str;
+         freez(dest->string[i]);
+         dest->string[i] = strdup(str);
       }
    }
 
@@ -777,6 +782,11 @@ void merge_current_action (struct current_action_spec *dest,
 void free_current_action (struct current_action_spec *src)
 {
    int i;
+
+   for (i = 0; i < ACTION_STRING_COUNT; i++)
+   {
+      freez(src->string[i]);
+   }
 
    for (i = 0; i < ACTION_MULTI_COUNT; i++)
    {
