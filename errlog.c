@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.19  2001/09/13 20:08:06  jongfoster
+ *    Adding support for LOG_LEVEL_CGI
+ *
  *    Revision 1.18  2001/09/10 11:27:24  oes
  *    Declaration of w32_socket_strerr now conditional
  *
@@ -367,6 +370,9 @@ void log_error(int loglevel, char *fmt, ...)
          outc = sprintf(outbuf, "IJB(%ld) Kill-Popups: ", this_thread);
          break;
 #endif /* def FEATURE_KILL_POPUPS */
+      case LOG_LEVEL_CGI:
+         outc = sprintf(outbuf, "IJB(%d) CGI: ", this_thread);
+         break;
       default:
          outc = sprintf(outbuf, "IJB(%ld) UNKNOWN LOG TYPE(%d): ", this_thread, loglevel);
          break;
