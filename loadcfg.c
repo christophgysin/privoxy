@@ -35,9 +35,6 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.44  2002/04/08 20:37:13  swa
- *    fixed JB spelling
- *
  *    Revision 1.43  2002/04/08 20:36:50  swa
  *    fixed JB spelling
  *
@@ -355,7 +352,7 @@ const char loadcfg_h_rcs[] = LOADCFG_H_VERSION;
 
 #ifdef FEATURE_TOGGLE
 /* by haroon - indicates if ijb is enabled */
-int g_bToggleIJB        = 1;   /* Privoxy is enabled by default. */
+int g_bToggleIJB        = 1;   /* Junkbusters is enabled by default. */
 #endif /* def FEATURE_TOGGLE */
 
 /* The filename of the configfile */
