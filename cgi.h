@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2002/03/04 17:53:22  oes
+ *    Fixed compiled warning
+ *
  *    Revision 1.19  2002/01/21 00:33:52  jongfoster
  *    Adding map_block_keep() to save a few bytes in the edit-actions-list HTML.
  *
@@ -174,7 +177,7 @@ extern jb_err cgi_error_bad_param(struct client_state *csp,
  */
 extern void get_http_time(int time_offset, char * buf);
 extern char *make_menu(const char *self);
-extern char *dump_map(const struct map *map);
+extern char *dump_map(const struct map *the_map);
 
 /*
  * Some images.
