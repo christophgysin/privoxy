@@ -42,6 +42,11 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2002/04/19 16:55:31  jongfoster
+ *    Fixing newline problems.  If we do our own text file newline
+ *    mangling, we don't want the library to do any, so we need to
+ *    open the files in *binary* mode.
+ *
  *    Revision 1.31  2002/04/18 19:21:08  jongfoster
  *    Added code to detect "conventional" action files, that start
  *    with a set of actions for all URLs (the pattern "/").
@@ -773,11 +778,7 @@ jb_err edit_write_file(struct editable_file * file)
    assert(file);
    assert(file->filename);
 
-#if defined(AMIGA) || defined(__OS2__)
-   if (NULL == (fp = fopen(file->filename, "w")))
-#else
-   if (NULL == (fp = fopen(file->filename, "wt")))
-#endif /* def AMIGA */
+   if (NULL == (fp = fopen(file->filename, "wb")))
    {
       return JB_ERR_FILE;
    }
@@ -1604,11 +1605,7 @@ jb_err edit_read_file(struct client_state *csp,
       }
    }
 
-#if defined(AMIGA) || defined(__OS2__)
-   if (NULL == (fp = fopen(filename,"r")))
-#else
-   if (NULL == (fp = fopen(filename,"rt")))
-#endif /* def AMIGA */
+   if (NULL == (fp = fopen(filename,"rb")))
    {
       free(filename);
       return JB_ERR_FILE;
