@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.60  2002/04/09 16:38:49  oes
+dnl Added detection of missing config.h.in
+dnl
 dnl Revision 1.59  2002/04/06 20:23:55  jongfoster
 dnl Removing unnessacery tests (C++, ranlib)
 dnl
@@ -336,6 +339,18 @@ dnl =================================================================
 
 AC_REVISION($Revision$)
 AC_INIT(jcc.c)
+
+if test ! -f config.h.in; then
+   echo "You need to run autoheader first. "
+   echo -n "Shall I do this for you now? (y/n) "
+   read answer
+   if test $answer != "y"; then
+      exit 1
+   else
+      autoheader
+  fi
+fi  
+
 AC_CONFIG_HEADER([config.h])
 AC_CANONICAL_HOST
 
