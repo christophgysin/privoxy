@@ -26,9 +26,13 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.9  2001/06/12 18:15:29  swa
+# the % in front of configure (see tag below) confused
+# the rpm build process on 7.1.
+#
 # Revision 1.8  2001/06/12 17:15:56  swa
 # fixes, because a clean build on rh6.1 was impossible.
-# GZIP confuses make, %configure confuses rpm, etc.
+# GZIP confuses make, % configure confuses rpm, etc.
 #
 # Revision 1.7  2001/06/11 12:17:26  sarantis
 # fix typo in %post
