@@ -38,6 +38,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.21  2002/03/07 03:48:38  oes
+ *     - Changed built-in images from GIF to PNG
+ *       (with regard to Unisys patent issue)
+ *     - Added a 4x4 pattern PNG which is less intrusive
+ *       than the logo but also clearly marks the deleted banners
+ *
  *    Revision 1.20  2002/03/04 17:53:22  oes
  *    Fixed compiled warning
  *
@@ -180,13 +186,14 @@ extern char *make_menu(const char *self);
 extern char *dump_map(const struct map *the_map);
 
 /*
- * Some images.
+ * Ad replacement images.
  */
-extern const char image_junkbuster_gif_data[];
-extern const int  image_junkbuster_gif_length;
-extern const char image_blank_gif_data[];
-extern const int  image_blank_gif_length;
-
+extern const char image_logo_data[];
+extern const size_t  image_logo_length;
+extern const char image_pattern_data[];
+extern const size_t  image_pattern_length;
+extern const char image_blank_data[];
+extern const size_t  image_blank_length;
 
 /* Revision control strings from this header and associated .c file */
 extern const char cgi_rcs[];
