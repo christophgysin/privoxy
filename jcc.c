@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.90  2002/04/02 14:57:28  oes
+ *    Made sending wafers independent of FEATURE_COOKIE_JAR
+ *
  *    Revision 1.89  2002/03/31 17:18:59  jongfoster
  *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
  *
@@ -967,19 +970,15 @@ static void chat(struct client_state *csp)
    enlist(csp->headers, http->cmd);
 
 
-#ifdef FEATURE_COOKIE_JAR
    /*
-    * If we're logging cookies in a cookie jar, and the user has not
-    * supplied any wafers, and the user has not told us to suppress the
-    * vanilla wafer, then send the vanilla wafer.
+    * If the user has not supplied any wafers, and the user has not
+    * told us to suppress the vanilla wafer, then send the vanilla wafer.
     */
-   if ((csp->config->jarfile != NULL)
-       && list_is_empty(csp->action->multi[ACTION_MULTI_WAFER])
+   if (list_is_empty(csp->action->multi[ACTION_MULTI_WAFER])
        && ((csp->action->flags & ACTION_VANILLA_WAFER) != 0))
    {
       enlist(csp->action->multi[ACTION_MULTI_WAFER], VANILLA_WAFER);
    }
-#endif /* def FEATURE_COOKIE_JAR */
 
 
 #ifdef FEATURE_KILL_POPUPS
