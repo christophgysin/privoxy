@@ -28,6 +28,10 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.22  2001/12/01 11:24:01  jongfoster
+dnl Renaming Makefile.in to GNUmakefile.in so that non-GNU versions of
+dnl make break in a more obvious way.
+dnl
 dnl Revision 1.21  2001/11/30 21:35:54  jongfoster
 dnl Bumping version number to 2.9.10
 dnl
@@ -660,4 +664,4 @@ AC_SUBST(SPECIAL_CFLAGS)
 
 AC_SUBST(PTHREAD_LIB)
 
-AC_OUTPUT(Makefile)
+AC_OUTPUT(GNUmakefile)
