@@ -200,6 +200,7 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 %doc doc/webserver/p_doc.css
 %doc doc/webserver/p_web.css
 %doc doc/webserver/index.html
+%doc doc/webserver/images
 #%doc privoxy.weekly privoxy.monthly AUTHORS
 %dir %{privoxyconf}
 %config %{privoxyconf}/*
@@ -214,6 +215,10 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 # -----------------------------------------------------------------------------
 #
 %changelog
+* Fri May 24 2002 Hal Burgiss <hal@foobox.net>
++ privoxy-2.9.15-1
+- Add doc/images directory.
+
 * Fri May 03 2002 Rodrigo Barbosa <rodrigob@tisbrasil.com.br>
 + privoxy-suse-2.9.15-1
 - Version bump
@@ -314,6 +319,10 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.20  2002/05/25 02:08:23  hal9
+# Add doc/images directory.
+# Redhat: alphabetized list of templates (and I think added one in the process)
+#
 # Revision 1.19  2002/05/03 17:14:36  morcego
 # *.spec: Version bump to 2.9.15
 # -rh.spec: noreplace for %%{privoxyconf}/config
