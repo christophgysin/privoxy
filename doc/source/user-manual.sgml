@@ -184,7 +184,7 @@ You can find the latest version of the user manual at  <ulink url="http://ijbswa
  <listitem>
   <para>
    Builds from source on most UNIX-like systems. Packages available for: Linux
-   (RedHat, SuSE, or Debian), Windows, Sun Solaris, Mac OSX, OS/2.
+   (RedHat, SuSE, or Debian), Windows, Sun Solaris, Mac OSX, OS/2, HP-UX 11 and AmigaOS.
  
   </para>
  </listitem> 
@@ -3463,6 +3463,9 @@ For any other issues, feel free to use the <ulink url="http://sourceforge.net/ma
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.45  2002/03/09 17:43:53  swa
+ more distros
+
  Revision 1.44  2002/03/09 17:08:48  hal9
  New section on Jon's actions file editor, and move some stuff around.
 
