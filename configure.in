@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.68.2.2  2002/07/30 19:36:09  hal9
+dnl Bump version to 2.9.17.
+dnl
 dnl Revision 1.68.2.1  2002/07/26 15:21:12  oes
 dnl  Bumped version number for 2.9.16 freeze
 dnl
@@ -419,7 +422,7 @@ dnl =================================================================
 
 VERSION_MAJOR=2
 VERSION_MINOR=9
-VERSION_POINT=16
+VERSION_POINT=17
 CODE_STATUS="beta"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
@@ -621,6 +624,13 @@ AC_SUBST(JADEBIN)
 dnl Check for man2html for docs.
 AC_CHECK_PROGS(MAN2HTML,man2html,false)
 AC_SUBST(MAN2HTML)
+
+dnl Set doc status flag for conditional content inclusions
+DOC_STATUS=p-not-stable
+if  test $CODE_STATUS = stable; then
+     DOC_STATUS="p-stable"
+fi
+AC_SUBST(DOC_STATUS)
 
 dnl Checking for the docbook.dsl stylesheet file
 dnl It is still not portable (directory slash)
