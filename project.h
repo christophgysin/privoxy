@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.72.2.3  2003/03/11 11:54:37  oes
+ *    Introduced RC_FLAG_* flags for use in child process return code
+ *
  *    Revision 1.72.2.2  2002/11/28 18:15:44  oes
  *    Added flag to each cgi_dispatcher that allows or denies
  *    external linking and removed const qualifier from
@@ -983,6 +986,22 @@ struct url_actions
  */
 #define CSP_FLAG_TOGGLED_ON 0x20
 
+
+/*
+ * Flags for use in return codes of child processes
+ */
+
+/**
+ * Flag for process return code: Set if exiting porcess has been toggled
+ * during its lifetime.
+ */
+#define RC_FLAG_TOGGLED   0x10
+
+/**
+ * Flag for process return code: Set if exiting porcess has blocked its
+ * request.
+ */
+#define RC_FLAG_BLOCKED   0x20
 
 /**
  * Maximum number of actions files.  This limit is arbitrary - it's just used
