@@ -42,6 +42,9 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.2  2002/11/12 15:02:01  oes
+ *    Fix: Don't free uninitialized struct editable_file
+ *
  *    Revision 2.1  2002/09/04 15:21:18  oes
  *    Synced with the stable branch:
  *        Revision 1.41.2.2  2002/08/05 20:02:59  oes
@@ -2526,7 +2529,6 @@ jb_err cgi_edit_actions_list(struct client_state *csp,
 
    if (NULL == (exports = default_exports(csp, NULL)))
    {
-      edit_free_file(file);
       return JB_ERR_MEMORY;
    }
 
