@@ -36,6 +36,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.62  2002/03/26 22:48:49  swa
+ *    new homepage url
+ *
  *    Revision 1.61  2002/03/26 22:29:55  swa
  *    we have a new homepage!
  *
@@ -1070,7 +1073,7 @@ struct configuration_spec
 
 
 /* Hardwired URLs */
-#define HOME_PAGE_URL       "http://ijbswa.sourceforge.net"
+#define HOME_PAGE_URL       "http://www.privoxy.org"
 #define REDIRECT_URL        HOME_PAGE_URL "/redirect.php?v=" VERSION "&to="
 
 /*
