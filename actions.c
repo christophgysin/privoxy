@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2001/09/10 10:14:34  oes
+ *    Removing unused variable
+ *
  *    Revision 1.9  2001/07/30 22:08:36  jongfoster
  *    Tidying up #defines:
  *    - All feature #defines are now of the form FEATURE_xxx
@@ -1018,7 +1021,6 @@ int load_actions_file(struct client_state *csp)
          /* define an alias */
          char  actions_buf[BUFFER_SIZE];
          struct action_alias * new_alias;
-         int more = 1;
 
          char * start = strchr(buf, '=');
          char * end = start;
