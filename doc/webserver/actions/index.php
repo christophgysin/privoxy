@@ -11,6 +11,9 @@
   $Id$
 
   $Log$
+  Revision 1.20  2002/04/10 00:07:35  oes
+  Moved window sizing and positioning code to Bookmarklet
+
   Revision 1.19  2002/04/09 13:06:29  oes
   Resize and jump to the right on load
 
@@ -103,19 +106,6 @@
   <link rel="stylesheet" type="text/css" href="../privoxy.css">
   <link rel="stylesheet" type="text/css" href="../p_feedback.css">
 
-  <script language="javascript" type="text/javascript">
-  <!--
-   //
-   // Try to expand to the whole screen height
-   //
-   function maximizeVertically()
-   {
-      window.moveTo(screen.width - 600, 0);
-      window.resizeTo(600, Math.floor(screen.height * 0.9));  
-   }
-  //-->
-  </script>
-
 <?php
 
 /*
@@ -147,7 +137,7 @@ function error_abort($title, $message)
 
    echo ("  <title>Privoxy: $title</title>
            </head>
-           <body onload=\"maximizeVertically();\">
+           <body>
             <div class=\"title\">
              <h1>
               <a href=\"http://www.privoxy.org/\">Privoxy</a>: $title
@@ -180,9 +170,6 @@ if (!isset($url))
 {
    $url = "http://www.example.com/";
 }
-/*
- * Kludge: We should properly escape query strings
- */
 else
 {
    $url = strtr($url, " ", "+");
@@ -215,7 +202,7 @@ if (!isset($headers["X-Actions-File-Version"]) || $headers["X-Actions-File-Versi
   <title>Privoxy Action List Feedback - Step 1 of 2</title>
  </head>
 
- <body onload="maximizeVertically();">
+ <body>
   <div class="title">
     <h1>
       <a href="http://www.privoxy.org" target="_blank">Privoxy</a> Action List Feedback - Step 1 of 2
