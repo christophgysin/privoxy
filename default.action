@@ -421,7 +421,7 @@ privacy.net
 #############################################################################
 {+add-header{X-Actions-File-Version: 1.0} -filter -no-popups}
 .privoxy.org/actions
-
+.oesterhelt.org/actions
 
 #############################################################################
 # Test for new GIF deanimation feature.
