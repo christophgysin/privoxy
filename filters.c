@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.8  2001/05/26 17:13:28  jongfoster
+ *    Filled in a function comment.
+ *
  *    Revision 1.7  2001/05/26 15:26:15  jongfoster
  *    ACL feature now provides more security by immediately dropping
  *    connections from untrusted hosts.
@@ -283,11 +286,11 @@ int block_acl(struct access_control_addr *dst,
  *
  * Function    :  acl_addr
  *
- * Description :  Called from `load_aclfile'.  FIXME: I can't say more.
+ * Description :  Called from `load_aclfile' to parse an ACL address.
  *
  * Parameters  :
- *          1  :  aspec = (what?)
- *          2  :  aca = (what?)
+ *          1  :  aspec = String specifying ACL address.
+ *          2  :  aca = struct access_control_addr to fill in.
  *
  * Returns     :  0 => Ok, everything else is an error.
  *
