@@ -42,3 +42,4 @@ if [ -f /etc/junkbuster/imagelist.local ] ; then
    cat /etc/junkbuster/imagelist.local >> /etc/junkbuster/imagelist
 fi
 chmod 644 /etc/junkbuster/imagelist
+
