@@ -35,6 +35,13 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.3  2002/12/30 19:56:16  david__schmidt
+ *    End of initial drop of statistics console infrastructure.  Data stream
+ *    is transmitted on the stats port every interval, provided the data has
+ *    changed since the last transmission.  More work probably needs to be
+ *    done with regard to multiplatform threading; I stole the thread spawning
+ *    code from jcc.c, but haven't been able to test it everywhere.
+ *
  *    Revision 2.2  2002/12/28 04:17:58  david__schmidt
  *    Fix null_routine on unix
  *
@@ -74,7 +81,7 @@ void init_stats_config(struct configuration_spec * config);
 void update_stats_config(struct configuration_spec * config);
 void accumulate_stats(int key, int value);
 void *forward_stats();
-void send_stats(int *p_local_stats_array[]);
+void send_stats(int p_local_stats_array[]);
 #ifdef unix
 void null_routine(int sig);
 #endif /* def unix */

@@ -35,6 +35,13 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/12/30 19:56:16  david__schmidt
+ *    End of initial drop of statistics console infrastructure.  Data stream
+ *    is transmitted on the stats port every interval, provided the data has
+ *    changed since the last transmission.  More work probably needs to be
+ *    done with regard to multiplatform threading; I stole the thread spawning
+ *    code from jcc.c, but haven't been able to test it everywhere.
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -277,29 +284,37 @@ jb_socket connect_to(const char *host, int portnum, struct client_state *csp)
 
    if ((addr = resolve_hostname_to_ip(host)) == INADDR_NONE)
    {
-      csp->http->host_ip_addr_str = strdup("unknown");
+      if (csp)
+      {
+        csp->http->host_ip_addr_str = strdup("unknown");
+      }
       return(JB_INVALID_SOCKET);
    }
 
 #ifdef FEATURE_ACL
-   dst->addr = ntohl((unsigned long) addr);
-   dst->port = portnum;
-
-   if (block_acl(dst, csp))
+   if (csp)
    {
+     dst->addr = ntohl((unsigned long) addr);
+     dst->port = portnum;
+
+     if (block_acl(dst, csp))
+     {
 #ifdef __OS2__
-      errno = SOCEPERM;
+        errno = SOCEPERM;
 #else
-      errno = EPERM;
+        errno = EPERM;
 #endif
-      return(JB_INVALID_SOCKET);
+        return(JB_INVALID_SOCKET);
+     }
    }
 #endif /* def FEATURE_ACL */
 
    inaddr.sin_addr.s_addr = addr;
    inaddr.sin_family      = AF_INET;
-   csp->http->host_ip_addr_str = strdup(inet_ntoa(inaddr.sin_addr));
-
+   if (csp)
+   {
+     csp->http->host_ip_addr_str = strdup(inet_ntoa(inaddr.sin_addr));
+   }
 #ifndef _WIN32
    if (sizeof(inaddr.sin_port) == sizeof(short))
 #endif /* ndef _WIN32 */
