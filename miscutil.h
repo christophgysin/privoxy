@@ -37,6 +37,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2001/10/23 21:27:50  jongfoster
+ *    Standardising error codes in string_append
+ *    make_path() no longer adds '\\' if the dir already ends in '\\' (this
+ *    is just copying a UNIX-specific fix to the Windows-specific part)
+ *
  *    Revision 1.11  2001/10/14 22:02:57  jongfoster
  *    New function string_append() which is like strsav(), but running
  *    out of memory isn't automatically FATAL.
@@ -102,6 +107,8 @@
  *********************************************************************/
 
 
+#include "project.h"
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
@@ -116,7 +123,7 @@ extern int strcmpic(const char *s1, const char *s2);
 extern int strncmpic(const char *s1, const char *s2, size_t n);
 
 extern char *strsav(char *old, const char *text_to_append);
-extern int string_append(char **target_string, const char *text_to_append);
+extern jb_err string_append(char **target_string, const char *text_to_append);
 
 extern char *chomp(char *string);
 extern int simplematch(char *pattern, char *text);
