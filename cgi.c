@@ -36,6 +36,9 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/06/04 10:41:52  swa
+ *    show version string of cgi.h and cgi.c
+ *
  *    Revision 1.3  2001/06/03 19:12:16  oes
  *    introduced new cgi handling
  *
@@ -119,6 +122,7 @@ const char cgi_rcs[] = "$Id$";
 #include "miscutil.h"
 #include "showargs.h"
 
+const char cgi_h_rcs[] = CGI_H_VERSION;
 
 const struct cgi_dispatcher cgi_dispatchers[] = {
    { "show-status", 

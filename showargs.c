@@ -33,8 +33,8 @@ const char showargs_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.11  2001/06/03 19:13:05  oes
- *    moved stuff to cgi.c
+ *    Revision 1.12  2001/06/04 10:41:52  swa
+ *    show version string of cgi.h and cgi.c
  *
  *    Revision 1.11  2001/06/03 11:03:48  oes
  *    Makefile/in
@@ -359,6 +359,8 @@ char *end_proxy_args(struct configuration_spec * config)
    /* In alphabetical order */
    SHOW_RCS(actions_h_rcs)
    SHOW_RCS(actions_rcs)
+   SHOW_RCS(cgi_h_rcs)
+   SHOW_RCS(cgi_rcs)
 #ifdef __MINGW32__
    SHOW_RCS(cygwin_h_rcs)
 #endif
