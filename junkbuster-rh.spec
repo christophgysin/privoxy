@@ -26,6 +26,9 @@
 # Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 # $Log$
+# Revision 1.25  2001/12/28 01:45:36  steudten
+# Add paranoia check and BuildReq: gzip
+#
 # Revision 1.24  2001/12/01 21:43:14  hal9
 # Allowed for new ijb.action file.
 #
@@ -113,7 +116,7 @@ Group: Networking/Utilities
 URL: http://ijbswa.sourceforge.net/
 Obsoletes: junkbuster-raw junkbuster-blank
 Prereq: /usr/sbin/useradd , /sbin/chkconfig , /sbin/service 
-BuildRequires: perl
+BuildRequires: perl gzip
 Conflicts: junkbuster-raw junkbuster-blank
 
 %description
@@ -139,7 +142,7 @@ strip junkbuster
 /usr/sbin/useradd -d /etc/junkbuster -u 73 -r junkbuster -s "" > /dev/null 2>&1 || /bin/true
 
 %install
-rm -rf $RPM_BUILD_ROOT
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 mkdir -p ${RPM_BUILD_ROOT}%{_sbindir} \
          ${RPM_BUILD_ROOT}%{_mandir}/man8 \
          ${RPM_BUILD_ROOT}/var/log/junkbuster \
@@ -147,7 +150,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_sbindir} \
          ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d \
          ${RPM_BUILD_ROOT}%{_sysconfdir}/rc.d/init.d 
 
-gzip README AUTHORS junkbuster.1
+gzip README AUTHORS junkbuster.1 || /bin/true
 install -s -m 744 junkbuster $RPM_BUILD_ROOT%{_sbindir}/junkbuster
 cp -f junkbuster.1.gz $RPM_BUILD_ROOT%{_mandir}/man8/junkbuster.8.gz
 cp -f ijb.action $RPM_BUILD_ROOT%{ijbconf}/ijb.action
@@ -196,7 +199,7 @@ fi
 #fi
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
@@ -213,6 +216,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Dec 28 2001 Thomas Steudten <thomas@steudten.ch>
+- add paranoia check for 'rm -rf $RPM_BUILD_ROOT'
+- add gzip to 'BuildRequires'
+
 * Sat Dec  1 2001 Hal Burgiss <hal@foobox.net>
 - actionsfile is now ijb.action.
 
