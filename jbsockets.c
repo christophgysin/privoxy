@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2002/04/03 16:02:18  gliptak
+ *    Correcting compile warning with older gcc
+ *
  *    Revision 1.32  2002/03/31 17:18:59  jongfoster
  *    Win32 only: Enabling STRICT to fix a VC++ compile warning.
  *
@@ -635,7 +638,7 @@ int accept_connection(struct client_state * csp, jb_socket fd)
    /* Wierdness - fix a warning. */
    int c_length, s_length;
 #else
-   size_t c_length, s_length;
+   socklen_t c_length, s_length;
 #endif
 #if defined(HAVE_GETHOSTBYADDR_R_8_ARGS) ||  defined(HAVE_GETHOSTBYADDR_R_7_ARGS) || defined(HAVE_GETHOSTBYADDR_R_5_ARGS)
    struct hostent result;
