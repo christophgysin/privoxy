@@ -4,40 +4,38 @@ const char pcrs_rcs[] = "$Id$";
  *
  * File        :  $Source$
  *
- * Purpose     :  pcrs is a supplement to the brilliant pcre library by Philip
- *                Hazel <ph10@cam.ac.uk> and adds Perl-style substitution. That
- *                is, it mimics Perl's 's' operator.
+ * Purpose     :  pcrs is a supplement to the pcre library by Philip Hazel
+ *                <ph10@cam.ac.uk> and adds Perl-style substitution. That
+ *                is, it mimics Perl's 's' operator. See pcrs(3) for details.
  *
- *                Currently, there's no documentation besides comments and the
- *                source itself :-(
- *
- *                Note: In addition to perl's options, 'U' for ungreedy and 'T'
- *                for trivial (i.e.: ignore backrefs in the substitute) are
- *                supported.
  *
  * Copyright   :  Written and Copyright (C) 2000, 2001 by Andreas S. Oesterhelt
  *                <andreas@oesterhelt.org>
  *
  *                This program is free software; you can redistribute it 
- *                and/or modify it under the terms of the GNU General
- *                Public License as published by the Free Software
- *                Foundation; either version 2 of the License, or (at
- *                your option) any later version.
+ *                and/or modify it under the terms of the GNU Lesser
+ *                General Public License (LGPL), version 2.1, which  should
+ *                be included in this distribution (see LICENSE.txt), with
+ *                the exception that the permission to replace that license
+ *                with the GNU General Public License (GPL) given in section
+ *                3 is restricted to version 2 of the GPL.
  *
  *                This program is distributed in the hope that it will
  *                be useful, but WITHOUT ANY WARRANTY; without even the
  *                implied warranty of MERCHANTABILITY or FITNESS FOR A
- *                PARTICULAR PURPOSE.  See the GNU General Public
- *                License for more details.
+ *                PARTICULAR PURPOSE.  See the license for more details.
  *
- *                The GNU General Public License should be included with
- *                this file.  If not, you can view it at
- *                http://www.gnu.org/copyleft/gpl.html
+ *                The GNU Lesser General Public License should be included
+ *                with this file.  If not, you can view it at
+ *                http://www.gnu.org/licenses/lgpl.html
  *                or write to the Free Software Foundation, Inc., 59
  *                Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2001/09/06 14:05:59  oes
+ *    Fixed silly bug
+ *
  *    Revision 1.12  2001/08/18 11:35:00  oes
  *    - Introduced pcrs_strerror()
  *    - made some NULL arguments non-fatal
@@ -113,10 +111,11 @@ const char pcrs_rcs[] = "$Id$";
 
 #include <pcre.h>
 #include <string.h>
-#include "pcrs.h"
-#include <stdio.h>
-const char pcrs_h_rcs[] = PCRS_H_VERSION;
+#include <ctype.h>
 
+#include "pcrs.h"
+
+const char pcrs_h_rcs[] = PCRS_H_VERSION;
 
 /*********************************************************************
  *
@@ -160,7 +159,7 @@ const char *pcrs_strerror(const int error)
          default:  return "Unknown error";
       }
    }
-   /* error > 0: No error */
+   /* error >= 0: No error */
    return "(pcrs:) Everything's just fine. Thanks for asking.";
 
 }
@@ -699,15 +698,16 @@ int pcrs_execute_list(pcrs_job *joblist, char *subject, size_t subject_length, c
  
    old = subject;
    *result_length = subject_length;
-   hits = 0;
+   hits = total_hits = 0;
 
    for (job = joblist; job != NULL; job = job->next)
    {
       hits = pcrs_execute(job, old, *result_length, &new, result_length);
+
       if (old != subject) free(old);
+
       if (hits < 0)
       {
-         *result = NULL;
          return(hits);
       }
       else
@@ -718,7 +718,8 @@ int pcrs_execute_list(pcrs_job *joblist, char *subject, size_t subject_length, c
    }
 
    *result = new;
-   return(hits);
+   return(total_hits);
+
 }
 
 
