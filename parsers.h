@@ -43,6 +43,11 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.5  2001/05/31 21:30:33  jongfoster
+ *    Removed list code - it's now in list.[ch]
+ *    Renamed "permission" to "action", and changed many features
+ *    to use the actions file rather than the global config.
+ *
  *    Revision 1.4  2001/05/27 13:19:06  oes
  *    Patched Joergs solution for the content-length in.
  *
@@ -86,8 +91,6 @@ extern void (* const add_server_headers[])(struct client_state *);
 extern int flush_socket(int fd, struct client_state *csp);
 extern int add_to_iob(struct client_state *csp, char *buf, int n);
 extern char *get_header(struct client_state *csp);
-extern void enlist(struct list *h, const char *s);
-extern void destroy_list(struct list *h);
 
 extern char *sed(const struct parsers pats[], void (* const more_headers[])(struct client_state *), struct client_state *csp);
 
