@@ -33,6 +33,10 @@ const char encode_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/11/13 00:16:40  jongfoster
+ *    Replacing references to malloc.h with the standard stdlib.h
+ *    (See ANSI or K&R 2nd Ed)
+ *
  *    Revision 1.2  2001/05/17 22:52:35  oes
  *     - Cleaned CRLF's from the sources and related files
  *
@@ -46,8 +50,8 @@ const char encode_rcs[] = "$Id$";
 #include "config.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
 
 #include "encode.h"
 

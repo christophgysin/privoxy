@@ -32,6 +32,10 @@ const char killpopup_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.13  2001/11/13 00:16:40  jongfoster
+ *    Replacing references to malloc.h with the standard stdlib.h
+ *    (See ANSI or K&R 2nd Ed)
+ *
  *    Revision 1.12  2001/10/25 03:40:48  david__schmidt
  *    Change in porting tactics: OS/2's EMX porting layer doesn't allow multiple
  *    threads to call select() simultaneously.  So, it's time to do a real, live,
@@ -99,7 +103,6 @@ const char killpopup_rcs[] = "$Id$";
 #include <stdlib.h>
 #include <sys/types.h>
 #include <string.h>
-#include <malloc.h>
 #include <errno.h>
 #include <sys/stat.h>
 #include <ctype.h>

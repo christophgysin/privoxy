@@ -36,6 +36,10 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.25  2001/11/13 00:16:38  jongfoster
+ *    Replacing references to malloc.h with the standard stdlib.h
+ *    (See ANSI or K&R 2nd Ed)
+ *
  *    Revision 1.24  2001/11/05 21:41:43  steudten
  *    Add changes to be a real daemon just for unix os.
  *    (change cwd to /, detach from controlling tty, set
@@ -160,7 +164,6 @@ const char miscutil_rcs[] = "$Id$";
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
 #include <ctype.h>
 #include <assert.h>
 

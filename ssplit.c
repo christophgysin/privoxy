@@ -32,6 +32,10 @@ const char ssplit_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/11/13 00:16:38  jongfoster
+ *    Replacing references to malloc.h with the standard stdlib.h
+ *    (See ANSI or K&R 2nd Ed)
+ *
  *    Revision 1.3  2001/05/29 08:54:25  jongfoster
  *    Rewrote the innards of ssplit() to be easier to understand,
  *    faster, and to use less memory.  Didn't change the interface
@@ -51,10 +55,6 @@ const char ssplit_rcs[] = "$Id$";
 
 #include <string.h>
 #include <stdlib.h>
-
-#ifdef _WIN32
-#include <malloc.h>
-#endif
 
 #include "ssplit.h"
 #include "miscutil.h"

@@ -35,6 +35,10 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2001/11/13 00:16:38  jongfoster
+ *    Replacing references to malloc.h with the standard stdlib.h
+ *    (See ANSI or K&R 2nd Ed)
+ *
  *    Revision 1.32  2001/11/07 00:02:13  steudten
  *    Add line number in error output for lineparsing for
  *    actionsfile and configfile.
@@ -201,7 +205,6 @@ const char loaders_rcs[] = "$Id$";
 #include <stdlib.h>
 #include <sys/types.h>
 #include <string.h>
-#include <malloc.h>
 #include <errno.h>
 #include <sys/stat.h>
 #include <ctype.h>
