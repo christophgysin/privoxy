@@ -33,6 +33,11 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2001/11/22 21:56:49  jongfoster
+ *    Making action_spec->flags into an unsigned long rather than just an
+ *    unsigned int.
+ *    Fixing a bug in the display of -add-header and -wafer
+ *
  *    Revision 1.19  2001/11/13 00:14:07  jongfoster
  *    Fixing stupid bug now I've figured out what || means.
  *    (It always returns 0 or 1, not one of it's paramaters.)
@@ -150,7 +155,7 @@ const char actions_h_rcs[] = ACTIONS_H_VERSION;
 #define AV_ADD_STRING 1 /* +stropt{string} */
 #define AV_REM_STRING 2 /* -stropt */
 #define AV_ADD_MULTI  3 /* +multiopt{string} +multiopt{string2} */
-#define AV_REM_MULTI  4 /* -multiopt{string} -multiopt{*}       */
+#define AV_REM_MULTI  4 /* -multiopt{string} -multiopt          */
 
 /*
  * We need a structure to hold the name, flag changes,
@@ -695,7 +700,7 @@ char * actions_to_text(struct action_spec *action)
 #define DEFINE_ACTION_MULTI(__name, __index)         \
    if (action->multi_remove_all[__index])            \
    {                                                 \
-      string_append(&result, " -" __name "{*}");     \
+      string_append(&result, " -" __name);           \
    }                                                 \
    else                                              \
    {                                                 \
@@ -794,7 +799,7 @@ char * actions_to_html(struct action_spec *action)
 #define DEFINE_ACTION_MULTI(__name, __index)          \
    if (action->multi_remove_all[__index])             \
    {                                                  \
-      string_append(&result, "\n<br>-" __name "{*}"); \
+      string_append(&result, "\n<br>-" __name);       \
    }                                                  \
    else                                               \
    {                                                  \
@@ -875,7 +880,7 @@ char * actions_to_html(struct action_spec *action)
  *********************************************************************/
 char * current_action_to_text(struct current_action_spec *action)
 {
-   unsigned flags  = action->flags;
+   unsigned long flags  = action->flags;
    char * result = strdup("");
    struct list_entry * lst;
 
