@@ -2446,18 +2446,29 @@ at sourceforge. Three simple steps:
 
     <sect3 id="newrelease-debian"><title>Debian</title>
       <para>
-	First, <emphasis>make sure that you have freshly exported the right
-        version into an empty directory</emphasis>. (See "Building and releasing
-        packages" above). Then, run:
+	First, <emphasis>make sure that you have freshly exported the
+        right version into an empty directory</emphasis>. (See
+        "Building and releasing packages" above).  Then add a log
+        entry to <filename>debian/changelog</filename>, if it is not
+        already there, for example by running:
 	</para>
 	<para>
-	<programlisting>
-  cd current
-  autoheader && autoconf && ./configure
-</programlisting>
+	  <programlisting>
+          debchange -v &p-version;-&p-status;-1 "New upstream version"
+	  </programlisting>
+        </para>
+	<para>
+	  After this simply run 
 	</para>
 	<para>
-	Then do FIXME.
+	  <programlisting>
+          dpkg-buildpackage -rfakeroot -us -uc -b
+	  </programlisting>
+        </para>
+	<para>
+	  This will create
+	  <filename>../privoxy_&p-version;-&p-status;-1_i386.deb</filename>
+	  which can be uploaded.
 	</para>
     </sect3>
 
@@ -2801,6 +2812,9 @@ zip -r privoxyosx_setup_x.y.z.zip Privoxy.pkg
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 1.46.2.1  2002/05/26 12:44:57  roro
+  Add releasing information about Debian.
+
   Revision 1.46  2002/05/22 17:15:00  oes
   Updated intro
 
