@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 17:55:23  jongfoster
+ *    Adding comments
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -215,27 +218,26 @@ const char actions_h_rcs[] = ACTIONS_H_VERSION;
  * an enumerated type (well, the preprocessor equivalent).  Here are
  * the values:
  */
-#define AV_NONE       0 /* +opt -opt */
-#define AV_ADD_STRING 1 /* +stropt{string} */
-#define AV_REM_STRING 2 /* -stropt */
-#define AV_ADD_MULTI  3 /* +multiopt{string} +multiopt{string2} */
-#define AV_REM_MULTI  4 /* -multiopt{string} -multiopt          */
+#define AV_NONE       0 /**< Action type: +bool-action or -bool-action */
+#define AV_ADD_STRING 1 /**< Action type: +string-action{string} */
+#define AV_REM_STRING 2 /**< Action type: -string-action */
+#define AV_ADD_MULTI  3 /**< Action type: +multi-action{string} */
+#define AV_REM_MULTI  4 /**< Action type: -multi-action{string} or -multi-action */
 
-/*
- * We need a structure to hold the name, flag changes,
- * type, and string index.
+/**
+ * A structure holding information about a single built-in action string.
  */
 struct action_name
 {
-   const char * name;
-   unsigned long mask;   /* a bit set to "0" = remove action */
-   unsigned long add;    /* a bit set to "1" = add action */
-   int takes_value;      /* an AV_... constant */
-   int index;            /* index into strings[] or multi[] */
+   const char * name;    /**< Action name */
+   unsigned long mask;   /**< A bit set to "0" = remove action */
+   unsigned long add;    /**< A bit set to "1" = add action */
+   int takes_value;      /**< An AV_... constant */
+   int index;            /**< Index into strings[] or multi[] */
 };
 
-/*
- * And with those building blocks in place, here's the array.
+/**
+ * The array of all built-in action strings.
  */
 static const struct action_name action_names[] =
 {
@@ -264,6 +266,15 @@ static const struct action_name action_names[] =
 #undef DEFINE_ACTION_ALIAS
 
    { NULL, 0, 0 } /* End marker */
+};
+
+
+/**
+ * The currently loaded actions files.
+ */
+static struct file_list *current_actions_file[MAX_ACTION_FILES]  = {
+   NULL, NULL, NULL, NULL, NULL,
+   NULL, NULL, NULL, NULL, NULL
 };
 
 
@@ -860,12 +871,6 @@ void free_current_action (struct current_action_spec *src)
 }
 
 
-static struct file_list *current_actions_file[MAX_ACTION_FILES]  = {
-   NULL, NULL, NULL, NULL, NULL,
-   NULL, NULL, NULL, NULL, NULL
-};
-
-
 #ifdef FEATURE_GRACEFUL_TERMINATION
 /*********************************************************************
  *
@@ -983,6 +988,23 @@ int load_actions_file(struct client_state *csp)
    return 0;
 }
 
+
+/** load_one_actions_file() parser status: At start of file. */
+#define MODE_START_OF_FILE 1
+
+/** load_one_actions_file() parser status: In "{{settings}}" block. */
+#define MODE_SETTINGS      2
+
+/** load_one_actions_file() parser status: In "{{description}}" block. */
+#define MODE_DESCRIPTION   3
+
+/** load_one_actions_file() parser status: In "{{alias}}" block. */
+#define MODE_ALIAS         4
+
+/** load_one_actions_file() parser status: In "{+some-actions}" block. */
+#define MODE_ACTIONS       5
+
+
 /*********************************************************************
  *
  * Function    :  load_one_actions_file
@@ -1005,11 +1027,6 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
     * Note: Keep these in the order they occur in the file, they are
     * sometimes tested with <=
     */
-#define MODE_START_OF_FILE 1
-#define MODE_SETTINGS      2
-#define MODE_DESCRIPTION   3
-#define MODE_ALIAS         4
-#define MODE_ACTIONS       5
 
    int mode = MODE_START_OF_FILE;
 

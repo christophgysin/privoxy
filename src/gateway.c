@@ -34,6 +34,9 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 17:55:24  jongfoster
+ *    Adding comments
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -161,29 +164,38 @@ static jb_socket socks4_connect(const struct forward_spec * fwd,
                                 struct client_state *csp);
 
 
+/** SOCKS command code. */
 #define SOCKS_REQUEST_GRANTED          90
+
+/** SOCKS command code. */
 #define SOCKS_REQUEST_REJECT           91
+
+/** SOCKS command code. */
 #define SOCKS_REQUEST_IDENT_FAILED     92
+
+/** SOCKS command code. */
 #define SOCKS_REQUEST_IDENT_CONFLICT   93
 
-/* structure of a socks client operation */
+
+/** Structure of a socks client operation */
 struct socks_op {
-   unsigned char vn;          /* socks version number */
-   unsigned char cd;          /* command code */
-   unsigned char dstport[2];  /* destination port */
-   unsigned char dstip[4];    /* destination address */
-   unsigned char userid;      /* first byte of userid */
+   unsigned char vn;          /**< Socks version number */
+   unsigned char cd;          /**< Command code */
+   unsigned char dstport[2];  /**< Destination port */
+   unsigned char dstip[4];    /**< Destination address */
+   unsigned char userid;      /**< First byte of userid */
    /* more bytes of the userid follow, terminated by a NULL */
 };
 
-/* structure of a socks server reply */
+/** Structure of a socks server reply */
 struct socks_reply {
-   unsigned char vn;          /* socks version number */
-   unsigned char cd;          /* command code */
-   unsigned char dstport[2];  /* destination port */
-   unsigned char dstip[4];    /* destination address */
+   unsigned char vn;          /**< Socks version number */
+   unsigned char cd;          /**< Command code */
+   unsigned char dstport[2];  /**< Destination port */
+   unsigned char dstip[4];    /**< Destination address */
 };
 
+/** The SOCKS user ID to use */
 static const char socks_userid[] = "anonymous";
 
 

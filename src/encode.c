@@ -33,6 +33,9 @@ const char encode_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 17:55:24  jongfoster
+ *    Adding comments
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -77,7 +80,9 @@ const char encode_rcs[] = "$Id$";
 
 const char encode_h_rcs[] = ENCODE_H_VERSION;
 
-/* Maps special characters in a URL to their equivalent % codes. */
+/**
+ * Maps special characters in a URL to their equivalent % codes.
+ */
 static const char * const url_code_map[256] = {
    NULL, "%01", "%02", "%03", "%04", "%05", "%06", "%07", "%08", "%09",
    "%0A", "%0B", "%0C", "%0D", "%0E", "%0F", "%10", "%11", "%12", "%13",
@@ -107,7 +112,9 @@ static const char * const url_code_map[256] = {
    "%FA", "%FB", "%FC", "%FD", "%FE", "%FF"
 };
 
-/* Maps special characters in HTML to their equivalent entites. */
+/**
+ * Maps special characters in HTML to their equivalent entities.
+ */
 static const char * const html_code_map[256] = {
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -137,7 +144,9 @@ static const char * const html_code_map[256] = {
    NULL, NULL, NULL, NULL, NULL, NULL
 };
 
-/* Maps special characters in a cookie to their equivalent % codes. */
+/**
+ * Maps special characters in a cookie to their equivalent % codes.
+ */
 static const char * const cookie_code_map[256] = {
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,

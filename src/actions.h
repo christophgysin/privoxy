@@ -35,6 +35,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 2.1  2002/06/04 17:55:24  jongfoster
+ *    Adding comments
+ *
  *    Revision 2.0  2002/06/04 14:34:21  jongfoster
  *    Moving source files to src/
  *
@@ -107,12 +110,14 @@ struct client_state;
 
 
 
-/* This structure is used to hold user-defined aliases */
+/**
+ * This structure is used to hold user-defined aliases
+ */
 struct action_alias
 {
-   const char * name;
-   struct action_spec action[1];
-   struct action_alias * next;
+   const char * name;            /**< Alias name.  */
+   struct action_spec action[1]; /**< Alias value. */
+   struct action_alias * next;   /**< Next alias in list */
 };
 
 
