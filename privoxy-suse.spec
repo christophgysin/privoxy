@@ -33,8 +33,8 @@ Summary:      Privoxy - privacy enhancing proxy
 Vendor:       http://ijbswa.sourceforge.net
 Name:         privoxy-suse
 Distribution: defineme
-Version: 2.9.11
-Release: 3
+Version: 2.9.13
+Release: 1
 Source: http://www.waldherr.org/%{name}/privoxy-%{version}.tar.gz
 # not sure if this works
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -283,6 +283,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.3  2002/03/24 12:44:31  swa
+# new version string
+#
 # Revision 1.2  2002/03/24 11:40:14  swa
 # name change
 #
