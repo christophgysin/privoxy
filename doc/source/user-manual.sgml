@@ -220,10 +220,9 @@ automatically start Privoxy in the boot process.
 <!--   ~~~~~       New section      ~~~~~     -->
 <sect3 id="installation-deb"><title>Debian</title>
 <para>
- DEBs can be installed with <literal>dpkg -i
- privoxy_&p-version;-1.deb</literal>, and will use
- <filename>/etc/privoxy</filename> for the location of configuration
- files.
+ DEBs can be installed with <literal>apt-get install privoxy</literal>,
+ and will use <filename>/etc/privoxy</filename> for the location of 
+ configuration files.
 </para>
 </sect3>
 
@@ -5765,6 +5764,10 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 2.10  2003/05/08 18:19:36  roro
+ Use apt-get instead of dpkg to install Debian package, which is more
+ solid, uses the correct and most recent Debian version automatically.
+
  Revision 2.9  2003/04/11 03:14:53  hal9
  Add small note about one filter file may be defined.
 
