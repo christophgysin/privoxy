@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.59  2001/12/13 14:07:18  oes
+ *    Fixed Bug: 503 error page now sent OK
+ *
  *    Revision 1.58  2001/11/30 23:37:24  jongfoster
  *    Renaming the Win32 config file to config.txt - this is almost the
  *    same as the corresponding UNIX name "config"
@@ -871,6 +874,7 @@ static void chat(struct client_state *csp)
                    csp->ip_addr_str, http->cmd);
       }
 
+
       /* Write the answer to the client */
       if(rsp)
       {
@@ -911,7 +915,7 @@ static void chat(struct client_state *csp)
 
          if(rsp)
          {
-            if ((write_socket(csp->cfd, rsp->head, n) != n)
+            if ((write_socket(csp->cfd, rsp->head, rsp->head_length) != rsp->head_length)
              || (write_socket(csp->cfd, rsp->body, rsp->content_length) != rsp->content_length))
             {
                log_error(LOG_LEVEL_ERROR, "write to: %s failed: %E", http->host);
