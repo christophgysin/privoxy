@@ -41,6 +41,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.34  2001/10/07 18:50:55  oes
+ *    Added server_content_encoding, renamed server_transfer_encoding
+ *
  *    Revision 1.33  2001/10/07 18:04:49  oes
  *    Changed server_http11 to server_http and its pattern to "HTTP".
  *      Additional functionality: it now saves the HTTP status into
@@ -352,7 +355,8 @@ const struct parsers server_patterns[] = {
    { "Content-Type:",      13, server_content_type },
    { "Content-Length:",    15, server_content_length },
    { "Content-MD5:",       12, server_content_md5 },
-   { "Transfer-Encoding:", 18, server_transfer_encoding },
+   { "Content-Encoding:",  17, server_content_encoding },   
+   { "Transfer-Encoding:", 18, server_transfer_coding },
    { "Keep-Alive:",        11, crumble },
    { NULL, 0, NULL }
 };
@@ -823,10 +827,10 @@ char *server_content_type(const struct parsers *v, const char *s, struct client_
 
 /*********************************************************************
  *
- * Function    :  server_transfer_encoding
+ * Function    :  server_transfer_coding
  *
- * Description :  - Prohibit filtering (CT_TABOO) if encoding compresses
- *                - Raise the CSP_FLAG_CHUNKED flag if Encoding is "chunked"
+ * Description :  - Prohibit filtering (CT_TABOO) if transfer coding compresses
+ *                - Raise the CSP_FLAG_CHUNKED flag if coding is "chunked"
  *                - Change from "chunked" to "identity" if body was chunked
  *                  but has been de-chunked for filtering.
  *
@@ -838,7 +842,7 @@ char *server_content_type(const struct parsers *v, const char *s, struct client_
  * Returns     :  A duplicate string pointer to this header (ie. pass thru)
  *
  *********************************************************************/
-char *server_transfer_encoding(const struct parsers *v, const char *s, struct client_state *csp)
+char *server_transfer_coding(const struct parsers *v, const char *s, struct client_state *csp)
 {
    /*
     * Turn off pcrs and gif filtering if body compressed
@@ -863,6 +867,35 @@ char *server_transfer_encoding(const struct parsers *v, const char *s, struct cl
       {
          return(strdup("Transfer-Encoding: identity"));
       }
+   }
+
+   return(strdup(s));
+
+}
+
+
+/*********************************************************************
+ *
+ * Function    :  server_content_encoding
+ *
+ * Description :  Prohibit filtering (CT_TABOO) if content encoding compresses
+ *
+ * Parameters  :
+ *          1  :  v = ignored
+ *          2  :  s = header string we are "considering"
+ *          3  :  csp = Current client state (buffers, headers, etc...)
+ *
+ * Returns     :  A duplicate string pointer to this header (ie. pass thru)
+ *
+ *********************************************************************/
+char *server_content_encoding(const struct parsers *v, const char *s, struct client_state *csp)
+{
+   /*
+    * Turn off pcrs and gif filtering if body compressed
+    */
+   if (strstr(s, "gzip") || strstr(s, "compress") || strstr(s, "deflate"))
+   {
+      csp->content_type = CT_TABOO;
    }
 
    return(strdup(s));

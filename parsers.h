@@ -43,6 +43,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.16  2001/10/07 18:50:16  oes
+ *    Added server_content_encoding, renamed server_transfer_encoding
+ *
  *    Revision 1.15  2001/10/07 18:01:55  oes
  *    Changed server_http11 to server_http
  *
@@ -156,7 +159,8 @@ extern char *server_set_cookie(const struct parsers *v, const char *s, struct cl
 extern char *server_content_type(const struct parsers *v, const char *s, struct client_state *csp);
 extern char *server_content_length(const struct parsers *v, const char *s, struct client_state *csp);
 extern char *server_content_md5(const struct parsers *v, const char *s, struct client_state *csp);
-extern char *server_transfer_encoding(const struct parsers *v, const char *s, struct client_state *csp);
+extern char *server_content_encoding(const struct parsers *v, const char *s, struct client_state *csp);
+extern char *server_transfer_coding(const struct parsers *v, const char *s, struct client_state *csp);
 extern char *server_http(const struct parsers *v, const char *s, struct client_state *csp);
 
 #ifdef FEATURE_FORCE_LOAD
