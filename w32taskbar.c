@@ -32,6 +32,9 @@ const char w32taskbar_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.4  2001/11/16 00:46:31  jongfoster
+ *    Fixing compiler warnings
+ *
  *    Revision 1.3  2001/05/22 18:56:28  oes
  *    CRLF -> LF
  *
@@ -237,7 +240,7 @@ LRESULT CALLBACK TrayProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
       case WM_TRAYMSG:
       {
-         UINT uID = (UINT) wParam;
+         /* UINT uID = (UINT) wParam; */
          UINT uMouseMsg = (UINT) lParam;
 
          if (uMouseMsg == WM_RBUTTONDOWN)

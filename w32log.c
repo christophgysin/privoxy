@@ -32,6 +32,9 @@ const char w32log_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.17  2001/11/16 00:46:31  jongfoster
+ *    Fixing compiler warnings
+ *
  *    Revision 1.16  2001/08/01 19:58:12  jongfoster
  *    Fixing documentation filenames in help menu, and making status
  *    option work without needing the "Junkbuster Status.URL" file.
@@ -826,7 +829,6 @@ HWND CreateLogWindow(HINSTANCE hInstance, int nCmdShow)
 
    HWND hwnd = NULL;
    HWND hwndOwner = (g_bShowOnTaskBar) ? NULL : CreateHiddenLogOwnerWindow(hInstance);
-   HWND hwndChild = NULL;
    RECT rcClient;
    WNDCLASSEX wc;
 

@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.18  2001/11/16 00:46:31  jongfoster
+ *    Fixing compiler warnings
+ *
  *    Revision 1.17  2001/10/23 21:48:19  jongfoster
  *    Cleaning up error handling in CGI functions - they now send back
  *    a HTML error page and should never cause a FATAL error.  (Fixes one
@@ -124,10 +127,9 @@ extern "C" {
 #endif
 
 /*
- * Dispatch & parameter parsing functions
+ * Main dispatch function
  */
 extern struct http_response *dispatch_cgi(struct client_state *csp);
-extern struct map *parse_cgi_parameters(char *argstring);
 
 /* Not exactly a CGI */
 extern struct http_response * error_response(struct client_state *csp,

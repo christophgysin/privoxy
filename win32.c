@@ -31,6 +31,9 @@ const char win32_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.3  2001/11/16 00:46:31  jongfoster
+ *    Fixing compiler warnings
+ *
  *    Revision 1.2  2001/07/29 19:32:00  jongfoster
  *    Renaming _main() [mingw32 only] to real_main(), for ANSI compliance.
  *
@@ -111,7 +114,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
    int argc = 0;
    int i;
    int res;
-   char **argv = NULL;
+   const char **argv = NULL;
    char *pszArgs = NULL;
    char *pszLastTok;
    char szModule[MAX_PATH+1];
