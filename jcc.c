@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.55  2001/11/13 20:14:53  jongfoster
+ *    Patch for FreeBSD setpgrp() as suggested by Alexander Lazic
+ *
  *    Revision 1.54  2001/11/07 00:03:14  steudten
  *    Give reliable return value if an error
  *    occurs not just 0 with new daemon mode.
@@ -1509,7 +1512,11 @@ int main(int argc, const char *argv[])
 		exit( 0 );
 	}
 	/* child */
-	setpgrp();
+#ifdef __FreeBSD__
+   setpgrp(0,0);
+#else
+   setpgrp();
+#endif
 	fd = open("/dev/tty", O_RDONLY);
 	if ( fd ) 
 	{
