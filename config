@@ -66,9 +66,8 @@
 # Now, only confdir/templates is used for storing HTML templates
 # for CGI results.
 #
-confdir /home/oes/projekte/pcrs/ijb/confdir
+confdir .
 
-#
 #  The permissions file contains patterns to specify the
 #  filtering rules to apply to each site.
 #
