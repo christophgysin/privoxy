@@ -33,6 +33,13 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.7  2002/03/23 16:18:15  swa
+#    renamed every reference to the old name with foobar.
+#    fixed "application foobar application" tag, fixed
+#    "the foobar" with "foobar". left junkbuster in cvs
+#    comments and remarks to history untouched. should
+#    make final rename easier.
+#
 #    Revision 1.6  2002/03/16 15:22:19  jongfoster
 #    Moving 'alpha' warning to the end of the page
 #
@@ -85,7 +92,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="robots" content="noindex,nofollow">
 
-<title>JunkBuster: Remove URL Pattern</title>
+<title>Foobar: Remove URL Pattern</title>
 
 <style type="text/css">
 body         { font-family: Helvetica, Helv, Arial, Sans-Serif, sans-serif;
@@ -125,7 +132,7 @@ td.dark      { background-color: #dddddd }
 
   <tr>
     <td class="dark">
-      <h2>More Junkbuster:</h2>
+      <h2>More Foobar:</h2>
       <ul>@menu@</ul>
     </td>
   </tr>
