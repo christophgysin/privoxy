@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.10  2002/05/26 23:23:10  joergs
+ *    AmigaOS: Fixed wrong type for len in write_socket()
+ *
  *    Revision 1.9  2002/04/08 20:31:41  swa
  *    fixed JB spelling
  *
@@ -100,7 +103,11 @@ extern "C" {
 struct client_state;
 
 extern jb_socket connect_to(const char *host, int portnum, struct client_state *csp);
+#ifdef AMIGA
+extern int write_socket(jb_socket fd, const char *buf, ssize_t n);
+#else
 extern int write_socket(jb_socket fd, const char *buf, size_t n);
+#endif
 extern int read_socket(jb_socket fd, char *buf, int n);
 extern void close_socket(jb_socket fd);
 
