@@ -60,7 +60,7 @@ can be customized to suit individual needs and tastes. Privoxy has
 application for both stand-alone systems and multi-user networks.
 
 Privoxy is based on the code of the Internet Junkbuster. Junkbuster
-was originally written by JunkBusters Corporation, and was released as
+was originally written by Junkbusters Corporation, and was released as
 free open-source software under the GNU GPL. Stefan Waldherr made many
 improvements, and started the SourceForge project to continue
 development. Several other developers are now contributing.
@@ -294,6 +294,9 @@ id privoxy > /dev/null 2>&1 && /usr/sbin/userdel privoxy || /bin/true
 - new package: version 2.0
 
 # $Log$
+# Revision 1.10  2002/04/08 20:24:13  swa
+# fixed JB spelling
+#
 # Revision 1.9  2002/03/30 09:01:52  swa
 # new release
 #

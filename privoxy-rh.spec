@@ -59,7 +59,7 @@ can be customized to suit individual needs and tastes. Privoxy has application
 for both stand-alone systems and multi-user networks.
 
 Privoxy is based on the code of the Internet Junkbuster. Junkbuster
-was originally written by JunkBusters Corporation, and was released as
+was originally written by Junkbusters Corporation, and was released as
 free open-source software under the GNU GPL. Stefan Waldherr made many
 improvements, and started the SourceForge project to continue
 development. Several other developers are now contributing.
@@ -548,6 +548,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.20  2002/04/08 20:27:45  swa
+# fixed JB spelling
+#
 # Revision 1.19  2002/03/27 22:44:59  sarantis
 # Include correct documentation file.
 #

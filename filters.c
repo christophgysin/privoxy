@@ -38,6 +38,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.57  2002/04/08 20:38:34  swa
+ *    fixed JB spelling
+ *
  *    Revision 1.56  2002/04/05 15:51:24  oes
  *     - bugfix: error-pages now get correct request protocol
  *     - fix for invalid HTML in trust info
@@ -370,7 +373,7 @@ const char filters_rcs[] = "$Id$";
  *      a lot! ;-)
  *
  *    Revision 1.3  2001/05/20 16:44:47  jongfoster
- *    Removing last hardcoded JunkBusters.com URLs.
+ *    Removing last hardcoded Junkbusters.com URLs.
  *
  *    Revision 1.2  2001/05/20 01:21:20  jongfoster
  *    Version 2.9.4 checkin.

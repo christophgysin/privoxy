@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.91  2002/04/08 20:35:58  swa
+ *    fixed JB spelling
+ *
  *    Revision 1.90  2002/04/02 14:57:28  oes
  *    Made sending wafers independent of FEATURE_COOKIE_JAR
  *
@@ -2242,7 +2245,7 @@ static void listen_loop(void)
 
             log_error(LOG_LEVEL_ERROR, "can't fork: %E");
 
-            sprintf(buf , "JunkBuster: can't fork: errno = %d", errno);
+            sprintf(buf , "Privoxy: can't fork: errno = %d", errno);
 
             write_socket(csp->cfd, buf, strlen(buf));
             close_socket(csp->cfd);

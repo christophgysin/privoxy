@@ -6,8 +6,8 @@
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity p-version "2.9.13">
 <!entity p-status "beta">
-<!entity % p-not-stable "INCLUDE"> <!-- set to IGNORE for stable release  -->
-<!entity % p-stable "IGNORE">      <!-- set INCLUDE for stable release    -->
+<!entity % p-not-stable "INCLUDE">
+<!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
 <!entity % p-doc "INCLUDE">        <!-- and we are a formal doc           -->
 <!entity % p-readme "IGNORE">
@@ -95,7 +95,7 @@ page</ulink> on Sourceforge
 	</listitem>
 	<listitem>
 	<literallayout>
-	<ulink url="http://www.junkbusters.com/ht/en/ijbfaq.html">JunkBuster Corporation</ulink>
+	<ulink url="http://www.junkbusters.com/ht/en/ijbfaq.html">Junkbusters Corporation</ulink>
 	</literallayout>
 	</listitem>
 <!-- 	<listitem> -->
@@ -200,6 +200,9 @@ page</ulink> on Sourceforge
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 1.4  2002/04/08 20:42:07  swa
+ fixed JB spelling
+
  Revision 1.3  2002/04/07 20:27:18  hal9
  Fix meta data.
 

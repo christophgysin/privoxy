@@ -4,7 +4,7 @@ const char jbsockets_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  Contains wrappers for system-specific sockets code,
- *                so that the rest of JunkBuster can be more
+ *                so that the rest of Junkbuster can be more
  *                OS-independent.  Contains #ifdefs to make this work
  *                on many platforms.
  *
@@ -35,6 +35,9 @@ const char jbsockets_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.34  2002/04/08 20:31:41  swa
+ *    fixed JB spelling
+ *
  *    Revision 1.33  2002/04/03 16:02:18  gliptak
  *    Correcting compile warning with older gcc
  *
@@ -91,7 +94,7 @@ const char jbsockets_rcs[] = "$Id$";
  *     - Fixed compiler warnings etc
  *
  *    Revision 1.23  2002/03/05 00:36:01  jongfoster
- *    Fixing bug 514988 - unable to restart JunkBuster
+ *    Fixing bug 514988 - unable to restart Junkbuster
  *
  *    Revision 1.22  2002/03/04 02:08:02  david__schmidt
  *    Enable web editing of actions file on OS/2 (it had been broken all this time!)
@@ -569,11 +572,11 @@ int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
 #ifndef _WIN32
    /*
     * This is not needed for Win32 - in fact, it stops
-    * duplicate instances of JunkBuster from being caught.
+    * duplicate instances of Junkbuster from being caught.
     *
     * On UNIX, we assume the user is sensible enough not
-    * to start JunkBuster multiple times on the same IP.
-    * Without this, stopping and restarting JunkBuster
+    * to start Junkbuster multiple times on the same IP.
+    * Without this, stopping and restarting Junkbuster
     * from a script fails.
     * Note: SO_REUSEADDR is meant to only take over
     * sockets which are *not* in listen state in Linux,
