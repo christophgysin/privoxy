@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.10  2001/07/18 17:25:04  oes
+dnl Fixed a typo
+dnl
 dnl Revision 1.9  2001/07/15 19:45:13  jongfoster
 dnl Added support for linking with POSIX threads library
 dnl
@@ -184,7 +187,7 @@ dnl Note: Some systems have the library but not the system header file,
 dnl       so we must check for both.
 AC_CHECK_LIB(pcre, pcre_compile, [AC_CHECK_HEADER(pcre.h, [have_pcre=yes], [have_pcre=no])], [have_pcre=no])
 AC_CHECK_LIB(pcreposix, regcomp, [AC_CHECK_HEADER(pcreposix.h, [have_pcreposix=yes], [have_pcreposix=no])], [have_pcreposix=no], -lpcre)
-AC_CHECK_LIB(pcrs, pcrs_compile, [AC_CHECK_HEADER(pcrs.h, [have_pcrs=yes], [have_pcre=no])], [have_pcrs=no])
+AC_CHECK_LIB(pcrs, pcrs_compile, [AC_CHECK_HEADER(pcrs.h, [have_pcrs=yes], [have_pcrs=no])], [have_pcrs=no])
 
 dnl Checks for header files.
 AC_HEADER_STDC
