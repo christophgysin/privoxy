@@ -39,6 +39,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.58.2.8  2005/05/07 21:50:55  david__schmidt
+ *    A few memory leaks plugged (mostly on error paths)
+ *
  *    Revision 1.58.2.7  2004/10/03 12:53:32  david__schmidt
  *    Add the ability to check jpeg images for invalid
  *    lengths of comment blocks.  Defensive strategy
@@ -978,6 +981,7 @@ struct http_response *trust_url(struct client_state *csp)
       string_append(&p, buf);
    }
    err = map(exports, "trusted-referrers", 1, p, 0);
+   freez(p);
 
    if (err)
    {
@@ -1000,6 +1004,7 @@ struct http_response *trust_url(struct client_state *csp)
          string_append(&p, buf);
       }
       err = map(exports, "trust-info", 1, p, 0);
+      freez(p);
    }
    else
    {

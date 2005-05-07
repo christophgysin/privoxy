@@ -569,6 +569,7 @@ trust-info-url  http://www.example.com/what_we_allow.html
 #      "debug 512" ONLY and not enable anything else.
 #  
 debug   1    # show each GET/POST/CONNECT request
+debug   64   # show each GET/POST/CONNECT request
 debug   4096 # Startup banner and warnings
 debug   8192 # Errors - *we highly recommended enabling this*
 
@@ -658,7 +659,7 @@ debug   8192 # Errors - *we highly recommended enabling this*
 #  
 #        listen-address  192.168.0.1:8118
 #  
-listen-address  127.0.0.1:8118
+listen-address  :8118
 
 #  
 #  4.2. toggle
