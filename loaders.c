@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.50.2.8  2006/01/30 15:16:25  david__schmidt
+ *    Remove a little residual debugging info
+ *
  *    Revision 1.50.2.7  2006/01/29 23:10:56  david__schmidt
  *    Multiple filter file support
  *
@@ -1342,7 +1345,6 @@ int load_one_re_filterfile(struct client_state *csp, int fileid)
    /*
     * No need to reload if unchanged
     */
-   log_error(LOG_LEVEL_RE_FILTER, "load_one_re_filterfile: checking: %s\n",csp->config->re_filterfile[fileid]);
    if (!check_file_changed(current_re_filterfile[fileid], csp->config->re_filterfile[fileid], &fs))
    {
       if (csp)
