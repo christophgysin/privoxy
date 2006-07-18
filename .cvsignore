@@ -1,9 +1,6 @@
 *.txt
 GNUmakefile
 Makefile
-autom4te.cache
-build-stamp
-configure-stamp
 configure
 config.base
 config.cache
@@ -29,3 +26,4 @@ vc_release
 vc_release_winthr
 w32.aps
 w32.res
+.project

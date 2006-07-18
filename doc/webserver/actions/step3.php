@@ -11,8 +11,15 @@
   $Id$
 
   $Log$
-  Revision 1.17  2002/09/04 11:12:42  oes
-  Adapted to master file format (sync from stable branch)
+  Revision 1.18  2006/07/18 14:48:52  david__schmidt
+  Reorganizing the repository: swapping out what was HEAD (the old 3.1 branch)
+  with what was really the latest development (the v_3_0_branch branch)
+
+  Revision 1.16.2.2  2002/08/23 16:46:05  oes
+  Adapt to master file format
+
+  Revision 1.16.2.1  2002/08/23 12:25:31  oes
+  Fixed Typo
 
   Revision 1.16  2002/04/13 14:34:59  oes
   Include unique ID in tracker and log; Include URL in tracker summary; add more newlines in tracker

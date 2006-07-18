@@ -31,13 +31,12 @@
 #
 # Revisions   :
 #    $Log$
-#    Revision 1.15  2002/09/05 16:18:09  oes
-#    Synced with stable branch:
-#        Revision 1.14.2.2  2002/08/23 02:22:53  hal9
-#        Fix a perl brain fart with <li> in comments.
+#    Revision 1.16  2006/07/18 14:49:14  david__schmidt
+#    Reorganizing the repository: swapping out what was HEAD (the old 3.1 branch)
+#    with what was really the latest development (the v_3_0_branch branch)
 #
-#        Revision 1.14.2.1  2002/08/22 23:31:54  hal9
-#        Add Documentation Link to menu.
+#    Revision 1.14.2.2  2002/08/23 02:22:53  hal9
+#    Fix a perl brain fart with <li> in comments.
 #
 #    Revision 1.14  2002/05/21 19:14:10  oes
 #    Added button style and jumptarget "cancel" link
