@@ -129,7 +129,7 @@ standard.Medium
 +crunch-incoming-cookies \
 +deanimate-gifs{last} \
 -downgrade-http-version \
-+fast-redirects \
++fast-redirects{check-decoded-url} \
 +filter{js-annoyances} \
 -filter{js-events} \
 +filter{html-annoyances} \
