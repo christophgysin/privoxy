@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.92  2006/08/17 17:09:49  fabiankeil
+dnl Added check for timegm().
+dnl
 dnl Revision 1.91  2006/08/13 22:01:51  fabiankeil
 dnl Added checks for strptime() and random()
 dnl
@@ -1106,7 +1109,7 @@ AC_FUNC_SETPGRP
 AC_TYPE_SIGNAL
 dnl uncommenting does not work for swa. suse linux
 dnl AC_FUNC_STAT
-AC_CHECK_FUNCS([atexit getcwd gethostbyaddr gethostbyname inet_ntoa localtime_r memchr memmove memset random regcomp select setlocale socket strchr strdup strerror strftime strptime strstr strtoul])
+AC_CHECK_FUNCS([atexit getcwd gethostbyaddr gethostbyname inet_ntoa localtime_r memchr memmove memset random regcomp select setlocale socket strchr strdup strerror strftime strptime strstr strtoul timegm])
 
 
 dnl =================================================================
