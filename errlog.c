@@ -33,8 +33,12 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.44  2006/08/18 16:03:16  david__schmidt
+ *    Tweak for OS/2 build happiness.
+ *
  *    Revision 1.43  2006/08/03 02:46:41  david__schmidt
- *    Incorporate Fabian Keil's patch work:http://www.fabiankeil.de/sourcecode/privoxy/
+ *    Incorporate Fabian Keil's patch work:
+ *    http://www.fabiankeil.de/sourcecode/privoxy/
  *
  *    Revision 1.42  2006/07/18 14:48:46  david__schmidt
  *    Reorganizing the repository: swapping out what was HEAD (the old 3.1 branch)
