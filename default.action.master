@@ -1580,6 +1580,11 @@ www.geocities.com/js_source
 #MASTER# REMARKS: Can't catch by size or location
 www.dn.se
 
+{-filter{img-reorder}}
+#MASTER# PROBLEM-URL: http://images.google.com
+#MASTER# REMARKS: Google images don't show up with img-reorder on
+images.google.com
+
 {-filter{js-annoyances}}
 #MASTER# PROBLEM-URL: http://www.munichre.com/
 #MASTER# REMARKS: Endless reload loop if referrer info supressed
