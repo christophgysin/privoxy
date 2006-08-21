@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.45  2006/08/21 11:15:54  david__schmidt
+ *    MS Visual C++ build updates
+ *
  *    Revision 1.44  2006/08/18 16:03:16  david__schmidt
  *    Tweak for OS/2 build happiness.
  *
@@ -274,6 +277,9 @@ const char errlog_rcs[] = "$Id$";
 #include "w32log.h"
 #endif /* ndef _WIN_CONSOLE */
 #endif /* def _WIN32 */
+#ifdef _MSC_VER
+#define inline __inline
+#endif /* def _MSC_VER */
 
 #ifdef __OS2__
 #include <sys/socket.h> /* For sock_errno */
