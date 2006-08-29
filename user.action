@@ -57,6 +57,7 @@ myfilters   = +filter{html-annoyances} +filter{js-annoyances} +filter{popups}\
 # Allow ads for selected useful free sites:
 #
 allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
+#... etc.  Customize to your heart's content.
 
 ## end aliases ########################################################
 #######################################################################
