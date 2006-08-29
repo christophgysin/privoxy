@@ -454,7 +454,7 @@ allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
 -inspect-jpegs \
 -kill-popups \
 -limit-connect \
--prevent-compression \
++prevent-compression \
 -send-vanilla-wafer \
 -send-wafer \
 +session-cookies-only \
