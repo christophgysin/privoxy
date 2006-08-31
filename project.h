@@ -37,6 +37,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.78  2006/08/31 16:25:06  fabiankeil
+ *    Work around a buffer overflow that caused Privoxy to
+ *    segfault if too many trusted referrers were used. Good
+ *    enough for now, but should be replaced with a real
+ *    solution after the next release.
+ *
  *    Revision 1.77  2006/08/21 12:50:51  david__schmidt
  *    Formatting cleanup
  *
@@ -1279,6 +1285,12 @@ struct block_spec
    struct block_spec *next;  /**< Next entry in linked list    */
 };
 
+/**
+ * Arbitrary limit for the number of trusted referrers
+ * Privoxy can print in its blocking message.
+ */
+#define MAX_TRUSTED_REFERRERS 64
+
 #endif /* def FEATURE_TRUST */
 
 
@@ -1460,7 +1472,7 @@ struct configuration_spec
    struct list trust_info[1];
 
    /** FIXME: DOCME: Document this. */
-   struct url_spec *trust_list[64];
+   struct url_spec *trust_list[MAX_TRUSTED_REFERRERS];
 
 #endif /* def FEATURE_TRUST */
 
