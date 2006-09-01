@@ -537,7 +537,7 @@ allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
 -filter-client-headers \
 -filter-server-headers \
 -force-text-mode \
--handle-as-empty-document
+-handle-as-empty-document \
 -handle-as-image \
 -hide-accept-language \
 -hide-content-disposition \
