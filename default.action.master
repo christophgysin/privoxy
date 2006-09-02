@@ -1430,6 +1430,8 @@ swscan.apple.com
 #MASTER# REMARKS: Popular bug-tracking system - likely to contain code
 bugzilla.
 .tldp.org
+#MASTER# REMARKS: all the world is wikified 09/02/06. Generic wiki un-filterer.
+.wiki*.
 
 #----------------------------------------------------------------------------
 # These sites suffer from a bug in PHP < 4.2.3 (ob_gzhandler broken;
