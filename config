@@ -219,7 +219,7 @@ actionsfile user      # User customizations
 #      separate file, such as user.filter.
 #
 filterfile default.filter
-filterfile user.filter      # User customizations
+#filterfile user.filter      # User customizations
 
 #
 #  1.5. logfile
