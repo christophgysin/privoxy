@@ -437,7 +437,7 @@ actionsfile
 </variablelist>
 
 <![%config-file;[<literallayout>@@filterfile default.filter</literallayout>]]>
-<![%config-file;[<literallayout>@@filterfile user.filter      # User customizations</literallayout>]]>
+<![%config-file;[<literallayout>@@#filterfile user.filter      # User customizations</literallayout>]]>
 </sect3>
 
 
