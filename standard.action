@@ -200,7 +200,7 @@ standard.Medium
 -handle-as-image \
 -hide-accept-language \
 -hide-content-disposition \
-+hide-if-modified-since{-1} \
++hide-if-modified-since{-60} \
 +hide-forwarded-for-headers \
 +hide-from-header{block} \
 +hide-referrer{conditional-block} \
