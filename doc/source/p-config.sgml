@@ -232,8 +232,7 @@ II. FORMAT OF THE CONFIGURATION FILE
     <application>Privoxy</application>, and is used for help links from some
     of the internal CGI pages. The manual itself is normally packaged with the
     binary distributions, so you probably want to set this to a locally
-    installed copy. For multi-user setups, you could provide a copy on a local
-    webserver for all your users and use the corresponding URL here.
+    installed copy. 
    </para>
    <para>
     Examples:
