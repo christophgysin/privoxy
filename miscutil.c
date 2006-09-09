@@ -36,6 +36,11 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.42  2006/09/09 14:01:45  fabiankeil
+ *    Integrated Oliver Yeoh's domain pattern fix
+ *    to make sure *x matches xx. Closes Patch 1217393
+ *    and Bug 1170767.
+ *
  *    Revision 1.41  2006/08/18 16:03:17  david__schmidt
  *    Tweak for OS/2 build happiness.
  *
@@ -881,9 +886,20 @@ int simplematch(char *pattern, char *text)
       else if (pat != fallback)
       {
          /*
+          * Increment text pointer if in char range matching
+          */
+         if (*pat == ']')
+         {
+            txt++;
+         }
+         /*
           * Wildcard mode && nonmatch beyond fallback: Rewind pattern
           */
          pat = fallback;
+         /*
+          * Restart matching from current text pointer
+          */
+         continue;
       }
       txt++;
    }
