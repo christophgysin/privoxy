@@ -34,13 +34,9 @@ Current Privoxy Team:
 <![%p-authors-formal;[
 ]]>
  
- Moritz Barsnick
  Hal Burgiss
- Mattes Dolak 
- Ulrich Drepper
  Félix Rauch
  Roland Rosenfeld
- Oliver Yeoh
 <![%p-authors-formal;[
 </literallayout>
 
@@ -51,6 +47,7 @@ Current Privoxy Team:
 <literallayout>
  Johny Agotnes 
  Rodrigo Barbosa
+ Moritz Barsnick
  Brian Dessent
  Jon Foster
  Karsten Hopp
@@ -83,7 +80,8 @@ Current Privoxy Team:
  Andrew J. Caines
  Clifford Caoile
  Michael T. Davis
- Brian Dessent
+ Mattes Dolak 
+ Ulrich Drepper
  Peter E
  Aaron Hamid
  Magnus Holmgren
@@ -97,6 +95,7 @@ Current Privoxy Team:
  Bobby G. Vinyard
  Darren Wiebe
  Jörg Weinmann 
+ Oliver Yeoh
  Jamie Zawinski
 </literallayout>
 
