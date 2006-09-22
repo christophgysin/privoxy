@@ -172,12 +172,12 @@ standard.Medium
 +deanimate-gifs{last} \
 -downgrade-http-version \
 +fast-redirects{check-decoded-url} \
-+filter{js-annoyances} \
+-filter{js-annoyances} \
 -filter{js-events} \
 +filter{html-annoyances} \
 +filter{content-cookies} \
 +filter{refresh-tags} \
-+filter{unsolicited-popups} \
+-filter{unsolicited-popups} \
 -filter{all-popups} \
 +filter{img-reorder} \
 +filter{banners-by-size} \
