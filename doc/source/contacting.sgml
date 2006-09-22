@@ -5,7 +5,7 @@
                 
  $Id$
 
- Copyright (C) 2001 - 2006 Privoxy Developers <developers@privoxy.org>
+ Copyright (C) 2001 - 2006 Privoxy Developers http://privoxy.org
  See LICENSE.
 
  ======================================================================
@@ -201,7 +201,7 @@ Please be sure to provide the following information:
 </para>
 <para>
   The <ulink url="http://www.privoxy.org/user-manual/appendix.html#ACTIONSANAT">appendix
-  of the user manual</ulink> also has helpful information 
+  of the Privoxy User Manual</ulink> also has helpful information 
   on understanding <literal>actions</literal>, and <literal>action</literal> debugging. 
 </para>
 </sect3>
