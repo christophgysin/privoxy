@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.104  2006/09/23 13:26:38  roro
+ *    Replace TABs by spaces in source code.
+ *
  *    Revision 1.103  2006/09/21 12:54:43  fabiankeil
  *    Fix +redirect{}. Didn't work with -fast-redirects.
  *
@@ -1294,7 +1297,7 @@ static void chat(struct client_state *csp)
    while ( (csp->sfd = forwarded_connect(fwd, http, csp))
          && (errno == EINVAL) && (forwarded_connect_retries++ < max_forwarded_connect_retries))
    {
-		log_error(LOG_LEVEL_ERROR, "failed request #%u to connect to %s. Trying again.",
+      log_error(LOG_LEVEL_ERROR, "failed request #%u to connect to %s. Trying again.",
                 forwarded_connect_retries, http->hostport);
    }
 
