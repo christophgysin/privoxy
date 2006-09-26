@@ -503,7 +503,7 @@ Hal.
 
 <para>
  You might also find <quote><ulink
- url="http://www.bureau-cornavin.com/opensource/crash-course/">Writing Documentation
+ url="http://opensource.bureau-cornavin.com/crash-course/index.html">Writing Documentation
  Using DocBook - A Crash Course</ulink></quote> useful.
 </para>
 </sect2>
@@ -3025,6 +3025,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 2.11  2006/09/26 02:36:29  hal9
+  Fix broken link per bug tracker.
+
   Revision 2.10  2006/09/22 01:27:55  hal9
   Final commit of probably various minor changes here and there. Unless
   something changes this should be ready for pending release.
