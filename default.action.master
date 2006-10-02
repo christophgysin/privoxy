@@ -496,7 +496,7 @@ for-privoxy-version=3.0.5
 # These aliases define combinations of actions
 # that are useful for certain types of sites:
 #
-fragile     = -block -crunch-all-cookies -filter -fast-redirects -hide-referer allow-popups
+fragile     = -block -crunch-all-cookies -filter -fast-redirects -hide-referer -kill-popups
 shop        = -crunch-all-cookies allow-popups
 
 # Your favourite blend of filters:
