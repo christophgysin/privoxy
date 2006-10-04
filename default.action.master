@@ -957,7 +957,7 @@ quinst.com/images
 #MASTER# BLOCK-REFERRER: http://www.newsmax.com/archives/articles/2003/11/20/185048.shtml
 ad*.fameleads.com
 #MASTER# BLOCK-REFERRER: http://www.imdb.com/
-ia.imdb.com/.*(\.swf|[0-9]\.(gif|jpg))
+ia.imdb.com/.*\.swf
 #MASTER# BLOCK-REFERRER: http://www.paroles.net/texte/10818
 .[a-vx-z]*.comclick.com/
 #MASTER# BLOCK-REFERRER: http://freemail.web.de/
