@@ -132,6 +132,18 @@
 </para>
 
 <para>
+ To build an executable with security enhanced features so that 
+ users cannot easily bypass the proxy (e.g. <quote>go there anyway</quote>, or
+ change their own configurations, <command>configure</command> like this:
+</para>
+<para>
+ <screen>
+ ./configure  --disable-toggle  --disable-editor  --disable-force</screen>
+</para> 
+<para>
+Then build as above.
+</para>
+<para>
  <emphasis>WARNING:</emphasis> If installing as root, the install will fail
  unless a non-root user or group is specified, or a <literal>privoxy</literal>
  user and group already exist on the system. If a non-root user is specified,
