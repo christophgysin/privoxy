@@ -133,7 +133,7 @@
 
 <para>
  To build an executable with security enhanced features so that 
- users cannot easily bypass the proxy (e.g. <quote>go there anyway</quote>, or
+ users cannot easily bypass the proxy (e.g. <quote>go there anyway</quote>), or
  change their own configurations, <command>configure</command> like this:
 </para>
 <para>
