@@ -317,6 +317,8 @@
 -filter{blogspot} \
 -filter{xml-to-html} \
 -filter{html-to-xml} \
+-filter{no-ping} \
+-filter{hide-tor-exit-notation} \
 -filter-client-headers \
 -filter-server-headers \
 -force-text-mode \
