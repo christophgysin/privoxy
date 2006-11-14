@@ -11,7 +11,7 @@
 # 
 #  $Id$
 #
-#  Requires    :  This version requires Privoxy v3.0.4 or later due to 
+#  Requires    :  This version requires Privoxy v3.0.5 or later due to 
 #                 syntax changes.
 #
 #  Purpose     :  Default actions file, see
@@ -481,7 +481,7 @@
 {{settings}}
 #############################################################################
 #MASTER# COMMENT: The minimum Privoxy version:
-for-privoxy-version=3.0.5
+for-privoxy-version=3.0.6
 
 #############################################################################
 # Aliases
