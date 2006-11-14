@@ -70,8 +70,9 @@ Current Privoxy Team:
 </literallayout>
 <![%p-authors-formal;[
 <para>
- Thanks to the many people who have tested Privoxy, reported bugs, made
- suggestions or contributed in some way. These include (in alphabetical order):
+ Thanks to the many people who have tested Privoxy, reported bugs, provided 
+ patches, made suggestions or contributed in some way. These include (in
+ alphabetical order):
 </para>
 <literallayout>
  Ken Arromdee
@@ -83,22 +84,29 @@ Current Privoxy Team:
  Michael T. Davis
  Mattes Dolak 
  Peter E
+ Florian Effenberger
+ Dean Gaudet
  Aaron Hamid
+ Darel Henman
  Magnus Holmgren
+ Derek Jennings
  David Laight
  Don Libes  
  Paul Lieverse
  Jindrich Makovicka 
  David Mediavilla 
+ Raphael Moll
  Oliver Stoeneberg
+ Martin Thomas
  Roberto Ragusa
  Félix Rauch
  Maynard Riley
  Spinor S
  Bart Schelstraete
  Bobby G. Vinyard
- Darren Wiebe
  Jörg Weinmann 
+ Darren Wiebe
+ Anduin Withers
  Oliver Yeoh
  Jamie Zawinski
 </literallayout>

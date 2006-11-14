@@ -44,8 +44,9 @@
 
  <listitem>
   <para>
-   Web page content filtering (removes banners based on size,
-   invisible <quote>web-bugs</quote>, JavaScript and HTML annoyances, pop-up windows, etc.)
+   Web page filtering (text replacements, removes banners based on size,
+   invisible <quote>web-bugs</quote>, JavaScript and HTML annoyances, 
+   pop-up windows, header manipulation, etc.)
   </para>
  </listitem> 
 
