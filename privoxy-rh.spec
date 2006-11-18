@@ -323,6 +323,9 @@ fi
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Sat Oct 18 2006 Hal Burgiss <hal@foobox.net>
+- Bump version to 3.0.6
+
 * Sat Sep 23 2006 Jochen Schlick <j.schlick_at_decagon_de> 3.0.5-1
 - let user-manual point to local documentation
 
@@ -756,6 +759,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.52  2006/11/18 17:36:53  hal9
+# Ooops, bumping version to 3.0.6
+#
 # Revision 1.51  2006/11/18 14:37:12  fabiankeil
 # Bump version to 3.0.6.
 #
