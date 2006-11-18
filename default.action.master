@@ -740,6 +740,8 @@ rcm.amazon.com
 #MASTER# BLOCK-REFERRER: http://www.hartware.de/news_40795.html
 /.*intellitxt/
 .intellitxt.com
+#MASTER# REMARKS: per Actions File tracker: #1597893 11/17/06, similar to intellitxt
+.kontera.com
 #MASTER# REMARKS: Video advertizer, owned by doubleclick.net.
 #MASTER# BLOCK-REFERRER: http://www.ign.com/ 09/17/06
 .klipmart.com
