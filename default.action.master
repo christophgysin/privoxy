@@ -790,6 +790,8 @@ ad.theadhost.com
 .zedo.com
 #MASTER# BLOCK-REFERRER: http://realtor.org 11/03/06
 .trk.sodoit.com/
+#MASTER# BLOCK-REFERRER: http://www.freenews.fr 11/23/06 Actionsfile feedback item #1597034
+.espace.netavenir.com
 
 #----------------------------------------------------------------------------
 # Misc Web-bugs, JS and just plain Junk. Images here aren't normal images.
