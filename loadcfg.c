@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.55  2006/11/28 15:31:52  fabiankeil
+ *    Fix memory leak in case of config file reloads.
+ *
  *    Revision 1.54  2006/10/21 16:04:22  fabiankeil
  *    Modified kludge for win32 to make ming32 menu
  *    "Options/Edit Filters" (sort of) work again.
@@ -552,6 +555,8 @@ void unload_configfile (void * data)
    {
       freez(config->actions_file_short[i]);
       freez(config->actions_file[i]);
+      freez(config->re_filterfile_short[i]);
+      freez(config->re_filterfile[i]);
    }
 
    freez(config->admin_address);
