@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.47  2006/11/28 15:25:15  fabiankeil
+ *    Only unlink the pidfile if it's actually used.
+ *
  *    Revision 1.46  2006/11/13 19:05:51  fabiankeil
  *    Make pthread mutex locking more generic. Instead of
  *    checking for OSX and OpenBSD, check for FEATURE_PTHREAD
@@ -380,7 +383,10 @@ static void fatal_error(const char * error_message)
 #endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
 
 #if defined(unix)
-   unlink(pidfile);
+   if(pidfile)
+   {
+      unlink(pidfile);
+   }
 #endif /* unix */
 
    exit(1);
