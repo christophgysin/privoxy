@@ -38,6 +38,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.32  2006/12/17 17:53:39  fabiankeil
+ *    Suppress the toggle link if remote toggling is disabled.
+ *
  *    Revision 1.31  2006/07/18 14:48:45  david__schmidt
  *    Reorganizing the repository: swapping out what was HEAD (the old 3.1 branch)
  *    with what was really the latest development (the v_3_0_branch branch)
@@ -246,7 +249,7 @@ extern char   get_char_param(const struct map *parameters,
  */
 extern void get_http_time(int time_offset, char * buf);
 extern char *add_help_link(const char *item, struct configuration_spec *config);
-extern char *make_menu(const char *self);
+extern char *make_menu(const char *self, const unsigned feature_flags);
 extern char *dump_map(const struct map *the_map);
 
 /*
