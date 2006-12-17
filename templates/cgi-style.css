@@ -30,6 +30,10 @@
 #
 # Revisions   :
 #    $Log$
+#    Revision 1.9  2006/12/17 17:50:55  fabiankeil
+#    Add white space workaround for tables
+#    in show-status CGI page.
+#
 #    Revision 1.8  2002/05/12 15:53:41  jongfoster
 #    Adding standard comment header with license and CVS log.
 #
@@ -138,3 +142,14 @@ a.cmd:active, td.indentbuttons a:active, td.buttons a:active {
  * Special red emphasis:
  */
 em.warning { color: #ff0000 }
+
+/*
+ * In show-status we use tables directly behind headlines
+ * and for some reason or another the headlines are set to
+ * "margin:0" and leave the tables no air to breath.
+ *
+ * A proper fix would be to replace or remove the "margin:0",
+ * but as this affects every cgi page we do it another time
+ * and use this workaround until then.
+ */
+.box table { margin-top: 1em; }
