@@ -35,6 +35,12 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.20  2006/12/26 17:31:41  fabiankeil
+ *    Mutex protect rand() if POSIX threading
+ *    is used, warn the user if that's not possible
+ *    and stop using it on _WIN32 where it could
+ *    cause crashes.
+ *
  *    Revision 1.19  2006/12/06 19:41:39  fabiankeil
  *    Privoxy is now able to run as intercepting
  *    proxy in combination with any packet filter
@@ -191,6 +197,11 @@ extern pthread_mutex_t gethostbyaddr_mutex;
 #ifndef HAVE_GETHOSTBYNAME_R
 extern pthread_mutex_t gethostbyname_mutex;
 #endif /* ndef HAVE_GETHOSTBYNAME_R */
+
+#ifndef HAVE_RANDOM
+extern pthread_mutex_t rand_mutex;
+#endif /* ndef HAVE_RANDOM */
+
 #endif /* FEATURE_PTHREAD */
 
 /* Functions */
