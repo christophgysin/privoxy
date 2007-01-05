@@ -11,6 +11,15 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.15  2007/01/05 15:46:12  fabiankeil
+ *    Don't use strlen() to calculate the length of
+ *    the pcrs substitutes. They don't have to be valid C
+ *    strings and getting their length wrong can result in
+ *    user-controlled memory corruption.
+ *
+ *    Thanks to Felix Gröbert for reporting the problem
+ *    and providing the fix [#1627140].
+ *
  *    Revision 1.14  2006/12/24 17:27:37  fabiankeil
  *    Increase pcrs error code offset to prevent overlaps
  *    with pcre versions newer than our own.
@@ -122,6 +131,7 @@ extern "C" {
 
 typedef struct {
   char  *text;                                   /* The plaintext part of the substitute, with all backreferences stripped */
+  size_t length;                                 /* The substitute may not be a valid C string so we can't rely on strlen(). */
   int    backrefs;                               /* The number of backreferences */
   int    block_offset[PCRS_MAX_SUBMATCHES];      /* Array with the offsets of all plaintext blocks in text */
   size_t block_length[PCRS_MAX_SUBMATCHES];      /* Array with the lengths of all plaintext blocks in text */
