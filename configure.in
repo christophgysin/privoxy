@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.100  2007/01/07 07:38:10  joergs
+dnl Disabled -pipe for AmigaOS4.
+dnl
 dnl Revision 1.99  2007/01/01 19:36:37  fabiankeil
 dnl Integrate a modified version of Wil Mahan's
 dnl zlib patch (PR #895531).
@@ -685,7 +688,9 @@ dnl additional gcc flags
 dnl =================================================================
 dnl 
 if test "$GCC"; then
-  CFLAGS="-pipe $CFLAGS"
+  if test "$host" != "powerpc-unknown-amigaos"; then
+    CFLAGS="-pipe $CFLAGS"
+  fi
 fi
 
 
