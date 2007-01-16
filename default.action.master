@@ -674,7 +674,7 @@ countr*.
 {-block}
 #MASTER# DONT-VERIFY (generic)
 /.*ad(sl|v(i[cs]|o|an|ertencia|ent|.*search)) # advice/advisories/advan*/advertencia (spanish)
-/.*(lo|thre|he|d|gr|l|ro|re|squ)ads
+/.*(lo|thre|he|d|gr|l|ro|re|squ|class(ified)?)ads
 /.*account
 support./(.*/)?track
 
@@ -1073,6 +1073,9 @@ stats.indextools.com
 tra*.measuremap.com
 .eurekster.com/sidebar
 tra*.mybloglog.com
+#MASTER# BLOCK-REFERRER:  http://www.polymervision.com/ 
+#MASTER# REMARKS: Actionsfile feedback item #1629370 01/16/07
+.guesttrace.
 
 #----------------------------------------------------------------------------
 # Specific counters (see above for generic patterns)
