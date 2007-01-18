@@ -28,6 +28,11 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.102  2007/01/18 14:55:45  fabiankeil
+dnl Check for tzset() and putenv() to make sure the
+dnl replacement timegm() isn't included on systems
+dnl where it fails to compile.
+dnl
 dnl Revision 1.101  2007/01/12 15:20:17  fabiankeil
 dnl Temporarily ignore external libpcrs to prevent
 dnl problems that are fixed in Privoxy's own version.
@@ -1148,7 +1153,7 @@ AC_FUNC_SETPGRP
 AC_TYPE_SIGNAL
 dnl uncommenting does not work for swa. suse linux
 dnl AC_FUNC_STAT
-AC_CHECK_FUNCS([atexit getcwd gethostbyaddr gethostbyaddr_r gethostbyname gethostbyname_r inet_ntoa localtime_r memchr memmove memset random regcomp select setlocale socket strchr strdup strerror strftime strptime strstr strtoul timegm])
+AC_CHECK_FUNCS([atexit getcwd gethostbyaddr gethostbyaddr_r gethostbyname gethostbyname_r inet_ntoa localtime_r memchr memmove memset putenv random regcomp select setlocale socket strchr strdup strerror strftime strptime strstr strtoul timegm tzset])
 
 
 dnl =================================================================
