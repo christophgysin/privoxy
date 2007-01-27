@@ -936,11 +936,13 @@ scripts.chitika.net/.*\.js
 #MASTER# BLOCK-REFERRER: http://www.joecartoon.com/  10/17/06
 .*servedby.advertising.com
 #MASTER# BLOCK-REFERRER: http://www.yahoo.com/
-.a.yimg.com/(?:(?!/i/).)*$
-.a[0-9].yimg.com/(?:(?!/i/).)*$
-.yimg.com/(.*/)?a/
-.yimg.com/.*/(flash|java)/promotions
-.yimg.com/a/.*/flash/
+#.a.yimg.com/(?:(?!/i/).)*$
+#.a[0-9].yimg.com/(?:(?!/i/).)*$
+#.yimg.com/(.*/)?a/
+#.yimg.com/.*/(flash|java)/promotions
+#.yimg.com/a/.*/flash/
+#MASTER# REMARKS: The above replaced with below. Actions file tracker #1645616 2007-01-27
+.yimg.com/.*\.yimg\.com/a/
 #MASTER# DONT-VERIFY
 bs*.gsanet.com
 bs*.einets.com
@@ -1294,6 +1296,10 @@ edge.macworld.com
 .parcel2go.com/track
 #MASTER# REMARKS: Actionsfile Tracker #1612950 12/11/06
 .amazon.com/gp/gift-central/.*recip/
+#MASTER# UNBLOCK-REFERRER: http://yahoo.com 2007-01-27
+#MASTER# REMARKS: Actionsfile Tracker #1645501, this is a UI page element.
+.yimg.com/.*/themes/ad/
+
 
 #############################################################################
 # Site-specific special rules:
