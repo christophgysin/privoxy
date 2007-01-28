@@ -40,6 +40,10 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.78  2007/01/28 13:41:18  fabiankeil
+ *    - Add HEAD support to finish_http_response.
+ *    - Add error favicon to internal HTML error messages.
+ *
  *    Revision 1.77  2007/01/12 15:36:44  fabiankeil
  *    Mark *csp as immutable for is_untrusted_url()
  *    and is_imageurl(). Closes FR 1237736.
@@ -1018,7 +1022,7 @@ struct http_response *block_url(struct client_state *csp)
       }
    }
 
-   return finish_http_response(rsp);
+   return finish_http_response(csp, rsp);
 
 }
 
@@ -1165,7 +1169,7 @@ struct http_response *trust_url(struct client_state *csp)
       return cgi_error_memory();
    }
 
-   return finish_http_response(rsp);
+   return finish_http_response(csp, rsp);
 }
 #endif /* def FEATURE_TRUST */
 
@@ -1467,7 +1471,7 @@ struct http_response *redirect_url(struct client_state *csp)
             return cgi_error_memory();
          }
          freez(new_url);
-         return finish_http_response(rsp);
+         return finish_http_response(csp, rsp);
       }
    }
 
@@ -2263,7 +2267,7 @@ struct http_response *direct_response(struct client_state *csp)
             }
 
             rsp->is_static = 1;
-            return(finish_http_response(rsp));
+            return(finish_http_response(csp, rsp));
          }
       }
    }
