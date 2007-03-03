@@ -1314,7 +1314,9 @@ edge.macworld.com
 #MASTER# UNBLOCK-REFERRER: http://yahoo.com 2007-01-27
 #MASTER# REMARKS: Actionsfile Tracker #1645501, this is a UI page element.
 .yimg.com/.*/themes/ad/
-
+#MASTER# UNBLOCK-REFERRER: http://mozilla.hongo.wide.ad.jp/pub/mozilla.org//thunderbird/releases/
+#MASTER# REMARKS: Actionsfile feedback item #1672918 2007-03-03
+.ad.*/pub/mozilla.org/
 
 #############################################################################
 # Site-specific special rules:
