@@ -896,6 +896,9 @@ pagead*.googlesyndication./.*\.js
 /t\.php\?cat=.*&kw=.*&sc=
 #MASTER# BLOCK-REFERRER: http://floodle.net 2007-01-21 SF tracker
 scripts.chitika.net/.*\.js
+#MASTER# REMARKS: Actionsfile tracker #1674363 2007-03-05, text ads
+#MASTER# BLOCK-REFERRER: http://www.securityfocus.com/archive/1/461489/30/0/threaded
+jlinks.industrybrains.com/
 
 #############################################################################
 # Generic block-as-image patterns:
