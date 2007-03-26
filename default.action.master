@@ -677,7 +677,7 @@ countr*.
 #############################################################################
 {-block}
 #MASTER# DONT-VERIFY (generic)
-/.*ad(sl|v(i[cs]|o|an|ertencia|ent|.*search)) # advice/advisories/advan*/advertencia (spanish)
+/.*ad(sl|v(i[cs]|o|an|ertencia|ent|.*search|erse)) # advice/advisories/advan*/advertencia (spanish) adverse
 /.*(lo|thre|he|d|gr|l|ro|re|squ|class(ified)?)ads
 /.*account
 support./(.*/)?track
