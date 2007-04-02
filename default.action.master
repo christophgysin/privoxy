@@ -681,6 +681,9 @@ countr*.
 /.*(lo|thre|he|d|gr|l|ro|re|squ|class(ified)?)ads
 /.*account
 support./(.*/)?track
+#MASTER# REMARKS: 20070402 Adam Piggott first-party tracking
+#MASTER# PROBLEM URL: http://www.shockwave.com/servlet/DownloadEcommTracker?sku=fizzball-pc&promoCode=SiteShockwaveLandingPage
+.shockwave.com/servlet/DownloadEcommTracker
 
 #############################################################################
 # Exceptions for academia and non-profits
