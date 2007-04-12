@@ -79,8 +79,8 @@
 -inspect-jpegs \
 -kill-popups \
 -limit-connect \
--prevent-compression \
 -overwrite-last-modified \
+-prevent-compression \
 -redirect \
 -send-vanilla-wafer \
 -send-wafer \
@@ -148,8 +148,8 @@ standard.Cautious
 -inspect-jpegs \
 -kill-popups \
 -limit-connect \
--prevent-compression \
 -overwrite-last-modified \
+-prevent-compression \
 -redirect \
 -send-vanilla-wafer \
 -send-wafer \
@@ -224,8 +224,8 @@ standard.Medium
 -inspect-jpegs \
 -kill-popups \
 +limit-connect{,} \
--prevent-compression \
 +overwrite-last-modified{randomize} \
+-prevent-compression \
 -redirect \
 -send-vanilla-wafer \
 -send-wafer \
