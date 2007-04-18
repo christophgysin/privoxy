@@ -1858,6 +1858,13 @@ www.skweezer.net/bloglines
 {+redirect{http://config.privoxy.org/}}
 .privoxy.org/config
 
+#MASTER# REMARKS: Privoxy's "unsafe" CGI pages check the referrer 
+#MASTER# REMARKS: to make sure the user reached them intentionally.
+#MASTER# REMARKS: If the referrer is blocked, CGI editing is impossible.
+{-hide-referrer}
+p.p/
+config.privoxy.org/
+
 #MASTER# REMARKS: Yahoo logout URLs need special treatment,
 #MASTER# REMARKS: the URL after "done=" is no fast-redirect. 2007-01-19 fk
 #MASTER# REMARKS: Reported in support request #1635354.
