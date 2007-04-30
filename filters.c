@@ -40,6 +40,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.87  2007/04/30 15:53:10  fabiankeil
+ *    Make sure filters with dynamic jobs actually use them.
+ *
  *    Revision 1.86  2007/04/30 15:03:28  fabiankeil
  *    - Introduce dynamic pcrs jobs that can resolve variables.
  *    - Don't run redirect functions more than once,
@@ -1953,7 +1956,7 @@ char *pcrs_filter_response(struct client_state *csp)
 
             prev_size = size;
             /* Apply all jobs from the joblist */
-            for (job = b->joblist; NULL != job; job = job->next)
+            for (job = joblist; NULL != job; job = job->next)
             {
                job_number++;
                job_hits = pcrs_execute(job, old, size, &new, &size);
