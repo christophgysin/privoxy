@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.51  2007/05/11 11:51:34  fabiankeil
+ *    Fix a type mismatch warning.
+ *
  *    Revision 1.50  2007/04/11 10:55:44  fabiankeil
  *    Enforce some assertions that could be triggered
  *    on mingw32 and other systems where we use threads
@@ -1017,8 +1020,8 @@ void log_error(int loglevel, const char *fmt, ...)
       assert(outbuf[log_buffer_size] == '\0');
 
       snprintf(outbuf, log_buffer_size,
-         "%s Privoxy(%08lx) Fatal error: log_error()'s sanity checks failed. length: %u\n"
-         "Exiting.", timestamp, thread_id, length);
+         "%s Privoxy(%08lx) Fatal error: log_error()'s sanity checks failed. length: %d\n"
+         "Exiting.", timestamp, thread_id, (int)length);
       loglevel = LOG_LEVEL_FATAL;
    }
 
