@@ -35,6 +35,9 @@ const char loaders_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.63  2007/05/14 10:41:15  fabiankeil
+ *    Ditch the csp member cookie_list[] which isn't used anymore.
+ *
  *    Revision 1.62  2007/04/30 15:02:18  fabiankeil
  *    Introduce dynamic pcrs jobs that can resolve variables.
  *
@@ -504,7 +507,6 @@ void sweep(void)
 
          destroy_list(csp->headers);
          destroy_list(csp->tags);
-         destroy_list(csp->cookie_list);
 
          free_current_action(csp->action);
 
