@@ -2096,7 +2096,7 @@ forward-socks4 and forward-socks4a</title>
   <term>Effect if unset:</term>
   <listitem>
    <para>
-    Forwarded connections are treated like direct connections and no retry attempts are made.
+    Connections forwarded through other proxies are treated like direct connections and no retry attempts are made.
    </para>
   </listitem>
  </varlistentry>
@@ -2109,6 +2109,10 @@ forward-socks4 and forward-socks4a</title>
     The connection might have failed because of a DNS timeout in which case a retry makes sense,
     but it might also have failed because the server doesn't exist or isn't reachable. In this
     case the retry will just delay the appearance of Privoxy's error message.
+   </para>
+   <para>
+    Note that in the context of this option, <quote>forwarded connections</quote> includes all connections
+    that Privoxy forwards through other proxies. This option is not limited to the HTTP CONNECT method.
    </para>
    <para>
     Only use this option, if you are getting many forwarding related error messages,
