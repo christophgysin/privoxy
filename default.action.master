@@ -1385,6 +1385,9 @@ lads.myspace.com
 switch.atdmt.com/action/
 #MASTER# UNBLOCK-REFERRER: http://www.parcelforce.com/portal/pw/track?catId=7500082
 .parcelforce.com/.*track
+#MASTER# UNBLOCK-REFERRER: redirect from http://go.microsoft.com/fwlink?linkid=51093
+#MASTER# REMARKS: Actionsfile feedback item #1757121 2007-07-19
+.microsoft.com/.*/adschema/
 
 #############################################################################
 # Site-specific special rules:
