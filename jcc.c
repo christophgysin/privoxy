@@ -33,6 +33,10 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.149  2007/09/04 15:08:48  fabiankeil
+ *    Initialize req to NULL to make sure it's defined if the
+ *    first read_socket() call fails. Reported by icmp30.
+ *
  *    Revision 1.148  2007/08/26 16:47:13  fabiankeil
  *    Add Stephen Gildea's --pre-chroot-nslookup patch [#1276666],
  *    extensive comments moved to user manual.
@@ -1916,7 +1920,7 @@ static void chat(struct client_state *csp)
    char buf[BUFFER_SIZE];
    char *hdr;
    char *p;
-   char *req;
+   char *req = NULL;
    fd_set rfds;
    int n;
    jb_socket maxfd;
