@@ -1267,7 +1267,9 @@ adbusters.org/
 #MASTER# UNBLOCK-REFERRER:  http://www.cels.org/db/keep-track.pl?cat:1 09/11/06
 cels.org/.*track
 #MASTER# UNBLOCK-REFERRER: http://www.nic.ad.jp/ See http://jprs.co.jp/en/jpdomain.html 09/11/06
-.nic.ad.jp
+#MASTER# REMARKS: 2007-10-04, increase scope per Actionsfile feedback item #1807613
+#.nic.ad.jp
+.ad.jp
 #MASTER# UNBLOCK-REFERRER: http://www.flickr.com/photo_zoom.gne?id=32594118&size=l 09/11/06
 #MASTER# REMARKS: creativecommons.org worthwhile organization 09/11/06
 /(.*/)?somerights20.gif
