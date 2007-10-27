@@ -35,6 +35,10 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.69  2007/10/27 13:02:27  fabiankeil
+ *    Relocate daemon-mode-related log messages to make sure
+ *    they aren't shown again in case of configuration reloads.
+ *
  *    Revision 1.68  2007/10/19 16:32:34  fabiankeil
  *    Plug memory leak introduced with my last commit.
  *
@@ -1622,13 +1626,10 @@ struct configuration_spec * load_config(void)
       if (NULL != logfile)
       {
          config->logfile = logfile;
-         log_error(LOG_LEVEL_INFO,
-            "Switching to daemon mode. Log messages will be written to: %s", config->logfile);
          init_error_log(Argv[0], config->logfile);
       }
       else
       {
-         log_error(LOG_LEVEL_INFO, "No logfile configured while in daemon mode. Logging disabled.");
          disable_logging();
       }
    }
