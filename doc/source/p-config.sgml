@@ -172,7 +172,7 @@ II. FORMAT OF THE CONFIGURATION FILE
 <para>
  Note that commenting out an option and leaving it at its default
  are two completely different things! Most options behave very
- differently when unset. See the the "Effect if unset" explanation
+ differently when unset. See the "Effect if unset" explanation
  in each option's description for details.
 </para>
 <para>
@@ -337,7 +337,7 @@ II. FORMAT OF THE CONFIGURATION FILE
  <varlistentry>
   <term>Default value:</term>
   <listitem>
-   <para>Two example URL are provided</para>
+   <para>Two example URLs are provided</para>
   </listitem>
  </varlistentry>
  <varlistentry>
