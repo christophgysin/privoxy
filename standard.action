@@ -66,6 +66,8 @@ standard.Medium
 # sources.
 #
 { \
++client-header-tagger{css-requests} \
++client-header-tagger{image-requests} \
 +crunch-if-none-match \
 +crunch-outgoing-cookies \
 +crunch-incoming-cookies \
