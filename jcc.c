@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.158  2007/11/11 16:44:17  fabiankeil
+ *    Emit a log message when activating the MS IIS5 hack.
+ *
  *    Revision 1.157  2007/11/03 17:34:49  fabiankeil
  *    Log the "weak randomization factor" warning only
  *    once for mingw32 and provide some more details.
@@ -2521,6 +2524,9 @@ static void chat(struct client_state *csp)
              * This is NOT the body, so
              * Let's pretend the server just sent us a blank line.
              */
+            log_error(LOG_LEVEL_INFO,
+               "Malformerd HTTP headers detected and MS IIS5 hack enabled. "
+               "Expect an invalid response or even no response at all.");
             snprintf(buf, sizeof(buf), "\r\n");
             len = (int)strlen(buf);
 
