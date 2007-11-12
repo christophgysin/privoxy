@@ -1861,8 +1861,10 @@ www.skweezer.net/bloglines
 
 #MASTER# REMARKS: Privoxy's "unsafe" CGI pages check the referrer 
 #MASTER# REMARKS: to make sure the user reached them intentionally.
-#MASTER# REMARKS: If the referrer is blocked, CGI editing is impossible.
-{-hide-referrer}
+#MASTER# REMARKS: If the referrer is blocked, CGI editing is impossible
+#MASTER# REMARKS: Disabling fast-redirects because if CGI crunching gets
+#MASTER# REMARKS: enabled it could be leveraged to fool the referrer check.
+{-hide-referrer -fast-redirects}
 p.p/
 config.privoxy.org/
 
