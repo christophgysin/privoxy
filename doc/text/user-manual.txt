@@ -656,22 +656,28 @@ For a more detailed list of changes please have a look at the ChangeLog.
 A quick list of things to be aware of before upgrading from earlier versions of
 Privoxy:
 
-  • Some installers may remove earlier versions completely, including
-    configuration files. Save any important configuration files!
+  • The recommended way to upgrade Privoxy is to backup your old configuration
+    files, install the new ones, verify that Privoxy is working correctly and
+    finally merge back your changes using diff and maybe patch.
 
-  • On the other hand, other installers may not overwrite any existing
-    configuration files, thinking you will want to do that. You may want to
-    manually check your saved files against the newer versions to see if the
-    improvements have merit, or whether there are new options that you may want
-    to consider. There are a number of new features, but most won't be
-    available unless these features are incorporated into your configuration
-    somehow.
+    There are a number of new features in each Privoxy release and most of them
+    have to be explicitly enabled in the configuration files. Old configuration
+    files obviously don't do that and due to syntax changes using old
+    configuration files with a new Privoxy isn't always possible anyway.
+
+  • Note that some installers remove earlier versions completely, including
+    configuration files, therefore you should really save any important
+    configuration files!
+
+  • On the other hand, other installers don't overwrite existing configuration
+    files, thinking you will want to do that yourself.
 
   • standard.action now only includes the enabled actions. Not all actions as
     before.
 
   • Logging is off by default now. If you need logging, it can be turned on in
-    the config file.
+    the config file. You may also want to enable logging until you verified
+    that the new Privoxy version is working as expected.
 
   • Three other config file settings are now off by default:
     enable-remote-toggle, enable-remote-http-toggle, and enable-edit-actions.
