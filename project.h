@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.101  2007/12/07 18:29:23  fabiankeil
+ *    Remove now-obsolete csp member x_forwarded.
+ *
  *    Revision 1.100  2007/09/02 13:42:11  fabiankeil
  *    - Allow port lists in url patterns.
  *    - Ditch unused url_spec member pathlen.
@@ -1326,9 +1329,6 @@ struct client_state
 
    /** MIME-Type key, see CT_* above */
    unsigned int content_type;
-
-   /** The "X-Forwarded-For:" header sent by the client */
-   char   *x_forwarded;
 
    /** Actions files associated with this client */
    struct file_list *actions_list[MAX_AF_FILES];
