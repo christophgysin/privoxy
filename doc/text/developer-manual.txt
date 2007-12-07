@@ -1479,8 +1479,8 @@ const char FILENAME_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.38  2007/11/15 03:31:54  hal9
- *    Fresh build of txt docs.
+ *    Revision 1.39  2007/12/07 11:57:45  hal9
+ *    For stable release.
  *
  *
  *********************************************************************/
@@ -1541,8 +1541,8 @@ Example for file header comments:
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.38  2007/11/15 03:31:54  hal9
- *    Fresh build of txt docs.
+ *    Revision 1.39  2007/12/07 11:57:45  hal9
+ *    For stable release.
  *
  *
  *********************************************************************/
@@ -2049,7 +2049,7 @@ First, make sure that you have freshly exported the right version into an empty
 directory. (See "Building and releasing packages" above). Then add a log entry
 to debian/changelog, if it is not already there, for example by running:
 
-  debchange -v 3.0.7-beta-1 "New upstream version"
+  debchange -v 3.0.7-stable-1 "New upstream version"
 
 
 Then, run:
@@ -2057,7 +2057,7 @@ Then, run:
   dpkg-buildpackage -rfakeroot -us -uc -b
 
 
-This will create ../privoxy_3.0.7-beta-1_i386.deb which can be uploaded. To
+This will create ../privoxy_3.0.7-stable-1_i386.deb which can be uploaded. To
 upload the package to Sourceforge, simply issue
 
   make debian-upload
@@ -2402,7 +2402,7 @@ group_id=11118.
 
 9. Privoxy Copyright, License and History
 
-Copyright   2001 - 2007 by Privoxy Developers <
+Copyright   2001-2007 by Privoxy Developers <
 ijbswa-developers@lists.sourceforge.net>
 
 Some source code is based on code Copyright   1997 by Anonymous Coders and
