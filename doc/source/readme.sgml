@@ -161,7 +161,8 @@
 <para>
  privoxy [&mdash;&mdash;help] [&mdash;&mdash;version]
  [&mdash;&mdash;no-daemon] [&mdash;&mdash;pidfile PIDFILE] [&mdash;&mdash;user
- USER[.GROUP]] [&mdash;&mdash;chroot] [config_file]
+ USER[.GROUP]] [&mdash;&mdash;chroot]  [&mdash;&mdash;pre&mdash;chroot&mdash;nslookup
+ HOSTNAME ][config_file]
 </para>
 <para>
  See the man page or <citetitle>User Manual</citetitle> for an explanation of each option, and 
