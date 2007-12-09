@@ -452,7 +452,7 @@ filterfile default.filter
 #      Any log files must be writable by whatever user Privoxy is
 #      being run as (on Unix, default user id is "privoxy").
 #
-#logfile logfile
+logfile logfile
 #
 #
 #  2.7. jarfile
