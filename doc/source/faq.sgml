@@ -28,7 +28,7 @@
                 
  $Id$
 
- Copyright (C) 2001-2007 Privoxy Developers http://www.privoxy.org/
+ Copyright (C) 2001-2008 Privoxy Developers http://www.privoxy.org/
  See LICENSE.
 
  Based partially on the Internet Junkbuster FAQ originally written by and
@@ -2808,6 +2808,10 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.36  2008/01/17 01:49:51  hal9
+Change copyright notice for docs s/2007/2008/. All these will be rebuilt soon
+enough.
+
 Revision 2.35  2007/11/19 17:57:59  fabiankeil
 A bunch of rewordings, minor updates and fixes.
 

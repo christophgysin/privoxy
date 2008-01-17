@@ -2,9 +2,9 @@
 <!entity % dummy "IGNORE"> 
 <!entity buildsource SYSTEM "buildsource.sgml">
 <!entity p-version "3.0.7">
-<!entity p-status "stable">
-<!entity % p-stable "INCLUDE">
-<!entity % p-not-stable "IGNORE">
+<!entity p-status "beta">
+<!entity % p-stable "IGNORE">
+<!entity % p-not-stable "INCLUDE">
 <!entity % p-alpha "IGNORE">
 <!entity % p-beta "IGNORE">
 <!entity % p-text "INCLUDE">       <!-- define we are a text only doc    -->
@@ -18,7 +18,7 @@
                 
  $Id$
 
- Copyright (C) 2001-2007 Privoxy Developers http://www.privoxy.org/
+ Copyright (C) 2001-2008 Privoxy Developers http://www.privoxy.org/
  See LICENSE.
 
  ========================================================================
