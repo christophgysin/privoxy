@@ -1,6 +1,6 @@
 Privoxy Developer Manual
 
-[ Copyright   2001-2007 by Privoxy Developers ]
+[ Copyright   2001-2008 by Privoxy Developers ]
 
 $Id$
 
@@ -1479,8 +1479,8 @@ const char FILENAME_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.41  2008/01/19 15:06:17  hal9
- *    Rebuilt for 3.0.8 stable release.
+ *    Revision 1.42  2008/01/19 17:52:31  hal9
+ *    Re-commit to fix various minor issues for new release.
  *
  *
  *********************************************************************/
@@ -1541,8 +1541,8 @@ Example for file header comments:
  *
  * Revisions   :
  *    $Log$
- *    Revision 1.41  2008/01/19 15:06:17  hal9
- *    Rebuilt for 3.0.8 stable release.
+ *    Revision 1.42  2008/01/19 17:52:31  hal9
+ *    Re-commit to fix various minor issues for new release.
  *
  *
  *********************************************************************/
@@ -2402,7 +2402,7 @@ group_id=11118.
 
 9. Privoxy Copyright, License and History
 
-Copyright   2001-2007 by Privoxy Developers <
+Copyright   2001-2008 by Privoxy Developers <
 ijbswa-developers@lists.sourceforge.net>
 
 Some source code is based on code Copyright   1997 by Anonymous Coders and

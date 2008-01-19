@@ -1,6 +1,6 @@
 Privoxy Frequently Asked Questions
 
-[ Copyright   2001-2007 by Privoxy Developers ]
+[ Copyright   2001-2008 by Privoxy Developers ]
 
 $Id$
 
@@ -2266,7 +2266,7 @@ group_id=11118.
 
 7. Privoxy Copyright, License and History
 
-Copyright   2001-2007 by Privoxy Developers <
+Copyright   2001-2008 by Privoxy Developers <
 ijbswa-developers@lists.sourceforge.net>
 
 Some source code is based on code Copyright   1997 by Anonymous Coders and
