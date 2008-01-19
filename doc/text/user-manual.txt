@@ -6294,6 +6294,7 @@ Current Privoxy Team:
  David Schmidt, developer
  
  Hal Burgiss
+ Gerry Murphy
  Roland Rosenfeld
  J rg Strohmayer
 
