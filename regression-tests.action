@@ -41,7 +41,7 @@ for-privoxy-version=3.0.7
 config.privoxy.org/
 p.p/
 
-{-hide-user-agent}
+{-hide-user-agent +limit-connect{80,443}}
 TAG:^User-Agent: Privoxy-Regression-Test
 
 #######################################################
