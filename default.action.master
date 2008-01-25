@@ -337,7 +337,7 @@
 #   prefer to view inside the browser, for example.
 #
 # +hide-forwarded-for-headers
-#   Block any existing X-Forwarded-for header, and do not add a new one.
+#   Block any existing X-Forwarded-for header.
 #
 # +hide-from-header{block}
 # +hide-from-header{spam@sittingduck.xqq}
