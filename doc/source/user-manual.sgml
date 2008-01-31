@@ -2949,8 +2949,9 @@ for details.
   <listitem>
     <para>
      <screen>
+# Hide Tor exit notation in Host and Referer Headers
 {+client-header-filter{hide-tor-exit-notation}}
-.exit/
+/
     </screen>
     </para>
   </listitem>
@@ -8920,6 +8921,10 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.56  2008/01/31 19:11:35  fabiankeil
+ Let the +client-header-filter{hide-tor-exit-notation} example apply
+ to all requests as "tainted" Referers aren't limited to exit TLDs.
+
  Revision 2.55  2008/01/19 21:26:37  hal9
  Add IE7 to configuration section per Gerry.
 
