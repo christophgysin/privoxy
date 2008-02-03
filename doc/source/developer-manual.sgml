@@ -2678,11 +2678,11 @@ at sourceforge. Three simple steps:
       </para>
     </sect3>
 
-    <sect3 id="newrelease-macosx"><title>Mac OSX</title>
+    <sect3 id="newrelease-macosx"><title>Mac OS X</title>
       <para>
 	First, <emphasis>make sure that you have freshly exported the right
         version into an empty directory</emphasis>. (See "Building and releasing
-        packages" above). Then get the Mac OSX setup module:
+        packages" above). Then get the Mac OS X setup module:
 	</para>
 	<para>
 	<programlisting>
@@ -3026,6 +3026,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 2.17  2008/02/03 21:37:41  hal9
+  Apply patch from Mark: s/OSX/OS X/
+
   Revision 2.16  2008/01/19 17:52:38  hal9
   Re-commit to fix various minor issues for new release.
 
@@ -3202,7 +3205,7 @@ at sourceforge. Three simple steps:
   More boilerplate text for use across multiple docs.
 
   Revision 1.20  2002/04/04 03:28:27  david__schmidt
-  Add Mac OSX section
+  Add Mac OS X section
 
   Revision 1.19  2002/04/03 15:09:42  david__schmidt
   Add OS/2 build section
