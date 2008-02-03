@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.111  2008/02/03 14:40:47  fabiankeil
+dnl Remove unused OSX_DARWIN macro. Reported by Mark Miller in #1852529.
+dnl
 dnl Revision 1.110  2008/01/26 10:52:13  fabiankeil
 dnl Change version to 3.0.9 UNRELEASED.
 dnl
@@ -1116,7 +1119,7 @@ dnl Mac OSX specific
 dnl =================================================================
     
 case "$host" in
-*-apple-darwin*) SPECIAL_CFLAGS="-Dunix -DOSX_DARWIN"
+*-apple-darwin*) SPECIAL_CFLAGS="-Dunix"
 ;;  
 esac
 
