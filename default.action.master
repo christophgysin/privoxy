@@ -620,6 +620,8 @@ adob*.
 adrenaline.
 adtp*.
 adv[oia]*.
+#MASTER# REMARKS: Added 2008-02-08 HB
+adventure*.
 .*road*.
 .olympiad*.
 .*load*.
