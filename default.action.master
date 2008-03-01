@@ -553,7 +553,7 @@ shop        = -crunch-all-cookies allow-popups
 # Your favourite blend of filters:
 #
 myfilters   = +filter{html-annoyances} +filter{js-annoyances} +filter{all-popups}\
-              +filter{webbugs} +filter{nimda} +filter{banners-by-size} #+filter{fun}
+              +filter{webbugs} +filter{banners-by-size}
 
 # Allow ads for selected useful free sites:
 #
