@@ -491,17 +491,6 @@
 #    This allows you to add an arbitrary cookie.  Specify it multiple
 #    times in order to add several cookies.
 #
-# +treat-forbidden-connects-like-blocks
-#    If this action is enabled, Privoxy no longer makes a difference between
-#    forbidden connects and ordinary blocks. 
-#
-#    By default Privoxy answers forbidden "Connect" requests  with a short
-#    error message inside the headers. If the browser doesn't display headers
-#    (most don't), you just see an empty page. With this action enabled,
-#    Privoxy displays the message that is used for ordinary blocks instead. If
-#    you decide to make an exception for the page in question, you can do so
-#    by following the "See why" link. 
-#
 #############################################################################
 
 #############################################################################

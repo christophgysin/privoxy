@@ -90,6 +90,5 @@ standard.Medium
 +limit-connect{,} \
 +overwrite-last-modified{randomize} \
 +set-image-blocker{pattern} \
-+treat-forbidden-connects-like-blocks \
 }
 standard.Advanced
