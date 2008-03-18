@@ -213,7 +213,7 @@ sub tokenize ($) {
     s@&quot;@"@g;
 
     # Tokenize
-    if (/^\#\s*([^=]*?)\s*[=]\s*(.*?)\s*$/) {
+    if (/^\#\s*([^=:]*?)\s*[=]\s*(.*?)\s*$/) {
 
         $token = $1;
         $token =~ tr/[A-Z]/[a-z]/;
@@ -652,7 +652,10 @@ sub get_final_results ($) {
     my %final_results = ();
     my $final_results_reached = 0;
 
-    $curl_parameters .= PRIVOXY_CGI_URL . 'show-url-info?url=' . $url;
+    die "Unacceptable characterss in $url" if $url =~ m@[\\'"]@;
+    $url =~ s@\s@%20@g;
+
+    $curl_parameters .= "'" . PRIVOXY_CGI_URL . 'show-url-info?url=' . $url . "'";
 
     foreach (@{get_cgi_page_or_else($curl_parameters)}) {
 
