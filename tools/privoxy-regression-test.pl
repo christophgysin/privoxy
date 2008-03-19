@@ -144,7 +144,7 @@ sub parse_tag ($) {
 sub check_for_forbidden_characters ($) {
 
     my $tag = shift; # XXX: also used to check values though.
-    my $allowed = '[-=\dA-Za-z{}:.\/();\s,+@"_%\?&]';
+    my $allowed = '[-=\dA-Za-z~{}:.\/();\s,+@"_%\?&]';
 
     unless ($tag =~ m/^$allowed*$/) {
         my $forbidden = $tag;
@@ -191,7 +191,7 @@ sub token_starts_new_test ($) {
 
     my $token = shift;
     my @new_test_directives =
-        ('set header', 'fetch test', 'trusted cgi request', 'request header', 'method test', 'block test');
+        ('set header', 'fetch test', 'trusted cgi request', 'request header', 'method test', 'blocked url');
 
     foreach my $new_test_directive (@new_test_directives) {
         return 1 if $new_test_directive eq $token;
@@ -211,6 +211,7 @@ sub tokenize ($) {
     # Reverse HTML-encoding
     # XXX: Seriously imcomplete. 
     s@&quot;@"@g;
+    s@&amp;@&@g;
 
     # Tokenize
     if (/^\#\s*([^=:]*?)\s*[=]\s*(.*?)\s*$/) {
@@ -272,7 +273,7 @@ sub enlist_new_test ($$$$$$) {
         $$regression_tests[$si][$ri]{'expected-status-code'} = 200;
         $$regression_tests[$si][$ri]{'level'} = METHOD_TEST;
 
-    } elsif ($token eq 'block test') {
+    } elsif ($token eq 'blocked url') {
 
         l(LL_FILE_LOADING, "URL to block-test: " . $value);
         $$regression_tests[$si][$ri]{'type'} = BLOCK_TEST;
@@ -667,7 +668,7 @@ sub get_final_results ($) {
         if (m@<br>([-+])<a.*>([^>]*)</a>( \{.*\})@) {
             my $action = $1.$2;
             my $value = $3;
-            $final_results{$action}{$value};
+            $final_results{$action} = $value;
         }
     }
 
