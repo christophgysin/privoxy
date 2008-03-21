@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.105  2008/03/21 11:16:27  fabiankeil
+ *    Garbage-collect csp->my_ip_addr_str and csp->my_hostname.
+ *
  *    Revision 1.104  2008/03/04 18:30:40  fabiankeil
  *    Remove the treat-forbidden-connects-like-blocks action. We now
  *    use the "blocked" page for forbidden CONNECT requests by default.
@@ -1310,14 +1313,6 @@ struct client_state
    /** Client PC's IP address, as reported by the accept() function.
        As a number. */
    long  ip_addr_long;
-
-   /** Our IP address. I.e. the IP address that the client used to reach us,
-       as a string. */
-   char *my_ip_addr_str;
-
-   /** Our hostname. I.e. the reverse DNS of the IP address that the client
-       used to reach us, as a string. */
-   char *my_hostname;
 
    /** The URL that was requested */
    struct http_request http[1];
