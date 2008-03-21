@@ -214,11 +214,13 @@ sub tokenize ($) {
     s@&amp;@&@g;
 
     # Tokenize
-    if (/^\#\s*([^=:]*?)\s*[=]\s*(.*?)\s*$/) {
+    if (/^\#\s*([^=:]*?)\s*[=]\s*(.+?)\s*$/) {
 
         $token = $1;
-        $token =~ tr/[A-Z]/[a-z]/;
         $value = $2;
+
+        $token =~ s@\s\s+@ @g;
+        $token =~ tr/[A-Z]/[a-z]/;
 
     } elsif (/^TAG\s*:(.*)$/) {
 
