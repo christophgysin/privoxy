@@ -632,7 +632,7 @@ sub execute_method_test ($) {
     my $expected_status_code = $test{'expected-status-code'};
 
     $curl_parameters .= '--request ' . $method . ' ';
-    # Don't complain in about the 'missing' body
+    # Don't complain about the 'missing' body
     $curl_parameters .= '--head ' if ($method =~ /^HEAD$/i);
 
     $curl_parameters .= PRIVOXY_CGI_URL;
