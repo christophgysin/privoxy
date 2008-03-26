@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.107  2008/03/26 18:07:08  fabiankeil
+ *    Add hostname directive. Closes PR#1918189.
+ *
  *    Revision 1.106  2008/03/24 11:21:03  fabiankeil
  *    Share the action settings for multiple patterns in the same
  *    section so we waste less memory for gigantic block lists
@@ -1667,6 +1670,9 @@ struct configuration_spec
 
    /** The short names of the pcre filter files. */
    const char *re_filterfile_short[MAX_AF_FILES];
+
+   /** The hostname to show on CGI pages, or NULL to use the real one. */
+   const char *hostname;
 
 #ifdef FEATURE_COOKIE_JAR
 
