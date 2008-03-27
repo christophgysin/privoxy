@@ -1068,7 +1068,7 @@ actionsfile
   debug       128 # debug redirects
   debug       256 # debug GIF de-animation
   debug       512 # Common Log Format
-  debug      1024 # debug kill pop-ups
+  debug      1024 # Unused
   debug      2048 # CGI user interface
   debug      4096 # Startup banner and warnings.
   debug      8192 # Non-fatal errors

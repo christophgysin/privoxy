@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.112  2008/03/27 18:27:22  fabiankeil
+dnl Remove kill-popups action.
+dnl
 dnl Revision 1.111  2008/02/03 14:40:47  fabiankeil
 dnl Remove unused OSX_DARWIN macro. Reported by Mark Miller in #1852529.
 dnl
@@ -1248,12 +1251,6 @@ AC_ARG_ENABLE(fast-redirects,
 [if test $enableval = yes; then
   AC_DEFINE(FEATURE_FAST_REDIRECTS)
 fi], AC_DEFINE(FEATURE_FAST_REDIRECTS))
-
-AC_ARG_ENABLE(killpopup,
-[  --disable-killpopup             Never block popups],
-[if test $enableval = yes; then
-  AC_DEFINE(FEATURE_KILL_POPUPS)
-fi],AC_DEFINE(FEATURE_KILL_POPUPS))
 
 AC_ARG_ENABLE(stats,
 [  --disable-stats                 Don't keep statistics],

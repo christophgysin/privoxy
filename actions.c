@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.46  2008/03/27 18:27:20  fabiankeil
+ *    Remove kill-popups action.
+ *
  *    Revision 1.45  2008/03/24 11:21:02  fabiankeil
  *    Share the action settings for multiple patterns in the same
  *    section so we waste less memory for gigantic block lists
@@ -648,7 +651,8 @@ jb_err get_action_token(char **line, char **name, char **value)
  *********************************************************************/
 static int action_used_to_be_valid(const char *action)
 {
-   return (0 == strcmpic(action, "treat-forbidden-connects-like-blocks"));
+   return (0 == strcmpic(action, "treat-forbidden-connects-like-blocks")
+        || 0 == strcmpic(action, "kill-popups"));
 }
 
 /*********************************************************************
