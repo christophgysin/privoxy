@@ -380,9 +380,6 @@
 #    in which case a "blocked" image can be sent rather than a HTML page.
 #    See +set-image-blocker{} for the control over what is actually sent.
 #
-# +inspect-jpegs
-#    Scan jpeg headers for malformed comment blocks and correct them.
-#
 # +limit-connect{portlist}
 #   The CONNECT methods exists in HTTP to allow access to secure websites
 #   (https:// URLs) through proxies. It works very simply: The proxy
