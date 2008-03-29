@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.49  2008/03/29 12:13:45  fabiankeil
+ *    Remove send-wafer and send-vanilla-wafer actions.
+ *
  *    Revision 1.48  2008/03/28 18:17:14  fabiankeil
  *    In action_used_to_be_valid(), loop through an array of formerly
  *    valid actions instead of using an OR-chain of strcmpic() calls.
@@ -661,7 +664,11 @@ static int action_used_to_be_valid(const char *action)
    static const char *formerly_valid_actions[] = {
       "inspect-jpegs",
       "kill-popups",
-      "treat-forbidden-connects-like-blocks"
+      "send-vanilla-wafer",
+      "send-wafer",
+      "treat-forbidden-connects-like-blocks",
+      "vanilla-wafer",
+      "wafer"
    };
    int i;
 
