@@ -37,6 +37,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.23  2008/03/30 14:52:10  fabiankeil
+ *    Rename load_actions_file() and load_re_filterfile()
+ *    as they load multiple files "now".
+ *
  *    Revision 1.22  2007/06/01 14:12:38  fabiankeil
  *    Add unload_forward_spec() in preparation for forward-override{}.
  *
@@ -209,8 +213,8 @@ extern jb_err simple_read_line(FILE *fp, char **dest, int *newline);
 
 
 extern short int MustReload;
-extern int load_actions_file(struct client_state *csp);
-extern int load_re_filterfile(struct client_state *csp);
+extern int load_action_files(struct client_state *csp);
+extern int load_re_filterfiles(struct client_state *csp);
 
 #ifdef FEATURE_TRUST
 extern int load_trustfile(struct client_state *csp);

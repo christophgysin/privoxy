@@ -35,6 +35,10 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.75  2008/03/30 14:52:05  fabiankeil
+ *    Rename load_actions_file() and load_re_filterfile()
+ *    as they load multiple files "now".
+ *
  *    Revision 1.74  2008/03/26 18:07:07  fabiankeil
  *    Add hostname directive. Closes PR#1918189.
  *
@@ -1681,12 +1685,12 @@ struct configuration_spec * load_config(void)
 
    if (config->actions_file[0])
    {
-      add_loader(load_actions_file, config);
+      add_loader(load_action_files, config);
    }
 
-   if (config->re_filterfile)
+   if (config->re_filterfile[0])
    {
-      add_loader(load_re_filterfile, config);
+      add_loader(load_re_filterfiles, config);
    }
 
 #ifdef FEATURE_TRUST
