@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.113  2008/04/10 14:41:04  fabiankeil
+ *    Ditch url_spec's path member now that it's no longer used.
+ *
  *    Revision 1.112  2008/04/06 15:18:34  fabiankeil
  *    Oh well, rename the --enable-pcre-host-patterns option to
  *    --enable-extended-host-patterns as it's not really PCRE syntax.
@@ -952,7 +955,6 @@ struct url_spec
 
    char  *port_list;   /**< List of acceptable ports, or NULL to match all ports */
 
-   char  *path;        /**< The source for the regex.                         */
    regex_t *preg;      /**< Regex for matching path part                      */
    regex_t *tag_regex; /**< Regex for matching tags                           */
 };
