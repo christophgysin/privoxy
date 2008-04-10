@@ -33,6 +33,12 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.29  2008/04/10 04:17:56  fabiankeil
+ *    In url_match(), check the right member for NULL when determining
+ *    whether there's a path regex to execute. Looking for a plain-text
+ *    representation works as well, but it looks "interesting" and that
+ *    member will be removed soonish anyway.
+ *
  *    Revision 1.28  2008/04/08 16:07:39  fabiankeil
  *    Make it harder to mistake url_match()'s
  *    second parameter for an url_spec.
@@ -1139,7 +1145,7 @@ int url_match(const struct url_spec *pattern,
 #else
 #define DOMAIN_MATCHES ((NULL == pattern->dbuffer) || (0 == domain_match(pattern, http)))
 #endif
-#define PATH_MATCHES ((NULL == pattern->path) || (0 == regexec(pattern->preg, http->path, 0, NULL, 0)))
+#define PATH_MATCHES ((NULL == pattern->preg) || (0 == regexec(pattern->preg, http->path, 0, NULL, 0)))
 
    if (pattern->tag_regex != NULL)
    {
