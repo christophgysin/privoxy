@@ -33,6 +33,9 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.33  2008/04/12 14:03:13  fabiankeil
+ *    Remove an obvious comment and improve another one.
+ *
  *    Revision 1.32  2008/04/12 12:38:06  fabiankeil
  *    Factor out duplicated code to compile host, path and tag patterns.
  *
@@ -1014,15 +1017,11 @@ jb_err create_url_spec(struct url_spec * url, const char * buf)
    assert(url);
    assert(buf);
 
-   /*
-    * Zero memory
-    */
    memset(url, '\0', sizeof(*url));
 
-   /*
-    * Save a copy of the orignal specification
-    */
-   if ((url->spec = strdup(buf)) == NULL)
+   /* Remember the original specification for the CGI pages. */
+   url->spec = strdup(buf);
+   if (NULL == url->spec)
    {
       return JB_ERR_MEMORY;
    }
