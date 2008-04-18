@@ -1458,6 +1458,8 @@ www.google.com/adsense/
 #MASTER# PROBLEM URL: http://images.encyclopediadramatica.com/images/b/b5/Advertising-Dierentuin.jpg
 # URL = http://images.encyclopediadramatica.com/images/b/b5/Advertising-Dierentuin.jpg
 .encyclopediadramatica.com/
+#MASTER# UNBLOCK-REFERRER: http://lifehacker.com 2008-04-18 HB
+tags.gawker.com/.*css
 
 #############################################################################
 # Site-specific special rules:
