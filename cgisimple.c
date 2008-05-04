@@ -36,6 +36,10 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.80  2008/05/04 16:18:32  fabiankeil
+ *    Provide parse_http_url() with a third parameter to specify
+ *    whether or not URLs without protocol are acceptable.
+ *
  *    Revision 1.79  2008/05/04 13:30:56  fabiankeil
  *    Streamline parse_http_url()'s prototype.
  *
@@ -1476,7 +1480,7 @@ jb_err cgi_show_url_info(struct client_state *csp,
       }
 
       memset(url_to_query, '\0', sizeof(url_to_query));
-      err = parse_http_url(url_param, url_to_query);
+      err = parse_http_url(url_param, url_to_query, REQUIRE_PROTOCOL);
       assert(url_to_query->ssl == !strncmp(url_param, "https://", 8));
 
       free(url_param);
