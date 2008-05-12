@@ -121,8 +121,8 @@ Hal.
     <para>
      <application>Privoxy</application>, as an heir to
      <application>Junkbuster</application>, is a Free Software project 
-     and the code is licensed under the GPL. As such,
-     <application>Privoxy</application> development is potentially open
+     and the code is licensed under the GNU General Public License version 2.
+     As such, <application>Privoxy</application> development is potentially open
      to anyone who has the time, knowledge, and desire to contribute
      in any capacity. Our goals are simply to continue the mission,
      to improve <application>Privoxy</application>, and
@@ -3028,6 +3028,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 2.19  2008/05/12 11:13:33  fabiankeil
+  Clarify that Privoxy is licensed under GPL version 2.
+
   Revision 2.18  2008/02/04 12:14:06  fabiankeil
   Change "Edit Packages" URL to use https.
 
