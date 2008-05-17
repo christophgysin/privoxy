@@ -803,8 +803,6 @@ sub check_header_result ($$) {
     my $expect_header = $test{'expect-header'};
     my $success = 0;
 
-    $header =~ s@   @ @g if defined($header);
-
     if ($expect_header eq 'NO CHANGE') {
 
         if (defined($header) and $header eq $test{'data'}) {
@@ -918,6 +916,9 @@ sub get_header ($$) {
         # Ditch tags and leading/trailing white space.
         s@^\s*<.*?>@@g;
         s@\s*$@@g;
+
+        # Decode characters we care about. 
+        s@&quot;@"@g;
 
         $filtered_request .=  "\n" . $_;
          
