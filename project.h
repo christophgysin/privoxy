@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.115  2008/05/19 16:57:20  fabiankeil
+ *    Declare all members of the parsers structure immutable.
+ *
  *    Revision 1.114  2008/04/11 16:35:39  fabiankeil
  *    Oops, I forgot to shorten the URL_SPEC_INITIALIZER in my last commit.
  *
@@ -1413,13 +1416,13 @@ typedef jb_err (*parser_func_ptr    )(struct client_state *, char **);
 struct parsers
 {
    /** The header prefix to match */
-   char   *str;
+   const char *str;
    
    /** The length of the prefix to match */
-   size_t len;
+   const size_t len;
    
    /** The function to apply to this line */
-   parser_func_ptr parser;
+   const parser_func_ptr parser;
 };
 
 
