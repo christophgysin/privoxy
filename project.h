@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.116  2008/05/20 16:05:02  fabiankeil
+ *    Move parsers structure definition from project.h to parsers.h.
+ *
  *    Revision 1.115  2008/05/19 16:57:20  fabiankeil
  *    Declare all members of the parsers structure immutable.
  *
@@ -1408,22 +1411,6 @@ typedef jb_err (*add_header_func_ptr)(struct client_state *);
  * A function to process a header
  */
 typedef jb_err (*parser_func_ptr    )(struct client_state *, char **);
-
-
-/**
- * List of functions to run on a list of headers
- */
-struct parsers
-{
-   /** The header prefix to match */
-   const char *str;
-   
-   /** The length of the prefix to match */
-   const size_t len;
-   
-   /** The function to apply to this line */
-   const parser_func_ptr parser;
-};
 
 
 /**
