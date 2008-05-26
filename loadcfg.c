@@ -35,6 +35,9 @@ const char loadcfg_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.77  2008/05/26 16:13:22  fabiankeil
+ *    Reuse directive_hash and don't hash the same directive twice.
+ *
  *    Revision 1.76  2008/05/10 09:03:16  fabiankeil
  *    - Merge three string_append() calls.
  *    - Remove useless assertion.
@@ -1654,7 +1657,7 @@ struct configuration_spec * load_config(void)
              * to LOG_LEVEL_FATAL.
              */
             log_error(LOG_LEVEL_ERROR, "Ignoring unrecognized directive '%s' (%luul) in line %lu "
-                  "in configuration file (%s).",  buf, hash_string(cmd), linenum, configfile);
+                  "in configuration file (%s).",  buf, directive_hash, linenum, configfile);
             string_append(&config->proxy_args,
                " <strong class='warning'>Warning: ignored unrecognized directive above.</strong><br>");
             continue;
