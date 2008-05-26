@@ -33,6 +33,9 @@ const char actions_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.53  2008/05/26 16:04:04  fabiankeil
+ *    s@memorey@memory@
+ *
  *    Revision 1.52  2008/04/27 16:26:59  fabiankeil
  *    White space fix for the last commit.
  *
@@ -1085,7 +1088,7 @@ int update_action_bits_for_tag(struct client_state *csp, const char *tag)
             if (merge_current_action(csp->action, b->action))
             {
                log_error(LOG_LEVEL_ERROR,
-                  "Out of memorey while changing action bits");
+                  "Out of memory while changing action bits");
             }
             /* and signal the change. */
             updated = 1;
