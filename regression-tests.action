@@ -526,6 +526,8 @@ TAG:^Max-Forwards header without TRACE method$
 # Fetch Test = http://p.p/send-banner
 # Fetch Test = http://p.p/send-stylesheet
 # Fetch Test = http://p.p/t
+# Fetch Test = http://p.p/url-info-osd.xml
+
 # Trusted CGI Request = http://p.p/edit-actions
 # Expect Status Code = 302
 # Level = 12 # Depends on the CGI editor being enabled
