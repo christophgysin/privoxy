@@ -5,7 +5,7 @@
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity buildsource SYSTEM "buildsource.sgml">
 <!entity p-version "3.0.9">
-<!entity p-status "UNRELEASED">
+<!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
 <!entity % p-text "INCLUDE">       <!-- define we are a text only doc    -->

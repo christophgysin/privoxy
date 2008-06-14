@@ -12,7 +12,7 @@
 <!entity p-authors SYSTEM "p-authors.sgml">
 <!entity config SYSTEM "p-config.sgml">
 <!entity p-version "3.0.9">
-<!entity p-status "UNRELEASED">
+<!entity p-status "beta">
 <!entity % p-authors-formal "INCLUDE"> <!-- include additional text, etc  -->
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
@@ -8599,6 +8599,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.76  2008/06/14 13:21:28  fabiankeil
+ Prepare for the upcoming 3.0.9 beta release.
+
  Revision 2.75  2008/06/13 16:06:48  fabiankeil
  Update the "What's New in this Release" section with
  the ChangeLog entries changelog2doc.pl could handle.
