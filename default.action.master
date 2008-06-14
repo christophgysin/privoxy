@@ -1758,6 +1758,8 @@ javabog.dk/ijk/
 .w3.org
 # URL = http://www.encyclopediadramatica.com/New_Zealand_Fail_Guy
 .encyclopediadramatica.com/
+# URL = http://www.ikea.com/us/en/catalog/products/00103102
+.ikea.com/
 
 {-filter{banners-by-link}}
 # Sticky Actions = -filter{banners-by-link}
