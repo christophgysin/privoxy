@@ -1979,7 +1979,7 @@ for details.
     </para>
     <para>
      The default profiles, and their associated actions, as pre-defined in
-     <filename>standard.action</filename> are
+     <filename>standard.action</filename> are:
     </para>
     <para>
     <table frame=all><title>Default Configurations</title>
@@ -8599,6 +8599,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.77  2008/06/14 13:45:22  fabiankeil
+ Re-add a colon I unintentionally removed a few revisions ago.
+
  Revision 2.76  2008/06/14 13:21:28  fabiankeil
  Prepare for the upcoming 3.0.9 beta release.
 
