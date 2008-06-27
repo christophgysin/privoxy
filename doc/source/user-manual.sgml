@@ -1395,21 +1395,6 @@ Example Unix startup command:
   An administrator username and password must be supplied in order for
   the Privoxy Utility to perform any of the tasks.
 </para>
-<para>
- During installation, <application>Privoxy</application> is configured to
- start automatically when the system restarts.  To start &my-app; manually,
- double-click on the <literal>StartPrivoxy.command</literal> icon in the
- <literal>/Library/Privoxy</literal> folder.  Or, type this command
- in the Terminal:
-</para>
-<para>
-  <screen>
-  /Library/Privoxy/StartPrivoxy.command
-  </screen>
-</para>
-<para>
- You will be prompted for the administrator password.
-</para>
 </sect2>
 
 
@@ -8599,6 +8584,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.79  2008/06/27 18:00:53  markm68k
+ remove outdated startup information for mac os x
+
  Revision 2.78  2008/06/21 17:03:03  fabiankeil
  Fix typo.
 
