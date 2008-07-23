@@ -310,7 +310,8 @@ sub load_action_files ($) {
 
     my $ignored = 0;
 
-    l(LL_STATUS, "Loading regression tests from action file(s) delivered by Privoxy.");
+    l(LL_STATUS, "Gathering regression tests from " .
+      @actionfiles . " action file(s) delivered by Privoxy.");
 
     for my $file_number (0 .. @actionfiles - 1) {
 
