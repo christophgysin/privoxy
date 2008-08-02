@@ -1304,7 +1304,6 @@ adela.karlin.mff.cuni.cz
 # URL = http://www.privoxy.org/actions/index.php
 .privoxy.org
 #MASTER# UNBLOCK-REFERRER: http://sourceforge.net/help/tracker.php
-# URL = http://www.brawnylads.com/
 sourceforge.net/.*tracker
 #MASTER# UNBLOCK-REFERRER: http://www.brawnylads.com/
 # URL = http://www.brawnylads.com/
@@ -1473,6 +1472,9 @@ crunch
 tags.gawker.com/.*css
 # URL = http://cgi.tnt.co.uk/TrackNTrace/quicktrack.asp
 .tnt.co.uk/TrackNTrace/
+#MASTER# UNBLOCK-REFERRER: http://www.supermediastore.com/trackorder.html
+# URL = http://secure.howtoburndvd.net/ups/track.php
+/ups/track\.php
 
 #############################################################################
 # Site-specific special rules:
