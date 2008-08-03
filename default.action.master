@@ -1777,6 +1777,8 @@ javabog.dk/ijk/
 .encyclopediadramatica.com/
 # URL = http://www.ikea.com/us/en/catalog/products/00103102
 .ikea.com/
+# URL = http://www.froscon.de/en/projects.html
+.froscon.de/
 
 {-filter{banners-by-link}}
 # Sticky Actions = -filter{banners-by-link}
