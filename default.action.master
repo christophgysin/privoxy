@@ -1845,6 +1845,8 @@ schneegans.de/sv/\?url=referer
 .teamquest.com/gifs/gunther/
 #MASTER# REMARKS: 09/12/06 Art site, and ad-free
 .rubberslug.com
+#MASTER# REMARKS: Actionsfile feedback item #2040467, allow animated gifs from wikipedia.org
+.wikipedia.org/
 
 #----------------------------------------------------------------------------
 # The "site-specifics" filter has special cures for problems found here:
