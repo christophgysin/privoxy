@@ -629,7 +629,7 @@ countr*.
 # Blocked URL = http://www.example.org/adspace
 /phpads(new)?/
 /(.*/)?(ad|all|nn|db|promo(tion)?)?[-_]?banner
-/(.*/)?(publicite|werbung|reklaa?m|annonse|maino(kset|nta|s)?/)
+/(.*/)?(publicite|werbung|rekla(me|am)|annonse|maino(kset|nta|s)?/)
 /.*(count|track|compteur|(?<!relo)adframe|adse?rve?|banner)(er|run)?(\?|\.(pl|cgi|exe|dll|asp|php|cpt))
 /(.*/)?clicktrack
 #MASTER# REMARKS: Added 12/28/06 per Adam Piggott
