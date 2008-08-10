@@ -65,18 +65,14 @@ sub convert_host_pattern ($) {
     # Match-all syntax has changed ...
     $hp =~ s@\*@.*@g;
 
-    if ($hp =~ m@\.$@) {
-        # Extended host patterns are right-anchored by default
-        $hp = $hp . '.*';
-    }
+    # Extended host patterns are right-anchored by default
+    $hp =~ s@\.$@(\..*)?@;
 
     # Literal dots have to be escaped    
-    $hp =~ s@(\.[^*])@\\$1@g;
+    $hp =~ s@((?<!\\)\.[^*])@\\$1@g;
 
     # Match single character with a dot.
-    $hp =~ s@\?@.@g;
-
-    #p("converted $host_pattern to: $hp");
+    $hp =~ s@(?<!\))\?@.@g;
 
     return $hp;
 }
