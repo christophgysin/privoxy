@@ -1456,7 +1456,7 @@ sub handle_loglevel_info ($) {
     } elsif ($c =~ m/^Privoxy version/) {
         
         # Privoxy version 3.0.7
-        $c =~ s@(?<=Privoxy version )(\d.\d.\d)@$h{'version'}$1$h{'Standard'}@;
+        $c =~ s@(?<=^Privoxy version )(\d+\.\d+\.\d+)$@$h{'version'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Program name: /) {
 
