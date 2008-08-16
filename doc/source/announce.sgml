@@ -60,7 +60,7 @@
 </para>
 
 <para>
- This is a beta release with minor improvements and bug fixes.
+ This is a stable release with minor improvements and bug fixes.
  The most prominent new feature is SOCKS5 support. As an example for
  refinements, block messages can now include a message with the intention
  behind the block. See: 
