@@ -2285,7 +2285,7 @@ for details.
   </listitem>
  </varlistentry>
  <varlistentry>
-  <term><literal>www.example.com/index.html$</literal></term>
+  <term><literal>www.example.com/index.html</literal></term>
   <listitem>
    <para>
     matches all the documents on <literal>www.example.com</literal>
@@ -8584,6 +8584,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.82  2008/08/16 09:00:52  fabiankeil
+ Fix example URL pattern (once more with feeling).
+
  Revision 2.81  2008/08/16 08:51:28  fabiankeil
  Update version-related entities.
 
