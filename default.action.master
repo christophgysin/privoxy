@@ -1794,6 +1794,8 @@ javabog.dk/ijk/
 .ikea.com/
 # URL = http://www.froscon.de/en/projects.html
 .froscon.de/
+# URL = http://www.fsfe.org/en/supporters
+.fsfe.org/
 
 {-filter{banners-by-link}}
 # Sticky Actions = -filter{banners-by-link}
