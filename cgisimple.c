@@ -36,6 +36,9 @@ const char cgisimple_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.88  2008/08/30 12:03:07  fabiankeil
+ *    Remove FEATURE_COOKIE_JAR.
+ *
  *    Revision 1.87  2008/08/29 15:59:22  fabiankeil
  *    Fix two comments.
  *
@@ -1876,12 +1879,6 @@ static jb_err show_defines(struct map *exports)
 #else /* ifndef FEATURE_CGI_EDIT_ACTIONS */
    if (!err) err = map_conditional(exports, "FEATURE_CGI_EDIT_ACTIONS", 0);
 #endif /* ndef FEATURE_CGI_EDIT_ACTIONS */
-
-#ifdef FEATURE_COOKIE_JAR
-   if (!err) err = map_conditional(exports, "FEATURE_COOKIE_JAR", 1);
-#else /* ifndef FEATURE_COOKIE_JAR */
-   if (!err) err = map_conditional(exports, "FEATURE_COOKIE_JAR", 0);
-#endif /* ndef FEATURE_COOKIE_JAR */
 
 #ifdef FEATURE_FAST_REDIRECTS
    if (!err) err = map_conditional(exports, "FEATURE_FAST_REDIRECTS", 1);
