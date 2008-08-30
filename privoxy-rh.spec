@@ -144,7 +144,6 @@ cat config | \
 #    sed 's/^permissionsfile.*/permissionsfile \/etc\/%{name}\/permissionsfile/g' | \
 #    sed 's/^filterfile.*/default.filter \/etc\/%{name}\/default.filter/g' | \
 #    sed 's/^logfile.*/logfile \%{_localstatedir}\/log\/%{name}\/logfile/g' | \
-#    sed 's/^jarfile.*/jarfile \%{_localstatedir}\/log\/%{name}\/jarfile/g' | \
 #    sed 's/^forward.*/forward \/etc\/%{name}\/forward/g' | \
 #    sed 's/^aclfile.*/aclfile \/etc\/%{name}\/aclfile/g' > \
     sed 's@^logdir.*@logdir %{_localstatedir}/log/%{name}@g' | \
@@ -766,6 +765,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.60  2008/08/30 12:46:49  fabiankeil
+# The jarfile directive is gone. Update accordingly.
+#
 # Revision 1.59  2008/08/13 16:57:46  fabiankeil
 # Change version to 3.0.10.
 #
