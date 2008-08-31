@@ -38,6 +38,10 @@ const char cgi_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.112  2008/08/31 16:08:12  fabiankeil
+ *    "View the request headers" isn't more equal than the other
+ *    menu items and thus doesn't need a trailing dot either.
+ *
  *    Revision 1.111  2008/08/31 15:59:02  fabiankeil
  *    There's no reason to let remote toggling support depend
  *    on FEATURE_CGI_EDIT_ACTIONS, so make sure it doesn't.
@@ -693,7 +697,7 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
           TRUE }, 
    { "show-request", 
          cgi_show_request,  
-         "View the request headers.",
+         "View the request headers",
          TRUE }, 
    { "show-url-info",
          cgi_show_url_info, 
