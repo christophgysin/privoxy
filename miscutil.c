@@ -44,6 +44,10 @@ const char miscutil_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.59  2008/09/04 08:13:58  fabiankeil
+ *    Prepare for critical sections on Windows by adding a
+ *    layer of indirection before the pthread mutex functions.
+ *
  *    Revision 1.58  2008/04/17 14:53:30  fabiankeil
  *    Move simplematch() into urlmatch.c as it's only
  *    used to match (old-school) domain patterns.
@@ -973,9 +977,9 @@ long int pick_from_range(long int range)
 #ifdef HAVE_RANDOM
    number = random() % range + 1; 
 #elif defined(FEATURE_PTHREAD)
-   pthread_mutex_lock(&rand_mutex);
+   privoxy_mutex_lock(&rand_mutex);
    number = rand() % (long int)(range + 1);
-   pthread_mutex_unlock(&rand_mutex);
+   privoxy_mutex_unlock(&rand_mutex);
 #else
 #ifdef _WIN32
    /*
