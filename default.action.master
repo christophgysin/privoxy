@@ -202,6 +202,11 @@
 #    Block this URL. Instead of forwarding the request, Privoxy will
 #    send a "block" page containing the specified reason.
 #
+# +change-x-forwarded-for{add}
+# +change-x-forwarded-for{block}
+#   Adds or blocks the "X-Forwarded-For:" HTTP header in client
+#   requests.
+#
 # +client-header-filter{name}
 #    All client headers to which this action applies are filtered on-the-fly
 #    through the specified regular expression based substitutions.
@@ -553,7 +558,7 @@ allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
 # Defaults
 #############################################################################
 { \
-+hide-forwarded-for-headers \
++change-x-forwarded-for{block} \
 +hide-from-header{block} \
 +set-image-blocker{pattern} \
 }
