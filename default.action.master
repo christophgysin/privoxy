@@ -1492,6 +1492,8 @@ fritz.box/
 #MASTER# REMARKS: Actionsfile feedback item #2043327 2008-08-08
 # URL = http://kb.adobe.com/selfservice/viewContent.do?externalId=kb402747&sliceId=1
 .adobe.com
+# URL = http://qa.debian.org/popcon.php
+qa.debian.org/popcon\.php
 
 #############################################################################
 # Site-specific special rules:
