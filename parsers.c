@@ -44,6 +44,9 @@ const char parsers_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.144  2008/09/21 13:59:33  fabiankeil
+ *    Treat unknown change-x-forwarded-for parameters as fatal errors.
+ *
  *    Revision 1.143  2008/09/21 13:36:52  fabiankeil
  *    If change-x-forwarded-for{add} is used and the client
  *    sends multiple X-Forwarded-For headers, append the client's
@@ -3409,6 +3412,11 @@ jb_err client_x_forwarded(struct client_state *csp, char **header)
          log_error(LOG_LEVEL_HEADER,
             "Appended client IP address to %s", *header);
          csp->flags |= CSP_FLAG_X_FORWARDED_FOR_APPENDED;
+      }
+      else
+      {
+         log_error(LOG_LEVEL_FATAL,
+            "Invalid change-x-forwarded-for parameter: '%s'", parameter);
       }
    }
 
