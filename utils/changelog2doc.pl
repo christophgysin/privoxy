@@ -33,7 +33,7 @@ sub read_entries() {
 
         $entries[$i] .= $_;
     }
-    print "Parsed $i entries.\n";
+    print "Parsed " . @entries . " entries.\n";
 }
 
 sub generate_markup() {
