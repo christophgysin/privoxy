@@ -415,10 +415,14 @@ TAG:^filter\{banners-by-size\}$
 }
 TAG:^no-content-filter$
 
+# XXX: We should be able to check for
+# FEATURE_CONNECTION_KEEP_ALIVE and act accordingly.
 # Set Header    = Connection: keep-alive
 # Expect Header = Connection: close
+# Ignore = Yes
 # Set Header    = Connection:
 # Expect Header = Connection: close
+# Ignore = Yes
 {}
 TAG:^Connection: close$
 
