@@ -34,6 +34,9 @@ const char gateway_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.39  2008/10/25 11:33:01  fabiankeil
+ *    Remove already out-commented line left over from debugging.
+ *
  *    Revision 1.38  2008/10/24 17:33:00  fabiankeil
  *    - Tone the "keep-alive support is experimental" warning
  *      down a bit as hackish 0-chunk detection has been
@@ -712,7 +715,6 @@ static int socket_is_still_usable(jb_socket sfd)
    int socket_is_alive = 0;
 
    memset(&timeout, '\0', sizeof(timeout));
-   /*   timeout.tv_usec = 150;*/
    FD_ZERO(&readable_fds);
    FD_SET(sfd, &readable_fds);
 
