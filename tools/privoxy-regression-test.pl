@@ -568,8 +568,9 @@ sub dependency_unsatisfied ($) {
     } elsif (defined ($dependencies{$level}{'feature status'})) {
 
         my $dependency = $dependencies{$level}{'feature status'};
-        $dependency_problem = 1;
         my ($feature, $status) = $dependency =~ /([^\s]*)\s+(Yes|No)/;
+
+        $dependency_problem = 1;
 
         if (defined($privoxy_features{$feature})
             and ($privoxy_features{$feature} eq $status))
