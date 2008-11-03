@@ -1473,9 +1473,11 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=Actual content length: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=received: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
-    } elsif ($c =~ m/^Looks like we reached/) {
+    } elsif ($c =~ m/^Looks like we reached/ or
+             $c =~ m/^Unsetting keep-alive flag/) {
 
         # Looks like we reached the end of the last chunk. We better stop reading.
+        # Unsetting keep-alive flag.
 
     } else {
 
