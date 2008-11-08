@@ -1450,17 +1450,16 @@ sub handle_loglevel_connect ($) {
 
     } elsif ($c =~ m/^Socket/) {
 
-        # Socket 18 for www.privoxy.org:80 in slot 0 is no longer usable. Closing.
         # Socket 16 already forgotten or never remembered.
         $c =~ s@(?<=Socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
-        $c = highlight_matched_host($c, '(?<=for )[^\s]+');
-        $c =~ s@(?<=in slot )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^The connection to/) {
 
-        # The connection to www.privoxy.org:80 in slot 0 timed out. Closing.
+        # The connection to www.privoxy.org:80 in slot 6 timed out. Closing socket 19.
+        # The connection to 10.0.0.1:80 in slot 0 is no longer usable. Closing socket 4.
         $c = highlight_matched_host($c, '(?<=connection to )[^\s]+');
         $c =~ s@(?<=in slot )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=Closing socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Initialized/) {
 
