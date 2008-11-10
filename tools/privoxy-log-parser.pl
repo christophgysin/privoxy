@@ -915,6 +915,7 @@ sub handle_loglevel_header ($) {
           or $c =~ m/^Ignoring single quote in /
           or $c =~ m/^Converting tab to space in /
           or $c =~ m/A HTTP\/1\.1 response without/
+          or $c =~ m/Disabled filter mode on behalf of the client/
             )
     {
         # XXX: Some of these may need highlighting
@@ -952,6 +953,7 @@ sub handle_loglevel_header ($) {
         # Converting tab to space in 'X-LWS-Test:   "This  is  quoted" this   is  not "this  is  "  but  "\
         #  this again   is  not'
         # A HTTP/1.1 response without Connection header implies keep-alive.
+        # Disabled filter mode on behalf of the client.
 
     } elsif ($c =~ m/^scanning headers for:/) {
 
