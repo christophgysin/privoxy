@@ -40,6 +40,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.110  2008/11/10 16:40:25  fabiankeil
+ *    Fix a gcc44 warning.
+ *
  *    Revision 1.109  2008/11/08 15:48:41  fabiankeil
  *    Mention actual values when complaining about
  *    the chunk size exceeding the buffer size.
@@ -838,7 +841,7 @@ int acl_addr(const char *aspec, struct access_control_addr *aca)
    aca->mask = 0;
    for (i=1; i <= masklength ; i++)
    {
-      aca->mask |= (1 << (32 - i));
+      aca->mask |= (1U << (32 - i));
    }
 
    /* now mask off the host portion of the ip address
