@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.125  2008/11/20 08:22:28  fabiankeil
+ *    Remove an obsolete comment.
+ *
  *    Revision 1.124  2008/11/16 12:43:49  fabiankeil
  *    Turn keep-alive support into a runtime feature
  *    that is disabled by setting keep-alive-timeout
@@ -1348,9 +1351,6 @@ struct url_actions
 /**
  * Flag for csp->flags: Set if the server wants to keep
  * the connection alive.
- *
- * XXX: Incomplete implementation, we currently only
- * look for "Connection: keep-alive".
  */
 #define CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE  0x00001000UL
 
