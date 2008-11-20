@@ -1706,6 +1706,8 @@ webmail.
 .wiki*.
 .*wiki.
 /.*wiki/
+#MASTER# REMARKS Actionsfile feedback item #2299717 2008-11-16
+.wiktionary.org/
 #MASTER# REMARKS: protect some google projects from accidental JS/HTML tampering, etc
 maps.google.
 .google.com/(calendar|reader)
