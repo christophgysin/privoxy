@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.82  2008/11/23 16:06:58  fabiankeil
+ *    Update a log message I missed in 1.80.
+ *
  *    Revision 1.81  2008/11/23 15:59:27  fabiankeil
  *    - Update copyright range.
  *    - Remove stray line breaks in a log message
@@ -1245,8 +1248,9 @@ void log_error(int loglevel, const char *fmt, ...)
       assert(outbuf[log_buffer_size] == '\0');
 
       snprintf(outbuf, log_buffer_size,
-         "%s Privoxy(%08lx) Fatal error: log_error()'s sanity checks failed. length: %d\n"
-         "Exiting.", timestamp, thread_id, (int)length);
+         "%s %08lx Fatal error: log_error()'s sanity checks failed."
+         "length: %d. Exiting.",
+         timestamp, thread_id, (int)length);
       loglevel = LOG_LEVEL_FATAL;
    }
 
