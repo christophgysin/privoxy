@@ -40,6 +40,9 @@ const char filters_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.111  2008/12/04 18:13:46  fabiankeil
+ *    Fix a cparser warning.
+ *
  *    Revision 1.110  2008/11/10 16:40:25  fabiankeil
  *    Fix a gcc44 warning.
  *
@@ -2185,7 +2188,7 @@ static jb_err remove_chunked_transfer_coding(char *buffer, size_t *size)
       return JB_ERR_PARSE;
    }
 
-   while (chunksize > 0)
+   while (chunksize > 0U)
    {
       if (NULL == (from_p = strstr(from_p, "\r\n")))
       {
