@@ -1489,6 +1489,12 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=header_offset: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=len: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Received \d+ bytes while/) {
+
+        # Received 206 bytes while expecting 12103.
+        $c =~ s@(?<=Received )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=expecting )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Looks like we rea/ or
              $c =~ m/^Unsetting keep-alive flag/) {
 
