@@ -1482,6 +1482,13 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=Actual content length: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=received: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Continuing buffering headers/) {
+
+        # Continuing buffering headers. byte_count: 19. header_offset: 517. len: 536.
+        $c =~ s@(?<=byte_count: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=header_offset: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=len: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Looks like we rea/ or
              $c =~ m/^Unsetting keep-alive flag/) {
 
