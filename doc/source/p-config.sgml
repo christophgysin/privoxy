@@ -2381,6 +2381,60 @@ forward-socks4, forward-socks4a and forward-socks5</title>
 <![%config-file;[<literallayout>@@split-large-forms 0</literallayout>]]>
 </sect3>
 
+<sect3 renderas="sect4" id="keep-alive-timeout"><title>keep-alive-timeout</title>
+<variablelist>
+ <varlistentry>
+  <term>Specifies:</term>
+  <listitem>
+   <para>
+    Number of seconds after which an open connection will no longer be reused.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Type of value:</term>
+  <listitem>
+   <para>
+    <replaceable>Time in seconds.</replaceable>
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Default value:</term>
+  <listitem>
+   <para>None</para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Effect if unset:</term>
+  <listitem>
+   <para>
+    Connections are not reused.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Notes:</term>
+  <listitem>
+   <para>
+    This option has no effect if <application>Privoxy</application>
+    has been compiled without keep-alive support.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Examples:</term>
+  <listitem>
+   <para>
+    keep-alive-timeout 300
+   </para>
+  </listitem>
+ </varlistentry>
+</variablelist>
+<![%config-file;[<literallayout>@@keep-alive-timeout 300</literallayout>]]>
+</sect3>
+
+
 </sect2>
 
 <!--  ~  End section  ~  -->
