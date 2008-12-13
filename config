@@ -1386,6 +1386,38 @@ allow-cgi-request-crunching 0
 split-large-forms 0
 #
 #
+#  5.7. keep-alive-timeout
+#  ========================
+#
+#  Specifies:
+#
+#      Number of seconds after which an open connection will no longer
+#      be reused.
+#
+#  Type of value:
+#
+#      Time in seconds.
+#
+#  Default value:
+#
+#      None
+#
+#  Effect if unset:
+#
+#      Connections are not reused.
+#
+#  Notes:
+#
+#      This option has no effect if Privoxy has been compiled without
+#      keep-alive support.
+#
+#  Examples:
+#
+#      keep-alive-timeout 300
+#
+keep-alive-timeout 300
+#
+#
 #  6. WINDOWS GUI OPTIONS
 #  =======================
 #
