@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.126  2008/12/14 17:02:54  fabiankeil
+ *    Fix a cparser warning.
+ *
  *    Revision 1.125  2008/11/20 08:22:28  fabiankeil
  *    Remove an obsolete comment.
  *
@@ -818,7 +821,7 @@ typedef int jb_err;
 /**
  * Max length of CGI parameters (arbitrary limit).
  */
-#define CGI_PARAM_LEN_MAX 500
+#define CGI_PARAM_LEN_MAX 500U
 
 /**
  * Buffer size for capturing struct hostent data in the
