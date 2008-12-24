@@ -36,6 +36,10 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.12  2008/12/24 17:06:19  fabiankeil
+ *    Keep a thread around to timeout alive connections
+ *    even if no new requests are coming in.
+ *
  *    Revision 1.11  2008/11/13 09:08:42  fabiankeil
  *    Add new config option: keep-alive-timeout.
  *
@@ -124,6 +128,7 @@ extern void forget_connection(jb_socket sfd);
 extern void remember_connection(jb_socket sfd,
                                 const struct http_request *http,
                                 const struct forward_spec *fwd);
+extern int close_unusable_connections(void);
 #endif /* FEATURE_CONNECTION_KEEP_ALIVE */
 
 
