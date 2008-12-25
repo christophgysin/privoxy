@@ -1488,7 +1488,7 @@ sub handle_loglevel_connect ($) {
         $c = highlight_matched_host($c, '(?<=connection to )[^\s]+');
         $c =~ s@(?<=in slot )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=Closing socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
-        $c =~ s@(?<=Timeout is )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=Timeout is: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Waiting for/) {
 
