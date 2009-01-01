@@ -674,6 +674,15 @@ support./(.*/)?track
 #############################################################################
 # Site-specific block patterns;
 #############################################################################
+{+block{Domain parking site}}
+#MASTER# BLOCK-REFERRER: http://www.inetcat.org
+# Blocked URL = http://www.sedoparking.com/www.inetcat.org
+.sedoparking.com/
+# Blocked URL = http://landing.trafficz.com/index.php?domain=www.inetcat.org
+landing.trafficz.com/
+# Blocked URL = http://www.searchnut.com/?domain=www.inetcat.org
+.searchnut.com/\?domain
+
 {+block{Site-specific block pattern matches.}}
 #MASTER# BLOCK-REFERRER: http://www.brooksbrothers.com/ 10/18/06
 #MASTER# BLOCK-REFERRER: http://www.autodesk.com/
