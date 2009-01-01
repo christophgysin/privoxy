@@ -1521,6 +1521,10 @@ qa.debian.org/popcon\.php
 .proaurum.de/banner[ABC]\d_?/
 # URL = http://www.goldmoney.com/en/images/home/banner_r4_c1.gif
 .goldmoney.com/
+#MASTER# REMARKS: Actionsfile feedback item #2017126  2008-07-13
+#MASTER# REMARKS: The dutch newspaper site of Algemeen Dagblad (http://www.ad.nl) is blocked
+# URL = http://www.ad.nl/
+.ad.nl/
 
 #############################################################################
 # Site-specific special rules:
