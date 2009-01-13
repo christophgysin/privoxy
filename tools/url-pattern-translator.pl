@@ -101,9 +101,13 @@ sub looks_interesting($) {
 
         $type_to_skip = "macro or version definition";
 
+    } elsif (m@^\s*standard\.@) {
+
+        $type_to_skip = "predefined settings";
+
     }
 
-    #p("Skipping " . $type_to_skip . ": " . $_);
+    #p("Skipping " . $type_to_skip . ": " . $_) if defined $type_to_skip;
 
     return not defined $type_to_skip;
 }
