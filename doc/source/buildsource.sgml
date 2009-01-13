@@ -225,8 +225,8 @@ can also be disabled through the configuration file.
 <para>
  If install finds previous versions of local configuration files, most of
  these will not be overwritten, and the new ones will be installed with a
- <quote>new</quote> extension. default.action, default.filter, and 
- standard.action <emphasis>will be overwritten</emphasis>. You will then need
+ <quote>new</quote> extension. default.action and default.filter
+ <emphasis>will be overwritten</emphasis>. You will then need
  to manually update the other installed configuration files as needed. The
  default template files <emphasis>will</emphasis> be overwritten. If you have
  customized, local templates, these should be stored safely in a separate

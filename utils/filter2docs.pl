@@ -65,7 +65,7 @@ Producing $type markup:
 Comment lines for default.action:
 
 $comment_lines{$type}
-Block of $type actions for standard.action:
+Block of $type actions for default.action:
 
 $action_lines{$type}
 SGML Source for AF chapter in U-M:

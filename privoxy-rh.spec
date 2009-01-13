@@ -271,7 +271,6 @@ fi
 # -- morcego
 # WARNING ! WARNING ! WARNING ! WARNING ! WARNING ! WARNING ! WARNING !
 %config(noreplace) %{privoxyconf}/config
-%config %{privoxyconf}/standard.action
 %config(noreplace) %{privoxyconf}/user.action
 %config %{privoxyconf}/default.action
 %config %{privoxyconf}/default.filter
@@ -765,6 +764,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.61  2009/01/13 16:47:34  fabiankeil
+# The standard.action file is gone.
+#
 # Revision 1.60  2008/08/30 12:46:49  fabiankeil
 # The jarfile directive is gone. Update accordingly.
 #
