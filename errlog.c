@@ -33,6 +33,9 @@ const char errlog_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.85  2009/02/06 17:51:38  fabiankeil
+ *    Be prepared if I break the log module initialization again.
+ *
  *    Revision 1.84  2008/12/14 15:46:22  fabiankeil
  *    Give crunched requests their own log level.
  *
@@ -1028,6 +1031,11 @@ void log_error(int loglevel, const char *fmt, ...)
 #endif
       )
    {
+      if (loglevel == LOG_LEVEL_FATAL)
+      {
+         fatal_error("Fatal error. You're not supposed to"
+            "see this message. Please file a bug report.");
+      }
       return;
    }
 
