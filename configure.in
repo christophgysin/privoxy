@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.123  2009/02/06 18:17:32  fabiankeil
+dnl Boldly enable keep-alive support where possible.
+dnl
 dnl Revision 1.122  2008/10/18 11:17:52  fabiankeil
 dnl Connection keep-alive support is ready for testing,
 dnl allow enabling it through the configure script.
@@ -1356,12 +1359,6 @@ AC_ARG_ENABLE(extended-host-patterns,
   AC_DEFINE(FEATURE_EXTENDED_HOST_PATTERNS)
 fi])
 
-AC_ARG_ENABLE(connection-keep-alive,
-[  --enable-connection-keep-alive  Keep outgoing connections alive if possible. Experimental.],
-[if test $enableval = yes; then
-  AC_DEFINE(FEATURE_CONNECTION_KEEP_ALIVE)
-fi])
-
 dnl pcre/pcrs is needed for CGI anyway, so
 dnl the choice is only between static and
 dnl dynamic:
@@ -1415,6 +1412,11 @@ else
   pcre_dyn=no
   AC_DEFINE(STATIC_PCRE)
   STATIC_PCRE_ONLY=
+fi
+
+if test $have_pthread = "yes" -o $target_type = "mingw"; then
+  echo Enabling keep-alive support for outgoing connections.
+  AC_DEFINE(FEATURE_CONNECTION_KEEP_ALIVE)
 fi
 
 dnl =================================================
