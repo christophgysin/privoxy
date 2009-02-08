@@ -551,16 +551,6 @@ myfilters   = +filter{html-annoyances} +filter{js-annoyances} +filter{all-popups
 #
 allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
 
-#############################################################################
-# Defaults
-#############################################################################
-{ \
-+change-x-forwarded-for{block} \
-+hide-from-header{block} \
-+set-image-blocker{pattern} \
-}
-/ # Match all URLs
-
 ################
 #
 # Cautious settings -- safe for all sites, but offer little privacy protection

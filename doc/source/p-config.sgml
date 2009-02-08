@@ -668,10 +668,13 @@ actionsfile
   <listitem>
    <simplelist>
     <member>
-     <msgtext><literallayout>  default.action      # Main actions file</literallayout></msgtext>
+     <msgtext><literallayout>  match-all.action # Actions that are applied to all sites and maybe overruled later on.</literallayout></msgtext>
     </member>
     <member>
-     <msgtext><literallayout>  user.action         # User customizations</literallayout></msgtext>
+     <msgtext><literallayout>  default.action   # Main actions file</literallayout></msgtext>
+    </member>
+    <member>
+     <msgtext><literallayout>  user.action      # User customizations</literallayout></msgtext>
     </member>
    </simplelist>
   </listitem>
@@ -712,6 +715,7 @@ actionsfile
 
 <!-- NOTE: alternate markup to make a simpler list doesn't work due to -->
 <!-- html -> text conversion, blah -->
+<![%config-file;[<literallayout>@@actionsfile match-all.action # Actions that are applied to all sites and maybe overruled later on.</literallayout>]]>
 <![%config-file;[<literallayout>@@actionsfile default.action   # Main actions file</literallayout>]]>
 <!--
  XXX: Like user.filter, user.action should probably be commented out
