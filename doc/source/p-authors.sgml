@@ -60,7 +60,6 @@ Current Privoxy Team:
  Gábor Lipták
  Adam Lock
  Guy Laroche
- Mark Martinec
  Justin McMurtry
  Andreas Oesterhelt
  Haroon Rafique
@@ -74,7 +73,7 @@ Current Privoxy Team:
 </literallayout>
 <![%p-authors-formal;[
 <para>
- Thanks to the many people who have tested Privoxy, reported bugs, provided 
+ Thanks to the many people who have tested Privoxy, reported bugs, provided
  patches, made suggestions or contributed in some way. These include (in
  alphabetical order):
 </para>
