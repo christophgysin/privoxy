@@ -338,7 +338,7 @@ II. FORMAT OF THE CONFIGURATION FILE
  <varlistentry>
   <term>Default value:</term>
   <listitem>
-   <para>Two example URLs are provided</para>
+   <para><emphasis>Unset</emphasis></para>
   </listitem>
  </varlistentry>
  <varlistentry>
@@ -369,8 +369,8 @@ II. FORMAT OF THE CONFIGURATION FILE
  </varlistentry>
 </variablelist>
 
-<![%config-file;[<literallayout>@@trust-info-url  http://www.example.com/why_we_block.html</literallayout>]]>
-<![%config-file;[<literallayout>@@trust-info-url  http://www.example.com/what_we_allow.html</literallayout>]]>
+<![%config-file;[<literallayout>@@#trust-info-url  http://www.example.com/why_we_block.html</literallayout>]]>
+<![%config-file;[<literallayout>@@#trust-info-url  http://www.example.com/what_we_allow.html</literallayout>]]>
 </sect3>
 
 
