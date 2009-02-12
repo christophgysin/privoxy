@@ -2470,6 +2470,16 @@ forward-socks4, forward-socks4a and forward-socks5</title>
   </listitem>
  </varlistentry>
  <varlistentry>
+  <term>Notes:</term>
+  <listitem>
+   <para>
+    For SOCKS requests the timeout currently doesn't start until
+    the SOCKS server accepted the request. This will be fixed in
+    the next release.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
   <term>Examples:</term>
   <listitem>
    <para>
