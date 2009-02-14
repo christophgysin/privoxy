@@ -5830,12 +5830,15 @@ hal stop here
  +<link linkend="SET-IMAGE-BLOCKER">set-image-blocker{pattern}</link> \
 }
 / # Match all URLs
+ </screen>
 </para>
 
 <para>
  The default behavior is now set.
 </para>
+</sect3>
 
+<sect3>
 <title>default.action</title>
 
 <para>
@@ -8412,6 +8415,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.96  2009/02/14 13:14:03  fabiankeil
+ Unbreak syntax.
+
  Revision 2.95  2009/02/14 12:51:26  fabiankeil
  Mention match-all.action in the "Actions Files Tutorial" section.
 
