@@ -5,7 +5,7 @@
                 
  $Id$
 
- Copyright (C) 2001-2008 Privoxy Developers http://www.privoxy.org/
+ Copyright (C) 2001-2009 Privoxy Developers http://www.privoxy.org/
  See LICENSE.
 
  ======================================================================
@@ -32,6 +32,18 @@
   </para>
  </listitem> 
 -->
+ <listitem>
+  <para>
+     Can keep outgoing connections alive and reuse them later on.
+  </para>
+ </listitem> 
+
+ <listitem>
+  <para>
+     Supports tagging which allows to change the behaviour
+     based on client and server headers.
+  </para>
+ </listitem> 
 
  <listitem>
   <para>
@@ -111,7 +123,7 @@
 
  <listitem>
   <para>
-   User-customizable HTML templates for all proxy-generated pages (e.g. "blocked" page).
+   User-customizable HTML templates for most proxy-generated pages (e.g. "blocked" page).
   </para>
  </listitem> 
 
