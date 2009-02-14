@@ -2799,12 +2799,16 @@ browsing has slowed to a crawl. What gives? </title>
 <para>
  In <application>Privoxy's</application> case the problem usually
  is that the policy only allows outgoing connections for certain
- destination ports (e.g. 80 and 443). While the standard ports
- maybe covered, websites occasionally use other ports as well.
+ destination ports (e.g. 80 and 443). While this may cover the
+ standard ports, websites occasionally use other ports as well.
  This isn't a security problem and therefore <application>Privoxy's</application>
  default configuration doesn't block these requests.
 </para>
 <para>
+ If you really want to block these ports (and don't be able
+ to load websites that don't use standard ports), you should
+ configure Privoxy to block these ports as well, so it doesn't
+ trigger the selinux warnings.
 </para>
 </sect2>
 
@@ -2887,6 +2891,10 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.52  2009/02/14 10:27:52  fabiankeil
+Finish last paragraph in the selinux entry which
+I unintentionally committed with the last commit.
+
 Revision 2.51  2009/02/12 16:08:26  fabiankeil
 Declare the code stable.
 
