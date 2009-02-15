@@ -2465,7 +2465,7 @@ forward-socks4, forward-socks4a and forward-socks5</title>
   <term>Effect if unset:</term>
   <listitem>
    <para>
-    A default value of 180 seconds is used.
+    A default value of 300 seconds is used.
    </para>
   </listitem>
  </varlistentry>
@@ -2483,12 +2483,12 @@ forward-socks4, forward-socks4a and forward-socks5</title>
   <term>Examples:</term>
   <listitem>
    <para>
-    socket-timeout 180
+    socket-timeout 300
    </para>
   </listitem>
  </varlistentry>
 </variablelist>
-<![%config-file;[<literallayout>@@socket-timeout 180</literallayout>]]>
+<![%config-file;[<literallayout>@@socket-timeout 300</literallayout>]]>
 </sect3>
 
 
