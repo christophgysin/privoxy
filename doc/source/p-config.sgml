@@ -2424,6 +2424,24 @@ forward-socks4, forward-socks4a and forward-socks5</title>
   </listitem>
  </varlistentry>
  <varlistentry>
+  <term>Notes:</term>
+  <listitem>
+   <para>
+    Note that reusing connections doesn't necessary cause speedups.
+    There are also a few privacy implications you should be aware of.
+   </para>
+   <para>
+    Outgoing connections are shared between clients (if there are more
+    than one) and closing the client that initiated the outgoing connection
+    does not affect the connection between &my-app; and the server unless
+    the client's request hasn't been completed yet. If the outgoing connection
+    is idle, it will not be closed until either <application>Privoxy's</application>
+    or the server's timeout is reached. While it's open, the server knows
+    that the system running &my-app; is still there.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
   <term>Examples:</term>
   <listitem>
    <para>
