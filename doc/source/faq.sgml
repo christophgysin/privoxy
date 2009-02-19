@@ -17,6 +17,7 @@
 <!entity % p-supp-userman "INCLUDE"> <!-- Include all from supported.sgml -->
 <!entity  my-copy "&copy;">          <!-- kludge for docbook2man          -->
 <!entity % p-newstuff "INCLUDE">      <!-- exclude stuff from devel versions -->
+<!entity % seealso-extra "INCLUDE"> <!-- extra stuff from seealso.sgml    -->
 <!entity  my-app "<application>Privoxy</application>">
 ]>
 <!--
@@ -2898,6 +2899,9 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.55  2009/02/19 02:20:21  hal9
+Make some links in seealso conditional. Man page is now privoxy only links.
+
 Revision 2.54  2009/02/15 20:47:12  hal9
 Fix small typo.
 
