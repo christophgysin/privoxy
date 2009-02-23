@@ -49,6 +49,13 @@
  </simplelist>
  <simplelist>
   <member>
+   <ulink
+   url="http://www.privoxy.org/developer-manual/">http://www.privoxy.org/developer-manual/</ulink>, 
+   the <application>Privoxy</application> developer manual. 
+  </member>
+ </simplelist>
+ <simplelist>
+  <member>
    <ulink url="https://sourceforge.net/projects/ijbswa/">https://sourceforge.net/projects/ijbswa/</ulink>, 
    the Project Page for <application>Privoxy</application> on 
    <ulink url="http://sourceforge.net">SourceForge</ulink>.
@@ -103,11 +110,4 @@
   </member>
  </simplelist>
  ]]>
- <simplelist>
-  <member>
-   <ulink
-   url="http://www.privoxy.org/developer-manual/">http://www.privoxy.org/developer-manual/</ulink>, 
-   the <application>Privoxy</application> developer manual. 
-  </member>
- </simplelist>
 </para>
