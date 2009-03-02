@@ -33,6 +33,10 @@ const char urlmatch_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.47  2009/03/02 19:18:10  fabiankeil
+ *    Streamline parse_http_request()'s prototype. As
+ *    cparser pointed out it doesn't actually use csp.
+ *
  *    Revision 1.46  2009/02/11 19:31:32  fabiankeil
  *    Reject request lines that end with neither HTTP/1.0 nor HTTP/1.1.
  *
@@ -633,7 +637,6 @@ static int unknown_method(const char *method)
  * Parameters  :
  *          1  :  req = HTTP request line to break down
  *          2  :  http = pointer to the http structure to hold elements
- *          3  :  csp = Current client state (buffers, headers, etc...)
  *
  * Returns     :  JB_ERR_OK on success
  *                JB_ERR_MEMORY on out of memory
@@ -641,9 +644,7 @@ static int unknown_method(const char *method)
  *                                  or >100 domains deep.
  *
  *********************************************************************/
-jb_err parse_http_request(const char *req,
-                          struct http_request *http,
-                          const struct client_state *csp)
+jb_err parse_http_request(const char *req, struct http_request *http)
 {
    char *buf;
    char *v[10]; /* XXX: Why 10? We should only need three. */
