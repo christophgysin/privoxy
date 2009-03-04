@@ -1615,6 +1615,12 @@ qa.debian.org/popcon\.php
 #MASTER# REMARKS: yahoo groups self-promotion - and the page is uglier without it
 # URL = http://us.i1.yimg.com/us.yimg.com/i/yg/img/ads/bestofygroups.jpg
 .yimg.com/.*/ads/bestofygroups.jpg$
+#MASTER# REMARKS: NYT home page is messed up because .css files are blocked
+#MASTER# UNBLOCK-REFERRER: http://www.nytimes.com/
+# URL = http://graphics8.nytimes.com/css/0.1/screen/common/ads.css
+# URL = http://graphics8.nytimes.com/css/0.1/screen/homepage/ads.css
+.nytimes.com/.*/ads\.css$
+
 
 #############################################################################
 # Site-specific special rules:
