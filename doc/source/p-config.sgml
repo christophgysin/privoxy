@@ -1025,7 +1025,7 @@ actionsfile
    </para>
    <para>
     A debug level of 1 is informative because it will show you each request
-    as it happens. <emphasis>1, 4096 and 8192 are recommended</emphasis>
+    as it happens. <emphasis>1, 1024, 4096 and 8192 are recommended</emphasis>
     so that you will notice when things go wrong. The other levels are
     probably only of interest if you are hunting down a specific problem.
     They can produce a hell of an output (especially 16).
