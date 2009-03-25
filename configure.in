@@ -28,6 +28,9 @@ dnl or write to the Free Software Foundation, Inc., 59
 dnl Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 dnl 
 dnl $Log$
+dnl Revision 1.127  2009/03/25 17:26:31  fabiankeil
+dnl And they are running again. Bump version to 3.0.13 UNRELEASED.
+dnl
 dnl Revision 1.126  2009/03/21 10:45:06  fabiankeil
 dnl Declare the code stable.
 dnl
@@ -612,8 +615,8 @@ dnl =================================================================
 
 VERSION_MAJOR=3
 VERSION_MINOR=0
-VERSION_POINT=12
-CODE_STATUS="stable"
+VERSION_POINT=13
+CODE_STATUS="UNRELEASED"
 
 dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
 dnl used for CGI output. Set version to 0.0.0 and status to "UNRELEASED"
