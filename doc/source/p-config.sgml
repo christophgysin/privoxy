@@ -1999,7 +1999,7 @@ forward-socks4, forward-socks4a and forward-socks5</title>
    </para>
    <para>
     <screen>
-  forward-socks4a   /               127.0.0.1:9050 .
+  forward-socks5   /               127.0.0.1:9050 .
 </screen>
    </para>
 

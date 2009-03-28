@@ -1784,7 +1784,7 @@ us help you. Your efforts are not wasted, and we do appreciate them.
 </para>
 <para>
  <screen>
-#        forward-socks4a             /     127.0.0.1:9050 .
+#        forward-socks5             /     127.0.0.1:9050 .
  </screen>
 </para>
 <para>
@@ -2935,6 +2935,10 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.59  2009/03/28 15:33:41  fabiankeil
+Recommend the use of forward-socks5 when forwarding to Tor.
+The error messages are more detailed than with forward-socks4a.
+
 Revision 2.58  2009/03/21 12:27:44  fabiankeil
 Turn the donation entry title into a question,
 also rephrase the content a bit.
