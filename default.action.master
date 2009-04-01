@@ -892,6 +892,10 @@ static.lycos-europe.net
 #MASTER# BLOCK-REFERRER: http://www.networkworld.com/resourcelibrary/?tid=4&type=special%20report
 # Blocked URL = http://clk.atdmt.com/
 .atdmt.com/
+#MASTER# REMARKS: Actionsfile feedback item #2723873 2009-04-01
+#MASTER# BLOCK-REFERRER: http://www.news.software.coop/paralysed-perl-package-problem/602/
+# Blocked URL = http://www.awin1.com/cread.php?s=123049&v=1983&q=80970&r=79561
+.awin1.com
 
 #----------------------------------------------------------------------------
 # Misc Web-bugs, JS and just plain Junk. Images here aren't normal images.
