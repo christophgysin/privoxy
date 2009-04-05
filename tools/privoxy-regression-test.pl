@@ -875,7 +875,7 @@ sub check_header_result ($$) {
 
             $header = "REMOVAL" unless defined $header;
             l(LL_VERBOSE_FAILURE,
-              "Ooops. Got: " . $header . " while expecting: " . $expect_header);
+              "Ooops. Got: '" . $header . "' while expecting: '" . $expect_header . "'");
         }
 
     } elsif ($expect_header eq 'REMOVAL') {
@@ -883,7 +883,7 @@ sub check_header_result ($$) {
         if (defined($header) and $header eq $test{'data'}) {
 
             l(LL_VERBOSE_FAILURE,
-              "Ooops. Expected removal but: " . $header . " is still there.");
+              "Ooops. Expected removal but: '" . $header . "' is still there.");
 
         } else {
 
@@ -902,7 +902,7 @@ sub check_header_result ($$) {
 
             $header = "REMOVAL" unless defined $header;
             l(LL_VERBOSE_FAILURE,
-              "Ooops. Got: " . $header . " while expecting: SOME CHANGE");
+              "Ooops. Got: '" . $header . "' while expecting: SOME CHANGE");
         }
 
 
@@ -916,7 +916,7 @@ sub check_header_result ($$) {
 
             $header = "'No matching header'" unless defined $header; # XXX: No header detected to be precise
             l(LL_VERBOSE_FAILURE,
-              "Ooops. Got: " . $header . " while expecting: " . $expect_header);
+              "Ooops. Got: '" . $header . "' while expecting: '" . $expect_header . "'");
         }
     }
     return $success;
