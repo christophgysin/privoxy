@@ -33,6 +33,9 @@ const char jcc_rcs[] = "$Id$";
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.242  2009/04/11 10:44:47  fabiankeil
+ *    Update a comment. We're not in Kansas anymore.
+ *
  *    Revision 1.241  2009/04/11 10:37:23  fabiankeil
  *    When dropping connections due to ACL, don't leak csp->ip_addr_str.
  *
@@ -4235,7 +4238,7 @@ static void listen_loop(void)
       {
          /*
           * Since we were listening to the "old port", we will not see
-          * a "listen" param change until the next IJB request.  So, at
+          * a "listen" param change until the next request.  So, at
           * least 1 more request must be made for us to find the new
           * setting.  I am simply closing the old socket and binding the
           * new one.
