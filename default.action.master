@@ -1625,6 +1625,9 @@ qa.debian.org/popcon\.php
 # URL = http://graphics8.nytimes.com/css/0.1/screen/common/ads.css
 # URL = http://graphics8.nytimes.com/css/0.1/screen/homepage/ads.css
 .nytimes.com/.*/ads\.css$
+#MASTER# REMARKS: All hosted videos seemingly require this file.
+#MASTER# UNBLOCK-REFERRER: http://www.cnn.com/video/#/video/showbiz/2009/04/14/dcl.boyle.british.talent.show.cnn
+.turner.com/cnn/.*/AdServiceAdapter.swf
 
 
 #############################################################################
