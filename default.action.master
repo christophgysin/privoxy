@@ -1627,6 +1627,7 @@ qa.debian.org/popcon\.php
 .nytimes.com/.*/ads\.css$
 #MASTER# REMARKS: All hosted videos seemingly require this file.
 #MASTER# UNBLOCK-REFERRER: http://www.cnn.com/video/#/video/showbiz/2009/04/14/dcl.boyle.british.talent.show.cnn
+# URL = http://i.cdn.turner.com/cnn/.element/js/2.0/video/xmp/AdServiceAdapter.swf
 .turner.com/cnn/.*/AdServiceAdapter.swf
 
 
