@@ -1970,7 +1970,7 @@ ACLs: permit-access and deny-access</title>
    </para>
    <para>
     <programlisting>
-  forward  /                        parent-proxy.example.org:8000 
+  forward  /                        parent-proxy.example.org:8000
   forward  ipv6-server.example.org  .
   forward  &lt;[2-3][0-9a-f][0-9a-f][0-9a-f]:*&gt;   .
 </programlisting>
