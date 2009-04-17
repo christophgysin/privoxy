@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.131  2009/04/17 11:34:35  fabiankeil
+ *    Style cosmetics for the IPv6 code.
+ *
  *    Revision 1.130  2009/04/17 11:27:49  fabiankeil
  *    Petr Pisar's privoxy-3.0.12-ipv6-3.diff.
  *
@@ -1899,6 +1902,4 @@ struct configuration_spec
   Local Variables:
   tab-width: 3
   end:
-
-  vim:softtabstop=3 shiftwidth=3
 */
