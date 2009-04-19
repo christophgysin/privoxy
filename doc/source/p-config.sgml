@@ -2291,6 +2291,11 @@ forward-socks4, forward-socks4a and forward-socks5</title>
 <![%config-file;[<literallayout>@@forwarded-connect-retries  0</literallayout>]]>
 </sect3>
 
+</sect2>
+
+<sect2 id="misc">
+<title>Miscellaneous</title>
+
 <sect3 renderas="sect4" id="accept-intercepted-requests"><title>accept-intercepted-requests</title>
 <variablelist>
  <varlistentry>
