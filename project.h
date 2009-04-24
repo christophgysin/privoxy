@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.133  2009/04/24 15:29:43  fabiankeil
+ *    Allow to limit the number of of client connections.
+ *
  *    Revision 1.132  2009/04/17 11:45:19  fabiankeil
  *    Replace HAVE_GETADDRINFO and HAVE_GETNAMEINFO macros
  *    with HAVE_RFC2553 macro. Original patch by Petr Pisar.
@@ -1827,7 +1830,10 @@ struct configuration_spec
    struct forward_spec *forward;
 
    /** Number of retries in case a forwarded connection attempt fails */
-   int         forwarded_connect_retries;
+   int forwarded_connect_retries;
+
+   /** Maximum number of client connections. */
+   int max_client_connections;
 
    /* Timeout when waiting on sockets for data to become available. */
    int socket_timeout;
