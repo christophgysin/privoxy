@@ -1629,6 +1629,10 @@ qa.debian.org/popcon\.php
 #MASTER# UNBLOCK-REFERRER: http://www.cnn.com/video/#/video/showbiz/2009/04/14/dcl.boyle.british.talent.show.cnn
 # URL = http://i.cdn.turner.com/cnn/.element/js/2.0/video/xmp/AdServiceAdapter.swf
 .turner.com/cnn/.*/AdServiceAdapter.swf
+#MASTER# REMARKS: Tracker 2786745 : MySpace music player doesn't work
+#MASTER# UNBLOCK-REFERRER: www.myspace.com/bandofskulls
+# URL = http://lads.myspacecdn.com/videos/musicPlayerAssets.swf
+lads.myspacecdn.com/
 
 
 #############################################################################
