@@ -37,6 +37,9 @@
  *
  * Revisions   :
  *    $Log$
+ *    Revision 1.137  2009/05/13 18:22:45  fabiankeil
+ *    Respect the server's keep-alive value if it's below ours.
+ *
  *    Revision 1.136  2009/05/13 18:20:54  fabiankeil
  *    There's no reason for keep_alive_timeout to be signed.
  *
@@ -1324,6 +1327,11 @@ struct reusable_connection
    jb_socket sfd;
    int       in_use;
    time_t    timestamp;
+   /*
+    * Number of seconds after which this
+    * connection will no longer be reused.
+    */
+   unsigned int keep_alive_timeout;
 
    char *host;
    int  port;
@@ -1882,7 +1890,7 @@ struct configuration_spec
    int socket_timeout;
 
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
-   /* Number of seconds after which an open connection will no longer be reused. */
+   /* Maximum number of seconds after which an open connection will no longer be reused. */
    unsigned int keep_alive_timeout;
 #endif
 
