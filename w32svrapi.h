@@ -47,15 +47,8 @@
  *                or write to the Free Software Foundation, Inc., 59
  *                Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * Revisions   :
- *    $Log$
- *    Revision 1.1  2006/08/12 03:54:37  david__schmidt
- *    Windows service integration
- *
- *
- *
  *********************************************************************/
-
+
 
 #ifdef __cplusplus
 extern "C" {

@@ -34,26 +34,6 @@
  *                or write to the Free Software Foundation, Inc., 59
  *                Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * Revisions   :
- *    $Log$
- *    Revision 1.6  2006/07/18 14:48:45  david__schmidt
- *    Reorganizing the repository: swapping out what was HEAD (the old 3.1 branch)
- *    with what was really the latest development (the v_3_0_branch branch)
- *
- *    Revision 1.4  2002/03/26 22:29:54  swa
- *    we have a new homepage!
- *
- *    Revision 1.3  2002/03/24 13:25:43  swa
- *    name change related issues
- *
- *    Revision 1.2  2001/07/29 18:43:08  jongfoster
- *    Changing #ifdef _FILENAME_H to FILENAME_H_INCLUDED, to conform to
- *    ANSI C rules.
- *
- *    Revision 1.1.1.1  2001/05/15 13:58:51  oes
- *    Initial import of version 2.9.3 source tree
- *
- *
  *********************************************************************/
 
 /* Conditionally include this whole file. */
