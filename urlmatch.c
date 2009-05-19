@@ -1222,7 +1222,7 @@ int match_portlist(const char *portlist, int port)
 {
    char *min, *max, *next, *portlist_copy;
 
-   min = next = portlist_copy = strdup(portlist);
+   min = portlist_copy = strdup(portlist);
 
    /*
     * Zero-terminate first item and remember offset for next
