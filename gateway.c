@@ -1080,7 +1080,6 @@ static jb_socket socks5_connect(const struct forward_spec *fwd,
          return(sfd);
       }
       errstr = translate_socks5_error(sbuf[1]);
-      err = 1;
    }
 
    assert(errstr != NULL);
