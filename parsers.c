@@ -471,7 +471,7 @@ jb_err decompress_iob(struct client_state *csp)
              */
             int skip_bytes;
             skip_bytes = *cur++;
-            skip_bytes = *cur++ << 8;
+            skip_bytes += *cur++ << 8;
 
             assert(skip_bytes == *csp->iob->cur - 2 + ((*csp->iob->cur - 1) << 8));
 
