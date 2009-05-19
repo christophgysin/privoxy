@@ -140,14 +140,14 @@ sub parse_tag ($) {
 
 sub check_for_forbidden_characters ($) {
 
-    my $tag = shift; # XXX: also used to check values though.
-    my $allowed = '[-=\dA-Za-z~{}:.\/();\s,+@"_%\?&*^]';
+    my $string = shift;
+    my $allowed = '[-=\dA-Za-z~{}:./();\s,+@"_%?&*^]';
 
-    unless ($tag =~ m/^$allowed*$/) {
-        my $forbidden = $tag;
+    unless ($string =~ m/^$allowed*$/o) {
+        my $forbidden = $string;
         $forbidden =~ s@^$allowed*(.).*@$1@;
 
-        l(LL_ERROR, "'" . $tag . "' contains character '" . $forbidden. "' which is unacceptable.");
+        l(LL_ERROR, "'" . $string . "' contains character '" . $forbidden. "' which is unacceptable.");
     }
 }
 
