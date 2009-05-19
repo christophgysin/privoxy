@@ -2277,13 +2277,13 @@ static jb_err server_last_modified(struct client_state *csp, char **header)
       log_error(LOG_LEVEL_HEADER, "Randomizing: %s", *header);
       now = time(NULL);
 #ifdef HAVE_GMTIME_R
-      timeptr = gmtime_r(&now, &gmt);
+      gmtime_r(&now, &gmt);
 #elif FEATURE_PTHREAD
       privoxy_mutex_lock(&gmtime_mutex);
-      timeptr = gmtime(&now);
+      gmtime(&now);
       privoxy_mutex_unlock(&gmtime_mutex);
 #else
-      timeptr = gmtime(&now);
+      gmtime(&now);
 #endif
       if (JB_ERR_OK != parse_header_time(header_time, &last_modified))
       {
