@@ -746,7 +746,7 @@ int pcrs_execute(pcrs_job *job, const char *subject, size_t subject_length, char
    pcrs_match *matches, *dummy;
    char *result_offset;
 
-   offset = i = k = 0;
+   offset = i = 0;
 
    /* 
     * Sanity check & memory allocation
