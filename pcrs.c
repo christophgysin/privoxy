@@ -682,7 +682,7 @@ int pcrs_execute_list(pcrs_job *joblist, char *subject, size_t subject_length, c
  
    old = subject;
    *result_length = subject_length;
-   hits = total_hits = 0;
+   total_hits = 0;
 
    for (job = joblist; job != NULL; job = job->next)
    {
