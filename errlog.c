@@ -751,7 +751,7 @@ void log_error(int loglevel, const char *fmt, ...)
             {
                unsigned long long lluval = va_arg(ap, unsigned long long);
                snprintf(tempbuf, sizeof(tempbuf), "%llu", lluval);
-               ch = *src++;
+               src++;
             }
             else
             {
