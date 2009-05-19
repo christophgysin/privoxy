@@ -1235,7 +1235,7 @@ int match_portlist(const char *portlist, int port)
    /*
     * Loop through all items, checking for match
     */
-   while(min)
+   while (NULL != min)
    {
       if (NULL == (max = strchr(min, (int) '-')))
       {
