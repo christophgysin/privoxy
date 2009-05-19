@@ -1588,7 +1588,7 @@ jb_err edit_read_file(struct client_state *csp,
        * Probably an old-school URL like
        * http://config.privoxy.org/edit-actions-list?f=default
        */
-      err = get_file_name_param(csp, parameters, "f", &filename);
+      get_file_name_param(csp, parameters, "f", &filename);
    }
 
    if (NULL == filename || stat(filename, statbuf) < 0)
