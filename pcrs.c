@@ -481,7 +481,7 @@ pcrs_job *pcrs_compile_command(const char *command, int *errptr)
    char *tokens[4];   
    pcrs_job *newjob;
    
-   i = k = l = 0;
+   k = l = 0;
    
    /*
     * Tokenize the perl command
