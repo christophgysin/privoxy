@@ -1617,8 +1617,8 @@ static jb_err server_keep_alive(struct client_state *csp, char **header)
    unsigned int keep_alive_timeout;
    const char *timeout_position = strstr(*header, "timeout=");
 
-   if ((NULL != timeout_position)
-    && (1 != sscanf(timeout_position, "timeout=%u", &keep_alive_timeout)))
+   if ((NULL == timeout_position)
+    || (1 != sscanf(timeout_position, "timeout=%u", &keep_alive_timeout)))
    {
       log_error(LOG_LEVEL_ERROR, "Couldn't parse: %s", *header);
    }
