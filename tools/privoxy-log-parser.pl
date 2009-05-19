@@ -1556,6 +1556,14 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=server socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c = highlight_matched_host($c, '(?<=for )[^\s]+(?=\.$)');
 
+    } elsif ($c =~ m/^Connected to /) {
+
+        # Connected to tor-jail[10.0.0.2]:9050.
+
+        $c = highlight_matched_host($c, '(?<=\[)[^\]]+');
+        $c = highlight_matched_host($c, '(?<=Connected to )[^\[\s]+');
+        $c =~ s@(?<=\]:)(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Waiting for the next client request/ or
              $c =~ m/^The connection on server socket/ ) {
 
