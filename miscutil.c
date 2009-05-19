@@ -655,6 +655,7 @@ char * make_path(const char * dir, const char * file)
          strlcpy(path, dir, path_size);
       }
 
+      assert(NULL != path);
 #if defined(_WIN32) || defined(__OS2__)
       if(path[strlen(path)-1] != '\\')
       {
