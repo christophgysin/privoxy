@@ -1637,6 +1637,9 @@ qa.debian.org/popcon\.php
 #MASTER# UNBLOCK-REFERRER: www.myspace.com/bandofskulls
 # URL = http://lads.myspacecdn.com/videos/musicPlayerAssets.swf
 lads.myspacecdn.com/
+#MASTER# REMARKS: AF#2789653 iTunes download blocked
+# URL = http://a957.phobos.apple.com/us/r1000/000/Music/ad/47/56/mzi.gnjsyarh.aac.a.m4p
+.phobos.apple.com/
 
 
 #############################################################################
