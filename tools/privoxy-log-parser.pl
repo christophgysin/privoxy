@@ -1564,6 +1564,13 @@ sub handle_loglevel_connect ($) {
         $c = highlight_matched_host($c, '(?<=Connected to )[^\[\s]+');
         $c =~ s@(?<=\]:)(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Could not connect to /) {
+
+        # Could not connect to [10.0.0.1]:80.
+
+        $c = highlight_matched_host($c, '(?<=\[)[^\]]+');
+        $c =~ s@(?<=\]:)(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Waiting for the next client request/ or
              $c =~ m/^The connection on server socket/ ) {
 
