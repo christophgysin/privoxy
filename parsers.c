@@ -3432,6 +3432,12 @@ static jb_err client_connection_header_adder(struct client_state *csp)
       return JB_ERR_OK;
    }
 
+   if ((csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
+      && (csp->http->ssl == 0))
+   {
+      csp->flags |= CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
+   }
+
    log_error(LOG_LEVEL_HEADER, "Adding: %s", wanted_header);
 
    return enlist(csp->headers, wanted_header);
