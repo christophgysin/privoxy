@@ -3423,11 +3423,10 @@ static jb_err server_proxy_connection_adder(struct client_state *csp)
  *********************************************************************/
 static jb_err client_connection_header_adder(struct client_state *csp)
 {
-   const unsigned int flags = csp->flags;
    const char *wanted_header = get_appropiate_connection_header(csp);
 
-   if (!(flags & CSP_FLAG_CLIENT_HEADER_PARSING_DONE)
-     && (flags & CSP_FLAG_CLIENT_CONNECTION_HEADER_SET))
+   if (!(csp->flags & CSP_FLAG_CLIENT_HEADER_PARSING_DONE)
+     && (csp->flags & CSP_FLAG_CLIENT_CONNECTION_HEADER_SET))
    {
       return JB_ERR_OK;
    }
