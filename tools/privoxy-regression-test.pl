@@ -735,7 +735,7 @@ sub execute_sticky_actions_test ($) {
             # Exact match
             $verified_actions++;
 
-        } elsif ($sticky_action =~ /-.*\{/ {
+        } elsif ($sticky_action =~ /-.*\{/) {
 
             # Disabled multi actions aren't explicitly listed as
             # disabled and thus have to be checked by verifying
