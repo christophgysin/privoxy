@@ -587,8 +587,10 @@ sub dependency_unsatisfied ($) {
 
         foreach (@privoxy_config) {
 
-             $dependency_problem = undef if (/$dependency/);
-             last; # XXX: this looks ... interesting.
+            if (/$dependency/) {
+                $dependency_problem = undef;
+                last;
+            }
         }
 
     } elsif (defined ($dependencies{$level}{'feature status'})) {
