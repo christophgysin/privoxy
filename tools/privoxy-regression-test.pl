@@ -622,6 +622,10 @@ sub register_dependency ($$) {
     } elsif ($dependency =~ /feature status\s+(.*)/) {
 
         $dependencies{$level}{'feature status'} = $1;
+
+    } else {
+        
+        l(LL_ERROR, "Didn't recognize dependency: $dependency.");
     }
 }
 
