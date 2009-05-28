@@ -427,7 +427,7 @@ static inline size_t get_log_timestamp(char *buffer, size_t buffer_size)
 
 #ifdef HAVE_LOCALTIME_R
    tm_now = *localtime_r(&now, &tm_now);
-#elif FEATURE_PTHREAD
+#elif def MUTEX_LOCKS_AVAILABLE
    privoxy_mutex_lock(&localtime_mutex);
    tm_now = *localtime(&now); 
    privoxy_mutex_unlock(&localtime_mutex);
@@ -485,7 +485,7 @@ static inline size_t get_clf_timestamp(char *buffer, size_t buffer_size)
    time (&now); 
 #ifdef HAVE_GMTIME_R
    gmt = *gmtime_r(&now, &gmt);
-#elif FEATURE_PTHREAD
+#elif def MUTEX_LOCKS_AVAILABLE
    privoxy_mutex_lock(&gmtime_mutex);
    gmt = *gmtime(&now);
    privoxy_mutex_unlock(&gmtime_mutex);
@@ -494,7 +494,7 @@ static inline size_t get_clf_timestamp(char *buffer, size_t buffer_size)
 #endif
 #ifdef HAVE_LOCALTIME_R
    tm_now = localtime_r(&now, &dummy);
-#elif FEATURE_PTHREAD
+#elif def MUTEX_LOCKS_AVAILABLE
    privoxy_mutex_lock(&localtime_mutex);
    tm_now = localtime(&now); 
    privoxy_mutex_unlock(&localtime_mutex);
