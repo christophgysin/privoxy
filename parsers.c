@@ -2230,7 +2230,6 @@ static jb_err server_last_modified(struct client_state *csp, char **header)
 #endif
    struct tm *timeptr = NULL;
    time_t now, last_modified;                  
-   long int rtime;
    long int days, hours, minutes, seconds;
    
    /*
@@ -2294,19 +2293,21 @@ static jb_err server_last_modified(struct client_state *csp, char **header)
       }
       else
       {
-         rtime = (long int)difftime(now, last_modified);
+         long int rtime = (long int)difftime(now, last_modified);
          if (rtime)
          {
-            int negative = 0;
+            const int negative_delta = (rtime < 0);
 
-            if (rtime < 0)
+            if (negative_delta)
             {
                rtime *= -1; 
-               negative = 1;
                log_error(LOG_LEVEL_HEADER, "Server time in the future.");
             }
             rtime = pick_from_range(rtime);
-            if (negative) rtime *= -1;
+            if (negative_delta)
+            {
+               rtime *= -1;
+            }
             last_modified += rtime;
 #ifdef HAVE_GMTIME_R
             timeptr = gmtime_r(&last_modified, &gmt);
