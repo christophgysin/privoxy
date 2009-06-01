@@ -164,6 +164,10 @@ sub load_regressions_tests () {
 
     l(LL_STATUS, "Asking Privoxy for the number of action files available ...");
 
+    # Dear Privoxy, please reload the config file if necessary ...
+    get_cgi_page_or_else($curl_url);
+
+    # ... so we get the latest one here.
     foreach (@{get_cgi_page_or_else($curl_url)}) {
 
         chomp;
