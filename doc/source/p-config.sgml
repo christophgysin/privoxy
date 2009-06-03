@@ -81,7 +81,9 @@
 <para>
  The main config file controls all aspects of <application>Privoxy</application>'s
  operation that are not location dependent (i.e. they apply universally, no matter
- where you may be surfing).
+ where you may be surfing). Like the filter and action files, the config file is
+ a plain text file and can be modified with a text editor like emacs, vim or
+ notepad.exe.
 </para>
 
 ]]>
