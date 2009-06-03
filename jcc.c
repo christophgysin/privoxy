@@ -491,8 +491,10 @@ static jb_err get_request_destination_elsewhere(struct client_state *csp, struct
    }
    else if (JB_ERR_OK == get_destination_from_headers(headers, csp->http))
    {
+#ifndef FEATURE_EXTENDED_HOST_PATTERNS
       /* Split the domain we just got for pattern matching */
       init_domain_components(csp->http);
+#endif
 
       return JB_ERR_OK;
    }

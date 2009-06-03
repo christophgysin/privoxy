@@ -296,9 +296,11 @@ struct http_request
    char *host_ip_addr_str; /**< String with dotted decimal representation
                                 of host's IP. NULL before connect_to() */
 
+#ifndef FEATURE_EXTENDED_HOST_PATTERNS
    char  *dbuffer; /**< Buffer with '\0'-delimited domain name.           */
    char **dvec;    /**< List of pointers to the strings in dbuffer.       */
    int    dcount;  /**< How many parts to this domain? (length of dvec)   */
+#endif /* ndef FEATURE_EXTENDED_HOST_PATTERNS */
 };
 
 /**
