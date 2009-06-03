@@ -85,8 +85,6 @@ Some Privoxy related task, not ordered in any way.
 32) In case of forwarding failures with socks port == 9050,
     show extra info about Tor (the whole FAQ entry?).
 
-33) Remove the CVS Log message junk from the C files.
-
 35) Do less work in the accept_connection() thread.
     Partly done. Good enough?
 
