@@ -448,6 +448,11 @@ jb_err decompress_iob(struct client_state *csp)
             log_error(LOG_LEVEL_ERROR, "Invalid gzip header flags when decompressing");
             return JB_ERR_COMPRESS;
          }
+
+         /*
+          * Skip mtime (4 bytes), extra flags (1 byte)
+          * and OS type (1 byte).
+          */
          cur += 6;
 
          /* Skip extra fields if necessary. */
