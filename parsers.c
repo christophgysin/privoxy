@@ -485,7 +485,6 @@ jb_err decompress_iob(struct client_state *csp)
          {
             /* A null-terminated string is supposed to follow. */
             while (*cur++ && (cur < csp->iob->eod));
-
          }
 
          /* Skip the comment if necessary. */
