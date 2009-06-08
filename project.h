@@ -739,13 +739,20 @@ struct reusable_connection
  * Flag for csp->flags: Set if the server specified the
  * content length.
  */
-#define CSP_FLAG_CONTENT_LENGTH_SET            0x00002000U
+#define CSP_FLAG_SERVER_CONTENT_LENGTH_SET     0x00002000U
+
+/**
+ * Flag for csp->flags: Set if we know the content lenght,
+ * either because the server set it, or we figured it out
+ * on our own.
+ */
+#define CSP_FLAG_CONTENT_LENGTH_SET            0x00004000U
 
 /**
  * Flag for csp->flags: Set if the client wants to keep
  * the connection alive.
  */
-#define CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE  0x00004000U
+#define CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE  0x00008000U
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
 
 /*

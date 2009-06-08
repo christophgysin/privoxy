@@ -1151,6 +1151,27 @@ jb_err update_server_headers(struct client_state *csp)
       }
    }
 
+#ifdef FEATURE_CONNECTION_KEEP_ALIVE
+   if ((JB_ERR_OK == err)
+    && (csp->flags & CSP_FLAG_MODIFIED)
+    && (csp->flags & CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE)
+    && !(csp->flags & CSP_FLAG_SERVER_CONTENT_LENGTH_SET))
+   {
+      /*
+       * XXX: lame. should factor the regeneration code out
+       * of server_adjust_content_length instead.
+       */
+      log_error(LOG_LEVEL_HEADER,
+         "Content modified with no Content-Length header set. "
+         "Creating a fake one for adjustment later on.");
+      err = enlist(csp->headers, "Content-Length: 0");
+      if (JB_ERR_OK == err)
+      {
+         err = server_adjust_content_length(csp, &(csp->headers->last->str));
+      }
+   }
+#endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
+
    return err;
 }
 
@@ -2098,6 +2119,7 @@ static jb_err server_save_content_length(struct client_state *csp, char **header
    else
    {
       csp->expected_content_length = content_length;
+      csp->flags |= CSP_FLAG_SERVER_CONTENT_LENGTH_SET;
       csp->flags |= CSP_FLAG_CONTENT_LENGTH_SET;
    }
 
