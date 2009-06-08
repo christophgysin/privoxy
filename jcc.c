@@ -1307,6 +1307,7 @@ static jb_err receive_client_request(struct client_state *csp)
          {
             log_error(LOG_LEVEL_ERROR,
                "Stopped grabbing the client headers.");
+            destroy_list(headers);
             return JB_ERR_PARSE;
          }
 
