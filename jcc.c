@@ -1819,7 +1819,7 @@ static void chat(struct client_state *csp)
        */
       if (FD_ISSET(csp->sfd, &rfds))
       {
-         fflush(0);
+         fflush(NULL);
          len = read_socket(csp->sfd, buf, sizeof(buf) - 1);
 
          if (len < 0)
