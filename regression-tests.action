@@ -776,6 +776,11 @@ www.blocked-request.example/blocked-request-with-no-reason-specified
 # Blocked URL = http://domain-pattern-test.example.org/
 domain-pattern-test.example.
 
+{+block{Hostname patterns without trailing dots cover hostnames with trailing dots as well.}}
+# Blocked URL = http://trailing-dot.example.org./
+# Blocked URL = http://trailing-dot.example.org./foo
+trailing-dot.example.org
+
 # Just in case there is no white-space fuzzer in the house ...
 #
 # Set Header = X-LWS-Test: no superfluous white space here
