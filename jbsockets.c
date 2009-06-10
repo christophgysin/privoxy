@@ -103,6 +103,11 @@ const char jbsockets_rcs[] = "$Id$";
 #include "errlog.h"
 #include "miscutil.h"
 
+/* Mac OSX doesn't define AI_NUMERICSESRV */
+#ifndef AI_NUMERICSERV
+#define AI_NUMERICSERV 0
+#endif
+
 const char jbsockets_h_rcs[] = JBSOCKETS_H_VERSION;
 
 /*
