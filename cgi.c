@@ -950,6 +950,11 @@ struct http_response *error_response(struct client_state *csp,
       rsp->status = strdup("504 Connection timeout");
       rsp->reason = RSP_REASON_CONNECTION_TIMEOUT;
    }
+   else if (!strcmp(templatename, "no-server-data"))
+   {
+      rsp->status = strdup("502 No data received from server or forwarder");
+      rsp->reason = RSP_REASON_NO_SERVER_DATA;
+   }
 
    if (rsp->status == NULL)
    {
