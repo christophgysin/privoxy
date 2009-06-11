@@ -370,7 +370,7 @@ sub get_missing_css_lines () {
 
     my $css_line;
 
-    $css_line .= '.' . 'default' . ' {'; # XXX: lc() shouldn't be necessary
+    $css_line .= '.' . 'default' . ' {';
     $css_line .= 'color:' . HEADER_DEFAULT_COLOUR . ';';
     $css_line .= 'background-color:' . get_css_colour(DEFAULT_BACKGROUND) . ';';
     $css_line .= '}' . "\n"; 
