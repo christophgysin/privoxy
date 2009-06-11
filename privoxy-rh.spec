@@ -291,6 +291,7 @@ fi
 %config %{privoxyconf}/templates/cgi-error-parse
 %config %{privoxyconf}/templates/cgi-style.css
 %config %{privoxyconf}/templates/connect-failed
+%config %{privoxyconf}/templates/connection-timeout
 %config %{privoxyconf}/templates/default
 %config %{privoxyconf}/templates/forwarding-failed
 %config %{privoxyconf}/templates/edit-actions-add-url-form
@@ -306,6 +307,7 @@ fi
 %config %{privoxyconf}/templates/mod-support-and-service
 %config %{privoxyconf}/templates/mod-title
 %config %{privoxyconf}/templates/mod-unstable-warning
+%config %{privoxyconf}/templates/no-server-data
 %config %{privoxyconf}/templates/no-such-domain
 %config %{privoxyconf}/templates/show-request
 %config %{privoxyconf}/templates/show-status
@@ -765,6 +767,9 @@ fi
 	additional "-r @" flag.
 
 # $Log$
+# Revision 1.65  2009/06/11 12:16:02  fabiankeil
+# Add recently added cgi templates.
+#
 # Revision 1.64  2009/06/11 12:13:51  fabiankeil
 # Bump version for 3.0.13 beta.
 #
