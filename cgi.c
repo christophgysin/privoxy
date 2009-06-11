@@ -815,15 +815,13 @@ jb_err get_number_param(struct client_state *csp,
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
  *          2  :  templatename = Which template should be used for the answer
- *          3  :  sys_err = system error number
  *
  * Returns     :  A http_response.  If we run out of memory, this
  *                will be cgi_error_memory().
  *
  *********************************************************************/
 struct http_response *error_response(struct client_state *csp,
-                                     const char *templatename,
-                                     int sys_err)
+                                     const char *templatename)
 {
    jb_err err;
    struct http_response *rsp;
@@ -856,7 +854,6 @@ struct http_response *error_response(struct client_state *csp,
    if (!err) err = map(exports, "host", 1, html_encode(csp->http->host), 0);
    if (!err) err = map(exports, "hostport", 1, html_encode(csp->http->hostport), 0);
    if (!err) err = map(exports, "path", 1, html_encode_and_free_original(path), 0);
-   if (!err) err = map(exports, "error", 1, html_encode_and_free_original(safe_strerror(sys_err)), 0);
    if (!err) err = map(exports, "protocol", 1, csp->http->ssl ? "https://" : "http://", 1); 
    if (!err)
    {
