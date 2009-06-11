@@ -957,6 +957,18 @@ struct http_response *error_response(struct client_state *csp,
       }
       rsp->reason = RSP_REASON_CONNECT_FAILED;
    }
+   else if (!strcmp(templatename, "connection-timeout"))
+   {
+      rsp->status = strdup("504 Connection timeout");
+      /* XXX: This check should be factored out of this block */
+      if (rsp->status == NULL)
+      {
+         free_map(exports);
+         free_http_response(rsp);
+         return cgi_error_memory();
+      }
+      rsp->reason = RSP_REASON_CONNECTION_TIMEOUT;
+   }
 
    err = template_fill_for_cgi(csp, templatename, exports, rsp);
    if (err)
