@@ -2604,7 +2604,7 @@ forward-socks4, forward-socks4a and forward-socks5</title>
    </para>
    <para>
     If this option is effective, outgoing connections are shared between
-    clients (if there are more than one) and closing the client that initiated
+    clients (if there are more than one) and closing the browser that initiated
     the outgoing connection does no longer affect the connection between &my-app;
     and the server unless the client's request hasn't been completed yet.
    </para>
@@ -2627,6 +2627,11 @@ forward-socks4, forward-socks4a and forward-socks5</title>
     doesn't support connection keep-alive, enabling this option may make sense
     as it allows &my-app; to keep outgoing connections alive even if the client
     itself doesn't support it.
+   </para>
+   <para>
+    You should also be aware that enabling this option increases the likelihood
+    of getting the "No server or forwarder data" error message, especially if you
+    are using a slow connection to the Internet.
    </para>
    <para>
     This option should only be used by experienced users who
