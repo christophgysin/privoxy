@@ -657,6 +657,9 @@ static const char *crunch_reason(const struct http_response *rsp)
       case RSP_REASON_CONNECTION_TIMEOUT:
          reason = "Connection timeout";
          break;
+      case RSP_REASON_NO_SERVER_DATA:
+         reason = "No server data received";
+         break;
       default:
          reason = "No reason recorded";
          break;
