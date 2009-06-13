@@ -200,7 +200,7 @@ jb_socket connect_to(const char *host, int portnum, struct client_state *csp)
       {
          log_error(LOG_LEVEL_ERROR,
             "Out of memory while getting the server IP address.");
-         return;
+         return JB_INVALID_SOCKET;
       }
       retval = getnameinfo(rp->ai_addr, rp->ai_addrlen,
          csp->http->host_ip_addr_str, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
