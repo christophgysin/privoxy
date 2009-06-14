@@ -1622,7 +1622,9 @@ struct http_response *finish_http_response(const struct client_state *csp, struc
       if (!err) err = enlist_unique_header(rsp->headers, "Date", buf);
       if (!strncmpic(rsp->status, "403", 3)
        || !strncmpic(rsp->status, "404", 3)
-       || !strncmpic(rsp->status, "503", 3))
+       || !strncmpic(rsp->status, "502", 3)
+       || !strncmpic(rsp->status, "503", 3)
+       || !strncmpic(rsp->status, "504", 3))
       {
          if (!err) err = enlist_unique_header(rsp->headers, "Last-Modified", "Wed, 08 Jun 1955 12:00:00 GMT");
       }
