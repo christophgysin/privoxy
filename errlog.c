@@ -574,11 +574,9 @@ static inline const char *get_log_level_string(int loglevel)
          log_level_string = "Force";
          break;
 #endif /* def FEATURE_FORCE_LOAD */
-#ifdef FEATURE_FAST_REDIRECTS
       case LOG_LEVEL_REDIRECTS:
          log_level_string = "Redirect";
          break;
-#endif /* def FEATURE_FAST_REDIRECTS */
       case LOG_LEVEL_DEANIMATE:
          log_level_string = "Gif-Deanimate";
          break;
