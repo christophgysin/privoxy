@@ -908,7 +908,7 @@ struct configuration_spec * load_config(void)
             if (*arg != '\0')
             {
                int timeout = atoi(arg);
-               if (0 <= timeout)
+               if (0 < timeout)
                {
                   config->feature_flags |= RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE;
                   config->keep_alive_timeout = (unsigned int)timeout;
