@@ -601,7 +601,10 @@ sub dependency_unsatisfied ($) {
             }
         }
 
-    } elsif (defined ($dependencies{$level}{'feature status'})) {
+    }
+
+    if (defined ($dependencies{$level}{'feature status'})
+        and not defined $dependency_problem) {
 
         my $dependency = $dependencies{$level}{'feature status'};
         my ($feature, $status) = $dependency =~ /([^\s]*)\s+(Yes|No)/;
