@@ -537,7 +537,7 @@ warranty? Registration?</title>
  please have a look at
  <ulink url="http://www.spi-inc.org/donations">SPI's donation page</ulink>
  to see what the options are.
-<para>
+</para>
 </sect3>
 
 </sect2>
@@ -2945,6 +2945,9 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.63  2009/06/15 15:08:03  fabiankeil
+Patch #2806626 from Frédéric Crozat to fix a closing tag.
+
 Revision 2.62  2009/06/12 14:30:58  fabiankeil
 Update entities for 3.0.13 beta.
 
