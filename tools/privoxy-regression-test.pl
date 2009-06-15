@@ -923,7 +923,7 @@ sub check_header_result ($$) {
 
         } else {
 
-            $header = "'No matching header'" unless defined $header; # XXX: No header detected to be precise
+            $header = "No matching header" unless defined $header; # XXX: No header detected to be precise
             l(LL_VERBOSE_FAILURE,
               "Ooops. Got: '" . $header . "' while expecting: '" . $expect_header . "'");
         }
