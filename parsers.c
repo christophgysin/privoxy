@@ -3057,7 +3057,8 @@ static jb_err client_if_modified_since(struct client_state *csp, char **header)
                     "%a, %d %b %Y %H:%M:%S GMT", timeptr))
             {
                log_error(LOG_LEVEL_ERROR,
-                  "Randomizing %s failed. Keeping the header unmodified.");
+                  "Randomizing %s failed. Keeping the header unmodified.",
+                  *header);
                return JB_ERR_OK;
             }
 
