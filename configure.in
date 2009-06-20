@@ -118,8 +118,8 @@ AC_PROG_MAKE_SET
 AC_PROG_AWK
 
 AC_CHECK_PROG(GDB,gdb,yes,no)
-AC_PATH_PROG(BGROUPS,groups,no,/bin:/usr/bin:/usr/local/bin)
-AC_PATH_PROG(ID,id,no,/bin:/usr/bin:/usr/local/bin)
+AC_PATH_PROG(BGROUPS,groups,no,$PATH:/bin:/usr/bin:/usr/local/bin)
+AC_PATH_PROG(ID,id,no,$PATH:/bin:/usr/bin:/usr/local/bin)
 AC_SUBST(ID)
 AC_SUBST(BGROUPS)
 
