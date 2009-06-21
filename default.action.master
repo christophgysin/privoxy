@@ -1028,6 +1028,9 @@ bwp.
 .yahoo.com/mc/stampNonJs
 # Blocked URL = http://richmedia.yimg.com/js/123/personnals_banners/PER_happy_sara1_4_425x600/ad.js?q=123
 /.*/ad\.js\?
+# Blocked URL = http://i.cmpnet.com/shared/omniture/s_code_remote.js
+#MASTER# BLOCK-REFERRER: http://www.informationweek.de/
+/.*omniture.*\.js
 
 
 #############################################################################
