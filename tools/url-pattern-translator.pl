@@ -63,7 +63,7 @@ sub convert_host_pattern ($) {
     }
 
     # Match-all syntax has changed ...
-    $hp =~ s@\*@.*@g;
+    $hp =~ s@\*@[^.]*@g;
 
     # Extended host patterns are right-anchored by default
     $hp =~ s@\.$@(\..*)?@;
