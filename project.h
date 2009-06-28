@@ -755,7 +755,22 @@ struct reusable_connection
  * the connection alive.
  */
 #define CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE  0x00008000U
+
+/**
+ * Flag for csp->flags: Set if we think we got the whole
+ * client request and shouldn't read any additional data
+ * coming from the client until the current request has
+ * been dealt with.
+ */
+#define CSP_FLAG_CLIENT_REQUEST_COMPLETELY_READ 0x00010000U
+
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
+
+/**
+ * Flag for csp->flags: Set if we think we can't reuse
+ * the server socket.
+ */
+#define CSP_FLAG_SERVER_SOCKET_TAINTED          0x00020000U
 
 /*
  * Flags for use in return codes of child processes
