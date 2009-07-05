@@ -1141,8 +1141,8 @@ static void mark_server_socket_tainted(struct client_state *csp)
 {
    if ((csp->flags & CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE))
    {
-      log_error(LOG_LEVEL_CONNECT, "Unsetting keep-alive flag.");
-      csp->flags &= ~CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE;
+      log_error(LOG_LEVEL_CONNECT,
+         "Marking the connection to the server tainted.");
       csp->flags |= CSP_FLAG_SERVER_SOCKET_TAINTED;
    }
 }
