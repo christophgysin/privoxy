@@ -2163,7 +2163,11 @@ static jb_err server_save_content_length(struct client_state *csp, char **header
 
    assert(*(*header+14) == ':');
 
+#ifdef _WIN32
+   if (1 != sscanf(*header+14, ": %I64u", &content_length))
+#else
    if (1 != sscanf(*header+14, ": %llu", &content_length))
+#endif
    {
       log_error(LOG_LEVEL_ERROR, "Crunching invalid header: %s", *header);
       freez(*header);
