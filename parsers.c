@@ -1624,7 +1624,7 @@ static jb_err server_connection(struct client_state *csp, char **header)
  *
  * Function    :  server_keep_alive
  *
- * Description :  Stores the servers keep alive timeout.
+ * Description :  Stores the server's keep alive timeout.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
