@@ -2136,7 +2136,8 @@ static void chat(struct client_state *csp)
             /* Did we actually get anything? */
             if (NULL == csp->headers->first)
             {
-               log_error(LOG_LEVEL_ERROR, "Empty server or forwarder response.");
+               log_error(LOG_LEVEL_ERROR,
+                  "Empty server or forwarder response received on socket %d.", csp->sfd);
                log_error(LOG_LEVEL_CLF, "%s - - [%T] \"%s\" 502 0", csp->ip_addr_str, http->cmd);
                send_crunch_response(csp, error_response(csp, "no-server-data"));
                free_http_request(http);
