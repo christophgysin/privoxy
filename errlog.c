@@ -422,8 +422,7 @@ static inline size_t get_log_timestamp(char *buffer, size_t buffer_size)
 
    gettimeofday(&tv_now, NULL);
    msecs = tv_now.tv_usec / 1000;
-
-   time(&now);
+   now = tv_now.tv_sec;
 
 #ifdef HAVE_LOCALTIME_R
    tm_now = *localtime_r(&now, &tm_now);
