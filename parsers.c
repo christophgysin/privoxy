@@ -1711,7 +1711,7 @@ static jb_err client_keep_alive(struct client_state *csp, char **header)
          /* XXX: Is this log worthy? */
          log_error(LOG_LEVEL_HEADER,
             "Client keep-alive timeout is %u. Sticking with %u.",
-            keep_alive_timeout, csp->server_connection.keep_alive_timeout);
+            keep_alive_timeout, csp->config->keep_alive_timeout);
       }
    }
 
