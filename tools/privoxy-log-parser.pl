@@ -995,9 +995,10 @@ sub handle_loglevel_header ($) {
         # XXX: Could highlight more here.
         $content =~ s@(?<=^Content-Type: )(.*)(?= not replaced)@$h{'content-type'}$1$h{'Standard'}@;
 
-    } elsif ($c =~ m/^Server keep-alive timeout is/) {
+    } elsif ($c =~ m/^(Server|Client) keep-alive timeout is/) {
 
        # Server keep-alive timeout is 5. Sticking with 10.
+       # Client keep-alive timeout is 20. Sticking with 10.
 
        $content =~ s@(?<=timeout is )(\d+)@$h{'Number'}$1$h{'Standard'}@;
        $content =~ s@(?<=Sticking with )(\d+)@$h{'Number'}$1$h{'Standard'}@;
