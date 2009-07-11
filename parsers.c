@@ -3537,7 +3537,7 @@ static jb_err server_proxy_connection_adder(struct client_state *csp)
  *********************************************************************/
 static jb_err client_connection_header_adder(struct client_state *csp)
 {
-   const char *wanted_header = get_appropiate_connection_header(csp);
+   static const char connection_close[] = "Connection: close";
 
    if (!(csp->flags & CSP_FLAG_CLIENT_HEADER_PARSING_DONE)
      && (csp->flags & CSP_FLAG_CLIENT_CONNECTION_HEADER_SET))
@@ -3551,12 +3551,13 @@ static jb_err client_connection_header_adder(struct client_state *csp)
       && !strcmpic(csp->http->ver, "HTTP/1.1"))
    {
       csp->flags |= CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
+      return JB_ERR_OK;
    }
 #endif /* FEATURE_CONNECTION_KEEP_ALIVE */
 
-   log_error(LOG_LEVEL_HEADER, "Adding: %s", wanted_header);
+   log_error(LOG_LEVEL_HEADER, "Adding: %s", connection_close);
 
-   return enlist(csp->headers, wanted_header);
+   return enlist(csp->headers, connection_close);
 }
 
 
