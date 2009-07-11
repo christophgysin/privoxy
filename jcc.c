@@ -1867,6 +1867,16 @@ static void chat(struct client_state *csp)
        */
       if (FD_ISSET(csp->sfd, &rfds))
       {
+#ifdef FEATURE_CONNECTION_KEEP_ALIVE
+         if (!socket_is_still_usable(csp->cfd))
+         {
+            log_error(LOG_LEVEL_CONNECT,
+               "The server still wants to talk, but the client hung up on us.");
+            mark_server_socket_tainted(csp);
+            return;
+         }
+#endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
+
          fflush(NULL);
          len = read_socket(csp->sfd, buf, sizeof(buf) - 1);
 
