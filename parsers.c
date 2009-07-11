@@ -1741,32 +1741,54 @@ static jb_err client_keep_alive(struct client_state *csp, char **header)
  *********************************************************************/
 static jb_err client_connection(struct client_state *csp, char **header)
 {
-   const char *wanted_header = get_appropiate_connection_header(csp);
+   static const char connection_close[] = "Connection: close";
 
-   if (strcmpic(*header, wanted_header))
+   if (!strcmpic(*header, connection_close))
    {
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
-      if (!(csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_SHARING))
+      if ((csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_SHARING))
+      {
+          if (!strcmpic(csp->http->ver, "HTTP/1.1"))
+          {
+             log_error(LOG_LEVEL_HEADER,
+                "Removing \'%s\' to imply keep-alive.", *header);
+             freez(*header);
+          }
+          else
+          {
+             char *old_header = *header;
+
+             *header = strdup("Connection: keep-alive");
+             if (header == NULL)
+             {
+                return JB_ERR_MEMORY;
+             }
+             log_error(LOG_LEVEL_HEADER,
+                "Replaced: \'%s\' with \'%s\'", old_header, *header);
+             freez(old_header);
+          }
+          csp->flags |= CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
+      }
+      else
       {
          log_error(LOG_LEVEL_HEADER,
             "Keeping the client header '%s' around. "
             "The connection will not be kept alive.",
             *header);
+         csp->flags &= ~CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
       }
-      else
-#endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
-      {
-         char *old_header = *header;
+#else
+      char *old_header = *header;
 
-         *header = strdup(wanted_header);
-         if (header == NULL)
-         {
-            return JB_ERR_MEMORY;
-         }
-         log_error(LOG_LEVEL_HEADER,
-            "Replaced: \'%s\' with \'%s\'", old_header, *header);
-         freez(old_header);
+      *header = strdup(connection_close);
+      if (header == NULL)
+      {
+         return JB_ERR_MEMORY;
       }
+      log_error(LOG_LEVEL_HEADER,
+         "Replaced: \'%s\' with \'%s\'", old_header, *header);
+      freez(old_header);
+#endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
    }
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
    else
