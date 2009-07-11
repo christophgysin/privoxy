@@ -1077,6 +1077,8 @@ void save_connection_destination(jb_socket sfd,
 {
    assert(sfd != JB_INVALID_SOCKET);
    assert(NULL != http->host);
+
+   server_connection->sfd = sfd;
    server_connection->host = strdup(http->host);
    if (NULL == server_connection->host)
    {
@@ -2188,6 +2190,8 @@ static void chat(struct client_state *csp)
                return;
             }
 
+            csp->server_connection.timestamp = time(NULL);
+
             /*
              * We have now received the entire server header,
              * filter it and send the result to the client
@@ -2391,9 +2395,7 @@ static void serve(struct client_state *csp)
                "No additional client request received in time.");
             if ((csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_SHARING))
             {
-               remember_connection(csp->sfd, csp->http,
-                  forward_url(csp, csp->http),
-                  csp->server_connection.keep_alive_timeout);
+               remember_connection(csp, forward_url(csp, csp->http));
                csp->sfd = JB_INVALID_SOCKET;
                close_socket(csp->cfd);
                csp->cfd = JB_INVALID_SOCKET;

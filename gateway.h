@@ -59,10 +59,8 @@ extern jb_socket forwarded_connect(const struct forward_spec * fwd,
 extern void set_keep_alive_timeout(unsigned int timeout);
 extern void initialize_reusable_connections(void);
 extern void forget_connection(jb_socket sfd);
-extern void remember_connection(jb_socket sfd,
-                                const struct http_request *http,
-                                const struct forward_spec *fwd,
-                                unsigned int timeout);
+extern void remember_connection(const struct client_state *csp,
+                                const struct forward_spec *fwd);
 extern int close_unusable_connections(void);
 extern void mark_connection_closed(struct reusable_connection *closed_connection);
 extern int connection_destination_matches(const struct reusable_connection *connection,
