@@ -261,6 +261,7 @@ TAG:^hide-if-modified-since\{block\}$
 # Expect Header = REMOVAL
 # Set Header    = If-Modified-Since: Mon, 1 Jan 2525 00:00:00 GMT
 # Expect Header = SOME CHANGE
+# Level = 17
 # Set Header    = If-Modified-Since: Thu, 1 Jan 1970 02:00:00 GMT
 # Expect Header = SOME CHANGE
 
