@@ -915,6 +915,7 @@ sub handle_loglevel_header ($) {
           or $c =~ m/Keeping the (?:server|client) header /
           or $c =~ m/Content modified with no Content-Length header set/
           or $c =~ m/^Appended client IP address to/
+          or $c =~ m/^Removing 'Connection: close' to imply keep-alive./
             )
     {
         # XXX: Some of these may need highlighting
@@ -958,6 +959,7 @@ sub handle_loglevel_header ($) {
         # Keeping the client header 'Connection: keep-alive' around. The connection will be kept alive if possible.
         # Content modified with no Content-Length header set. Creating a fake one for adjustment later on.
         # Appended client IP address to X-Forwarded-For: 10.0.0.2, 10.0.0.1
+        # Removing 'Connection: close' to imply keep-alive.
 
     } elsif ($c =~ m/^scanning headers for:/) {
 
