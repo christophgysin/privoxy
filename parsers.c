@@ -1691,6 +1691,14 @@ static jb_err client_keep_alive(struct client_state *csp, char **header)
    unsigned int keep_alive_timeout;
    const char *timeout_position = strstr(*header, ": ");
 
+   if (!(csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE))
+   {
+      log_error(LOG_LEVEL_HEADER,
+         "keep-alive support is disabled. Crunching: %s.", *header);
+      freez(*header);
+      return JB_ERR_OK;
+   }
+
    if ((NULL == timeout_position)
     || (1 != sscanf(timeout_position, ": %u", &keep_alive_timeout)))
    {
