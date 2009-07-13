@@ -2393,7 +2393,8 @@ static void serve(struct client_state *csp)
          {
             log_error(LOG_LEVEL_CONNECT,
                "No additional client request received in time.");
-            if ((csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_SHARING))
+            if ((csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_SHARING)
+               && (socket_is_still_usable(csp->sfd)))
             {
                remember_connection(csp, forward_url(csp, csp->http));
                csp->sfd = JB_INVALID_SOCKET;
