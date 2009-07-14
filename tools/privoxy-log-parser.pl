@@ -1600,7 +1600,8 @@ sub handle_loglevel_connect ($) {
              $c =~ m/^Complete client request received/ or
              $c =~ m/^Possible pipeline attempt detected./ or
              $c =~ m/^POST request detected. The connection will not be kept alive./ or
-             $c =~ m/^The server still wants to talk, but the client hung up on us./) {
+             $c =~ m/^The server still wants to talk, but the client hung up on us./ or
+             $c =~ m/^The server didn't specify how long the connection will stay open/) {
 
         # Looks like we reached the end of the last chunk. We better stop reading.
         # Looks like we read the end of the last chunk together with the server \
@@ -1613,6 +1614,7 @@ sub handle_loglevel_connect ($) {
         #  kept alive and we will only serve the first request.
         # POST request detected. The connection will not be kept alive.
         # The server still wants to talk, but the client hung up on us.
+        # The server didn't specify how long the connection will stay open. Assume it's only a second.
 
     } else {
 
