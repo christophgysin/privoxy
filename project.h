@@ -768,19 +768,13 @@ struct reusable_connection
  */
 #define CSP_FLAG_CLIENT_REQUEST_COMPLETELY_READ 0x00010000U
 
-/**
- * Flag for csp->flags: Set if the server promised us to
- * keep the connection open for a known number of seconds.
- */
-#define CSP_FLAG_SERVER_KEEP_ALIVE_TIMEOUT_SET  0x00020000U
-
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
 
 /**
  * Flag for csp->flags: Set if we think we can't reuse
  * the server socket.
  */
-#define CSP_FLAG_SERVER_SOCKET_TAINTED          0x00040000U
+#define CSP_FLAG_SERVER_SOCKET_TAINTED          0x00020000U
 
 /*
  * Flags for use in return codes of child processes
