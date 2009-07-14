@@ -1460,12 +1460,16 @@ static jb_err parse_client_request(struct client_state *csp)
       if (csp->iob->cur[0] != '\0')
       {
          csp->flags |= CSP_FLAG_SERVER_SOCKET_TAINTED;
-         if (!strcmpic(csp->http->gpc, "POST"))
+         if (strcmpic(csp->http->gpc, "GET")
+          && strcmpic(csp->http->gpc, "HEAD")
+          && strcmpic(csp->http->gpc, "TRACE")
+          && strcmpic(csp->http->gpc, "OPTIONS")
+          && strcmpic(csp->http->gpc, "DELETE"))
          {
             /* XXX: this is an incomplete hack */
             csp->flags &= ~CSP_FLAG_CLIENT_REQUEST_COMPLETELY_READ;
             log_error(LOG_LEVEL_CONNECT,
-               "POST request detected. The connection will not be kept alive.");
+               "There might be a request body. The connection will not be kept alive.");
          }
          else
          {
