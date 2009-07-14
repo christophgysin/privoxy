@@ -1664,6 +1664,7 @@ static jb_err server_keep_alive(struct client_state *csp, char **header)
             "Server keep-alive timeout is %u. Sticking with %u.",
             keep_alive_timeout, csp->server_connection.keep_alive_timeout);
       }
+      csp->flags |= CSP_FLAG_SERVER_KEEP_ALIVE_TIMEOUT_SET;
    }
 
    return JB_ERR_OK;

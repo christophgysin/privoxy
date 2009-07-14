@@ -2350,6 +2350,14 @@ static void serve(struct client_state *csp)
    {
       chat(csp);
 
+      if ((csp->flags & CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE)
+         && !(csp->flags & CSP_FLAG_SERVER_KEEP_ALIVE_TIMEOUT_SET))
+      {
+         log_error(LOG_LEVEL_CONNECT, "The server didn't specify how long "
+            "the connection will stay open. Assume it's only a second.");
+         csp->server_connection.keep_alive_timeout = 1;
+      }
+
       continue_chatting = (csp->config->feature_flags
          & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
          && (csp->flags & CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE)
