@@ -309,7 +309,7 @@
 <refsect1><title>Notes</title>
 <![%p-not-stable;[
 <para>
- This is a &p-status; version of <command>Privoxy</command>. Not 
+ This is a &p-status; version of <command>Privoxy</command>. Not
  all features are well tested.
 </para>]]>
 <para>
