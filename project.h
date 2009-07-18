@@ -782,6 +782,12 @@ struct reusable_connection
  */
 #define CSP_FLAG_SERVER_SOCKET_TAINTED          0x00040000U
 
+/**
+ * Flag for csp->flags: Set if the Proxy-Connection header
+ * is among the server headers.
+ */
+#define CSP_FLAG_SERVER_PROXY_CONNECTION_HEADER_SET 0x00080000U
+
 /*
  * Flags for use in return codes of child processes
  */
