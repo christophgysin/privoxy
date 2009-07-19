@@ -1811,17 +1811,18 @@ static jb_err client_connection(struct client_state *csp, char **header)
             *header);
          csp->flags &= ~CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
       }
-#endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
    }
-   else
+   else if ((csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE))
    {
-#ifdef FEATURE_CONNECTION_KEEP_ALIVE
       log_error(LOG_LEVEL_HEADER,
          "Keeping the client header '%s' around. "
          "The server connection will be kept alive if possible.",
          *header);
       csp->flags |= CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
-#else
+#endif  /* def FEATURE_CONNECTION_KEEP_ALIVE */
+   }
+   else
+   {
       char *old_header = *header;
 
       *header = strdup(connection_close);
@@ -1832,7 +1833,6 @@ static jb_err client_connection(struct client_state *csp, char **header)
       log_error(LOG_LEVEL_HEADER,
          "Replaced: \'%s\' with \'%s\'", old_header, *header);
       freez(old_header);
-#endif  /* def FEATURE_CONNECTION_KEEP_ALIVE */
    }
 
    /* Signal client_connection_adder() to return early. */
