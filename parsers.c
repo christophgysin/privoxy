@@ -1802,7 +1802,6 @@ static jb_err client_connection(struct client_state *csp, char **header)
                 "Replaced: \'%s\' with \'%s\'", old_header, *header);
              freez(old_header);
           }
-          csp->flags |= CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
       }
       else
       {
