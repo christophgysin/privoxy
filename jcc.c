@@ -1418,7 +1418,8 @@ static jb_err parse_client_request(struct client_state *csp)
    jb_err err;
 
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
-   if ((!strcmpic(csp->http->ver, "HTTP/1.1"))
+   if ((csp->flags & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
+    && (!strcmpic(csp->http->ver, "HTTP/1.1"))
     && (csp->http->ssl == 0))
    {
       /* Assume persistence until further notice */
