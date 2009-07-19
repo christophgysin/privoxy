@@ -1343,6 +1343,12 @@ struct configuration_spec * load_config(void)
             "Config option single-threaded disables connection keep-alive.");
       }
    }
+   else if ((config->feature_flags & RUNTIME_FEATURE_CONNECTION_SHARING))
+   {
+      log_error(LOG_LEVEL_ERROR, "Config option connection-sharing "
+         "has no effect if keep-alive-timeout isn't set.");
+      config->feature_flags &= ~RUNTIME_FEATURE_CONNECTION_SHARING;
+   }
 #endif
 
    if (NULL == config->proxy_args)
