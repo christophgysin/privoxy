@@ -167,6 +167,8 @@ static struct _Pattern
    { "Crunch: Forwarding failed",   STYLE_HIGHLIGHT },
    { "Crunch: Connection failure",  STYLE_HIGHLIGHT },
    { "Crunch: Out of memory",       STYLE_HIGHLIGHT },
+   { "Connect: Found reusable socket",     STYLE_HIGHLIGHT },
+   { "Connect: Created new connection to", STYLE_HIGHLIGHT },
    /* what are all the possible error strings?? */
    { "Error:",                      STYLE_HIGHLIGHT },
    /* http headers */
