@@ -1401,9 +1401,10 @@ sub handle_loglevel_connect ($) {
 
         $c =~ s@(?<=failed: )(.*)@$h{'error'}$1$h{'Standard'}@;
 
-    } elsif ($c =~ m/^to ([^\s]*) successful$/) {
+    } elsif ($c =~ m/^to ([^\s]*)( successful)?$/) {
 
         # Connect: to www.nzherald.co.nz successful
+        # Connect: to archiv.radiotux.de
 
         return '' if SUPPRESS_SUCCESSFUL_CONNECTIONS;
         $c = highlight_matched_host($c, '(?<=to )[^\s]+');
