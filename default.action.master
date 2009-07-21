@@ -641,6 +641,16 @@ standard.Advanced
 /.*\.(js|php|css|.?html?)
 
 #############################################################################
+# These belong to multimedia files of which Firefox occasionally only
+# requests parts. #2816708
+#############################################################################
+{-filter -deanimate-gifs}
+# Sticky Actions = -filter -deanimate-gifs
+# URL = http://www.example.org/foo/bar.ogg
+# URL = http://www.example.net/bar.ogv
+/.*\.og[gv]$
+
+#############################################################################
 # Generic block patterns by host:
 #############################################################################
 {+block{Host matches generic block pattern.}}
