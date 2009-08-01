@@ -3666,8 +3666,7 @@ static jb_err server_http(struct client_state *csp, char **header)
  * Function    :  server_set_cookie
  *
  * Description :  Handle the server "cookie" header properly.
- *                Log cookie to the jar file.  Then "crunch",
- *                accept or rewrite it to a session cookie.
+ *                Crunch, accept or rewrite it to a session cookie.
  *                Called from `sed'.
  *
  *                TODO: Allow the user to specify a new expiration
