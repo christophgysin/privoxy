@@ -1505,7 +1505,7 @@ static jb_err show_defines(struct map *exports)
 
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
    if (!err) err = map_conditional(exports, "FEATURE_CONNECTION_KEEP_ALIVE", 1);
-#else /* ifndef FEATURE_CGI_EDIT_ACTIONS */
+#else /* ifndef FEATURE_CONNECTION_KEEP_ALIVE */
    if (!err) err = map_conditional(exports, "FEATURE_CONNECTION_KEEP_ALIVE", 0);
 #endif /* ndef FEATURE_CONNECTION_KEEP_ALIVE */
 
