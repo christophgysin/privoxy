@@ -878,11 +878,17 @@ struct client_state
    unsigned long long content_length;
 
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
+   /* XXX: is this the right location? */
+
    /** Expected length of content after which we
     * should stop reading from the server socket.
     */
-   /* XXX: is this the right location? */
    unsigned long long expected_content_length;
+
+   /** Expected length of content after which we
+    *  should stop reading from the client socket.
+    */
+   unsigned long long expected_client_content_length;
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
 
 #ifdef FEATURE_TRUST

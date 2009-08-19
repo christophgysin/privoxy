@@ -2398,6 +2398,7 @@ static void serve(struct client_state *csp)
             csp->content_type = 0;
             csp->content_length = 0;
             csp->expected_content_length = 0;
+            csp->expected_client_content_length = 0;
             list_remove_all(csp->headers);
             freez(csp->iob->buf);
             memset(csp->iob, 0, sizeof(csp->iob));
