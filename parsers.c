@@ -653,7 +653,6 @@ jb_err decompress_iob(struct client_state *csp)
           */
          assert(zstr.avail_out == tmpbuf + bufsize - (char *)zstr.next_out);
          assert((char *)zstr.next_out == tmpbuf + ((char *)oldnext_out - buf));
-         assert(zstr.avail_out > 0U);
 
          buf = tmpbuf;
       }
