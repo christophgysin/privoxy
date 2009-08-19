@@ -685,7 +685,7 @@ static jb_socket socks4_connect(const struct forward_spec * fwd,
                                 int target_port,
                                 struct client_state *csp)
 {
-   unsigned int web_server_addr;
+   unsigned long web_server_addr;
    char buf[BUFFER_SIZE];
    struct socks_op    *c = (struct socks_op    *)buf;
    struct socks_reply *s = (struct socks_reply *)buf;
