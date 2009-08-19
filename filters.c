@@ -419,14 +419,15 @@ int acl_addr(const char *aspec, struct access_control_addr *aca)
    hints.ai_socktype = SOCK_STREAM;
 
    i = getaddrinfo(acl_spec, ((p) ? ++p : NULL), &hints, &result);
-   freez(acl_spec);
 
    if (i != 0)
    {
       log_error(LOG_LEVEL_ERROR, "Can not resolve [%s]:%s: %s",
          acl_spec, p, gai_strerror(i));
+      freez(acl_spec);
       return(-1);
    }
+   freez(acl_spec);
 
    /* TODO: Allow multihomed hostnames */
    memcpy(&(aca->addr), result->ai_addr, result->ai_addrlen);
