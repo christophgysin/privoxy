@@ -348,7 +348,7 @@ static pcrs_substitute *pcrs_compile_replacement(const char *replacement, int tr
                }
                else /* $' or $` */
                {
-                  r->backref[l] = PCRS_MAX_SUBMATCHES + 1 - (symbol - symbols);
+                  r->backref[l] = (int)(PCRS_MAX_SUBMATCHES + 1 - (symbol - symbols));
                }
                i += 2;
             }
