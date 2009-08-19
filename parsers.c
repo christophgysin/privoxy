@@ -586,7 +586,7 @@ jb_err decompress_iob(struct client_state *csp)
 
    assert(bufsize >= skip_size);
    memcpy(buf, csp->iob->buf, skip_size);
-   zstr.avail_out = bufsize - skip_size;
+   zstr.avail_out = (uInt)(bufsize - skip_size);
    zstr.next_out  = (Bytef *)buf + skip_size;
 
    /* Try to decompress the whole stream in one shot. */
@@ -644,7 +644,7 @@ jb_err decompress_iob(struct client_state *csp)
           * buffer, which may be in a location different from
           * the old one.
           */
-         zstr.avail_out += bufsize - oldbufsize;
+         zstr.avail_out += (uInt)(bufsize - oldbufsize);
          zstr.next_out   = (Bytef *)tmpbuf + bufsize - zstr.avail_out;
 
          /*
