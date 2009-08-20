@@ -1594,6 +1594,12 @@ sub handle_loglevel_connect ($) {
 
         $c =~ s@(?<=server socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Reduced expected bytes to /) {
+
+        # Reduced expected bytes to 0 to account for the 1542 ones we already got.
+        $c =~ s@(?<=bytes to )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=for the )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Looks like we rea/ or
              $c =~ m/^Unsetting keep-alive flag/ or
              $c =~ m/^No connections to wait/ or
