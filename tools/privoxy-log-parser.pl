@@ -1789,6 +1789,22 @@ sub handle_loglevel_force ($) {
     return $c;
 }
 
+sub handle_loglevel_error ($) {
+
+    my $c = shift;
+    our %h;
+
+    if ($c =~ m/^Empty server or forwarder response received on socket \d+./) {
+
+        # Empty server or forwarder response received on socket 4.
+        $c =~ s@(?<=on socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+    }
+    # XXX: There are probably more messages that deserve highlighting.
+
+    return $c;
+}
+
+
 sub handle_loglevel_ignore ($) {
     return shift;
 }
@@ -1890,7 +1906,7 @@ sub parse_loop () {
         'Info'              => \&handle_loglevel_info,
         'CGI'               => \&handle_loglevel_cgi,
         'Force'             => \&handle_loglevel_force,
-        'Error'             => \&handle_loglevel_ignore,
+        'Error'             => \&handle_loglevel_error,
         'Fatal error'       => \&handle_loglevel_ignore,
         'Writing'           => \&handle_loglevel_ignore,
         'Unknown log level' => \&handle_loglevel_ignore,
