@@ -1791,8 +1791,6 @@ static jb_err client_save_content_length(struct client_state *csp, char **header
    }
    else
    {
-      log_error(LOG_LEVEL_CONNECT,
-         "Setting client content lenght %llu", content_length);
       csp->expected_client_content_length = content_length;
    }
 
