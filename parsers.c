@@ -1774,6 +1774,7 @@ static jb_err get_content_length(const char *header, unsigned long long *length)
    assert(header[14] == ':');
 
 #ifdef _WIN32
+   assert(sizeof(unsigned long long) > 4);
    if (1 != sscanf(header+14, ": %I64u", length))
 #else
    if (1 != sscanf(header+14, ": %llu", length))
