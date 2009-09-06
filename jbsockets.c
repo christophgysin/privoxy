@@ -565,7 +565,7 @@ int read_socket(jb_socket fd, char *buf, int len)
 #elif defined(__BEOS__) || defined(AMIGA) || defined(__OS2__)
    return(recv(fd, buf, (size_t)len, 0));
 #else
-   return(read(fd, buf, (size_t)len));
+   return((int)read(fd, buf, (size_t)len));
 #endif
 }
 
