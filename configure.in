@@ -897,9 +897,11 @@ else
   STATIC_PCRE_ONLY=
 fi
 
+AC_DEFINE(FEATURE_CONNECTION_KEEP_ALIVE)
+
 if test $have_pthread = "yes" -o $target_type = "mingw"; then
-  echo Enabling keep-alive support for outgoing connections.
-  AC_DEFINE(FEATURE_CONNECTION_KEEP_ALIVE)
+  echo Enabling connection-sharing support.
+  AC_DEFINE(FEATURE_CONNECTION_SHARING)
 fi
 
 dnl =================================================
