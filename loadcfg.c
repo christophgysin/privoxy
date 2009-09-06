@@ -500,7 +500,7 @@ struct configuration_spec * load_config(void)
 /* *************************************************************************
  * connection-sharing (0|1)
  * *************************************************************************/
-#ifdef FEATURE_CONNECTION_KEEP_ALIVE
+#ifdef FEATURE_CONNECTION_SHARING
          case hash_connection_sharing :
             if ((*arg != '\0') && (0 != atoi(arg)))
             {
@@ -1321,7 +1321,7 @@ struct configuration_spec * load_config(void)
       }
    }
 
-#ifdef FEATURE_CONNECTION_KEEP_ALIVE
+#ifdef FEATURE_CONNECTION_SHARING
    if (config->feature_flags & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
    {
       if (config->multi_threaded)
@@ -1349,7 +1349,7 @@ struct configuration_spec * load_config(void)
          "has no effect if keep-alive-timeout isn't set.");
       config->feature_flags &= ~RUNTIME_FEATURE_CONNECTION_SHARING;
    }
-#endif
+#endif /* def FEATURE_CONNECTION_SHARING */
 
    if (NULL == config->proxy_args)
    {
