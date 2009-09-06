@@ -1847,14 +1847,6 @@ static void chat(struct client_state *csp)
       else
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
       {
-#ifdef FEATURE_CONNECTION_KEEP_ALIVE
-         if (http->ssl == 0)
-         {
-            log_error(LOG_LEVEL_CONNECT,
-               "Allowing the client to continue talking. "
-               "Expecting %llu bytes.", csp->expected_client_content_length);
-         }
-#endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
          FD_SET(csp->cfd, &rfds);
       }
 
