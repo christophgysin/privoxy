@@ -1509,6 +1509,12 @@ static jb_err show_defines(struct map *exports)
    if (!err) err = map_conditional(exports, "FEATURE_CONNECTION_KEEP_ALIVE", 0);
 #endif /* ndef FEATURE_CONNECTION_KEEP_ALIVE */
 
+#ifdef FEATURE_CONNECTION_SHARING
+   if (!err) err = map_conditional(exports, "FEATURE_CONNECTION_SHARING", 1);
+#else /* ifndef FEATURE_CONNECTION_SHARING */
+   if (!err) err = map_conditional(exports, "FEATURE_CONNECTION_SHARING", 0);
+#endif /* ndef FEATURE_CONNECTION_SHARING */
+
 #ifdef FEATURE_FAST_REDIRECTS
    if (!err) err = map_conditional(exports, "FEATURE_FAST_REDIRECTS", 1);
 #else /* ifndef FEATURE_FAST_REDIRECTS */
