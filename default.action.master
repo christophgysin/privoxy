@@ -1673,6 +1673,9 @@ lads.myspacecdn.com/
 .phobos.apple.com/
 # URL = http://eas8.emediate.eu/eas?camp=114;ty=ct;EASLink=http://www.jp.dk
 .emediate.eu/.*EASLink=
+#MASTER# REMARKS: Actionfile tracker ID: 2838501:  2009-08-16
+# URL = http://new.meteo.pl/advajax.js
+.meteo.pl/advajax\.js
 
 
 
