@@ -61,7 +61,7 @@ extern const char *configfile;
  * we need to have these globally available.
  */
 extern int Argc;
-extern const char **Argv;
+extern char * const * Argv;
 extern short int MustReload;
 
 

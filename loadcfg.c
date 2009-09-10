@@ -111,7 +111,7 @@ const char *configfile  = NULL;
  * so we will make argc and argv global.
  */
 int Argc = 0;
-const char **Argv = NULL;
+char * const * Argv = NULL;
 
 static struct file_list *current_configfile = NULL;
 
