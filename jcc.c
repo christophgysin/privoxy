@@ -2783,9 +2783,9 @@ static void initialize_mutexes(void)
  *
  *********************************************************************/
 #ifdef __MINGW32__
-int real_main(int argc, const char *argv[])
+int real_main(int argc, char **argv)
 #else
-int main(int argc, const char *argv[])
+int main(int argc, char **argv)
 #endif
 {
    int argc_pos = 0;
