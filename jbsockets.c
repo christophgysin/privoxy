@@ -586,6 +586,7 @@ int read_socket(jb_socket fd, char *buf, int len)
  *********************************************************************/
 int data_is_available(jb_socket fd, int seconds_to_wait)
 {
+   char buf[10];
    fd_set rfds;
    struct timeval timeout;
    int n;
@@ -606,7 +607,7 @@ int data_is_available(jb_socket fd, int seconds_to_wait)
    /*
     * XXX: Do we care about the different error conditions?
     */
-   return (n == 1);
+   return ((n == 1) && (1 == recv(fd, buf, 1, MSG_PEEK)));
 }
 
 
