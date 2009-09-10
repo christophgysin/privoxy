@@ -1531,9 +1531,13 @@ sub handle_loglevel_connect ($) {
 
         # Done reading from server. Expected content length: 24892. \
         #  Actual content length: 24892. Most recently received: 4412.
+        # 3.0.15 and later:
+        # Done reading from server. Expected content length: 24892. \
+        #  Actual content length: 24892. Bytes most recently read: 4412.
         $c =~ s@(?<=Expected content length: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=Actual content length: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=received: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=read: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Continuing buffering headers/) {
 
@@ -1541,6 +1545,9 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=byte_count: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=header_offset: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=len: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        # 3.0.15 and later:
+        # Continuing buffering headers. Bytes most recently read: %d.
+        $c =~ s@(?<=read: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Received \d+ bytes while/) {
 
