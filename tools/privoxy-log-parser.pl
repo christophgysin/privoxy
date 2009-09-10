@@ -1511,11 +1511,15 @@ sub handle_loglevel_connect ($) {
     } elsif ($c =~ m/^The connection to/) {
 
         # The connection to www.privoxy.org:80 in slot 6 timed out. Closing socket 19. Timeout is: 61.
+        # 3.0.15 and later:
+        # The connection to 1.bp.blogspot.com:80 in slot 0 timed out. Closing socket 5.\
+        #  Timeout is: 1. Assumed latency: 4.
         # The connection to 10.0.0.1:80 in slot 0 is no longer usable. Closing socket 4.
         $c = highlight_matched_host($c, '(?<=connection to )[^\s]+');
         $c =~ s@(?<=in slot )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=Closing socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=Timeout is: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=Assumed latency: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Waiting for \d/) {
 
