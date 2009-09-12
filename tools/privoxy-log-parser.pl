@@ -1538,8 +1538,9 @@ sub handle_loglevel_connect ($) {
         # 3.0.15 and later:
         # Done reading from server. Expected content length: 24892. \
         #  Actual content length: 24892. Bytes most recently read: 4412.
-        $c =~ s@(?<=Expected content length: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
-        $c =~ s@(?<=Actual content length: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        # Done reading from server. Content length: 6018 as expected. \
+        #  Bytes most recently read: 294.
+        $c =~ s@(?<=ontent length: )(\d+)@$h{'Number'}$1$h{'Standard'}@g;
         $c =~ s@(?<=received: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=read: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
