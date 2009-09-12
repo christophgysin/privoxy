@@ -1611,6 +1611,12 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=bytes to )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=for the )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^The client closed socket /) {
+
+        # The client closed socket 2 while the server socket 4 is still open.
+        $c =~ s@(?<=closed socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=server socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Looks like we rea/ or
              $c =~ m/^Unsetting keep-alive flag/ or
              $c =~ m/^No connections to wait/ or
