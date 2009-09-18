@@ -2479,11 +2479,15 @@ static void serve(struct client_state *csp)
    static int monitor_thread_running = 0;
 #endif /* def FEATURE_CONNECTION_SHARING */
    int continue_chatting = 0;
-   unsigned int latency = 0;
 
    do
    {
+      unsigned int latency;
+
       chat(csp);
+
+      latency = (unsigned)(csp->server_connection.response_received -
+         csp->server_connection.request_sent);
 
       continue_chatting = (csp->config->feature_flags
          & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
