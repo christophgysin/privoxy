@@ -1330,6 +1330,7 @@ static jb_err receive_client_request(struct client_state *csp)
    req = get_request_line(csp);
    if (req == NULL)
    {
+      mark_server_socket_tainted(csp);
       return JB_ERR_PARSE;
    }
    assert(*req != '\0');
