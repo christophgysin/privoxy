@@ -2563,7 +2563,7 @@ static void serve(struct client_state *csp)
                   break;
                }
 
-               remember_connection(csp, forward_url(csp, csp->http));
+               remember_connection(&csp->server_connection);
                csp->sfd = JB_INVALID_SOCKET;
                close_socket(csp->cfd);
                csp->cfd = JB_INVALID_SOCKET;
