@@ -788,6 +788,11 @@ struct reusable_connection
  */
 #define CSP_FLAG_SERVER_PROXY_CONNECTION_HEADER_SET 0x00080000U
 
+/**
+ * Flag for csp->flags: Set if the client reused its connection.
+ */
+#define CSP_FLAG_REUSED_CLIENT_CONNECTION           0x00100000U
+
 /*
  * Flags for use in return codes of child processes
  */
