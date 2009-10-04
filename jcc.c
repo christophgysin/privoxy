@@ -1265,8 +1265,9 @@ static char *get_request_line(struct client_state *csp)
    {
       if (!data_is_available(csp->cfd, csp->config->socket_timeout))
       {
-         log_error(LOG_LEVEL_ERROR,
-            "Stopped waiting for the request line.");
+         log_error(LOG_LEVEL_CONNECT,
+            "Stopped waiting for the request line. Timeout: %d.",
+            csp->config->socket_timeout);
          write_socket(csp->cfd, CLIENT_CONNECTION_TIMEOUT_RESPONSE,
             strlen(CLIENT_CONNECTION_TIMEOUT_RESPONSE));
          return NULL;
