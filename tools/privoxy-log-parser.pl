@@ -1520,6 +1520,11 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=Timeout is: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=Assumed latency: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Stopped waiting for the request line./) {
+
+        # Stopped waiting for the request line. Timeout: 121.
+        $c =~ s@(?<=Timeout: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Waiting for \d/) {
 
         # Waiting for 1 connections to timeout.
