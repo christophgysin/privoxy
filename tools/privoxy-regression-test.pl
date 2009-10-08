@@ -1491,7 +1491,7 @@ sub parse_cli_options () {
         'fuzzer-address=s'   => \$cli_options{'fuzzer-address'},
         'fuzzer-feeding'     => \$cli_options{'fuzzer-feeding'},
         'header-fuzzing'     => \$cli_options{'header-fuzzing'},
-        'help'               => sub {help},
+        'help'               => \&help,
         'level=s'            => \$cli_options{'level'},
         'loops=s'            => \$cli_options{'loops'},
         'max-level=s'        => \$cli_options{'max-level'},
