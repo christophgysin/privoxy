@@ -2242,11 +2242,34 @@ sub get_cli_options () {
         'show-ineffective-filters' => \$cli_options{'show-ineffective-filters'},
         'accept-unknown-messages'  => \$cli_options{'accept-unknown-messages'},
         'statistics'               => \$cli_options{'statistics'},
-        'version'                  => sub { VersionMessage && exit(0) }
+        'version'                  => sub { VersionMessage && exit(0) },
+        'help'                     => \&help,
    );
 }
 
+sub help () {
 
+    our %cli_options;
+
+    VersionMessage();
+
+    print << "    EOF"
+
+Options and their default values if they have any:
+    [--accept-unknown-messages]
+    [--html-output]
+    [--no-embedded-css]
+    [--no-msecs]
+    [--no-syntax-highlighting]
+    [--show-ineffective-filters]
+    [--statistics]
+    [--title $cli_options{'title'}]
+    [--version]
+see "perldoc $0" for more information
+    EOF
+    ;
+    exit(0);
+}
 
 ################################################################################
 # main
