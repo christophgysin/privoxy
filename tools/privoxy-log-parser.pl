@@ -1480,9 +1480,15 @@ sub handle_loglevel_connect ($) {
     } elsif ($c =~ m/^Found reusable socket/) {
 
         # Found reusable socket 9 for www.privoxy.org:80 in slot 0.
+        # 3.0.15 and later:
+        # Found reusable socket 8 for www.privoxy.org:80 in slot 2.\
+        #  Timestamp made 0 seconds ago. Timeout: 1. Latency: 0.
         $c =~ s@(?<=Found reusable socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c = highlight_matched_host($c, '(?<=for )[^\s]+');
         $c =~ s@(?<=in slot )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=made )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=Timeout: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=Latency: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Marking open socket/) {
 
