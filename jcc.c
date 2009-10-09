@@ -1603,7 +1603,9 @@ static void chat(struct client_state *csp)
    /* Skeleton for HTTP response, if we should intercept the request */
    struct http_response *rsp;
    struct timeval timeout;
+#ifdef FEATURE_CONNECTION_KEEP_ALIVE
    int watch_client_socket = 1;
+#endif
 
    memset(buf, 0, sizeof(buf));
 
