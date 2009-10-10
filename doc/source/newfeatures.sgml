@@ -35,8 +35,7 @@
  <listitem>
   <para>
      Supports "Connection: keep-alive". Outgoing connections can
-     be kept alive independently from the client. Currently not
-     available on all platforms.
+     be kept alive independently from the client.
   </para>
  </listitem>
 
