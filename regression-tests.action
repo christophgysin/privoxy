@@ -685,8 +685,6 @@ TAG:^Max-Forwards header without TRACE method$
 # Level = 9
 # Fetch Test = http://p.p/user-manual/templates.html
 # Level = 9
-# Fetch Test = http://p.p/user-manual/upgradersnote.html
-# Level = 9
 # Fetch Test = http://p.p/user-manual/whatsnew.html
 # Level = 9
 
