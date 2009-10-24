@@ -1676,6 +1676,12 @@ lads.myspacecdn.com/
 #MASTER# REMARKS: Actionfile tracker ID: 2838501:  2009-08-16
 # URL = http://new.meteo.pl/advajax.js
 .meteo.pl/advajax\.js
+# URL = http://www.adressa.no/
+# URL = http://adressa.no/
+adressa.no/
+# URL = http://www.adresseavisen.no/
+# URL = http://adresseavisen.no/
+adresseavisen.no/
 
 
 
