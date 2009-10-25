@@ -689,7 +689,9 @@ struct http_response *block_url(struct client_state *csp)
       }
 #endif /* Preceeding code is disabled for now */
    }
-   else if(csp->action->flags & ACTION_HANDLE_AS_EMPTY_DOCUMENT)
+   else
+#endif /* def FEATURE_IMAGE_BLOCKING */
+   if(csp->action->flags & ACTION_HANDLE_AS_EMPTY_DOCUMENT)
    {
      /*
       *  Send empty document.               
@@ -717,7 +719,6 @@ struct http_response *block_url(struct client_state *csp)
       }
    }
    else
-#endif /* def FEATURE_IMAGE_BLOCKING */
 
    /*
     * Else, generate an HTML "blocked" message:
