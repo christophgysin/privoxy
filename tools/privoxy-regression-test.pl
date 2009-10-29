@@ -818,7 +818,10 @@ sub get_final_results ($) {
         next unless ($final_results_reached);
         last if (m@</td>@);
 
-        if (m@<br>([-+])<a.*>([^>]*)</a>(?: (\{.*\}))?@) {
+        # Privoxy versions before 3.0.16 add a space
+        # between action name and parameters, therefore
+        # the " ?".
+        if (m@<br>([-+])<a.*>([^>]*)</a>(?: ?(\{.*\}))?@) {
             my $action = $1.$2;
             my $parameter = $3;
             
