@@ -1362,7 +1362,7 @@ char *add_help_link(const char *item,
    string_join  (&result, string_toupper(item));
    string_append(&result, "\">");
    string_append(&result, item);
-   string_append(&result, "</a> ");
+   string_append(&result, "</a>");
 
    return result;
 }
