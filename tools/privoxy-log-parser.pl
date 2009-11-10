@@ -2268,7 +2268,7 @@ sub get_cli_options () {
         'statistics'               => \$cli_options{'statistics'},
         'version'                  => sub { VersionMessage && exit(0) },
         'help'                     => \&help,
-   );
+   ) or exit(1);
 }
 
 sub help () {

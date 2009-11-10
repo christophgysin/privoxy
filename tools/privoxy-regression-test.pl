@@ -1497,7 +1497,7 @@ sub parse_cli_options () {
         'test-number=s'      => \$cli_options{'test-number'},
         'verbose'            => \$cli_options{'verbose'},
         'version'            => sub {print_version && exit(0)}
-    );
+    ) or exit(1);
     $log_level |= $cli_options{'debug'};
 }
 
