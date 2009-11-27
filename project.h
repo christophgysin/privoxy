@@ -1257,6 +1257,9 @@ struct configuration_spec
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
    /* Maximum number of seconds after which an open connection will no longer be reused. */
    unsigned int keep_alive_timeout;
+
+   /* Assumed server-side keep alive timeout if none is specified. */
+   unsigned int default_server_timeout;
 #endif
 
    /** All options from the config file, HTML-formatted. */
