@@ -691,7 +691,7 @@ int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
    }
 
    memset(&hints, 0, sizeof(struct addrinfo));
-   if ((hostnam == NULL) || !strcmpic(hostnam, "localhost"))
+   if (hostnam == NULL)
    {
       /*
        * XXX: This is a hack. The right thing to do
