@@ -1240,9 +1240,7 @@ actionsfile
     bind to all IPv4 interfaces (addresses) on your machine and may become reachable
     from the Internet. In that case, consider using <link
     linkend="acls">access control lists</link> (ACL's, see below), and/or
-    a firewall. If the hostname is localhost, <application>Privoxy</application>
-    will explicitly try to bind to an IPv4 address. For other hostnames it depends
-    on the operating system which IP version will be used.
+    a firewall.
    </para>
    <para>
     If you open <application>Privoxy</application> to untrusted users, you will
