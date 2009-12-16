@@ -1491,6 +1491,12 @@ static jb_err show_defines(struct map *exports)
 {
    jb_err err = JB_ERR_OK;
 
+#ifdef FEATURE_ACCEPT_FILTER
+   if (!err) err = map_conditional(exports, "FEATURE_ACCEPT_FILTER", 1);
+#else /* ifndef FEATURE_ACCEPT_FILTER */
+   if (!err) err = map_conditional(exports, "FEATURE_ACCEPT_FILTER", 0);
+#endif /* ndef FEATURE_ACCEPT_FILTER */
+
 #ifdef FEATURE_ACL
    if (!err) err = map_conditional(exports, "FEATURE_ACL", 1);
 #else /* ifndef FEATURE_ACL */
