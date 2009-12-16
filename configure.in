@@ -848,6 +848,12 @@ AC_ARG_ENABLE(extended-host-patterns,
   AC_DEFINE(FEATURE_EXTENDED_HOST_PATTERNS)
 fi])
 
+AC_ARG_ENABLE(accept-filter,
+[  --enable-accept-filter          Try to use accf_http(9) if supported.],
+[if test $enableval = yes; then
+  AC_DEFINE(FEATURE_ACCEPT_FILTER)
+fi])
+
 dnl pcre/pcrs is needed for CGI anyway, so
 dnl the choice is only between static and
 dnl dynamic:
