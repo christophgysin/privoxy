@@ -3811,6 +3811,17 @@ static jb_err server_set_cookie(struct client_state *csp, char **header)
          {
             char *expiration_date = cur_tag + 8; /* Skip "[Ee]xpires=" */
 
+            if ((expiration_date[0] == '"')
+             && (expiration_date[1] != '\0'))
+            {
+               /*
+                * Skip quotation mark. RFC 2109 10.1.2 seems to hint
+                * that the expiration date isn't supposed to be quoted,
+                * but some servers do it anyway.
+                */
+               expiration_date++;
+            }
+
             /* Did we detect the date properly? */
             if (JB_ERR_OK != parse_header_time(expiration_date, &cookie_time))
             {
