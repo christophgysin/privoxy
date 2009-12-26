@@ -342,6 +342,21 @@ void init_error_log(const char *prog_name, const char *logfname)
    {
       fclose(logfp);
    }
+#ifdef unix
+   if (!no_daemon && (logfp == stderr))
+   {
+      if (dup2(1, 2) == -1)
+      {
+         /*
+          * We only use fatal_error() to clear the pid
+          * file and to exit. Given that stderr has just
+          * been closed, the user will not see the error
+          * message.
+          */
+         fatal_error("Failed to reserve fd 2.");
+      }
+   }
+#endif
    logfp = fp;
    unlock_logfile();
 
