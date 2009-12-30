@@ -457,12 +457,7 @@ sub print_outro () {
 }
 
 sub get_line_end () {
-
-    my $line_end = "\n";
-
-    $line_end = '<br>' . $line_end if $html_output_mode;
-
-    return $line_end;
+    return cli_option_is_set('html-output') ? "<br>\n" : "\n";
 }
 
 sub get_colour_html_markup ($) {
