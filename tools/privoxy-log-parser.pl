@@ -2074,12 +2074,11 @@ sub parse_loop () {
             } else {
 
                 die "No handler found for log level \"$log_level\"\n";
-
             }
 
-            # Highlight Truncations    
-            if (m/\.\.\. \[(too long, truncated)/) {
-                $content =~ s@($1)@$h{'Truncation'}$1$h{'Standard'}@g;
+            # Highlight Truncations
+            if (length($_) > 4000) {
+                $content =~ s@(too long, truncated)]$@$h{'Truncation'}$1$h{'Standard'}]@g;
             }
 
             next unless $content;
