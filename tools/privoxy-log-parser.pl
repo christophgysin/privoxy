@@ -784,25 +784,7 @@ sub handle_loglevel_header ($) {
 
     if ($c =~ /^scan:/) {
 
-        if ($c =~ m/^scan: ((\w+) (.+) (HTTP\/\d\.\d))/) {
-
-            # Client request line
-            # Save for statistics (XXX: Not implemented yet)
-            $req{$t}{'method'} = $2;
-            $req{$t}{'destination'} = $3;
-            $req{$t}{'http-version'} = $4;
-
-            $c = highlight_request_line($1);
-
-        } elsif ($c =~ m/^(scan: )((?:HTTP\/\d\.\d|ICY) (\d+) (.*))/) {
-
-            # Server response line
-            $req{$t}{'response_line'} = $2;
-            $req{$t}{'status_code'} = $3;
-            $req{$t}{'status_message'} = $4;
-            $c = $1 . highlight_response_line($req{$t}{'response_line'});
-
-        } elsif ($c =~ m/^scan: ((?>[^:]+)):/) {
+        if ($c =~ m/^scan: ([^: ]+):/) {
 
             # Register new headers
             # scan: Accept: image/png,image/*;q=0.8,*/*;q=0.5
@@ -819,6 +801,23 @@ sub handle_loglevel_header ($) {
                 update_header_highlight_regex($header);
             }
 
+        } elsif ($c =~ m/^scan: ((\w+) (.+) (HTTP\/\d\.\d))/) {
+
+            # Client request line
+            # Save for statistics (XXX: Not implemented yet)
+            $req{$t}{'method'} = $2;
+            $req{$t}{'destination'} = $3;
+            $req{$t}{'http-version'} = $4;
+
+            $c = highlight_request_line($1);
+
+        } elsif ($c =~ m/^(scan: )((?:HTTP\/\d\.\d|ICY) (\d+) (.*))/) {
+
+            # Server response line
+            $req{$t}{'response_line'} = $2;
+            $req{$t}{'status_code'} = $3;
+            $req{$t}{'status_message'} = $4;
+            $c = $1 . highlight_response_line($req{$t}{'response_line'});
         }
 
     } elsif ($c =~ m/^Crunching (?:server|client) header: .* \(contains: ([^\)]*)\)/) {
