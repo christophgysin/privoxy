@@ -965,7 +965,7 @@ struct configuration_spec * load_config(void)
  * In logdir by default
  * *************************************************************************/
          case hash_logfile :
-            if (!no_daemon)
+            if (daemon_mode)
             {
                logfile = make_path(config->logdir, arg);
                if (NULL == logfile)
@@ -1331,7 +1331,7 @@ struct configuration_spec * load_config(void)
 
    freez(config->logfile);
 
-   if (!no_daemon)
+   if (daemon_mode)
    {
       if (NULL != logfile)
       {

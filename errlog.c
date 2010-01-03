@@ -343,7 +343,7 @@ void init_error_log(const char *prog_name, const char *logfname)
       fclose(logfp);
    }
 #ifdef unix
-   if (!no_daemon && (logfp == stderr))
+   if (daemon_mode && (logfp == stderr))
    {
       if (dup2(1, 2) == -1)
       {
