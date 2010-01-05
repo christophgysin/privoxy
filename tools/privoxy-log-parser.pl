@@ -828,9 +828,9 @@ sub handle_loglevel_header ($) {
 
     } elsif ($c =~ m/^New host is: ([^\s]*)\./) {
 
-        # New host is: trac.vidalia-project.net. Crunching Referer: http://www.vidalia-project.net/
-        $c = highlight_matched_host($c, '(?<=New host is: )[^\s]+');
-        $c = highlight_matched_url($c, '(?<=Crunching Referer: )[^\s]+');
+        # New host is: trac.vidalia-project.net. Crunching Referer: http://www.vidalia-project.net/!
+        $c = highlight_matched_host($c, '(?<=New host is: )[^\s]+(?=\.)');
+        $c = highlight_matched_url($c, '(?<=Crunching Referer: )[^\s!]+');
 
     } elsif ($c =~ m/^Text mode enabled by force. (Take cover)!/) {
 
