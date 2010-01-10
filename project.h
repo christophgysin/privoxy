@@ -1148,6 +1148,9 @@ struct access_control_list
 /** configuration_spec::feature_flags: Share outgoing connections between different client connections. */
 #define RUNTIME_FEATURE_CONNECTION_SHARING         256U
 
+/** configuration_spec::feature_flags: Pages blocked with +handle-as-empty-doc get a return status of 200 OK. */
+#define RUNTIME_FEATURE_EMPTY_DOC_RETURNS_OK       512U
+
 /**
  * Data loaded from the configuration file.
  *
@@ -1174,6 +1177,7 @@ struct configuration_spec
     * - RUNTIME_FEATURE_CGI_CRUNCHING
     * - RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE
     * - RUNTIME_FEATURE_CONNECTION_SHARING
+    * - RUNTIME_FEATURE_EMPTY_DOC_RETURNS_OK
     */
    unsigned feature_flags;
 

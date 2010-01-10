@@ -2868,6 +2868,64 @@ forward-socks4, forward-socks4a and forward-socks5</title>
 </sect3>
 
 
+<sect3 renderas="sect4" id="handle-as-empty-doc-returns-ok"><title>handle-as-empty-doc-returns-ok</title>
+<variablelist>
+ <varlistentry>
+  <term>Note:</term>
+  <listitem>
+   <para>
+    This is a work-around for Firefox bug 492459:
+    <quote>
+    Websites are no longer rendered if SSL requests for JavaScripts are blocked by a proxy.
+    </quote>
+    (<link linkend="https://bugzilla.mozilla.org/show_bug.cgi?id=492459">
+                    https://bugzilla.mozilla.org/show_bug.cgi?id=492459</link>)
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Specifies:</term>
+  <listitem>
+   <para>
+    The status code Privoxy returns for pages blocked with
+    <literal><link linkend="handle-as-empty-document">+handle-as-empty-document</link></literal>.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Type of value:</term>
+  <listitem>
+   <para>
+    <replaceable>0 or 1</replaceable>
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Default value:</term>
+  <listitem>
+   <para>0</para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Effect if unset:</term>
+  <listitem>
+   <para>
+    Privoxy returns a status 403(forbidden) for all blocked pages.
+   </para>
+  </listitem>
+  <term>Effect if set:</term>
+  <listitem>
+   <para>
+    Privoxy returns a status 200(OK) for pages blocked with +handle-as-empty-document
+    and a status 403(Forbidden) for all other blocked pages.
+   </para>
+  </listitem>
+ </varlistentry>
+</variablelist>
+<![%config-file;[<literallayout>@@#handle-as-empty-doc-returns-ok 0</literallayout>]]>
+</sect3>
+
+
 </sect2>
 
 <!--  ~  End section  ~  -->
