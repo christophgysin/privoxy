@@ -2125,7 +2125,7 @@ sub parse_loop () {
 
 sub stats_loop () {
 
-    my ($day, $time_stamp, $thread, $log_level, $content, $c, $msecs);
+    my ($day, $time_stamp, $msecs, $thread, $log_level, $content);
     my %log_level_handlers = (
          'Re-Filter'         => \&handle_loglevel_ignore,
          'Header'            => \&gather_loglevel_header_stats,
@@ -2148,9 +2148,9 @@ sub stats_loop () {
             $day = $1;
             $time_stamp = $2;
             $msecs = $3 ? $3 : 0;
-            $log_level = $5;
-            $content = $c = $6;
             $thread = $4;
+            $log_level = $5;
+            $content = $6;
 
             if (defined($log_level_handlers{$log_level})) {
 
