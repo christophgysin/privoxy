@@ -1872,8 +1872,7 @@ sub gather_loglevel_error_stats ($$) {
 
 sub gather_loglevel_connect_stats ($$) {
 
-    my $c = shift;
-    my $thread = shift;
+    my ($c, $thread) = @_;
     our %thread_data;
     our %stats;
 
@@ -1905,10 +1904,9 @@ sub gather_loglevel_connect_stats ($$) {
     }
 }
 
-sub gather_loglevel_header_stats ($) {
+sub gather_loglevel_header_stats ($$) {
 
-    my $c = shift;
-    my $thread = shift;
+    my ($c, $thread) = @_;
     our %stats;
 
     if ($c =~ m/^A HTTP\/1\.1 response without/ or
