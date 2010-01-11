@@ -2878,8 +2878,8 @@ forward-socks4, forward-socks4a and forward-socks5</title>
     <quote>
     Websites are no longer rendered if SSL requests for JavaScripts are blocked by a proxy.
     </quote>
-    (<link linkend="https://bugzilla.mozilla.org/show_bug.cgi?id=492459">
-                    https://bugzilla.mozilla.org/show_bug.cgi?id=492459</link>)
+    (<ulink url="https://bugzilla.mozilla.org/show_bug.cgi?id=492459"
+	>https://bugzilla.mozilla.org/show_bug.cgi?id=492459</ulink>)
    </para>
   </listitem>
  </varlistentry>
@@ -2913,6 +2913,8 @@ forward-socks4, forward-socks4a and forward-socks5</title>
     Privoxy returns a status 403(forbidden) for all blocked pages.
    </para>
   </listitem>
+ </varlistentry>
+ <varlistentry>
   <term>Effect if set:</term>
   <listitem>
    <para>
