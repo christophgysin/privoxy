@@ -56,9 +56,9 @@ use constant {
    # are too lazy to check, but want to change them anyway, take the values you
    # see in the "Help/About Mozilla Firefox" menu.
 
-   BROWSER_VERSION                   => "3.5.6",
-   BROWSER_REVISION                  => '1.9.1.6',
-   BROWSER_RELEASE_DATE              => '20091217',
+   BROWSER_VERSION                   => "3.5.7",
+   BROWSER_REVISION                  => '1.9.1.7',
+   BROWSER_RELEASE_DATE              => '20100106',
 };
 
 use constant LANGUAGES => qw(
