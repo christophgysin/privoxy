@@ -2888,7 +2888,8 @@ forward-socks4, forward-socks4a and forward-socks5</title>
   <listitem>
    <para>
     The status code Privoxy returns for pages blocked with
-    <literal><link linkend="handle-as-empty-document">+handle-as-empty-document</link></literal>.
+    <!--  URL will only end up in the user manual so the relative link should work. -->
+    <literal><ulink url="actions-file.html#HANDLE-AS-EMPTY-DOCUMENT">+handle-as-empty-document</ulink></literal>.
    </para>
   </listitem>
  </varlistentry>
