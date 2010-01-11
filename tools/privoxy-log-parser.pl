@@ -2305,7 +2305,7 @@ that didn't modify the content.
 
 [B<--statistics>] Gather various statistics instead of syntax highlighting
 log messages. This is an experimental feature, if the results look wrong
-they very well might be. Also note that the results a pretty much guaranteed
+they very well might be. Also note that the results are pretty much guaranteed
 to be incorrect if Privoxy and Privoxy-Log-Parser aren't in sync.
 
 [B<--version>] Print version and exit.
