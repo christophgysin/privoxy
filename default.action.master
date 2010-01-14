@@ -23,7 +23,7 @@
 #                 and enhancements are better placed in user.action,
 #                 the match-all section has been moved to match-all.action.
 #
-#  Copyright   :  Written by and Copyright (C) 2001-2009 the
+#  Copyright   :  Written by and Copyright (C) 2001-2010 the
 #                 Privoxy team. http://www.privoxy.org/
 #
 #  Note: Updated versions of this file will be made available from time
@@ -1686,6 +1686,9 @@ adresseavisen.no/
 at=weeds&key=a789a971dc687bee4c20c044834fabdd&next=index.php%3Fref%3Dnotif%
 26visitId%3D898835505
 .facebook.com/.*/track.php
+# URL = http://www.ifdb.tads.org/
+# URL = http://www.tads.org/
+.tads.org/
 
 
 #############################################################################
