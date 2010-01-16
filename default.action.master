@@ -2021,6 +2021,8 @@ javabog.dk/ijk/
 .fsfe.org/
 # URL = http://www.couchsurfing.com/mapsurf.html
 .couchsurfing.com/
+# URL = http://www.couchsurfing.org/mapsurf.html
+.couchsurfing.org/
 
 {-filter{banners-by-link}}
 # Sticky Actions = -filter{banners-by-link}
