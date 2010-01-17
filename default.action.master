@@ -750,6 +750,17 @@ support./(.*/)?track
 /.*(top|bottom|left|right|text)_?ad
 
 #############################################################################
+# Catch-all exceptions
+#############################################################################
+{-block}
+# Sticky Actions = -block
+
+#MASTER# REMARKS: Actionsfile feedback item #2933856  2010-01-17 16:59
+#MASTER# REMARKS: Allow URLs containing DektopAdmin (matches .*top_?ad)
+# URL = http://support.apple.com/downloads/DL985/en_US/RemoteDesktopAdmin332.dmg
+/.*desktopadmin
+
+#############################################################################
 # Site-specific block patterns;
 #############################################################################
 {+block{Domain parking site}}
