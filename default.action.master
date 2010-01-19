@@ -1713,6 +1713,8 @@ adtoma.com/
 adactio.com/
 # URL = http://www.peereboom.us/adsuck/
 www.peereboom.us/adsuck/
+# URL = http://www.svd.se/template/ver1-0/css/ads.css?v=194
+svd.se/.*\.css($|\?)
 
 
 #############################################################################
