@@ -1346,6 +1346,9 @@ feeds.feedburner.com/~a/DilbertDailyStrip\?
 #MASTER# BLOCK-REFERER: http://www.buch.de/
 # URL = http://track.webtrekk.de/471497967328727/wt.pl?p=177,de.buch.show.home,1,1024x768,24,1,1218816426275,0,884x653,0&enc1=%FC&enc2=iso-8859-1&st=view&la=en-US&np=Default%20Plugi
 track.webtrekk.de/
+#MASTER# BLOCK-REFERER: https://sourceforge.net/
+# URL = http://b.scorecardresearch.com/p2?c1=2&c2=6035546&c3=&c4=&c5=&c6=&c15=&cj=1
+b.scorecardresearch.com/
 
 #----------------------------------------------------------------------------
 # Specific counters (see above for generic patterns)
