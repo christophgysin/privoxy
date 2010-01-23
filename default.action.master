@@ -2219,9 +2219,6 @@ www.skweezer.net/bloglines
 #MASTER# REMARKS: Lame attempt at banning ad-blockers. Used by other websites as well.
 /antitheft\.php
 
-{ +prevent-compression }
-.compusa.com/
-
 {+filter{tiny-textforms}}
 .sourceforge.net/tracker
 
