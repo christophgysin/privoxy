@@ -2319,7 +2319,7 @@ static void chat(struct client_state *csp)
                {
                   log_error(LOG_LEVEL_ERROR,
                      "Empty server or forwarder response received on socket %d. "
-                     "Closing client connection %d without sending data.",
+                     "Closing client socket %d without sending data.",
                      csp->server_connection.sfd, csp->cfd);
                }
                else
