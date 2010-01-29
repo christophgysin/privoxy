@@ -1732,7 +1732,7 @@ socket-timeout 300
 #      +handle-as-empty-document and a status 403(Forbidden) for all
 #      other blocked pages.
 #
-#handle-as-empty-doc-returns-ok 0
+handle-as-empty-doc-returns-ok 1
 
 #
 #  7. WINDOWS GUI OPTIONS
