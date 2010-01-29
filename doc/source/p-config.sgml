@@ -5,7 +5,7 @@
 
  $Id$
 
- Copyright (C) 2001-2009 Privoxy Developers http://www.privoxy.org/
+ Copyright (C) 2001-2010 Privoxy Developers http://www.privoxy.org/
  See LICENSE.
 
  ========================================================================
@@ -2925,7 +2925,7 @@ forward-socks4, forward-socks4a and forward-socks5</title>
   </listitem>
  </varlistentry>
 </variablelist>
-<![%config-file;[<literallayout>@@#handle-as-empty-doc-returns-ok 0</literallayout>]]>
+<![%config-file;[<literallayout>@@handle-as-empty-doc-returns-ok 1</literallayout>]]>
 </sect3>
 
 
