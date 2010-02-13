@@ -6,9 +6,9 @@
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
 <!entity p-version "3.0.16">
-<!entity p-status "UNRELEASED">
-<!entity % p-not-stable "INCLUDE">
-<!entity % p-stable "IGNORE">
+<!entity p-status "stable">
+<!entity % p-not-stable "IGNORE">
+<!entity % p-stable "INCLUDE">
 <!entity  my-copy "&copy;">        <!-- kludge for docbook2man            -->
 <!entity % p-homepage "IGNORE">    <!-- toggle for webserver index.html   -->
 <!entity % p-index "IGNORE">       <!-- toggle for local doc index        -->
@@ -249,6 +249,9 @@
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 2.16  2010/02/13 17:38:39  fabiankeil
+ Update entities for 3.0.16 stable.
+
  Revision 2.15  2010/02/13 16:38:18  fabiankeil
  Update copyright.
 
