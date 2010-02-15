@@ -511,6 +511,13 @@ How to install the binary packages depends on your operating system:
   </listitem>
   <listitem>
    <para>
+    The no-such-domain template if used if for DNS resolution
+    problems with FEATURE_IPV6_SUPPORT enabled. Previously the
+    connect-failed template was used. Reported by 'zebul666'.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
     Accepts quoted expiration dates even though RFC 2109 10.1.2
     doesn't seem to allow them. Reported anonymously.
    </para>
@@ -8817,6 +8824,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.121  2010/02/15 15:30:13  fabiankeil
+ Mention the use of the no-such-domain template for DNS problems with FEATURE_IPV6_SUPPORT enabled.
+
  Revision 2.120  2010/02/13 17:38:39  fabiankeil
  Update entities for 3.0.16 stable.
 
