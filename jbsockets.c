@@ -176,6 +176,8 @@ jb_socket connect_to(const char *host, int portnum, struct client_state *csp)
    {
       log_error(LOG_LEVEL_INFO,
          "Can not resolve %s: %s", host, gai_strerror(retval));
+      /* XXX: Should find a better way to propagate this error. */
+      errno = EINVAL;
       csp->http->host_ip_addr_str = strdup("unknown");
       return(JB_INVALID_SOCKET);
    }
