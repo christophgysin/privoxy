@@ -1318,6 +1318,9 @@ buffer-limit 4096
 #      manually. Start with a small value and check Privoxy's logfile
 #      from time to time, to see how many retries are usually needed.
 #
+#      Due to a bug, this option currently also causes Privoxy to
+#      retry in case of certain problems with direct connections.
+#
 #  Examples:
 #
 #      forwarded-connect-retries 1
