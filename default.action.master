@@ -1749,8 +1749,8 @@ mail.google.*
 #----------------------------------------------------------------------------
 # Semi-fragile, allow for blocks.
 #----------------------------------------------------------------------------
-{-crunch-all-cookies -filter -fast-redirects -hide-referer}
-# Sticky Actions = -crunch-incoming-cookies -crunch-outgoing-cookies -filter -fast-redirects -hide-referer
+{-crunch-all-cookies -filter -fast-redirects -hide-referrer}
+# Sticky Actions = -crunch-incoming-cookies -crunch-outgoing-cookies -filter -fast-redirects -hide-referrer
 # URL = http://adserver.yahoo.com/
 #MASTER# REMARKS: This is much too broad for my taste. It forces me to add
 #MASTER# REMARKS: a special yahoo section in my user.action file, just to
