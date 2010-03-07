@@ -9,7 +9,7 @@ const char cgisimple_rcs[] = "$Id$";
  *                Functions declared include:
  * 
  *
- * Copyright   :  Written by and Copyright (C) 2001-2008 the SourceForge
+ * Copyright   :  Written by and Copyright (C) 2001-2010 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
@@ -689,6 +689,13 @@ jb_err cgi_send_user_manual(struct client_state *csp,
    assert(csp);
    assert(rsp);
    assert(parameters);
+
+   if (0 == strncmpic(csp->config->usermanual, "http://", 7))
+   {
+      log_error(LOG_LEVEL_CGI, "Request for local user-manual "
+         "received while user-manual delivery is disabled.");
+      return cgi_error_404(csp, rsp, parameters);
+   }
 
    if (!parameters->first)
    {
