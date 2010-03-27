@@ -1747,7 +1747,9 @@ include.ebaystatic.com/.*omniture.*\.js
 # URL = http://l.yimg.com/d/combo?news/p/common/generic/ads-min-24248.css&news/p/common/generic/widgets-min-10270.css
 # URL = http://news.zdnet.com/css/z/ads/hs.css
 /.*\.css$
-
+#MASTER# REMARKS:Actionsfile feedback item #2974204 2010-03-21
+# URL = http://adesklets.sourceforge.net/
+adesklets.sourceforge.net/
 
 
 #############################################################################
