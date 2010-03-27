@@ -563,6 +563,8 @@ allow-ads   = -block -filter{banners-by-size} -filter{banners-by-link}
 #
 { \
 +change-x-forwarded-for{block} \
++client-header-tagger{css-requests} \
++client-header-tagger{image-requests} \
 +hide-from-header{block} \
 +set-image-blocker{pattern} \
 }
@@ -574,6 +576,8 @@ standard.Cautious
 #
 { \
 +change-x-forwarded-for{block} \
++client-header-tagger{css-requests} \
++client-header-tagger{image-requests} \
 +deanimate-gifs{last} \
 +filter{refresh-tags} \
 +filter{img-reorder} \
