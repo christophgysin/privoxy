@@ -1105,8 +1105,9 @@ jb_err cgi_show_url_info(struct client_state *csp,
          url_param[0] = '\0';
       }
    }
-   else if ((NULL == strstr(url_param, "://")
-         || (strstr(url_param, "://") > strstr(url_param, "/"))))
+   else if ((url_param[0] != '\0')
+      && ((NULL == strstr(url_param, "://")
+            || (strstr(url_param, "://") > strstr(url_param, "/")))))
    {
       /*
        * No prefix or at least no prefix before
