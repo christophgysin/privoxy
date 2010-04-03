@@ -623,7 +623,6 @@ struct http_response *block_url(struct client_state *csp)
             return cgi_error_memory();
          }
       }
-
       else if (0 == strcmpic(p, "blank"))
       {
          rsp->status = strdup("403 Request blocked by Privoxy");
@@ -646,7 +645,6 @@ struct http_response *block_url(struct client_state *csp)
             return cgi_error_memory();
          }
       }
-
       else
       {
          rsp->status = strdup("302 Local Redirect from Privoxy");
