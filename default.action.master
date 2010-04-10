@@ -697,6 +697,9 @@ adventure*.
 .*[epu]ad*.
 county*.
 countr*.
+#MASTER# REMARKS: We still like tor
+# URL = http://metrics.torproject.org/consensus-graphs.html
+metrics.torproject.org/
 
 #############################################################################
 # Generic block patterns by path:
