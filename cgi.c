@@ -1636,14 +1636,6 @@ struct http_response *finish_http_response(const struct client_state *csp, struc
       if (!err) err = enlist_unique_header(rsp->headers, "Pragma", "no-cache");
    }
 
-   /*
-    * Quoting RFC 2616:
-    *
-    * HTTP/1.1 applications that do not support persistent connections MUST
-    * include the "close" connection option in every message.
-    */
-   if (!err) err = enlist_unique_header(rsp->headers, "Connection", "close");
-
    /* 
     * Write the head
     */
