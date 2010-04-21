@@ -1636,6 +1636,11 @@ struct http_response *finish_http_response(const struct client_state *csp, struc
       if (!err) err = enlist_unique_header(rsp->headers, "Pragma", "no-cache");
    }
 
+   if (!err && !(csp->flags & CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE))
+   {
+      err = enlist_unique_header(rsp->headers, "Connection", "close");
+   }
+
    /* 
     * Write the head
     */
