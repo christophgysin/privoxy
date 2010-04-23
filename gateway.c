@@ -444,7 +444,7 @@ int close_unusable_connections(void)
             close_socket(reusable_connection[slot].sfd);
             mark_connection_closed(&reusable_connection[slot]);
          }
-         else if (!socket_is_still_usable(reusable_connection[slot].sfd))
+         else if (!socket_is_still_alive(reusable_connection[slot].sfd))
          {
             log_error(LOG_LEVEL_CONNECT,
                "The connection to %s:%d in slot %d is no longer usable. "
