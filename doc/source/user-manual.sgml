@@ -2562,6 +2562,15 @@ for details.
   </listitem>
  </varlistentry>
  <varlistentry>
+  <term><literal>/</literal></term>
+  <listitem>
+   <para>
+    Matches any URL because there's no requirement for either the
+    domain or the path to match anything.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
   <term><literal>:8000/</literal></term>
   <listitem>
    <para>
@@ -8824,6 +8833,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.124  2010/05/01 18:21:30  fabiankeil
+ Explicitly mention how to match any URL.
+
  Revision 2.123  2010/02/19 16:00:38  fabiankeil
  Even more fixes.
 
