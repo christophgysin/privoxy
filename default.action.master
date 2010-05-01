@@ -681,6 +681,7 @@ metrics.
 # Generic unblockers by host:
 #############################################################################
 {-block}
+# Sticky Actions = -block
 adsl.
 ad[udmw]*.
 adbl*.
