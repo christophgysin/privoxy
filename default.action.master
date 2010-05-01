@@ -1375,6 +1375,8 @@ track.webtrekk.de/
 #MASTER# BLOCK-REFERER: https://sourceforge.net/
 # URL = http://b.scorecardresearch.com/p2?c1=2&c2=6035546&c3=&c4=&c5=&c6=&c15=&cj=1
 b.scorecardresearch.com/
+# URL = https://sb.scorecardresearch.com/
+sb.scorecardresearch.com/
 
 #----------------------------------------------------------------------------
 # Specific counters (see above for generic patterns)
