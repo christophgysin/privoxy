@@ -1018,6 +1018,9 @@ media.adrevolver.com/
 # Blocked URL = http://js.adlink.net/js?lang=de&s=duesseldorf-international.de&z=home&d=1274103403564
 #MASTER# BLOCK-REFERRER: http://www.duesseldorf-international.de/
 js.adlink.net/
+#Blocked URL = nl.sitestat.com/rdw/rdw/s?www.nl.voertuigeigenaar.voertuigeigenaar&ns__t=1274099350343
+#MASTER# BLOCK-REFERRER: http://www.rdw.nl/nl/voertuigeigenaar/
+.sitestat.com/
 
 
 {+block{Might be a web-bug.} -handle-as-empty-document +handle-as-image}
