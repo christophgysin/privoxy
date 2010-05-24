@@ -329,15 +329,15 @@ enum crunch_reason
  */
 struct http_response
 {
-  char  *status;          /**< HTTP status (string). */
-  struct list headers[1]; /**< List of header lines. */
-  char  *head;            /**< Formatted http response head. */
-  size_t head_length;     /**< Length of http response head. */
-  char  *body;            /**< HTTP document body. */
-  size_t content_length;  /**< Length of body, REQUIRED if binary body. */
-  int    is_static;       /**< Nonzero if the content will never change and
-                               should be cached by the browser (e.g. images). */
   enum crunch_reason crunch_reason; /**< Why the response was generated in the first place. */
+  char  *status;                    /**< HTTP status (string). */
+  struct list headers[1];           /**< List of header lines. */
+  char  *head;                      /**< Formatted http response head. */
+  size_t head_length;               /**< Length of http response head. */
+  char  *body;                      /**< HTTP document body. */
+  size_t content_length;            /**< Length of body, REQUIRED if binary body. */
+  int    is_static;                 /**< Nonzero if the content will never change and
+                                         should be cached by the browser (e.g. images). */
 };
 
 /**
