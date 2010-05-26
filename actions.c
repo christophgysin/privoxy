@@ -1102,6 +1102,8 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
       return 1; /* never get here */
    }
 
+   log_error(LOG_LEVEL_INFO, "Loading actions file: %s", csp->config->actions_file[fileid]);
+
    while (read_config_line(buf, sizeof(buf), fp, &linenum) != NULL)
    {
       if (*buf == '{')
