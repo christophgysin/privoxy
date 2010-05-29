@@ -1294,6 +1294,8 @@ hstse.tradedoubler.com/.*\.swf
 # Blocked URL = http://www.zdnetasia.com/2007/techguide/network/sponsor/i/logmein_mpu_whitepaper.gif
 # Blocked URL = http://www.zdnetasia.com/2007/techguide/network/sponsor/sidebar.gif
 www.zdnetasia.com/.*/sponsor/.*\.gif$
+# Blocked URL = http://pagead2.googlesyndication.com/pagead/imgad?id=CPjtipDs9taquQEQoAEYwgQyCIvo2PNnQywb
+.googlesyndication.com/.*/imgad\?
 
 #----------------------------------------------------------------------------
 # Cross-site user tracking
