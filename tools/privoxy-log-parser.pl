@@ -1687,6 +1687,12 @@ sub handle_loglevel_info ($) {
         # Reloading configuration file '/usr/local/etc/privoxy/config'
         $c =~ s@(?<=loading configuration file \')([^\']*)@$h{'file'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Loading (actions|filter) file: /) {
+
+        # Loading actions file: /usr/local/etc/privoxy/default.action
+        # Loading filter file: /usr/local/etc/privoxy/default.filter
+        $c =~ s@(?<= file: )(.*)$@$h{'file'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^exiting by signal/) {
 
         # exiting by signal 15 .. bye
