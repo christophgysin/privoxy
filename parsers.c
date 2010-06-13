@@ -2401,7 +2401,6 @@ static jb_err server_last_modified(struct client_state *csp, char **header)
 #endif
    struct tm *timeptr = NULL;
    time_t now, last_modified;                  
-   long int days, hours, minutes, seconds;
    
    /*
     * Are we messing with the Last-Modified header?
@@ -2467,6 +2466,7 @@ static jb_err server_last_modified(struct client_state *csp, char **header)
          long int rtime = (long int)difftime(now, last_modified);
          if (rtime)
          {
+            long int days, hours, minutes, seconds;
             const int negative_delta = (rtime < 0);
 
             if (negative_delta)
