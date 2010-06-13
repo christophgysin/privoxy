@@ -318,7 +318,7 @@ long flush_socket(jb_socket fd, struct iob *iob)
 jb_err add_to_iob(struct client_state *csp, char *buf, long n)
 {
    struct iob *iob = csp->iob;
-   size_t used, offset, need, want;
+   size_t used, offset, need;
    char *p;
 
    if (n <= 0) return JB_ERR_OK;
@@ -341,7 +341,12 @@ jb_err add_to_iob(struct client_state *csp, char *buf, long n)
 
    if (need > iob->size)
    {
-      for (want = csp->iob->size ? csp->iob->size : 512; want <= need;) want *= 2;
+      size_t want = csp->iob->size ? csp->iob->size : 512;
+
+      while (want <= need)
+      {
+         want *= 2;
+      }
       
       if (want <= csp->config->buffer_limit && NULL != (p = (char *)realloc(iob->buf, want)))
       {
