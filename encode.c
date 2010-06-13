@@ -305,12 +305,12 @@ static int xdtoi(const int d)
  *********************************************************************/
 int xtoi(const char *s)
 {
-   int d1, d2;
+   int d1;
 
    d1 = xdtoi(*s);
    if(d1 >= 0)
    {
-      d2 = xdtoi(*(s+1));
+      int d2 = xdtoi(*(s+1));
       if(d2 >= 0)
       {
          return (d1 << 4) + d2;
