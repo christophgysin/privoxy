@@ -511,7 +511,7 @@ int write_socket(jb_socket fd, const char *buf, size_t len)
     */
 #define SOCKET_SEND_MAX 65000
    {
-      int write_len = 0, send_len, send_rc = 0, i = 0;
+      int send_len, send_rc = 0, i = 0;
       while ((i < len) && (send_rc != -1))
       {
          if ((i + SOCKET_SEND_MAX) > len)
