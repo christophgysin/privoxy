@@ -316,7 +316,7 @@ void init_error_log(const char *prog_name, const char *logfname)
        * Currently we reopen it every time the config file
        * has been reloaded, but actually we only have to
        * reopen it if the file name changed or if the
-       * configuration reloas was caused by a SIGHUP.
+       * configuration reload was caused by a SIGHUP.
        */
       log_error(LOG_LEVEL_INFO, "Failed to reopen logfile: \'%s\'. "
          "Retrying after closing the old file descriptor first. If that "
