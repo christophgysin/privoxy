@@ -3145,13 +3145,10 @@ int main(int argc, char **argv)
     */
 #if defined(unix)
 {
-   pid_t pid = 0;
-
    if (daemon_mode)
    {
       int fd;
-
-      pid  = fork();
+      pid_t pid = fork();
 
       if ( pid < 0 ) /* error */
       {
