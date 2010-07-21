@@ -914,11 +914,17 @@ struct client_state
     * or NULL. Currently only used for socks errors.
     */
    char *error_message;
-
-   /** Next thread in linked list. Only read or modify from the main thread! */
-   struct client_state *next;
 };
 
+/**
+ * List of client states so the main thread can keep
+ * track of them and garbage collect their resources.
+ */
+struct client_states
+{
+   struct client_states *next;
+   struct client_state csp;
+};
 
 /**
  * A function to add a header

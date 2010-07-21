@@ -50,7 +50,7 @@ extern int urls_read;
 extern int urls_rejected;
 #endif /*def FEATURE_STATISTICS*/
 
-extern struct client_state clients[1];
+extern struct client_states clients[1];
 extern struct file_list    files[1];
 
 #ifdef unix
