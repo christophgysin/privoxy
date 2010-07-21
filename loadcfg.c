@@ -248,11 +248,6 @@ static void unload_configfile (void * data)
    list_remove_all(config->trust_info);
 #endif /* def FEATURE_TRUST */
 
-   for (i = 0; i < MAX_AF_FILES; i++)
-   {
-      freez(config->re_filterfile[i]);
-   }
-
    freez(config);
 }
 
