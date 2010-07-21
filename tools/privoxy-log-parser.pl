@@ -908,6 +908,7 @@ sub handle_loglevel_header ($) {
           or $c =~ m/^Appended client IP address to/
           or $c =~ m/^Removing 'Connection: close' to imply keep-alive./
           or $c =~ m/^keep-alive support is disabled/
+          or $c =~ m/^Continue hack in da house/
             )
     {
         # XXX: Some of these may need highlighting
@@ -953,6 +954,7 @@ sub handle_loglevel_header ($) {
         # Appended client IP address to X-Forwarded-For: 10.0.0.2, 10.0.0.1
         # Removing 'Connection: close' to imply keep-alive.
         # keep-alive support is disabled. Crunching: Keep-Alive: 300.
+        # Continue hack in da house.
 
     } elsif ($c =~ m/^scanning headers for:/) {
 
