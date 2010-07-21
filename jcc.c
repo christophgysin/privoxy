@@ -1615,12 +1615,8 @@ static void chat(struct client_state *csp)
    if (crunch_response_triggered(csp, crunchers_all))
    {
       /*
-       * Yes. The client got the crunch response
-       * and we are done here after cleaning up.
+       * Yes. The client got the crunch response and we're done here.
        */
-      /* XXX: why list_remove_all()? */
-      list_remove_all(csp->headers);
-
       return;
    }
 
