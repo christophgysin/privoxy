@@ -69,7 +69,7 @@ extern void disable_logging(void);
 extern void init_log_module(void);
 extern void show_version(const char *prog_name);
 extern void log_error(int loglevel, const char *fmt, ...);
-extern const char *jb_err_to_string(int error);
+extern const char *jb_err_to_string(int jb_error);
 
 /* Revision control strings from this header and associated .c file */
 extern const char errlog_rcs[];

@@ -950,14 +950,14 @@ void log_error(int loglevel, const char *fmt, ...)
  *                visible to all files that include errlog.h.
  *
  * Parameters  :
- *          1  :  error = a valid jb_err code
+ *          1  :  jb_error = a valid jb_err code
  *
  * Returns     :  A string with the jb_err translation
  *
  *********************************************************************/
-const char *jb_err_to_string(int error)
+const char *jb_err_to_string(int jb_error)
 {
-   switch (error)
+   switch (jb_error)
    {
       case JB_ERR_OK:
          return "Success, no error";
