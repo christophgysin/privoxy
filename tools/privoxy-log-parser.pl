@@ -2292,8 +2292,8 @@ B<privoxy-log-parser> - A parser and syntax-highlighter for Privoxy log messages
 =head1 SYNOPSIS
 
 B<privoxy-log-parser> [B<--accept-unknown-messages>] [B<--html-output>]
-[B<--no-msecs>] [B<--no-syntax-higlighting>] [B<--shorten-thread-ids>]
-[B<--show-ineffective-filters>] [B<--version>]
+[B<--no-msecs>] [B<--no-syntax-higlighting>] [B<--statistics>]
+[B<--shorten-thread-ids>] [B<--show-ineffective-filters>] [B<--version>]
 
 =head1 DESCRIPTION
 
