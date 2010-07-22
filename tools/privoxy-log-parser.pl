@@ -2333,8 +2333,8 @@ codes don't work, or if the terminal itself doesn't support the control
 codes.
 
 [B<--shorten-thread-ids>] Shorten the thread ids to a three-digit decimal number.
-Note that the mapping from thread ids to shortended ids is created at
-run-time and thus varies with the input.
+Note that the mapping from thread ids to shortened ids is created at run-time
+and thus varies with the input.
 
 [B<--show-ineffective-filters>] Don't suppress log lines for filters
 that didn't modify the content.
