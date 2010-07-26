@@ -134,6 +134,7 @@ sub prepare_our_stuff () {
         'Gif-Deanimate' => 'blue',
         Force           => 'red',
         Writing         => 'light_green',
+        Received        => 'yellow',
         # ----------------------
         URL                  => 'yellow',
         path                 => 'brown',
@@ -2076,6 +2077,7 @@ sub parse_loop () {
         'Error'             => \&handle_loglevel_error,
         'Fatal error'       => \&handle_loglevel_ignore,
         'Writing'           => \&handle_loglevel_ignore,
+        'Received'          => \&handle_loglevel_ignore,
         'Unknown log level' => \&handle_loglevel_ignore,
     );
 
