@@ -572,7 +572,7 @@ static inline const char *get_log_level_string(int loglevel)
       case LOG_LEVEL_CONNECT:
          log_level_string = "Connect";
          break;
-      case LOG_LEVEL_LOG:
+      case LOG_LEVEL_WRITING:
          log_level_string = "Writing";
          break;
       case LOG_LEVEL_RECEIVED:

@@ -498,7 +498,7 @@ int write_socket(jb_socket fd, const char *buf, size_t len)
       return 1;
    }
 
-   log_error(LOG_LEVEL_LOG, "to socket %d: %N", fd, len, buf);
+   log_error(LOG_LEVEL_WRITING, "to socket %d: %N", fd, len, buf);
 
 #if defined(_WIN32)
    return (send(fd, buf, (int)len, 0) != (int)len);

@@ -47,7 +47,7 @@ extern "C" {
 #define LOG_LEVEL_CONNECT    0x0002
 #define LOG_LEVEL_IO         0x0004
 #define LOG_LEVEL_HEADER     0x0008
-#define LOG_LEVEL_LOG        0x0010
+#define LOG_LEVEL_WRITING    0x0010
 #ifdef FEATURE_FORCE_LOAD
 #define LOG_LEVEL_FORCE      0x0020
 #endif /* def FEATURE_FORCE_LOAD */
