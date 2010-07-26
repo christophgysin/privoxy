@@ -575,6 +575,9 @@ static inline const char *get_log_level_string(int loglevel)
       case LOG_LEVEL_LOG:
          log_level_string = "Writing";
          break;
+      case LOG_LEVEL_RECEIVED:
+         log_level_string = "Received";
+         break;
       case LOG_LEVEL_HEADER:
          log_level_string = "Header";
          break;
