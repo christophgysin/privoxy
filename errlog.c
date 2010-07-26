@@ -811,7 +811,7 @@ void log_error(int loglevel, const char *fmt, ...)
                else
                {
                   int ret = snprintf(outbuf + length,
-                     log_buffer_size - length - 2, "\\x%.2x", (int)*sval);
+                     log_buffer_size - length - 2, "\\x%.2x", (unsigned char)*sval);
                   assert(ret == 4);
                   length += 4;
                }
