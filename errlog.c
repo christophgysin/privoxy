@@ -807,8 +807,9 @@ void log_error(int loglevel, const char *fmt, ...)
                }
                else
                {
-                  snprintf(outbuf + length, log_buffer_size - length - 2,
-                     "\\x%.2x", (int)*sval);
+                  int ret = snprintf(outbuf + length,
+                     log_buffer_size - length - 2, "\\x%.2x", (int)*sval);
+                  assert(ret == 4);
                   length += 4;
                }
                sval++;
