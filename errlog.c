@@ -873,7 +873,7 @@ void log_error(int loglevel, const char *fmt, ...)
             snprintf(tempbuf, sizeof(tempbuf), "Bad format string: \"%s\"", fmt);
             loglevel = LOG_LEVEL_FATAL;
             break;
-      } /* switch( p ) */
+      }
 
       assert(length < log_buffer_size);
       length += strlcpy(outbuf + length, format_string, log_buffer_size - length);
@@ -888,7 +888,7 @@ void log_error(int loglevel, const char *fmt, ...)
 
          break;
       }
-   } /* for( p ... ) */
+   }
 
    /* done with var. args */
    va_end(ap);
