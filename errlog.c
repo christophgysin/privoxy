@@ -880,7 +880,7 @@ void log_error(int loglevel, const char *fmt, ...)
 
       if (length >= log_buffer_size-2)
       {
-         static char warning[] = "... [too long, truncated]";
+         static const char warning[] = "... [too long, truncated]";
 
          length = log_buffer_size - sizeof(warning) - 1;
          length += strlcpy(outbuf + length, warning, log_buffer_size - length);
