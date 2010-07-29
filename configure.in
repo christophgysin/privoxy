@@ -398,6 +398,13 @@ fi
 AC_SUBST(JADECAT)
 AC_SUBST(DKPREFIX)
 
+AC_ARG_ENABLE(large-file-support,
+[  --enable-large-file-support     Define _LARGE_FILES and friends.
+                                  Required by some systems to support files larger then 2GB.],
+[if test $enableval = yes; then
+    CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D_LARGEFILE_SOURCE=1"
+fi])
+
 dnl Save old CFLAGS so we can restore them later, then add SPECIAL_CFLAGS
 old_CFLAGS_nospecial=$CFLAGS
 CFLAGS="$CFLAGS $SPECIAL_CFLAGS"
