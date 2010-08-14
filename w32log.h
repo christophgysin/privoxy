@@ -73,7 +73,8 @@ extern int g_nFontSize;
 
 extern const char * g_default_actions_file;
 extern const char * g_user_actions_file;
-extern const char * g_re_filterfile;
+extern const char * g_default_filterfile;
+extern const char * g_user_filterfile;
 #ifdef FEATURE_TRUST
 extern const char * g_trustfile;
 #endif /* def FEATURE_TRUST */

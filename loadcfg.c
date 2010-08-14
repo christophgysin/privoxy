@@ -1479,8 +1479,9 @@ struct configuration_spec * load_config(void)
 #if defined(_WIN32) && !defined (_WIN_CONSOLE)
 
    g_default_actions_file = config->actions_file[1]; /* FIXME Hope this is default.action */
-   g_user_actions_file = config->actions_file[2]; /* FIXME Hope this is user.action */
-   g_re_filterfile    = config->re_filterfile[0]; /* FIXME Hope this is default.filter */
+   g_user_actions_file  = config->actions_file[2];  /* FIXME Hope this is user.action */
+   g_default_filterfile = config->re_filterfile[0]; /* FIXME Hope this is default.filter */
+   g_user_filterfile    = config->re_filterfile[1]; /* FIXME Hope this is user.filter */
 
 #ifdef FEATURE_TRUST
    g_trustfile        = config->trustfile;
