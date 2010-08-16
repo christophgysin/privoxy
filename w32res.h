@@ -72,10 +72,11 @@
 #define ID_TOOLS_EDITCONFIG               5000
 #define ID_TOOLS_EDITDEFAULTACTIONS       5001
 #define ID_TOOLS_EDITUSERACTIONS          5002
-#define ID_TOOLS_EDITFILTERS              5003
+#define ID_TOOLS_EDITDEFAULTFILTERS       5003
+#define ID_TOOLS_EDITUSERFILTERS          5004
 
 #ifdef FEATURE_TRUST
-#define ID_TOOLS_EDITTRUST                5004
+#define ID_TOOLS_EDITTRUST                5005
 #endif /* def FEATURE_TRUST */
 
 #define ID_EDIT_COPY  30000
