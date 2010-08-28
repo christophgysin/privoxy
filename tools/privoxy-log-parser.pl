@@ -23,6 +23,7 @@
 #       - Handle incomplete input without Perl warning about undefined variables.
 #       - Use generic highlighting function that takes a regex and the
 #         hash key as input.
+#       - Add --compress and --decompress options.
 #
 # Copyright (c) 2007-2010 Fabian Keil <fk@fabiankeil.de>
 #
