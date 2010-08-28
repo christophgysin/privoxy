@@ -804,15 +804,10 @@ sub handle_loglevel_header ($) {
                 update_header_highlight_regex($header);
             }
 
-        } elsif ($c =~ m/^scan: ((\w+) (.+) (HTTP\/\d\.\d))/) {
+        } elsif ($c =~ m/^(scan: )(\w+ .+ HTTP\/\d\.\d)/) {
 
-            # Client request line
-            # Save for statistics (XXX: Not implemented yet)
-            $req{$t}{'method'} = $2;
-            $req{$t}{'destination'} = $3;
-            $req{$t}{'http-version'} = $4;
-
-            $c = highlight_request_line($1);
+            # scan: HTTP/1.1 200 OK
+            $c = $1 . highlight_request_line($2);
 
         } elsif ($c =~ m/^(scan: )((?:HTTP\/\d\.\d|ICY) (\d+) (.*))/) {
 
