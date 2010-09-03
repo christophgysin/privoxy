@@ -3460,7 +3460,9 @@ static void listen_loop(void)
       }
       else
       {
-         log_error(LOG_LEVEL_CONNECT, "accepted connection from %s", csp->ip_addr_str);
+         log_error(LOG_LEVEL_CONNECT,
+            "accepted connection from %s on socket %d",
+            csp->ip_addr_str, csp->cfd);
       }
 
 #ifdef FEATURE_TOGGLE
