@@ -6,7 +6,7 @@ const char encode_rcs[] = "$Id$";
  * Purpose     :  Functions to encode and decode URLs, and also to
  *                encode cookies and HTML text.
  *
- * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
+ * Copyright   :  Written by and Copyright (C) 2001 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
@@ -81,7 +81,7 @@ static const char * const html_code_map[256] = {
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-   NULL, NULL, NULL, NULL,"&quot;",NULL,NULL,NULL,"&amp;",NULL,
+   NULL, NULL, NULL, NULL,"&quot;",NULL,NULL,NULL,"&amp;","&apos;",
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    "&lt;",NULL,"&gt;",NULL,NULL, NULL, NULL, NULL, NULL, NULL,
