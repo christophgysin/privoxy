@@ -2051,9 +2051,9 @@ static void chat(struct client_state *csp)
                 */
                if (content_filter)
                {
-                  p = execute_content_filter(csp, content_filter);
+                  p = execute_content_filters(csp);
                   /*
-                   * If the content filter fails, use the original
+                   * If content filtering fails, use the original
                    * buffer and length.
                    * (see p != NULL ? p : csp->iob->cur below)
                    */
