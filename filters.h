@@ -108,6 +108,7 @@ extern char *get_last_url(char *subject, const char *redirect_mode);
 
 extern pcrs_job *compile_dynamic_pcrs_job_list(const struct client_state *csp, const struct re_filterfile_spec *b);
 
+extern int content_requires_filtering(struct client_state *csp);
 extern int content_filters_enabled(const struct current_action_spec *action);
 extern int filters_available(const struct client_state *csp);
 
