@@ -716,7 +716,7 @@ AC_CHECK_FUNCS([access atexit getcwd gethostbyaddr gethostbyaddr_r gethostbyname
 dnl Checks for RFC 2553 resolver and socket functions
 if test $target_type = mingw; then
   AC_CHECK_LIB(ws2_32, main)
-  
+
   AC_MSG_CHECKING(getaddrinfo in ws2_32)
   AC_TRY_LINK(
     [
@@ -727,7 +727,7 @@ if test $target_type = mingw; then
     have_ws2_32_getaddrinfo=yes
   )
   AC_MSG_RESULT($have_ws2_32_getaddrinfo)
-  
+
   AC_MSG_CHECKING(getnameinfo in ws2_32)
   AC_TRY_LINK(
     [
@@ -738,7 +738,7 @@ if test $target_type = mingw; then
     have_ws2_32_getnameinfo=yes
   )
   AC_MSG_RESULT($have_ws2_32_getnameinfo)
-  
+
   if test $have_ws2_32_getaddrinfo ; then
     if test $have_ws2_32_getnameinfo ; then
       AC_DEFINE([HAVE_RFC2553], [1],
