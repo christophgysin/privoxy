@@ -46,9 +46,17 @@
 /* Needed for pcre choice */
 #include "config.h"
 
-#ifdef HAVE_RFC2553
 /* Need for struct sockaddr_storage */
-#include <sys/socket.h>
+#ifdef HAVE_RFC2553
+#  ifndef _WIN32
+#    include <netdb.h>
+#    include <sys/socket.h>
+#  else
+#    include <stdint.h>
+#    include <winsock2.h>
+#    include <ws2tcpip.h>
+     typedef unsigned short in_port_t;
+#  endif
 #endif
 
 

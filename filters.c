@@ -50,11 +50,6 @@ const char filters_rcs[] = "$Id$";
 #include <string.h>
 #include <assert.h>
 
-#ifdef HAVE_RFC2553
-#include <netdb.h>
-#include <sys/socket.h>
-#endif /* def HAVE_RFC2553 */
-
 #ifndef _WIN32
 #ifndef __OS2__
 #include <unistd.h>
