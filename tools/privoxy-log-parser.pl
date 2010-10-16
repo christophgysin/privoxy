@@ -1979,7 +1979,9 @@ sub print_stats () {
     print "New outgoing connections: " . $new_connections . " (" .
         get_percentage($stats{requests}, $new_connections) . ")\n";
     print "Reused connections: " . $stats{'reused-connections'} . " (" .
-        get_percentage($stats{requests}, $stats{'reused-connections'}) . ")\n";
+        get_percentage($stats{requests}, $stats{'reused-connections'}) .
+        "; server offers accepted: " .
+        get_percentage($stats{'server-keep-alive'}, $stats{'reused-connections'}) . ")\n";
     print "Empty responses: " . $stats{'empty-responses'} . " (" .
         get_percentage($stats{requests}, $stats{'empty-responses'}) . ")\n";
     print "Empty responses on new connections: "
