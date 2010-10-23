@@ -1865,6 +1865,10 @@ sub gather_loglevel_crunch_stats ($$) {
     if ($c =~ m/^Redirected:/) {
         # Redirected: http://www.example.org/http://p.p/
         $stats{'fast-redirections'}++;
+
+    } elsif ($c =~ m/^Blocked:/) {
+        # Blocked: blogger.googleusercontent.com:443
+        $stats{'blocked'}++;
     }
 }
 
@@ -1977,6 +1981,8 @@ sub print_stats () {
     print "Client requests total: " . $stats{requests} . "\n";
     print "Crunches: " . $stats{crunches} . " (" .
         get_percentage($stats{requests}, $stats{crunches}) . ")\n";
+    print "Blocks: " . $stats{'blocked'} . " (" .
+        get_percentage($stats{requests}, $stats{'blocked'}) . ")\n";
     print "Fast redirections: " . $stats{'fast-redirections'} . " (" .
         get_percentage($stats{requests}, $stats{'fast-redirections'}) . ")\n";
     print "Outgoing requests: " . $outgoing_requests . " (" .
