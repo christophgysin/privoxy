@@ -1861,6 +1861,11 @@ sub gather_loglevel_crunch_stats ($$) {
 
     $stats{requests}++;
     $stats{crunches}++;
+
+    if ($c =~ m/^Redirected:/) {
+        # Redirected: http://www.example.org/http://p.p/
+        $stats{'fast-redirections'}++;
+    }
 }
 
 
@@ -1972,6 +1977,8 @@ sub print_stats () {
     print "Client requests total: " . $stats{requests} . "\n";
     print "Crunches: " . $stats{crunches} . " (" .
         get_percentage($stats{requests}, $stats{crunches}) . ")\n";
+    print "Fast redirections: " . $stats{'fast-redirections'} . " (" .
+        get_percentage($stats{requests}, $stats{'fast-redirections'}) . ")\n";
     print "Outgoing requests: " . $outgoing_requests . " (" .
         get_percentage($stats{requests}, $outgoing_requests) . ")\n";
     print "Server keep-alive offers: " . $stats{'server-keep-alive'} . " (" .
