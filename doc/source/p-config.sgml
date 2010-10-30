@@ -1019,6 +1019,7 @@ actionsfile
   debug  2048 # CGI user interface
   debug  4096 # Startup banner and warnings.
   debug  8192 # Non-fatal errors
+  debug 32768 # log all data read from the network into the logfile
 </programlisting>
    </para>
    <para>
