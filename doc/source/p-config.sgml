@@ -1009,7 +1009,7 @@ actionsfile
   debug     2 # show each connection status
   debug     4 # show I/O status
   debug     8 # show header parsing
-  debug    16 # log all data written to the network into the logfile
+  debug    16 # log all data written to the network
   debug    32 # debug force feature
   debug    64 # debug regular expression filters
   debug   128 # debug redirects
@@ -1019,7 +1019,7 @@ actionsfile
   debug  2048 # CGI user interface
   debug  4096 # Startup banner and warnings.
   debug  8192 # Non-fatal errors
-  debug 32768 # log all data read from the network into the logfile
+  debug 32768 # log all data read from the network
 </programlisting>
    </para>
    <para>
