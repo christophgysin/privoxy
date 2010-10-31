@@ -50,20 +50,24 @@ sub create_listitem_markup($) {
            "  </listitem>\n";
 }
 
+sub wrap_in_para_itemlist_markup($) {
+    my $content = shift;
+    my $markup = "<para>\n" .
+                 " <itemizedlist>\n" .
+                 "  $content" .
+                 " </itemizedlist>\n" .
+                 "</para>\n";
+    return $markup;
+}
+
 sub generate_markup() {
     my $markup = '';
-
-    $markup .= "<para>\n" .
-               " <itemizedlist>\n";
 
     foreach my $entry (@entries) {
         $markup .= create_listitem_markup(\%{$entry});
     }
 
-    $markup .= " </itemizedlist>\n" .
-               "</para>\n";
-
-    print $markup;
+    print wrap_in_para_itemlist_markup($markup);
 }
 
 sub main () {
