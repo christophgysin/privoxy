@@ -27,22 +27,25 @@ sub read_entries() {
 
         if (/^-/) {
             $i++; 
-            $entries[$i] = '';
+            $entries[$i]{description} = '';
         }
         s@^-?\s*@@;
 
-        $entries[$i] .= $_;
+        $entries[$i]{description} .= $_;
     }
     print "Parsed " . @entries . " entries.\n";
 }
 
 sub create_listitem_markup($) {
     my $entry = shift;
+    my $description = $entry->{description};
 
-    $entry =~ s@\n@\n    @g;
+    chomp $description;
+
+    $description =~ s@\n@\n    @g;
     return "  <listitem>\n" .
            "   <para>\n" .
-           "    " . $entry . "\n" .
+           "    " . $description . "\n" .
            "   </para>\n" .
            "  </listitem>\n";
 }
@@ -54,8 +57,7 @@ sub generate_markup() {
                " <itemizedlist>\n";
 
     foreach my $entry (@entries) {
-        chomp $entry;
-        $markup .= create_listitem_markup($entry);
+        $markup .= create_listitem_markup(\%{$entry});
     }
 
     $markup .= " </itemizedlist>\n" .
