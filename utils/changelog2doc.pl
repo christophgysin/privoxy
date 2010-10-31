@@ -36,6 +36,17 @@ sub read_entries() {
     print "Parsed " . @entries . " entries.\n";
 }
 
+sub create_listitem_markup($) {
+    my $entry = shift;
+
+    $entry =~ s@\n@\n    @g;
+    return "  <listitem>\n" .
+           "   <para>\n" .
+           "    " . $entry . "\n" .
+           "   </para>\n" .
+           "  </listitem>\n";
+}
+
 sub generate_markup() {
     my $markup = '';
 
@@ -44,14 +55,9 @@ sub generate_markup() {
 
     foreach my $entry (@entries) {
         chomp $entry;
-        $entry =~ s@\n@\n    @g;
-        $markup .= "  <listitem>\n" .
-                   "   <para>\n" .
-                   "    " . $entry . "\n" .
-                   "   </para>\n" .
-                   "  </listitem>\n"
-                   ;
+        $markup .= create_listitem_markup($entry);
     }
+
     $markup .= " </itemizedlist>\n" .
                "</para>\n";
 
