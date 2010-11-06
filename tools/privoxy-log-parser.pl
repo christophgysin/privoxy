@@ -2215,6 +2215,7 @@ sub stats_loop () {
          'Error'             => \&gather_loglevel_error_stats,
          'Fatal error'       => \&handle_loglevel_ignore,
          'Writing'           => \&handle_loglevel_ignore,
+         'Received'          => \&handle_loglevel_ignore,
          'Unknown log level' => \&handle_loglevel_ignore
     );
 
