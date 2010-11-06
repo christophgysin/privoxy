@@ -1,4 +1,4 @@
-#        Sample Configuration File for Privoxy v3.0.16
+#        Sample Configuration File for Privoxy v3.0.17
 #
 #  $Id$
 #
@@ -570,6 +570,7 @@ logfile logfile
 #        debug      2048 # CGI user interface
 #        debug      4096 # Startup banner and warnings.
 #        debug      8192 # Non-fatal errors
+#        debug     32768 # log all data read from the network
 #
 #
 #      To select multiple debug levels, you can either add them or
