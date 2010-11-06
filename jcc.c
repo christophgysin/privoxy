@@ -2554,7 +2554,7 @@ static void serve(struct client_state *csp)
             {
                time_t time_open = time(NULL) - csp->server_connection.timestamp;
 
-               if (csp->server_connection.keep_alive_timeout < time_open + latency)
+               if (csp->server_connection.keep_alive_timeout < time_open - (time_t)latency)
                {
                   break;
                }
