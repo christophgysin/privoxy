@@ -1966,6 +1966,19 @@ sub get_percentage ($$) {
     return sprintf("%.2f%%", $small / $big * 100);
 }
 
+sub set_undefined_stats_keys_to_zero () {
+    our %stats;
+    my @known_stats_keys = (
+        'requests', 'crunches', 'fast-redirections', 'blocked',
+        'empty-responses', 'empty-responses-on-new-connections',
+        'empty-responses-on-reused-connections', 'reused-connections',
+        'server-keep-alive');
+
+    foreach my $known_key (@known_stats_keys) {
+        $stats{$known_key} = 0 unless defined $stats{$known_key};
+    }
+}
+
 sub print_stats () {
 
     our %stats;
@@ -2240,6 +2253,7 @@ sub stats_loop () {
         }
     }
 
+    set_undefined_stats_keys_to_zero();
     print_stats();
 
 }
