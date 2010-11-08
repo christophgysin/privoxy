@@ -1711,8 +1711,8 @@ ACLs: permit-access and deny-access</title>
     IP addresses, only the first one is used.
    </para>
    <para>
-     Some systems allows IPv4 client to connect to IPv6 server socket.
-     Then the client's IPv4 address will be translated by system into
+     Some systems allow IPv4 clients to connect to IPv6 server sockets.
+     Then the client's IPv4 address will be translated by the system into
      IPv6 address space with special prefix ::ffff:0:0/96 (so called IPv4
      mapped IPv6 address). <application>Privoxy</application> can handle it
      and maps such ACL addresses automatically.
