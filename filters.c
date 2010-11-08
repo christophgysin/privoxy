@@ -289,6 +289,10 @@ int block_acl(const struct access_control_addr *dst, const struct client_state *
             {
                return(0);
             }
+            else
+            {
+               return(1);
+            }
          }
          else if (
 #ifdef HAVE_RFC2553
