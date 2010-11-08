@@ -809,12 +809,12 @@ sub handle_loglevel_header ($) {
 
         } elsif ($c =~ m/^(scan: )(\w+ .+ HTTP\/\d\.\d)/) {
 
-            # scan: HTTP/1.1 200 OK
+            # scan: GET http://p.p/ HTTP/1.1
             $c = $1 . highlight_request_line($2);
 
         } elsif ($c =~ m/^(scan: )((?:HTTP\/\d\.\d|ICY) (\d+) (.*))/) {
 
-            # Server response line
+            # scan: HTTP/1.1 200 OK
             $req{$t}{'response_line'} = $2;
             $req{$t}{'status_code'} = $3;
             $req{$t}{'status_message'} = $4;
