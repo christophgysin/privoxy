@@ -1630,6 +1630,12 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=set to )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=reading )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Reducing expected bytes to /) {
+
+        # Reducing expected bytes to 0. Marking the server socket tainted after throwing 4 bytes away.
+        $c =~ s@(?<=bytes to )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=after throwing )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Waiting for up to /) {
 
         # Waiting for up to 4999 bytes from the client.
