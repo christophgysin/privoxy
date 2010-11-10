@@ -437,8 +437,8 @@ How to install the binary packages depends on your operating system:
 <sect1 id="whatsnew">
 <title>What's New in this Release</title>
 <para>
- <application>Privoxy 3.0.16</application> is a stable release.
- The changes since 3.0.15 beta are:
+ <application>Privoxy 3.0.17</application> is a stable release.
+ The changes since 3.0.16 stable are:
 </para>
 
 <para>
@@ -8883,6 +8883,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.128  2010/11/10 22:00:13  fabiankeil
+ Update the first paragraph of the 'What's New' section.
+
  Revision 2.127  2010/11/10 21:48:54  fabiankeil
  Update the "What's New" section.
 
