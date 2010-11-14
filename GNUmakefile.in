@@ -616,6 +616,9 @@ webserver: tidy
 	@$(ECHO) Please make sure your documentation files are up to date.
 	@$(ECHO) Note that this command updates the home page and scps 
 	@$(ECHO) all stuff to the webserver, it will not remove obsolete documents.
+	@$(ECHO) Note that a botched upload can result in the documentation
+	@$(ECHO) on the website becoming unreachable! Also the CSS files
+	@$(ECHO) currently seem to end up at the wrong place.
 	@$(ECHO) -------------------------------------------------------
 
 	@$(ECHO) Replacing the user-manual symlink
