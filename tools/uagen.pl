@@ -257,10 +257,9 @@ sub write_action_file() {
     our $action_injection;
 
     my $action_file_content = '';
-    my $actionfile_fd;
 
     if ($action_injection){
-        open($actionfile_fd, $action_file)
+        open(my $actionfile_fd, "<", $action_file)
             or log_error "Reading action file $action_file failed!";
         while (<$actionfile_fd>) {
             s@(hide-accept-language\{).*?(\})@$1$accept_language$2@;
@@ -275,7 +274,7 @@ sub write_action_file() {
         $action_file_content .= sprintf " +hide-user-agent{%s} \\\n}\n/\n",
             $user_agent;
     }
-    open($actionfile_fd, ">" . $action_file)
+    open(my $actionfile_fd, ">" . $action_file)
       or log_error "Writing action file $action_file failed!";
     print $actionfile_fd $action_file_content;
     close($actionfile_fd);
