@@ -571,9 +571,9 @@ sub log_parse_error ($) {
     my $message = shift;
 
     if (LOG_UNPARSED_LINES_TO_EXTRA_FILE) {
-        open(ERRORLOG, ">>" . ERROR_LOG_FILE) || die "Writing " . ERROR_LOG_FILE . " failed";
-        print ERRORLOG $message;
-        close(ERRORLOG);
+        open(my $errorlog_fd, ">>" . ERROR_LOG_FILE) || die "Writing " . ERROR_LOG_FILE . " failed";
+        print $errorlog_fd $message;
+        close($errorlog_fd);
     }
 }
 
