@@ -2327,7 +2327,7 @@ sub get_cli_options () {
         'accept-unknown-messages'  => CLI_OPTION_ACCEPT_UNKNOWN_MESSAGES,
         'statistics'               => CLI_OPTION_STATISTICS,
         'url-statistics-threshold' => CLI_OPTION_URL_STATISTICS_THRESHOLD,
-        'unbreak-lines-only'        => CLI_OPTION_UNBREAK_LINES_ONLY,
+        'unbreak-lines-only'       => CLI_OPTION_UNBREAK_LINES_ONLY,
         'host-statistics-threshold'=> CLI_OPTION_HOST_STATISTICS_THRESHOLD,
     );
 
