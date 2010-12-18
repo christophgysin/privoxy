@@ -1956,7 +1956,7 @@ static jb_err crunch_server_header(struct client_state *csp, char **header)
  * Function    :  server_content_type
  *
  * Description :  Set the content-type for filterable types (text/.*,
- *                .*xml.*, javascript and image/gif) unless filtering has been
+ *                .*xml.*, .*script.* and image/gif) unless filtering has been
  *                forbidden (CT_TABOO) while parsing earlier headers.
  *                NOTE: Since text/plain is commonly used by web servers
  *                      for files whose correct type is unknown, we don't
@@ -2006,7 +2006,7 @@ static jb_err server_content_type(struct client_state *csp, char **header)
        */
       if ((strstr(*header, "text/") && !strstr(*header, "plain"))
         || strstr(*header, "xml")
-        || strstr(*header, "application/x-javascript"))
+        || strstr(*header, "script"))
       {
          csp->content_type |= CT_TEXT;
       }
