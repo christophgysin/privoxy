@@ -2515,6 +2515,11 @@ static void serve(struct client_state *csp)
          }
       }
 
+      if (continue_chatting && any_loaded_file_changed(csp->config->config_file_list))
+      {
+         continue_chatting = 0;
+      }
+
       if (continue_chatting)
       {
          unsigned int client_timeout;
