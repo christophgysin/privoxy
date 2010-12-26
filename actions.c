@@ -1409,7 +1409,7 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
       }
       else if (mode == MODE_ACTIONS)
       {
-         /* it's a URL pattern */
+         /* it's an URL pattern */
 
          /* allocate a new node */
          if ((perm = zalloc(sizeof(*perm))) == NULL)
