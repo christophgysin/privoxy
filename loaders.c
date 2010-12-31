@@ -858,10 +858,7 @@ int load_trustfile(struct client_state *csp)
    if (!check_file_changed(current_trustfile, csp->config->trustfile, &fs))
    {
       /* No need to load */
-      if (csp)
-      {
-         csp->tlist = current_trustfile;
-      }
+      csp->tlist = current_trustfile;
       return(0);
    }
    if (!fs)
