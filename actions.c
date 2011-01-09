@@ -522,7 +522,7 @@ jb_err get_actions(char *line,
 
                   if ((value == NULL) || (*value == '\0'))
                   {
-                     if (0 != strcmpic(action->name, "block"))
+                     if (0 == strcmpic(action->name, "+block"))
                      {
                         /*
                          * XXX: Temporary backwards compatibility hack.
