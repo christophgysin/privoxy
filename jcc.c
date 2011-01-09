@@ -2558,9 +2558,8 @@ static void serve(struct client_state *csp)
             && data_is_available(csp->cfd, (int)client_timeout)
             && socket_is_still_alive(csp->cfd))
          {
-            log_error(LOG_LEVEL_CONNECT, "Client request arrived in "
-               "time or the client closed the connection on socket %d.",
-                csp->cfd);
+            log_error(LOG_LEVEL_CONNECT,
+               "Client request arrived in time on socket %d.", csp->cfd);
             prepare_csp_for_next_request(csp);
          }
          else
