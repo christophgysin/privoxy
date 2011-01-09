@@ -809,6 +809,20 @@ static jb_socket socks4_connect(const struct forward_spec * fwd,
       errstr = "connect_to failed: see logfile for details";
       err = 1;
    }
+   else if (!data_is_available(sfd, csp->config->socket_timeout))
+   {
+      if (socket_is_still_alive(sfd))
+      {
+         errstr = "SOCKS4 negotiation timed out";
+      }
+      else
+      {
+         errstr = "SOCKS4 negotiation got aborted by the server";
+      }
+      log_error(LOG_LEVEL_CONNECT, "socks4_connect: %s", errstr);
+      err = 1;
+      close_socket(sfd);
+   }
    else if (write_socket(sfd, (char *)c, csiz))
    {
       errstr = "SOCKS4 negotiation write failed.";
