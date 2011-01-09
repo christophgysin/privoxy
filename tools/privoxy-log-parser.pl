@@ -1596,11 +1596,14 @@ sub handle_loglevel_connect ($) {
 
     } elsif ($c =~ m/^Waiting for the next client request/ or
              $c =~ m/^The connection on server socket/ or
-             $c =~ m/^Client request arrived in time or the client closed the connection/) {
+             $c =~ m/^Client request arrived in time /) {
 
         # Waiting for the next client request on socket 3. Keeping the server \
         #  socket 12 to a.fsdn.com open.
         # The connection on server socket 6 to upload.wikimedia.org isn't reusable. Closing.
+        # Used by Privoxy 3.0.18 and later:
+        # Client request arrived in time on socket 21.
+        # Used by earlier version:
         # Client request arrived in time or the client closed the connection on socket 12.
 
         $c =~ s@(?<=on socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
