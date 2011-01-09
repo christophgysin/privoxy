@@ -2790,9 +2790,9 @@ forward-socks4, forward-socks4a and forward-socks5</title>
   <term>Notes:</term>
   <listitem>
    <para>
-    For SOCKS requests the timeout currently doesn't start until
-    the SOCKS server accepted the request. This will be fixed in
-    the next release.
+    The default is quite high and you probably want to reduce it.
+    If you aren't using an occasionally slow proxy like Tor, reducing
+    it to a few seconds should be fine.
    </para>
   </listitem>
  </varlistentry>
