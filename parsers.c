@@ -2554,22 +2554,7 @@ static jb_err client_accept_encoding(struct client_state *csp, char **header)
    if ((csp->action->flags & ACTION_NO_COMPRESSION) != 0)
    {
       log_error(LOG_LEVEL_HEADER, "Suppressed offer to compress content");
-
       freez(*header);
-
-      /* Temporarily disable the correct behaviour to
-       * work around a PHP bug. 
-       *
-       * if (!strcmpic(csp->http->ver, "HTTP/1.1"))
-       * {
-       *    *header = strdup("Accept-Encoding: identity;q=1.0, *;q=0");
-       *    if (*header == NULL)
-       *    {
-       *       return JB_ERR_MEMORY;
-       *    }
-       * }
-       * 
-       */
    }
 
    return JB_ERR_OK;
