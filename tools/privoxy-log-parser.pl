@@ -1771,6 +1771,11 @@ sub handle_loglevel_info ($) {
         $c =~ s@(?<=Needed: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=Limit: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^File modification detected: /) {
+
+        # File modification detected: /usr/local/etc/privoxy/user-agent.action
+        $c =~ s@(?<= detected: )(.*)$@$h{'file'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^No logfile configured/ or
              $c =~ m/^Malformerd HTTP headers detected and MS IIS5 hack enabled/ or
              $c =~ m/^Invalid \"chunked\" transfer/ or
