@@ -1472,7 +1472,8 @@ int any_loaded_file_changed(const struct file_list *files_to_check)
    {
       if (file_has_been_modified(file_to_check->filename, file_to_check->lastmodified))
       {
-         log_error(LOG_LEVEL_INFO, "%s has been changed", file_to_check->filename);
+         log_error(LOG_LEVEL_INFO,
+            "File modification detected: %s", file_to_check->filename);
          return TRUE;
       }
       file_to_check = file_to_check->next;
