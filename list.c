@@ -496,7 +496,7 @@ char *list_to_text(const struct list *the_list)
    assert(list_is_valid(the_list));
 
    /*
-    * Calculate the lenght of the final text.
+    * Calculate the length of the final text.
     * '2' because of the '\r\n' at the end of
     * each string and at the end of the text.
     */

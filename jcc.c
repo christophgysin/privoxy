@@ -2401,7 +2401,7 @@ static void chat(struct client_state *csp)
    if (csp->content_length == 0)
    {
       /*
-       * If Privoxy didn't recalculate the Content-Lenght,
+       * If Privoxy didn't recalculate the Content-Length,
        * byte_count is still correct.
        */
       csp->content_length = byte_count;

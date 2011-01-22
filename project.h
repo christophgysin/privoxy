@@ -765,7 +765,7 @@ struct reusable_connection
 #define CSP_FLAG_SERVER_CONTENT_LENGTH_SET     0x00002000U
 
 /**
- * Flag for csp->flags: Set if we know the content lenght,
+ * Flag for csp->flags: Set if we know the content length,
  * either because the server set it, or we figured it out
  * on our own.
  */
