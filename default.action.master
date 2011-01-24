@@ -1402,6 +1402,9 @@ track.webtrekk.de/
 b.scorecardresearch.com/
 # URL = https://sb.scorecardresearch.com/
 sb.scorecardresearch.com/
+#MASTER# BLOCK-REFERRER: http://sourceforge.net/projects/ijbswa/
+# Blocked URL = http://b.collective-media.net/seg/cm/cm_aa_gn1
+b.collective-media.net/
 
 #----------------------------------------------------------------------------
 # Specific counters (see above for generic patterns)
