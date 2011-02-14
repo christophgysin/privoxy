@@ -1861,6 +1861,7 @@ static jb_err load_file(const char *filename, char **buffer, size_t *length)
    fp = fopen(filename, "rb");
    if (NULL == fp)
    {
+      log_error(LOG_LEVEL_ERROR, "Failed to open %s: %E", filename);
       return JB_ERR_FILE;
    }
 
