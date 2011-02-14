@@ -711,7 +711,13 @@ jb_err cgi_send_user_manual(struct client_state *csp,
    }
    else if (NULL != strchr(filename, '/') || NULL != strstr(filename, ".."))
    {
-      /* Check parameter for hack attempts */
+      /*
+       * We currently only support a flat file
+       * hierachy for the documentation.
+       */
+      log_error(LOG_LEVEL_ERROR,
+         "Rejecting the request to serve '%s' as it contains '/' or '..'",
+         filename);
       return JB_ERR_CGI_PARAMS;
    }
 
