@@ -684,6 +684,7 @@ static const char *get_content_type(const char *filename)
    {
       {".css",  "text/css"},
       {".jpg",  "image/jpeg"},
+      {".jpeg", "image/jpeg"},
       {".png",  "image/png"},
    };
 
