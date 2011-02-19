@@ -371,6 +371,7 @@ sub load_action_files ($) {
                 $ri++;
                 $count++;
                 enlist_new_test(\@regression_tests, $token, $value, $si, $ri, $count);
+                $no_checks = 1; # Already validated by enlist_new_test().
             }
 
             if ($token =~ /level\s+(\d+)/i) {
@@ -463,10 +464,14 @@ sub load_action_files ($) {
 
                 # We don't use it, so we don't need
                 $no_checks = 1;
+                l(LL_STATUS, "Enabling no_checks for $token") unless $no_checks;
             }
+
             # XXX: Neccessary?
-            check_for_forbidden_characters($value) unless $no_checks;
-            check_for_forbidden_characters($token);
+            unless ($no_checks)  {
+                check_for_forbidden_characters($value);
+                check_for_forbidden_characters($token);
+            }
         }
     }
 
