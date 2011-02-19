@@ -88,11 +88,12 @@ static jb_socket socks5_connect(const struct forward_spec *fwd,
                                 int target_port,
                                 struct client_state *csp);
 
-
-#define SOCKS4_REQUEST_GRANTED          90
-#define SOCKS4_REQUEST_REJECT           91
-#define SOCKS4_REQUEST_IDENT_FAILED     92
-#define SOCKS4_REQUEST_IDENT_CONFLICT   93
+enum {
+   SOCKS4_REQUEST_GRANTED        =  90,
+   SOCKS4_REQUEST_REJECT         =  91,
+   SOCKS4_REQUEST_IDENT_FAILED   =  92,
+   SOCKS4_REQUEST_IDENT_CONFLICT =  93
+};
 
 enum {
    SOCKS5_REQUEST_GRANTED             = 0,
