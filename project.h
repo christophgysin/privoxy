@@ -1032,10 +1032,14 @@ struct block_spec
 #endif /* def FEATURE_TRUST */
 
 enum forwarder_type {
-   SOCKS_NONE =  0,    /**< Don't use a SOCKS server               */
-   SOCKS_4    = 40,    /**< original SOCKS 4 protocol              */
-   SOCKS_4A   = 41,    /**< as modified for hosts w/o external DNS */
-   SOCKS_5    = 50,    /**< as modified for hosts w/o external DNS */
+   /**< Don't use a SOCKS server               */
+   SOCKS_NONE =  0,
+   /**< original SOCKS 4 protocol              */
+   SOCKS_4    = 40,
+   /**< SOCKS 4A, DNS resolution is done by the SOCKS server */
+   SOCKS_4A   = 41,
+   /**< SOCKS 5 with hostnames, DNS resolution is done by the SOCKS server */
+   SOCKS_5    = 50,
 };
 
 /**
