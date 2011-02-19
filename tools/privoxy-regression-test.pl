@@ -1426,6 +1426,24 @@ sub print_version () {
     printf PRT_VERSION . "\n" . 'Copyright (C) 2007-2009 Fabian Keil <fk@fabiankeil.de>' . "\n";
 }
 
+sub list_test_types () {
+    my %test_types = (
+        'Client header test'  => CLIENT_HEADER_TEST,
+        'Server header test'  =>  2,
+        'Dumb fetch test'     =>  3,
+        'Method test'         =>  4,
+        'Sticky action test'  =>  5,
+        'Trusted CGI test'    =>  6,
+        'Block test'          =>  7,
+        'Redirect test'       => 108,
+    );
+
+    print "\nThe supported test types and their default levels are:\n";
+    foreach my $test_type (sort { $test_types{$a} <=> $test_types{$b} } keys %test_types) {
+        printf "     %-20s -> %3.d\n", $test_type, $test_types{$test_type};
+    }
+}
+
 sub help () {
 
     our %cli_options;
@@ -1452,9 +1470,17 @@ Options and their default values if they have any:
     [--test-number]
     [--verbose]
     [--version]
-see "perldoc $0" for more information
     EOF
     ;
+
+    list_test_types();
+
+    print << "    EOF"
+
+Try "perldoc $0" for more information
+    EOF
+    ;
+
     exit(0);
 }
 
