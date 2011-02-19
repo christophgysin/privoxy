@@ -19,7 +19,7 @@
 # - Document magic Expect Header values
 # - Internal fuzz support?
 #
-# Copyright (c) 2007-2009 Fabian Keil <fk@fabiankeil.de>
+# Copyright (c) 2007-2011 Fabian Keil <fk@fabiankeil.de>
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -1428,7 +1428,7 @@ sub quote ($) {
 }
 
 sub print_version () {
-    printf PRT_VERSION . "\n" . 'Copyright (C) 2007-2009 Fabian Keil <fk@fabiankeil.de>' . "\n";
+    printf PRT_VERSION . "\n" . 'Copyright (C) 2007-2011 Fabian Keil <fk@fabiankeil.de>' . "\n";
 }
 
 sub list_test_types () {
