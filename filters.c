@@ -728,11 +728,11 @@ struct http_response *block_url(struct client_state *csp)
            && !strstr(p, "compatible")    /* MSIE */
            && !strstr(p, "Opera"))        /* and Opera. */
       {
-         rsp->status = strdup("200 Request for blocked URL");
+         rsp->status = strdup("200 Request blocked by Privoxy");
       }
       else
       {
-         rsp->status = strdup("403 Request for blocked URL");
+         rsp->status = strdup("403 Request blocked by Privoxy");
       }
 
       if (rsp->status == NULL)
