@@ -202,6 +202,8 @@ jb_err cgi_die (struct client_state *csp,
    /* quit */
    g_terminate = 1;
 
+   csp->flags &= ~CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
+
    rsp->content_length = 0;
    rsp->head_length = 0;
    rsp->is_static = 0;
