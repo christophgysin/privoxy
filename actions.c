@@ -1249,7 +1249,14 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
             }
             init_action(cur_action);
 
-            /* trim { */
+            /*
+             * Copy the buffer before messing with it as we may need the
+             * unmodified version in for the fatal error messages. Given
+             * that this is not a common event, we could instead simply
+             * read the line again.
+             *
+             * buf + 1 to skip the leading '{'
+             */
             actions_buf = strdup(buf + 1);
             if (actions_buf == NULL)
             {
