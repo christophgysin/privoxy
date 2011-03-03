@@ -49,7 +49,7 @@ struct configuration_spec;
 struct url_spec;
 
 extern unsigned int sweep(void);
-extern char *read_config_line(char *buf, size_t buflen, FILE *fp, unsigned long *linenum);
+extern char *read_config_line(FILE *fp, unsigned long *linenum, char **buf);
 extern int check_file_changed(const struct file_list * current,
                               const char * filename,
                               struct file_list ** newfl);
