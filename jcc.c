@@ -2510,7 +2510,8 @@ static void serve(struct client_state *csp)
          && (((csp->flags & CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE)
                && !(csp->flags & CSP_FLAG_SERVER_SOCKET_TAINTED))
             || (csp->flags & CSP_FLAG_CRUNCHED))
-         && (csp->cfd != JB_INVALID_SOCKET);
+         && (csp->cfd != JB_INVALID_SOCKET)
+         && (csp->flags & CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE);
 
       if (continue_chatting && !(csp->flags & CSP_FLAG_CRUNCHED))
       {
