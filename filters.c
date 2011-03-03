@@ -1002,7 +1002,6 @@ pcrs_job *compile_dynamic_pcrs_job_list(const struct client_state *csp, const st
       dummy = pcrs_compile_dynamic_command(pattern->str, variables, &error);
       if (NULL == dummy)
       {
-         assert(error < 0);
          log_error(LOG_LEVEL_ERROR,
             "Adding filter job \'%s\' to dynamic filter %s failed: %s",
             pattern->str, b->name, pcrs_strerror(error));
