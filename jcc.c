@@ -3750,7 +3750,6 @@ static void listen_loop(void)
 #if defined(unix)
    freez(basedir);
 #endif
-   freez(configfile);
 
 #if defined(_WIN32) && !defined(_WIN_CONSOLE)
    /* Cleanup - remove taskbar icon etc. */
