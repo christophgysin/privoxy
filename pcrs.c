@@ -80,7 +80,7 @@ static int              is_hex_sequence(const char *sequence);
  *********************************************************************/
 const char *pcrs_strerror(const int error)
 {
-   if (error < 0)
+   if (error != 0)
    {
       switch (error)
       {
