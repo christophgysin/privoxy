@@ -1003,7 +1003,7 @@ pcrs_job *compile_dynamic_pcrs_job_list(const struct client_state *csp, const st
       if (NULL == dummy)
       {
          log_error(LOG_LEVEL_ERROR,
-            "Adding filter job \'%s\' to dynamic filter %s failed: %d %s",
+            "Compiling dynamic pcrs job '%s' for '%s' failed with error code %d: %s",
             pattern->str, b->name, error, pcrs_strerror(error));
          continue;
       }
