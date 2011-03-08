@@ -1448,7 +1448,7 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
          {
             fclose(fp);
             log_error(LOG_LEVEL_FATAL,
-               "can't load actions file '%s': line %lu: cannot create URL pattern from: %s",
+               "can't load actions file '%s': line %lu: cannot create URL or TAG pattern from: %s",
                csp->config->actions_file[fileid], linenum, buf);
             return 1; /* never get here */
          }
