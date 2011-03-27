@@ -252,3 +252,7 @@ have been added, not by priority.
 89) When multiple block actions apply, consider showing all the block
     reasons on the blocked page that haven't been overruled, not just
     the last one.
+
+90) Implement NO-TAG: patterns that enable a section if the
+    provided pattern doesn't match any TAG. This would make
+    some things cleaner.
