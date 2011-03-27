@@ -2278,10 +2278,6 @@ forward-socks4, forward-socks4a and forward-socks5</title>
     that go away when you try again manually. Start with a small value and check Privoxy's
     logfile from time to time, to see how many retries are usually needed.
    </para>
-   <para>
-    Due to a bug, this option currently also causes Privoxy to
-    retry in case of certain problems with direct connections.
-   </para>
   </listitem>
  </varlistentry>
  <varlistentry>
