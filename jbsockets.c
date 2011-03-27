@@ -249,7 +249,7 @@ static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client
       if (retval)
       {
          log_error(LOG_LEVEL_ERROR,
-            "Can not save csp->http->host_ip_addr_str: %s",
+            "Failed to get the host name from the socket structure: %s",
             gai_strerror(retval));
          continue;
       }
