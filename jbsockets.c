@@ -322,10 +322,6 @@ static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client
       if ((select((int)fd + 1, NULL, &wfds, NULL, tv) > 0)
          && FD_ISSET(fd, &wfds))
       {
-         /*
-          * See Linux connect(2) man page for more info
-          * about connecting on non-blocking socket.
-          */
          int socket_in_error;
          socklen_t optlen = sizeof(socket_in_error);
          if (!getsockopt(fd, SOL_SOCKET, SO_ERROR, &socket_in_error, &optlen))
