@@ -130,7 +130,6 @@ const char jbsockets_h_rcs[] = JBSOCKETS_H_VERSION;
  *          1  :  host = hostname to connect to
  *          2  :  portnum = port to connent on (XXX: should be unsigned)
  *          3  :  csp = Current client state (buffers, headers, etc...)
- *                      Not modified, only used for source IP and ACL.
  *
  * Returns     :  JB_INVALID_SOCKET => failure, else it is the socket
  *                file descriptor.
