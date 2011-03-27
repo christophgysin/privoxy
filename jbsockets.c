@@ -238,12 +238,11 @@ static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client
       }
       retval = getnameinfo(rp->ai_addr, rp->ai_addrlen,
          csp->http->host_ip_addr_str, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
-      if (!csp->http->host_ip_addr_str || retval)
+      if (retval)
       {
          log_error(LOG_LEVEL_ERROR,
             "Can not save csp->http->host_ip_addr_str: %s",
-            (csp->http->host_ip_addr_str) ?
-            gai_strerror(retval) : "Insufficient memory");
+            gai_strerror(retval));
          freez(csp->http->host_ip_addr_str);
          continue;
       }
