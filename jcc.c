@@ -1673,8 +1673,6 @@ static void chat(struct client_state *csp)
          else
          {
             rsp = error_response(csp, "connect-failed");
-            log_error(LOG_LEVEL_CONNECT, "connect to: %s failed: %E",
-               http->hostport);
          }
 
          /* Write the answer to the client */
