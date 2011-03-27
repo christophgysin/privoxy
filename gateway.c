@@ -809,12 +809,8 @@ static jb_socket socks4_connect(const struct forward_spec * fwd,
 
    if (sfd == JB_INVALID_SOCKET)
    {
-      /*
-       * XXX: connect_to should fill in the exact reason.
-       * Most likely resolving the IP of the forwarder failed.
-       */
-      errstr = "connect_to failed: see logfile for details";
-      err = 1;
+      /* The error an its reason have already been logged by connect_to()  */
+      return(JB_INVALID_SOCKET);
    }
    else if (!data_is_available(sfd, csp->config->socket_timeout))
    {
