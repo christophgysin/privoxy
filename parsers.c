@@ -4054,7 +4054,8 @@ jb_err get_destination_from_headers(const struct list *headers, struct http_requ
       return JB_ERR_PARSE;
    }
 
-   if (NULL == (p = strdup((host))))
+   p = strdup(host);
+   if (NULL == p)
    {
       log_error(LOG_LEVEL_ERROR, "Out of memory while parsing \"Host:\" header");
       return JB_ERR_MEMORY;
