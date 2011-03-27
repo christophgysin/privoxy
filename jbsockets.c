@@ -147,6 +147,11 @@ jb_socket connect_to(const char *host, int portnum, struct client_state *csp)
 
    do
    {
+      /*
+       * XXX: The whole errno overloading is ridiculous and should
+       *      be replaced with something sane and thread safe
+       */
+      /* errno = 0;*/
 #ifdef HAVE_RFC2553
       fd = rfc2553_connect_to(host, portnum, csp);
 #else
