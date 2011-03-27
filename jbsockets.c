@@ -157,7 +157,8 @@ jb_socket connect_to(const char *host, int portnum, struct client_state *csp)
 #else
       fd = no_rfc2553_connect_to(host, portnum, csp);
 #endif
-      if ((fd != JB_INVALID_SOCKET) || (errno != EINVAL))
+      if ((fd != JB_INVALID_SOCKET) || (errno == EINVAL)
+         || ((csp->fwd->forward_host == NULL) && (csp->fwd->type == SOCKS_NONE)))
       {
          break;
       }
