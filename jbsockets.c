@@ -282,10 +282,12 @@ static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client
       connect_failed = 0;
       while (connect(fd, rp->ai_addr, rp->ai_addrlen) == JB_INVALID_SOCKET)
       {
+#ifdef __OS2__
+         errno = sock_errno();
+#endif /* __OS2__ */
+
 #ifdef _WIN32
          if (errno == WSAEINPROGRESS)
-#elif __OS2__
-         if (sock_errno() == EINPROGRESS)
 #else /* ifndef _WIN32 */
          if (errno == EINPROGRESS)
 #endif /* ndef _WIN32 || __OS2__ */
@@ -293,11 +295,7 @@ static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client
             break;
          }
 
-#ifdef __OS2__
-         if (sock_errno() != EINTR)
-#else
          if (errno != EINTR)
-#endif /* __OS2__ */
          {
             close_socket(fd);
             connect_failed = 1;
