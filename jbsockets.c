@@ -384,6 +384,9 @@ static jb_socket no_rfc2553_connect_to(const char *host, int portnum, struct cli
    struct access_control_addr dst[1];
 #endif /* def FEATURE_ACL */
 
+   /* Don't leak memory when retrying. */
+   freez(csp->http->host_ip_addr_str);
+
    memset((char *)&inaddr, 0, sizeof inaddr);
 
    if ((addr = resolve_hostname_to_ip(host)) == INADDR_NONE)
