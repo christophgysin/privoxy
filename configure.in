@@ -944,7 +944,7 @@ if test $have_pcre = "yes"; then
   STATIC_PCRE_ONLY=#
   LIBS="$LIBS -lpcre -lpcreposix"
 else
-  AC_MSG_WARN([You are using the static PCRE code which is scheduled for removal, for details see: 
+  AC_MSG_WARN([You are using the static PCRE code which is out of date and scheduled for removal, for details see:
     http://sourceforge.net/mailarchive/forum.php?thread_name=20080511195555.2dc6cfdc%40fabiankeil.de&forum_name=ijbswa-developers])
   pcre_dyn=no
   AC_DEFINE(STATIC_PCRE)
