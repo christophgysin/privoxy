@@ -2482,7 +2482,7 @@ log messages. This is an experimental feature, if the results look wrong
 they very well might be. Also note that the results are pretty much guaranteed
 to be incorrect if Privoxy and Privoxy-Log-Parser aren't in sync.
 
-[B<--unbreak-lines-only] Tries to fix lines that got messed up by a broken or
+[B<--unbreak-lines-only>] Tries to fix lines that got messed up by a broken or
 interestingly configured mail client and thus are no longer recognized properly.
 Only fixes some breakage, but may be good enough or at least better than nothing.
 Doesn't do anything else, so you probably want to pipe the output into
