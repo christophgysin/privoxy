@@ -889,7 +889,7 @@ How to install the binary packages depends on your operating system:
     <listitem>
      <para>
       Remove an incorrect cgi_error_unknown() call in a
-      cannnot-happen-situation in send_crunch_response().
+      cannot-happen-situation in send_crunch_response().
      </para>
     </listitem>
     <listitem>
@@ -8917,6 +8917,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.131  2011/04/19 13:14:10  fabiankeil
+ Fix spelling errors in the documentation. Found with codespell.
+
  Revision 2.130  2010/12/01 19:28:28  fabiankeil
  Hopefully unbreak the dok target when using some kind of jade.
 

@@ -1965,7 +1965,7 @@ ACLs: permit-access and deny-access</title>
    </para>
    <para>
     <programlisting>
-  foward   /                   [2001:DB8::1]:8000
+  forward   /                   [2001:DB8::1]:8000
 </programlisting>
    </para>
    <para>
