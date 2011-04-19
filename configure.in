@@ -842,8 +842,8 @@ AC_ARG_ENABLE(image-blocking,
 fi],
 AC_DEFINE(FEATURE_IMAGE_BLOCKING))
 
-AC_ARG_ENABLE(acl-files,
-[  --disable-acl-files             Prevents the use of ACL files to control access to
+AC_ARG_ENABLE(acl-support,
+[  --disable-acl-support            Prevents the use of ACLs to control access to
                                   Privoxy by IP address.],
 [if test $enableval = yes; then
   AC_DEFINE(FEATURE_ACL)
