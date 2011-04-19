@@ -778,7 +778,7 @@ jb_err cgi_send_user_manual(struct client_state *csp,
    {
       /*
        * We currently only support a flat file
-       * hierachy for the documentation.
+       * hierarchy for the documentation.
        */
       log_error(LOG_LEVEL_ERROR,
          "Rejecting the request to serve '%s' as it contains '/' or '..'",

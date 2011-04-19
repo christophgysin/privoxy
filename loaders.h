@@ -73,7 +73,7 @@ extern jb_err simple_read_line(FILE *fp, char **dest, int *newline);
 
 /*
  * Types of newlines that a file may contain, as strings.  If you have an
- * extremely wierd compiler that does not have '\r' == CR == ASCII 13 and
+ * extremely weird compiler that does not have '\r' == CR == ASCII 13 and
  * '\n' == LF == ASCII 10), then fix CHAR_CR and CHAR_LF in loaders.c as
  * well as these definitions.
  */

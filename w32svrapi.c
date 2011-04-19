@@ -915,7 +915,7 @@ static void WINAPI privoxy_w32_service_handler(DWORD dwOpcode)
           * even after the process had disappeared.
           *
           * It seems that if we call exit in the ServiceMain thread, it causes
-          * the SCM to not recieve the status we sent in the line above. The
+          * the SCM to not receive the status we sent in the line above. The
           * simple fix was to create a new thread to actually call exit for us
           * whilst this thread continues and returns to its caller.
           */

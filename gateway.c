@@ -1099,7 +1099,7 @@ static jb_socket socks5_connect(const struct forward_spec *fwd,
    }
    else if (server_size > 20)
    {
-      /* This is somewhat unexpected but doesn't realy matter. */
+      /* This is somewhat unexpected but doesn't really matter. */
       log_error(LOG_LEVEL_CONNECT, "socks5_connect: read %d bytes "
          "from socks server. Would have accepted up to %d.",
          server_size, sizeof(sbuf));

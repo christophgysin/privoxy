@@ -397,7 +397,7 @@ plainchar:
  * Function    :  pcrs_free_job
  *
  * Description :  Frees the memory used by a pcrs_job struct and its
- *                dependant structures.
+ *                dependent structures.
  *
  * Parameters  :
  *          1  :  job = pointer to the pcrs_job structure to be freed

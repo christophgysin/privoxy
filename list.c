@@ -921,7 +921,7 @@ void free_map(struct map *the_map)
  *
  *                Note: Since all strings will be free()d in free_map()
  *                      later, set the copy flags for constants or
- *                      strings that will be independantly free()d.
+ *                      strings that will be independently free()d.
  *
  *                Note2: This function allows NULL parameters - it
  *                       returns JB_ERR_MEMORY in that case.

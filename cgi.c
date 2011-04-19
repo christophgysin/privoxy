@@ -1862,7 +1862,7 @@ jb_err template_load(const struct client_state *csp, char **template_ptr,
  *                HTML template by replacing @name@ with value using
  *                pcrs, for each item in the output map.
  *
- *                Note that a leading '$' charachter in the export map's
+ *                Note that a leading '$' character in the export map's
  *                values will be stripped and toggle on backreference
  *                interpretation.
  *

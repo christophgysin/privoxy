@@ -929,7 +929,7 @@ static int simplematch(const char *pattern, const char *text)
       ||   ((*pat == ']') && (charmap[*txt / 8] & (1 << (*txt % 8)))) )
       {
          /* 
-          * Sucess: Go ahead
+          * Success: Go ahead
           */
          pat++;
       }

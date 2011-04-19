@@ -1352,7 +1352,7 @@ static jb_err receive_client_request(struct client_state *csp)
       {
          /*
           * We were able to read a complete
-          * header and can finaly enlist it.
+          * header and can finally enlist it.
           */
          enlist(headers, p);
          freez(p);
@@ -1495,7 +1495,7 @@ static jb_err parse_client_request(struct client_state *csp)
  *                this function is called (via serve()) to handle the
  *                main business of the communication.  This function
  *                returns after dealing with a single request. It can
- *                be called multiple times witht the same client socket
+ *                be called multiple times with the same client socket
  *                if the client is keeping the connection alive.
  *
  *                The decision whether or not a client connection will
@@ -3527,7 +3527,7 @@ static void listen_loop(void)
       {
          int child_id;
 
-/* this is a switch () statment in the C preprocessor - ugh */
+/* this is a switch () statement in the C preprocessor - ugh */
 #undef SELECTED_ONE_OPTION
 
 /* Use Pthreads in preference to native code */
