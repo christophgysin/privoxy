@@ -1300,7 +1300,7 @@ sub handle_loglevel_gif_deanimate ($) {
     } elsif ($content =~ m/^(?:No GIF header found|failed while parsing)/) {
 
         # No GIF header found (XXX: Did I ever commit this?)
-        # failed while parsing 195 134747048 (XXX: never commited)
+        # failed while parsing 195 134747048 (XXX: never committed)
 
         # Ignore these for now
 
