@@ -2961,7 +2961,12 @@ int main(int argc, char **argv)
          group_name = strchr(user_arg, '.');
          if (NULL != group_name)
          {
-            *group_name++ = '\0';
+            /* Nul-terminate the user name */
+            *group_name = '\0';
+
+            /* Skip the former delimiter to actually reach the group name */
+            group_name++;
+
             grp = getgrnam(group_name);
             if (NULL == grp)
             {
