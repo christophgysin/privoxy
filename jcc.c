@@ -2963,8 +2963,6 @@ int main(int argc, char **argv)
          {
             log_error(LOG_LEVEL_FATAL, "User '%s' not found.", argv[argc_pos]);
          }
-
-         if (p != NULL) *--p = '\0';
       }
 
       else if (strcmp(argv[argc_pos], "--pre-chroot-nslookup" ) == 0)
