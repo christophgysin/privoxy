@@ -2950,7 +2950,7 @@ int main(int argc, char **argv)
       {
          if (++argc_pos == argc) usage(argv[argc_pos]);
 
-         if ((NULL != (p = strchr(argv[argc_pos], '.'))) && *(p + 1) != '0')
+         if (NULL != (p = strchr(argv[argc_pos], '.')))
          {
             *p++ = '\0';
             if (NULL == (grp = getgrnam(p)))
