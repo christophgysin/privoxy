@@ -2955,13 +2955,13 @@ int main(int argc, char **argv)
             *p++ = '\0';
             if (NULL == (grp = getgrnam(p)))
             {
-               log_error(LOG_LEVEL_FATAL, "Group %s not found.", p);
+               log_error(LOG_LEVEL_FATAL, "Group '%s' not found.", p);
             }
          }
 
          if (NULL == (pw = getpwnam(argv[argc_pos])))
          {
-            log_error(LOG_LEVEL_FATAL, "User %s not found.", argv[argc_pos]);
+            log_error(LOG_LEVEL_FATAL, "User '%s' not found.", argv[argc_pos]);
          }
 
          if (p != NULL) *--p = '\0';
