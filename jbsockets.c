@@ -163,9 +163,12 @@ jb_socket connect_to(const char *host, int portnum, struct client_state *csp)
          break;
       }
       forwarded_connect_retries++;
-      log_error(LOG_LEVEL_ERROR,
-         "Attempt %d of %d to connect to %s failed. Trying again.",
-         forwarded_connect_retries, csp->config->forwarded_connect_retries, host);
+      if (csp->config->forwarded_connect_retries != 0)
+      {
+         log_error(LOG_LEVEL_ERROR,
+            "Attempt %d of %d to connect to %s failed. Trying again.",
+            forwarded_connect_retries, csp->config->forwarded_connect_retries, host);
+      }
 
    } while (forwarded_connect_retries < csp->config->forwarded_connect_retries);
 
