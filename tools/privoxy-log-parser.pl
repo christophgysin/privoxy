@@ -1751,12 +1751,15 @@ sub handle_loglevel_info ($) {
 
         # Request from 10.0.0.1 denied. limit-connect{,} doesn't allow CONNECT requests to port 443.
         # Request from 10.0.0.1 marked for blocking. limit-connect{,} doesn't allow CONNECT requests to port 443.
+        # 3.0.18 and later:
+        # Request from 10.0.0.1 marked for blocking. limit-connect{0} doesn't allow CONNECT requests to www.example.org:443.
         # Malformed server response detected. Downgrading to HTTP/1.0 impossible.
 
         $c =~ s@(?<=Request from )([^\s]*)@$h{'ip-address'}$1$h{'Standard'}@;
         $c =~ s@(denied|blocking)@$h{'warning'}$1$h{'Standard'}@;
         $c =~ s@(CONNECT)@$h{'method'}$1$h{'Standard'}@;
         $c =~ s@(?<=to port )(\d+)@$h{'port'}$1$h{'Standard'}@;
+        $c =~ s@(?<=to )([^\s]+)\.@$h{'request_'}$1$h{'Standard'}.@;
 
     } elsif ($c =~ m/^Status code/) {
 
