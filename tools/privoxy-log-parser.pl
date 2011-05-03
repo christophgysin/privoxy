@@ -2302,17 +2302,20 @@ sub unbreak_lines_only_loop() {
             # Log level other than LOG_LEVEL_CLF?
         if (m/^(\d{4}-\d{2}-\d{2}|\w{3} \d{2}) (\d\d:\d\d:\d\d)\.?(\d+)? (?:Privoxy\()?([^\)\s]*)[\)]? ([\w -]*): (.*?)\r?$/ or
             # LOG_LEVEL_CLF?
-            m/^((?:\d+\.\d+\.\d+\.\d+|[:\d]+)) - - \[(.*)\] "(.*)" (\d+) (\d+)/) {
+            m/^((?:\d+\.\d+\.\d+\.\d+)) - - \[(.*)\] "(.*)" (\d+) (\d+)/) {
             $log_messages_reached = 1;
             print "\n";
 
         } else {
             # Wrapped message
+            $_ = "\n". $_  if /^(?:\d+\.\d+\.\d+\.\d+)/;
+            $_ = " " . $_;
         }
         s@<BR>$@@;
         print;
         print "\n" unless $log_messages_reached;
     }
+    print "\n";
 }
 
 sub VersionMessage {
