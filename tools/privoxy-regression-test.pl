@@ -90,13 +90,9 @@ sub init_our_variables () {
 
     our $leading_log_time = LEADING_LOG_TIME;
     our $leading_log_date = LEADING_LOG_DATE;
-
     our $privoxy_cgi_url  = PRIVOXY_CGI_URL;
-
     our $verbose_test_description = VERBOSE_TEST_DESCRIPTION;
-
     our $log_level = get_default_log_level();
-
 }
 
 sub get_default_log_level () {
