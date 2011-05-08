@@ -504,7 +504,7 @@ sub execute_regression_tests () {
         my $failures;
         my $skipped = 0;
 
-        for my $s (0 .. @regression_tests - 1) {
+        for (my $s = 0;  $s < @regression_tests; $s++) {
 
             my $r = 0;
 
