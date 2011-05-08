@@ -593,11 +593,11 @@ sub level_is_unacceptable ($) {
 
     } elsif ($level < $min_level) {
 
-        $reason = "Level to low (" . $level . " < " . $min_level . ")";
+        $reason = "Level too low (" . $level . " < " . $min_level . ")";
 
     } elsif ($level > $max_level) {
 
-        $reason = "Level to high (" . $level . " > " . $max_level . ")";
+        $reason = "Level too high (" . $level . " > " . $max_level . ")";
 
     } else {
 
