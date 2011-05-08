@@ -986,7 +986,7 @@ sub get_header ($$) {
 
     if ($expect_header eq 'REMOVAL'
      or $expect_header eq 'NO CHANGE'
-     or  $expect_header eq 'SOME CHANGE') {
+     or $expect_header eq 'SOME CHANGE') {
 
         $expect_header = $test->{'data'};
     }
