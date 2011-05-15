@@ -1257,6 +1257,16 @@ actionsfile
     <literal>http://config.privoxy.org/show-status</literal>.
    </para>
    <para>
+    Some operating systems will prefer IPv6 to IPv4 addresses even if the
+    system has no IPv6 connectivity which is usually not expected by the user.
+    Some even rely on DNS to resolve localhost which mean the "localhost" address
+    used may not actually be local.
+   </para>
+   <para>
+    It is therefore recommended to explicitly configure the intended IP address
+    instead of relying on the operating system, unless there's a strong reason not to.
+   </para>
+   <para>
     If you leave out the address, <application>Privoxy</application> will bind to all
     IPv4 interfaces (addresses) on your machine and may become reachable from the
     Internet and/or the local network. Be aware that some GNU/Linux distributions
