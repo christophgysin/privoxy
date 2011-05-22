@@ -1319,7 +1319,7 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
                return 1; /* never get here */
             }
             
-            num_fields = ssplit(version_string, ".", fields, 3, TRUE, FALSE);
+            num_fields = ssplit(version_string, ".", fields, SZ(fields), TRUE, FALSE);
 
             if (num_fields < 1 || atoi(fields[0]) == 0)
             {
