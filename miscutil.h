@@ -67,10 +67,6 @@ extern char *make_path(const char * dir, const char * file);
 
 long int pick_from_range(long int range);
 
-#ifdef __MINGW32__
-extern char *strdup(const char *s);
-#endif /* def __MINGW32__ */
-
 #ifndef HAVE_SNPRINTF
 extern int snprintf(char *, size_t, const char *, /*args*/ ...);
 #endif /* ndef HAVE_SNPRINTF */
