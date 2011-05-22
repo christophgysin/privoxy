@@ -5,12 +5,12 @@
  *
  * File        :  $Source$
  *
- * Purpose     :  zalloc, hash_string, safe_strerror, strcmpic,
- *                strncmpic, and MinGW32 strdup functions.  These are
- *                each too small to deserve their own file but don't 
- *                really fit in any other file.
+ * Purpose     :  zalloc, hash_string, strcmpic, strncmpic, and
+ *                MinGW32 strdup functions.  These are each too small
+ *                to deserve their own file but don't really fit in
+ *                any other file.
  *
- * Copyright   :  Written by and Copyright (C) 2001-2007 the SourceForge
+ * Copyright   :  Written by and Copyright (C) 2001-2011 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
@@ -52,8 +52,6 @@ extern void write_pid_file(void);
 #endif /* unix */
 
 extern unsigned int hash_string(const char* s);
-
-extern char *safe_strerror(int err);
 
 extern int strcmpic(const char *s1, const char *s2);
 extern int strncmpic(const char *s1, const char *s2, size_t n);
