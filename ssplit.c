@@ -74,7 +74,7 @@ const char ssplit_h_rcs[] = SSPLIT_H_VERSION;
  *                On error, vec and str may still have been overwritten.
  *
  *********************************************************************/
-int ssplit(char *str, const char *delim, char *vec[], int vec_len, 
+int ssplit(char *str, const char *delim, char *vec[], size_t vec_len,
            int dont_save_empty_fields, int ignore_leading)
 {
    unsigned char is_delim[256];

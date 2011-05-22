@@ -39,7 +39,7 @@
 extern "C" {
 #endif
 
-extern int ssplit(char *str, const char *delim, char *vec[], int vec_len, 
+extern int ssplit(char *str, const char *delim, char *vec[], size_t vec_len,
                   int dont_save_empty_fields, int ignore_leading);
 
 /* Revision control strings from this header and associated .c file */
