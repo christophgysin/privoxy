@@ -2231,7 +2231,7 @@ struct http_response *direct_response(struct client_state *csp)
    {
       for (p = csp->headers->first; (p != NULL) ; p = p->next)
       {
-         if (!strncmpic("Max-Forwards:", p->str, 13))
+         if (!strncmpic(p->str, "Max-Forwards:", 13))
          {
             unsigned int max_forwards;
 

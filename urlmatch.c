@@ -1128,7 +1128,7 @@ jb_err create_url_spec(struct url_spec *url, char *buf)
    }
 
    /* Is it a tag pattern? */
-   if (0 == strncmpic("TAG:", url->spec, 4))
+   if (0 == strncmpic(url->spec, "TAG:", 4))
    {
       /* The pattern starts with the first character after "TAG:" */
       const char *tag_pattern = buf + 4;
