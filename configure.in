@@ -702,8 +702,8 @@ AC_CHECK_HEADERS([OS.h arpa/inet.h errno.h fcntl.h limits.h locale.h netdb.h net
 dnl Checks for library functions.
 dnl AC_TYPE_SIGNAL
 dnl AC_CHECK_FUNC(strstr)
-dnl bcopy and memmove are for PCRE
-AC_CHECK_FUNCS([strerror bcopy memmove])
+dnl bcopy is for PCRE
+AC_CHECK_FUNCS([bcopy])
 AC_PROG_GCC_TRADITIONAL
 AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([access atexit getcwd gethostbyaddr gethostbyaddr_r gethostbyname gethostbyname_r gettimeofday inet_ntoa localtime_r memchr memmove memset poll putenv random regcomp select setlocale snprintf socket strchr strdup strerror strftime strlcat strlcpy strptime strstr strtoul timegm tzset])
