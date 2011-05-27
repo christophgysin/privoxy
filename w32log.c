@@ -370,12 +370,12 @@ int LogPutString(const char *pszText)
    int i;
    int result = 0;
 
-   if (pszText == NULL || strlen(pszText) == 0)
+   if (!g_bLogMessages)
    {
       return 1;
    }
 
-   if (!g_bLogMessages)
+   if (pszText == NULL || strlen(pszText) == 0)
    {
       return 1;
    }
