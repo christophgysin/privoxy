@@ -705,11 +705,7 @@ dnl AC_CHECK_FUNC(strstr)
 dnl bcopy and memmove are for PCRE
 AC_CHECK_FUNCS([strerror bcopy memmove])
 AC_PROG_GCC_TRADITIONAL
-dnl uncommenting does not work for swa. suse linux
-dnl AC_FUNC_MALLOC
 AC_TYPE_SIGNAL
-dnl uncommenting does not work for swa. suse linux
-dnl AC_FUNC_STAT
 AC_CHECK_FUNCS([access atexit getcwd gethostbyaddr gethostbyaddr_r gethostbyname gethostbyname_r gettimeofday inet_ntoa localtime_r memchr memmove memset poll putenv random regcomp select setlocale snprintf socket strchr strdup strerror strftime strlcat strlcpy strptime strstr strtoul timegm tzset])
 
 dnl Checks for RFC 2553 resolver and socket functions
