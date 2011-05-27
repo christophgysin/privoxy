@@ -2901,7 +2901,7 @@ int main(int argc, char **argv)
             pName++;
          exit( (install_service(pName)) ? 0 : 1 );
       }
-      else if (strncmp(argv[argc_pos], "--uninstall", + 11) == 0)
+      else if (strncmp(argv[argc_pos], "--uninstall", 11) == 0)
       {
          const char *pName = argv[argc_pos] + 11;
          if (*pName == ':')
