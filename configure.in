@@ -707,7 +707,6 @@ AC_CHECK_FUNCS([strerror bcopy memmove])
 AC_PROG_GCC_TRADITIONAL
 dnl uncommenting does not work for swa. suse linux
 dnl AC_FUNC_MALLOC
-AC_FUNC_SETPGRP
 AC_TYPE_SIGNAL
 dnl uncommenting does not work for swa. suse linux
 dnl AC_FUNC_STAT
