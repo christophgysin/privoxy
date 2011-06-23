@@ -1193,6 +1193,12 @@ sub handle_loglevel_re_filter ($) {
         # Adding dynamic re_filter job s@^(?:\w*)\s+.*\s+HTTP/\d\.\d\s*@IP-ADDRESS: $origin@D\
         #  to filter client-ip-address succeeded.
 
+    } elsif ($c =~ m/^Compressed content from /) {
+
+        # Compressed content from 29258 to 8630 bytes.
+        $content =~ s@(?<=from )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $content =~ s@(?<=to )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Reading in filter/) {
 
         return '' unless SHOW_FILTER_READIN_IN;
