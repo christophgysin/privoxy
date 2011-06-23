@@ -1576,6 +1576,12 @@ static jb_err show_defines(struct map *exports)
    if (!err) err = map_conditional(exports, "FEATURE_CGI_EDIT_ACTIONS", 0);
 #endif /* ndef FEATURE_CGI_EDIT_ACTIONS */
 
+#ifdef FEATURE_COMPRESSION
+   if (!err) err = map_conditional(exports, "FEATURE_COMPRESSION", 1);
+#else /* ifndef FEATURE_COMPRESSION */
+   if (!err) err = map_conditional(exports, "FEATURE_COMPRESSION", 0);
+#endif /* ndef FEATURE_COMPRESSION */
+
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
    if (!err) err = map_conditional(exports, "FEATURE_CONNECTION_KEEP_ALIVE", 1);
 #else /* ifndef FEATURE_CONNECTION_KEEP_ALIVE */
