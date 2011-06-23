@@ -619,10 +619,12 @@ jb_err decompress_iob(struct client_state *csp)
       }
 
       /*
-       * If we tried the limit and still didn't have enough
-       * memory, just give up.
+       * If we reached the buffer limit and still didn't have enough
+       * memory, just give up. Due to the ceiling enforced by the next
+       * if block we could actually check for equality here, but as it
+       * can be easily mistaken for a bug we don't.
        */
-      if (bufsize == csp->config->buffer_limit)
+      if (bufsize >= csp->config->buffer_limit)
       {
          log_error(LOG_LEVEL_ERROR, "Buffer limit reached while decompressing iob");
          return JB_ERR_MEMORY;
