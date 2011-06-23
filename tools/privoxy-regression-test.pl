@@ -1305,7 +1305,7 @@ sub log_message ($) {
         if ($leading_log_date) {
             $year += 1900;
             $mon  += 1;
-            $time_stamp = sprintf("%i/%.2i/%.2i", $year, $mon, $mday);
+            $time_stamp = sprintf("%i-%.2i-%.2i", $year, $mon, $mday);
         }
 
         if ($leading_log_time) {
