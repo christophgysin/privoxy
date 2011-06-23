@@ -1187,6 +1187,18 @@ jb_err update_server_headers(struct client_state *csp)
    }
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
 
+#ifdef FEATURE_COMPRESSION
+   if ((JB_ERR_OK == err)
+      && (csp->flags & CSP_FLAG_BUFFERED_CONTENT_DEFLATED))
+   {
+      err = enlist_unique_header(csp->headers, "Content-Encoding", "deflate");
+      if (JB_ERR_OK == err)
+      {
+         log_error(LOG_LEVEL_HEADER, "Added header: Content-Encoding: deflate");
+      }
+   }
+#endif
+
    return err;
 }
 
@@ -2607,6 +2619,12 @@ static jb_err server_last_modified(struct client_state *csp, char **header)
  *********************************************************************/
 static jb_err client_accept_encoding(struct client_state *csp, char **header)
 {
+#ifdef FEATURE_COMPRESSION
+   if (strstr(*header, "deflate"))
+   {
+      csp->flags |= CSP_FLAG_CLIENT_SUPPORTS_DEFLATE;
+   }
+#endif
    if ((csp->action->flags & ACTION_NO_COMPRESSION) != 0)
    {
       log_error(LOG_LEVEL_HEADER, "Suppressed offer to compress content");

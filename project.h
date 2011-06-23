@@ -188,6 +188,12 @@ typedef int jb_err;
 #define CGI_PARAM_LEN_MAX 500U
 
 /**
+ * Minimum length which a buffer has to reach before
+ * Privoxy bothers to (re-)compress it. Completely arbitrary.
+ */
+#define LOWER_LENGTH_LIMIT_FOR_COMRPESSION 1024U
+
+/**
  * Buffer size for capturing struct hostent data in the
  * gethostby(name|addr)_r library calls. Since we don't
  * loop over gethostbyname_r, the buffer must be sufficient
@@ -809,6 +815,17 @@ struct reusable_connection
  * Flag for csp->flags: Set if the client reused its connection.
  */
 #define CSP_FLAG_REUSED_CLIENT_CONNECTION           0x00100000U
+
+/**
+ * Flag for csp->flags: Set if the supports deflate compression.
+ */
+#define CSP_FLAG_CLIENT_SUPPORTS_DEFLATE            0x00200000U
+
+/**
+ * Flag for csp->flags: Set if the content has been deflated by Privoxy
+ */
+#define CSP_FLAG_BUFFERED_CONTENT_DEFLATED          0x00400000U
+
 
 /*
  * Flags for use in return codes of child processes

@@ -935,6 +935,19 @@ if test $enableval2 = yes; then
   fi  
 fi
 
+AC_ARG_ENABLE(compression,
+[  --enable-compression            Allow Privoxy to compress buffered content if the client supports it. Requires zlib support.],
+[enableval2=$enableval],
+[enableval2=no])
+if test $enableval2 = yes; then
+  if test $have_zlib = "yes"; then
+    echo Enabling compression support.
+    AC_DEFINE(FEATURE_COMPRESSION,1,[Define to 1 to use compression through the zlib library.])
+  else
+   AC_MSG_WARN([No zlib found. Privoxy will not be able to (re-)compressed buffered content.])
+  fi
+fi
+
 
 # If we have libpcre and either we also have pcreposix or
 # we don't need pcreposix, then link pcre dynamically; else

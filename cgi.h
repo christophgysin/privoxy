@@ -101,6 +101,9 @@ extern jb_err get_string_param(const struct map *parameters,
                                const char **pparam);
 extern char   get_char_param(const struct map *parameters,
                              const char *param_name);
+#ifdef FEATURE_COMPRESSION
+extern char *compress_buffer(char *buffer, size_t *buffer_length);
+#endif
 
 /*
  * Text generators
