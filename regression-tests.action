@@ -431,6 +431,7 @@ TAG:^prevent-compression$
 # Set Header    = Request-Range: bytes=1234-5678
 # Expect Header = REMOVAL
 {\
+ -client-header-tagger{range-requests} \
  +deanimate-gifs{last} \
  -filter \
 }
@@ -443,6 +444,7 @@ TAG:^deanimate-gifs\{last\}$
 # Set Header    = Request-Range: bytes=1234-5678
 # Expect Header = REMOVAL
 {\
+ -client-header-tagger{range-requests} \
  -deanimate-gifs \
  +filter{banners-by-size} \
 }
@@ -455,6 +457,7 @@ TAG:^filter\{banners-by-size\}$
 # Set Header    = Request-Range: bytes=1234-5678
 # Expect Header = NO CHANGE
 {\
+ -client-header-tagger{range-requests} \
  -deanimate-gifs \
  -filter \
 }
