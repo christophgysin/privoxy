@@ -553,11 +553,6 @@ int write_socket(jb_socket fd, const char *buf, size_t len)
       return 0;
    }
 
-   if (len < 0) /* constant condition - size_t isn't ever negative */ 
-   {
-      return 1;
-   }
-
    log_error(LOG_LEVEL_WRITING, "to socket %d: %N", fd, len, buf);
 
 #if defined(_WIN32)
