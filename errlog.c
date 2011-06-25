@@ -450,7 +450,7 @@ static inline size_t get_log_timestamp(char *buffer, size_t buffer_size)
    tm_now = *localtime(&now); 
 #endif
 
-   length = strftime(buffer, buffer_size, "%b %d %H:%M:%S", &tm_now);
+   length = strftime(buffer, buffer_size, "%Y-%m-%d %H:%M:%S", &tm_now);
    if (length > (size_t)0)
    {
       msecs_length = snprintf(buffer+length, buffer_size - length, ".%.3ld", msecs);               
