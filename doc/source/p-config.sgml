@@ -50,8 +50,8 @@
 <title>The Main Configuration File</title>
 
 <para>
- Again, the main configuration file is named <filename>config</filename> on
- Linux/Unix/BSD and OS/2, and <filename>config.txt</filename> on Windows.
+ By default, the main configuration file is named <filename>config</filename>,
+ with the exception of Windows, where it is named <filename>config.txt</filename>.
  Configuration lines consist of an initial keyword followed by a list of
  values, all separated by whitespace (any number of spaces or tabs). For
  example:
