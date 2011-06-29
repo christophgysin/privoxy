@@ -440,7 +440,6 @@ sub main() {
 }
 
 main();
-exit(0);
 
 =head1 NAME
 
