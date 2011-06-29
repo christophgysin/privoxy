@@ -1499,22 +1499,22 @@ sub parse_cli_options () {
     init_cli_options();
 
     GetOptions (
-        'debug=s'            => \$cli_options{'debug'},
-        'forks=s'            => \$cli_options{'forks'},
+        'debug=i'            => \$cli_options{'debug'},
+        'forks=i'            => \$cli_options{'forks'},
         'fuzzer-address=s'   => \$cli_options{'fuzzer-address'},
         'fuzzer-feeding'     => \$cli_options{'fuzzer-feeding'},
         'header-fuzzing'     => \$cli_options{'header-fuzzing'},
         'help'               => \&help,
-        'level=s'            => \$cli_options{'level'},
-        'loops=s'            => \$cli_options{'loops'},
-        'max-level=s'        => \$cli_options{'max-level'},
-        'max-time=s'         => \$cli_options{'max-time'},
-        'min-level=s'        => \$cli_options{'min-level'},
+        'level=i'            => \$cli_options{'level'},
+        'loops=i'            => \$cli_options{'loops'},
+        'max-level=i'        => \$cli_options{'max-level'},
+        'max-time=i'         => \$cli_options{'max-time'},
+        'min-level=i'        => \$cli_options{'min-level'},
         'privoxy-address=s'  => \$cli_options{'privoxy-address'},
-        'retries=s'          => \$cli_options{'retries'},
+        'retries=i'          => \$cli_options{'retries'},
         'show-skipped-tests' => \$cli_options{'show-skipped-tests'},
-        'sleep-time=s'       => \$cli_options{'sleep-time'},
-        'test-number=s'      => \$cli_options{'test-number'},
+        'sleep-time=i'       => \$cli_options{'sleep-time'},
+        'test-number=i'      => \$cli_options{'test-number'},
         'verbose'            => \$cli_options{'verbose'},
         'version'            => sub {print_version && exit(0)}
     ) or exit(1);
