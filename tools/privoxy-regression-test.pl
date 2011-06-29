@@ -338,7 +338,7 @@ sub load_action_files ($) {
 
     for my $file_number (0 .. @actionfiles - 1) {
 
-        my $curl_url = ' "' . $actionfiles[$file_number] . '"';
+        my $curl_url = quote($actionfiles[$file_number]);
         my $actionfile = undef;
         my $sticky_actions = undef;
 
