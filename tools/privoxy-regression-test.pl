@@ -743,10 +743,10 @@ sub execute_dumb_fetch_test ($) {
     my $expected_status_code = $test->{'expected-status-code'};
 
     if (defined $test->{method}) {
-        $curl_parameters .= quote('--request') . quote($test->{method}) . ' ';
+        $curl_parameters .= '--request ' . quote($test->{method}) . ' ';
     }
     if ($test->{type} == TRUSTED_CGI_REQUEST) {
-        $curl_parameters .= quote('--referer ') . quote(PRIVOXY_CGI_URL) . ' ';
+        $curl_parameters .= '--referer ' . quote(PRIVOXY_CGI_URL) . ' ';
     }
 
     $curl_parameters .= quote($test->{'data'});
