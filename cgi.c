@@ -1588,8 +1588,8 @@ struct http_response *finish_http_response(const struct client_state *csp, struc
       {
          freez(rsp->body);
          rsp->body = compressed_content;
+         err = enlist_unique_header(rsp->headers, "Content-Encoding", "deflate");
       }
-      err = enlist_unique_header(rsp->headers, "Content-Encoding", "deflate");
    }
 #endif
 
