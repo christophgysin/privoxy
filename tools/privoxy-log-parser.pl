@@ -2367,8 +2367,8 @@ sub get_cli_options () {
         'accept-unknown-messages'  => \$cli_options{'accept-unknown-messages'},
         'statistics'               => \$cli_options{'statistics'},
         'unbreak-lines-only'       => \$cli_options{'unbreak-lines-only'},
-        'url-statistics-threshold=s'=> \$cli_options{'url-statistics-threshold'},
-        'host-statistics-threshold=s'=> \$cli_options{'host-statistics-threshold'},
+        'url-statistics-threshold=i'=> \$cli_options{'url-statistics-threshold'},
+        'host-statistics-threshold=i'=> \$cli_options{'host-statistics-threshold'},
         'version'                  => sub { VersionMessage && exit(0) },
         'help'                     => \&help,
    ) or exit(1);
