@@ -1579,7 +1579,7 @@ struct http_response *finish_http_response(const struct client_state *csp, struc
 
 #ifdef FEATURE_COMPRESSION
    if (!err && (csp->flags & CSP_FLAG_CLIENT_SUPPORTS_DEFLATE)
-      && (rsp->content_length > LOWER_LENGTH_LIMIT_FOR_COMRPESSION))
+      && (rsp->content_length > LOWER_LENGTH_LIMIT_FOR_COMPRESSION))
    {
       char *compressed_content;
 

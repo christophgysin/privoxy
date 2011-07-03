@@ -2063,7 +2063,7 @@ static void chat(struct client_state *csp)
                   }
 #ifdef FEATURE_COMPRESSION
                   else if ((csp->flags & CSP_FLAG_CLIENT_SUPPORTS_DEFLATE)
-                     && (csp->content_length > LOWER_LENGTH_LIMIT_FOR_COMRPESSION))
+                     && (csp->content_length > LOWER_LENGTH_LIMIT_FOR_COMPRESSION))
                   {
                      char *compressed_content = compress_buffer(p, (size_t *)&csp->content_length);
                      if (compressed_content != NULL)
