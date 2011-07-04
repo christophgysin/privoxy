@@ -772,9 +772,6 @@ int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
    }
    hints.ai_socktype = SOCK_STREAM;
    hints.ai_flags = AI_PASSIVE;
-#ifdef AI_ADDRCONFIG
-   hints.ai_flags |= AI_ADDRCONFIG;
-#endif
    hints.ai_protocol = 0; /* Really any stream protocol or TCP only */
    hints.ai_canonname = NULL;
    hints.ai_addr = NULL;
