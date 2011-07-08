@@ -3056,6 +3056,69 @@ forward-socks4, forward-socks4a and forward-socks5</title>
 </sect3>
 
 
+<sect3 renderas="sect4" id="compression-level"><title>compression-level</title>
+<variablelist>
+ <varlistentry>
+  <term>Specifies:</term>
+  <listitem>
+   <para>
+    The compression level that is passed to the zlib library when compressing buffered content.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Type of value:</term>
+  <listitem>
+   <para>
+    <replaceable>Positive number ranging from 0 to 9.</replaceable>
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Default value:</term>
+  <listitem>
+   <para>1</para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Notes:</term>
+  <listitem>
+   <para>
+     Compressing the data more takes usually longer than compressing
+     it less or not compressing it at all. Which level is best depends
+     on the connection between Privoxy and the client. If you can't
+     be bothered to benchmark it for yourself, you should stick with
+     the default and keep compression disabled.
+   </para>
+   <para>
+     If compression is disabled, the compression level is irrelevant.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Examples:</term>
+  <listitem>
+   <para>
+    <screen>
+    # Best speed (compared to the other levels)
+    compression-level 1
+    # Best compression
+    compression-level 9
+    # No compression. Only useful for testing as the added header
+    # slightly increases the amount of data that has to be sent.
+    # If your benchmark shows that using this compression level
+    # is superior to using no compression at all, the benchmark
+    # is likely to be flawed.
+    compression-level 0
+    </screen>
+   </para>
+  </listitem>
+ </varlistentry>
+</variablelist>
+<![%config-file;[<literallayout>@@#compression-level 1</literallayout>]]>
+</sect3>
+
+
 </sect2>
 
 <!--  ~  End section  ~  -->
