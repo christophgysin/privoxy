@@ -1531,7 +1531,9 @@ char *compress_buffer(char *buffer, size_t *buffer_length, int compression_level
    if (Z_OK != compress2((Bytef *)compressed_buffer, &new_length,
          (Bytef *)buffer, *buffer_length, compression_level))
    {
-      log_error(LOG_LEVEL_ERROR, "Error in compress2()");
+      log_error(LOG_LEVEL_ERROR,
+         "compress2() failed. Buffer size: %d, compression level: %d.",
+         new_length, compression_level);
       freez(compressed_buffer);
       return NULL;
    }
