@@ -1190,6 +1190,9 @@ struct access_control_list
 /** configuration_spec::feature_flags: Pages blocked with +handle-as-empty-doc get a return status of 200 OK. */
 #define RUNTIME_FEATURE_EMPTY_DOC_RETURNS_OK       512U
 
+/** configuration_spec::feature_flags: Buffered content is sent compressed if the client supports it. */
+#define RUNTIME_FEATURE_COMPRESSION               1024U
+
 /**
  * Data loaded from the configuration file.
  *

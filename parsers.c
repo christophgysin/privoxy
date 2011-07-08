@@ -2620,7 +2620,8 @@ static jb_err server_last_modified(struct client_state *csp, char **header)
 static jb_err client_accept_encoding(struct client_state *csp, char **header)
 {
 #ifdef FEATURE_COMPRESSION
-   if (strstr(*header, "deflate"))
+   if ((csp->config->feature_flags & RUNTIME_FEATURE_COMPRESSION)
+      && strstr(*header, "deflate"))
    {
       csp->flags |= CSP_FLAG_CLIENT_SUPPORTS_DEFLATE;
    }
