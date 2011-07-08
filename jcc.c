@@ -2065,7 +2065,8 @@ static void chat(struct client_state *csp)
                   else if ((csp->flags & CSP_FLAG_CLIENT_SUPPORTS_DEFLATE)
                      && (csp->content_length > LOWER_LENGTH_LIMIT_FOR_COMPRESSION))
                   {
-                     char *compressed_content = compress_buffer(p, (size_t *)&csp->content_length);
+                     char *compressed_content = compress_buffer(p,
+                        (size_t *)&csp->content_length, csp->config->compression_level);
                      if (compressed_content != NULL)
                      {
                         freez(p);

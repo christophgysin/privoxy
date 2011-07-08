@@ -1305,6 +1305,10 @@ struct configuration_spec
    unsigned int default_server_timeout;
 #endif
 
+#ifdef FEATURE_COMPRESSION
+   int compression_level;
+#endif
+
    /** All options from the config file, HTML-formatted. */
    char *proxy_args;
 

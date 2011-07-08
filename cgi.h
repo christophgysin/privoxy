@@ -107,7 +107,7 @@ extern char   get_char_param(const struct map *parameters,
  * we bother to (re-)compress it. Completely arbitrary.
  */
 extern const size_t LOWER_LENGTH_LIMIT_FOR_COMPRESSION;
-extern char *compress_buffer(char *buffer, size_t *buffer_length);
+extern char *compress_buffer(char *buffer, size_t *buffer_length, int compression_level);
 #endif
 
 /*
