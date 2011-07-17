@@ -3526,7 +3526,8 @@ static void listen_loop(void)
 #ifdef FEATURE_ACL
       if (block_acl(NULL,csp))
       {
-         log_error(LOG_LEVEL_CONNECT, "Connection from %s dropped due to ACL", csp->ip_addr_str);
+         log_error(LOG_LEVEL_CONNECT,
+            "Connection from %s on socket %d dropped due to ACL", csp->ip_addr_str, csp->cfd);
          close_socket(csp->cfd);
          freez(csp->ip_addr_str);
          freez(csp_list);
