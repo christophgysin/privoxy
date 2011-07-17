@@ -1003,6 +1003,8 @@ static jb_socket socks5_connect(const struct forward_spec *fwd,
    {
       errstr = "socks5 server unreachable";
       log_error(LOG_LEVEL_CONNECT, "socks5_connect: %s", errstr);
+      /* Free the generic error message provided by connect_to() */
+      freez(csp->error_message);
       csp->error_message = strdup(errstr);
       return(JB_INVALID_SOCKET);
    }
