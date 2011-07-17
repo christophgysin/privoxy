@@ -3403,21 +3403,18 @@ static void bind_ports_helper(struct configuration_spec * config,
 {
    int i;
 
-   config->need_bind = 1;
-
    for (i = 0; i < MAX_LISTENING_SOCKETS; i++)
    {
-      sockets[i] = JB_INVALID_SOCKET;
-
       if (config->hport[i])
       {
          sockets[i] = bind_port_helper(config->haddr[i], config->hport[i]);
-         if (JB_INVALID_SOCKET != sockets[i])
-         {
-            config->need_bind = 0;
-         }
+      }
+      else
+      {
+         sockets[i] = JB_INVALID_SOCKET;
       }
    }
+   config->need_bind = 0;
 }
 
 
