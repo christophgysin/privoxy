@@ -3490,7 +3490,7 @@ static void listen_loop(void)
 
       csp->config = config = load_config();
 
-      if ( config->need_bind )
+      if (config->need_bind)
       {
          /*
           * Since we were listening to the "old port", we will not see
