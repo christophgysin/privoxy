@@ -844,6 +844,12 @@ struct reusable_connection
 #define MAX_AF_FILES 10
 
 /**
+ * Maximum number of sockets to listen to.  This limit is arbitrary - it's just used
+ * to size an array.
+ */
+#define MAX_LISTENING_SOCKETS 10
+
+/**
  * The state of a Privoxy processing thread.
  */
 struct client_state
@@ -1259,11 +1265,11 @@ struct configuration_spec
    /** The hostname to show on CGI pages, or NULL to use the real one. */
    const char *hostname;
 
-   /** IP address to bind to.  Defaults to HADDR_DEFAULT == 127.0.0.1. */
-   const char *haddr;
+   /** IP addresses to bind to.  Defaults to HADDR_DEFAULT == 127.0.0.1. */
+   const char *haddr[MAX_LISTENING_SOCKETS];
 
-   /** Port to bind to.  Defaults to HADDR_PORT == 8118. */
-   int         hport;
+   /** Ports to bind to.  Defaults to HADDR_PORT == 8118. */
+   int         hport[MAX_LISTENING_SOCKETS];
 
    /** Size limit for IOB */
    size_t buffer_limit;

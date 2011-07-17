@@ -1235,6 +1235,13 @@ actionsfile
     will need to override the default.
    </para>
    <para>
+    You can use this statement multiple times to make
+    <application>Privoxy</application> listen on more ports or more
+    <abbrev>IP</abbrev> addresses. Suitable if your operating system does not
+    support sharing <abbrev>IPv6</abbrev> and <abbrev>IPv4</abbrev> protocols
+    on the same socket.
+   </para>
+   <para>
     If a hostname is used instead of an IP address, <application>Privoxy</application>
     will try to resolve it to an IP address and if there are multiple, use the first
     one returned.

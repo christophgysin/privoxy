@@ -57,8 +57,8 @@ extern int data_is_available(jb_socket fd, int seconds_to_wait);
 extern void close_socket(jb_socket fd);
 
 extern int bind_port(const char *hostnam, int portnum, jb_socket *pfd);
-extern int accept_connection(struct client_state * csp, jb_socket fd);
-extern void get_host_information(jb_socket afd, char **ip_address, char **hostname);
+extern int accept_connection(struct client_state * csp, jb_socket fds[]);
+extern void get_host_information(jb_socket afd, char **ip_address, char **port, char **hostname);
 
 extern unsigned long resolve_hostname_to_ip(const char *host);
 
