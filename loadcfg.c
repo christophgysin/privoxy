@@ -231,7 +231,7 @@ static void unload_configfile (void * data)
 
    for (i = 0; i < MAX_LISTENING_SOCKETS; i++)
    {
-       freez(config->haddr[i]);
+      freez(config->haddr[i]);
    }
    freez(config->logfile);
 
