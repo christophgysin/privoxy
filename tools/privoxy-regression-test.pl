@@ -1210,8 +1210,9 @@ sub get_page_with_curl ($) {
     my $retries_left = get_cli_option('retries') + 1;
     my $failure_reason;
 
-    $curl_line .= ' --proxy ' . $proxy if (defined $proxy);
-
+    if (defined $proxy) {
+        $curl_line .= ' --proxy ' . quote($proxy);
+    }
     # We want to see the HTTP status code
     $curl_line .= " --include ";
     # Let Privoxy emit two log messages less.
