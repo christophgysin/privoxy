@@ -3339,17 +3339,6 @@ static jb_socket bind_port_helper(const char *haddr, int hport)
    int result;
    jb_socket bfd;
 
-   if (haddr == NULL)
-   {
-      log_error(LOG_LEVEL_INFO, "Listening on port %d on all IP addresses",
-                hport);
-   }
-   else
-   {
-      log_error(LOG_LEVEL_INFO, "Listening on port %d on IP address %s",
-                hport, haddr);
-   }
-
    result = bind_port(haddr, hport, &bfd);
 
    if (result < 0)
@@ -3374,6 +3363,17 @@ static jb_socket bind_port_helper(const char *haddr, int hport)
 
       /* shouldn't get here */
       return JB_INVALID_SOCKET;
+   }
+
+   if (haddr == NULL)
+   {
+      log_error(LOG_LEVEL_INFO, "Listening on port %d on all IP addresses",
+                hport);
+   }
+   else
+   {
+      log_error(LOG_LEVEL_INFO, "Listening on port %d on IP address %s",
+                hport, haddr);
    }
 
    return bfd;
