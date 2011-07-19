@@ -1551,7 +1551,7 @@ struct configuration_spec * load_config(void)
       }
    }
 
-   for (i = 0; i < MAX_LISTENING_SOCKETS && NULL != config->haddr[i]; i++ )
+   for (i = 0; i < MAX_LISTENING_SOCKETS && NULL != config->haddr[i]; i++)
    {
       if ((*config->haddr[i] == '[')
          && (NULL != (p = strchr(config->haddr[i], ']')))
