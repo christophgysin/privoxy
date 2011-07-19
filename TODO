@@ -169,9 +169,6 @@ have been added, not by priority.
     received, consider passing the mess to the client instead
     of showing the connect-failed template. Relates to #2698674.
 
-71) Allow to listen on multiple addresses without having to
-    bind to all.
-
 74) Let Privoxy-Regression-Test optionally check that action
     sections which disable actions actually are preceded by
     sections that enable said actions.
