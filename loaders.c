@@ -1359,7 +1359,7 @@ void add_loader(int (*loader)(struct client_state *),
 {
    int i;
 
-   for (i=0; i < NLOADERS; i++)
+   for (i = 0; i < NLOADERS; i++)
    {
       if (config->loaders[i] == NULL)
       {
@@ -1393,7 +1393,7 @@ int run_loader(struct client_state *csp)
    int ret = 0;
    int i;
 
-   for (i=0; i < NLOADERS; i++)
+   for (i = 0; i < NLOADERS; i++)
    {
       if (csp->config->loaders[i] == NULL)
       {
