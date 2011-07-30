@@ -955,11 +955,8 @@ int load_trustfile(struct client_state *csp)
    fs->next    = files->next;
    files->next = fs;
    current_trustfile = fs;
+   csp->tlist = fs;
 
-   if (csp)
-   {
-      csp->tlist = fs;
-   }
    return(0);
 
 load_trustfile_error:
