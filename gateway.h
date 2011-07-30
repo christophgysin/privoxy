@@ -71,13 +71,6 @@ extern int connection_destination_matches(const struct reusable_connection *conn
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
 
 /*
- * Solaris fix
- */
-#ifndef INADDR_NONE
-#define INADDR_NONE -1
-#endif
-
-/*
  * Revision control strings from this header and associated .c file
  */
 extern const char gateway_rcs[];

@@ -68,6 +68,15 @@ extern int socket_is_still_alive(jb_socket sfd);
 extern const char jbsockets_rcs[];
 extern const char jbsockets_h_rcs[];
 
+/*
+ * Solaris workaround
+ * XXX: still necessary?
+ */
+#ifndef INADDR_NONE
+#define INADDR_NONE -1
+#endif
+
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

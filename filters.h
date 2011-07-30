@@ -117,14 +117,6 @@ extern int filters_available(const struct client_state *csp);
  */
 extern struct http_response *direct_response(struct client_state *csp);
 
-
-/*
- * Solaris fix:
- */
-#ifndef INADDR_NONE
-#define INADDR_NONE -1
-#endif     
-
 /* 
  * Revision control strings from this header and associated .c file
  */
