@@ -1525,14 +1525,14 @@ struct configuration_spec * load_config(void)
       log_error(LOG_LEVEL_FATAL, "Out of memory loading config - insufficient memory for config->proxy_args");
    }
 
-   if (config->actions_file[0])
-   {
-      add_loader(load_action_files, config);
-   }
-
    if (config->re_filterfile[0])
    {
       add_loader(load_re_filterfiles, config);
+   }
+
+   if (config->actions_file[0])
+   {
+      add_loader(load_action_files, config);
    }
 
 #ifdef FEATURE_TRUST
