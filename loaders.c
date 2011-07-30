@@ -1132,10 +1132,7 @@ int load_one_re_filterfile(struct client_state *csp, int fileid)
     */
    if (!check_file_changed(current_re_filterfile[fileid], csp->config->re_filterfile[fileid], &fs))
    {
-      if (csp)
-      {
-         csp->rlist[fileid] = current_re_filterfile[fileid];
-      }
+      csp->rlist[fileid] = current_re_filterfile[fileid];
       return(0);
    }
    if (!fs)
@@ -1333,11 +1330,7 @@ int load_one_re_filterfile(struct client_state *csp, int fileid)
    fs->next    = files->next;
    files->next = fs;
    current_re_filterfile[fileid] = fs;
-
-   if (csp)
-   {
-      csp->rlist[fileid] = fs;
-   }
+   csp->rlist[fileid] = fs;
 
    return( 0 );
 
