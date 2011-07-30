@@ -313,6 +313,7 @@ static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client
 
          if (errno != EINTR)
          {
+            socket_error = errno;
             close_socket(fd);
             connect_failed = 1;
             break;
