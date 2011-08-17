@@ -265,3 +265,9 @@ have been added, not by priority.
     forwarded to the destination server, an unencrypted URL should be
     acceptable if the client and Privoxy are running on the same system
     or in a trusted environment.
+
+96) Enabled filters should be easier to look up. Currently most functions
+    that work with filters spent more (duplicated) code on finding
+    filters than on actually doing something useful with them. Dividing
+    filters by type instead of filter file would reduce the lookup-code
+    quite a bit.
