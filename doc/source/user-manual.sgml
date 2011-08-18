@@ -36,7 +36,7 @@
 
  $Id$
 
- Copyright (C) 2001-2010 Privoxy Developers http://www.privoxy.org/
+ Copyright (C) 2001-2011 Privoxy Developers http://www.privoxy.org/
  See LICENSE.
 
  ========================================================================
@@ -55,7 +55,7 @@
  <subscript>
 <!-- Completely the wrong markup, but very little is allowed  -->
 <!-- in this part of an article. FIXME -->
- <link linkend="copyright">Copyright</link> &my-copy; 2001-2010 by
+ <link linkend="copyright">Copyright</link> &my-copy; 2001-2011 by
  <ulink url="http://www.privoxy.org/">Privoxy Developers</ulink>
  </subscript>
 </pubdate>
@@ -8917,6 +8917,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.133  2011/08/18 11:42:50  fabiankeil
+ Bump some more documentation copyright ranges.
+
  Revision 2.132  2011/08/17 10:40:07  fabiankeil
  Update the entities.
 
