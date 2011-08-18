@@ -1197,9 +1197,10 @@ sub handle_loglevel_re_filter ($) {
 
     } elsif ($c =~ m/^Compressed content from /) {
 
-        # Compressed content from 29258 to 8630 bytes.
+        # Compressed content from 29258 to 8630 bytes. Compression level: 3
         $content =~ s@(?<=from )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $content =~ s@(?<=to )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $content =~ s@(?<=level: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Reading in filter/) {
 
