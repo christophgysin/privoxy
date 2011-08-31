@@ -2260,7 +2260,7 @@ static jb_err server_adjust_content_encoding(struct client_state *csp, char **he
       /*
        * We successfully decompressed the content,
        * and have to clean the header now, so the
-       * client no longer expects compressed data..
+       * client no longer expects compressed data.
        *
        * XXX: There is a difference between cleaning
        * and removing it completely.
