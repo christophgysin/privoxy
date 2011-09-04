@@ -76,7 +76,7 @@ static const char * const url_code_map[256] = {
    "%FA", "%FB", "%FC", "%FD", "%FE", "%FF"
 };
 
-/* Maps special characters in HTML to their equivalent entites. */
+/* Maps special characters in HTML to their equivalent entities. */
 static const char * const html_code_map[256] = {
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
