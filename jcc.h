@@ -5,17 +5,17 @@
  *
  * File        :  $Source$
  *
- * Purpose     :  Main file.  Contains main() method, main loop, and 
+ * Purpose     :  Main file.  Contains main() method, main loop, and
  *                the main connection-handling function.
  *
  * Copyright   :  Written by and Copyright (C) 2001-2006 the SourceForge
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
- *                by and Copyright (C) 1997 Anonymous Coders and 
+ *                by and Copyright (C) 1997 Anonymous Coders and
  *                Junkbusters Corporation.  http://www.junkbusters.com
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at

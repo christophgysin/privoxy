@@ -11,7 +11,7 @@ const char win32_rcs[] = "$Id$";
  *                Written by and Copyright (C) 1999 Adam Lock
  *                <locka@iol.ie>
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at
@@ -77,7 +77,7 @@ const char win32_blurb[] =
 #ifdef _WIN_CONSOLE
 
 /**
- * Hide the console.  If set, the program will disconnect from the 
+ * Hide the console.  If set, the program will disconnect from the
  * console and run in the background.  This allows the command-prompt
  * window to close.
  */
@@ -246,8 +246,8 @@ void InitWin32(void)
    if (WSAStartup(wVersionRequested, &wsaData) != 0)
    {
 #ifndef _WIN_CONSOLE
-      MessageBox(NULL, "Cannot initialize WinSock library", "Privoxy Error", 
-         MB_OK | MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND | MB_TOPMOST);  
+      MessageBox(NULL, "Cannot initialize WinSock library", "Privoxy Error",
+         MB_OK | MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND | MB_TOPMOST);
 #endif
       exit(1);
    }

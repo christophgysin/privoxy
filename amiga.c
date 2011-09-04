@@ -8,7 +8,7 @@ const char amiga_rcs[] = "$Id$";
  * Copyright   :  Written by and Copyright (C) 2001 the SourceForge
  *                Privoxy team. http://www.privoxy.org/
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at

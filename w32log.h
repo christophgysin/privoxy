@@ -14,7 +14,7 @@
  *                Written by and Copyright (C) 1999 Adam Lock
  *                <locka@iol.ie>
  *
- *                This program is free software; you can redistribute it 
+ *                This program is free software; you can redistribute it
  *                and/or modify it under the terms of the GNU General
  *                Public License as published by the Free Software
  *                Foundation; either version 2 of the License, or (at

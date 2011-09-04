@@ -68,7 +68,7 @@ const char gateway_rcs[] = "$Id$";
 #include "miscutil.h"
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
 #ifdef HAVE_POLL
-#ifdef __GLIBC__ 
+#ifdef __GLIBC__
 #include <sys/poll.h>
 #else
 #include <poll.h>
@@ -728,7 +728,7 @@ static jb_socket socks4_connect(const struct forward_spec * fwd,
    if (err)
    {
       log_error(LOG_LEVEL_CONNECT, "socks4_connect: %s", errstr);
-      csp->error_message = strdup(errstr); 
+      csp->error_message = strdup(errstr);
       errno = EINVAL;
       return(JB_INVALID_SOCKET);
    }
@@ -843,7 +843,7 @@ static jb_socket socks4_connect(const struct forward_spec * fwd,
 
    if (err)
    {
-      csp->error_message = strdup(errstr);      
+      csp->error_message = strdup(errstr);
       return(JB_INVALID_SOCKET);
    }
 
