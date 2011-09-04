@@ -4011,11 +4011,7 @@ static jb_err parse_header_time(const char *header_time, time_t *result)
 
    /*
     * Zero out gmt to prevent time zone offsets.
-    *
-    * While this is only necessary on some platforms
-    * (mingw32 for example), I don't know how to
-    * detect these automatically and doing it everywhere
-    * shouldn't hurt.
+    * Documented to be required for GNU libc.
     */
    memset(&gmt, 0, sizeof(gmt));
 
