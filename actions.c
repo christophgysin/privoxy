@@ -434,7 +434,7 @@ jb_err get_action_token(char **line, char **name, char **value)
  *********************************************************************/
 static int action_used_to_be_valid(const char *action)
 {
-   static const char *formerly_valid_actions[] = {
+   static const char * const formerly_valid_actions[] = {
       "inspect-jpegs",
       "kill-popups",
       "send-vanilla-wafer",
