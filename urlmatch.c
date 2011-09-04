@@ -411,7 +411,7 @@ jb_err parse_http_url(const char *url, struct http_request *http, int require_pr
  *********************************************************************/
 static int unknown_method(const char *method)
 {
-   static const char *known_http_methods[] = {
+   static const char * const known_http_methods[] = {
       /* Basic HTTP request type */
       "GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS", "TRACE", "CONNECT",
       /* webDAV extensions (RFC2518) */
