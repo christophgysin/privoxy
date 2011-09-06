@@ -1085,7 +1085,7 @@ static jb_socket socks5_connect(const struct forward_spec *fwd,
 
    if (write_socket(sfd, cbuf, client_pos))
    {
-      errstr = "SOCKS5 negotiation read failed";
+      errstr = "SOCKS5 negotiation write failed";
       csp->error_message = strdup(errstr);
       log_error(LOG_LEVEL_CONNECT, "%s", errstr);
       close_socket(sfd);
