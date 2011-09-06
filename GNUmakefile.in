@@ -671,7 +671,7 @@ dok-get:
 dok-tidy:
 	for html_file in `find doc/webserver -name "*.html"`; do \
 		$(TIDY) $$html_file || $(TIDY) $$html_file; \
-		$(PERL) -i\'\' -e 's@^\s*<br>\s*$$@@; s@ +$$@@;' -n -p $$html_file; \
+		$(PERL) -i'' -e 's@^\s*<br>\s*$$@@; s@ +$$@@;' -n -p $$html_file; \
 	done
 
 
