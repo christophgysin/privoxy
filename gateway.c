@@ -659,7 +659,7 @@ jb_socket forwarded_connect(const struct forward_spec * fwd,
       default:
          /* Should never get here */
          log_error(LOG_LEVEL_FATAL,
-            "SOCKS4 impossible internal error - bad SOCKS type.");
+            "Internal error in forwarded_connect(). Bad proxy type: %d", fwd->type);
    }
 
    if (JB_INVALID_SOCKET != sfd)
