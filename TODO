@@ -273,3 +273,4 @@ have been added, not by priority.
     quite a bit.
 
 97) Add support for Tor's 'optimistic data' socks extension.
+    Mostly done, not yet pushed to CVS.
