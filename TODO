@@ -1,7 +1,10 @@
 $Id$
 
-Some Privoxy related tasks, sorted by the time they
+Some Privoxy-related tasks, sorted by the time they
 have been added, not by priority.
+
+The latest version should be available at:
+http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 
 1)  Add some regression tests. Filters should be tested automatically
     (variables too). Could probably reuse large parts of Privoxy-Filter-Test.
