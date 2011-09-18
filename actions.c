@@ -1572,7 +1572,7 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
          /* oops - please have a {} line as 1st line in file. */
          fclose(fp);
          log_error(LOG_LEVEL_FATAL,
-            "can't load actions file '%s': first needed line (%lu) is invalid: %s",
+            "can't load actions file '%s': line %lu should begin with a '{': %s",
             csp->config->actions_file[fileid], linenum, buf);
          return 1; /* never get here */
       }
