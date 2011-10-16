@@ -284,3 +284,7 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
     enalbled by default. This could be similiar to the presettings
     in default.action, but could also be just another action file
     that isn't used by default.
+
+100) Create a cross-platform Privoxy control program and retire
+     the win32 GUI. Integrate support for Privoxy-Regression-Test,
+     Privoxy-Log-Parser, Privoxy-Filter-Test, uagen and similar tools.
