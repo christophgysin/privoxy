@@ -2513,9 +2513,9 @@ static void serve(struct client_state *csp)
 
       continue_chatting = (csp->config->feature_flags
          & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
-         && (((csp->flags & CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE)
-               && !(csp->flags & CSP_FLAG_SERVER_SOCKET_TAINTED))
-            || (csp->flags & CSP_FLAG_CRUNCHED))
+         && !(csp->flags & CSP_FLAG_SERVER_SOCKET_TAINTED)
+         && ((csp->flags & CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE)
+             || (csp->flags & CSP_FLAG_CRUNCHED))
          && (csp->cfd != JB_INVALID_SOCKET)
          && (csp->flags & CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE);
 
