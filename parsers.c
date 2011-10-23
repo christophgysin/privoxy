@@ -1853,10 +1853,6 @@ static jb_err client_connection(struct client_state *csp, char **header)
              /*
               * While we imply keep-alive to the server,
               * we have to remember that the client didn't.
-              *
-              * XXX: The implied keep-alive currently doesn't
-              *      actually work due to a not yet properly
-              *      analyzed regression in chat()
               */
              csp->flags &= ~CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
           }
