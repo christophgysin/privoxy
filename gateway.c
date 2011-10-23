@@ -1118,7 +1118,7 @@ static jb_socket socks5_connect(const struct forward_spec *fwd,
 
    assert(errstr != NULL);
    csp->error_message = strdup(errstr);
-   log_error(LOG_LEVEL_CONNECT, "socks5_connect: %s", errstr);
+   log_error(LOG_LEVEL_CONNECT, "socks5_connect: %s: %N", errstr, server_size, sbuf);
    close_socket(sfd);
    errno = EINVAL;
 
