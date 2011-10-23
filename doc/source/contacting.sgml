@@ -272,6 +272,12 @@ debug  8192 # Non-fatal errors</literallayout>
 </para>
 
 <para>
+ If you are new to reporting problems, you might be interested in
+  <ulink url="http://www.chiark.greenend.org.uk/~sgtatham/bugs.html"
+  >How to Report Bugs Effectively</ulink>.
+</para>
+
+<para>
   The <ulink url="http://www.privoxy.org/user-manual/appendix.html#ACTIONSANAT">appendix
   of the Privoxy User Manual</ulink> also has helpful information
   on understanding <literal>actions</literal>, and <literal>action</literal> debugging.
