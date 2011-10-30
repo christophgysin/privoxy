@@ -1138,6 +1138,7 @@ char *get_last_url(char *subject, const char *redirect_mode)
                return NULL;
             }
          }
+         freez(dtoken);
          token = strtok(NULL, "?&");
       }
       freez(subject);
