@@ -1135,15 +1135,15 @@ char *get_last_url(char *subject, const char *redirect_mode)
             log_error(LOG_LEVEL_ERROR, "Unable to decode \"%s\".", token);
             continue;
          }
-         char *h1 = strstr(dtoken, "http://");
-         char *h2 = strstr(dtoken, "https://");
-         char *h = (h1 && h2
-                    ? (h1 < h2 ? h1 : h2)
-                    : (h1 ? h1 : h2));
-         if (h)
+         char *http_url = strstr(dtoken, "http://");
+         char *https_url = strstr(dtoken, "https://");
+         char *last_url = (http_url && https_url
+                          ? (http_url < https_url ? http_url : https_url)
+                          : (http_url ? http_url : https_url));
+         if (last_url)
          {
             freez(found);
-            found = strdup(h);
+            found = strdup(last_url);
             if (found == NULL)
             {
                log_error(LOG_LEVEL_ERROR,
