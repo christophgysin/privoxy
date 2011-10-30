@@ -1140,15 +1140,9 @@ char *get_last_url(char *subject, const char *redirect_mode)
          }
          token = strtok(NULL, "?&");
       }
-
-      if (found)
-      {
-         freez(subject);
-         return found;
-      }
-
       freez(subject);
-      return NULL;
+
+      return found;
    }
 
    /* Else, just look for a URL inside this one, without decoding anything. */
