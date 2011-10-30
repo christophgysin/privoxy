@@ -1131,6 +1131,12 @@ char *get_last_url(char *subject, const char *redirect_mode)
          {
             freez(found);
             found = strdup(h);
+            if (found == NULL)
+            {
+               log_error(LOG_LEVEL_ERROR,
+                  "Out of memory while searching for redirects.");
+               return NULL;
+            }
          }
          token = strtok(NULL, "?&");
       }
