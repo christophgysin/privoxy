@@ -1121,7 +1121,11 @@ char *get_last_url(char *subject, const char *redirect_mode)
       while (token)
       {
          char *dtoken = url_decode(token);
-         if (!dtoken) continue;
+         if (NULL == dtoken)
+         {
+            log_error(LOG_LEVEL_ERROR, "Unable to decode \"%s\".", token);
+            continue;
+         }
          char *h1 = strstr(dtoken, "http://");
          char *h2 = strstr(dtoken, "https://");
          char *h = (h1 && h2
