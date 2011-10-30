@@ -1117,8 +1117,7 @@ char *get_last_url(char *subject, const char *redirect_mode)
        * Keep the last one we spot.
        */
       char *found = NULL;
-      char *s = strdup(subject);
-      char *token = strtok(s, "?&");
+      char *token = strtok(subject, "?&");
       while (token)
       {
          char *dtoken = url_decode(token);
@@ -1135,7 +1134,6 @@ char *get_last_url(char *subject, const char *redirect_mode)
          }
          token = strtok(NULL, "?&");
       }
-      freez(s);
 
       if (found)
       {
