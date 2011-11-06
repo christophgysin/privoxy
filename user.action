@@ -174,7 +174,7 @@ www.example.com/nasty-ads/sponsor.gif
 # Redirect Destination = http://online.wsj.com/article/SB10001424052970204485304576640791304008536.html
 # Ignore = Yes
 #
-#{+redirect{s@(&url=http[^&]*)&.*$@$1@} +fast-redirects{check-decoded-url}}
+#{+fast-redirects{check-decoded-url}}
 #news.google.com/news/url.*&url=http.*&
 
 # Enable the following section (not the regression-test directives)
