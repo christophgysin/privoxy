@@ -1319,6 +1319,7 @@ struct http_response *redirect_url(struct client_state *csp)
             return cgi_error_memory();
          }
          new_url = encoded_url;
+         assert(FALSE == url_requires_percent_encoding(new_url));
       }
 
       if (0 == strcmpic(new_url, csp->http->url))
