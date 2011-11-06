@@ -1105,7 +1105,7 @@ char *get_last_url(char *subject, const char *redirect_mode)
       return NULL;
    }
 
-   if (0 == strcmpic(redirect_mode, "check-decoded-url"))
+   if (0 == strcmpic(redirect_mode, "check-decoded-url") && strchr(subject, '%'))
    {  
       log_error(LOG_LEVEL_REDIRECTS,
          "Checking \"%s\" for encoded redirects.", subject);
