@@ -704,7 +704,7 @@ dnl bcopy is for PCRE
 AC_CHECK_FUNCS([bcopy])
 AC_PROG_GCC_TRADITIONAL
 AC_TYPE_SIGNAL
-AC_CHECK_FUNCS([access atexit getcwd gethostbyaddr gethostbyaddr_r gethostbyname gethostbyname_r gettimeofday inet_ntoa localtime_r memchr memmove memset poll putenv random regcomp select setlocale snprintf socket strchr strdup strerror strtok strftime strlcat strlcpy strptime strstr strtoul timegm tzset])
+AC_CHECK_FUNCS([access atexit getcwd gethostbyaddr gethostbyaddr_r gethostbyname gethostbyname_r gettimeofday inet_ntoa localtime_r memchr memmove memset poll putenv random regcomp select setlocale snprintf socket strchr strdup strerror strftime strlcat strlcpy strptime strstr strtoul timegm tzset])
 
 dnl Checks for RFC 2553 resolver and socket functions
 AC_ARG_ENABLE(ipv6-support,

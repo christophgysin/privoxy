@@ -99,10 +99,6 @@ extern privoxy_mutex_t resolver_mutex;
 extern privoxy_mutex_t rand_mutex;
 #endif /* ndef HAVE_RANDOM */
 
-#ifdef HAVE_STRTOK
-extern privoxy_mutex_t strtok_mutex;
-#endif /* ndef HAVE_STRTOK */
-
 #endif /* FEATURE_PTHREAD */
 
 /* Functions */

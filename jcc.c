@@ -198,10 +198,6 @@ privoxy_mutex_t localtime_mutex;
 privoxy_mutex_t rand_mutex;
 #endif /* ndef HAVE_RANDOM */
 
-#ifdef HAVE_STRTOK
-privoxy_mutex_t strtok_mutex;
-#endif /* def HAVE_STRTOK */
-
 #endif /* def MUTEX_LOCKS_AVAILABLE */
 
 #if defined(unix)
@@ -2852,9 +2848,6 @@ static void initialize_mutexes(void)
    privoxy_mutex_init(&rand_mutex);
 #endif /* ndef HAVE_RANDOM */
 
-#ifdef HAVE_STRTOK
-   privoxy_mutex_init(&strtok_mutex);
-#endif /* def HAVE_STRTOK */
 #endif /* def MUTEX_LOCKS_AVAILABLE */
 }
 
