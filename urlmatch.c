@@ -169,6 +169,53 @@ jb_err init_domain_components(struct http_request *http)
 
 /*********************************************************************
  *
+ * Function    :  url_requires_percent_encoding
+ *
+ * Description :  Checks if an URL contains invalid characters
+ *                according to RFC 3986 that should be percent-encoded.
+ *                Does not verify whether or not the passed string
+ *                actually is a valid URL.
+ *
+ * Parameters  :
+ *          1  :  url = URL to check
+ *
+ * Returns     :  True in case of valid URLs, false otherwise
+ *
+ *********************************************************************/
+int url_requires_percent_encoding(const char *url)
+{
+   static const char allowed_characters[128] = {
+      '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+      '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+      '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+      '\0', '\0', '\0', '!',  '\0', '#',  '$',  '%',  '&',  '\'',
+      '(',  ')',  '*',  '+',  ',',  '-',  '.',  '/',  '0',  '1',
+      '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  ':',  ';',
+      '\0', '=',  '\0', '?',  '@',  'A',  'B',  'C',  'D',  'E',
+      'F',  'G',  'H',  'I',  'J',  'K',  'L',  'M',  'N',  'O',
+      'P',  'Q',  'R',  'S',  'T',  'U',  'V',  'W',  'X',  'Y',
+      'Z',  '[',  '\0', ']',  '\0', '_',  '\0', 'a',  'b',  'c',
+      'd',  'e',  'f',  'g',  'h',  'i',  'j',  'k',  'l',  'm',
+      'n',  'o',  'p',  'q',  'r',  's',  't',  'u',  'v',  'w',
+      'x',  'y',  'z',  '\0', '\0', '\0', '~',  '\0'
+   };
+
+   while (*url != '\0')
+   {
+      const unsigned int i = (unsigned char)*url++;
+      if (i >= sizeof(allowed_characters) || '\0' == allowed_characters[i])
+      {
+         return TRUE;
+      }
+   }
+
+   return FALSE;
+
+}
+
+
+/*********************************************************************
+ *
  * Function    :  parse_http_url
  *
  * Description :  Parse out the host and port from the URL.  Find the
