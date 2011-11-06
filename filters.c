@@ -1325,8 +1325,8 @@ struct http_response *redirect_url(struct client_state *csp)
             return cgi_error_memory();
          }
 
-         if ( enlist_unique_header(rsp->headers, "Location", new_url)
-           || (NULL == (rsp->status = strdup("302 Local Redirect from Privoxy"))) )
+         if (enlist_unique_header(rsp->headers, "Location", new_url)
+           || (NULL == (rsp->status = strdup("302 Local Redirect from Privoxy"))))
          {
             freez(new_url);
             free_http_response(rsp);
