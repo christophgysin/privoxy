@@ -207,6 +207,9 @@ char * html_encode_and_free_original(char *s)
  *                query string.  Replaces special characters with
  *                the appropriate %xx codes.
  *
+ *                XXX: url_query_encode() would be a more fitting
+ *                     name.
+ *
  * Parameters  :
  *          1  :  s = String to encode.  Null-terminated.
  *
