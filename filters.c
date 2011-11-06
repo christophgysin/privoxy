@@ -1308,6 +1308,20 @@ struct http_response *redirect_url(struct client_state *csp)
    /* Did any redirect action trigger? */
    if (new_url)
    {
+      if (url_requires_percent_encoding(new_url))
+      {
+         char *encoded_url;
+         log_error(LOG_LEVEL_REDIRECTS, "Percent-encoding redirect URL: %N",
+            strlen(new_url), new_url);
+         encoded_url = percent_encode_url(new_url);
+         freez(new_url);
+         if (encoded_url == NULL)
+         {
+            return cgi_error_memory();
+         }
+         new_url = encoded_url;
+      }
+
       if (0 == strcmpic(new_url, csp->http->url))
       {
          log_error(LOG_LEVEL_ERROR,
