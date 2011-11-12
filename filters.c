@@ -1171,11 +1171,12 @@ char *get_last_url(char *subject, const char *redirect_mode)
       }
       subject = url_segment;
    }
-
-   /* Else, just look for a URL inside this one, without decoding anything. */
-
-   log_error(LOG_LEVEL_REDIRECTS,
-      "Checking \"%s\" for unencoded redirects.", subject);
+   else
+   {
+      /* Look for a URL inside this one, without decoding anything. */
+      log_error(LOG_LEVEL_REDIRECTS,
+         "Checking \"%s\" for unencoded redirects.", subject);
+   }
 
    /*
     * Find the last URL encoded in the request
