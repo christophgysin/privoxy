@@ -1875,7 +1875,13 @@ sub handle_loglevel_error ($) {
         #  Closing client socket 15 without sending data.
         $c =~ s@(?<=on socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=client socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
+    } elsif ($c =~ m/^Didn't receive data in time:/) {
+
+        # Didn't receive data in time: a.fsdn.com:443
+        $c =~ s@(?<=in time: )(.*)@$h{'destination'}$1$h{'Standard'}@;
     }
+
     # XXX: There are probably more messages that deserve highlighting.
 
     return $c;
