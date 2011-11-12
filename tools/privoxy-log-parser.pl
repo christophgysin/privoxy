@@ -1267,6 +1267,11 @@ sub handle_loglevel_redirect ($) {
         # XXX: assume the same?
         $c = highlight_matched_url($c, '(?<=assuming that \")[^"]*');
 
+    } elsif ($c =~ m/^Percent-encoding redirect/) {
+
+        # Percent-encoding redirect URL: http://www.example.org/\x02
+        $c = highlight_matched_url($c, '(?<=redirect URL: ).*');
+
     } else {
 
         found_unknown_content($c);
