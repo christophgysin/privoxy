@@ -86,6 +86,7 @@ sub create_listitem_markup($) {
     } else {
         if (defined $entry->{last_list_item}) {
             $markup .= $lws . " </para>\n";
+            $markup .= $lws . " </listitem>\n";
             $markup .= $lws . "</itemizedlist>\n";
             $lws = $default_lws;
         }
