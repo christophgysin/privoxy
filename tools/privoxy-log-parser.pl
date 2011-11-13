@@ -1873,11 +1873,15 @@ sub handle_loglevel_error ($) {
 
     my $c = shift;
 
-    if ($c =~ m/^Empty server or forwarder response received on socket \d+./) {
+    if ($c =~ m/^(?:Empty|No) server or forwarder response received on socket \d+\./) {
 
         # Empty server or forwarder response received on socket 4.
         # Empty server or forwarder response received on socket 3. \
         #  Closing client socket 15 without sending data.
+        # Used by Privoxy 3.0.18 and later:
+        # No server or forwarder response received on socket 8. \
+        #  Closing client socket 10 without sending data.
+
         $c =~ s@(?<=on socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=client socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
