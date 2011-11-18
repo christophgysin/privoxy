@@ -1006,7 +1006,6 @@ void get_host_information(jb_socket afd, char **ip_address, char **port,
 #else
       *ip_address = strdup(inet_ntoa(server.sin_addr));
       snprintf(*port, NI_MAXSERV, "%hu", ntohs(server.sin_port));
-      *port[NI_MAXSERV - 1] = '\0';
 #endif /* HAVE_RFC2553 */
       if (NULL == hostname)
       {
