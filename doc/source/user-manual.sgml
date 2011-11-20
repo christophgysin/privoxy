@@ -449,6 +449,14 @@ How to install the binary packages depends on your operating system:
     <itemizedlist>
     <listitem>
      <para>
+      If the redirect URL contains characters RFC 3986 doesn't permit,
+      they are (re)encoded. Not doing this makes Privoxy versions from
+      3.0.5 to 3.0.17 susceptible to HTTP response splitting (CWE-113)
+      attacks if the +fast-redirects{check-decoded-url} action is used.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
       Fix a logic bug that could cause Privoxy to reuse a server
       socket after it got tainted by a server-header-tagger-induced
       block that was triggered before the whole server response had
@@ -9362,6 +9370,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.141  2011/11/20 12:41:22  fabiankeil
+ Document the +fast-redirects{} HTTP response splitting fix
+
  Revision 2.140  2011/11/19 15:18:02  fabiankeil
  Update ChangeLog
 
