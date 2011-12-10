@@ -1230,10 +1230,6 @@ static char *get_request_line(struct client_state *csp)
  * Description : Read the client's request (more precisely the
  *               client headers) and answer it if necessary.
  *
- *               Note that since we're not using select() we could get
- *               blocked here if a client connected, then didn't say
- *               anything!
- *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
  *
