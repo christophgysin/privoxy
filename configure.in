@@ -81,9 +81,10 @@ VERSION_MINOR=0
 VERSION_POINT=19
 CODE_STATUS="UNRELEASED"
 
-dnl CODE_STATUS can be "alpha", "beta", or "stable", and will be
-dnl used for CGI output. Set version to 0.0.0 and status to "UNRELEASED"
-dnl whenever CVS in a stable branch differs from the last release.
+dnl CODE_STATUS can be "alpha", "beta", "stable" or "UNRELEASED",
+dnl and will be used for CGI output. Increment version number and
+dnl set status to "UNRELEASED" whenever CVS differs from the last
+dnl release and no new release is near.
 
 dnl =================================================================
 dnl Substitute the version numbers
