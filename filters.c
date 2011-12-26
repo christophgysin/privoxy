@@ -13,7 +13,7 @@ const char filters_rcs[] = "$Id$";
  *                   `execute_single_pcrs_command', `rewrite_url',
  *                   `get_last_url'
  *
- * Copyright   :  Written by and Copyright (C) 2001-2010 the
+ * Copyright   :  Written by and Copyright (C) 2001-2011 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
