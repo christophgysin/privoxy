@@ -5,7 +5,7 @@
 <!entity history SYSTEM "history.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
-<!entity p-version "3.0.18">
+<!entity p-version "3.0.19">
 <!entity p-status "stable">
 <!entity % p-not-stable "IGNORE">
 <!entity % p-stable "INCLUDE">
@@ -249,6 +249,9 @@
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 2.20  2011/12/26 17:05:40  fabiankeil
+ Bump entities for 3.0.19
+
  Revision 2.19  2011/11/13 17:03:54  fabiankeil
  Bump entities for 3.0.18 stable
 

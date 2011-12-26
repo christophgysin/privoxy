@@ -8,7 +8,7 @@
 <!entity contacting SYSTEM "contacting.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
-<!entity p-version "3.0.18">
+<!entity p-version "3.0.19">
 <!entity p-status "stable">
 <!entity % p-not-stable "IGNORE">
 <!entity % p-stable "INCLUDE">
@@ -3005,6 +3005,9 @@ at sourceforge. Three simple steps:
   Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   $Log$
+  Revision 2.38  2011/12/26 17:05:40  fabiankeil
+  Bump entities for 3.0.19
+
   Revision 2.37  2011/11/13 17:03:54  fabiankeil
   Bump entities for 3.0.18 stable
 
