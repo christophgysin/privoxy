@@ -1854,7 +1854,7 @@ static jb_err remove_chunked_transfer_coding(char *buffer, size_t *size)
          return JB_ERR_PARSE;
       }
 
-      if ((newsize += chunksize) >= *size)
+      if (chunksize >= *size - newsize)
       {
          /*
           * XXX: The message is a bit confusing. Isn't the real problem that
@@ -1867,6 +1867,7 @@ static jb_err remove_chunked_transfer_coding(char *buffer, size_t *size)
             chunksize, *size);
          return JB_ERR_PARSE;
       }
+      newsize += chunksize;
       from_p += 2;
 
       memmove(to_p, from_p, (size_t) chunksize);
