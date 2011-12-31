@@ -4105,7 +4105,7 @@ jb_err get_destination_from_headers(const struct list *headers, struct http_requ
  * Function    :  create_forged_referrer
  *
  * Description :  Helper for client_referrer to forge a referer as
- *                'http://[hostname:port/' to fool stupid
+ *                'http://hostname[:port]/' to fool stupid
  *                checks for in-site links
  *
  * Parameters  :
