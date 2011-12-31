@@ -318,7 +318,7 @@ void free_action (struct action_spec *src)
  * Function    :  get_action_token
  *
  * Description :  Parses a line for the first action.
- *                Modifies it's input array, doesn't allocate memory.
+ *                Modifies its input array, doesn't allocate memory.
  *                e.g. given:
  *                *line="  +abc{def}  -ghi "
  *                Returns:
