@@ -5,8 +5,6 @@ const char cgiedit_rcs[] = "$Id$";
  *
  * Purpose     :  CGI-based actionsfile editor.
  *
- *                Functions declared include: cgi_edit_*
- *
  *                NOTE: The CGIs in this file use parameter names
  *                such as "f" and "s" which are really *BAD* choices.
  *                However, I'm trying to save bytes in the

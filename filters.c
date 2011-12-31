@@ -4,14 +4,6 @@ const char filters_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  Declares functions to parse/crunch headers and pages.
- *                Functions declared include:
- *                   `acl_addr', `add_stats', `block_acl', `block_imageurl',
- *                   `block_url', `url_actions', `domain_split',
- *                   `filter_popups', `forward_url', 'redirect_url',
- *                   `ij_untrusted_url', `intercept_url', `pcrs_filter_respose',
- *                   `ijb_send_banner', `trust_url', `gif_deanimate_response',
- *                   `execute_single_pcrs_command', `rewrite_url',
- *                   `get_last_url'
  *
  * Copyright   :  Written by and Copyright (C) 2001-2011 the
  *                Privoxy team. http://www.privoxy.org/

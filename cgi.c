@@ -8,9 +8,6 @@ const char cgi_rcs[] = "$Id$";
  *                This only contains the framework functions, the
  *                actual handler functions are declared elsewhere.
  *
- *                Functions declared include:
- *
- *
  * Copyright   :  Written by and Copyright (C) 2001-2004, 2006-2008
  *                the SourceForge Privoxy team. http://www.privoxy.org/
  *

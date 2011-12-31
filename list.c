@@ -4,8 +4,6 @@ const char list_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  Declares functions to handle lists.
- *                Functions declared include:
- *                   `destroy_list', `enlist' and `list_to_text'
  *
  * Copyright   :  Written by and Copyright (C) 2001-2007 the SourceForge
  *                Privoxy team. http://www.privoxy.org/

@@ -7,10 +7,6 @@ const char deanimate_rcs[] = "$Id$";
  *                fly.  High-level functions include:
  *                  - Deanimation of GIF images
  *
- *                Functions declared include: gif_deanimate, buf_free,
- *                buf_copy,  buf_getbyte, gif_skip_data_block
- *                and gif_extract_image
- *
  * Copyright   :  Written by and Copyright (C) 2001 - 2004, 2006 by the
  *                SourceForge Privoxy team. http://www.privoxy.org/
  *

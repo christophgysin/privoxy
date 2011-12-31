@@ -4,7 +4,6 @@ const char actions_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  Declares functions to work with actions files
- *                Functions declared include: FIXME
  *
  * Copyright   :  Written by and Copyright (C) 2001-2011 the
  *                Privoxy team. http://www.privoxy.org/
