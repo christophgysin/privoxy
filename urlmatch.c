@@ -775,7 +775,7 @@ static jb_err compile_url_pattern(struct url_spec *url, char *buf)
  *
  * Function    :  compile_host_pattern
  *
- * Description :  Parses and compiles a host pattern..
+ * Description :  Parses and compiles a host pattern.
  *
  * Parameters  :
  *          1  :  url = Target url_spec to be filled in.
