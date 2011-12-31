@@ -2518,7 +2518,7 @@ Only fixes some breakage, but may be good enough or at least better than nothing
 Doesn't do anything else, so you probably want to pipe the output into
 B<privoxy-log-parser> again.
 
-[B<--url-statistics-threshold>] Only show the request count for a ressource
+[B<--url-statistics-threshold>] Only show the request count for a resource
 if it's above or equal to the given threshold. If the threshold is 0, URL
 statistics are disabled.
 
