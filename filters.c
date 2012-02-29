@@ -185,10 +185,8 @@ static int match_sockaddr(const struct sockaddr_storage *network,
    if (network->ss_family != netmask->ss_family)
    {
       /* This should never happen */
-      log_error(LOG_LEVEL_ERROR,
-         "Internal error at %s:%llu: network and netmask differ in family",
-         __FILE__, __LINE__);
-      return 0;
+      assert(network->ss_family == netmask->ss_family);
+      log_error(LOG_LEVEL_FATAL, "Network and netmask differ in family.");
    }
 
    sockaddr_storage_to_ip(network, &network_addr, &addr_len, &network_port);
