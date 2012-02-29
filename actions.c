@@ -84,10 +84,10 @@ enum action_value_type {
 struct action_name
 {
    const char * name;
-   unsigned long mask;   /* a bit set to "0" = remove action */
-   unsigned long add;    /* a bit set to "1" = add action */
-   enum action_value_type takes_value;      /* an AV_... constant */
-   int index;            /* index into strings[] or multi[] */
+   unsigned long mask;                /* a bit set to "0" = remove action */
+   unsigned long add;                 /* a bit set to "1" = add action */
+   enum action_value_type value_type; /* an AV_... constant */
+   int index;                         /* index into strings[] or multi[] */
 };
 
 /*
@@ -512,7 +512,7 @@ jb_err get_actions(char *line,
             cur_action->add  &= action->mask;
             cur_action->add  |= action->add;
 
-            switch (action->takes_value)
+            switch (action->value_type)
             {
             case AV_NONE:
                /* ignore any option. */
