@@ -72,7 +72,6 @@ const char miscutil_h_rcs[] = MISCUTIL_H_VERSION;
  * Function    :  zalloc
  *
  * Description :  Malloc some memory and set it to '\0'.
- *                The way calloc() ought to be -acjc
  *
  * Parameters  :
  *          1  :  size = Size of memory chunk to return.
