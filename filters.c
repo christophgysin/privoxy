@@ -76,15 +76,6 @@ const char filters_rcs[] = "$Id$";
 
 const char filters_h_rcs[] = FILTERS_H_VERSION;
 
-/* Fix a problem with Solaris.  There should be no effect on other
- * platforms.
- * Solaris's isspace() is a macro which uses it's argument directly
- * as an array index.  Therefore we need to make sure that high-bit
- * characters generate +ve values, and ideally we also want to make
- * the argument match the declared parameter type of "int".
- */
-#define ijb_isdigit(__X) isdigit((int)(unsigned char)(__X))
-
 typedef char *(*filter_function_ptr)();
 static filter_function_ptr get_filter_function(const struct client_state *csp);
 static jb_err remove_chunked_transfer_coding(char *buffer, size_t *size);

@@ -167,6 +167,7 @@ typedef int jb_err;
  * some unspecified Solaris versions.
  * Note: Remember to #include <ctype.h> if you use these macros.
  */
+#define ijb_isdigit(__X) isdigit((int)(unsigned char)(__X))
 #define ijb_isupper(__X) isupper((int)(unsigned char)(__X))
 #define ijb_toupper(__X) toupper((int)(unsigned char)(__X))
 #define ijb_tolower(__X) tolower((int)(unsigned char)(__X))
