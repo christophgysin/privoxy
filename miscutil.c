@@ -135,13 +135,12 @@ void write_pid_file(void)
  * Function    :  hash_string
  *
  * Description :  Take a string and compute a (hopefuly) unique numeric
- *                integer value.  This has several uses, but being able
- *                to "switch" a string the one of my favorites.
+ *                integer value. This is useful to "switch" a string.
  *
  * Parameters  :
  *          1  :  s : string to be hashed.
  *
- * Returns     :  an unsigned long variable with the hashed value.
+ * Returns     :  The string's hash
  *
  *********************************************************************/
 unsigned int hash_string( const char* s )
