@@ -161,14 +161,10 @@ typedef int jb_err;
 
 
 /**
- * Fix a problem with Solaris.  There should be no effect on other
- * platforms.
- *
- * Solaris's isspace() is a macro which uses it's argument directly
- * as an array index.  Therefore we need to make sure that high-bit
- * characters generate +ve values, and ideally we also want to make
- * the argument match the declared parameter type of "int".
- *
+ * Macro definitions for platforms where isspace() and friends
+ * are macros that use their argument directly as an array index
+ * and thus better be positive. Supposedly that's the case on
+ * some unspecified Solaris versions.
  * Note: Remember to #include <ctype.h> if you use these macros.
  */
 #define ijb_isupper(__X) isupper((int)(unsigned char)(__X))
