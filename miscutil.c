@@ -470,13 +470,10 @@ char *bindup(const char *string, size_t len)
 {
    char *duplicate;
 
-   if (NULL == (duplicate = (char *)malloc(len)))
+   duplicate = (char *)malloc(len);
+   if (NULL != duplicate)
    {
-      return NULL;
-   }
-   else
-   {
-     memcpy(duplicate, string, len);
+      memcpy(duplicate, string, len);
    }
 
    return duplicate;
