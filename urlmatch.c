@@ -135,7 +135,7 @@ jb_err init_domain_components(struct http_request *http)
    /* map to lower case */
    for (p = http->dbuffer; *p ; p++)
    {
-      *p = (char)tolower((int)(unsigned char)*p);
+      *p = (char)privoxy_tolower(*p);
    }
 
    /* split the domain name into components */
@@ -841,7 +841,7 @@ static jb_err compile_host_pattern(struct url_spec *url, const char *host_patter
     */
    for (p = url->dbuffer; *p ; p++)
    {
-      *p = (char)tolower((int)(unsigned char)*p);
+      *p = (char)privoxy_tolower(*p);
    }
 
    /*
