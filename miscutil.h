@@ -46,6 +46,7 @@ extern "C" {
 
 extern const char *basedir;
 extern void *zalloc(size_t size);
+extern char *strdup_or_die(const char *str);
 
 #if defined(unix)
 extern void write_pid_file(void);

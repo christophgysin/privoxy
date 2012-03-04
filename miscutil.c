@@ -93,6 +93,42 @@ void *zalloc(size_t size)
 }
 
 
+/*********************************************************************
+ *
+ * Function    :  strdup_or_die
+ *
+ * Description :  strdup wrapper that either succeeds or causes
+ *                program termination.
+ *
+ *                Useful in situations were the string length is
+ *                "small" and strdup() failures couldn't be handled
+ *                better anyway. In case of debug builds, failures
+ *                trigger an assert().
+ *
+ * Parameters  :
+ *          1  :  str = String to duplicate
+ *
+ * Returns     :  Pointer to newly strdup'd copy of the string.
+ *
+ *********************************************************************/
+char *strdup_or_die(const char *str)
+{
+   char *new_str;
+
+   new_str = strdup(str);
+
+   if (new_str == NULL)
+   {
+      assert(new_str != NULL);
+      log_error(LOG_LEVEL_FATAL, "Out of memory in strdup_or_die().");
+      exit(1);
+   }
+
+   return(new_str);
+
+}
+
+
 #if defined(unix)
 /*********************************************************************
  *
