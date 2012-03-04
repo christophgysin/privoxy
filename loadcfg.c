@@ -466,9 +466,9 @@ struct configuration_spec * load_config(void)
       /* Make sure the command field is lower case */
       for (p = cmd; *p; p++)
       {
-         if (ijb_isupper(*p))
+         if (privoxy_isupper(*p))
          {
-            *p = (char)ijb_tolower(*p);
+            *p = (char)privoxy_tolower(*p);
          }
       }
 

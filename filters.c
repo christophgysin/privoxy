@@ -360,7 +360,7 @@ int acl_addr(const char *aspec, struct access_control_addr *aca)
    if ((p = strchr(acl_spec, '/')) != NULL)
    {
       *p++ = '\0';
-      if (ijb_isdigit(*p) == 0)
+      if (privoxy_isdigit(*p) == 0)
       {
          freez(acl_spec);
          return(-1);
