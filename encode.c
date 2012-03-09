@@ -145,7 +145,7 @@ char * html_encode(const char *s)
       while ((c = *s++) != '\0')
       {
          const char * replace_with = html_code_map[(unsigned char) c];
-         if(replace_with != NULL)
+         if (replace_with != NULL)
          {
             const size_t bytes_written = (size_t)(p - buf);
             assert(bytes_written < buf_size);
@@ -311,10 +311,10 @@ int xtoi(const char *s)
    int d1;
 
    d1 = xdtoi(*s);
-   if(d1 >= 0)
+   if (d1 >= 0)
    {
       int d2 = xdtoi(*(s+1));
-      if(d2 >= 0)
+      if (d2 >= 0)
       {
          return (d1 << 4) + d2;
       }

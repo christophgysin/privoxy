@@ -923,7 +923,7 @@ int load_trustfile(struct client_state *csp)
        */
       if (trusted)
       {
-         if(++trusted_referrers < MAX_TRUSTED_REFERRERS)
+         if (++trusted_referrers < MAX_TRUSTED_REFERRERS)
          {
             *tl++ = b->url;
          }
@@ -931,7 +931,7 @@ int load_trustfile(struct client_state *csp)
       freez(buf);
    }
 
-   if(trusted_referrers >= MAX_TRUSTED_REFERRERS)
+   if (trusted_referrers >= MAX_TRUSTED_REFERRERS)
    {
       /*
        * FIXME: ... after Privoxy 3.0.4 is out.

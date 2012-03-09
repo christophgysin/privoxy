@@ -2833,7 +2833,7 @@ jb_err cgi_edit_actions_for_url(struct client_state *csp,
     * A better solution would be to switch to POST requests,
     * but this will do for now.
     */
-   if(!err && (csp->config->feature_flags & RUNTIME_FEATURE_SPLIT_LARGE_FORMS))
+   if (!err && (csp->config->feature_flags & RUNTIME_FEATURE_SPLIT_LARGE_FORMS))
    {
       /* Generate multiple smaller form by killing the big one. */
       err = map_block_killer(exports, "one-form-only");
@@ -3215,7 +3215,7 @@ jb_err cgi_edit_actions_submit(struct client_state *csp,
       }
    }
 
-   if(err)
+   if (err)
    {
       /* Out of memory */
       edit_free_file(file);

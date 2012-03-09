@@ -2168,7 +2168,7 @@ struct map *default_exports(const struct client_state *csp, const char *caller)
    if (!err) err = map_block_killer(exports, "can-toggle");
 #endif
 
-   if(!strcmp(CODE_STATUS, "stable"))
+   if (!strcmp(CODE_STATUS, "stable"))
    {
       if (!err) err = map_block_killer(exports, "unstable");
    }

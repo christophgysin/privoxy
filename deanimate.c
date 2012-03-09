@@ -349,7 +349,7 @@ int gif_deanimate(struct binbuffer *src, struct binbuffer *dst, int get_first_im
    /*
     * Look for global colormap and  copy if found.
     */
-   if(c & 0x80)
+   if (c & 0x80)
    {
       int map_length = 3 * (1 << ((c & 0x07) + 1));
       if (map_length <= 0)

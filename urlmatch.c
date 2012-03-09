@@ -1009,7 +1009,7 @@ static int simplematch(const char *pattern, const char *text)
    }
 
    /* Cut off extra '*'s */
-   if(*pat == '*')  pat++;
+   if (*pat == '*')  pat++;
 
    /* If this is the pattern's end, fine! */
    return(*pat);
@@ -1374,7 +1374,7 @@ int match_portlist(const char *portlist, int port)
           * or, if max was omitted, between min and 65K
           */
          *max++ = '\0';
-         if(port >= atoi(min) && port <= (atoi(max) ? atoi(max) : 65535))
+         if (port >= atoi(min) && port <= (atoi(max) ? atoi(max) : 65535))
          {
             freez(portlist_copy);
             return(1);

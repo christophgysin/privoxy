@@ -74,7 +74,7 @@ SAVEDS ULONG server_thread(void)
    {
       SetErrnoPtr(&(UserData.eno),sizeof(int));
       local_csp->cfd=ObtainSocket(local_csp->cfd, AF_INET, SOCK_STREAM, 0);
-      if(JB_INVALID_SOCKET!=local_csp->cfd)
+      if (JB_INVALID_SOCKET!=local_csp->cfd)
       {
          Signal(main_task,SIGF_SINGLE);
          serve((struct client_state *) local_csp);
@@ -207,7 +207,7 @@ void free (void *m)
 {
    ULONG *mem = m;
 
-   if(mem && memPool)
+   if (mem && memPool)
    {
       ULONG size=*--mem;
 

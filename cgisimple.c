@@ -1141,7 +1141,7 @@ jb_err cgi_show_url_info(struct client_state *csp,
       {
          /*
           * Empty URL (just prefix).
-          * Make it totally empty so it's caught by the next if()
+          * Make it totally empty so it's caught by the next if ()
           */
          url_param[0] = '\0';
       }
@@ -1152,7 +1152,7 @@ jb_err cgi_show_url_info(struct client_state *csp,
       {
          /*
           * Empty URL (just prefix).
-          * Make it totally empty so it's caught by the next if()
+          * Make it totally empty so it's caught by the next if ()
           */
          url_param[0] = '\0';
       }
