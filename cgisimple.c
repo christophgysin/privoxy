@@ -1183,7 +1183,7 @@ jb_err cgi_show_url_info(struct client_state *csp,
        (global_toggle_state == 1) &&
 #endif /* def FEATURE_TOGGLE */
        map_block_killer(exports, "privoxy-is-toggled-off")
-     )
+      )
    {
       free_map(exports);
       return JB_ERR_MEMORY;

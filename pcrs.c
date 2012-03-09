@@ -882,7 +882,7 @@ int pcrs_execute(pcrs_job *job, const char *subject, size_t subject_length, char
                result_offset,
                subject + matches[i].submatch_offset[job->substitute->backref[k]],
                matches[i].submatch_length[job->substitute->backref[k]]
-           );
+            );
             result_offset += matches[i].submatch_length[job->substitute->backref[k]];
          }
       }

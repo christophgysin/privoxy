@@ -977,7 +977,7 @@ jb_err map(struct map *the_map,
 
    assert(the_map);
 
-   if ((NULL == value)
+   if ( (NULL == value)
      || (NULL == name)
      || (NULL == (new_entry = zalloc(sizeof(*new_entry)))))
    {

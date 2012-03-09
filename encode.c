@@ -428,7 +428,7 @@ char *percent_encode_url(const char *s)
    {
       char c;
       char *p = buf;
-      while((c = *s++) != '\0')
+      while ((c = *s++) != '\0')
       {
          const unsigned int i = (unsigned char)c;
          if (i >= sizeof(allowed_characters) || '\0' == allowed_characters[i])

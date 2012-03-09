@@ -243,7 +243,7 @@ LRESULT CALLBACK TrayProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             GetCursorPos(&pt);
             SetForegroundWindow(g_hwndLogFrame);
             TrackPopupMenu(hmenu, TPM_LEFTALIGN | TPM_TOPALIGN, pt.x, pt.y, 0, g_hwndLogFrame, NULL);
-            PostMessage(g_hwndLogFrame, WM_NULL, 0, 0) ;
+            PostMessage(g_hwndLogFrame, WM_NULL, 0, 0);
          }
          else if (uMouseMsg == WM_LBUTTONDBLCLK)
          {
