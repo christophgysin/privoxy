@@ -1342,11 +1342,7 @@ unsigned long resolve_hostname_to_ip(const char *host)
          log_error(LOG_LEVEL_ERROR, "hostname %s resolves to unknown address type.", host);
          return(INADDR_NONE);
       }
-      memcpy(
-         (char *) &inaddr.sin_addr,
-         (char *) hostp->h_addr,
-         sizeof(inaddr.sin_addr)
-     );
+      memcpy((char *)&inaddr.sin_addr, (char *)hostp->h_addr, sizeof(inaddr.sin_addr));
    }
    return(inaddr.sin_addr.s_addr);
 
