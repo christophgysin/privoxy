@@ -95,7 +95,7 @@ HWND CreateTrayWindow(HINSTANCE hInstance)
 
    g_hwndTrayX = CreateWindow(szWndName, szWndName,
       WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-      CW_USEDEFAULT, NULL, NULL, hInstance, NULL );
+      CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
 
    ShowWindow(g_hwndTrayX, SW_HIDE);
    UpdateWindow(g_hwndTrayX);
@@ -134,7 +134,7 @@ BOOL TraySetIcon(HWND hwnd, UINT uID, HICON hicon)
    nid.uCallbackMessage = 0;
    nid.hIcon = hicon;
 
-   return( Shell_NotifyIcon(NIM_MODIFY, &nid) );
+   return(Shell_NotifyIcon(NIM_MODIFY, &nid));
 
 }
 
@@ -172,7 +172,7 @@ BOOL TrayAddIcon(HWND hwnd, UINT uID, HICON hicon, const char *pszToolTip)
       strcpy(nid.szTip, pszToolTip);
    }
 
-   return( Shell_NotifyIcon(NIM_ADD, &nid) );
+   return(Shell_NotifyIcon(NIM_ADD, &nid));
 
 }
 
@@ -200,7 +200,7 @@ BOOL TrayDeleteIcon(HWND hwnd, UINT uID)
    nid.hWnd = hwnd;
    nid.uID = uID;
 
-   return( Shell_NotifyIcon(NIM_DELETE, &nid) );
+   return(Shell_NotifyIcon(NIM_DELETE, &nid));
 
 }
 
@@ -243,7 +243,7 @@ LRESULT CALLBACK TrayProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             GetCursorPos(&pt);
             SetForegroundWindow(g_hwndLogFrame);
             TrackPopupMenu(hmenu, TPM_LEFTALIGN | TPM_TOPALIGN, pt.x, pt.y, 0, g_hwndLogFrame, NULL);
-            PostMessage(g_hwndLogFrame, WM_NULL, 0, 0 ) ;
+            PostMessage(g_hwndLogFrame, WM_NULL, 0, 0) ;
          }
          else if (uMouseMsg == WM_LBUTTONDBLCLK)
          {

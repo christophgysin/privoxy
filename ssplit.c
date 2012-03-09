@@ -118,8 +118,8 @@ int ssplit(char *str, const char *delim, char *vec[], size_t vec_len,
 
    /* first pointer is the beginning of string */
    /* Check if we want to save this field */
-   if ( (!dont_save_empty_fields)
-     || (is_delim[(unsigned)(unsigned char)*str] == 0) )
+   if ((!dont_save_empty_fields)
+     || (is_delim[(unsigned)(unsigned char)*str] == 0))
       {
       /*
        * We want empty fields, or the first character in this
@@ -143,8 +143,8 @@ int ssplit(char *str, const char *delim, char *vec[], size_t vec_len,
          *str++ = '\0';
 
          /* Check if we want to save this field */
-         if ( (!dont_save_empty_fields)
-           || (is_delim[(unsigned)(unsigned char)*str] == 0) )
+         if ((!dont_save_empty_fields)
+           || (is_delim[(unsigned)(unsigned char)*str] == 0))
             {
             /*
              * We want empty fields, or the first character in this

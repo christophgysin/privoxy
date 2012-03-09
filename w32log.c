@@ -641,7 +641,7 @@ HWND CreateHiddenLogOwnerWindow(HINSTANCE hInstance)
 
    hwnd = CreateWindow(szWndName, szWndName,
       WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-      CW_USEDEFAULT, NULL, NULL, hInstance, NULL );
+      CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
 
    return hwnd;
 

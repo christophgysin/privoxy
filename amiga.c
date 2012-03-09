@@ -268,7 +268,7 @@ void __memCleanUp (void)
    }
 }
 
-#define ADD2LIST(a,b,c) asm(".stabs \"_" #b "\"," #c ",0,0,_" #a )
+#define ADD2LIST(a,b,c) asm(".stabs \"_" #b "\"," #c ",0,0,_" #a)
 #define ADD2EXIT(a,pri) ADD2LIST(a,__EXIT_LIST__,22); \
                         asm(".stabs \"___EXIT_LIST__\",20,0,0," #pri "+128")
 ADD2EXIT(__memCleanUp,-50);

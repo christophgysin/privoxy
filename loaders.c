@@ -120,7 +120,7 @@ unsigned int sweep(void)
    unsigned int active_threads = 0;
 
    /* clear all of the file's active flags */
-   for ( fl = files->next; NULL != fl; fl = fl->next )
+   for (fl = files->next; NULL != fl; fl = fl->next)
    {
       fl->active = 0;
    }
@@ -221,7 +221,7 @@ unsigned int sweep(void)
 
    while (fl != NULL)
    {
-      if ( ( 0 == fl->active ) && ( NULL != fl->unloader ) )
+      if (( 0 == fl->active) && ( NULL != fl->unloader ) )
       {
          nfl->next = fl->next;
 
@@ -569,7 +569,7 @@ jb_err edit_read_line(FILE *fp,
 
    /* Main loop.  Loop while we need more data & it's not EOF. */
 
-   while ( (contflag || is_empty)
+   while ((contflag || is_empty)
         && (JB_ERR_OK == (rval = simple_read_line(fp, &linebuf, newline))))
    {
       if (line_number)
@@ -1316,7 +1316,7 @@ int load_one_re_filterfile(struct client_state *csp, int fileid)
    /*
     * Schedule the now-obsolete old data for unloading
     */
-   if ( NULL != current_re_filterfile[fileid] )
+   if (NULL != current_re_filterfile[fileid])
    {
       current_re_filterfile[fileid]->unloader = unload_re_filterfile;
    }
@@ -1329,7 +1329,7 @@ int load_one_re_filterfile(struct client_state *csp, int fileid)
    current_re_filterfile[fileid] = fs;
    csp->rlist[fileid] = fs;
 
-   return( 0 );
+   return(0);
 
 load_re_filterfile_error:
    log_error(LOG_LEVEL_FATAL, "can't load re_filterfile '%s': %E",

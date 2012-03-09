@@ -447,7 +447,7 @@ pcrs_job *pcrs_free_job(pcrs_job *job)
  *********************************************************************/
 void pcrs_free_joblist(pcrs_job *joblist)
 {
-   while ( NULL != (joblist = pcrs_free_job(joblist)) ) {};
+   while (NULL != (joblist = pcrs_free_job(joblist))) {};
 
    return;
 
@@ -882,7 +882,7 @@ int pcrs_execute(pcrs_job *job, const char *subject, size_t subject_length, char
                result_offset,
                subject + matches[i].submatch_offset[job->substitute->backref[k]],
                matches[i].submatch_length[job->substitute->backref[k]]
-            );
+           );
             result_offset += matches[i].submatch_length[job->substitute->backref[k]];
          }
       }
