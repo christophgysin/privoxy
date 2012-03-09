@@ -1408,9 +1408,9 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
                  "While loading actions file '%s': invalid line (%lu): %s",
                   csp->config->actions_file[fileid], linenum, buf);
             }
-            else if (                     atoi(fields[0]) > VERSION_MAJOR
-                     || (num_fields > 1 && atoi(fields[1]) > VERSION_MINOR)
-                     || (num_fields > 2 && atoi(fields[2]) > VERSION_POINT))
+            else if (                  (atoi(fields[0]) > VERSION_MAJOR)
+               || ((num_fields) > 1 && (atoi(fields[1]) > VERSION_MINOR))
+               || ((num_fields) > 2 && (atoi(fields[2]) > VERSION_POINT)))
             {
                fclose(fp);
                log_error(LOG_LEVEL_FATAL,
