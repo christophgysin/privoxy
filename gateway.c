@@ -1116,16 +1116,7 @@ static jb_socket socks5_connect(const struct forward_spec *fwd,
 
    assert(errstr != NULL);
    csp->error_message = strdup(errstr);
-   if (server_size == -1)
-   {
-      /*
-       * We didn't read() anything from the server at all.
-       * Don't try to log a negative number of characters
-       * which could trigger an assert().
-       */
-      server_size = 0;
-   }
-   log_error(LOG_LEVEL_CONNECT, "socks5_connect: %s: %N", errstr, server_size, sbuf);
+   log_error(LOG_LEVEL_CONNECT, "socks5_connect: %s", errstr);
    close_socket(sfd);
    errno = EINVAL;
 
