@@ -1659,7 +1659,7 @@ sub handle_loglevel_connect ($) {
         # Waiting for up to 4999 bytes from the client.
         $c =~ s@(?<=up to )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
-    } elsif ($c =~ m/^Stopping to watch the client socket /) {
+    } elsif ($c =~ m/^Stopping to watch the client socket/) {
 
         # Stopping to watch the client socket. There's already another request waiting.
         # Privoxy 3.0.20 and later:
