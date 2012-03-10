@@ -1861,8 +1861,9 @@ static void chat(struct client_state *csp)
                 */
                watch_client_socket = 0;
                log_error(LOG_LEVEL_CONNECT,
-                  "Stopping to watch the client socket. "
-                  "There's already another request waiting.");
+                  "Stopping to watch the client socket %d. "
+                  "There's already another request waiting.",
+                  csp->cfd);
                continue;
             }
             /*
