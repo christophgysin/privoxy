@@ -842,6 +842,15 @@ s@^User-Agent:.*@$0@i
 
 #################################################################################
 #
+# referer: Tags the request with the complete Referer header.
+#
+#################################################################################
+CLIENT-HEADER-TAGGER: referer Tags the request with the complete Referer header.
+
+s@^Referer:.*@$0@i
+
+#################################################################################
+#
 # content-type: Tags the request with the content type declared by the server.
 #
 #################################################################################
