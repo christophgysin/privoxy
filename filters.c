@@ -1109,7 +1109,8 @@ char *get_last_url(char *subject, const char *redirect_mode)
 
       if (NULL == url_segments)
       {
-         log_error(LOG_LEVEL_ERROR, "Out of memory while decoding URL: %s", new_url);
+         log_error(LOG_LEVEL_ERROR,
+            "Out of memory while decoding URL: %s", subject);
          freez(subject);
          return NULL;
       }
