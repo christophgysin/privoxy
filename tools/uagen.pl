@@ -40,7 +40,7 @@ use Getopt::Long;
 
 use constant {
 
-   UAGEN_VERSION       => 'uagen 1.1',
+   UAGEN_VERSION       => 'uagen 1.2.1',
 
    UAGEN_LOGFILE       => '/var/log/uagen.log',
    ACTION_FILE         => '/etc/privoxy/user-agent.action',
