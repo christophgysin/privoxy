@@ -86,7 +86,7 @@ INSTALL    = @INSTALL@
 # Binaries
 BIN_MODE	 = 0755
 # Support files, docs, etc.
-RA_MODE   = 0664
+RA_MODE   = 0644
 # Directory
 DIR_MODE   = 0755
 # Files daemon writes to.
