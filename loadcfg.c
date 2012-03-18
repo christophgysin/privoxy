@@ -1437,8 +1437,9 @@ struct configuration_spec * load_config(void)
              * error.  To change back to an error, just change log level
              * to LOG_LEVEL_FATAL.
              */
-            log_error(LOG_LEVEL_ERROR, "Ignoring unrecognized directive '%s' (%luul) in line %lu "
-                  "in configuration file (%s).",  buf, directive_hash, linenum, configfile);
+            log_error(LOG_LEVEL_ERROR, "Ignoring unrecognized directive "
+               "'%s' (%uU) in line %lu in configuration file (%s).",
+               buf, directive_hash, linenum, configfile);
             string_append(&config->proxy_args,
                " <strong class='warning'>Warning: Ignoring unrecognized directive:</strong>");
             break;
