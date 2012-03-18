@@ -142,7 +142,7 @@ PERL       = perl
 DOC_DIR    = doc/source
 DOC_TMP    = $(DOC_DIR)/tmp
 DOC_STATUS = @DOC_STATUS@
-TIDY       = tidy -modify -indent -clean -wrap 78
+TIDY       = tidy -modify -indent -clean -wrap 78 --tidy-mark no
 
 # Program to do LF->CRLF
 #
