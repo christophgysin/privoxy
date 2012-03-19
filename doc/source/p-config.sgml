@@ -1278,10 +1278,10 @@ actionsfile
     IPv4 interfaces (addresses) on your machine and may become reachable from the
     Internet and/or the local network. Be aware that some GNU/Linux distributions
     modify that behaviour without updating the documentation. Check for non-standard
-    patches if your <application>Privoxy</application>version behaves differently.
+    patches if your <application>Privoxy</application> version behaves differently.
    </para>
    <para>
-    If you configure <application>Privoxy</application>to be reachable from the
+    If you configure <application>Privoxy</application> to be reachable from the
     network, consider using <link linkend="acls">access control lists</link>
     (ACL's, see below), and/or a firewall.
    </para>
