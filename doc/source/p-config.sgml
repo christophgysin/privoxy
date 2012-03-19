@@ -1291,12 +1291,6 @@ actionsfile
     linkend="enable-edit-actions">enable-edit-actions</link></literal> and
     <literal><link linkend="enable-remote-toggle">enable-remote-toggle</link></literal>
    </para>
-   <para>
-    With the exception noted above, listening on multiple addresses is currently
-    not supported by <application>Privoxy</application> directly.
-    It can be done on most operating systems by letting a packet filter
-    redirect request for certain addresses to Privoxy, though.
-   </para>
   </listitem>
  </varlistentry>
  <varlistentry>
