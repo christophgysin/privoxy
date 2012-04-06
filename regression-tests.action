@@ -10,7 +10,7 @@
 #
 #############################################################################
 #
-# Copyright (c) 2007-2011 Fabian Keil <fk@fabiankeil.de>
+# Copyright (c) 2007-2012 Fabian Keil <fk@fabiankeil.de>
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -27,9 +27,9 @@
 #############################################################################
 
 # While the syntax used is understood by Privoxy 3.0.14 and later,
-# some of the +fast-redirects{} tests require at least 3.0.18 to work.
+# some of the +fast-redirects{} tests require at least 3.0.20 to work.
 {{settings}}
-for-privoxy-version=3.0.18
+for-privoxy-version=3.0.20
 
 # Some dependencies Privoxy-Regression-Test should know about:
 #
