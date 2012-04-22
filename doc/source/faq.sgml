@@ -1793,7 +1793,6 @@ us help you. Your efforts are not wasted, and we do appreciate them.
  messages.
 </para>
 
-<![%p-newstuff;[
 <para>
  Since <application>Privoxy</application> 3.0.5, its
  <ulink url="../user-manual/config.html">main configuration file</ulink>
@@ -1853,7 +1852,7 @@ us help you. Your efforts are not wasted, and we do appreciate them.
  what <application>Tor</application> does, why it is no replacement for
  application level security, and why you probably don't want to
  use it for unencrypted logins.
-</para> ]]>
+</para>
 </sect2>
 
 <sect2 renderas="sect3">
@@ -2992,6 +2991,9 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.88  2012/04/22 12:16:24  fabiankeil
+Remove an obsolete newstuff marker
+
 Revision 2.87  2012/04/22 12:16:09  fabiankeil
 Fix an URL in the "Privoxy with Tor" FAQ
 
