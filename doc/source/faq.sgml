@@ -1840,7 +1840,7 @@ us help you. Your efforts are not wasted, and we do appreciate them.
 </para>
 <para>
  Save the modified configuration file and open
- <ulink url="http://config.privoxy.org/show-status">http://config.privoxy.org/show-status/</ulink>
+ <ulink url="http://config.privoxy.org/show-status">http://config.privoxy.org/show-status</ulink>
  in your browser, confirm that <application>Privoxy</application> has reloaded its configuration
  and that there are no other forward lines, unless you know that you need them. If everything looks good,
  refer to
@@ -2992,6 +2992,9 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.87  2012/04/22 12:16:09  fabiankeil
+Fix an URL in the "Privoxy with Tor" FAQ
+
 Revision 2.86  2012/03/18 15:41:49  fabiankeil
 Bump entities to 3.0.20 UNRELEASED
 
