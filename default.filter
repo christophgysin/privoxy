@@ -575,7 +575,7 @@ s@(<a(?:rea)?[^>]*?)\sping=(['"]?)([^"'>]+)\2([>\s]?)@\
 #################################################################################
 FILTER: google CSS-based block for Google text ads. Also removes a width limitation and the toolbar advertisement.
 
-s@</head>@<style type="text/css">\n\
+s@</head>[^\\]@<style type="text/css">\n\
  /* Style sheet inserted by Privoxy's google filter. */\n\
  \#fbc, \#fbl, \#ra, .rhh {visibility: hidden !important;}\n\
  \#tpa1,\#tpa2,\#tpa3,\#tpa4,\#tpa5,\#tpa5, \#spl, .ch, \#ads,\
