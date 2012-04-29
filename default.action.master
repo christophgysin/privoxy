@@ -730,6 +730,8 @@ linuxcounter.net/
 support./(.*/)?track
 # URL = http://repo.or.cz/r/vlc.git/objects/ad/1d316efd83157217fdf9b5d417dddca54bbf41
 /.*\.git/objects/
+# URL = http://code.google.com/p/sm-ssc/wiki/Bugtracker?tm=3
+/.*Bugtracker
 
 #############################################################################
 # Exceptions for academia and non-profits
