@@ -1502,7 +1502,7 @@ sub log_message ($) {
         $message = $time_stamp . ": " . $message;
     }
 
-    printf(STDERR "%s\n", $message);
+    printf("%s\n", $message);
 }
 
 sub log_result ($$) {
