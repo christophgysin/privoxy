@@ -2145,7 +2145,7 @@ sub print_clf_message () {
 sub print_non_clf_message ($) {
 
     my $content = shift;
-    my $msec_string = "." . $req{$t}{'msecs'} unless $no_msecs_mode;
+    my $msec_string = $no_msecs_mode ? '' : '.' . $req{$t}{'msecs'};
     my $line_start = $html_output_mode ? '' : $h{"Standard"};
 
     return if DEBUG_SUPPRESS_LOG_MESSAGES;
