@@ -997,7 +997,7 @@ char pcrs_get_delimiter(const char *string)
     * Some characters that are unlikely to
     * be part of pcrs replacement strings.
     */
-   char delimiters[] = "><§#+*~%^°-:;µ!@";
+   char delimiters[] = "><#+*~%^-:;!@";
    char *d = delimiters;
 
    /* Take the first delimiter that isn't part of the string */
