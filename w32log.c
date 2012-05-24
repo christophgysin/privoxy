@@ -1111,7 +1111,6 @@ void SetIdleIcon()
          if (!global_toggle_state)
          {
             TraySetIcon(g_hwndTray, 1, g_hiconOff);
-            /* log_error(LOG_LEVEL_INFO, "Privoxy OFF icon selected."); */
          }
          else
 #endif /* def FEATURE_TOGGLE */
