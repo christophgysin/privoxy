@@ -1176,7 +1176,7 @@ LRESULT CALLBACK LogWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
          return 0;
 
       case WM_CLOSE:
-         /* This is the end - beautiful friend - the end */
+         /* This is the end - my only friend - the end */
          DestroyWindow(g_hwndLogBox);
          DestroyWindow(g_hwndLogFrame);
          return 0;
