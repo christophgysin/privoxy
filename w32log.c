@@ -947,14 +947,8 @@ void OnLogCommand(int nCommand)
       /* by haroon - change toggle to its opposite value */
       case ID_TOGGLE_ENABLED:
          global_toggle_state = !global_toggle_state;
-         if (global_toggle_state)
-         {
-            log_error(LOG_LEVEL_INFO, "Now toggled ON.");
-         }
-         else
-         {
-            log_error(LOG_LEVEL_INFO, "Now toggled OFF.");
-         }
+         log_error(LOG_LEVEL_INFO,
+            "Now toggled %s", global_toggle_state ? "ON" : "OFF");
          SetIdleIcon();
          break;
 #endif /* def FEATURE_TOGGLE */
