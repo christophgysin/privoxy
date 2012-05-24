@@ -944,7 +944,6 @@ void OnLogCommand(int nCommand)
          break;
 
 #ifdef FEATURE_TOGGLE
-      /* by haroon - change toggle to its opposite value */
       case ID_TOGGLE_ENABLED:
          global_toggle_state = !global_toggle_state;
          log_error(LOG_LEVEL_INFO,
