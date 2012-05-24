@@ -227,7 +227,7 @@ sub paint_it ($) {
 # XXX: The Rolling Stones reference has to go.
 ###############################################################
 
-    my $colour = shift @_;
+    my $colour = shift;
 
     return "" if cli_option_is_set('no-syntax-highlighting');
 
@@ -302,7 +302,7 @@ sub get_semantic_html_markup ($) {
 # Takes a string and returns a span element
 ###############################################################
 
-    my $type = shift @_;
+    my $type = shift;
     my $code;
 
     if ($type =~ /Standard/) {
@@ -475,7 +475,7 @@ sub get_colour_html_markup ($) {
 # markup should always be semantically correct.
 ###############################################################
 
-    my $type = shift @_;
+    my $type = shift;
     my $code;
 
     if ($type =~ /Standard/) {
