@@ -1220,7 +1220,7 @@ struct configuration_spec * load_config(void)
             if (*arg != '\0')
             {
                int socket_timeout = atoi(arg);
-               if (0 < socket_timeout)
+               if (0 <= socket_timeout)
                {
                   config->socket_timeout = socket_timeout;
                }
