@@ -637,7 +637,7 @@ static struct map *parse_cgi_parameters(char *argstring)
       *p = '\0';
    }
 
-   pairs = ssplit(argstring, "&", vector, max_segments, 1, 1);
+   pairs = ssplit(argstring, "&", vector, max_segments);
    assert(pairs != -1);
    if (pairs == -1)
    {
