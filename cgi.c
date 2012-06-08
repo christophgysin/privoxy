@@ -614,6 +614,11 @@ static struct map *parse_cgi_parameters(char *argstring)
    }
 
    pairs = ssplit(argstring, "&", vector, SZ(vector), 1, 1);
+   if (pairs == -1)
+   {
+      free_map(cgi_params);
+      return NULL;
+   }
 
    for (i = 0; i < pairs; i++)
    {
