@@ -1098,6 +1098,7 @@ enum filter_type
    FT_SERVER_HEADER_FILTER = 2,
    FT_CLIENT_HEADER_TAGGER = 3,
    FT_SERVER_HEADER_TAGGER = 4,
+   FT_INVALID_FILTER       = 42,
 };
 #define MAX_FILTER_TYPES        5
 
