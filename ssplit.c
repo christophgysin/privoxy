@@ -145,7 +145,8 @@ int ssplit(char *str, const char *delim, char *vec[], size_t vec_len)
          str++;
       }
    }
-   *str = '\0';     /* null terminate the substring */
+   /* null terminate the substring */
+   *str = '\0';
 
    return(vec_count);
 }
