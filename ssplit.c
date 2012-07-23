@@ -37,6 +37,7 @@ const char ssplit_rcs[] = "$Id$";
 
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #include "ssplit.h"
 #include "miscutil.h"
@@ -152,6 +153,8 @@ int ssplit(char *str, const char *delim, char *vec[], size_t vec_len)
       }
    }
    /* null terminate the substring */
+   /* XXX: this shouldn't be necessary, so assert that it isn't. */
+   assert(*str == '\0');
    *str = '\0';
 
    return(vec_count);
