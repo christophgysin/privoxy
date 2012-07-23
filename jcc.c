@@ -3198,12 +3198,9 @@ int main(int argc, char **argv)
       {
          log_error(LOG_LEVEL_FATAL, "Cannot setgid(): Insufficient permissions.");
       }
-      if (NULL != grp)
+      if ((NULL != grp) && setgroups(1, &grp->gr_gid))
       {
-         if (setgroups(1, &grp->gr_gid))
-         {
-            log_error(LOG_LEVEL_FATAL, "setgroups() failed: %E");
-         }
+         log_error(LOG_LEVEL_FATAL, "setgroups() failed: %E");
       }
       else if (initgroups(pw->pw_name, pw->pw_gid))
       {
