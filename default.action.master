@@ -2085,7 +2085,9 @@ javascript.internet.com
 javascriptkit.com
 .xulplanet.com
 .perl.com/language/newdocs
+# URL = http://svnweb.freebsd.org/base/head/cddl/contrib/opensolaris/lib/libzfs/common/libzfs_dataset.c?revision=238391&view=markup
 .freebsd.org
+# URL = http://fxr.watson.org/fxr/source/geom/geom_event.c
 .watson.org
 .netbsd.org
 .openbsd.org
