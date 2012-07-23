@@ -5,7 +5,7 @@ const char parsers_rcs[] = "$Id$";
  *
  * Purpose     :  Declares functions to parse/crunch headers and pages.
  *
- * Copyright   :  Written by and Copyright (C) 2001-2011 the
+ * Copyright   :  Written by and Copyright (C) 2001-2012 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
