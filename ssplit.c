@@ -114,7 +114,7 @@ int ssplit(char *str, const char *delim, char *vec[], size_t vec_len)
       {
          return(-1); /* overflow */
       }
-      vec[vec_count++] = (char *) str;
+      vec[vec_count++] = str;
    }
 
    while ((char_type = is_delim[(unsigned)(unsigned char)*str]) != 2)
@@ -137,7 +137,7 @@ int ssplit(char *str, const char *delim, char *vec[], size_t vec_len)
             {
                return(-1); /* overflow */
             }
-            vec[vec_count++] = (char *) str;
+            vec[vec_count++] = str;
          }
       }
       else
