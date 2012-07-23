@@ -306,3 +306,5 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      a separate function. Currently we mess with it in three different
      files, but only in w32log.c the tray icon is explicitly set.
      The logging is inconsistent as well. For details see #3525694.
+
+105) Add support for socks authentication.
