@@ -1020,6 +1020,7 @@ actionsfile
   debug  4096 # Startup banner and warnings.
   debug  8192 # Non-fatal errors
   debug 32768 # log all data read from the network
+  debug 65536 # Log the applying actions
 </programlisting>
    </para>
    <para>
