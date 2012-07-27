@@ -2041,7 +2041,15 @@ sub init_stats () {
 sub get_percentage ($$) {
     my $big = shift;
     my $small = shift;
+
+    # If small is 0 the percentage is always 0%.
+    # Make sure it works even if big is 0 as well.
+    return "0.00%" if ($small eq 0);
+
+    # Prevent division by zero.
+    # XXX: Is this still supposed to be reachable?
     return "NaN" if ($big eq 0);
+
     return sprintf("%.2f%%", $small / $big * 100);
 }
 
