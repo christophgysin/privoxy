@@ -1261,6 +1261,9 @@ struct configuration_spec
    /** The short names of the pcre filter files. */
    const char *re_filterfile_short[MAX_AF_FILES];
 
+   /**< List of ordered client header names. */
+   struct list ordered_client_headers[1];
+
    /** The hostname to show on CGI pages, or NULL to use the real one. */
    const char *hostname;
 
