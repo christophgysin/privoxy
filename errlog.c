@@ -246,6 +246,23 @@ void set_debug_level(int debug_level)
 
 /*********************************************************************
  *
+ * Function    :  debug_level_is_enabled
+ *
+ * Description :  Checks if a certain debug level is enabled.
+ *
+ * Parameters  :  1: debug_level = The debug level to check.
+ *
+ * Returns     :  Nothing.
+ *
+ *********************************************************************/
+int debug_level_is_enabled(int debug_level)
+{
+   return (0 != (debug & debug_level));
+}
+
+
+/*********************************************************************
+ *
  * Function    :  disable_logging
  *
  * Description :  Disables logging.

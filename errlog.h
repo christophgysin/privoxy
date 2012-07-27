@@ -66,6 +66,7 @@ extern "C" {
 
 extern void init_error_log(const char *prog_name, const char *logfname);
 extern void set_debug_level(int debuglevel);
+extern int  debug_level_is_enabled(int debuglevel);
 extern void disable_logging(void);
 extern void init_log_module(void);
 extern void show_version(const char *prog_name);
