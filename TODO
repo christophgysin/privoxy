@@ -289,11 +289,6 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      the win32 GUI. Integrate support for Privoxy-Regression-Test,
      Privoxy-Log-Parser, Privoxy-Filter-Test, uagen and similar tools.
 
-101) Forward known client headers in a predefined order that can
-     be changed in the config file. Optionally use a random order.
-     Tools like p0f v3 use the header order for User-Agent detection
-     and thus changing the User-Agent doesn't fool them.
-
 102) Add an include directive to split the config file into several parts.
 
 103) Potential performance improvement for large action files:
