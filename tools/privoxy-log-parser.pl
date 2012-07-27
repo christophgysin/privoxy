@@ -139,6 +139,7 @@ sub prepare_our_stuff () {
         Force           => 'red',
         Writing         => 'light_green',
         Received        => 'yellow',
+        Actions         => 'yellow',
         # ----------------------
         URL                  => 'yellow',
         path                 => 'brown',
@@ -2225,6 +2226,7 @@ sub parse_loop () {
         'Fatal error'       => \&handle_loglevel_ignore,
         'Writing'           => \&handle_loglevel_ignore,
         'Received'          => \&handle_loglevel_ignore,
+        'Actions'           => \&handle_loglevel_ignore,
         'Unknown log level' => \&handle_loglevel_ignore,
     );
 
@@ -2316,6 +2318,7 @@ sub stats_loop () {
          'Fatal error'       => \&handle_loglevel_ignore,
          'Writing'           => \&handle_loglevel_ignore,
          'Received'          => \&handle_loglevel_ignore,
+         'Actions'           => \&handle_loglevel_ignore,
          'Unknown log level' => \&handle_loglevel_ignore
     );
 
