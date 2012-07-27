@@ -58,6 +58,7 @@ extern "C" {
 #define LOG_LEVEL_CRUNCH     0x0400
 #define LOG_LEVEL_CGI        0x0800 /* CGI / templates */
 #define LOG_LEVEL_RECEIVED   0x8000
+#define LOG_LEVEL_ACTIONS   0x10000
 
 /* Following are always on: */
 #define LOG_LEVEL_INFO    0x1000

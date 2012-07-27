@@ -80,6 +80,7 @@ extern jb_err merge_current_action  (struct current_action_spec *dest,
                                      const struct action_spec *src);
 extern char * current_action_to_html(const struct client_state *csp,
                                      const struct current_action_spec *action);
+extern char * actions_to_line_of_text(const struct current_action_spec *action);
 
 extern jb_err get_action_token(char **line, char **name, char **value);
 extern void unload_actions_file(void *file_data);

@@ -621,6 +621,9 @@ static inline const char *get_log_level_string(int loglevel)
       case LOG_LEVEL_CGI:
          log_level_string = "CGI";
          break;
+      case LOG_LEVEL_ACTIONS:
+         log_level_string = "Actions";
+         break;
       default:
          log_level_string = "Unknown log level";
          break;
