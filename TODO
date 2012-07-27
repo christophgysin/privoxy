@@ -308,3 +308,6 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      The logging is inconsistent as well. For details see #3525694.
 
 105) Add support for socks authentication.
+
+106) actionlist.h should be embedded in a way that causes less text
+     segment bloat.
