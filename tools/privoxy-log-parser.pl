@@ -1432,6 +1432,14 @@ sub handle_loglevel_connect ($) {
         return '' if SUPPRESS_ACCEPTED_CONNECTIONS;
         $c = highlight_matched_host($c, '(?<=connection from ).*');
 
+    } elsif ($c =~ m/^Closing client socket/) {
+
+        # Closing client socket 5. Keep-alive: 0, Socket alive: 1. Data available: 0.
+        $c = highlight_matched_pattern($c, 'Number', '(?<=socket )\d+');
+        $c = highlight_matched_pattern($c, 'Number', '(?<=Keep-alive: )\d+');
+        $c = highlight_matched_pattern($c, 'Number', '(?<=Socket alive: )\d+');
+        $c = highlight_matched_pattern($c, 'Number', '(?<=available: )\d+');
+
     } elsif ($c =~ m/^write header to: .* failed:/) {
 
         # write header to: 10.0.0.1 failed: Broken pipe
