@@ -1942,7 +1942,7 @@ static jb_err client_connection(struct client_state *csp, char **header)
       freez(old_header);
    }
 
-   /* Signal client_connection_adder() to return early. */
+   /* Signal client_connection_header_adder() to return early. */
    csp->flags |= CSP_FLAG_CLIENT_CONNECTION_HEADER_SET;
 
    return JB_ERR_OK;
