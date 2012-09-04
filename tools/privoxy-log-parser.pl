@@ -1422,10 +1422,13 @@ sub handle_loglevel_connect ($) {
 
         $c = highlight_matched_host($c, '(?<=to )[^\s]+');
 
-    } elsif ($c =~ m/^accepted connection from .*/ or
+    } elsif ($c =~ m/^[Aa]ccepted connection from .*/ or
              $c =~ m/^OK/) {
 
-        # accepted connection from 10.0.0.1 on socket 5
+        # Privoxy 3.0.20:
+        # Accepted connection from 10.0.0.1 on socket 5
+        # Privoxy between 3.0.20 and 3.0.6:
+        # accepted connection from 10.0.0.1( on socket 5)?
         # Privoxy 3.0.6 and earlier just say:
         # OK
         $c = highlight_matched_host($c, '(?<=connection from )[^ ]*');
