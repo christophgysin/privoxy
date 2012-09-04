@@ -1333,6 +1333,9 @@ www.zdnetasia.com/.*/sponsor/.*\.gif$
 optimize.indieclick.com/
 # Blocked URL = http://optimized-by.rubiconproject.com/a/8327/13451/26301-2.img
 optimized-by.rubiconproject.com/
+# Blocked URL = http://g.adspeed.net/ad.php?do=html&zid=14678&wd=728&ht=90&target=_top
+#MASTER# BLOCK-REFERRER: http://seclists.org/fulldisclosure/2012/Aug/4
+g.adspeed.net/
 
 #----------------------------------------------------------------------------
 # Cross-site user tracking
