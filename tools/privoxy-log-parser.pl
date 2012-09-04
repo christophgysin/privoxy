@@ -70,7 +70,6 @@ use constant {
     SHOW_FILTER_READIN_IN => 0,
     SUPPRESS_EMPTY_LINES => 1,
     SUPPRESS_SUCCESSFUL_CONNECTIONS => 1,
-    SUPPRESS_ACCEPTED_CONNECTIONS => 1,
     SUPPRESS_GIF_NOT_CHANGED => 1,
     SUPPRESS_NEED_TO_DE_CHUNK_FIRST => 1,
 
@@ -1426,11 +1425,11 @@ sub handle_loglevel_connect ($) {
     } elsif ($c =~ m/^accepted connection from .*/ or
              $c =~ m/^OK/) {
 
-        # accepted connection from 10.0.0.1
+        # accepted connection from 10.0.0.1 on socket 5
         # Privoxy 3.0.6 and earlier just say:
         # OK
-        return '' if SUPPRESS_ACCEPTED_CONNECTIONS;
-        $c = highlight_matched_host($c, '(?<=connection from ).*');
+        $c = highlight_matched_host($c, '(?<=connection from )[^ ]*');
+        $c = highlight_matched_pattern($c, 'Number', '(?<=socket )\d+');
 
     } elsif ($c =~ m/^Closing client socket/) {
 
