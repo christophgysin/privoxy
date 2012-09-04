@@ -793,7 +793,9 @@ struct reusable_connection
 
 /**
  * Flag for csp->flags: Set if we think we can't reuse
- * the server socket.
+ * the server socket. XXX: It's also set after sabotaging
+ * pipelining attempts which is somewhat inconsistent with
+ * the name.
  */
 #define CSP_FLAG_SERVER_SOCKET_TAINTED          0x00040000U
 
