@@ -311,7 +311,14 @@ else
     echo "Using Cygnus (Win32 command line)"
   else
     SPECIAL_CFLAGS=
-    PTHREAD_LIB=-lpthread
+    if test $host_os = haiku; then
+      dnl Haiku's pthreads implementation is contained in its system
+      dnl library, libroot, so no additional library needs to be
+      dnl searched
+      PTHREAD_LIB=
+    else
+      PTHREAD_LIB=-lpthread
+    fi
   fi
 fi
 AC_SUBST(WIN_ONLY)
