@@ -3714,7 +3714,6 @@ static jb_err client_connection_header_adder(struct client_state *csp)
    static const char connection_close[] = "Connection: close";
 
    if (!(csp->flags & CSP_FLAG_CLIENT_HEADER_PARSING_DONE)
-     && !(csp->flags & CSP_FLAG_SERVER_SOCKET_TAINTED)
      && (csp->flags & CSP_FLAG_CLIENT_CONNECTION_HEADER_SET))
    {
       return JB_ERR_OK;
