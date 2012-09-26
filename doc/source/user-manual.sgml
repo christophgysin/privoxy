@@ -7931,7 +7931,7 @@ pre-defined filters for your convenience:
  </varlistentry>
 
  <varlistentry>
-  <term><emphasis>refresh tags</emphasis></term>
+  <term><emphasis>refresh-tags</emphasis></term>
   <listitem>
    <para>
     Disable any refresh tags if the interval is greater than nine seconds (so
@@ -9506,6 +9506,11 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.150  2012/09/26 15:20:54  fabiankeil
+ Spell 'refresh-tags' correctly
+
+ Reported by Don in #3571927.
+
  Revision 2.149  2012/04/22 12:15:53  fabiankeil
  Use another client-header-tagger{} example: disable filtering for range requests
 
