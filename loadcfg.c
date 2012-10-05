@@ -339,6 +339,7 @@ static void parse_client_header_order(struct list *ordered_header_list, const ch
 {
    char *original_headers_copy;
    char **vector;
+   size_t max_segments;
    int number_of_headers;
    int i;
 
@@ -356,7 +357,7 @@ static void parse_client_header_order(struct list *ordered_header_list, const ch
     *      The same hack is used in get_last_url() so it looks like
     *      a real solution is needed.
     */
-   size_t max_segments = strlen(ordered_headers) / 2;
+   max_segments = strlen(ordered_headers) / 2;
    if (max_segments == 0)
    {
       max_segments = 1;
