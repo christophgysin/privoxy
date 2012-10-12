@@ -770,7 +770,6 @@ AC_CHECK_FUNCS([ \
  strlcat \
  strlcpy \
  strptime \
- strstr \
  strtoul \
  timegm \
  tzset \
