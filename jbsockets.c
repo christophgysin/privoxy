@@ -728,7 +728,7 @@ void drain_and_close_socket(jb_socket fd)
       int bytes_drained;
 
 #ifdef HAVE_SHUTDOWN
-/* Apparently Windows has shutdown() but now SHUT_WR */
+/* Apparently Windows has shutdown() but not SHUT_WR. */
 #ifndef SHUT_WR
 #define SHUT_WR 1
 #endif
