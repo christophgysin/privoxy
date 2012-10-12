@@ -55,6 +55,7 @@ extern int write_socket(jb_socket fd, const char *buf, size_t n);
 extern int read_socket(jb_socket fd, char *buf, int n);
 extern int data_is_available(jb_socket fd, int seconds_to_wait);
 extern void close_socket(jb_socket fd);
+extern void drain_and_close_socket(jb_socket fd);
 
 extern int bind_port(const char *hostnam, int portnum, jb_socket *pfd);
 extern int accept_connection(struct client_state * csp, jb_socket fds[]);
