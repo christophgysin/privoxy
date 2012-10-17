@@ -3822,7 +3822,7 @@ static jb_err server_set_cookie(struct client_state *csp, char **header)
       log_error(LOG_LEVEL_HEADER, "Crunching incoming cookie: %s", *header);
       freez(*header);
    }
-   else if ((csp->action->flags & ACTION_NO_COOKIE_KEEP) != 0)
+   else if ((csp->action->flags & ACTION_SESSION_COOKIES_ONLY) != 0)
    {
       /* Flag whether or not to log a message */
       int changed = 0;
