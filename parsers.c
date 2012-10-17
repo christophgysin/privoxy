@@ -3039,7 +3039,7 @@ static jb_err client_from(struct client_state *csp, char **header)
  *********************************************************************/
 static jb_err client_send_cookie(struct client_state *csp, char **header)
 {
-   if (csp->action->flags & ACTION_NO_COOKIE_READ)
+   if (csp->action->flags & ACTION_CRUNCH_OUTGOING_COOKIES)
    {
       log_error(LOG_LEVEL_HEADER, "Crunched outgoing cookie: %s", *header);
       freez(*header);
