@@ -1340,7 +1340,7 @@ struct configuration_spec * load_config(void)
  * *************************************************************************/
 #ifdef FEATURE_TOGGLE
          case hash_toggle :
-            global_toggle_state = atoi(arg);
+            global_toggle_state = parse_toggle_state(cmd, arg);
             break;
 #endif /* def FEATURE_TOGGLE */
 
