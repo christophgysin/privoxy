@@ -229,8 +229,8 @@ void remember_connection(const struct reusable_connection *connection)
    reusable_connection[slot].port = connection->port;
    reusable_connection[slot].in_use = 0;
    reusable_connection[slot].timestamp = connection->timestamp;
-   reusable_connection->request_sent = connection->request_sent;
-   reusable_connection->response_received = connection->response_received;
+   reusable_connection[slot].request_sent = connection->request_sent;
+   reusable_connection[slot].response_received = connection->response_received;
    reusable_connection[slot].keep_alive_timeout = connection->keep_alive_timeout;
 
    assert(reusable_connection[slot].gateway_host == NULL);
