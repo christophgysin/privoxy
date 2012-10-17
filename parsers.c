@@ -3817,7 +3817,7 @@ static jb_err server_set_cookie(struct client_state *csp, char **header)
 
    time(&now);
 
-   if ((csp->action->flags & ACTION_NO_COOKIE_SET) != 0)
+   if ((csp->action->flags & ACTION_CRUNCH_INCOMING_COOKIES) != 0)
    {
       log_error(LOG_LEVEL_HEADER, "Crunching incoming cookie: %s", *header);
       freez(*header);
