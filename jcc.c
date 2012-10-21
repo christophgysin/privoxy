@@ -1976,7 +1976,6 @@ static void chat(struct client_state *csp)
          }
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
 
-         fflush(NULL);
          len = read_socket(csp->server_connection.sfd, buf, sizeof(buf) - 1);
 
          if (len < 0)
