@@ -639,6 +639,16 @@ struct url_actions
    struct url_actions *next;   /**< Next action section in file, or NULL. */
 };
 
+enum forwarder_type {
+   /**< Don't use a SOCKS server               */
+   SOCKS_NONE =  0,
+   /**< original SOCKS 4 protocol              */
+   SOCKS_4    = 40,
+   /**< SOCKS 4A, DNS resolution is done by the SOCKS server */
+   SOCKS_4A   = 41,
+   /**< SOCKS 5 with hostnames, DNS resolution is done by the SOCKS server */
+   SOCKS_5    = 50,
+};
 
 /*
  * Structure to hold the server socket and the information
@@ -662,7 +672,7 @@ struct reusable_connection
 
    char *host;
    int  port;
-   int  forwarder_type;
+   enum forwarder_type forwarder_type;
    char *gateway_host;
    int  gateway_port;
    char *forward_host;
@@ -1047,17 +1057,6 @@ struct block_spec
 #define MAX_TRUSTED_REFERRERS 512
 
 #endif /* def FEATURE_TRUST */
-
-enum forwarder_type {
-   /**< Don't use a SOCKS server               */
-   SOCKS_NONE =  0,
-   /**< original SOCKS 4 protocol              */
-   SOCKS_4    = 40,
-   /**< SOCKS 4A, DNS resolution is done by the SOCKS server */
-   SOCKS_4A   = 41,
-   /**< SOCKS 5 with hostnames, DNS resolution is done by the SOCKS server */
-   SOCKS_5    = 50,
-};
 
 /**
  * How to forward a connection to a parent proxy.
