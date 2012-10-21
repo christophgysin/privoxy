@@ -668,6 +668,11 @@ struct reusable_connection
     * connection will no longer be reused.
     */
    unsigned int keep_alive_timeout;
+   /*
+    * Number of requests that were sent to this connection.
+    * This is currently only for debugging purposes.
+    */
+   unsigned int requests_sent_total;
 
    char *host;
    int  port;
