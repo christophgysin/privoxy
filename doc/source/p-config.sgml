@@ -2594,7 +2594,7 @@ forward-socks4, forward-socks4a and forward-socks5</title>
     Several users have reported this as a Privoxy bug, so the
     default value has been reduced. Consider increasing it to
     300 seconds or even more if you think your browser can handle
-    it. If your browser appears to be hanging it can't.
+    it. If your browser appears to be hanging, it probably can't.
    </para>
   </listitem>
  </varlistentry>
