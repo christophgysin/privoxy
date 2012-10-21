@@ -6312,6 +6312,10 @@ new action
     single pcrs command to the original URL.
    </para>
    <para>
+    The syntax for pcrs commands is documented in the
+    <link linkend="filter-file">filter file</link> section.
+   </para>
+   <para>
     This action will be ignored if you use it together with
     <literal><link linkend="block">block</link></literal>.
     It can be combined with
@@ -9506,6 +9510,9 @@ In file: user.action <guibutton>[ View ]</guibutton> <guibutton>[ Edit ]</guibut
  USA
 
  $Log$
+ Revision 2.151  2012/10/21 12:31:59  fabiankeil
+ In the redirect{} section, refer pcrs newbies to the 'filter file' section
+
  Revision 2.150  2012/09/26 15:20:54  fabiankeil
  Spell 'refresh-tags' correctly
 
