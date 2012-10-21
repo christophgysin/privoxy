@@ -2459,8 +2459,7 @@ static void prepare_csp_for_next_request(struct client_state *csp)
    csp->expected_content_length = 0;
    csp->expected_client_content_length = 0;
    list_remove_all(csp->headers);
-   freez(csp->iob->buf);
-   memset(csp->iob, 0, sizeof(csp->iob));
+   IOB_RESET(csp->iob);
    freez(csp->error_message);
    free_http_request(csp->http);
    destroy_list(csp->headers);
