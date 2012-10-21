@@ -422,7 +422,7 @@ struct iob
  * Remove any data in the I/O buffer associated with the passed
  * client_state pointer.
  */
-#define IOB_RESET(CSP) if(CSP->iob->buf) free(CSP->iob->buf); memset(CSP->iob, '\0', sizeof(CSP->iob));
+#define IOB_RESET(IOB) do {free(IOB->buf); memset(IOB, '\0', sizeof(*IOB));} while (0)
 
 /* Bits for csp->content_type bitmask: */
 #define CT_TEXT    0x0001U /**< Suitable for pcrs filtering. */

@@ -1743,7 +1743,7 @@ static void chat(struct client_state *csp)
       {
          return;
       }
-      IOB_RESET(csp);
+      IOB_RESET(csp->iob);
    }
 
    log_error(LOG_LEVEL_CONNECT, "to %s successful", http->hostport);
