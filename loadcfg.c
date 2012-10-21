@@ -155,6 +155,7 @@ static struct file_list *current_configfile = NULL;
 #define hash_split_large_cgi_forms        671658948U /* "split-large-cgi-forms" */
 #define hash_suppress_blocklists         1948693308U /* "suppress-blocklists" */
 #define hash_templdir                      11067889U /* "templdir" */
+#define hash_tolerate_pipelining         1360286620U /* "tolerate-pipelining" */
 #define hash_toggle                          447966U /* "toggle" */
 #define hash_trust_info_url               430331967U /* "trust-info-url" */
 #define hash_trustfile                     56494766U /* "trustfile" */
@@ -484,6 +485,7 @@ struct configuration_spec * load_config(void)
     */
    config->compression_level         = 1;
 #endif
+   config->feature_flags            &= ~RUNTIME_FEATURE_TOLERATE_PIPELINING;
 
    configfp = fopen(configfile, "r");
    if (NULL == configfp)
@@ -1333,6 +1335,20 @@ struct configuration_spec * load_config(void)
          case hash_templdir :
             freez(config->templdir);
             config->templdir = make_path(NULL, arg);
+            break;
+
+/* *************************************************************************
+ * tolerate-pipelining (0|1)
+ * *************************************************************************/
+         case hash_tolerate_pipelining :
+            if (parse_toggle_state(cmd, arg) == 1)
+            {
+               config->feature_flags |= RUNTIME_FEATURE_TOLERATE_PIPELINING;
+            }
+            else
+            {
+               config->feature_flags &= ~RUNTIME_FEATURE_TOLERATE_PIPELINING;
+            }
             break;
 
 /* *************************************************************************
