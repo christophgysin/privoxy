@@ -3224,8 +3224,9 @@ forward-socks4, forward-socks4a and forward-socks5</title>
 <![%config-file;[<para>@@</para>]]> <!-- for spacing -->
 <para>
  If <quote>log-messages</quote> is set to 1,
- <application>Privoxy</application> will log messages to the console
- window:
+ <application>Privoxy</application> copy log messages to the console
+ window.
+ The log detail depends on the <link linkend="debug">debug</link> directive.
 </para>
 
 <![%config-file;[<literallayout>@@#log-messages   1</literallayout>]]>
