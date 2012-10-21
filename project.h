@@ -877,6 +877,9 @@ struct client_state
    /** socket to talk to client (web browser) */
    jb_socket cfd;
 
+   /** Number of requests received on the client socket. */
+   unsigned int requests_received_total;
+
    /** current connection to the server (may go through a proxy) */
    struct reusable_connection server_connection;
 
