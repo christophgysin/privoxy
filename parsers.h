@@ -55,7 +55,7 @@ extern "C" {
 #define FILTER_SERVER_HEADERS 1
 
 extern long flush_socket(jb_socket fd, struct iob *iob);
-extern jb_err add_to_iob(struct client_state *csp, char *buf, long n);
+extern jb_err add_to_iob(struct iob *iob, const size_t buffer_limit, char *src, long n);
 extern jb_err decompress_iob(struct client_state *csp);
 extern char *get_header(struct iob *iob);
 extern char *get_header_value(const struct list *header_list, const char *header_name);

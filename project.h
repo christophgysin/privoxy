@@ -902,8 +902,12 @@ struct client_state
     */
    struct forward_spec * fwd;
 
-   /** An I/O buffer used for buffering data read from the network */
+   /** An I/O buffer used for buffering data read from the server */
+   /* XXX: should be renamed to server_iob */
    struct iob iob[1];
+
+   /** An I/O buffer used for buffering data read from the client */
+   struct iob client_iob[1];
 
    /** List of all headers for this request */
    struct list headers[1];
