@@ -1707,6 +1707,12 @@ sub handle_loglevel_connect ($) {
         # Stopping to watch the client socket 5. There's already another request waiting.
         $c =~ s@(?<=client socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Drained \d+ bytes before closing/) {
+
+        # Drained 180 bytes before closing socket 6
+        $c =~ s@(?<=Drained )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Looks like we / or
              $c =~ m/^Unsetting keep-alive flag/ or
              $c =~ m/^No connections to wait/ or
