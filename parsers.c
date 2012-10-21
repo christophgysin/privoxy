@@ -359,6 +359,27 @@ jb_err add_to_iob(struct iob *iob, const size_t buffer_limit, char *src, long n)
 }
 
 
+/*********************************************************************
+ *
+ * Function    :  clear_iob
+ *
+ * Description :  Frees the memory allocated for an I/O buffer and
+ *                resets the structure.
+ *
+ * Parameters  :
+ *          1  :  iob = I/O buffer to clear.
+ *
+ * Returns     :  JB_ERR_OK on success, JB_ERR_MEMORY if out-of-memory
+ *                or buffer limit reached.
+ *
+ *********************************************************************/
+void clear_iob(struct iob *iob)
+{
+   free(iob->buf);
+   memset(iob, '\0', sizeof(*iob));;
+}
+
+
 #ifdef FEATURE_ZLIB
 /*********************************************************************
  *

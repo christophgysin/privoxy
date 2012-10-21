@@ -1692,7 +1692,7 @@ static char *pcrs_filter_response(struct client_state *csp)
 
    csp->flags |= CSP_FLAG_MODIFIED;
    csp->content_length = size;
-   IOB_RESET(csp->iob);
+   clear_iob(csp->iob);
 
    return(new);
 

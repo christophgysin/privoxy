@@ -56,6 +56,7 @@ extern "C" {
 
 extern long flush_socket(jb_socket fd, struct iob *iob);
 extern jb_err add_to_iob(struct iob *iob, const size_t buffer_limit, char *src, long n);
+extern void clear_iob(struct iob *iob);
 extern jb_err decompress_iob(struct client_state *csp);
 extern char *get_header(struct iob *iob);
 extern char *get_header_value(const struct list *header_list, const char *header_name);
