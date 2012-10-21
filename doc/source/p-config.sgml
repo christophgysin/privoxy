@@ -856,8 +856,7 @@ actionsfile
    <para>
     Your logfile will grow indefinitely, and you will probably want to
     periodically remove it.  On Unix systems, you can do this with a cron job
-    (see <quote>man cron</quote>). For Red Hat based Linux distributions, a
-    <command>logrotate</command> script has been included.
+    (see <quote>man cron</quote>).
    </para>
    <para>
     Any log files must be writable by whatever user <application>Privoxy</application>
