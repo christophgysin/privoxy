@@ -2579,13 +2579,10 @@ static void serve(struct client_state *csp)
 
       if (continue_chatting)
       {
-         unsigned int client_timeout = 1; /* XXX: Use something else here? */
-
          if (0 != (csp->flags & CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE))
          {
             if (csp->server_connection.sfd != JB_INVALID_SOCKET)
             {
-               client_timeout = (unsigned)csp->server_connection.keep_alive_timeout - latency;
                log_error(LOG_LEVEL_CONNECT,
                   "Waiting for the next client request on socket %d. "
                   "Keeping the server socket %d to %s open.",
@@ -2599,7 +2596,7 @@ static void serve(struct client_state *csp)
             }
          }
          if ((csp->flags & CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE)
-            && data_is_available(csp->cfd, (int)client_timeout)
+            && data_is_available(csp->cfd, (int)csp->config->keep_alive_timeout)
             && socket_is_still_alive(csp->cfd))
          {
             log_error(LOG_LEVEL_CONNECT,
