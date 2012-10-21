@@ -1580,15 +1580,18 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=received: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=read: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
-    } elsif ($c =~ m/^Continuing buffering headers/) {
+    } elsif ($c =~ m/^Continuing buffering (?:server )?headers/) {
 
         # Continuing buffering headers. byte_count: 19. header_offset: 517. len: 536.
         $c =~ s@(?<=byte_count: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=header_offset: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=len: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
-        # 3.0.15 and later:
-        # Continuing buffering headers. Bytes most recently read: %d.
+        # 3.0.15 up to 3.0.19:
+        # Continuing buffering headers. Bytes most recently read: 498.
         $c =~ s@(?<=read: )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        # 3.0.20 and later:
+        # Continuing buffering server headers from socket 5. Bytes most recently read: 498.
+        $c =~ s@(?<=socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Received \d+ bytes while/) {
 
