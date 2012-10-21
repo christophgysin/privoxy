@@ -412,10 +412,9 @@ struct iob
 
 /**
  * Return the number of bytes in the I/O buffer associated with the passed
- * client_state pointer.
- * May be zero.
+ * I/O buffer. May be zero.
  */
-#define IOB_PEEK(CSP) ((CSP->iob->cur > CSP->iob->eod) ? (CSP->iob->eod - CSP->iob->cur) : 0)
+#define IOB_PEEK(IOB) ((IOB->cur > IOB->eod) ? (IOB->eod - IOB->cur) : 0)
 
 
 /**
