@@ -1437,10 +1437,16 @@ sub handle_loglevel_connect ($) {
     } elsif ($c =~ m/^Closing client socket/) {
 
         # Closing client socket 5. Keep-alive: 0, Socket alive: 1. Data available: 0.
+        # Privoxy 3.0.20 and later
+        # Closing client socket 8. Keep-alive: 1. Socket alive: 0. Data available: 0. \
+        #  Configuration file change detected: 0. Requests received: 11.
+
         $c = highlight_matched_pattern($c, 'Number', '(?<=socket )\d+');
         $c = highlight_matched_pattern($c, 'Number', '(?<=Keep-alive: )\d+');
         $c = highlight_matched_pattern($c, 'Number', '(?<=Socket alive: )\d+');
         $c = highlight_matched_pattern($c, 'Number', '(?<=available: )\d+');
+        $c = highlight_matched_pattern($c, 'Number', '(?<=detected: )\d+');
+        $c = highlight_matched_pattern($c, 'Number', '(?<=received: )\d+');
 
     } elsif ($c =~ m/^write header to: .* failed:/) {
 
