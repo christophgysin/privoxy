@@ -4328,6 +4328,7 @@ static void create_content_length_header(unsigned long long content_length,
 }
 
 
+#ifdef FEATURE_CONNECTION_KEEP_ALIVE
 /*********************************************************************
  *
  * Function    :  get_expected_content_length
@@ -4359,7 +4360,7 @@ unsigned long long get_expected_content_length(struct list *headers)
 
    return content_length;
 }
-
+#endif
 
 /*
   Local Variables:
