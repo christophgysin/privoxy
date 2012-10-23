@@ -2647,7 +2647,7 @@ static void serve(struct client_state *csp)
             || !(latency < csp->server_connection.keep_alive_timeout))
          {
             log_error(LOG_LEVEL_CONNECT,
-               "Closing server socket %d connected to %s: "
+               "Closing server socket %d connected to %s. "
                "Keep-alive %u. Tainted: %u. Socket alive %u. Timeout: %u.",
                csp->server_connection.sfd, csp->server_connection.host,
                0 != (csp->flags & CSP_FLAG_SERVER_CONNECTION_KEEP_ALIVE),
