@@ -63,8 +63,8 @@ extern void remember_connection(const struct reusable_connection *connection);
 extern int close_unusable_connections(void);
 #endif /* FEATURE_CONNECTION_SHARING */
 
-#ifdef FEATURE_CONNECTION_KEEP_ALIVE
 extern void mark_connection_closed(struct reusable_connection *closed_connection);
+#ifdef FEATURE_CONNECTION_KEEP_ALIVE
 extern int connection_destination_matches(const struct reusable_connection *connection,
                                           const struct http_request *http,
                                           const struct forward_spec *fwd);
