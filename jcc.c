@@ -2631,7 +2631,9 @@ static void serve(struct client_state *csp)
          & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
          && !(csp->flags & CSP_FLAG_SERVER_SOCKET_TAINTED)
          && (csp->cfd != JB_INVALID_SOCKET)
-         && (csp->flags & CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE);
+         && (csp->flags & CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE)
+         && ((csp->flags & CSP_FLAG_SERVER_CONTENT_LENGTH_SET)
+            || (csp->flags & CSP_FLAG_CHUNKED));
 
       if (!(csp->flags & CSP_FLAG_CRUNCHED)
          && (csp->server_connection.sfd != JB_INVALID_SOCKET))
