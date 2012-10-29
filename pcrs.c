@@ -301,7 +301,7 @@ static pcrs_substitute *pcrs_compile_replacement(const char *replacement, int tr
                    */
                   const int ascii_value = xtoi(&replacement[i+2]);
 
-                  assert(ascii_value > 0);
+                  assert(ascii_value >= 0);
                   assert(ascii_value < 256);
                   text[k++] = (char)ascii_value;
                   i += 4;
