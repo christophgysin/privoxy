@@ -1107,7 +1107,8 @@ static void verify_request_length(struct client_state *csp)
    }
 
    if (!(csp->flags & CSP_FLAG_CLIENT_REQUEST_COMPLETELY_READ)
-    && ((csp->client_iob->cur[0] != '\0') || (csp->expected_client_content_length != 0)))
+      && ((csp->client_iob->cur < csp->client_iob->eod)
+         || (csp->expected_client_content_length != 0)))
    {
       if (strcmpic(csp->http->gpc, "GET")
          && strcmpic(csp->http->gpc, "HEAD")
