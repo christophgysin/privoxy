@@ -1713,6 +1713,11 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=Drained )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Tainting client socket/) {
+
+        # Tainting client socket 7 due to unread data.
+        $c =~ s@(?<=socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Looks like we / or
              $c =~ m/^Unsetting keep-alive flag/ or
              $c =~ m/^No connections to wait/ or
