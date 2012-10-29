@@ -1064,11 +1064,9 @@ void save_connection_destination(jb_socket sfd,
  *               we do.
  *
  *               Data that doesn't belong to the current request is
- *               thrown away to let the client retry on a clean socket.
- *
- *               XXX: This is a hack until we can deal with multiple
- *                    pipelined requests at the same time.
- *
+ *               either thrown away to let the client retry on a clean
+ *               socket, or stashed to be dealt with after the current
+ *               request is served.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
