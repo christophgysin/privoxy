@@ -718,6 +718,9 @@ linuxcounter.net/
 /(.*/)?clicktrack
 /(.*/)?(full)?pop[-_]?(up|over|under|open(er)?)?s?(/|\.)
 /(.*/)?((flash)?pop|live(cnt|count(er)?)).*\.(js|php|cgi)
+#MASTER# BLOCK-REFERRER: http://thequietus.com/articles/10512-jo-dunne-fuzzbox-dies
+# Blocked URL = http://thequietus.com/openx/www/delivery/ck.php?n=ae777ee2&cb=INSERT_RANDOM_NUMBER_HERE
+/openx/www/delivery/
 
 #############################################################################
 # Generic unblockers by path:
