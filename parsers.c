@@ -532,11 +532,6 @@ jb_err decompress_iob(struct client_state *csp)
    else if (csp->content_type & CT_DEFLATE)
    {
       /*
-       * XXX: The debug level should be lowered
-       * before the next stable release.
-       */
-      log_error(LOG_LEVEL_INFO, "Decompressing deflated iob: %d", *cur);
-      /*
        * In theory (that is, according to RFC 1950), deflate-compressed
        * data should begin with a two-byte zlib header and have an
        * adler32 checksum at the end. It seems that in practice only
