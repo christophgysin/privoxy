@@ -60,7 +60,7 @@ extern struct http_response *error_response(struct client_state *csp,
 extern struct http_response * alloc_http_response(void);
 extern void free_http_response(struct http_response *rsp);
 
-extern struct http_response *finish_http_response(const struct client_state *csp,
+extern struct http_response *finish_http_response(struct client_state *csp,
                                                   struct http_response *rsp);
 
 extern struct map * default_exports(const struct client_state *csp, const char *caller);

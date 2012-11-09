@@ -1570,7 +1570,7 @@ char *compress_buffer(char *buffer, size_t *buffer_length, int compression_level
  *                On error, free()s rsp and returns cgi_error_memory()
  *
  *********************************************************************/
-struct http_response *finish_http_response(const struct client_state *csp, struct http_response *rsp)
+struct http_response *finish_http_response(struct client_state *csp, struct http_response *rsp)
 {
    char buf[BUFFER_SIZE];
    jb_err err;
@@ -1620,6 +1620,11 @@ struct http_response *finish_http_response(const struct client_state *csp, struc
    if (!err)
    {
       snprintf(buf, sizeof(buf), "Content-Length: %d", (int)rsp->content_length);
+      /*
+       * Signal serve() that the client will be able to figure out
+       * the end of the response without having to close the connection.
+       */
+      csp->flags |= CSP_FLAG_SERVER_CONTENT_LENGTH_SET;
       err = enlist(rsp->headers, buf);
    }
 
