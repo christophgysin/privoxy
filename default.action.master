@@ -1921,7 +1921,6 @@ i.cnn.net/cnn/.*/clickability/button
 #----------------------------------------------------------------------------
 # Sometimes (i.e. often!) fast-redirects catches things by mistake
 #----------------------------------------------------------------------------
-#MASTER# REMARKS: This section NOT checked 10/13/06 HB
 {-fast-redirects}
 # Sticky Actions = -fast-redirects
 www.ukc.ac.uk/cgi-bin/wac\.cgi\?
