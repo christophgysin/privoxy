@@ -3259,7 +3259,8 @@ int main(int argc, char **argv)
 # endif /* def _WIN_CONSOLE */
 #endif /* def _WIN32 */
 
-   if (do_config_test) {
+   if (do_config_test)
+   {
       exit(NULL == load_config());
    }
 
