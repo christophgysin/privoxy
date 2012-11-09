@@ -2013,6 +2013,8 @@ view.samurajdata.se/ps\.php\?url=
 webcache.googleusercontent.com/
 # URL = http://webcache.googleusercontent.com/search?q=cache:kZYcDFibjHcJ:https://grepular.com/Abusing_HTTP_Status_Codes_to_Expose_Private_Information+inurl:https://grepular.com/Abusing_HTTP_Status_Codes_to_Expose_Private_Information&hl=en&strip=1
 .googleusercontent.com/.*=cache:
+# URL = http://maps.googleapis.com/maps/api/js/AuthenticationService.Authenticate?1shttp%3A%2F%2Fwww.wunderground.com%2Fcgi-bin%2Ffindweather%2FgetForecast%3Fbrand%3Dwxmap%26query%3D42.649601%2C-88.298500%26zoom%3D8%26theprefset%3D531051599999WS%26theprefvalue%3DME0041&2sgme-weatherunderground&3swxmap&5e1&callback=_xdc_._9er073&token=129358
+.googleapis.com/
 
 {+redirect{s@.*url=@http://@} -block}
 # Sticky Actions = +redirect -block
