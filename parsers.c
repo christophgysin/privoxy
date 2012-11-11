@@ -3833,8 +3833,6 @@ static jb_err server_set_cookie(struct client_state *csp, char **header)
    time_t now;
    time_t cookie_time;
 
-   time(&now);
-
    if ((csp->action->flags & ACTION_CRUNCH_INCOMING_COOKIES) != 0)
    {
       log_error(LOG_LEVEL_HEADER, "Crunching incoming cookie: %s", *header);
@@ -3856,6 +3854,8 @@ static jb_err server_set_cookie(struct client_state *csp, char **header)
       {
          cur_tag++;
       }
+
+      time(&now);
 
       /* Loop through each tag in the cookie */
       while (*cur_tag)
