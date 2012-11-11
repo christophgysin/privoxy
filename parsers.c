@@ -3857,10 +3857,6 @@ static void add_cookie_expiry_date(char **cookie, time_t lifetime)
  *                Crunch, accept or rewrite it to a session cookie.
  *                Called from `sed'.
  *
- *                TODO: Allow the user to specify a new expiration
- *                time to cause the cookie to expire even before the
- *                browser is closed.
- *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
  *          2  :  header = On input, pointer to header to modify.
