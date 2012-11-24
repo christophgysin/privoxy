@@ -306,3 +306,6 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 
 106) actionlist.h should be embedded in a way that causes less text
      segment bloat.
+
+107) Support more pcrs variables, for example $destination-ip-address
+     and $source-ip-address.
