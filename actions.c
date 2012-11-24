@@ -395,7 +395,17 @@ jb_err get_action_token(char **line, char **name, char **value)
    str++;
    *value = str;
 
-   str = strchr(str, '}');
+   /* The value ends with the first non-escaped closing curly brace */
+   while ((str = strchr(str, '}')) != NULL)
+   {
+      if (str[-1] == '\\')
+      {
+         /* Overwrite the '\' so the action doesn't see it. */
+         string_move(str-1, str);
+         continue;
+      }
+      break;
+   }
    if (str == NULL)
    {
       /* error */
