@@ -1228,6 +1228,7 @@ jb_err update_server_headers(struct client_state *csp)
          log_error(LOG_LEVEL_HEADER,
             "Content modified with no Content-Length header set. "
             "Created: %s.", header);
+         csp->flags |= CSP_FLAG_SERVER_CONTENT_LENGTH_SET;
       }
    }
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
