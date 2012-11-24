@@ -4125,7 +4125,7 @@ static jb_err parse_header_time(const char *header_time, time_t *result)
     * attempt to work around GNU libc's strptime()
     * reporting negative year values when using %Y.
     */
-   static const char * const time_formats[] = {
+   static const char time_formats[][22] = {
       /* Tue, 02-Jun-37 20:00:00 */
       "%a, %d-%b-%y %H:%M:%S",
       /* Tue, 02 Jun 2037 20:00:00 */
