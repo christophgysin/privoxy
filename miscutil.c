@@ -526,6 +526,31 @@ char *string_toupper(const char *string)
 
 /*********************************************************************
  *
+ * Function    :  string_move
+ *
+ * Description :  memmove wrapper to move the last part of a string
+ *                towards the beginning, overwriting the part in
+ *                the middle. strlcpy() can't be used here as the
+ *                strings overlap.
+ *
+ * Parameters  :
+ *          1  :  dst = Destination to overwrite
+ *          2  :  src = Source to move.
+ *
+ * Returns     :  N/A
+ *
+ *********************************************************************/
+void string_move(char *dst, char *src)
+{
+   assert(dst < src);
+
+   /* +1 to copy the terminating nul as well. */
+   memmove(dst, src, strlen(src)+1);
+}
+
+
+/*********************************************************************
+ *
  * Function    :  bindup
  *
  * Description :  Duplicate the first n characters of a string that may
