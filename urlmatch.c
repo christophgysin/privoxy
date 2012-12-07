@@ -382,9 +382,18 @@ jb_err parse_http_url(const char *url, struct http_request *http, int require_pr
       if (port != NULL)
       {
          /* Contains port */
+         char *endptr;
+         long parsed_port;
          /* Terminate hostname and point to start of port string */
          *port++ = '\0';
-         http->port = atoi(port);
+         parsed_port = strtol(port, &endptr, 10);
+         if ((parsed_port <= 0) || (parsed_port > 65535) || (*endptr != '\0'))
+         {
+            log_error(LOG_LEVEL_ERROR, "Invalid port in URL: %s.", url);
+            freez(buf);
+            return JB_ERR_PARSE;
+         }
+         http->port = (int)parsed_port;
       }
       else
       {
