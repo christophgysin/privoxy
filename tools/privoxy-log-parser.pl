@@ -1700,6 +1700,12 @@ sub handle_loglevel_connect ($) {
         # Waiting for up to 4999 bytes from the client.
         $c =~ s@(?<=up to )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Optimistically sending /) {
+
+        # Optimistically sending 318 bytes of client headers intended for www.privoxy.org
+        $c =~ s@(?<=sending )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c = highlight_matched_host($c, '(?<=for )[^\s]+');
+
     } elsif ($c =~ m/^Stopping to watch the client socket/) {
 
         # Stopping to watch the client socket. There's already another request waiting.
