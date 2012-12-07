@@ -2028,7 +2028,7 @@ ACLs: permit-access and deny-access</title>
 
 <!--   ~~~~~       New section      ~~~~~     -->
 <sect3 renderas="sect4" id="socks"><title>
-forward-socks4, forward-socks4a and forward-socks5</title>
+forward-socks4, forward-socks4a, forward-socks5 and forward-socks5t</title>
 <anchor id="forward-socks4">
 <anchor id="forward-socks4a">
 
@@ -2090,6 +2090,12 @@ forward-socks4, forward-socks4a and forward-socks5</title>
    </para>
    <para>
     With <literal>forward-socks5</literal> the DNS resolution will happen on the remote server as well.
+   </para>
+   <para>
+    <literal>forward-socks5t</literal> works like vanilla <literal>forward-socks5</literal> but
+    lets &my-app; additionally use Tor-specific SOCKS extensions. Currently the only supported
+    SOCKS extension is optimistic data which can reduce the latency for the first request made
+    on a newly created connection.
    </para>
    <para>
     <replaceable class="parameter">socks_proxy</replaceable> and
