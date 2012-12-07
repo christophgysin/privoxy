@@ -836,6 +836,12 @@ struct reusable_connection
  */
 #define CSP_FLAG_PIPELINED_REQUEST_WAITING          0x00800000U
 
+/**
+ * Flag for csp->flags: Set if the client body is chunk-encoded
+ */
+#define CSP_FLAG_CHUNKED_CLIENT_BODY                0x01000000U
+
+
 /*
  * Flags for use in return codes of child processes
  */
