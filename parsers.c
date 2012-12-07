@@ -3960,7 +3960,7 @@ static jb_err server_set_cookie(struct client_state *csp, char **header)
          {
             log_error(LOG_LEVEL_FATAL, "Invalid cookie lifetime limit: %s", param);
          }
-         cookie_lifetime *= 60U;
+         cookie_lifetime *= 60;
       }
 
       /* Loop through each tag in the cookie */
