@@ -802,7 +802,7 @@ static jb_err compile_host_pattern(struct url_spec *url, const char *host_patter
    if (url->dcount < 0)
    {
       free_url_spec(url);
-      return JB_ERR_MEMORY;
+      return JB_ERR_PARSE;
    }
    else if (url->dcount != 0)
    {
