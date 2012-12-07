@@ -2158,6 +2158,11 @@ const static struct forward_spec *get_forward_override_settings(struct client_st
          fwd->type = SOCKS_5;
          socks_proxy = vec[1];
       }
+      else if (!strcasecmp(vec[0], "forward-socks5t"))
+      {
+         fwd->type = SOCKS_5T;
+         socks_proxy = vec[1];
+      }
 
       if (NULL != socks_proxy)
       {

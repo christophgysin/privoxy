@@ -645,6 +645,8 @@ enum forwarder_type {
    SOCKS_4A   = 41,
    /**< SOCKS 5 with hostnames, DNS resolution is done by the SOCKS server */
    SOCKS_5    = 50,
+   /**< Like SOCKS5, but uses non-standard Tor extensions (currently only optimistic data) */
+   SOCKS_5T,
 };
 
 /*

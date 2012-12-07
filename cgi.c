@@ -978,6 +978,9 @@ struct http_response *error_response(struct client_state *csp,
          case SOCKS_5:
             socks_type = "socks5-";
             break;
+         case SOCKS_5T:
+            socks_type = "socks5t-";
+            break;
          default:
             log_error(LOG_LEVEL_FATAL, "Unknown socks type: %d.", fwd->type);
       }
