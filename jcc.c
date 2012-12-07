@@ -911,7 +911,8 @@ static jb_err change_request_destination(struct client_state *csp)
    struct http_request *http = csp->http;
    jb_err err;
 
-   log_error(LOG_LEVEL_INFO, "Rewrite detected: %s", csp->headers->first->str);
+   log_error(LOG_LEVEL_REDIRECTS, "Rewrite detected: %s",
+      csp->headers->first->str);
    free_http_request(http);
    err = parse_http_request(csp->headers->first->str, http);
    if (JB_ERR_OK != err)
