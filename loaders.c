@@ -1446,18 +1446,40 @@ static int file_has_been_modified(const char *filename, time_t last_know_modific
  *               FALSE otherwise.
  *
  *********************************************************************/
-int any_loaded_file_changed(const struct file_list *files_to_check)
+int any_loaded_file_changed(const struct client_state *csp)
 {
-   const struct file_list *file_to_check = files_to_check;
+   const struct file_list *file_to_check = csp->config->config_file_list;
+   int i;
 
-   while (file_to_check != NULL)
+   if (file_has_been_modified(file_to_check->filename, file_to_check->lastmodified))
    {
-      if (file_has_been_modified(file_to_check->filename, file_to_check->lastmodified))
-      {
-         return TRUE;
-      }
-      file_to_check = file_to_check->next;
+      return TRUE;
    }
+
+   for (i = 0; i < MAX_AF_FILES; i++)
+   {
+      if (csp->actions_list[i])
+      {
+         file_to_check = csp->actions_list[i];
+         if (file_has_been_modified(file_to_check->filename, file_to_check->lastmodified))
+         {
+            return TRUE;
+         }
+      }
+   }
+
+   for (i = 0; i < MAX_AF_FILES; i++)
+   {
+      if (csp->rlist[i])
+      {
+         file_to_check = csp->rlist[i];
+         if (file_has_been_modified(file_to_check->filename, file_to_check->lastmodified))
+         {
+            return TRUE;
+         }
+      }
+   }
+
    return FALSE;
 }
 

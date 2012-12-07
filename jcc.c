@@ -2666,7 +2666,7 @@ static void serve(struct client_state *csp)
          }
       }
 
-      if (continue_chatting && any_loaded_file_changed(csp->config->config_file_list))
+      if (continue_chatting && any_loaded_file_changed(csp))
       {
          continue_chatting = 0;
          config_file_change_detected = 1;
