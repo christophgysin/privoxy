@@ -146,25 +146,27 @@ static inline void unlock_loginit() {}
  *********************************************************************/
 static void fatal_error(const char *error_message)
 {
-#if defined(_WIN32) && !defined(_WIN_CONSOLE)
-   /* Skip timestamp and thread id for the message box. */
-   const char *box_message = strstr(error_message, "Fatal error");
-   if (NULL == box_message)
-   {
-      /* Shouldn't happen but ... */
-      box_message = error_message;
-   }
-   MessageBox(g_hwndLogFrame, box_message, "Privoxy Error",
-      MB_OK | MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND | MB_TOPMOST);
-
-   /* Cleanup - remove taskbar icon etc. */
-   TermLogWindow();
-#endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
-
    if (logfp != NULL)
    {
       fputs(error_message, logfp);
    }
+
+#if defined(_WIN32) && !defined(_WIN_CONSOLE)
+   {
+      /* Skip timestamp and thread id for the message box. */
+      const char *box_message = strstr(error_message, "Fatal error");
+      if (NULL == box_message)
+      {
+         /* Shouldn't happen but ... */
+         box_message = error_message;
+      }
+      MessageBox(g_hwndLogFrame, box_message, "Privoxy Error",
+         MB_OK | MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND | MB_TOPMOST);
+
+      /* Cleanup - remove taskbar icon etc. */
+      TermLogWindow();
+   }
+#endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
 
 #if defined(unix)
    if (pidfile)
