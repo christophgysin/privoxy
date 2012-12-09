@@ -968,6 +968,14 @@ AC_ARG_ENABLE(accept-filter,
   AC_DEFINE(FEATURE_ACCEPT_FILTER)
 fi])
 
+AC_ARG_ENABLE(strptime-sanity-checks,
+[  --enable-strptime-sanity-checks Only trust strptime() results if an additional strftime()/strptime()
+                                  conversion doesn't change the result. Can be useful if strptime() is
+                                  known or suspected to be broken.],
+[if test $enableval = yes; then
+  AC_DEFINE(FEATURE_STRPTIME_SANITY_CHECKS)
+fi])
+
 dnl pcre/pcrs is needed for CGI anyway, so
 dnl the choice is only between static and
 dnl dynamic:
