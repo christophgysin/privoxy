@@ -886,6 +886,9 @@ service.maxymiser.net/
 .tynt.com/
 # Blocked URL = http://pool.sanoma.adhese.com/tag/tag.js
 pool.*.adhese.com/
+#MASTER# BLOCK-REFERRER: http://www.canon.nl/Search/index.asp
+# Blocked URL = http://www.canon.nl/scripts/webtrends.js
+/scripts/webtrends\.js
 
 {+block{Might be a web-bug.} -handle-as-empty-document +handle-as-image}
 #MASTER# BLOCK-REFERRER: http://versiontracker.com and many others. 10/20/06
