@@ -813,9 +813,8 @@ x*.alexa.com
 #MASTER# BLOCK-REFERRER: http://mplayernetwork.com 11/07/06
 #MASTER# BLOCK-REFERRER: http://eetimes.com 09/26/06
 /event.ng/
-#MASTER# BLOCK-REFERRER: http://www.homedepot.com/ 11/08/06
-#MASTER# BLOCK-REFERRER: http://www.williams-sonoma.com/ 11/08/06
-/cm\?[tc]
+# Blocked URL = http://sd.play.com/eluminate?ci=90121638&st=1296424516858&vn1=4.3.1&ec=UTF-8&vn...
+/(eluminate|cm)\?[tc]i=\d+&st=\d+&
 #MASTER# BLOCK-REFERRER: http://www.snapfiles.com/feedback/ 12/13/06 SF tracker
 .snapfiles.net/rotation/.*\.asp
 #MASTER# BLOCK-REFERRER: not provided. SF tracker #1616034 12/16/06
