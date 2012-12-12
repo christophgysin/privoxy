@@ -880,6 +880,9 @@ farm.plista.com/widgetdata.php
 #MASTER# BLOCK-REFERRER: http://www.zoover.nl/
 # Blocked URL = http://service.maxymiser.net/cdn/zoover/js/mmcore.js
 service.maxymiser.net/
+#MASTER# BLOCK-REFERRER: http://www.newyorker.com/reporting/2010/05/31/100531fa_fact_groopman
+# Blocked URL = http://tcr.tynt.com/javascripts/Tracer.js?user=cT9yCKGeer3PWlab7jrHtB&amp;s=62
+.tynt.com/
 
 
 {+block{Might be a web-bug.} -handle-as-empty-document +handle-as-image}
