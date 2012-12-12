@@ -877,6 +877,9 @@ farm.plista.com/widgetdata.php
 #MASTER# BLOCK-REFERRER: http://www.notebooksbilliger.de/lenovo+thinkpad+l420+business+notebook
 # Blocked URL = http://ib.adnxs.com/bounce?%2Fseg%3Fadd%3D279412
 .adnxs.com/
+#MASTER# BLOCK-REFERRER: http://www.zoover.nl/
+# Blocked URL = http://service.maxymiser.net/cdn/zoover/js/mmcore.js
+service.maxymiser.net/
 
 
 {+block{Might be a web-bug.} -handle-as-empty-document +handle-as-image}
