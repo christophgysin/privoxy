@@ -1852,6 +1852,9 @@ websupport.wdc.com/
 #MASTER# UNBLOCK-REFERRER: http://www.bbc.co.uk/programmes/b01mnyzd
 # URL = http://static.bbci.co.uk/radio/player/popup.js
 .bbci.co.uk/radio/
+#MASTER# UNBLOCK-REFERRER: http://conradelektronik.m13.mailplus.nl/genericservice/code/servlet/React?encId=xSgAxBFNnFrne8j&actId=357685&command=openhtml
+# URL = http://content.conrad.se/newsletter/banners/OFFER_750987_exk.jpg
+.conrad.se/newsletter/banners/
 
 
 #############################################################################
