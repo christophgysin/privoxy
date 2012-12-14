@@ -889,6 +889,9 @@ pool.*.adhese.com/
 #MASTER# BLOCK-REFERRER: http://www.canon.nl/Search/index.asp
 # Blocked URL = http://www.canon.nl/scripts/webtrends.js
 /scripts/webtrends\.js
+#MASTER# BLOCK-REFERRER: http://www.tradera.com/
+# Blocked URL = http://oskar.tradera.com/script.js
+oskar.tradera.com/
 
 {+block{Might be a web-bug.} -handle-as-empty-document +handle-as-image}
 #MASTER# BLOCK-REFERRER: http://versiontracker.com and many others. 10/20/06
