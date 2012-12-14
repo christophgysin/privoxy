@@ -1120,7 +1120,8 @@ reklamy.sfd.pl/
 #MASTER# BLOCK-REFERRER: http://lwn.net/Articles/478657/
 # Blocked URL = http://rotation.linuxnewmedia.com/www/delivery/avw.php?zoneid=26&n=aa584766
 rotation.linuxnewmedia.com/
-
+# Blocked URL = http://de17a.com/a/33039/26891.swf
+de17a.com/
 
 #----------------------------------------------------------------------------
 # JavaScripts and Texts for ad and popup generation
