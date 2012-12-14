@@ -1122,6 +1122,12 @@ reklamy.sfd.pl/
 rotation.linuxnewmedia.com/
 # Blocked URL = http://de17a.com/a/33039/26891.swf
 de17a.com/
+#MASTER# BLOCK-REFERRER: http://thepiratebay.se/
+# Blocked URL = http://cltomedia.info/delivery/afr.php?zoneid=7&amp;cb=1279946132
+cltomedia.info/delivery/
+#MASTER# BLOCK-REFERRER: http://thepiratebay.se/
+# Blocked URL = http://cdn2.adexprt.com/clkads/sky2.html
+.adexprt.com/
 
 #----------------------------------------------------------------------------
 # JavaScripts and Texts for ad and popup generation
