@@ -1357,6 +1357,8 @@ optimized-by.rubiconproject.com/
 # Blocked URL = http://g.adspeed.net/ad.php?do=html&zid=14678&wd=728&ht=90&target=_top
 #MASTER# BLOCK-REFERRER: http://seclists.org/fulldisclosure/2012/Aug/4
 g.adspeed.net/
+# Blocked URL = http://imp.double.net/?5463;234;4505;0;39296
+imp.double.net/
 
 #----------------------------------------------------------------------------
 # Cross-site user tracking
