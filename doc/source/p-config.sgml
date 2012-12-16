@@ -1366,10 +1366,6 @@ actionsfile
     content-neutral proxy with both ad blocking and content filtering
     disabled. See <literal>enable-remote-toggle</literal> below.
    </para>
-   <para>
-    The windows version will only display the toggle icon in the system tray
-    if this option is present.
-   </para>
   </listitem>
  </varlistentry>
 </variablelist>
