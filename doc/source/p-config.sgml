@@ -1365,14 +1365,6 @@ actionsfile
     <quote>toggled off</quote> mode, i.e. mostly behave like a normal,
     content-neutral proxy with both ad blocking and content filtering
     disabled. See <literal>enable-remote-toggle</literal> below.
-<!--
-    This is not really useful
-    anymore, since toggling is much easier via <ulink
-    url="http://config.privoxy.org/toggle">the web interface</ulink> than via
-    editing the <filename>conf</filename> file.
-
-    Remote toggling is now disabled by default. fk 2007-11-07)
--->
    </para>
    <para>
     The windows version will only display the toggle icon in the system tray
