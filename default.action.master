@@ -778,7 +778,8 @@ support./(.*/)?track
 /(.*/)?pop[-_]?(up|over|under|open(er)?)?s?(/|\.)(player|radio|tv|television)
 #MASTER# REMARKS: Actionsfile feedback item #3498129  2012-03-06 17:14
 #MASTER# REMARKS: Allows URLs containing the word 'download'
-# URL = http://popplers5.bandcamp.com/download/track?enc=mp3-128&fsig=bad421a4c31dda49faceefb0f3923630&id=342903379&stream=1&ts=1355881937.0 embedded within http://munirihsparrow.bandcamp.com/track/lamp-lighted
+#MASTER# UNBLOCK-REFERRER: http://munirihsparrow.bandcamp.com/track/lamp-lighted
+# URL = http://popplers5.bandcamp.com/download/track?enc=mp3-128&fsig=bad421a4c31dda49faceefb0f3923630&id=342903379&stream=1&ts=1355881937.0
 /.*download
 
 #----------------------------------------------------------------------------
