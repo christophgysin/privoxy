@@ -1724,6 +1724,12 @@ sub handle_loglevel_connect ($) {
         # Tainting client socket 7 due to unread data.
         $c =~ s@(?<=socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
+    } elsif ($c =~ m/^Shifting \d+ pipelined bytes/) {
+
+        # Shifting 360 pipelined bytes by 360 bytes
+        $c =~ s@(?<=Shifting )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+        $c =~ s@(?<=by )(\d+)@$h{'Number'}$1$h{'Standard'}@;
+
     } elsif ($c =~ m/^Looks like we / or
              $c =~ m/^Unsetting keep-alive flag/ or
              $c =~ m/^No connections to wait/ or
