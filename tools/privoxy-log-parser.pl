@@ -1739,6 +1739,7 @@ sub handle_loglevel_connect ($) {
              $c =~ m/^The server still wants to talk, but the client hung up on us./ or
              $c =~ m/^The server didn't specify how long the connection will stay open/ or
              $c =~ m/^There might be a request body. The connection will not be kept alive/ or
+             $c =~ m/^There better be a request body./ or
              $c =~ m/^Done reading from the client\.$/) {
 
         # Looks like we reached the end of the last chunk. We better stop reading.
@@ -1756,7 +1757,9 @@ sub handle_loglevel_connect ($) {
         # The server still wants to talk, but the client hung up on us.
         # The server didn't specify how long the connection will stay open. Assume it's only a second.
         # There might be a request body. The connection will not be kept alive.
-        # Done reading from the client\.
+        # Privoxy 3.0.20 and later
+        # There better be a request body.
+        # Done reading from the client.
 
     } else {
 
