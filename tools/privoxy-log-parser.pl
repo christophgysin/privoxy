@@ -2597,9 +2597,9 @@ they very well might be. Also note that the results are pretty much guaranteed
 to be incorrect if Privoxy and Privoxy-Log-Parser aren't in sync.
 
 [B<--strict-checks>] When generating statistics, look more careful at the
-input data and abort if the it is unexpected, even if it doesn't affect
-the results. Significantly slows the parsing down and is not expected to
-catch any problems that matter.
+input data and abort if it is unexpected, even if it doesn't affect the
+results. Significantly slows the parsing down and is not expected to catch
+any problems that matter.
 
 [B<--unbreak-lines-only>] Tries to fix lines that got messed up by a broken or
 interestingly configured mail client and thus are no longer recognized properly.
