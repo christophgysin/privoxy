@@ -1839,7 +1839,7 @@ static void chat(struct client_state *csp)
    }
 
    log_applied_actions(csp->action);
-   log_error(LOG_LEVEL_GPC, "%s%s", http->hostport, http->path);
+   log_error(LOG_LEVEL_GPC, "%s", http->url);
 
    if (fwd->forward_host)
    {
