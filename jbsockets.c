@@ -740,6 +740,15 @@ void drain_and_close_socket(jb_socket fd)
       {
          char drainage[500];
 
+         if (!data_is_available(fd, 0))
+         {
+            /*
+             * If there is no data available right now, don't try
+             * to drain the socket as read_socket() could block.
+             */
+            break;
+         }
+
          bytes_drained = read_socket(fd, drainage, sizeof(drainage));
          if (bytes_drained < 0)
          {
