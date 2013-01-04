@@ -2105,12 +2105,6 @@ static jb_err server_content_type(struct client_state *csp, char **header)
    /* Remove header if it isn't the first Content-Type header */
    if ((csp->content_type & CT_DECLARED))
    {
-     /*
-      * Another, slightly slower, way to see if
-      * we already parsed another Content-Type header.
-      */
-      assert(NULL != get_header_value(csp->headers, "Content-Type:"));
-
       log_error(LOG_LEVEL_ERROR,
          "Multiple Content-Type headers. Removing and ignoring: \'%s\'",
          *header);
