@@ -13,9 +13,6 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 
 3)  Fix some more XXX: comments.
 
-4)  Fix some more compiler warnings. (Especially on amd64)
-    Partly done.
-
 6)  Remove actions that aren't needed anymore:
 
     content-type-overwrite should probably stay as it's also
