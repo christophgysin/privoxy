@@ -305,6 +305,7 @@ How to install the binary packages depends on your operating system:
  you downloaded a ready-built installation package (.pkg or .mpkg) or have
  downloaded the source code.
 </para>
+</sect3>
 <sect3 renderas="sect4" id="OS-X-install-from-package">
 <title>Installation from ready-built package</title>
 <para>
@@ -334,6 +335,7 @@ How to install the binary packages depends on your operating system:
  To uninstall, run /Applications/Privoxy/uninstall.command as sudo from an
  administrator account.
 </para>
+</sect3>
 <sect3 renderas="sect4" id="OS-X-install-from-source">
 <title>Installation from source</title>
 <para>
