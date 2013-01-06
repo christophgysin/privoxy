@@ -2656,7 +2656,8 @@ forward-socks4, forward-socks4a, forward-socks5 and forward-socks5t</title>
     that improves performance mainly depends on the client configuration.
    </para>
    <para>
-    This options is new and should be considered experimental.
+    If you are seeing problems with pages not properly loading,
+    disabling this option could work around the problem.
    </para>
   </listitem>
  </varlistentry>
@@ -2669,7 +2670,7 @@ forward-socks4, forward-socks4a, forward-socks5 and forward-socks5t</title>
   </listitem>
  </varlistentry>
 </variablelist>
-<![%config-file;[<literallayout>@@#tolerate-pipelining 1</literallayout>]]>
+<![%config-file;[<literallayout>@@tolerate-pipelining 1</literallayout>]]>
 </sect3>
 
 
