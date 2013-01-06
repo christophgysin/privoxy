@@ -497,7 +497,7 @@ sub mark_matching_tests_for_skipping($) {
                 # XXX: Should eventually be downgraded to LL_FILE_LOADING.
                 log_message($message);
 
-                # XXX: Should eventuall get it's own key so get_skip_reason()
+                # XXX: Should eventually get its own key so get_skip_reason()
                 #      can tell about the overwrite condition.
                 $regression_tests[$s][$r]{'ignore'} = 1;
             }
