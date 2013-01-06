@@ -9,7 +9,7 @@
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
 <!entity p-version "3.0.20">
-<!entity p-status "UNRELEASED">
+<!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
@@ -2990,6 +2990,9 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.90  2013/01/06 11:25:52  fabiankeil
+Set entities to 3.0.20 beta
+
 Revision 2.89  2012/06/19 12:49:48  fabiankeil
 Update Junkbuster-related FAQ sections
 

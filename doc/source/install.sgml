@@ -2,7 +2,7 @@
 <!entity % dummy "IGNORE">
 <!entity buildsource SYSTEM "buildsource.sgml">
 <!entity p-version "3.0.20">
-<!entity p-status "UNRELEASED">
+<!entity p-status "beta">
 <!entity % p-stable "IGNORE">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-alpha "IGNORE">
