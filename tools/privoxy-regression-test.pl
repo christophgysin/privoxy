@@ -19,7 +19,7 @@
 # - Document magic Expect Header values
 # - Internal fuzz support?
 #
-# Copyright (c) 2007-2011 Fabian Keil <fk@fabiankeil.de>
+# Copyright (c) 2007-2013 Fabian Keil <fk@fabiankeil.de>
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -40,7 +40,7 @@ use strict;
 use Getopt::Long;
 
 use constant {
-    PRT_VERSION => 'Privoxy-Regression-Test 0.5',
+    PRT_VERSION => 'Privoxy-Regression-Test 0.6',
  
     CURL => 'curl',
 
