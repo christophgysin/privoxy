@@ -1598,7 +1598,7 @@ sub quote ($) {
 }
 
 sub print_version () {
-    printf PRT_VERSION . "\n" . 'Copyright (C) 2007-2011 Fabian Keil <fk@fabiankeil.de>' . "\n";
+    printf PRT_VERSION . "\n";
 }
 
 sub list_test_types () {
