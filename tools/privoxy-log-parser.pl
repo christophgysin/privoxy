@@ -916,6 +916,7 @@ sub handle_loglevel_header ($) {
           or $c =~ m/^Merged multiple header lines to:/
           or $c =~ m/^Added header: /
           or $c =~ m/^Enlisting (?:sorted|left-over) header/
+          or $c =~ m/^Multiple Content-Type headers detected. Removing and ignoring: Content-Type:/
             )
     {
         # XXX: Some of these may need highlighting
@@ -966,6 +967,7 @@ sub handle_loglevel_header ($) {
         # Added header: Content-Encoding: deflate
         # Enlisting sorted header User-Agent: Mozilla/5.0 (X11; SunOS i86pc; rv:10.0.3) Gecko/20100101 Firefox/10.0.3
         # Enlisting left-over header Connection: close
+        # Multiple Content-Type headers detected. Removing and ignoring: Content-Type: text/html
 
     } elsif ($c =~ m/^scanning headers for:/) {
 
