@@ -1873,6 +1873,14 @@ To verify that requests for a URL get redirected, use:
     # Redirected URL = http://www.example.com/redirect-me
     # Redirect Destination = http://www.example.org/redirected
 
+To skip a test, add the following line:
+
+# Ignore = Yes
+
+The difference between a skipped test and a removed one is that removing
+a test affects the numbers of the following tests, while a skipped test
+is still loaded and thus keeps the test numbers unchanged.
+
 =head1 TEST LEVELS
 
 All tests have test levels to let the user
