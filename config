@@ -1967,8 +1967,9 @@ socket-timeout 300
 #   Accept \
 #   Accept-Language \
 #   Accept-Encoding \
-#   Proxy-Connection,\
-#   Referer,Cookie \
+#   Proxy-Connection \
+#   Referer \
+#   Cookie \
 #   If-Modified-Since \
 #   Cache-Control \
 #   Content-Length \
