@@ -316,11 +316,10 @@ else
 fi
 AC_SUBST(WIN_ONLY)
 
-dnl Checking which text html browser we have available
 if test $dodk != no; then
-	AC_CHECK_PROGS(WDUMP,w3m lynx links,false)
-	if test "$WDUMP" = false; then
-		AC_MSG_WARN(You need some kind of text browser to build documentation \(w3m, lynx and links are supported\))
+	AC_CHECK_PROGS(W3M, w3m, false)
+	if test "$W3M" = false; then
+		AC_MSG_WARN(You need w3m to build text documentation.)
 	fi
 	if test $DB2HTML = false; then
 		dnl We need to clean the variable, otherwise AC_CHECK_PROGS
@@ -329,7 +328,7 @@ if test $dodk != no; then
 		AC_CHECK_PROGS(DB2HTML,db2html docbook2html,false)
 	fi
 fi
-AC_SUBST(WDUMP)
+AC_SUBST(W3M)
 AC_SUBST(DB2HTML)
 
 dnl If we use rpm, we need to check where %_topdir is
