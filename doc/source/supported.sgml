@@ -27,7 +27,7 @@
  At present, <application>Privoxy</application> is known to run on
  Windows 95 and later versions (98, ME, 2000, XP, Vista, Windows 7 etc.),
  GNU/Linux (RedHat, SuSE, Debian, Fedora, Gentoo, Slackware and others),
- Mac OS X,
+ Mac OS X (10.4 and upwards on PPC and Intel processors),
  OS/2,
  Haiku,
  DragonFly, FreeBSD, NetBSD, OpenBSD,
