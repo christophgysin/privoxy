@@ -1480,6 +1480,16 @@ int any_loaded_file_changed(const struct client_state *csp)
       }
    }
 
+#ifdef FEATURE_TRUST
+   if (csp->tlist)
+   {
+      if (file_has_been_modified(csp->tlist->filename, csp->tlist->lastmodified))
+      {
+         return TRUE;
+      }
+   }
+#endif /* def FEATURE_TRUST */
+
    return FALSE;
 }
 
