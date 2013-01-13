@@ -1723,9 +1723,12 @@ sub handle_loglevel_connect ($) {
         $c =~ s@(?<=Drained )(\d+)@$h{'Number'}$1$h{'Standard'}@;
         $c =~ s@(?<=socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
-    } elsif ($c =~ m/^Tainting client socket/) {
+    } elsif ($c =~ m/^Tainting client socket/ or
+             $c =~ m/^Failed to shutdown socket/) {
 
         # Tainting client socket 7 due to unread data.
+        # Failed to shutdown socket 11: Connection reset by peer
+
         $c =~ s@(?<=socket )(\d+)@$h{'Number'}$1$h{'Standard'}@;
 
     } elsif ($c =~ m/^Shifting \d+ pipelined bytes/) {
