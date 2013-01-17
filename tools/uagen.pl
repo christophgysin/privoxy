@@ -60,8 +60,8 @@ use constant {
    # are too lazy to check, but want to change them anyway, take the values you
    # see in the "Help/About Mozilla Firefox" menu.
 
-   BROWSER_VERSION                   => "16.0",
-   BROWSER_REVISION                  => '16.0',
+   BROWSER_VERSION                   => "17.0",
+   BROWSER_REVISION                  => '17.0',
    BROWSER_RELEASE_DATE              => '20100101',
 };
 
