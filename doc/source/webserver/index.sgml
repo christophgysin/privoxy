@@ -212,7 +212,7 @@
 <!-- GNUMakefile is inserting this now -->
 <para>
  <subscript>
-  Copyright __copy 2001-2010 by Privoxy Developers
+  Copyright __copy 2001-2013 by Privoxy Developers
  </subscript>
 </para>
 
@@ -239,6 +239,9 @@
  Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  $Log$
+ Revision 2.24  2013/01/18 18:46:17  fabiankeil
+ Bump the copyright for the website
+
  Revision 2.23  2013/01/06 13:25:00  fabiankeil
  Bumped entities for 3.0.20 beta
 
