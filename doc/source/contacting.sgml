@@ -70,9 +70,7 @@
 
   <listitem>
    <para>
-    The exact <application>Privoxy</application> version you are using
-    (if you got the source from CVS, please also provide the source code revisions
-     as shown in <ulink url="http://config.privoxy.org/show-version">http://config.privoxy.org/show-version</ulink>).
+    The exact <application>Privoxy</application> version you are using.
    </para>
   </listitem>
 
