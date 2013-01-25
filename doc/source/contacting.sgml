@@ -77,10 +77,8 @@
   <listitem>
    <para>
     The operating system and versions you run
-    <application>Privoxy</application> on, (e.g. <application>Windows
-    XP SP2</application>), if you are using a Unix flavor,
-    sending the output of <quote>uname -a</quote> should do,
-    in case of GNU/Linux, please also name the distribution.
+    <application>Privoxy</application> on, e.g. <application>Windows
+    XP SP2</application>.
    </para>
   </listitem>
 
