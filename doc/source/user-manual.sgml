@@ -457,12 +457,6 @@ How to install the binary packages depends on your operating system:
  </listitem>
  <listitem>
   <para>
-   <filename>standard.action</filename> has been merged into
-   the <filename>default.action</filename> file.
-  </para>
- </listitem>
- <listitem>
-  <para>
    In the default configuration only fatal errors are logged now.
    You can change that in the <link linkend="DEBUG">debug section</link>
    of the configuration file. You may also want to enable more verbose
