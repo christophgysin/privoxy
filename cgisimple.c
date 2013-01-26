@@ -1650,6 +1650,12 @@ static jb_err show_defines(struct map *exports)
    if (!err) err = map_conditional(exports, "FEATURE_STATISTICS", 0);
 #endif /* ndef FEATURE_STATISTICS */
 
+#ifdef FEATURE_STRPTIME_SANITY_CHECKS
+   if (!err) err = map_conditional(exports, "FEATURE_STRPTIME_SANITY_CHECKS", 1);
+#else /* ifndef FEATURE_STRPTIME_SANITY_CHECKS */
+   if (!err) err = map_conditional(exports, "FEATURE_STRPTIME_SANITY_CHECKS", 0);
+#endif /* ndef FEATURE_STRPTIME_SANITY_CHECKS */
+
 #ifdef FEATURE_TOGGLE
    if (!err) err = map_conditional(exports, "FEATURE_TOGGLE", 1);
 #else /* ifndef FEATURE_TOGGLE */
