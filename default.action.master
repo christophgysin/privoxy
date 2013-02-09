@@ -1348,7 +1348,7 @@ img.directtrack.com
 # Blocked URL = http://rtb.pclick.yahoo.com/images/nojs.gif?p=3
 .pclick.yahoo.com/images/
 # Blocked URL = http://rover.ebay.com/ar/1/2/3?mpt=123&adtype=1&size=728x90
-/.*\&adtype=
+rover.ebay./.*\&adtype=
 # Blocked URL = http://resources.parfym.se/tradedoubler/250x360.swf
 /tradedoubler/.*\.swf
 # Blocked URL = http://hstse.tradedoubler.com/file/142609/440x220.swf
@@ -1885,7 +1885,6 @@ websupport.wdc.com/
 # URL = http://www.smugmug.com/community/ADVrider
 # URL = http://www.siteinfotool.com/advrider.com
 /.*ADVrider
-
 
 #############################################################################
 # Site-specific special rules:
