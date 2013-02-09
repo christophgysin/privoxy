@@ -1879,6 +1879,12 @@ websupport.wdc.com/
 #MASTER# REMARKS: Actionsfile feedback item #3413827  2011-09-25 12:11
 #MASTER# REMARKS: This domain hosts JS, images and CSS upon which hotmail.com depends
 .wlxrs.com/
+# URL = http://advrider.com/forums/
+# URL = http://www.advrider.com/forums/
+.advrider.com/
+# URL = http://www.smugmug.com/community/ADVrider
+# URL = http://www.siteinfotool.com/advrider.com
+/.*ADVrider
 
 
 #############################################################################
