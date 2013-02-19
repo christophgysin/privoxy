@@ -353,6 +353,15 @@ s/(<frame\s+[^>]*)frameborder=(['"]?)(no|0)\2/$1/igU
 s/(<frame\s+[^>]*)scrolling=(['"]?)(no|0)\2/$1/igU
 
 
+#################################################################################
+#
+# iframes: Remove all detected iframes. Should only be enabled for
+#          individual sites after testing that the iframes are optional.
+#
+#################################################################################
+FILTER: iframes Removes all detected iframes. Should only be enabled for individual sites.
+s@<iframe.*</iframe>@<!-- iframe removed by Privoxy's iframe filter -->@Uisg
+
 
 #################################################################################
 #
