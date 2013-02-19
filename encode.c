@@ -158,9 +158,10 @@ char * html_encode(const char *s)
       }
 
       *p = '\0';
+
+      assert(strlen(buf) < buf_size);
    }
 
-   assert(strlen(buf) < buf_size);
    return(buf);
 }
 
@@ -253,9 +254,9 @@ char * url_encode(const char *s)
 
       *p = '\0';
 
+      assert(strlen(buf) < buf_size);
    }
 
-   assert(strlen(buf) < buf_size);
    return(buf);
 }
 
@@ -448,9 +449,9 @@ char *percent_encode_url(const char *s)
          }
       }
       *p = '\0';
-   }
 
-   assert(strlen(buf) < buf_size);
+      assert(strlen(buf) < buf_size);
+   }
 
    return(buf);
 
