@@ -8,8 +8,8 @@
 <!entity history SYSTEM "history.sgml">
 <!entity copyright SYSTEM "copyright.sgml">
 <!entity license SYSTEM "license.sgml">
-<!entity p-version "3.0.20">
-<!entity p-status "beta">
+<!entity p-version "3.0.21">
+<!entity p-status "UNRELEASED">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
@@ -2990,6 +2990,9 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.91  2013/02/26 15:09:35  fabiankeil
+Bump entities for 3.0.21 UNRELEASED
+
 Revision 2.90  2013/01/06 11:25:52  fabiankeil
 Set entities to 3.0.20 beta
 
