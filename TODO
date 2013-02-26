@@ -306,3 +306,7 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      and $source-ip-address.
 
 108) Allow to use a somewhat random string intead of PRIVOXY-FORCE.
+
+109) Let log_error() support the format specifier %S which should
+     work like %s but escape new lines like %N. This would be useful
+     to log the result of header filters which may inject new lines.
