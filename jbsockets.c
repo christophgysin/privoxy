@@ -131,7 +131,7 @@ static jb_socket no_rfc2553_connect_to(const char *host, int portnum, struct cli
  *
  * Parameters  :
  *          1  :  host = hostname to connect to
- *          2  :  portnum = port to connent on (XXX: should be unsigned)
+ *          2  :  portnum = port to connect to (XXX: should be unsigned)
  *          3  :  csp = Current client state (buffers, headers, etc...)
  *
  * Returns     :  JB_INVALID_SOCKET => failure, else it is the socket
