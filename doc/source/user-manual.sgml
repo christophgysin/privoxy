@@ -7360,7 +7360,7 @@ Requests</title>
 </para>
 
 <!--   ~~~~~       New section      ~~~~~     -->
-<sect2><title>License</title>
+<sect2 id="license"><title>License</title>
 <para>
  <screen><![ RCDATA [ &GPLv2; ]]></screen>
 </para>
