@@ -3682,6 +3682,15 @@ static jb_socket bind_port_helper(const char *haddr, int hport)
       return JB_INVALID_SOCKET;
    }
 
+#ifndef _WIN32
+   if (bfd >= FD_SETSIZE)
+   {
+      log_error(LOG_LEVEL_FATAL,
+         "Bind socket number too high to use select(): %d >= %d",
+         bfd, FD_SETSIZE);
+   }
+#endif
+
    if (haddr == NULL)
    {
       log_error(LOG_LEVEL_INFO, "Listening on port %d on all IP addresses",
