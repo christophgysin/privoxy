@@ -71,10 +71,10 @@ sub print_markup() {
 
 Producing $type markup:
 
-Comment lines for default.action:
+Comment lines for default.action.master:
 
 $comment_lines{$type}
-Block of $type actions for default.action:
+Block of $type actions for default.action.master:
 
 $action_lines{$type}
 SGML Source for AF chapter in U-M:
