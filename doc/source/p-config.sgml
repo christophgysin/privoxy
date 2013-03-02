@@ -94,7 +94,7 @@
 <sect1 id="config">
 <title>
  @@TITLE<!-- between the @@ is stripped by Makefile -->@@
- Sample Configuration File for Privoxy v&p-version;
+ Sample Configuration File for Privoxy &p-version;
 </title>
 <para>
  $Id$
