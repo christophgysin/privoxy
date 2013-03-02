@@ -15,7 +15,7 @@ my (%comment_lines, %action_lines, %sgml_source_1, %sgml_source_2);
 sub main() {
 
     die "Usage: $0 filter-file\n" unless (@ARGV == 1) ;
-    open(INPUT, "< $ARGV[0]") or die "Coudln't open input file $ARGV[0] because $!\n";
+    open(INPUT, "< $ARGV[0]") or die "Couldn't open input file $ARGV[0]: $!\n";
 
     parse_file();
     print_markup();
