@@ -99,7 +99,13 @@
       Unblock '.advrider.com/' and '/.*ADVrider'.
       Anonymously reported in #3603636.
      </para>
-     </listitem>
+    </listitem>
+    <listitem>
+     <para>
+      Stop blocking '/js/slider\.js'.
+      Reported by Adam Piggott in #3606635 and _lvm in #2791160.
+     </para>
+    </listitem>
     </itemizedlist>
    </para>
   </listitem>
