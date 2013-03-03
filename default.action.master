@@ -844,8 +844,6 @@ js.adlink.net/
 #MASTER# BLOCK-REFERRER: http://www.chip.de/artikel/c_artikelunterseite_10423683.html
 # Blocked URL = http://pagead.googlesyndication.example.com/foo/bar/baz.js
 pagead*.googlesyndication./.*\.js
-#MASTER# BLOCK-REFERRER: http://www.pcmag.com/ 11/22/06 per SF Tracker # 1601148
-/js/slider\.js
 #MASTER# BLOCK-REFERRER: http://floodle.net 2007-01-21 SF tracker
 scripts.chitika.net/.*\.js
 #MASTER# BLOCK-REFERRER: via Yahoo groups
