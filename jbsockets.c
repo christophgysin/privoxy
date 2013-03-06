@@ -1034,7 +1034,7 @@ void get_host_information(jb_socket afd, char **ip_address, char **port,
    struct sockaddr_in server;
    struct hostent *host = NULL;
 #endif /* HAVE_RFC2553 */
-#if defined(_WIN32) || defined(__OS2__) || defined(__APPLE_CC__) || defined(AMIGA)
+#if defined(_WIN32) || defined(__OS2__) || defined(AMIGA)
    /* according to accept_connection() this fixes a warning. */
    int s_length, s_length_provided;
 #else
@@ -1204,7 +1204,7 @@ int accept_connection(struct client_state * csp, jb_socket fds[])
    struct sockaddr_in client;
 #endif
    jb_socket afd;
-#if defined(_WIN32) || defined(__OS2__) || defined(__APPLE_CC__) || defined(AMIGA)
+#if defined(_WIN32) || defined(__OS2__) || defined(AMIGA)
    /* Wierdness - fix a warning. */
    int c_length;
 #else
