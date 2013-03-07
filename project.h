@@ -1220,6 +1220,9 @@ struct access_control_list
 /** configuration_spec::feature_flags: Pipelined requests are served instead of being discarded. */
 #define RUNTIME_FEATURE_TOLERATE_PIPELINING       2048U
 
+/** configuration_spec::feature_flags: Proxy authentication headers are forwarded instead of removed. */
+#define RUNTIME_FEATURE_FORWARD_PROXY_AUTHENTICATION_HEADERS      4096U
+
 /**
  * Data loaded from the configuration file.
  *
