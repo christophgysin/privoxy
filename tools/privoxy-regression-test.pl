@@ -1554,7 +1554,7 @@ sub log_result ($$) {
                           $test->{'number'});
 
     if (cli_option_is_set('verbose')) {
-        $message = sprintf(" (%d/%d/%d)", $number,
+        $message .= sprintf(" (%d/%d/%d)", $number,
                             $test->{'section-id'},
                             $test->{'regression-test-id'});
     }
