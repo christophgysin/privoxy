@@ -5278,7 +5278,7 @@ new action
  example.com/stylesheet\.css
 
 # Create a short, easy to remember nickname for a favorite site
-# (relies on the browser accept and forward invalid URLs to &my-app;)
+# (relies on the browser to accept and forward invalid URLs to &my-app;)
 { +redirect{http://www.privoxy.org/user-manual/actions-file.html} }
  a
 
