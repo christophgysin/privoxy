@@ -717,12 +717,12 @@ sub execute_regression_tests () {
             #      from different sections isn't possible.
             #      Is this worth changing the layout?
             fisher_yates_shuffle(\@regression_tests);
-            for (my $s = 0;  $s < @regression_tests; $s++) {
+            for (my $s = 0; $s < @regression_tests; $s++) {
                 fisher_yates_shuffle($regression_tests[$s]);
             }
         }
 
-        for (my $s = 0;  $s < @regression_tests; $s++) {
+        for (my $s = 0; $s < @regression_tests; $s++) {
 
             my $r = 0;
 
