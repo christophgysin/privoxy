@@ -1072,7 +1072,7 @@ void get_host_information(jb_socket afd, char **ip_address, char **port,
  *      configured with --disable-ipv6-support.
  *      The proper fix is to not use NI_MAXSERV in
  *      that case. It works by accident on other platforms
- *      as <netdb.h> in included unconditionally there.
+ *      as <netdb.h> is included unconditionally there.
  */
 #ifndef NI_MAXSERV
 #define NI_MAXSERV 32
