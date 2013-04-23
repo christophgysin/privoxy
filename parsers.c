@@ -1386,7 +1386,7 @@ static jb_err header_tagger(struct client_state *csp, char *header)
                   if (0 == size)
                   {
                      /*
-                      * There is to technical limitation which makes
+                      * There is no technical limitation which makes
                       * it impossible to use empty tags, but I assume
                       * no one would do it intentionally.
                       */
