@@ -200,10 +200,6 @@ static int match_sockaddr(const struct sockaddr_storage *network,
       netmask_addr += 12;
       addr_len = 4;
    }
-   else if (network->ss_family != address->ss_family)
-   {
-      return 0;
-   }
 
    /* XXX: Port check is signaled in netmask */
    if (*netmask_port && *network_port != *address_port)
