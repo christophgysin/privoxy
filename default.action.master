@@ -2203,6 +2203,8 @@ javabog.dk/ijk/
 .couchsurfing.org/
 # URL = http://www.thinkgeek.com/tshirts-apparel/unisex/generic/
 .thinkgeek.com/
+# URL = http://www.dgb-tagungszentren.de/hattingen/unsere-extras
+.dgb-tagungszentren.de/
 
 {-filter{banners-by-link}}
 # Sticky Actions = -filter{banners-by-link}
