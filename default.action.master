@@ -2040,6 +2040,8 @@ webcache.googleusercontent.com/
 .googleapis.com/
 # URL = http://www.google.com.au/sorry/?continue=http://www.google.com.au/search%3Fhl%3Den%26tbo%3Dd%26output%3Dsearch%26sclient%3Dpsy-ab%26q%3Dnew%2Bcars%26btnG%3D
 .google./sorry/\?continue?=
+# URL = http://www.microsofttranslator.com/bv.aspx?from=ru&to=en&a=http://ru.wikipedia.org/wiki/Privoxy
+.microsofttranslator.com/
 
 {+redirect{s@.*url=@http://@} -block}
 # Sticky Actions = +redirect -block
