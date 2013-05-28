@@ -2188,7 +2188,8 @@ sub print_stats () {
     unless ($cli_options{'show-complete-request-distribution'}) {
         printf "Enable --show-complete-request-distribution to get less common numbers as well.\n";
     }
-    printf "Unaccounted requests: ~%d\n", $stats{requests} - $client_requests_checksum;
+    # Due to log rotation we may not have a complete picture for all the requests
+    printf "Improperly accounted requests: ~%d\n", abs($stats{requests} - $client_requests_checksum);
 
     if ($stats{method} eq 0) {
         print "No response lines parsed yet yet.\n";
