@@ -314,3 +314,6 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 110) Add a global-buffer-limit directive that roughly limits how
      much malloc'ed memory Privoxy will use and can potentionally
      be smaller than (buffer-limit * max-client-connections).
+
+111) Reject requests if hosts and ports in request line and Host
+     header don't match (before filters have been applied).
