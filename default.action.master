@@ -1878,6 +1878,8 @@ websupport.wdc.com/
 #MASTER# REMARKS: Appears to be a content delivery subdomain for the parent domain
 # URL = http://adn.speedtest.net
 adn.speedtest.net
+# URL = http://adressbuch.bundestag.de/adressbuch/
+.bundestag.de/
 
 #############################################################################
 # Site-specific special rules:
