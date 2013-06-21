@@ -486,7 +486,7 @@ warranty? Registration?</title>
  </para>
  <para>
   If you intend to help out with the trackers, you also might want to <ulink
-   url="https://sourceforge.net/account/register.php">get an account on SourceForge.net</ulink>
+   url="https://sourceforge.net/user/registration">get an account on SourceForge.net</ulink>
    so we don't confuse you with the other name-less users.
  </para>
  <para>
@@ -2990,6 +2990,11 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.93  2013/06/21 14:46:09  fabiankeil
+Update link to the SF registration form
+
+Reported by Mark Nelson in #3614557.
+
 Revision 2.92  2013/03/01 17:44:24  fabiankeil
 Bump entities for 3.0.21 stable
 
