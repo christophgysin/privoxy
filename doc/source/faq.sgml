@@ -539,7 +539,7 @@ warranty? Registration?</title>
 
 <para>
  <application>Privoxy</application> has therefore become an associated
- project of <ulink url="http://www.spi-inc.org/about-spi/about-spi">Software
+ project of <ulink url="http://www.spi-inc.org/">Software
  in the Public Interest (SPI)</ulink>, which allows us to receive donations.
  In the United States they are tax-deductible, in a few other western countries
  they might be tax-deductible in the future.
@@ -2990,6 +2990,11 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.94  2013/06/21 14:46:46  fabiankeil
+Link to the SPI homepage instead of the "About SPI" page which no longer exists
+
+Reported by Mark Nelson in #3614557.
+
 Revision 2.93  2013/06/21 14:46:09  fabiankeil
 Update link to the SF registration form
 
