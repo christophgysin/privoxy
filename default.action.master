@@ -1880,6 +1880,8 @@ websupport.wdc.com/
 adn.speedtest.net
 # URL = http://adressbuch.bundestag.de/adressbuch/
 .bundestag.de/
+# URL = http://www.rote-hilfe.de/images/banners/mitglied_werden_banner156.png
+.rote-hilfe.de/
 
 #############################################################################
 # Site-specific special rules:
