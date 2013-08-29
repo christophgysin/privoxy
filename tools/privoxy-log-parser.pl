@@ -2426,7 +2426,7 @@ sub stats_loop () {
         (undef, $time_stamp, $thread, $log_level, $content) = split(/ /, $_, 5);
 
         # Skip LOG_LEVEL_CLF
-        next if ($time_stamp eq "-" or not defined($log_level));
+        next if (not defined($log_level) or $time_stamp eq "-");
 
         if (defined($log_level_handlers{$log_level})) {
 
