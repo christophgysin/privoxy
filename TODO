@@ -323,3 +323,5 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      following header actions do not treat them as a single string.
      Alternatively add another header injection mechanism.
      one
+
+113) Log statistics upon receiving a certain signal (SIGINFO or SIGUSR1).
