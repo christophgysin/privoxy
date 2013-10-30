@@ -534,16 +534,6 @@ II. FORMAT OF THE CONFIGURATION FILE
    <para>
     No trailing <quote><literal>/</literal></quote>, please.
    </para>
-  <!--
-   This is really outdated and not likely to happen. HB 09/20/06
-   <para>
-    When development goes modular and multi-user, the blocker, filter, and
-    per-user config will be stored in subdirectories of <quote>confdir</quote>.
-    For now, the configuration directory structure is flat, except for
-    <filename>confdir/templates</filename>, where the HTML templates for CGI
-    output reside (e.g. <application>Privoxy's</application> 404 error page).
-   </para>
-  -->
   </listitem>
  </varlistentry>
 </variablelist>
