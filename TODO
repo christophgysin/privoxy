@@ -325,5 +325,5 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 
 113) Log statistics upon receiving a certain signal (SIGINFO or SIGUSR1).
 
-114) Properly deal with status code 100, the current "Continue hack"
-     prevents gpg from uploading keys through Privoxy.
+114) Properly deal with status code 100. The current "Continue hack"
+     can cause problems for gpg when uploading keys through Privoxy.
