@@ -1882,6 +1882,15 @@ adn.speedtest.net
 .bundestag.de/
 # URL = http://www.rote-hilfe.de/images/banners/mitglied_werden_banner156.png
 .rote-hilfe.de/
+# URL = http://cs.stackexchange.com/posts/popup/close/suggest-originals/16678?_=1383517814677
+.stackexchange.com/(.*/)?popup
+# URL = http://cs.stackoverflow.com/posts/popup/close/suggest-originals/16678?_=1383517814677
+.stackoverflow.com/(.*/)?popup
+# URL = http://cs.serverfault.com/posts/popup/close/suggest-originals/16678?_=1383517814677
+.serverfault.com/(.*/)?popup
+# URL = http://cs.superuser.com/posts/popup/close/suggest-originals/16678?_=1383517814677
+.superuser.com/(.*/)?popup
+
 
 #############################################################################
 # Site-specific special rules:
