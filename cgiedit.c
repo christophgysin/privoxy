@@ -121,19 +121,6 @@ struct file_line
 
       } setting;
 
-      /* Add more data types here... e.g.
-
-
-      struct url_spec url[1];
-
-      struct
-      {
-         struct action_spec action[1];
-         const char * name;
-      } alias;
-
-      */
-
    } data;
 
 };
