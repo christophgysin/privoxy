@@ -47,15 +47,6 @@ extern "C" {
 #endif
 
 
-struct access_control_addr;
-struct client_state;
-struct http_request;
-struct http_response;
-struct current_action_spec;
-struct url_actions;
-struct url_spec;
-
-
 /*
  * ACL checking
  */
