@@ -18,10 +18,6 @@
 #include <pcre.h>
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*
  * Constants:
  */
@@ -136,10 +132,6 @@ extern pcrs_job *pcrs_compile_dynamic_command(char *pcrs_command, const struct p
 #ifndef PCRS_BUFFER_SIZE
 #define PCRS_BUFFER_SIZE 4000
 #endif /* ndef PCRS_BUFFER_SIZE */
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef PCRS_H_INCLUDED */
 

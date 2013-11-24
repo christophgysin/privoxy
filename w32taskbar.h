@@ -35,10 +35,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 extern HWND CreateTrayWindow(HINSTANCE hInstance);
 extern BOOL TrayAddIcon(HWND hwnd, UINT uID, HICON hicon, const char *pszToolTip);
 extern BOOL TraySetIcon(HWND hwnd, UINT uID, HICON hicon);
@@ -47,10 +43,6 @@ extern BOOL TrayDeleteIcon(HWND hwnd, UINT uID);
 /* Revision control strings from this header and associated .c file */
 extern const char w32taskbar_rcs[];
 extern const char w32taskbar_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef W32TASKBAR_H_INCLUDED */
 

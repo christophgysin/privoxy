@@ -108,10 +108,6 @@
 #endif
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #ifdef _WIN32
 
 typedef SOCKET jb_socket;
@@ -1404,10 +1400,6 @@ struct configuration_spec
  * INCLUDES the trailing slash.
  */
 #define CGI_PREFIX  "http://" CGI_SITE_2_HOST CGI_SITE_2_PATH "/"
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef PROJECT_H_INCLUDED */
 

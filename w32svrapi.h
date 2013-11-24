@@ -50,10 +50,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #ifdef _WIN32
 
 
@@ -130,10 +126,6 @@ extern BOOL w32_set_service_status(
 
 #endif  /* def _WIN32 */
 
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef W32_SVRAPI_H_INCLUDED */
 

@@ -46,10 +46,6 @@
 
 #include "project.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* Used for sed()'s second argument. */
 #define FILTER_CLIENT_HEADERS 0
 #define FILTER_SERVER_HEADERS 1
@@ -74,10 +70,6 @@ extern int strclean(char *string, const char *substring);
 /* Revision control strings from this header and associated .c file */
 extern const char parsers_rcs[];
 extern const char parsers_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef PARSERS_H_INCLUDED */
 

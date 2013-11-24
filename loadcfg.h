@@ -38,10 +38,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* Don't need project.h, only this: */
 struct configuration_spec;
 
@@ -74,10 +70,6 @@ void unload_current_config_file(void);
 /* Revision control strings from this header and associated .c file */
 extern const char loadcfg_rcs[];
 extern const char loadcfg_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef LOADCFG_H_INCLUDED */
 

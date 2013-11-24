@@ -36,10 +36,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* Debug level for errors */
 
 /* XXX: Should be renamed. */
@@ -77,10 +73,6 @@ extern const char *jb_err_to_string(int jb_error);
 /* Revision control strings from this header and associated .c file */
 extern const char errlog_rcs[];
 extern const char errlog_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef ERRLOG_H_INCLUDED */
 

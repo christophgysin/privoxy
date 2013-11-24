@@ -37,10 +37,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 struct forward_spec;
 struct http_request;
 struct client_state;
@@ -75,10 +71,6 @@ extern int connection_destination_matches(const struct reusable_connection *conn
  */
 extern const char gateway_rcs[];
 extern const char gateway_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef GATEWAY_H_INCLUDED */
 

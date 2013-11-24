@@ -36,11 +36,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
 struct action_spec;
 struct current_action_spec;
 struct client_state;
@@ -94,10 +89,6 @@ void unload_current_actions_file(void);
 /* Revision control strings from this header and associated .c file */
 extern const char actions_rcs[];
 extern const char actions_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef ACTIONS_H_INCLUDED */
 

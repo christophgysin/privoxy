@@ -35,10 +35,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 extern HWND g_hwndLogFrame;
 
 /* Indicates whether task bar shows activity animation */
@@ -91,10 +87,6 @@ extern void LogShowActivity(void);
 /* Revision control strings from this header and associated .c file */
 extern const char w32log_rcs[];
 extern const char w32log_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef W32LOG_H_INCLUDED */
 

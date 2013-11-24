@@ -41,10 +41,6 @@
 
 #include "project.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*
  * Main dispatch function
  */
@@ -129,10 +125,6 @@ extern const size_t  image_blank_length;
 /* Revision control strings from this header and associated .c file */
 extern const char cgi_rcs[];
 extern const char cgi_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef CGI_H_INCLUDED */
 

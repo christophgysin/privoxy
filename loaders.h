@@ -38,10 +38,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 extern unsigned int sweep(void);
 extern char *read_config_line(FILE *fp, unsigned long *linenum, char **buf);
 extern int check_file_changed(const struct file_list * current,
@@ -101,10 +97,6 @@ extern int any_loaded_file_changed(const struct client_state *csp);
 /* Revision control strings from this header and associated .c file */
 extern const char loaders_rcs[];
 extern const char loaders_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef LOADERS_H_INCLUDED */
 

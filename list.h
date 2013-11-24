@@ -39,11 +39,6 @@
 
 #include "project.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
 /*
  * struct list
  *
@@ -93,10 +88,6 @@ extern const char * lookup   (const struct map * the_map, const char * name);
 /* Revision control strings from this header and associated .c file */
 extern const char list_rcs[];
 extern const char list_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef LIST_H_INCLUDED */
 

@@ -40,10 +40,6 @@
 
 #include "project.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 struct client_state;
 
 extern jb_socket connect_to(const char *host, int portnum, struct client_state *csp);
@@ -77,10 +73,6 @@ extern const char jbsockets_h_rcs[];
 #define INADDR_NONE -1
 #endif
 
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef JBSOCKETS_H_INCLUDED */
 

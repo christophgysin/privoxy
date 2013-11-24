@@ -36,10 +36,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 struct client_state;
 struct file_list;
 
@@ -112,10 +108,6 @@ int main(int argc, char **argv);
 /* Revision control strings from this header and associated .c file */
 extern const char jcc_rcs[];
 extern const char jcc_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef JCC_H_INCLUDED */
 

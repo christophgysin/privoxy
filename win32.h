@@ -34,10 +34,6 @@
  *********************************************************************/
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 extern const char win32_blurb[];
 
 extern void InitWin32(void);
@@ -54,10 +50,6 @@ extern int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lp
 /* Revision control strings from this header and associated .c file */
 extern const char win32_rcs[];
 extern const char win32_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef WIN32_H_INCLUDED */
 

@@ -42,11 +42,6 @@
 
 #include "project.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
 /*
  * ACL checking
  */
@@ -113,10 +108,6 @@ extern struct http_response *direct_response(struct client_state *csp);
  */
 extern const char filters_rcs[];
 extern const char filters_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef FILTERS_H_INCLUDED */
 

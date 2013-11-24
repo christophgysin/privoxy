@@ -40,10 +40,6 @@
 
 #include "project.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*
  * CGI functions
  */
@@ -97,10 +93,6 @@ extern jb_err cgi_toggle(struct client_state *csp,
 /* Revision control strings from this header and associated .c file */
 extern const char cgiedit_rcs[];
 extern const char cgiedit_h_rcs[];
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #endif /* ndef CGI_H_INCLUDED */
 
