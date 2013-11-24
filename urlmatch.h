@@ -53,8 +53,8 @@ extern int url_requires_percent_encoding(const char *url);
 extern int url_match(const struct pattern_spec *pattern,
                      const struct http_request *http);
 
-extern jb_err create_url_spec(struct pattern_spec *url, char *buf);
-extern void free_url_spec(struct pattern_spec *url);
+extern jb_err create_pattern_spec(struct pattern_spec *url, char *buf);
+extern void free_pattern_spec(struct pattern_spec *url);
 extern int match_portlist(const char *portlist, int port);
 extern jb_err parse_forwarder_address(char *address, char **hostname, int *port);
 

@@ -991,7 +991,7 @@ void unload_actions_file(void *file_data)
    while (cur != NULL)
    {
       next = cur->next;
-      free_url_spec(cur->url);
+      free_pattern_spec(cur->url);
       if ((next == NULL) || (next->action != cur->action))
       {
          /*
@@ -1571,7 +1571,7 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
          cur_action_used = 1;
 
          /* Save the URL pattern */
-         if (create_url_spec(perm->url, buf))
+         if (create_pattern_spec(perm->url, buf))
          {
             fclose(fp);
             log_error(LOG_LEVEL_FATAL,
