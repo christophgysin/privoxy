@@ -200,14 +200,6 @@ typedef enum privoxy_err jb_err;
 #define HOSTENT_BUFFER_SIZE 2048
 
 /**
- * Do not use.  Originally this was so that you can
- * say "while (FOREVER) { ...do something... }".
- * However, this gives a warning with some compilers (e.g. VC++).
- * Instead, use "for (;;) { ...do something... }".
- */
-#define FOREVER 1
-
-/**
  * Default TCP/IP address to listen on, as a string.
  * Set to "127.0.0.1:8118".
  */
