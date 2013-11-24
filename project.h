@@ -137,16 +137,19 @@ typedef int jb_socket;
  * A standard error code.  This should be JB_ERR_OK or one of the JB_ERR_xxx
  * series of errors.
  */
-typedef int jb_err;
+enum privoxy_err
+{
+   JB_ERR_OK         = 0, /**< Success, no error                        */
+   JB_ERR_MEMORY     = 1, /**< Out of memory                            */
+   JB_ERR_CGI_PARAMS = 2, /**< Missing or corrupt CGI parameters        */
+   JB_ERR_FILE       = 3, /**< Error opening, reading or writing a file */
+   JB_ERR_PARSE      = 4, /**< Error parsing file                       */
+   JB_ERR_MODIFIED   = 5, /**< File has been modified outside of the
+                               CGI actions editor.                      */
+   JB_ERR_COMPRESS   = 6  /**< Error on decompression                   */
+};
 
-#define JB_ERR_OK         0 /**< Success, no error                        */
-#define JB_ERR_MEMORY     1 /**< Out of memory                            */
-#define JB_ERR_CGI_PARAMS 2 /**< Missing or corrupt CGI parameters        */
-#define JB_ERR_FILE       3 /**< Error opening, reading or writing a file */
-#define JB_ERR_PARSE      4 /**< Error parsing file                       */
-#define JB_ERR_MODIFIED   5 /**< File has been modified outside of the
-                                 CGI actions editor.                      */
-#define JB_ERR_COMPRESS   6 /**< Error on decompression                   */
+typedef enum privoxy_err jb_err;
 
 /**
  * This macro is used to free a pointer that may be NULL.
