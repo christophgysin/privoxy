@@ -603,7 +603,7 @@ struct action_spec
    unsigned long add;  /**< Actions to add.  A bit set to "1" means add action.    */
 
    /**
-    * Paramaters for those actions that require them.
+    * Parameters for those actions that require them.
     * Each entry is valid if & only if the corresponding entry in "flags" is
     * set.
     */
