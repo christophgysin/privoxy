@@ -393,6 +393,17 @@ struct pattern_spec
  */
 #define ANCHOR_RIGHT 2
 
+/** Pattern spec bitmap: It's an URL pattern. */
+#define PATTERN_SPEC_URL_PATTERN          0x00000001UL
+
+/** Pattern spec bitmap: It's a TAG pattern. */
+#define PATTERN_SPEC_TAG_PATTERN          0x00000002UL
+
+/** Pattern spec bitmap: It's a NO-REQUEST-TAG pattern. */
+#define PATTERN_SPEC_NO_REQUEST_TAG_PATTERN 0x00000004UL
+
+/** Pattern spec bitmap: It's a NO-RESPONSE-TAG pattern. */
+#define PATTERN_SPEC_NO_RESPONSE_TAG_PATTERN 0x00000008UL
 
 /**
  * An I/O buffer.  Holds a string which can be appended to, and can have data

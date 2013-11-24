@@ -64,6 +64,7 @@ extern jb_err merge_actions (struct action_spec *dest,
 extern int update_action_bits_for_all_tags(struct client_state *csp);
 #endif
 extern int update_action_bits_for_tag(struct client_state *csp, const char *tag);
+extern jb_err check_negative_tag_patterns(struct client_state *csp, unsigned int flag);
 extern jb_err copy_action (struct action_spec *dest,
                            const struct action_spec *src);
 extern char * actions_to_text     (const struct action_spec *action);
