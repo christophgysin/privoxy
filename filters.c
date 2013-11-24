@@ -781,8 +781,8 @@ struct http_response *trust_url(struct client_state *csp)
    struct map * exports;
    char buf[BUFFER_SIZE];
    char *p;
-   struct url_spec **tl;
-   struct url_spec *t;
+   struct pattern_spec **tl;
+   struct pattern_spec *t;
    jb_err err;
 
    /*
@@ -1409,7 +1409,7 @@ int is_untrusted_url(const struct client_state *csp)
 {
    struct file_list *fl;
    struct block_spec *b;
-   struct url_spec **trusted_url;
+   struct pattern_spec **trusted_url;
    struct http_request rhttp[1];
    const char * referer;
    jb_err err;
@@ -2211,7 +2211,7 @@ const static struct forward_spec *get_forward_override_settings(struct client_st
 const struct forward_spec *forward_url(struct client_state *csp,
                                        const struct http_request *http)
 {
-   static const struct forward_spec fwd_default[1] = { FORWARD_SPEC_INITIALIZER };
+   static const struct forward_spec fwd_default[1]; /* Zero'ed due to being static. */
    struct forward_spec *fwd = csp->config->forward;
 
    if (csp->action->flags & ACTION_FORWARD_OVERRIDE)

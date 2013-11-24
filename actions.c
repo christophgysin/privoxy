@@ -811,13 +811,13 @@ int update_action_bits_for_tag(struct client_state *csp, const char *tag)
       for (b = b->next; NULL != b; b = b->next)
       {
          /* skip the URL patterns, */
-         if (NULL == b->url->tag_regex)
+         if (NULL == b->url->pattern.tag_regex)
          {
             continue;
          }
 
          /* and check if one of the tag patterns matches the tag, */
-         if (0 == regexec(b->url->tag_regex, tag, 0, NULL, 0))
+         if (0 == regexec(b->url->pattern.tag_regex, tag, 0, NULL, 0))
          {
             /* if it does, update the action bit map, */
             if (merge_current_action(csp->action, b->action))

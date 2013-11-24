@@ -829,7 +829,7 @@ int load_trustfile(struct client_state *csp)
    FILE *fp;
 
    struct block_spec *b, *bl;
-   struct url_spec **tl;
+   struct pattern_spec **tl;
 
    char *buf = NULL;
    int reject, trusted;

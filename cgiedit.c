@@ -1827,7 +1827,7 @@ static jb_err get_url_spec_param(struct client_state *csp,
    const char *orig_param;
    char *param;
    char *s;
-   struct url_spec compiled[1];
+   struct pattern_spec compiled[1];
    jb_err err;
 
    assert(csp);
