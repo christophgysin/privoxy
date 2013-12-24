@@ -78,6 +78,11 @@ extern void get_url_actions(struct client_state *csp,
 extern void apply_url_actions(struct current_action_spec *action,
                               struct http_request *http,
                               struct url_actions *b);
+
+extern struct re_filterfile_spec *get_filter(const struct client_state *csp,
+                                             const char *requested_name,
+                                             enum filter_type requested_type);
+
 /*
  * Determining parent proxies
  */
