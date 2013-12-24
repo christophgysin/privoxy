@@ -55,6 +55,7 @@ const char actions_rcs[] = "$Id$";
 #include "urlmatch.h"
 #include "cgi.h"
 #include "ssplit.h"
+#include "filters.h"
 
 const char actions_h_rcs[] = ACTIONS_H_VERSION;
 
@@ -1092,36 +1093,12 @@ int load_action_files(struct client_state *csp)
 static int referenced_filters_are_missing(const struct client_state *csp,
    const struct action_spec *cur_action, int multi_index, enum filter_type filter_type)
 {
-   int i;
-   struct file_list *fl;
-   struct re_filterfile_spec *b;
    struct list_entry *filtername;
 
    for (filtername = cur_action->multi_add[multi_index]->first;
         filtername; filtername = filtername->next)
    {
-      int filter_found = 0;
-      for (i = 0; i < MAX_AF_FILES; i++)
-      {
-         fl = csp->rlist[i];
-         if ((NULL == fl) || (NULL == fl->f))
-         {
-            continue;
-         }
-
-         for (b = fl->f; b; b = b->next)
-         {
-            if (b->type != filter_type)
-            {
-               continue;
-            }
-            if (strcmp(b->name, filtername->str) == 0)
-            {
-               filter_found = 1;
-            }
-         }
-      }
-      if (!filter_found)
+      if (NULL == get_filter(csp, filtername->str, filter_type))
       {
          log_error(LOG_LEVEL_ERROR, "Missing filter '%s'", filtername->str);
          return 1;
