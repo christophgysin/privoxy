@@ -329,3 +329,5 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      unlikely to cause problems in the real world, but should eventually
      be fixed anyway. See also:
      https://bugzilla.mozilla.org/show_bug.cgi?id=959100
+
+117) Dynamic variables are documented poorly.
