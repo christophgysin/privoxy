@@ -606,10 +606,22 @@ TAG:^Host header other than the target host$
 # Set Header = Keep-Alive: 20
 # Expect Header = NO CHANGE
 # Level = 13
+# Set Header = Keep-Alive: timeout=20, max=3
+# Expect Header = NO CHANGE
+# Level = 13
+# Set Header = Keep-Alive: blah=fasel, timeout=20, max=3
+# Expect Header = NO CHANGE
+# Level = 13
 TAG:^Pass Keep-Alive header$
 
 {}
 # Set Header = Keep-Alive: 20
+# Expect Header = REMOVAL
+# Level = 14
+# Set Header = Keep-Alive: timeout=20, max=3
+# Expect Header = REMOVAL
+# Level = 14
+# Set Header = Keep-Alive: blah=fasel, timeout=20, max=3
 # Expect Header = REMOVAL
 # Level = 14
 TAG:^Keep-Alive header removal$
