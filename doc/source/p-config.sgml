@@ -2427,6 +2427,9 @@ forward-socks4, forward-socks4a, forward-socks5 and forward-socks5t</title>
     HTTP connections into <application>Privoxy</application>.
    </para>
    <para>
+    Note that intercepting encrypted connections (HTTPS) isn't supported.
+   </para>
+   <para>
     Make sure that <application>Privoxy's</application> own requests
     aren't redirected as well. Additionally take care that
     <application>Privoxy</application> can't intentionally connect
