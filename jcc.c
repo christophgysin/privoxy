@@ -3643,7 +3643,7 @@ int main(int argc, char **argv)
  *                on failure.
  *
  * Parameters  :
- *          1  :  haddr = Host addres to bind to. Use NULL to bind to
+ *          1  :  haddr = Host address to bind to. Use NULL to bind to
  *                        INADDR_ANY.
  *          2  :  hport = Specifies port to bind to.
  *
