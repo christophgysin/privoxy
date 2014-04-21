@@ -1344,9 +1344,10 @@ must find a better place for this paragraph
    <emphasis>--pre-chroot-nslookup hostname</emphasis>
   </para>
   <para>
-   Specifies a hostname to look up before doing a chroot. On some systems, initializing the
-   resolver library involves reading config files from /etc and/or loading additional shared
-   libraries from /lib. On these systems, doing a hostname lookup before the chroot reduces
+   Specifies a hostname (for example www.privoxy.org) to look up before doing a chroot.
+   On some systems, initializing the resolver library involves reading config files from
+   /etc and/or loading additional shared libraries from /lib.
+   On these systems, doing a hostname lookup before the chroot reduces
    the number of files that must be copied into the chroot tree.
   </para>
   <para>
