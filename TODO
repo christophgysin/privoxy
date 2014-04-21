@@ -345,3 +345,5 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 121) Add HTTP/2 support. As a first step, incomming HTTP/1.x requests
      should be translated to outgoing HTTP/2 requests where possible
      (and if desired by the user).
+
+122) Allow customized log messages.
