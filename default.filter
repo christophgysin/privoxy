@@ -93,7 +93,7 @@ FILTER: js-annoyances Get rid of particularly annoying JavaScript abuse.
 # Get rid of Javascript referrer tracking. 
 # Test page: http://www.javascript-page.com/referrer.html
 #
-s|(?:\w+\.)+referrer|"Not Your Business!"|gisU
+s|(?:\w+\.)+referrer|false.toString()|gisU
 
 # The status bar is for displaying link targets, not pointless blahblah
 #
