@@ -1803,7 +1803,7 @@ us help you. Your efforts are not wasted, and we do appreciate them.
 </para>
 
 <para>
- Since <application>Privoxy</application> 3.0.5, its
+ <application>Privoxy's</application>
  <ulink url="../user-manual/config.html">main configuration file</ulink>
  is already prepared for <application>Tor</application>, if you are using a
  default <application>Tor</application> configuration and run it on the same
@@ -1813,7 +1813,7 @@ us help you. Your efforts are not wasted, and we do appreciate them.
 </para>
 <para>
  <screen>
-#        forward-socks5             /     127.0.0.1:9050 .
+#        forward-socks5t             /     127.0.0.1:9050 .
  </screen>
 </para>
 <para>
@@ -3028,6 +3028,12 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.100  2014/05/05 09:59:30  fabiankeil
+Recommend forward-socks5t when using Tor
+
+It seems to work fine and modifying the Tor configuration
+to profit from it hasn't been necessary for a while now.
+
 Revision 2.99  2014/02/10 14:43:46  fabiankeil
 Make 'demoronizer' FAQ entries more generic
 
