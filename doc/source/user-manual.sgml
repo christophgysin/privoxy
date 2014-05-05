@@ -6556,7 +6556,7 @@ stupid-server.example.com/</screen>
 
 <para>
  The non-standard option letter <literal>D</literal> (dynamic) allows
- to the variables $host, $origin (the IP address the request came from),
+ to use the variables $host, $origin (the IP address the request came from),
  $path and $url. The will be replaced with the value they refer to before
  the filter is executed.
 </para>
