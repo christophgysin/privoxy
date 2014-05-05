@@ -2072,6 +2072,15 @@ for details.
   </listitem>
  </varlistentry>
  <varlistentry>
+  <term><literal>10.0.0.1/</literal></term>
+  <listitem>
+   <para>
+    Matches any URL with the host address <literal>10.0.0.1</literal>.
+    (Note that the real URL uses plain brackets, not angle brackets.)
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
   <term><literal>&lt;2001:db8::1&gt;/</literal></term>
   <listitem>
    <para>
