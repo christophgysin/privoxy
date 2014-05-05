@@ -330,8 +330,6 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      be fixed anyway. See also:
      https://bugzilla.mozilla.org/show_bug.cgi?id=959100
 
-117) Dynamic variables are documented poorly.
-
 118) There should be "escaped" dynamic variables that are guaranteed
      not to break filters.
 
