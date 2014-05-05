@@ -1680,12 +1680,6 @@ static jb_err show_defines(struct map *exports)
    if (!err) err = map_conditional(exports, "STATIC_PCRE", 0);
 #endif /* ndef STATIC_PCRE */
 
-#ifdef STATIC_PCRS
-   if (!err) err = map_conditional(exports, "STATIC_PCRS", 1);
-#else /* ifndef STATIC_PCRS */
-   if (!err) err = map_conditional(exports, "STATIC_PCRS", 0);
-#endif /* ndef STATIC_PCRS */
-
    return err;
 }
 
