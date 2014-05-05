@@ -2499,4 +2499,31 @@ TAG:^IMAGE-REQUEST$
 }
 TAG:^CSS-REQUEST$
 
+#############################################################################
+# Depends on +client-header-tagger{content-type}
+#############################################################################
+{-filter{html-annoyances} \
+ -filter{content-cookies} \
+ -filter{refresh-tags} \
+ -filter{img-reorder} \
+ -filter{banners-by-size} \
+ -filter{banners-by-link} \
+ -filter{webbugs} \
+ -filter{tiny-textforms} \
+ -filter{frameset-borders} \
+ -filter{iframes} \
+ -filter{demoronizer} \
+ -filter{shockwave-flash} \
+ -filter{quicktime-kioskmode} \
+ -filter{fun} \
+ -filter{crude-parental} \
+ -filter{site-specifics} \
+ -filter{no-ping} \
+ -filter{google} \
+ -filter{yahoo} \
+ -filter{msn} \
+ -filter{blogspot} \
+}
+TAG:^application/javascript$
+
 #MASTER# set vi:nowrap
