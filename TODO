@@ -351,3 +351,5 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      Depends on #16.
 
 124) Add Capsicum support.
+
+125) Allow clients to HTTPS-encrypt the proxy connection.
