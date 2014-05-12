@@ -346,9 +346,8 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 
 122) Allow customized log messages.
 
-123) Allow to decrypt encrypted traffic using the
-     voluntarily-disclose-session-keys option in Firefox.
-     Depends on #16.
+123) Evaluate if the voluntarily-disclose-session-keys option in Firefox
+     (and other browsers) can be leveraged. Probably depends on #16.
 
 124) Add support for the "lightweight OS capability and sandbox framework"
      Capsicum. http://www.cl.cam.ac.uk/research/security/capsicum/
