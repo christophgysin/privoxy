@@ -1717,8 +1717,8 @@ static jb_err show_defines(struct map *exports)
 #endif
       },
       {
-         "STATIC_PCRE",
-#ifdef STATIC_PCRE
+         "FEATURE_DYNAMIC_PCRE",
+#ifdef FEATURE_DYNAMIC_PCRE
          1,
 #else
          0,
