@@ -963,7 +963,7 @@ jb_err cgi_show_status(struct client_state *csp,
    }
 
 #else /* ndef FEATURE_STATISTICS */
-   err = err || map_block_killer(exports, "statistics");
+   if (!err) err = map_block_killer(exports, "statistics");
 #endif /* ndef FEATURE_STATISTICS */
 
    /*
