@@ -1064,6 +1064,8 @@ jb_err cgi_show_status(struct client_state *csp,
    }
 #endif /* ndef CGI_EDIT_ACTIONS */
 
+   if (!err) err = map(exports, "force-prefix", 1, FORCE_PREFIX, 1);
+
    if (err)
    {
       free_map(exports);
