@@ -489,7 +489,7 @@ static int unknown_method(const char *method)
 jb_err parse_http_request(const char *req, struct http_request *http)
 {
    char *buf;
-   char *v[10]; /* XXX: Why 10? We should only need three. */
+   char *v[3];
    int n;
    jb_err err;
 
