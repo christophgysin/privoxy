@@ -130,10 +130,6 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 
 55) Apply for Coverity scans: http://scan.coverity.com/
 
-57) Allow piping into external programs to allow more powerful
-    filters and policy decisions. Incomplete support available
-    in Fabian's popen branch.
-
 58) Move more template strings from the code into the actual templates.
 
 59) Import the German template translation.
