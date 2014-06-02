@@ -8,7 +8,7 @@
  * Purpose     :  Main file.  Contains main() method, main loop, and
  *                the main connection-handling function.
  *
- * Copyright   :  Written by and Copyright (C) 2001-2006 the SourceForge
+ * Copyright   :  Written by and Copyright (C) 2001-2014 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written

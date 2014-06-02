@@ -13,7 +13,7 @@ const char cgiedit_rcs[] = "$Id$";
  *
  *                Stick to the short names in this file for consistency.
  *
- * Copyright   :  Written by and Copyright (C) 2001-2008 the SourceForge
+ * Copyright   :  Written by and Copyright (C) 2001-2014 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
