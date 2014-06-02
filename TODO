@@ -355,6 +355,9 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      Note that Privoxy developers qualified for free account upgrades:
      http://coad.measurement-factory.com/details.html#pricing
 
+127) Add "real" CGI support (serve program output instead of forwarding
+     the request). The work is mostly done due to +external-filter{}.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
