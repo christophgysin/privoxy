@@ -589,6 +589,55 @@ II. FORMAT OF THE CONFIGURATION FILE
 
 
 <!--   ~~~~~       New section      ~~~~~     -->
+<sect3 renderas="sect4" id="temporary-directory"><title>temporary-directory</title>
+
+<variablelist>
+ <varlistentry>
+  <term>Specifies:</term>
+  <listitem>
+   <para>A directory where Privoxy can create temporary files.</para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Type of value:</term>
+  <listitem>
+   <para>Path name</para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Default value:</term>
+  <listitem>
+   <para>unset</para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Effect if unset:</term>
+  <listitem>
+   <para>No temporary files are created, external filters don't work.</para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Notes:</term>
+  <listitem>
+   <para>
+    To execute <literal><ulink url="actions-file.html#EXTERNAL-FILTER">external filters</ulink></literal>,
+    <application>Privoxy</application> has to create temporary files.
+    This directive specifies the directory the temporary files should
+    be written to.
+   </para>
+   <para>
+    It should be a directory only <application>Privoxy</application>
+    (and trusted users) can access.
+   </para>
+  </listitem>
+ </varlistentry>
+</variablelist>
+
+<![%config-file;[<literallayout>@@#temporary-directory .</literallayout>]]>
+</sect3>
+
+
+<!--   ~~~~~       New section      ~~~~~     -->
 <sect3 renderas="sect4" id="logdir"><title>logdir</title>
 
 <variablelist>
