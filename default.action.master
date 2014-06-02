@@ -2524,6 +2524,6 @@ TAG:^CSS-REQUEST$
  -filter{msn} \
  -filter{blogspot} \
 }
-TAG:^(application|text)/javascript$
+TAG:^(application|text)/(x-)?javascript$
 
 #MASTER# set vi:nowrap
