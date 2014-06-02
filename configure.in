@@ -752,7 +752,6 @@ AC_CHECK_FUNCS([ \
  gethostbyname_r \
  gettimeofday \
  inet_ntoa \
- localtime_r \
  memchr \
  memmove \
  memset \
