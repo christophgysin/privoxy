@@ -79,6 +79,10 @@ extern privoxy_mutex_t log_mutex;
 extern privoxy_mutex_t log_init_mutex;
 extern privoxy_mutex_t connection_reuse_mutex;
 
+#ifdef FEATURE_EXTERNAL_FILTERS
+extern privoxy_mutex_t external_filter_mutex;
+#endif
+
 #ifndef HAVE_GMTIME_R
 extern privoxy_mutex_t gmtime_mutex;
 #endif /* ndef HAVE_GMTIME_R */

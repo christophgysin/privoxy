@@ -61,6 +61,10 @@ extern unsigned long resolve_hostname_to_ip(const char *host);
 
 extern int socket_is_still_alive(jb_socket sfd);
 
+#ifdef FEATURE_EXTERNAL_FILTERS
+extern void mark_socket_for_close_on_execute(jb_socket fd);
+#endif
+
 /* Revision control strings from this header and associated .c file */
 extern const char jbsockets_rcs[];
 extern const char jbsockets_h_rcs[];
