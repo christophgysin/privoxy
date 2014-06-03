@@ -543,6 +543,7 @@ jb_err parse_http_request(const char *req, struct http_request *http)
    http->cmd = strdup_or_die(req);
    http->gpc = strdup_or_die(v[0]);
    http->ver = strdup_or_die(v[2]);
+   http->ocmd = strdup_or_die(http->cmd);
 
    freez(buf);
 
