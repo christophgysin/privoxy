@@ -2046,7 +2046,7 @@ static filter_function_ptr get_filter_function(const struct client_state *csp)
    {
       filter_function = pcrs_filter_response;
    }
-   else if ((csp->content_type & CT_GIF)  &&
+   else if ((csp->content_type & CT_GIF) &&
             (csp->action->flags & ACTION_DEANIMATE))
    {
       filter_function = gif_deanimate_response;
