@@ -5411,6 +5411,13 @@ undeadly.org/cgi\?action=article&amp;sid=\d*$
 {+redirect{s@^http://[^/]*/results\.aspx\?q=([^&amp;]*).*@http://search.yahoo.com/search?p=$1@}}
 search.msn.com//results\.aspx\?q=
 
+# Redirect http://example.com/&amp;bla=fasel&amp;toChange=foo (and any other value but "bar")
+# to       http://example.com/&amp;bla=fasel&amp;toChange=bar
+#
+# The URL pattern makes sure that the following request isn't redirected again.
+{+redirect{s@toChange=[^&amp;]+@toChange=bar@}}
+example.com/.*toChange=(?!bar)
+
 # Redirect remote requests for this manual
 # to the local version delivered by Privoxy
 {+redirect{s@^http://www@http://config@}}
