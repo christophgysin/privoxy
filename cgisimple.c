@@ -682,8 +682,8 @@ static const char *get_content_type(const char *filename)
    int i;
    struct content_type
    {
-      const char *extension;
-      const char *content_type;
+      const char extension[6];
+      const char content_type[11];
    };
    static const struct content_type content_types[] =
    {
