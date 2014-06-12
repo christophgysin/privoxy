@@ -358,6 +358,8 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
 127) Add "real" CGI support (serve program output instead of forwarding
      the request). The work is mostly done due to +external-filter{}.
 
+128) Add a config directive to control the stack limit.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
