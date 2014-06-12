@@ -2064,7 +2064,8 @@ static filter_function_ptr get_filter_function(const struct client_state *csp)
  * Function    :  remove_chunked_transfer_coding
  *
  * Description :  In-situ remove the "chunked" transfer coding as defined
- *                in rfc2616 from a buffer.
+ *                in RFC 7230 4.1 from a buffer. XXX: The implementation
+ *                is neither complete nor compliant (TODO #129).
  *
  * Parameters  :
  *          1  :  buffer = Pointer to the text buffer
