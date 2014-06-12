@@ -754,9 +754,6 @@ jb_err decompress_iob(struct client_state *csp)
  *                to a single space in accordance with RFC 2616 2.2.
  *                This simplifies parsing and filtering later on.
  *
- *                XXX: Remove log messages before
- *                     the next stable release?
- *
  * Parameters  :
  *          1  :  header = A header with linear white space to reduce.
  *
