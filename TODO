@@ -369,6 +369,9 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      influence on the tagging result. As a bonus, dynamic taggers would
      have to be compiled less often.
 
+131) The handle-as-empty-doc-returns-ok directive should be replaced with
+     an action so the behaviour can be enabled on a per-request basis.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
