@@ -6,7 +6,7 @@ const char urlmatch_rcs[] = "$Id$";
  * Purpose     :  Declares functions to match URLs against URL
  *                patterns.
  *
- * Copyright   :  Written by and Copyright (C) 2001-2011
+ * Copyright   :  Written by and Copyright (C) 2001-2014
  *                the Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
