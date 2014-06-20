@@ -144,7 +144,7 @@ FILTER: html-annoyances Get rid of particularly annoying HTML abuse.
 #
 s/(<a\s+href[^>]+resizable=)(['"]?)(?:no|0)\2/$1$2yes$2/igU 
 s/(<a\s+href[^>]+location=)(['"]?)(?:no|0)\2/$1$2yes$2/igU 
-s/(<a\s+href[^>]+status=)(['"]?)(?:no|0)\2/$1$2yes1$2/igU
+s/(<a\s+href[^>]+status=)(['"]?)(?:no|0)\2/$1$2yes$2/igU
 s/(<a\s+href[^>]+scrolling=)(['"]?)(?:no|0)\2/$1$2auto$2/igU
 s/(<a\s+href[^>]+menubar=)(['"]?)(?:no|0)\2/$1$2yes$2/igU
 
