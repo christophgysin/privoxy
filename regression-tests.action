@@ -27,7 +27,7 @@
 #############################################################################
 
 {{settings}}
-for-privoxy-version=3.0.21
+for-privoxy-version=3.0.22
 
 # Some dependencies Privoxy-Regression-Test should know about:
 #
@@ -862,6 +862,7 @@ TAG:^Proxy-Authorization header forwarding$
 # Method Test = MERGE
 # Method Test = BASELINE-CONTROL
 # Method Test = MKACTIVITY
+# Method Test = PATCH
 # Method Test = PRIVOXY-REGRESSION-TEST-IN-THE-HOUSE
 # Expect Status Code = 400
 
