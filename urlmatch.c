@@ -454,6 +454,12 @@ static int unknown_method(const char *method)
        */
       "VERSION-CONTROL", "REPORT", "CHECKOUT", "CHECKIN", "UNCHECKOUT",
       "MKWORKSPACE", "UPDATE", "LABEL", "MERGE", "BASELINE-CONTROL", "MKACTIVITY",
+      /*
+       * The PATCH method is defined by RFC5789, the format of the
+       * actual patch in the body depends on the application, but from
+       * Privoxy's point of view it doesn't matter.
+       */
+      "PATCH",
    };
    int i;
 
