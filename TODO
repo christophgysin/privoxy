@@ -378,6 +378,9 @@ http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO
      an action so the behaviour can be enabled on a per-request basis.
      Interested donors: 1.
 
+132) Provide a Tor hidden service to reach the Privoxy website.
+     Interested donors: 1.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
