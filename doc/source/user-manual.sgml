@@ -7456,6 +7456,8 @@ done
 EXTERNAL-FILTER: rotate-image Rotate an image by 180 degree. Test filter with limited value.
 /usr/local/bin/convert - -rotate 180 -
 
+EXTERNAL-FILTER: citation-needed Adds a "[citation needed]" tag to an image. The coordinates may need adjustment.
+/usr/local/bin/convert - -pointsize 16 -fill white  -annotate +17+418 "[citation needed]" -
 </screen>
 </para>
 
