@@ -680,9 +680,9 @@ linuxcounter.net/
 # Generic block patterns by path:
 #############################################################################
 {+block{Path matches generic block pattern.}}
-/(.*/)?ad(\?|/|s|v|_?(image|se?rv|box)|cycle|rotate|mentor|click|f[ra]m|script|stream|fetch|log|space)
 # Blocked URL = http://www.example.org/adimage
 # Blocked URL = http://www.example.org/adspace
+/(.*/)?ad(\?|/|s|v|_?(image|se?rv|box)|cycle|rotate|mentor|click|f[ra]m|script|stream|fetch|log|space)
 /phpads(new)?/
 /(.*/)?(ad|all|nn|db|promo(tion)?)?[-_]?banner
 /(.*/)?(publicite|werbung|rekla(me|am)|annonse|maino(kset|nta|s)?/)
