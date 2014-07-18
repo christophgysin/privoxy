@@ -4215,7 +4215,8 @@ new action
     <para>
      If the ports are missing or invalid, default values will be used. This might change
      in the future and you shouldn't rely on it. Otherwise incorrect syntax causes Privoxy
-     to exit.
+     to exit. Due to design limitations, invalid parameter syntax isn't detected until the
+     action is used the first time.
     </para>
     <para>
      Use the <ulink url="http://config.privoxy.org/show-url-info">show-url-info CGI page</ulink>
