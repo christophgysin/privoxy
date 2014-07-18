@@ -2379,7 +2379,7 @@ void apply_url_actions(struct current_action_spec *action,
  *                Invalid syntax is fatal.
  *
  *********************************************************************/
-const static struct forward_spec *get_forward_override_settings(struct client_state *csp)
+static const struct forward_spec *get_forward_override_settings(struct client_state *csp)
 {
    const char *forward_override_line = csp->action->string[ACTION_STRING_FORWARD_OVERRIDE];
    char forward_settings[BUFFER_SIZE];
