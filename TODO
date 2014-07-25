@@ -392,6 +392,8 @@ to Privoxy's SPI liason Fabian (fk@fabiankeil.de).
 133) Consider allowing bitcoin donations.
      Interested donors: 1.
 
+134) Track the total number of bytes written to and received from a socket.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
