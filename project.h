@@ -848,6 +848,10 @@ struct reusable_connection
  */
 #define CSP_FLAG_CHUNKED_CLIENT_BODY                0x01000000U
 
+/**
+ * Flag for csp->flags: Set if the client set the Expect header
+ */
+#define CSP_FLAG_UNSUPPORTED_CLIENT_EXPECTATION     0x02000000U
 
 /*
  * Flags for use in return codes of child processes
