@@ -675,6 +675,8 @@ countr*.
 metrics.torproject.org/
 # URL = http://linuxcounter.net/
 linuxcounter.net/
+# URL = http://adinablafasel.example.org/
+adina*.
 
 #############################################################################
 # Generic block patterns by path:
