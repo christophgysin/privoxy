@@ -743,13 +743,6 @@ actionsfile
    <para>
     Actions files contain all the per site and per URL configuration for
     ad blocking, cookie management, privacy considerations, etc.
-    There is no point in using <application>Privoxy</application> without at
-    least one actions file.
-   </para>
-   <para>
-    Note that since Privoxy 3.0.7, the complete filename, including the <quote>.action</quote>
-    extension has to be specified.  The syntax change was necessary to be consistent
-    with the other file options and to allow previously forbidden characters.
    </para>
   </listitem>
  </varlistentry>
