@@ -1075,11 +1075,6 @@ actionsfile
     <!-- LOL -->
    </para>
    <para>
-    &my-app; used to ship with the debug levels recommended above enabled by
-    default, but due to privacy concerns 3.0.7 and later are configured to
-    only log fatal errors.
-   </para>
-   <para>
     If you are used to the more verbose settings, simply enable the debug lines
     below again.
    </para>
