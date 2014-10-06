@@ -396,6 +396,8 @@ to Privoxy's SPI liason Fabian (fk@fabiankeil.de).
 
 135) Add OpenBSM audit support.
 
+136) Make builds reproducible.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
