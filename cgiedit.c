@@ -843,11 +843,7 @@ jb_err edit_write_file(struct editable_file * file)
    freez(file->version_str);
    snprintf(version_buf, sizeof(version_buf), "%u", file->version);
    version_buf[sizeof(version_buf)-1] = '\0';
-   file->version_str = strdup(version_buf);
-   if (version_buf == NULL)
-   {
-      return JB_ERR_MEMORY;
-   }
+   file->version_str = strdup_or_die(version_buf);
 
    return JB_ERR_OK;
 }
