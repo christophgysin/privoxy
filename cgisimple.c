@@ -1914,6 +1914,7 @@ static jb_err cgi_show_file(struct client_state *csp,
          s = html_encode_and_free_original(s);
          if (NULL == s)
          {
+            free_map(exports);
             return JB_ERR_MEMORY;
          }
 
