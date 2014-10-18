@@ -1555,7 +1555,7 @@ jb_err edit_read_file(struct client_state *csp,
    }
 
    file = (struct editable_file *) zalloc(sizeof(*file));
-   if (err)
+   if (file == NULL)
    {
       edit_free_file_lines(lines);
       return err;
