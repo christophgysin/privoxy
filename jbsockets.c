@@ -995,6 +995,7 @@ int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
    {
       if (errno != EINTR)
       {
+         close_socket(fd);
          return(-1);
       }
    }
