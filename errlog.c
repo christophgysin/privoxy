@@ -1001,9 +1001,6 @@ const char *jb_err_to_string(int jb_error)
          return "File has been modified outside of the CGI actions editor.";
       case JB_ERR_COMPRESS:
          return "(De)compression failure";
-      default:
-         assert(0);
-         return "Unknown error";
    }
    assert(0);
    return "Internal error";
