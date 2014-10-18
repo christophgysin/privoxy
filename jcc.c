@@ -1646,10 +1646,10 @@ static jb_err receive_client_request(struct client_state *csp)
    enlist(csp->headers, http->cmd);
 
    /* Append the previously read headers */
-   list_append_list_unique(csp->headers, headers);
+   err = list_append_list_unique(csp->headers, headers);
    destroy_list(headers);
 
-   return JB_ERR_OK;
+   return err;
 
 }
 
