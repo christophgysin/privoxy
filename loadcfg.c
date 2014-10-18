@@ -948,6 +948,7 @@ struct configuration_spec * load_config(void)
                string_append(&config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward directive in configuration file.");
+               freez(cur_fwd);
                break;
             }
 
@@ -1003,6 +1004,7 @@ struct configuration_spec * load_config(void)
                string_append(&config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward-socks4 directive in configuration file.");
+               freez(cur_fwd);
                break;
             }
 
@@ -1083,6 +1085,7 @@ struct configuration_spec * load_config(void)
                string_append(&config->proxy_args,
                   "<br>\nWARNING: Bad URL specifier for "
                   "forward-socks4a directive in configuration file.");
+               freez(cur_fwd);
                break;
             }
 
