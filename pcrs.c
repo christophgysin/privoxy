@@ -825,7 +825,7 @@ int pcrs_execute(pcrs_job *job, const char *subject, size_t subject_length, char
       else
          offset = offsets[1];
    }
-   /* Pass pcre error through if (bad) failiure */
+   /* Pass pcre error through if (bad) failure */
    if (submatches < PCRE_ERROR_NOMATCH)
    {
       free(matches);
