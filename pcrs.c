@@ -1102,6 +1102,7 @@ pcrs_job *pcrs_compile_dynamic_command(char *pcrs_command, const struct pcrs_var
       {
          /* No proper delimiter found */
          *error = PCRS_ERR_CMDSYNTAX;
+         freez(pcrs_command_tmp);
          return NULL;
       }
 
