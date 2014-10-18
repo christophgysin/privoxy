@@ -1276,7 +1276,7 @@ int accept_connection(struct client_state * csp, jb_socket fds[])
       setsockopt(fd, SOL_SOCKET, SO_ACCEPTFILTER, &af_options, sizeof(af_options));
 #endif
       afd = accept (fd, (struct sockaddr *) &client, &c_length);
-   } while (afd < 1 && errno == EINTR);
+   } while (afd < 0 && errno == EINTR);
    if (afd < 0)
    {
       return 0;
