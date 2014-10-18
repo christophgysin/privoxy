@@ -909,10 +909,6 @@ int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
    fd = socket(AF_INET, SOCK_STREAM, 0);
 #endif /* def HAVE_RFC2553 */
 
-#ifdef FEATURE_EXTERNAL_FILTERS
-   mark_socket_for_close_on_execute(fd);
-#endif
-
 #ifdef _WIN32
    if (fd == JB_INVALID_SOCKET)
 #else
@@ -925,6 +921,10 @@ int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
       return(-1);
 #endif
    }
+
+#ifdef FEATURE_EXTERNAL_FILTERS
+   mark_socket_for_close_on_execute(fd);
+#endif
 
 #ifndef _WIN32
    /*
