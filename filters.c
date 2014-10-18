@@ -1876,6 +1876,7 @@ static char *execute_external_filter(const struct client_state *csp,
    {
       log_error(LOG_LEVEL_ERROR, "fwrite(..., %d, 1, ..) failed: %E", *size);
       unlink(file_name);
+      fclose(fp);
       return NULL;
    }
    fclose(fp);
