@@ -3865,15 +3865,21 @@ static jb_err server_http(struct client_state *csp, char **header)
    {
       p++;
       reason_phrase = strchr(p, ' ');
-      if (reason_phrase != NULL)
-      {
-         reason_phrase++;
-      }
    }
 
-   if ((reason_phrase == NULL) || (reason_phrase[0] == '\0') ||
-      (3 != sscanf(*header, "HTTP/%u.%u %u", &major_version,
-         &minor_version, &(csp->http->status))))
+   if (reason_phrase != NULL)
+   {
+      reason_phrase++;
+   }
+   else
+   {
+      log_error(LOG_LEVEL_ERROR,
+         "Response line lacks reason phrase: %s", *header);
+      reason_phrase="";
+   }
+
+   if (3 != sscanf(*header, "HTTP/%u.%u %u", &major_version,
+         &minor_version, &(csp->http->status)))
    {
       log_error(LOG_LEVEL_ERROR,
          "Failed to parse the response line: %s", *header);
