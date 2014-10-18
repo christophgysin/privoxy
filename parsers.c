@@ -2321,8 +2321,7 @@ static jb_err server_content_encoding(struct client_state *csp, char **header)
       /*
        * Log a warning if the user expects the content to be filtered.
        */
-      if ((csp->rlist != NULL) &&
-         (!list_is_empty(csp->action->multi[ACTION_MULTI_FILTER])))
+      if (content_filters_enabled(csp->action))
       {
          log_error(LOG_LEVEL_INFO,
             "SDCH-compressed content detected, content filtering disabled. "
