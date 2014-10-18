@@ -1167,6 +1167,7 @@ jb_err cgi_show_url_info(struct client_state *csp,
        map_block_killer(exports, "privoxy-is-toggled-off")
       )
    {
+      freez(url_param);
       free_map(exports);
       return JB_ERR_MEMORY;
    }
