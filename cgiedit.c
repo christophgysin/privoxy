@@ -1211,6 +1211,7 @@ jb_err edit_parse_actions_file(struct editable_file * file)
             err = split_line_on_equals(cur_line->unprocessed, &name, &value);
             if (err == JB_ERR_MEMORY)
             {
+               free_alias_list(alias_list);
                return err;
             }
             else if (err != JB_ERR_OK)
@@ -1218,6 +1219,7 @@ jb_err edit_parse_actions_file(struct editable_file * file)
                /* Line does not contain a name=value pair */
                file->parse_error = cur_line;
                file->parse_error_text = "Expected a name=value pair on this {{alias}} line, but couldn't find one.";
+               free_alias_list(alias_list);
                return JB_ERR_PARSE;
             }
 
