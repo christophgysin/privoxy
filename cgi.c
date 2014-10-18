@@ -497,7 +497,12 @@ static struct http_response *dispatch_known_cgi(struct client_state * csp,
       *query_args_start++ = '\0';
       if ((param_list = new_map()))
       {
-         map(param_list, "file", 1, url_decode(query_args_start), 0);
+         err = map(param_list, "file", 1, url_decode(query_args_start), 0);
+         if (JB_ERR_OK != err) {
+            free(path_copy);
+            free(param_list);
+            return cgi_error_memory();
+         }
       }
    }
    else
