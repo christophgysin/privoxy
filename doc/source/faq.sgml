@@ -506,7 +506,9 @@ warranty? Registration?</title>
  Donations are welcome. Our
  <ulink url="http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/TODO">TODO list</ulink>
  is rather long and being able to pay one (or more) developers to work on Privoxy
- a couple of weeks in a row would make a huge difference.
+ would make a huge difference, even if it was only for a couple of weeks. Donations may
+ also be used for Privoxy-related travel expenses (for example to attend conferences),
+ for hardware used for Privoxy development and for hosting expenses etc.
 </para>
 
 <para>
@@ -3008,6 +3010,9 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.104  2014/10/21 12:05:12  fabiankeil
+Mention more stuff donations may be used for
+
 Revision 2.103  2014/10/21 12:02:16  fabiankeil
 Bump FAQ copyright
 
