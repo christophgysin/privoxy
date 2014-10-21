@@ -29,7 +29,7 @@
 
  $Id$
 
- Copyright (C) 2001-2009 Privoxy Developers http://www.privoxy.org/
+ Copyright (C) 2001-2014 Privoxy Developers http://www.privoxy.org/
  See LICENSE.
 
  Based partially on the Internet Junkbuster FAQ originally written by and
@@ -73,7 +73,7 @@
  <subscript>
 <!-- Completely the wrong markup, but very little is allowed  -->
 <!-- in this part of an article. FIXME -->
- <link linkend="copyright">Copyright</link> &my-copy; 2001-2011 by
+ <link linkend="copyright">Copyright</link> &my-copy; 2001-2014 by
  <ulink url="http://www.privoxy.org/">Privoxy Developers</ulink>
  </subscript>
 </pubdate>
@@ -3008,6 +3008,9 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.103  2014/10/21 12:02:16  fabiankeil
+Bump FAQ copyright
+
 Revision 2.102  2014/10/06 10:20:09  fabiankeil
 Update the 'Would you like to donate?' section
 
