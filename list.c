@@ -902,7 +902,7 @@ struct map *new_map(void)
  * Function    :  free_map
  *
  * Description :  Free the memory occupied by a map and its
- *                depandant strings
+ *                dependent strings
  *
  * Parameters  :
  *          1  :  the_map = map to be freed.  May be NULL.
