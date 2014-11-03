@@ -73,8 +73,8 @@ Current Privoxy Team:
 <![%p-authors-formal;[
 <para>
  Thanks to the many people who have tested Privoxy, reported bugs, provided
- patches, made suggestions or contributed in some way. These include (in
- alphabetical order):
+ patches, made suggestions, donated or contributed in some other way.
+ These include (in alphabetical order):
 </para>
 <literallayout>
  Anatoly Arzhnikov
@@ -140,6 +140,7 @@ Current Privoxy Team:
  Angelina Matson
  David Mediavilla
  Raphael Moll
+ Mathew Murphy
  Amuro Namie
  Mark Nelson
  Adam Piggott
@@ -152,6 +153,7 @@ Current Privoxy Team:
  Andreas Rutkauskas
  Bart Schelstraete
  Chung-chieh Shan
+ Benjamin C. Wiley Sittler
  Simon South
  Dan Stahlke
  Oliver Stoeneberg
