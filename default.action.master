@@ -2252,6 +2252,8 @@ javabog.dk/ijk/
 .dgb-tagungszentren.de/
 # URL = http://creativecommons.org/licenses/
 creativecommons.org/
+# URL = http://kggp.de/Blogosphere/blog/2014/11/07/frankfurtmain-hessen-polizeibeamter-muss-sich-vor-gericht-verantworten/
+kggp.de/
 
 {-filter{banners-by-link}}
 # Sticky Actions = -filter{banners-by-link}
