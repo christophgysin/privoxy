@@ -1662,6 +1662,8 @@ static jb_err server_keep_alive(struct client_state *csp, char **header)
       csp->flags |= CSP_FLAG_SERVER_KEEP_ALIVE_TIMEOUT_SET;
    }
 
+   freez(*header);
+
    return JB_ERR_OK;
 }
 
