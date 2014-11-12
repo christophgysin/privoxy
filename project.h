@@ -727,11 +727,6 @@ struct reusable_connection
 #define CSP_FLAG_TOGGLED_ON 0x20U
 
 /**
- * Flag for csp->flags: Set if we answered the request ourselve.
- */
-#define CSP_FLAG_CRUNCHED   0x40U
-
-/**
  * Flag for csp->flags: Set if an acceptable Connection header
  * has already been set by the client.
  */
@@ -852,6 +847,12 @@ struct reusable_connection
  * Flag for csp->flags: Set if the client set the Expect header
  */
 #define CSP_FLAG_UNSUPPORTED_CLIENT_EXPECTATION     0x02000000U
+
+/**
+ * Flag for csp->flags: Set if we answered the request ourselve.
+ */
+#define CSP_FLAG_CRUNCHED                           0x04000000U
+
 
 /*
  * Flags for use in return codes of child processes
