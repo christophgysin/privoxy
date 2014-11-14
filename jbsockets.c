@@ -279,6 +279,7 @@ static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client
             "Server socket number too high to use select(): %d >= %d",
             fd, FD_SETSIZE);
          close_socket(fd);
+         freeaddrinfo(result);
          return JB_INVALID_SOCKET;
       }
 #endif
