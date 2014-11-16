@@ -1365,10 +1365,9 @@ struct configuration_spec
 /** Calculates the number of elements in an array, using sizeof. */
 #define SZ(X)  (sizeof(X) / sizeof(*X))
 
-#ifdef FEATURE_FORCE_LOAD
-/** The force load URL prefix. */
+/** The force load URL prefix. Not behind an ifdef because
+  * it's always used for the show-status page. */
 #define FORCE_PREFIX "/PRIVOXY-FORCE"
-#endif /* def FEATURE_FORCE_LOAD */
 
 #ifdef FEATURE_NO_GIFS
 /** The MIME type for images ("image/png" or "image/gif"). */
