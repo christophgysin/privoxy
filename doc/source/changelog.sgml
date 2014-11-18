@@ -473,4 +473,21 @@
    </para>
   </listitem>
  </itemizedlist>
+ <itemizedlist>
+  <listitem>
+   <para>
+    Known bugs:
+    <itemizedlist>
+     <listitem>
+     <para>
+       To compile with --disable-force you need <ulink
+        url="http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/project.h?r1=1.208&amp;r2=1.209&amp;view=patch">this patch</ulink> which
+      didn't make it into the release.
+      Thanks to Kai Raven for the report.
+     </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+  </listitem>
+ </itemizedlist>
 </para>
