@@ -2225,8 +2225,13 @@ forward-socks4, forward-socks4a, forward-socks5 and forward-socks5t</title>
   forward-socks5t   /               127.0.0.1:9050 .
 </screen>
    </para>
-
-    <para>
+   <para>
+    Note that if you got Tor through one of the bundles, you may
+    have to change the port from 9050 to 9150 (or even another one).
+    For details, please check the documentation on the
+    <ulink url="https://torproject.org/">Tor website</ulink>.
+   </para>
+   <para>
     The public <application>Tor</application> network can't be used to
     reach your local network, if you need to access local servers you
     therefore might want to make some exceptions:

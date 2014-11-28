@@ -1799,6 +1799,13 @@ us help you. Your efforts are not wasted, and we do appreciate them.
  </screen>
 </para>
 <para>
+ Note that if you got Tor through one of the bundles, you may
+ have to change the port from 9050 to 9150 (or even another one).
+ For details, please check the documentation on the
+ <ulink url="https://torproject.org/">Tor website</ulink>.
+</para>
+
+<para>
  This is enough to reach the Internet, but additionally you might want to
  uncomment the following forward rules, to make sure your local network is still
  reachable through Privoxy:
@@ -3010,6 +3017,13 @@ browsing has slowed to a crawl. What gives? </title>
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 $Log$
+Revision 2.105  2014/11/28 14:26:35  fabiankeil
+Explicitly mention that Tor's port may deviate from the default
+
+... when using a bundle.
+
+Reported by Andrew on ijbswa-users@.
+
 Revision 2.104  2014/10/21 12:05:12  fabiankeil
 Mention more stuff donations may be used for
 
