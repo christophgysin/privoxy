@@ -3497,7 +3497,7 @@ int main(int argc, char **argv)
    cgi_init_error_messages();
 
    /*
-    * If runnig on unix and without the --nodaemon
+    * If running on unix and without the --no-daemon
     * option, become a daemon. I.e. fork, detach
     * from tty and get process group leadership
     */
