@@ -315,14 +315,6 @@ debug  8192 # Non-fatal errors</literallayout>
 </para>
 </sect2>
 
-<sect2 id="contact-feature"><title>Request New Features</title>
-<para>
- You are welcome to submit ideas on new features or other proposals
- for improvement through our feature request tracker at
- <ulink url="http://sourceforge.net/tracker/?atid=361118&#38;group_id=11118">http://sourceforge.net/tracker/?atid=361118&#38;group_id=11118</ulink>.
-</para>
-</sect2>
-
 <sect2 id="mailing-lists"><title>Mailing Lists</title>
 <para>
 If you prefer to communicate through email, instead of using a web interface,
