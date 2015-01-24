@@ -1333,7 +1333,7 @@ enum chunk_status
  *
  * Function    :  chunked_body_is_complete
  *
- * Description :  Figures out wheter or not a chunked body is complete.
+ * Description :  Figures out whether or not a chunked body is complete.
  *
  *                Currently it always starts at the beginning of the
  *                buffer which is somewhat wasteful and prevents Privoxy
