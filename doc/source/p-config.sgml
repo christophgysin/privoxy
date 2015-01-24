@@ -1065,7 +1065,6 @@ actionsfile
     so that you will notice when things go wrong. The other levels are
     probably only of interest if you are hunting down a specific problem.
     They can produce a hell of an output (especially 16).
-    <!-- LOL -->
    </para>
    <para>
     If you are used to the more verbose settings, simply enable the debug lines
