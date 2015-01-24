@@ -1388,12 +1388,15 @@ static enum chunk_status chunked_body_is_complete(struct iob *iob, size_t *lengt
       {
          return CHUNK_STATUS_PARSE_ERROR;
       }
-      /*
-       * Skip "\r\n", the chunk data and another "\r\n".
-       * Moving p to either the beginning of the next chunk-size
-       * or one byte beyond the end of the chunked data.
-       */
-      p += 2 + chunksize + 2;
+      /* Move beyond the chunkdata. */
+      p += 2 + chunksize;
+
+      /* There should be another "\r\n" to skip */
+      if (memcmp(p, "\r\n", 2))
+      {
+         return CHUNK_STATUS_PARSE_ERROR;
+      }
+      p += 2;
    } while (chunksize > 0U);
 
    *length = (size_t)(p - iob->cur);
