@@ -62,7 +62,7 @@
     </listitem>
     <listitem>
      <para>
-      Compiles with --disable-force again. Reported by Kay Raven.
+      Compiles with --disable-force again. Reported by Kai Raven.
      </para>
     </listitem>
     <listitem>
