@@ -436,7 +436,9 @@ jb_err decompress_iob(struct client_state *csp)
        * This is to protect the parsing of gzipped data,
        * but it should(?) be valid for deflated data also.
        */
-      log_error(LOG_LEVEL_ERROR, "Buffer too small decompressing iob");
+      log_error(LOG_LEVEL_ERROR,
+         "Insufficient data to start decompression. Bytes in buffer: %d",
+         csp->iob->eod - csp->iob->cur);
       return JB_ERR_COMPRESS;
    }
 
