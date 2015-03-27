@@ -3934,7 +3934,9 @@ static void listen_loop(void)
       }
       csp = &csp_list->csp;
 
-      log_error(LOG_LEVEL_CONNECT, "Listening for new connections ... ");
+      log_error(LOG_LEVEL_CONNECT,
+         "Waiting for the next client connection. Currently active threads: %d",
+         active_threads);
 
       if (!accept_connection(csp, bfds))
       {
@@ -4188,7 +4190,8 @@ static void listen_loop(void)
              * XXX: If you assume ...
              */
             log_error(LOG_LEVEL_ERROR,
-               "Unable to take any additional connections: %E");
+               "Unable to take any additional connections: %E. Active threads: %d",
+               active_threads);
             write_socket(csp->cfd, TOO_MANY_CONNECTIONS_RESPONSE,
                strlen(TOO_MANY_CONNECTIONS_RESPONSE));
             close_socket(csp->cfd);
