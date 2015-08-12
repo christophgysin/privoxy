@@ -400,6 +400,9 @@ http://www.privoxy.org/faq/general.html#DONATE
      but making the reporting mechanism available again would be a
      good idea.
 
+141) Port Privoxy to CloudABI, which, despite the name, is actually
+     rather neet. https://github.com/NuxiNL/cloudlibc
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
