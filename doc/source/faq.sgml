@@ -2080,7 +2080,7 @@ ads, but also its own internal CGI pages. What is a <quote>crunch</quote>?</titl
 </sect2>
 
 <sect2 renderas="sect3" id="downloads">
-<title>Can Privoxy effect files that I download
+<title>Can Privoxy affect files that I download
 from a webserver? FTP server?</title>
 <para>
  From the webserver's perspective, there is no difference between
@@ -2460,7 +2460,7 @@ What can I do?</title>
 every time I start IE. What gives?</title>
 
 <para>
- This is a quirk that effects the installation of
+ This is a quirk that affects the installation of
  <application>Privoxy</application>, in conjunction with Internet Explorer and
  Internet Connection Sharing on Windows 2000 and Windows XP. The symptoms may
  appear to be corrupted or invalid DUN settings, or passwords.
