@@ -2233,11 +2233,11 @@ and related issues?</title>
 </para>
 <para>
  Lately there have been reports of problems with some kind of
- Privoxy versions that come preinstalled on some Netbooks.
- Some of the problems described are inconsistent with the behaviour
- of official Privoxy versions, which suggests that the preinstalled
- software may contain vendor modifications that we don't know about
- and thus can't debug.
+ "parental control" software based on Privoxy that came preinstalled on
+ certain <ulink url="http://sourceforge.net/p/ijbswa/bugs/813/">ASUS Netbooks</ulink>.
+ The problems described are inconsistent with the behaviour of official
+ Privoxy versions, which suggests that the preinstalled software may
+ contain vendor modifications that we don't know about and thus can't debug.
 </para>
 <para>
  Privoxy's <link linkend="copyright">license</link> allows vendor
