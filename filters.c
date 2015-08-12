@@ -1871,7 +1871,8 @@ static char *execute_external_filter(const struct client_state *csp,
       return NULL;
    }
 
-   filter_output = malloc_or_die(*size);
+   /* Allocate at least one byte */
+   filter_output = malloc_or_die(*size + 1);
 
    new_size = 0;
    while (!feof(fp) && !ferror(fp))
@@ -1885,7 +1886,7 @@ static char *execute_external_filter(const struct client_state *csp,
          char *p;
 
          /* Could be considered wasteful if the content is 'large'. */
-         *size = (*size != 0) ? *size * 2 : READ_LENGTH;
+         *size = (*size > READ_LENGTH) ? *size * 2 : READ_LENGTH;
 
          p = realloc(filter_output, *size);
          if (p == NULL)
