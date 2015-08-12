@@ -204,7 +204,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
    g_nCmdShow = nCmdShow;
    _beginthread(UserInterfaceThread, 0, &hInitCompleteEvent);
    WaitForSingleObject(hInitCompleteEvent, INFINITE);
-   DeleteObject(hInitCompleteEvent);
+   CloseHandle(hInitCompleteEvent);
 #endif
 
 #ifdef __MINGW32__
