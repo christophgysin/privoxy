@@ -151,6 +151,14 @@ void *malloc_or_die(size_t buffer_size)
 {
    char *new_buf;
 
+   if (buffer_size == 0)
+   {
+      log_error(LOG_LEVEL_ERROR,
+         "malloc_or_die() called with buffer size 0");
+      assert(buffer_size != 0);
+      buffer_size = 4096;
+   }
+
    new_buf = malloc(buffer_size);
 
    if (new_buf == NULL)
