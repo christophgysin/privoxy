@@ -1886,7 +1886,7 @@ static char *execute_external_filter(const struct client_state *csp,
          char *p;
 
          /* Could be considered wasteful if the content is 'large'. */
-         *size = (*size > READ_LENGTH) ? *size * 2 : READ_LENGTH;
+         *size += (*size >= READ_LENGTH) ? *size : READ_LENGTH;
 
          p = realloc(filter_output, *size);
          if (p == NULL)
