@@ -1307,7 +1307,7 @@ int accept_connection(struct client_state * csp, jb_socket fds[])
       struct linger linger_options;
       linger_options.l_onoff  = 1;
       linger_options.l_linger = 5;
-      if (0 != setsockopt(fd, SOL_SOCKET, SO_LINGER, &linger_options, sizeof(linger_options)))
+      if (0 != setsockopt(afd, SOL_SOCKET, SO_LINGER, &linger_options, sizeof(linger_options)))
       {
          log_error(LOG_LEVEL_ERROR, "Setting SO_LINGER on socket %d failed.", afd);
       }
