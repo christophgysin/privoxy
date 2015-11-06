@@ -1329,6 +1329,8 @@ int accept_connection(struct client_state * csp, jb_socket fds[])
    mark_socket_for_close_on_execute(afd);
 #endif
 
+   set_no_delay_flag(afd);
+
    csp->cfd = afd;
 #ifdef HAVE_RFC2553
    csp->ip_addr_str = malloc_or_die(NI_MAXHOST);
