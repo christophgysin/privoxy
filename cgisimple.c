@@ -970,7 +970,6 @@ jb_err cgi_show_status(struct client_state *csp,
 
 #ifdef FEATURE_CGI_EDIT_ACTIONS
          if ((csp->config->feature_flags & RUNTIME_FEATURE_CGI_EDIT_ACTIONS)
-            && (NULL == strstr(csp->actions_list[i]->filename, "standard.action"))
             && (NULL != csp->config->actions_file_short[i]))
          {
 #ifdef HAVE_ACCESS
