@@ -77,32 +77,21 @@
 
 <sect1 renderas="sect2" id="download" label=""><title>Download</title>
 <para>
- <itemizedlist>
-  <listitem>
-   <para>
-    <ulink url="https://sourceforge.net/projects/ijbswa/files/">Download recent releases</ulink>
-   </para>
-  </listitem>
- <!-- 
- deprecated
-  <listitem>
-   <para>
-    <ulink url="http://cvs.sourceforge.net/cvstarballs/ijbswa-cvsroot.tar.bz2">Download the latest CVS snapshot (source tarball)</ulink>
-   </para>
-  </listitem>
- --> 
-  <listitem>
-   <para>
-    <ulink url="user-manual/quickstart.html">Quickstart after installation</ulink>
-   </para>
-  </listitem>
- </itemizedlist>
+ Privoxy downloads are available at
+ <ulink url="https://sourceforge.net/projects/ijbswa/files/">SourceForge</ulink>.
+ If you are not comfortable with downloading binaries from SourceForge, please
+ use <ulink url="http://www.silvester.org.uk/privoxy/">the mirror</ulink>.
 </para>
 </sect1>
 
 <sect1 renderas="sect2" id="docs" label=""><title>Documentation</title>
 <para>
  <itemizedlist>
+  <listitem>
+   <para>
+    <ulink url="user-manual/quickstart.html">Quickstart after installation</ulink>
+   </para>
+  </listitem>
   <listitem>
    <para>
     <ulink url="user-manual/index.html">User manual</ulink>
