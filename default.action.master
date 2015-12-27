@@ -1144,6 +1144,9 @@ cltomedia.info/delivery/
 data.gosquared.com/
 # Blocked URL = http://resources.infolinks.com/js/infolinks_main.js
 resources.infolinks.com/
+#MASTER# BLOCK-REFERRER: http://www.libertaddigital.com/
+# Blocked URL = http://abs.proxistore.com/abe/js/psuniversaltag.js?v=
+abs.proxistore.com/abe/
 
 
 #----------------------------------------------------------------------------
