@@ -3600,9 +3600,8 @@ static jb_err client_host_adder(struct client_state *csp)
 
    if (!csp->http->hostport || !*(csp->http->hostport))
    {
-      /* XXX: When does this happen and why is it OK? */
-      log_error(LOG_LEVEL_INFO, "Weirdness in client_host_adder detected and ignored.");
-      return JB_ERR_OK;
+      log_error(LOG_LEVEL_ERROR, "Destination host unknown.");
+      return JB_ERR_PARSE;
    }
 
    /*
