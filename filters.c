@@ -1897,6 +1897,7 @@ static char *execute_external_filter(const struct client_state *csp,
          }
          filter_output = p;
       }
+      assert(new_size + READ_LENGTH < *size);
       len = fread(&filter_output[new_size], 1, READ_LENGTH, fp);
       if (len > 0)
       {
