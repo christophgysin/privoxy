@@ -4445,6 +4445,26 @@ jb_err get_destination_from_headers(const struct list *headers, struct http_requ
    log_error(LOG_LEVEL_HEADER, "Destination extracted from \"Host:\" header. New request URL: %s",
       http->url);
 
+   /*
+    * Regenerate request line in "proxy format"
+    * to make rewrites more convenient.
+    * XXX: Code duplication.
+    */
+   assert(http->cmd != NULL);
+   freez(http->cmd);
+   http->cmd = strdup_or_die(http->gpc);
+   string_append(&http->cmd, " ");
+   string_append(&http->cmd, http->url);
+   string_append(&http->cmd, " ");
+   string_append(&http->cmd, http->ver);
+   if (http->cmd == NULL)
+   {
+      return JB_ERR_MEMORY;
+   }
+
+   log_error(LOG_LEVEL_HEADER, "Faked request-Line: %s",
+      http->cmd);
+
    return JB_ERR_OK;
 
 }
