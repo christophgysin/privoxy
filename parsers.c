@@ -4402,6 +4402,8 @@ jb_err get_destination_from_headers(const struct list *headers, struct http_requ
    char *p;
    char *host;
 
+   assert(!http->ssl);
+
    host = get_header_value(headers, "Host:");
 
    if (NULL == host)
@@ -4427,12 +4429,12 @@ jb_err get_destination_from_headers(const struct list *headers, struct http_requ
    }
    else
    {
-      http->port = http->ssl ? 443 : 80;
+      http->port = 80;
    }
 
    /* Rebuild request URL */
    freez(http->url);
-   http->url = strdup(http->ssl ? "https://" : "http://");
+   http->url = strdup("http://");
    string_append(&http->url, http->hostport);
    string_append(&http->url, http->path);
    if (http->url == NULL)
