@@ -859,13 +859,13 @@ struct reusable_connection
  */
 
 /**
- * Flag for process return code: Set if exiting porcess has been toggled
+ * Flag for process return code: Set if exiting process has been toggled
  * during its lifetime.
  */
 #define RC_FLAG_TOGGLED   0x10
 
 /**
- * Flag for process return code: Set if exiting porcess has blocked its
+ * Flag for process return code: Set if exiting process has blocked its
  * request.
  */
 #define RC_FLAG_BLOCKED   0x20
