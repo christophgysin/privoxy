@@ -4145,7 +4145,7 @@ new action
   <term>Type:</term>
   <!-- Boolean, Parameterized, Multi-value -->
   <listitem>
-   <para>Multi-value.</para>
+   <para>Parameterized.</para>
   </listitem>
  </varlistentry>
 
