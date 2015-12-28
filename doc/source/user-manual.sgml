@@ -2778,7 +2778,7 @@ for details.
   <term>Type:</term>
   <!-- boolean, parameterized, Multi-value -->
   <listitem>
-   <para>Parameterized.</para>
+   <para>Multi-value.</para>
   </listitem>
  </varlistentry>
 
@@ -2865,7 +2865,7 @@ for details.
   <term>Type:</term>
   <!-- boolean, parameterized, Multi-value -->
   <listitem>
-   <para>Parameterized.</para>
+   <para>Multi-value.</para>
   </listitem>
  </varlistentry>
 
@@ -3616,7 +3616,7 @@ problem-host.example.com</screen>
   <term>Type:</term>
   <!-- boolean, parameterized, Multi-value -->
   <listitem>
-   <para>Parameterized.</para>
+   <para>Multi-value.</para>
   </listitem>
  </varlistentry>
 
@@ -3828,7 +3828,7 @@ problem-host.example.com</screen>
   <term>Type:</term>
   <!-- boolean, parameterized, Multi-value -->
   <listitem>
-   <para>Parameterized.</para>
+   <para>Multi-value.</para>
   </listitem>
  </varlistentry>
 
@@ -5460,7 +5460,7 @@ www.privoxy.org/user-manual/</screen>
   <term>Type:</term>
   <!-- boolean, parameterized, Multi-value -->
   <listitem>
-   <para>Parameterized.</para>
+   <para>Multi-value.</para>
   </listitem>
  </varlistentry>
 
@@ -5543,7 +5543,7 @@ example.org/instance-that-is-delivered-as-xml-but-is-not
   <term>Type:</term>
   <!-- boolean, parameterized, Multi-value -->
   <listitem>
-   <para>Parameterized.</para>
+   <para>Multi-value.</para>
   </listitem>
  </varlistentry>
 
