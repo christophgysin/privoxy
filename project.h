@@ -642,7 +642,7 @@ struct url_actions
 };
 
 enum forwarder_type {
-   /**< Don't use a SOCKS server               */
+   /**< Don't use a SOCKS server, forward to a HTTP proxy directly */
    SOCKS_NONE =  0,
    /**< original SOCKS 4 protocol              */
    SOCKS_4    = 40,
