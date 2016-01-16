@@ -5,7 +5,7 @@ const char actions_rcs[] = "$Id$";
  *
  * Purpose     :  Declares functions to work with actions files
  *
- * Copyright   :  Written by and Copyright (C) 2001-2011 the
+ * Copyright   :  Written by and Copyright (C) 2001-2016 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
