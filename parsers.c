@@ -4454,7 +4454,6 @@ jb_err get_destination_from_headers(const struct list *headers, struct http_requ
    /*
     * Regenerate request line in "proxy format"
     * to make rewrites more convenient.
-    * XXX: Code duplication.
     */
    assert(http->cmd != NULL);
    freez(http->cmd);
