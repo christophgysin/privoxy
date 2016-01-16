@@ -1381,10 +1381,13 @@ static int load_one_actions_file(struct client_state *csp, int fileid)
              *
              * buf + 1 to skip the leading '{'
              */
-            actions_buf = strdup_or_die(buf + 1);
+            actions_buf = end = strdup_or_die(buf + 1);
 
             /* check we have a trailing } and then trim it */
-            end = actions_buf + strlen(actions_buf) - 1;
+            if (strlen(actions_buf))
+            {
+               end += strlen(actions_buf) - 1;
+            }
             if (*end != '}')
             {
                /* No closing } */
