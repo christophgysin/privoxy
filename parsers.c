@@ -3287,6 +3287,13 @@ static jb_err client_host(struct client_state *csp, char **header)
 {
    char *p, *q;
 
+   if (strlen(*header) < 7)
+   {
+      log_error(LOG_LEVEL_HEADER, "Removing empty Host header");
+      freez(*header);
+      return JB_ERR_OK;
+   }
+
    if (!csp->http->hostport || (*csp->http->hostport == '*') ||
        *csp->http->hostport == ' ' || *csp->http->hostport == '\0')
    {
