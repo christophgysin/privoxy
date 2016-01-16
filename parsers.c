@@ -4448,7 +4448,8 @@ jb_err get_destination_from_headers(const struct list *headers, struct http_requ
       return JB_ERR_MEMORY;
    }
 
-   log_error(LOG_LEVEL_HEADER, "Destination extracted from \"Host:\" header. New request URL: %s",
+   log_error(LOG_LEVEL_HEADER,
+      "Destination extracted from \"Host\" header. New request URL: %s",
       http->url);
 
    /*
@@ -4466,9 +4467,6 @@ jb_err get_destination_from_headers(const struct list *headers, struct http_requ
    {
       return JB_ERR_MEMORY;
    }
-
-   log_error(LOG_LEVEL_HEADER, "Faked request-Line: %s",
-      http->cmd);
 
    return JB_ERR_OK;
 
