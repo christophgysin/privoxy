@@ -635,6 +635,7 @@ jb_socket forwarded_connect(const struct forward_spec * fwd,
    switch (fwd->type)
    {
       case SOCKS_NONE:
+      case FORWARD_WEBSERVER:
          sfd = connect_to(dest_host, dest_port, csp);
          break;
       case SOCKS_4:

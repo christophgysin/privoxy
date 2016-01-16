@@ -2442,6 +2442,14 @@ static const struct forward_spec *get_forward_override_settings(struct client_st
       http_parent = vec[1];
 
    }
+   else if ((vec_count == 2) && !strcasecmp(vec[0], "forward-webserver"))
+   {
+      fwd->type = FORWARD_WEBSERVER;
+
+      /* Parse the parent HTTP server host:port */
+      http_parent = vec[1];
+
+   }
    else if (vec_count == 3)
    {
       char *socks_proxy = NULL;

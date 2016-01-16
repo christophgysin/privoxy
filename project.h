@@ -652,6 +652,12 @@ enum forwarder_type {
    SOCKS_5    = 50,
    /**< Like SOCKS5, but uses non-standard Tor extensions (currently only optimistic data) */
    SOCKS_5T,
+   /**<
+    * Don't use a SOCKS server, forward to the specified webserver.
+    * The difference to SOCKS_NONE is that a request line without
+    * full URL is sent.
+    */
+   FORWARD_WEBSERVER,
 };
 
 /*
