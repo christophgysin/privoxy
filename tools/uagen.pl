@@ -133,7 +133,7 @@ sub generate_platform_and_os() {
         FreeBSD => {
             karma             => 1,
             platform          => 'X11',
-            architectures     => [ 'i386', 'amd64', 'sparc64', 'alpha' ],
+            architectures     => [ 'i386', 'amd64', 'sparc64' ],
             order_is_inversed => 0,
         },
         OpenBSD => {
