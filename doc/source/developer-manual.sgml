@@ -5,7 +5,7 @@
 <!entity p-intro SYSTEM "privoxy.sgml">
 <!entity history SYSTEM "history.sgml">
 <!entity seealso SYSTEM "seealso.sgml">
-<!entity p-version "3.0.22">
+<!entity p-version "3.0.24">
 <!entity p-status "UNRELEASED">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">

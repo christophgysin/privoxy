@@ -13,7 +13,7 @@
 <!entity p-authors SYSTEM "p-authors.sgml">
 <!entity config SYSTEM "p-config.sgml">
 <!entity changelog SYSTEM "changelog.sgml">
-<!entity p-version "3.0.22">
+<!entity p-version "3.0.24">
 <!entity p-status "UNRELEASED">
 <!entity % p-authors-formal "INCLUDE"> <!-- include additional text, etc  -->
 <!entity % p-not-stable "INCLUDE">
