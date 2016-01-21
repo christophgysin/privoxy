@@ -75,7 +75,7 @@
     <listitem>
      <para>
       Fixed crashes when executing external filters on platforms like
-      Mac OS X. Reported by Jonathan McKenzie on ijbswa-users@
+      Mac OS X. Reported by Jonathan McKenzie on ijbswa-users@.
      </para>
     </listitem>
     <listitem>
@@ -253,7 +253,7 @@
     </listitem>
     <listitem>
      <para>
-      Unblock klikki.fi/adv/.
+      Unblock "klikki.fi/adv/".
      </para>
     </listitem>
     <listitem>
