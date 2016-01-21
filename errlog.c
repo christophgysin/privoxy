@@ -421,10 +421,10 @@ static long get_thread_id(void)
    this_thread = (long)pthread_self();
 #ifdef __MACH__
    /*
-    * Mac OSX (and perhaps other Mach instances) doesn't have a debuggable
-    * value at the first 4 bytes of pthread_self()'s return value, a pthread_t.
-    * pthread_t is supposed to be opaque... but it's fairly random, though, so
-    * we make it mostly presentable.
+    * Mac OSX (and perhaps other Mach instances) doesn't have a unique
+    * value at the lowest order 4 bytes of pthread_self()'s return value, a pthread_t.
+    * pthread_t is supposed to be opaque... however it's fairly random.
+    * The following will address these two issues to make it mostly presentable.
     */
    this_thread = labs(this_thread % 1000);
 #endif /* def __MACH__ */
