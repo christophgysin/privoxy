@@ -426,7 +426,7 @@ static long get_thread_id(void)
     * pthread_t is supposed to be opaque... but it's fairly random, though, so
     * we make it mostly presentable.
     */
-   this_thread = abs(this_thread % 1000);
+   this_thread = labs(this_thread % 1000);
 #endif /* def __MACH__ */
 #elif defined(_WIN32)
    this_thread = GetCurrentThreadId();
