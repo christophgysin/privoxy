@@ -22,9 +22,9 @@
 
 <para>
   <application>Privoxy 3.0.24</application> stable contains a couple
-  of new features but is mainly a bug-fix release. Two of the fixed bugs
-  are security issues (CVE requests pending) and may be used to remotely
-  trigger crashes on platforms that carefully check memory accesses (most don't).
+  of new features but is mainly a bug-fix release. Two of the fixed
+  bugs are security issues and may be used to remotely trigger crashes
+  on platforms that carefully check memory accesses (most don't).
 </para>
 
 <!--
@@ -41,13 +41,13 @@
     <listitem>
      <para>
       Prevent invalid reads in case of corrupt chunk-encoded content.
-      Bug discovered with afl-fuzz and AddressSanitizer.
+      CVE-2016-1982. Bug discovered with afl-fuzz and AddressSanitizer.
      </para>
     </listitem>
     <listitem>
      <para>
       Remove empty Host headers in client requests.
-      Previously they would result in invalid reads.
+      Previously they would result in invalid reads. CVE-2016-1983.
       Bug discovered with afl-fuzz and AddressSanitizer.
      </para>
      </listitem>
