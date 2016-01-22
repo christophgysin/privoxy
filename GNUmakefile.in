@@ -557,17 +557,6 @@ dok-release:
 	fi;
 	$(RM) -r doc/source/*bak doc/source/*/*bak;
 
-# Create release announcement in text and html, with short and long versions.
-# This is a standalone target, and must be invoked directly.
-# announce: dok-release
-# 	mkdir -p $(DOC_TMP)
-# 	cd $(DOC_TMP) && cp -f ../announce.sgml . && $(DB) -iannounce-big announce.sgml &&\
-# 	mv -f index.html announce.html && $(W3M_DUMP) announce.html > announce.txt
-# 	cd $(DOC_TMP) && $(DB) announce.sgml &&\
-# 	mv -f index.html announce-mini.html && $(W3M_DUMP) announce-mini.html > announce-mini.txt &&\
-# 	mv -f *html *txt ../../..
-# 	rm -fr $(DOC_TMP)
-
 # The main Privoxy config file, generated from sgml sources.
 # NOTE: This will require some hand editing.
 config-file: dok-release generate-config-file
