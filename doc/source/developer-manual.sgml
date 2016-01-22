@@ -2563,9 +2563,9 @@ at sourceforge. Three simple steps:
 
     <sect3 id="newrelease-windows"><title>Windows</title>
       <para>
-        You should ensure you have the latest version of Cygwin (from
-        <ulink url="http://www.cygwin.com/">http://www.cygwin.com/</ulink>).
-        Run the following commands from within a Cygwin bash shell.
+        Use the <ulink url="http://www.fruitbat.org/Cygwin/index.html#cygwincirca">
+        Cygwin Time Machine</ulink> to install the last 1.5 version of Cygwin.
+        Run the following commands from within the Cygwin 1.5 bash shell.
       </para>
       <para>
         First, <emphasis>make sure that you have freshly exported the right
