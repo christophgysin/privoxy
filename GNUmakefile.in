@@ -258,7 +258,7 @@ all: $(PROGRAM) default.action
 #############################################################################
 # Phony targets
 #############################################################################
-.PHONY: all inifiles solaris-dist \
+.PHONY: all inifiles \
 win-dist tarball-dist dok webserver clean clobber tags \
 install CONF_DEST LOG_DEST \
 PID_DEST check_doc install-strip uninstall GROUP_T
