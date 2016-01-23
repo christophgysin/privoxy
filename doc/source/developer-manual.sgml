@@ -2741,45 +2741,6 @@ at sourceforge. Three simple steps:
       </para>
     </sect3>
 
-    <sect3 id="newrelease-aix"><title>AIX</title>
-      <para>
-        Login to Sourceforge's compilefarm via ssh:
-      </para>
-      <para>
-        <programlisting>
-  ssh cf.sourceforge.net
-</programlisting>
-      </para>
-      <para>
-        Choose the right operating system.
-        When logged in, <emphasis>make sure that you have freshly exported the right
-        version into an empty directory</emphasis>. (See "Building and releasing
-        packages" above). Then run:
-      </para>
-      <para>
-        <programlisting>
-  cd current
-  autoheader && autoconf && ./configure
-</programlisting>
-      </para>
-      <para>
-        Then run:
-      </para>
-      <para>
-        <programlisting>
-  make aix-dist
-</programlisting>
-      </para>
-      <para>
-        which creates a gzip'ed tar archive. Sadly, you cannot use <command>make
-        aix-upload</command> on the Sourceforge machine (no ncftpput). You now have
-        to manually upload the archive to Sourceforge's ftp server and release
-        the file publicly. Use the release notes and Change Log from the
-        source tarball package.
-      </para>
-    </sect3>
-   </sect2>
-
    <sect2 id="releasing">
    <title>Uploading and Releasing Your Package</title>
     <para>
