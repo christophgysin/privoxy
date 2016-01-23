@@ -2772,40 +2772,6 @@ at sourceforge. Three simple steps:
       </para>
     </sect3>
 
-    <sect3 id="newrelease-hpux"><title>HP-UX 11</title>
-      <para>
-        First, <emphasis>make sure that you have freshly exported the right
-        version into an empty directory</emphasis>. (See "Building and releasing
-        packages" above). Then run:
-      </para>
-      <para>
-        <programlisting>
-  cd current
-  autoheader && autoconf && ./configure
-</programlisting>
-      </para>
-      <para>
-        Then do FIXME.
-      </para>
-    </sect3>
-
-    <sect3 id="newrelease-amiga"><title>Amiga OS</title>
-      <para>
-        First, <emphasis>make sure that you have freshly exported the right
-        version into an empty directory</emphasis>. (See "Building and releasing
-        packages" above). Then run:
-      </para>
-      <para>
-        <programlisting>
-  cd current
-  autoheader && autoconf && ./configure
-</programlisting>
-      </para>
-      <para>
-        Then do FIXME.
-      </para>
-    </sect3>
-
     <sect3 id="newrelease-aix"><title>AIX</title>
       <para>
         Login to Sourceforge's compilefarm via ssh:
