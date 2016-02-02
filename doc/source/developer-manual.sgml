@@ -1979,24 +1979,7 @@ Install the rpm. Any error messages?
         </orderedlist>
 </para>
     </sect2>
-
-    <!--   ~~~~~       New section      ~~~~~     -->
-    <sect2 id="testing-report"><title>Test reports</title>
-      <para>
-Please submit test reports only with the <ulink url="http://sourceforge.net/tracker/?func=add&amp;group_id=11118&amp;atid=395005">test form</ulink>
-at sourceforge. Three simple steps:
-        <itemizedlist>
-
-          <listitem><para>Select category: the distribution you test on.</para></listitem>
-          <listitem><para>Select group: the version of <application>Privoxy</application> that we are about to release.</para></listitem>
-          <listitem><para>Fill the Summary and Detailed Description with something
-              intelligent (keep it short and precise).</para>
-          </listitem>
-        </itemizedlist>
-        Do not mail to the mailing list (we cannot keep track on issues there).
-      </para>
-    </sect2>
-
+    <!-- XXX: Document how to write test reports and where to send them -->
   </sect1>
 
   <!--   ~~~~~       New section      ~~~~~     -->
