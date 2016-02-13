@@ -580,7 +580,7 @@ generate-config-file:
 #
 # Webserver
 #
-# moves dokumentation to webserver
+# moves documentation to webserver
 #
 #############################################################################
 sf-shell:
