@@ -387,7 +387,7 @@ jb_err add_to_iob(struct iob *iob, const size_t buffer_limit, char *src, long n)
 void clear_iob(struct iob *iob)
 {
    free(iob->buf);
-   memset(iob, '\0', sizeof(*iob));;
+   memset(iob, '\0', sizeof(*iob));
 }
 
 
