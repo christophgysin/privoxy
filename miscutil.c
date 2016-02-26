@@ -95,6 +95,40 @@ void *zalloc(size_t size)
 
 /*********************************************************************
  *
+ * Function    :  zalloc_or_die
+ *
+ * Description :  zalloc wrapper that either succeeds or causes
+ *                program termination.
+ *
+ *                Useful in situations were the string length is
+ *                "small" and zalloc() failures couldn't be handled
+ *                better anyway. In case of debug builds, failures
+ *                trigger an assert().
+ *
+ * Parameters  :
+ *          1  :  size = Size of memory chunk to return.
+ *
+ * Returns     :  Pointer to newly malloc'd memory chunk.
+ *
+ *********************************************************************/
+void *zalloc_or_die(size_t size)
+{
+   void *buffer;
+
+   buffer = zalloc(size);
+   if (buffer == NULL)
+   {
+      assert(buffer != NULL);
+      log_error(LOG_LEVEL_FATAL, "Out of memory in zalloc_or_die().");
+      exit(1);
+   }
+
+   return(buffer);
+
+}
+
+/*********************************************************************
+ *
  * Function    :  strdup_or_die
  *
  * Description :  strdup wrapper that either succeeds or causes
