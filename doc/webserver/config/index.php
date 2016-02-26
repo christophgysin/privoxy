@@ -82,13 +82,6 @@ chapter</a> of the <a href="http://www.privoxy.org/user-manual/">user
 manual</a> for details.</p></li>
 </ul>
 
-<p><small>Until version 2.9.13, Privoxy was also known as Internet
-Junkbuster. If you recently upgraded, then the web-based interface has
-moved - it is now at <a
-href="http://config.privoxy.org/">http://config.privoxy.org/</a>
-(Short form: <a href="http://ijbswa.sourceforge.net/config/">p.p</a>
-[Privoxy Proxy]).</small></p>
-
 <p>If you have read the <a href="http://www.privoxy.org/user-manual/">user
 manual</a> and still have trouble, feel free to <a
 href="http://sourceforge.net/tracker/?group_id=11118&atid=211118">submit
