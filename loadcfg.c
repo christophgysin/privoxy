@@ -684,7 +684,7 @@ struct configuration_spec * load_config(void)
             int compression_level = parse_numeric_value(cmd, arg);
             if (-1 <= compression_level && compression_level <= 9)
             {
-               config->compression_level = compression_level;;
+               config->compression_level = compression_level;
             }
             else
             {
