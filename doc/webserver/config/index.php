@@ -47,7 +47,7 @@
 
 <body>
 
-<h1><a href="http://privoxy.org/">Privoxy</a> is not being used</h1>
+<h1><a href="http://www.privoxy.org/">Privoxy</a> is not being used</h1>
 
 <p>The fact that you are reading this page shows that Privoxy was
 not used in the process of accessing it. Had the request been
