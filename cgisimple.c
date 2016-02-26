@@ -1985,12 +1985,9 @@ static jb_err load_file(const char *filename, char **buffer, size_t *length)
          filename);
    }
 
-   *buffer = (char *)zalloc(*length + 1);
-   if (NULL == *buffer)
-   {
-      err = JB_ERR_MEMORY;
-   }
-   else if (1 != fread(*buffer, *length, 1, fp))
+   *buffer = zalloc_or_die(*length + 1);
+
+   if (1 != fread(*buffer, *length, 1, fp))
    {
       /*
        * May theoretically happen if the file size changes between

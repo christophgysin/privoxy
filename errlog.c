@@ -716,15 +716,7 @@ void log_error(int loglevel, const char *fmt, ...)
 
    if (NULL == outbuf_save)
    {
-      outbuf_save = (char*)zalloc(log_buffer_size + 1); /* +1 for paranoia */
-      if (NULL == outbuf_save)
-      {
-         snprintf(tempbuf, sizeof(tempbuf),
-            "%s %08lx Fatal error: Out of memory in log_error().",
-            timestamp, thread_id);
-         fatal_error(tempbuf); /* Exit */
-         return;
-      }
+      outbuf_save = zalloc_or_die(log_buffer_size + 1); /* +1 for paranoia */
    }
    outbuf = outbuf_save;
 

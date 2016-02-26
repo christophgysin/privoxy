@@ -367,10 +367,7 @@ int gif_deanimate(struct binbuffer *src, struct binbuffer *dst, int get_first_im
    /*
     * Reserve a buffer for the current image block
     */
-   if (NULL == (image = (struct binbuffer *)zalloc(sizeof(*image))))
-   {
-      return 1;
-   }
+   image = zalloc_or_die(sizeof(*image));
 
    /*
     * Parse the GIF block by block and copy the relevant

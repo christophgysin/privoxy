@@ -617,7 +617,6 @@ jb_err parse_http_request(const char *req, struct http_request *http)
  *          4  :  regex   = Where the compiled regex should be stored.
  *
  * Returns     :  JB_ERR_OK - Success
- *                JB_ERR_MEMORY - Out of memory
  *                JB_ERR_PARSE - Cannot parse regex
  *
  *********************************************************************/
@@ -656,12 +655,7 @@ static jb_err compile_pattern(const char *pattern, enum regex_anchoring anchorin
             "Invalid anchoring in compile_pattern %d", anchoring);
    }
 
-   *regex = zalloc(sizeof(**regex));
-   if (NULL == *regex)
-   {
-      free_pattern_spec(url);
-      return JB_ERR_MEMORY;
-   }
+   *regex = zalloc_or_die(sizeof(**regex));
 
    snprintf(rebuf, sizeof(rebuf), fmt, pattern);
 
