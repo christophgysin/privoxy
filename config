@@ -2098,7 +2098,7 @@ socket-timeout 300
 #
 #  Default value:
 #
-#      None
+#      60
 #
 #  Notes:
 #
@@ -2118,6 +2118,12 @@ socket-timeout 300
 #      therefore provides a "enable this tag temporarily" option. If
 #      it is used, the tag will be set until the client-tag-lifetime
 #      is over.
+#
+#  Examples:
+#
+#            # Increase the time to life for temporarily enabled tags to 3 minutes
+#            client-tag-lifetime 180
+#
 #
 #
 #  7. WINDOWS GUI OPTIONS
