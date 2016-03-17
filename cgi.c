@@ -100,6 +100,12 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
          cgi_show_version,
          "View the source code version numbers",
           TRUE },
+#ifdef FEATURE_CLIENT_TAGS
+   { "show-client-tags",
+         cgi_show_client_tags,
+         "Show the tags that can be set based on the client's address (opt-in)",
+          FALSE },
+#endif
    { "show-request",
          cgi_show_request,
          "View the request headers",
