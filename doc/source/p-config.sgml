@@ -3401,7 +3401,7 @@ forward-socks4, forward-socks4a, forward-socks5 and forward-socks5t</title>
    <para>
     After a client-specific tag has been defined with the client-specific-tag
     directive, action sections can be activated based on the tag by using a
-    <ulink url="#CLIENT-TAG-PATTERN">CLIENT-TAG</ulink> pattern.
+    <ulink url="actions-file.html#CLIENT-TAG-PATTERN">CLIENT-TAG</ulink> pattern.
     The CLIENT-TAG pattern is evaluated at the same priority
     as URL patterns, as a result the last matching pattern wins.
     Tags that are created based on client or server headers are evaluated
