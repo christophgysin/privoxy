@@ -593,7 +593,9 @@ struct configuration_spec * load_config(void)
    config->usermanual                = strdup(USER_MANUAL_URL);
    config->proxy_args                = strdup("");
    config->forwarded_connect_retries = 0;
+#ifdef FEATURE_CLIENT_TAGS
    config->client_tag_lifetime       = 60;
+#endif
    /*
     * 128 client sockets ought to be enough for everybody who can't
     * be bothered to read the documentation to figure out how to
