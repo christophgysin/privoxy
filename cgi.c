@@ -103,7 +103,7 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
 #ifdef FEATURE_CLIENT_TAGS
    { "show-client-tags",
          cgi_show_client_tags,
-         "Show the tags that can be set based on the client's address (opt-in)",
+         "View or toggle the tags that can be set based on the clients address",
           FALSE },
 #endif
    { "show-request",
