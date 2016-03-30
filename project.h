@@ -1412,7 +1412,7 @@ struct configuration_spec
  */
 
 /** URL for the Privoxy home page. */
-#define HOME_PAGE_URL     "http://www.privoxy.org/"
+#define HOME_PAGE_URL     "https://www.privoxy.org/"
 
 /** URL for the Privoxy user manual. */
 #define USER_MANUAL_URL   HOME_PAGE_URL VERSION "/user-manual/"
