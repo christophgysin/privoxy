@@ -326,8 +326,8 @@ dist-check:
 # create tar.gz from CVS:
 # This make-target is usually called through 'create-archive'. If you
 # run 'make create-snapshot' without setting SNAPVERSION, you'll get a
-# tar.gz with the current date in the name and as a releasenumber in the
-# spec-file. But the main usage is to run it as follows (Red Hat example):
+# tar.gz with the current date in the name.
+# The main usage is to run it as follows (Red Hat example):
 # make SNAPVERSION=1.6x create-snapshot
 # This creates a tar.gz.
 #############################################################################
