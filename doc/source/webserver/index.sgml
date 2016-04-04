@@ -148,7 +148,7 @@
    <para>
     <!-- please leave this link absolute so this file can be bundled with -->
     <!-- documentation and still used locally -->
-    <ulink url="http://www.privoxy.org/team/index.html">Pictures of the Privoxy Team</ulink>
+    <ulink url="https://www.privoxy.org/team/index.html">Pictures of the Privoxy Team</ulink>
    </para>
   </listitem>
  </itemizedlist>
