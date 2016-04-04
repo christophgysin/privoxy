@@ -195,20 +195,3 @@ default action file was too agressive.</p>
 
 </body>
 </html>
-
-<!--
-	$Log$
-	Revision 1.7  2006/07/18 14:48:53  david__schmidt
-	Reorganizing the repository: swapping out what was HEAD (the old 3.1 branch)
-	with what was really the latest development (the v_3_0_branch branch)
-	
-	Revision 1.5  2002/03/29 21:03:56  swa
-	further testing for email and file operations
-	
-	Revision 1.4  2002/03/29 09:55:21  swa
-	.
-	
-	Revision 1.3  2002/03/29 09:39:48  swa
-	added form
-	
--->

@@ -49,17 +49,3 @@ $headers = getallheaders();
 
 </body>
 </html>
-
-<!--
-	$Log$
-	Revision 1.4  2006/07/18 14:48:53  david__schmidt
-	Reorganizing the repository: swapping out what was HEAD (the old 3.1 branch)
-	with what was really the latest development (the v_3_0_branch branch)
-	
-	Revision 1.2  2002/03/29 09:55:21  swa
-	.
-	
-	Revision 1.1  2002/03/29 09:38:52  swa
-	2nd page
-	
--->
