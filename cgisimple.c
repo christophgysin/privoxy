@@ -310,7 +310,7 @@ static void cgi_create_client_tag_form(char *form, size_t size,
    }
 
    snprintf(form, size,
-      "<form method=\"GET\" action=\"show-client-tags\" style=\"display: inline\">\n"
+      "<form method=\"GET\" action=\"client-tags\" style=\"display: inline\">\n"
       " <input type=\"hidden\" name=\"tag\" value=\"%s\">\n"
       " <input type=\"hidden\" name=\"toggle-state\" value=\"%u\">\n"
       " <input type=\"hidden\" name=\"expires\" value=\"%u\">\n"
@@ -354,7 +354,7 @@ jb_err cgi_show_client_tags(struct client_state *csp,
    assert(rsp);
    assert(parameters);
 
-   if (NULL == (exports = default_exports(csp, "show-client-tags")))
+   if (NULL == (exports = default_exports(csp, "client-tags")))
    {
       return JB_ERR_MEMORY;
    }
@@ -439,7 +439,7 @@ jb_err cgi_show_client_tags(struct client_state *csp,
       return JB_ERR_MEMORY;
    }
 
-   return template_fill_for_cgi(csp, "show-client-tags", exports, rsp);
+   return template_fill_for_cgi(csp, "client-tags", exports, rsp);
 }
 #endif /* def FEATURE_CLIENT_TAGS */
 
