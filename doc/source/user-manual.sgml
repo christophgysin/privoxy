@@ -2429,7 +2429,7 @@ for details.
 </para>
 <para>
  Clients can request tags to be set by using the CGI interface <ulink
-  url="http://config.privoxy.org/show-client-tags">http://config.privoxy.org/show-client-tags</ulink>.
+  url="http://config.privoxy.org/client-tags">http://config.privoxy.org/client-tags</ulink>.
 </para>
 
 <para>
