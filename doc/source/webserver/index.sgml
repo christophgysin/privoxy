@@ -155,23 +155,12 @@
 </para>
 </sect1>
 
-<!--
-<informalfigure pgwide="1">
- <ulink url="http://sourceforge.net/">
-  <inlinegraphic align="center" fileref="http://sourceforge.net/sflogo.php?group_id=11118&#38;type=1&#38;dummy=.gif"></inlinegraphic>
- </ulink>
-</informalfigure>
--->
-
 <![%p-homepage;[
 <!--   ~~~~~       New section      ~~~~~     -->
 <sect1 label="">
 <!-- dummy section, for spacing -->
 <title></title>
 <para>
-<!-- Mention SF per AUP -->
-Privoxy is developed on <ulink url="http://sourceforge.net/">SourceForge</ulink>.
-
 This page is also available as <ulink url="http://jvauzb4sb3bwlsnc.onion/">onion service</ulink>.
 </para>
 ]]>
