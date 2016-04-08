@@ -151,7 +151,10 @@
 <!-- dummy section, for spacing -->
 <title></title>
 <para>
-This page is also available as <ulink url="http://jvauzb4sb3bwlsnc.onion/">onion service</ulink>.
+ <subscript>
+   The Privoxy website is also available as
+   <ulink url="http://jvauzb4sb3bwlsnc.onion/">Tor onion service</ulink>.
+ </subscript>
 </para>
 ]]>
 
