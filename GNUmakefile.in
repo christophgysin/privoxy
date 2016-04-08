@@ -518,7 +518,9 @@ dok-webserver:
 	$(PERL) -pi.bak -e 's/..\/p_doc.css/p_doc.css/;\
 	s/<\/HEAD/\n<meta name=\"description\" content=\"Privoxy helps users to protect their privacy.\"><\/HEAD/;\
 	s/\.\d\. //;\
-	s/__copy/&copy;/'\
+	s/__copy/&copy;/;\
+        s@ChameleonJohn@<br><a href="http://www.chameleonjohn.com/"><img align="center"\
+ src="images/sponsors/chameleonjohn.png" alt="ChameleonJohn Coupons"></a>@' \
      doc/webserver/index.html && $(RM) doc/webserver/*.bak
 
 # privoxy-index.html for local documentation:
