@@ -437,6 +437,9 @@ http://www.privoxy.org/faq/general.html#DONATE
      currently can result in client requests to config.privoxy.org on the
      Internet which may not be desirable.
 
+149) Use poll() for socket selection so the number of sockets Privoxy
+     can deal with isn't limited to FD_SETSIZE anymore.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
