@@ -4313,7 +4313,13 @@ static jb_err parse_header_time(const char *header_time, time_t *result)
             time_t result2;
 
             tm = gmtime(result);
-            strftime(recreated_date, sizeof(recreated_date), time_formats[i], tm);
+            if (!strftime(recreated_date, sizeof(recreated_date),
+               time_formats[i], tm))
+            {
+               log_error(LOG_LEVEL_ERROR, "Failed to recreate date '%s' with '%s'.",
+                  header_time, time_formats[i]);
+               continue;
+            }
             memset(&gmt, 0, sizeof(gmt));
             if (NULL == strptime(recreated_date, time_formats[i], &gmt))
             {
