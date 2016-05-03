@@ -6,7 +6,7 @@
  $Id$
 
 
- Copyright (C) 2001-2009 Privoxy Developers http://www.privoxy.org/
+ Copyright (C) 2001-2009 Privoxy Developers https://www.privoxy.org/
  See LICENSE.
 
  ========================================================================
@@ -60,7 +60,7 @@
 </para>
 
 <literallayout>
- Privoxy team. <ulink url="http://www.privoxy.org/">http://www.privoxy.org/</ulink>
+ Privoxy team. <ulink url="https://www.privoxy.org/">https://www.privoxy.org/</ulink>
  <email>ijbswa-developers@lists.sourceforge.net</email>
 </literallayout>
 

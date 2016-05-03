@@ -5,7 +5,7 @@
 
  $Id$
 
- Copyright (C) 2001-2016 Privoxy Developers http://www.privoxy.org/
+ Copyright (C) 2001-2016 Privoxy Developers https://www.privoxy.org/
  See LICENSE.
 
  ========================================================================
@@ -100,7 +100,7 @@
  $Id$
 </para>
 <para>
-Copyright (C) 2001-2016 Privoxy Developers http://www.privoxy.org/
+Copyright (C) 2001-2016 Privoxy Developers https://www.privoxy.org/
 </para>
 
 <para>
@@ -229,7 +229,7 @@ II. FORMAT OF THE CONFIGURATION FILE
   <term>Effect if unset:</term>
   <listitem>
    <para>
-    <ulink url="http://www.privoxy.org/user-manual/">http://www.privoxy.org/<replaceable class="parameter">version</replaceable>/user-manual/</ulink>
+    <ulink url="https://www.privoxy.org/user-manual/">https://www.privoxy.org/<replaceable class="parameter">version</replaceable>/user-manual/</ulink>
     will be used, where <replaceable class="parameter">version</replaceable> is the <application>Privoxy</application> version.
    </para>
   </listitem>
@@ -316,7 +316,7 @@ II. FORMAT OF THE CONFIGURATION FILE
  </varlistentry>
 </variablelist>
 
-<![%config-file;[<literallayout>@@#user-manual http://www.privoxy.org/user-manual/</literallayout>]]>
+<![%config-file;[<literallayout>@@#user-manual https://www.privoxy.org/user-manual/</literallayout>]]>
 </sect3>
 
 
