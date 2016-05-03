@@ -40,4 +40,6 @@ extern jb_err enable_client_specific_tag(struct client_state *csp,
                                          const time_t time_to_live);
 extern int client_has_requested_tag(const char *client_address,
                                     const char *tag);
+
+#define CLIENT_TAG_LENGTH_MAX 50
 #endif

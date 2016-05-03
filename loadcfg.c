@@ -85,6 +85,9 @@ const char loadcfg_rcs[] = "$Id$";
 #include "urlmatch.h"
 #include "cgi.h"
 #include "gateway.h"
+#ifdef FEATURE_CLIENT_TAGS
+#include "client-tags.h"
+#endif
 
 const char loadcfg_h_rcs[] = LOADCFG_H_VERSION;
 
@@ -775,6 +778,17 @@ struct configuration_spec * load_config(void)
                      "client-specific-tag '%s' lacks a description.", name);
                }
                *description = '\0';
+               /*
+                * The length is limited because we don't want truncated
+                * HTML caused by the cgi interface using static buffer
+                * sizes.
+                */
+               if (strlen(name) > CLIENT_TAG_LENGTH_MAX)
+               {
+                  log_error(LOG_LEVEL_FATAL,
+                     "client-specific-tag '%s' is longer than %d characters.",
+                     name, CLIENT_TAG_LENGTH_MAX);
+               }
                description++;
                register_tag(config->client_tags, name, description);
             }
