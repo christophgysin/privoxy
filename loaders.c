@@ -630,15 +630,12 @@ jb_err edit_read_line(FILE *fp,
       if (*linestart)
       {
          is_empty = 0;
-         if (data)
+         if (string_append(&data, linestart))
          {
-            if (string_append(&data, linestart))
-            {
-               freez(raw);
-               freez(prefix);
-               free(linebuf);
-               return JB_ERR_MEMORY;
-            }
+            freez(raw);
+            freez(prefix);
+            free(linebuf);
+            return JB_ERR_MEMORY;
          }
       }
 
