@@ -1716,6 +1716,14 @@ static jb_err show_defines(struct map *exports)
 
    static const struct feature features[] = {
       {
+         "FEATURE_64_BIT_TIME_T",
+#if (SIZEOF_TIME_T == 8)
+         1,
+#else
+         0,
+#endif
+      },
+      {
          "FEATURE_ACCEPT_FILTER",
 #ifdef FEATURE_ACCEPT_FILTER
          1,
