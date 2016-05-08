@@ -376,7 +376,9 @@ static pcrs_substitute *pcrs_compile_replacement(const char *replacement, int tr
             }
 
             /* Valid and in range? -> record */
-            if (0 <= r->backref[l] && r->backref[l] < PCRS_MAX_SUBMATCHES + 2)
+            if ((0 <= r->backref[l]) &&
+               (r->backref[l] < PCRS_MAX_SUBMATCHES + 2) &&
+               (l < PCRS_MAX_SUBMATCHES - 1))
             {
                r->backref_count[r->backref[l]] += 1;
                r->block_offset[++l] = k;
