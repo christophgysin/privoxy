@@ -341,7 +341,7 @@ sub load_regression_tests_through_privoxy () {
             $privoxy_features{$feature} = $1 if defined $feature;
             $feature = undef;
 
-        } elsif (m@This is <a href="http://www.privoxy.org/">Privoxy</a> (\d+\.\d+\.\d+) on@) {
+        } elsif (m@This is <a href="https?://www.privoxy.org/">Privoxy</a> (\d+\.\d+\.\d+) on@) {
             $privoxy_version = $1;
         }
     }
