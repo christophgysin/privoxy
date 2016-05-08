@@ -376,6 +376,8 @@ gen-dist: dist-check
 	for foo in $(DOC_FILES); do \
 		(cd .. && $(TAR) --exclude "PACKAGERS" -uvhf $(GEN_DIST_TAR_NAME) privoxy-$(VERSION)-$(CODE_STATUS)/$$foo;) \
 	done;
+# add tools
+	(cd .. && $(TAR) -uvhf $(GEN_DIST_TAR_NAME) privoxy-$(VERSION)-$(CODE_STATUS)/tools)
 # and zip the archive
 	$(RM) ../privoxy-$(VERSION)-$(CODE_STATUS)
 	$(GZIP_PROG) ../$(GEN_DIST_TAR_NAME)
