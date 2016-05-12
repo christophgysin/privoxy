@@ -1938,6 +1938,9 @@ adn.speedtest.net
 .deutschlandradiokultur.de/
 # URL = http://klikki.fi/adv/wordpress2.html
 klikki.fi/adv/
+#MASTER# UNBLOCK-REFERRER: http://www.ardmediathek.de/tv
+# URL = http://www.ardmediathek.de/ard/static/img/ardmt/banner/ard-mediathek.svg
+.ardmediathek.de/
 
 
 #############################################################################
