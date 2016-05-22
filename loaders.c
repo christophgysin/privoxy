@@ -182,6 +182,9 @@ unsigned int sweep(void)
          last_active->next = client_list->next;
 
          freez(csp->ip_addr_str);
+#ifdef FEATURE_CLIENT_TAGS
+         freez(csp->client_address);
+#endif
          freez(csp->client_iob->buf);
          freez(csp->iob->buf);
          freez(csp->error_message);
