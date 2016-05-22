@@ -106,9 +106,6 @@ Hal.
   contact the developers.
  </para>
 
-<!--   <para> -->
-<!--    Feel free to send a note to the developers at <email>ijbswa-developers@lists.sourceforge.net</email>. -->
-<!--   </para> -->
 </abstract>
 
 </artheader>
@@ -379,8 +376,8 @@ How to install the binary packages depends on your operating system:
 <para>
  If you wish to receive an email notification whenever we release updates of
  <application>Privoxy</application> or the actions file, <ulink
- url="https://lists.sourceforge.net/lists/listinfo/ijbswa-announce/">subscribe
- to our announce  mailing list</ulink>, ijbswa-announce@lists.sourceforge.net.
+ url="https://lists.privoxy.org/mailman/listinfo/privoxy-announce">subscribe
+ to our announce mailing list</ulink>, privoxy-announce@lists.privoxy.org.
 </para>
 
 <para>
