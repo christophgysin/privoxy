@@ -105,22 +105,22 @@ Copyright (C) 2001-2016 Privoxy Developers https://www.privoxy.org/
 
 <para>
  <literallayout>
-#################################################################
-                                                                #
-                    Table of Contents                           #
-                                                                #
-      I. INTRODUCTION                                           #
-     II. FORMAT OF THE CONFIGURATION FILE                       #
-                                                                #
-      1. LOCAL SET-UP DOCUMENTATION                             #
-      2. CONFIGURATION AND LOG FILE LOCATIONS                   #
-      3. DEBUGGING                                              #
-      4. ACCESS CONTROL AND SECURITY                            #
-      5. FORWARDING                                             #
-      6. MISCELLANEOUS                                          #
-      7. WINDOWS GUI OPTIONS                                    #
-                                                                #
-#################################################################
+##################################################################
+                                                                 #
+                    Table of Contents                            #
+                                                                 #
+      I. INTRODUCTION                                            #
+     II. FORMAT OF THE CONFIGURATION FILE                        #
+                                                                 #
+      1. LOCAL SET-UP DOCUMENTATION                              #
+      2. CONFIGURATION AND LOG FILE LOCATIONS                    #
+      3. DEBUGGING                                               #
+      4. ACCESS CONTROL AND SECURITY                             #
+      5. FORWARDING                                              #
+      6. MISCELLANEOUS                                           #
+      7. WINDOWS GUI OPTIONS                                     #
+                                                                 #
+##################################################################
  </literallayout>
 </para>
 
