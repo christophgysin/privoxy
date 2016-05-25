@@ -815,6 +815,16 @@ s@^\w*\s+.*\s+HTTP/\d\.\d\s*@IP-ADDRESS: $origin@D
 
 #################################################################################
 #
+# listen-address: Tags the request with the listen-address on which the request
+#                 came in.
+#
+#################################################################################
+CLIENT-HEADER-TAGGER: listen-address Tags the request with the listen-address on which the request came in.
+
+s@^\w*\s+.*\s+HTTP/\d\.\d\s*@LISTEN-ADDRESS: $listen-address@D
+
+#################################################################################
+#
 # http-method: Tags the request with its HTTP method.
 #
 #################################################################################
