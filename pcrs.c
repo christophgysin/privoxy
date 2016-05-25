@@ -375,6 +375,8 @@ static pcrs_substitute *pcrs_compile_replacement(const char *replacement, int tr
                goto plainchar;
             }
 
+            assert(l < PCRS_MAX_SUBMATCHES - 1);
+            assert(r->backref[l] < PCRS_MAX_SUBMATCHES + 2);
             /* Valid and in range? -> record */
             if ((0 <= r->backref[l]) &&
                (r->backref[l] < PCRS_MAX_SUBMATCHES + 2) &&
