@@ -935,6 +935,7 @@ pcrs_job *compile_dynamic_pcrs_job_list(const struct client_state *csp, const st
       {"path",   csp->http->path,  1},
       {"host",   csp->http->host,  1},
       {"origin", csp->ip_addr_str, 1},
+      {"listen-address", csp->listen_addr_str, 1},
       {NULL,     NULL,             1}
    };
 
@@ -1771,6 +1772,7 @@ static void set_privoxy_variables(const struct client_state *csp)
       { "PRIVOXY_PATH",   csp->http->path  },
       { "PRIVOXY_HOST",   csp->http->host  },
       { "PRIVOXY_ORIGIN", csp->ip_addr_str },
+      { "PRIVOXY_LISTEN_ADDRESS", csp->listen_addr_str },
    };
 
    for (i = 0; i < SZ(env); i++)

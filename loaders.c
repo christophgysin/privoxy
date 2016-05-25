@@ -185,6 +185,7 @@ unsigned int sweep(void)
 #ifdef FEATURE_CLIENT_TAGS
          freez(csp->client_address);
 #endif
+         freez(csp->listen_addr_str);
          freez(csp->client_iob->buf);
          freez(csp->iob->buf);
          freez(csp->error_message);

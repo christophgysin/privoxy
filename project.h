@@ -927,6 +927,10 @@ struct client_state
    unsigned long ip_addr_long;
 #endif /* def HAVE_RFC2553 */
 
+   /** The host name and port (as a string of the form '<hostname>:<port>')
+       of the server socket to which the client connected. */
+   char *listen_addr_str;
+
    /** The URL that was requested */
    struct http_request http[1];
 
