@@ -4054,7 +4054,8 @@ static void listen_loop(void)
       if (block_acl(NULL,csp))
       {
          log_error(LOG_LEVEL_CONNECT,
-            "Connection from %s on socket %d dropped due to ACL", csp->ip_addr_str, csp->cfd);
+            "Connection from %s on %s (socket %d) dropped due to ACL",
+            csp->ip_addr_str, csp->listen_addr_str, csp->cfd);
          close_socket(csp->cfd);
          freez(csp->ip_addr_str);
          freez(csp->listen_addr_str);
