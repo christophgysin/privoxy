@@ -2,7 +2,7 @@
 <!entity % dummy "IGNORE">
 <!entity config SYSTEM "p-config.sgml">
 <!entity p-version "3.0.25">
-<!entity p-status "UNRELEASED">
+<!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % user-man "IGNORE">
 <!entity % config-file "IGNORE">

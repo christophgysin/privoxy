@@ -27,7 +27,7 @@
 <!entity % dummy "IGNORE">
 <!entity authors SYSTEM "p-authors.sgml">
 <!entity p-version "3.0.25">
-<!entity p-status "UNRELEASED">
+<!entity p-status "beta">
 <!entity % p-not-stable "INCLUDE">
 <!entity % p-stable "IGNORE">
 <!entity % p-text "INCLUDE">           <!-- define we are a text only doc -->
