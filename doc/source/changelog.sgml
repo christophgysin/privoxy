@@ -21,7 +21,7 @@
 -->
 
 <para>
-  <application>Privoxy 3.0.25</application> beta introduces client-based
+  <application>Privoxy 3.0.25</application> beta introduces client-specific
   tags and includes a couple of minor improvements. It will be followed
   by a stable release in the near future.
 </para>
