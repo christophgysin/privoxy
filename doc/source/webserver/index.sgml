@@ -77,10 +77,9 @@
 
 <sect1 renderas="sect2" id="download" label=""><title>Download</title>
 <para>
- Privoxy downloads are available at
- <ulink url="https://sourceforge.net/projects/ijbswa/files/">SourceForge</ulink>.
- If you are not comfortable with downloading binaries from SourceForge, please
- use <ulink url="http://www.silvester.org.uk/privoxy/">the mirror</ulink>.
+ You can <ulink url="/sf-download-mirror/">download Privoxy here</ulink>,
+ from <ulink url="http://www.silvester.org.uk/privoxy/">this mirror</ulink>,
+ or from <ulink url="https://sourceforge.net/projects/ijbswa/files/">SourceForge</ulink>.
 </para>
 </sect1>
 
