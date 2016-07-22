@@ -785,6 +785,9 @@ static void WINAPI privoxy_w32_service_start(DWORD dw, LPSTR* pszArgs)
    w32_set_service_status(hSrv_status, &srv_status);
 
 #ifndef FEATURE_PTHREAD
+   /* NOTE: a cygwin cross-compiler build for --host=i686-w64-mingw32 must disable POSIX threading - eg
+    *         ./configure --host=i686-w64-mingw32 --disable-pthread
+    */
    child_id = _beginthread(w32_service_listen_loop, 0, NULL);
    if (child_id > 0)
 #else
