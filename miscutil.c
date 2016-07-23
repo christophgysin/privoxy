@@ -893,6 +893,16 @@ time_t timegm(struct tm *tm)
          strcat(old_zone, zone);
          putenv(old_zone);
 #ifdef _WIN32
+         /* http://man7.org/linux/man-pages/man3/putenv.3.html
+          *   int putenv(char *string);
+          *     The string pointed to by string becomes part of the environment, so altering the
+          *     string changes the environment.
+          * In other words, the memory pointed to by *string is used until
+          *   a) another call to putenv() with the same e-var name
+          *   b) the program exits
+          *
+          * Windows e-vars don't work that way, so let's not leak memory.
+          */
          free(old_zone);
 #endif /* def _WIN32 */
       }
