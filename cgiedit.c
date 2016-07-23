@@ -4407,6 +4407,8 @@ jb_err cgi_toggle(struct client_state *csp,
       global_toggle_state = !global_toggle_state;
    }
 
+   log_error(LOG_LEVEL_INFO, "Now toggled %s.", global_toggle_state ? "ON" : "OFF");
+
    if (NULL == (exports = default_exports(csp, "toggle")))
    {
       return JB_ERR_MEMORY;
