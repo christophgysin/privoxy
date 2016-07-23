@@ -168,6 +168,8 @@ static struct _Pattern
    { "Connect: Reusing server socket",     STYLE_HIGHLIGHT },
    { "Connect: Created new connection to", STYLE_HIGHLIGHT },
    { "hung up on us",               STYLE_HIGHLIGHT },
+   { "Info: Loading actions file:", STYLE_HIGHLIGHT },
+   { "Info: Loading filter file:",  STYLE_HIGHLIGHT },
    { "Info: Now toggled ",          STYLE_HIGHLIGHT },
    { "Crunching Referer:",          STYLE_HIGHLIGHT },
    /* what are all the possible error strings?? */
