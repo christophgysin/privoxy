@@ -2718,6 +2718,7 @@ Install the rpm. Any error messages?
         For details see the <ulink url="https://www.freebsd.org/doc/en_US.ISO8859-1/books/porters-handbook/">FreeBSD Porter's Handbook</ulink>.
       </para>
     </sect3>
+   </sect2>
 
    <sect2 id="releasing">
    <title>Uploading and Releasing Your Package</title>
