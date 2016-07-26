@@ -282,7 +282,7 @@ if test $dodk = auto; then
 	dodk=no
 	if test $target_type = unix; then
 		case "$host_os" in
-		linux* | gnu*)
+		linux* | gnu* | *bsd*)
 			dodk=yes
 		;;
 		esac
