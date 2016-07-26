@@ -2390,6 +2390,7 @@ for details.
  are checked after all server headers are scanned. In both cases all the created
  tags are considered.
 </para>
+</sect3>
 
 <!--   ~~~~~       New section      ~~~~~     -->
 <sect3 id="client-tag-pattern"><title>The Client Tag Pattern</title>
@@ -2447,6 +2448,8 @@ CLIENT-TAG:^circumvent-blocks$
 {+block{Nobody is supposed to request this.}}
 example.org/blocked-example-page</screen>
 </para>
+
+</sect3>
 
 </sect2>
 
