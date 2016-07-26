@@ -383,6 +383,7 @@ dnl      echo -n "checking for $i/html/docbook.dsl..."
     for i in /usr/share/sgml/CATALOG.docbk30 \
              /usr/share/sgml/CATALOG.docbk31 \
              /usr/share/sgml/CATALOG.docbk31 \
+             /usr/local/share/sgml/docbook/2.4.1/docbook.cat \
              /usr/local/share/sgml/docbook/3.0/docbook.cat \
              /usr/local/share/sgml/docbook/3.1/docbook.cat \
              /usr/share/sgml/docbook/dtd/3.1/docbook.cat \
