@@ -452,7 +452,8 @@ dok-user:
 	# FIXME: temp fix so same stylesheet gets in more than one place so it works
 	# for all doc set-ups, including the 'user manual' config option in local
 	# system where it MUST be in same directory as html.
-	$(PERL) -pi.bak -e 's/<\/head/\n<LINK REL=\"STYLESHEET\" TYPE=\"text\/css\" HREF=\"p_doc.css\">\n<\/head/i' doc/webserver/user-manual/*html
+	$(PERL) -pi.bak -e 's/<\/head/\n<LINK REL=\"STYLESHEET\" TYPE=\"text\/css\" HREF=\"p_doc.css\">\n<\/head/i' doc/webserver/user-manual/*html && \
+	rm doc/webserver/user-manual/*html.bak
 
 # faq
 dok-faq:
