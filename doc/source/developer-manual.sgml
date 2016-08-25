@@ -2126,22 +2126,6 @@ for-privoxy-version=3.0.11
       </listitem>
       <listitem>
        <para>
-        If <filename>default.action</filename> has changed since last
-        release (i.e. software release or standalone actions file release),
-        bump up its version info to A.B in this line:
-       </para>
-       <para>
-        <programlisting>
-  {+add-header{X-Actions-File-Version: A.B} -filter -no-popups}
-</programlisting>
-       </para>
-       <para>
-        Then change the version info in doc/webserver/actions/index.php,
-        line: '$required_actions_file_version = "A.B";'
-       </para>
-      </listitem>
-      <listitem>
-       <para>
         All documentation should be rebuild after the version bump.
         Finished docs should be then be committed to CVS (for those
         without the ability to build these). Some docs may require
