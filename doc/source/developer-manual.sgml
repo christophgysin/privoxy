@@ -6,9 +6,9 @@
 <!entity history SYSTEM "history.sgml">
 <!entity seealso SYSTEM "seealso.sgml">
 <!entity p-version "3.0.26">
-<!entity p-status "UNRELEASED">
-<!entity % p-not-stable "INCLUDE">
-<!entity % p-stable "IGNORE">
+<!entity p-status "stable">
+<!entity % p-not-stable "IGNORE">
+<!entity % p-stable "INCLUDE">
 <!entity % p-text "IGNORE">        <!-- define we are not a text only doc -->
 <!entity % p-doc "INCLUDE">        <!-- and we are a formal doc           -->
 <!entity % seealso-extra "INCLUDE"> <!-- extra stuff from seealso.sgml    -->
@@ -2109,6 +2109,19 @@ Install the rpm. Any error messages?
       <listitem>
        <para>
          Update the code status (CODE_STATUS="xxx") to one of "alpha", "beta" or "stable".
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        If action file processing has changed and is not backward-compatable,
+        make sure the "for-privoxy-version=x.y.z" minimum version number in
+        default.action.master has been updated:
+        <programlisting>
+{{settings}}
+#############################################################################
+#MASTER# COMMENT: The minimum Privoxy version:
+for-privoxy-version=3.0.11
+</programlisting>
        </para>
       </listitem>
       <listitem>
