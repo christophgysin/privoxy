@@ -2108,7 +2108,7 @@ Install the rpm. Any error messages?
       </listitem>
       <listitem>
        <para>
-         Update the code status (CODE_STATUS="xxx") to one of "alpha", "beta" or "stable".
+         Update the code status (CODE_STATUS="xxx") in <filename>configure.in</filename> to one of "alpha", "beta" or "stable".
        </para>
       </listitem>
       <listitem>
