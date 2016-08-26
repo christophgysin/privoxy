@@ -142,12 +142,9 @@
  </itemizedlist>
 </para>
 
-
-
 <para>
-  <application>Privoxy 3.0.25</application> beta introduces client-specific
-  tags and includes a couple of minor improvements. It will be followed
-  by a stable release in the near future.
+ Changes between <application>Privoxy 3.0.25 beta</application>
+ and the previous release:
 </para>
 <para>
  <itemizedlist>
