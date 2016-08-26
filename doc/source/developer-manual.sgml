@@ -2113,7 +2113,7 @@ Install the rpm. Any error messages?
       </listitem>
       <listitem>
        <para>
-        If action file processing has changed and is not backward-compatable,
+        If action file processing has changed and is not backward-compatible,
         make sure the "for-privoxy-version=x.y.z" minimum version number in
         default.action.master has been updated:
         <programlisting>
