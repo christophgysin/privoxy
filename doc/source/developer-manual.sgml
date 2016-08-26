@@ -2156,7 +2156,7 @@ and in
         without the ability to build these). Some docs may require
         rather obscure processing tools. <filename>config</filename>,
         the man page (and the html version of the man page)
-        fall in this category. REAMDE, the man page, AUTHORS, and config
+        fall in this category. README, the man page, AUTHORS, and config
         should all also be committed to CVS for other packagers. The
         formal docs should be uploaded to the webserver. See the
         Section "Updating the webserver" in this manual for details.
