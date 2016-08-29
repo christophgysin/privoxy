@@ -81,6 +81,10 @@
  from <ulink url="http://www.silvester.org.uk/privoxy/">this mirror</ulink>,
  or from <ulink url="https://sourceforge.net/projects/ijbswa/files/">SourceForge</ulink>.
 </para>
+<para>
+ Subscribe to the <ulink url="/feeds/privoxy-releases.xml">release feed</ulink>
+ to get informed when new releases are available.
+</para>
 </sect1>
 
 <sect1 renderas="sect2" id="docs" label=""><title>Documentation</title>
