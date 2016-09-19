@@ -78,8 +78,8 @@ dnl =================================================================
 
 VERSION_MAJOR=3
 VERSION_MINOR=0
-VERSION_POINT=26
-CODE_STATUS="stable"
+VERSION_POINT=27
+CODE_STATUS="UNRELEASED"
 
 dnl CODE_STATUS can be "alpha", "beta", "stable" or "UNRELEASED",
 dnl and will be used for CGI output. Increment version number and
