@@ -409,6 +409,10 @@ AC_ARG_ENABLE(large-file-support,
     CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D_LARGEFILE_SOURCE=1"
 fi])
 
+AC_ARG_ENABLE(static-linking,
+[  --enable-static-linking         Use static linking instead of dynamic linking (ie. LDFLAGS=-static)],
+[ if test $enableval = yes; then LDFLAGS="$LDFLAGS -static"; fi ])
+
 dnl Save old CFLAGS so we can restore them later, then add SPECIAL_CFLAGS
 old_CFLAGS_nospecial=$CFLAGS
 CFLAGS="$CFLAGS $SPECIAL_CFLAGS"
