@@ -53,6 +53,7 @@ const char loadcfg_rcs[] = "$Id$";
 # ifndef STRICT
 #  define STRICT
 # endif
+# include <winsock2.h>
 # include <windows.h>
 
 # include "win32.h"

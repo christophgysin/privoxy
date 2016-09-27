@@ -50,6 +50,7 @@ const char jbsockets_rcs[] = "$Id$";
 #ifndef STRICT
 #define STRICT
 #endif
+#include <winsock2.h>
 #include <windows.h>
 #include <sys/timeb.h>
 #include <io.h>

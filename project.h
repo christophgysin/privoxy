@@ -53,7 +53,6 @@
 #    include <sys/socket.h>
 #  else
 #    include <stdint.h>
-#    include <winsock2.h>
 #    include <ws2tcpip.h>
      typedef unsigned short in_port_t;
 #  endif

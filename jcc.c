@@ -50,6 +50,7 @@ const char jcc_rcs[] = "$Id$";
 #  ifndef STRICT
 #   define STRICT
 #  endif
+#  include <winsock2.h>
 #  include <windows.h>
 #  include <process.h>
 # endif /* ndef FEATURE_PTHREAD */

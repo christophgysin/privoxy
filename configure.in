@@ -302,8 +302,8 @@ fi])
 if test $target_type = mingw; then
   WIN_ONLY=
   CFLAGS="$CFLAGS -DWINVER=0x501"
-  SPECIAL_CFLAGS="-mwindows -mno-cygwin"
-  PTHREAD_LIB=-lpthreadGC
+  SPECIAL_CFLAGS="-mwindows"
+  PTHREAD_LIB=-lpthread
   echo "Using mingw32 (Win32 GUI)"
 else
   WIN_ONLY=#
@@ -653,12 +653,16 @@ dnl =================================================================
 dnl Solaris problem, and others perhaps (socklen_t is undefined)
 dnl =================================================================
 
+if test $target_type != mingw; then
+# i686-w64-mingw32-gcc gets socklen_t define from ws2tcpip.h
+
 AC_MSG_CHECKING([for socklen_t])
 AC_EGREP_HEADER(socklen_t, sys/socket.h, AC_MSG_RESULT([yes]),
 	AC_MSG_RESULT([no])
 	AC_DEFINE(socklen_t,int,
 		[ Define to 'int' if <sys/socket.h> doesn't have it. ]))
 
+fi
 
 dnl =================================================================
 dnl OS/2 specific
@@ -818,6 +822,7 @@ elif test $target_type = mingw; then
   AC_MSG_CHECKING(getaddrinfo in ws2_32)
   AC_TRY_LINK(
     [
+      #include<winsock2.h>
       #include<windows.h>
       #include<ws2tcpip.h>
     ],
@@ -829,6 +834,7 @@ elif test $target_type = mingw; then
   AC_MSG_CHECKING(getnameinfo in ws2_32)
   AC_TRY_LINK(
     [
+      #include<winsock2.h>
       #include<windows.h>
       #include<ws2tcpip.h>
     ],
