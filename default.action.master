@@ -1495,7 +1495,7 @@ b.collective-media.net/
 # Blocked URL = http://spiegel.ivwbox.de/cgi-bin/ivw/CP/1001;/home/c-18/be-PB64-aG9tZXBhZ2UvY2VudGVy/szwprofil-1001
 #MASTER# BLOCK-REFERRER: http://www.heise.de/
 # Blocked URL = http://heise.ivwbox.de/2004/01/survey.js
- .ivwbox.de/
+.ivwbox.de/
 
 #----------------------------------------------------------------------------
 # Specific counters (see above for generic patterns)
