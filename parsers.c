@@ -3800,7 +3800,8 @@ static jb_err server_proxy_connection_adder(struct client_state *csp)
  * Function    :  client_connection_header_adder
  *
  * Description :  Adds a proper "Connection:" header to csp->headers
- *                unless the header was already present. Called from `sed'.
+ *                unless the header was already present or it's a
+ *                CONNECT request. Called from `sed'.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
@@ -3819,10 +3820,20 @@ static jb_err client_connection_header_adder(struct client_state *csp)
       return JB_ERR_OK;
    }
 
+   /*
+    * In case of CONNECT requests "Connection: close" is implied,
+    * but actually setting the header has been reported to cause
+    * problems with some forwarding proxies that close the
+    * connection prematurely.
+    */
+   if (csp->http->ssl != 0)
+   {
+      return JB_ERR_OK;
+   }
+
 #ifdef FEATURE_CONNECTION_KEEP_ALIVE
    if ((csp->config->feature_flags & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
       && !(csp->flags & CSP_FLAG_SERVER_SOCKET_TAINTED)
-      && (csp->http->ssl == 0)
       && !strcmpic(csp->http->ver, "HTTP/1.1"))
    {
       csp->flags |= CSP_FLAG_CLIENT_CONNECTION_KEEP_ALIVE;
