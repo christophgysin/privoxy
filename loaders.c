@@ -74,7 +74,9 @@ const char loaders_h_rcs[] = LOADERS_H_VERSION;
 static struct file_list *current_trustfile      = NULL;
 #endif /* def FEATURE_TRUST */
 
+#ifndef FUZZ
 static int load_one_re_filterfile(struct client_state *csp, int fileid);
+#endif
 
 static struct file_list *current_re_filterfile[MAX_AF_FILES]  = {
    NULL, NULL, NULL, NULL, NULL,
@@ -361,6 +363,7 @@ jb_err simple_read_line(FILE *fp, char **dest, int *newline)
    for (;;)
    {
       ch = getc(fp);
+
       if (ch == EOF)
       {
          if (len > 0)
@@ -417,6 +420,7 @@ jb_err simple_read_line(FILE *fp, char **dest, int *newline)
       }
       else if (ch == 0)
       {
+         /* XXX: Why do we allow this anyway? */
          *p = '\0';
          *dest = buf;
          return JB_ERR_OK;

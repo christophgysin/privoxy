@@ -66,6 +66,10 @@ extern int connection_destination_matches(const struct reusable_connection *conn
                                           const struct forward_spec *fwd);
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
 
+#ifdef FUZZ
+extern jb_err socks_fuzz(struct client_state *csp);
+#endif
+
 /*
  * Revision control strings from this header and associated .c file
  */

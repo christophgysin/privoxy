@@ -74,6 +74,9 @@ extern jb_err simple_read_line(FILE *fp, char **dest, int *newline);
 extern short int MustReload;
 extern int load_action_files(struct client_state *csp);
 extern int load_re_filterfiles(struct client_state *csp);
+#ifdef FUZZ
+extern int load_one_re_filterfile(struct client_state *csp, int fileid);
+#endif
 
 #ifdef FEATURE_TRUST
 extern int load_trustfile(struct client_state *csp);

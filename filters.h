@@ -111,6 +111,11 @@ extern struct http_response *direct_response(struct client_state *csp);
 extern const char filters_rcs[];
 extern const char filters_h_rcs[];
 
+#ifdef FUZZ
+extern char *gif_deanimate_response(struct client_state *csp);
+extern jb_err remove_chunked_transfer_coding(char *buffer, size_t *size);
+#endif
+
 #endif /* ndef FILTERS_H_INCLUDED */
 
 /*

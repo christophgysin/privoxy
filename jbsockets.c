@@ -594,6 +594,14 @@ int write_socket(jb_socket fd, const char *buf, size_t len)
       return 0;
    }
 
+#ifdef FUZZ
+   if (!daemon_mode && fd <= 3)
+   {
+      log_error(LOG_LEVEL_WRITING, "Pretending to write to socket %d: %N", fd, len, buf);
+      return 0;
+   }
+#endif
+
    log_error(LOG_LEVEL_WRITING, "to socket %d: %N", fd, len, buf);
 
 #if defined(_WIN32)

@@ -861,6 +861,12 @@ struct reusable_connection
  */
 #define CSP_FLAG_CRUNCHED                           0x04000000U
 
+#ifdef FUZZ
+/**
+ * Flag for csp->flags: Set if we are working with fuzzed input
+ */
+#define CSP_FLAG_FUZZED_INPUT                       0x08000000U
+#endif
 
 /*
  * Flags for use in return codes of child processes

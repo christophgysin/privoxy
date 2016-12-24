@@ -421,8 +421,13 @@ jb_err decompress_iob(struct client_state *csp)
    int status;       /* return status of the inflate() call */
    z_stream zstr;    /* used by calls to zlib */
 
+#ifdef FUZZ
+   assert(csp->iob->cur - csp->iob->buf >= 0);
+   assert(csp->iob->eod - csp->iob->cur >= 0);
+#else
    assert(csp->iob->cur - csp->iob->buf > 0);
    assert(csp->iob->eod - csp->iob->cur > 0);
+#endif
 
    bufsize = csp->iob->size;
    skip_size = (size_t)(csp->iob->cur - csp->iob->buf);
@@ -718,7 +723,7 @@ jb_err decompress_iob(struct client_state *csp)
     * Make sure the new uncompressed iob obeys some minimal
     * consistency conditions.
     */
-   if ((csp->iob->buf <  csp->iob->cur)
+   if ((csp->iob->buf <=  csp->iob->cur)
     && (csp->iob->cur <= csp->iob->eod)
     && (csp->iob->eod <= csp->iob->buf + csp->iob->size))
    {
