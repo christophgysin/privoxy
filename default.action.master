@@ -1943,6 +1943,8 @@ klikki.fi/adv/
 #MASTER# UNBLOCK-REFERRER: http://www.ardmediathek.de/tv
 # URL = http://www.ardmediathek.de/ard/static/img/ardmt/banner/ard-mediathek.svg
 .ardmediathek.de/
+# URL = http://adventofcode.com/
+adventofcode.com/
 
 
 #############################################################################
