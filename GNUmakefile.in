@@ -531,7 +531,8 @@ dok-webserver:
 	s/__copy/&copy;/;\
 	s@(<SUB)@<p style="text-align: center">\1@; s@(</SUB)@\1></p@;\
         s@ChameleonJohn@<br><a href="http://www.chameleonjohn.com/"><img align="middle"\
- src="images/sponsors/chameleonjohn.png" alt="ChameleonJohn Coupons"></a>@' \
+ src="images/sponsors/chameleonjohn.png" alt="ChameleonJohn Coupons"></a><br>\n\
+<a title="Privoxy FAQ: How to become a sponsor" href="/faq/general.html#SPONSOR">Sponsor FAQ</a>@' \
      doc/webserver/index.html && $(RM) doc/webserver/*.bak
 
 # privoxy-index.html for local documentation:
