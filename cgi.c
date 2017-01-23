@@ -1051,6 +1051,8 @@ jb_err cgi_error_disabled(const struct client_state *csp,
    assert(csp);
    assert(rsp);
 
+   rsp->status = strdup_or_die("403 Request not trusted or feature disabled");
+
    if (NULL == (exports = default_exports(csp, "cgi-error-disabled")))
    {
       return JB_ERR_MEMORY;
