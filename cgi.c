@@ -8,7 +8,7 @@ const char cgi_rcs[] = "$Id$";
  *                This only contains the framework functions, the
  *                actual handler functions are declared elsewhere.
  *
- * Copyright   :  Written by and Copyright (C) 2001-2004, 2006-2008
+ * Copyright   :  Written by and Copyright (C) 2001-2017
  *                members of the Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written

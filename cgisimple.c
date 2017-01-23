@@ -6,7 +6,7 @@ const char cgisimple_rcs[] = "$Id$";
  * Purpose     :  Simple CGIs to get information about Privoxy's
  *                status.
  *
- * Copyright   :  Written by and Copyright (C) 2001-2016 the
+ * Copyright   :  Written by and Copyright (C) 2001-2017 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
