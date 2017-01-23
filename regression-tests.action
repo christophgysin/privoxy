@@ -775,7 +775,7 @@ TAG:^Proxy-Authorization header forwarding$
 # Expect Status Code = 403
 # Fetch Test = http://p.p/t
 # Fetch Test = http://p.p/url-info-osd.xml
-# Trusted CGI Request = http://p.p/client-tags
+# Fetch Test = http://p.p/client-tags
 # Level = 24
 
 # Trusted CGI Request = http://p.p/edit-actions
