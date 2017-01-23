@@ -497,7 +497,7 @@ struct iob
 #define ACTION_CRUNCH_CLIENT_HEADER                  0x00200000UL
 /** Action bitmap: Enable text mode by force */
 #define ACTION_FORCE_TEXT_MODE                       0x00400000UL
-/** Action bitmap: Enable text mode by force */
+/** Action bitmap: Remove the "If-None-Match" header. */
 #define ACTION_CRUNCH_IF_NONE_MATCH                  0x00800000UL
 /** Action bitmap: Enable content-disposition crunching */
 #define ACTION_HIDE_CONTENT_DISPOSITION              0x01000000UL
