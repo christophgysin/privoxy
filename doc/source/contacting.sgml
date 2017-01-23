@@ -137,7 +137,8 @@ debug   256 # debug GIF de-animation
 debug   512 # Common Log Format
 debug  1024 # Log the destination for requests Privoxy didn't let through, and the reason why.
 debug  4096 # Startup banner and warnings.
-debug  8192 # Non-fatal errors</literallayout>
+debug  8192 # Non-fatal errors
+debug 65536 # Log applying actions</literallayout>
    </para>
    <para>
     If you are having trouble with a filter, please additionally enable
