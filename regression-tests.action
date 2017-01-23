@@ -27,7 +27,7 @@
 #############################################################################
 
 {{settings}}
-for-privoxy-version=3.0.25
+for-privoxy-version=3.0.27
 
 # Some dependencies Privoxy-Regression-Test should know about:
 #
