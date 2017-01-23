@@ -1389,7 +1389,7 @@ char *add_help_link(const char *item,
    }
    else
    {
-      string_append(&result, "https://");
+      string_append(&result, "http://");
       string_append(&result, CGI_SITE_2_HOST);
       string_append(&result, "/user-manual/");
    }
