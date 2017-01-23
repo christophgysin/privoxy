@@ -143,8 +143,8 @@ debug 65536 # Log applying actions</literallayout>
    <para>
     If you are having trouble with a filter, please additionally enable
     <literallayout>debug    64 # debug regular expression filters</literallayout>
-    If you are using Privoxy 3.0.17 or later and suspect that it interprets the
-    request or the response incorrectly, please enable
+    If you suspect that Privoxy interprets the request or the response
+    incorrectly, please enable
     <literallayout>debug 32768 # log all data read from the network</literallayout>
    </para>
    <para>
