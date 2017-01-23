@@ -9,7 +9,7 @@ const char cgi_rcs[] = "$Id$";
  *                actual handler functions are declared elsewhere.
  *
  * Copyright   :  Written by and Copyright (C) 2001-2004, 2006-2008
- *                the SourceForge Privoxy team. http://www.privoxy.org/
+ *                members of the Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
  *                by and Copyright (C) 1997 Anonymous Coders and
