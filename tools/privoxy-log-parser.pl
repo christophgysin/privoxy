@@ -2191,13 +2191,13 @@ sub print_stats () {
     # Due to log rotation we may not have a complete picture for all the requests
     printf "Improperly accounted requests: ~%d\n", abs($stats{requests} - $client_requests_checksum);
 
-    if ($stats{method} eq 0) {
-        print "No response lines parsed yet yet.\n";
-        return;
-    }
-    print "Method distribution:\n";
-    foreach my $method (sort {$stats{'method'}{$b} <=> $stats{'method'}{$a}} keys %{$stats{'method'}}) {
-        printf "%8d : %-8s\n", $stats{'method'}{$method}, $method;
+    if (exists $stats{method}) {
+        print "Method distribution:\n";
+        foreach my $method (sort {$stats{'method'}{$b} <=> $stats{'method'}{$a}} keys %{$stats{'method'}}) {
+            printf "%8d : %-8s\n", $stats{'method'}{$method}, $method;
+        }
+    } else {
+        print "Method distribution unknown. No response headers parsed yet. Is 'debug 8' enabled?\n";
     }
     print "Client HTTP versions:\n";
     foreach my $http_version (sort {$stats{'http-version'}{$b} <=> $stats{'http-version'}{$a}} keys %{$stats{'http-version'}}) {
