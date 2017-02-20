@@ -1337,6 +1337,11 @@ struct configuration_spec
    /** IP addresses to bind to.  Defaults to HADDR_DEFAULT == 127.0.0.1. */
    const char *haddr[MAX_LISTENING_SOCKETS];
 
+   /** Trusted referring site that can be used to reach CGI
+     * pages that aren't marked as harmful.
+     */
+   const char *trusted_cgi_referrer;
+
    /** Ports to bind to.  Defaults to HADDR_PORT == 8118. */
    int         hport[MAX_LISTENING_SOCKETS];
 
