@@ -310,7 +310,7 @@ static void cgi_create_client_tag_form(char *form, size_t size,
    }
 
    snprintf(form, size,
-      "<form method=\"GET\" action=\"toggle-client-tag\" style=\"display: inline\">\n"
+      "<form method=\"GET\" action=\""CGI_PREFIX"toggle-client-tag\" style=\"display: inline\">\n"
       " <input type=\"hidden\" name=\"tag\" value=\"%s\">\n"
       " <input type=\"hidden\" name=\"toggle-state\" value=\"%u\">\n"
       " <input type=\"hidden\" name=\"expires\" value=\"%u\">\n"
