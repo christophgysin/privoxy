@@ -345,6 +345,7 @@ jb_err cgi_show_client_tags(struct client_state *csp,
    jb_err err = JB_ERR_OK;
    char *client_tag_status;
    char buf[1000];
+   time_t refresh_delay;
 
    assert(csp);
    assert(rsp);
@@ -396,6 +397,24 @@ jb_err cgi_show_client_tags(struct client_state *csp,
          this_tag = this_tag->next;
       }
       if (!err) err = string_append(&client_tag_status, "</table>\n");
+   }
+   refresh_delay = get_next_tag_timeout_for_client(csp->client_address);
+   if (refresh_delay != 0)
+   {
+      snprintf(buf, sizeof(buf), "%d", csp->config->client_tag_lifetime);
+      if (map(exports, "refresh-delay", 1, buf, 1))
+      {
+         free_map(exports);
+         return JB_ERR_MEMORY;
+      }
+   }
+   else
+   {
+      err = map_block_killer(exports, "tags-expire");
+      if (err != JB_ERR_OK)
+      {
+         return err;
+      }
    }
 
    if (map(exports, "client-tags", 1, client_tag_status, 0))
