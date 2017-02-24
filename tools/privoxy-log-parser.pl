@@ -2009,6 +2009,10 @@ sub gather_loglevel_crunch_stats ($$) {
     } elsif ($c =~ m/^Connection timeout:/) {
         # Connection timeout: http://c.tile.openstreetmap.org/18/136116/87842.png
         $stats{'connection-timeout'}++;
+
+    } elsif ($c =~ m/^Connection failure:/) {
+        # Connection failure: http://127.0.0.1:8080/
+        $stats{'connection-failure'}++;
     }
 }
 
@@ -2155,6 +2159,8 @@ sub print_stats () {
         get_percentage($stats{requests}, $stats{'fast-redirections'}) . ")\n";
     print "Connection timeouts: " . $stats{'connection-timeout'} . " (" .
         get_percentage($stats{requests}, $stats{'connection-timeout'}) . ")\n";
+    print "Connection failures: " . $stats{'connection-failure'} . " (" .
+        get_percentage($stats{requests}, $stats{'connection-failure'}) . ")\n";
     print "Outgoing requests: " . $outgoing_requests . " (" .
         get_percentage($stats{requests}, $outgoing_requests) . ")\n";
     print "Server keep-alive offers: " . $stats{'server-keep-alive'} . " (" .
