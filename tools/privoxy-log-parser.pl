@@ -2115,6 +2115,8 @@ sub init_stats () {
         'empty-responses-on-reused-connections' => 0,
         'fast-redirections' => 0,
         'blocked' => 0,
+        'connection-failure' => 0,
+        'connection-timeout' => 0,
         'reused-connections' => 0,
         'server-keep-alive' => 0,
         'closed-client-connections' => 0,
