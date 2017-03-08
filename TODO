@@ -457,6 +457,9 @@ http://www.privoxy.org/faq/general.html#DONATE
      remaining connections and shut down. This would allow higher
      uptime and make testing more convenient.
 
+154) Underline links in docs and cgi pages. More precisely,
+     don't mess with the browser defaults for link underlining.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
