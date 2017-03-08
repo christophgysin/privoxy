@@ -98,7 +98,7 @@ static const struct cgi_dispatcher cgi_dispatchers[] = {
          TRUE },
    { "show-version",
          cgi_show_version,
-         "View the source code version numbers",
+          NULL, /* Not considered important enought to include in the menu */
           TRUE },
 #ifdef FEATURE_CLIENT_TAGS
    /*
