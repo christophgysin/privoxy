@@ -1327,42 +1327,18 @@ struct http_response *redirect_url(struct client_state *csp)
  *
  * Function    :  is_imageurl
  *
- * Description :  Given a URL, decide whether it is an image or not,
- *                using either the info from a previous +image action
- *                or, #ifdef FEATURE_IMAGE_DETECT_MSIE, and the browser
- *                is MSIE and not on a Mac, tell from the browser's accept
- *                header.
+ * Description :  Given a URL, decide whether it should be treated
+ *                as image URL or not.
  *
  * Parameters  :
  *          1  :  csp = Current client state (buffers, headers, etc...)
  *
- * Returns     :  True (nonzero) if URL is an image, false (0)
+ * Returns     :  True (nonzero) if URL is an image URL, false (0)
  *                otherwise
  *
  *********************************************************************/
 int is_imageurl(const struct client_state *csp)
 {
-#ifdef FEATURE_IMAGE_DETECT_MSIE
-   char *tmp;
-
-   tmp = get_header_value(csp->headers, "User-Agent:");
-   if (tmp && strstr(tmp, "MSIE") && !strstr(tmp, "Mac_"))
-   {
-      tmp = get_header_value(csp->headers, "Accept:");
-      if (tmp && strstr(tmp, "image/gif"))
-      {
-         /* Client will accept HTML.  If this seems counterintuitive,
-          * blame Microsoft.
-          */
-         return(0);
-      }
-      else
-      {
-         return(1);
-      }
-   }
-#endif /* def FEATURE_IMAGE_DETECT_MSIE */
-
    return ((csp->action->flags & ACTION_IMAGE) != 0);
 
 }

@@ -931,13 +931,6 @@ AC_ARG_ENABLE(stats,
   AC_DEFINE(FEATURE_STATISTICS)
 fi],AC_DEFINE(FEATURE_STATISTICS))
 
-AC_ARG_ENABLE(ie-images,
-[  --enable-ie-images              Enable a quick but not always reliable auto-detect whether requests from
-                                  MS Internet Explorer are for an image or not.],
-[if test $enableval = yes; then
-  AC_DEFINE(FEATURE_IMAGE_DETECT_MSIE)
-fi],)
-
 AC_ARG_ENABLE(image-blocking,
 [  --disable-image-blocking        Don't try to figure out whether a request is
                                   for an image or HTML - assume HTML.],

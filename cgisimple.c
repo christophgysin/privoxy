@@ -1874,14 +1874,6 @@ static jb_err show_defines(struct map *exports)
 #endif
       },
       {
-         "FEATURE_IMAGE_DETECT_MSIE",
-#ifdef FEATURE_IMAGE_DETECT_MSIE
-         1,
-#else
-         0,
-#endif
-      },
-      {
          "FEATURE_IPV6_SUPPORT",
 #ifdef HAVE_RFC2553
          1,
