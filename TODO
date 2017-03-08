@@ -53,9 +53,6 @@ http://www.privoxy.org/faq/general.html#DONATE
 
 14) Allow to filter POST parameters.
 
-15) If trusted CGI pages are requested without trusted referrer,
-    set the status code to 403 instead of 200.
-
 16) Filter SSL encrypted content as well.
 
     At the beginning we could use a unencrypted connection between
