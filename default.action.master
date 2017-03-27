@@ -17,17 +17,17 @@
 #                 syntax changes.
 #
 #  Purpose     :  Default actions file, see
-#                 http://www.privoxy.org/user-manual/actions-file.html.
+#                 https://www.privoxy.org/user-manual/actions-file.html.
 #                 This file is subject to periodic updating. It is
 #                 not supposed to be edited by the user. Local exceptions
 #                 and enhancements are better placed in user.action,
 #                 the match-all section has been moved to match-all.action.
 #
 #  Copyright   :  Written by and Copyright (C) 2001-2017 the
-#                 Privoxy team. http://www.privoxy.org/
+#                 Privoxy team. https://www.privoxy.org/
 #
 # Feedback welcome, for details please have a look at:
-# http://www.privoxy.org/user-manual/contact.html
+# https://www.privoxy.org/user-manual/contact.html
 #
 # The current development version of this file is located:
 # http://ijbswa.cvs.sourceforge.net/viewvc/ijbswa/current/default.action.master
@@ -37,7 +37,7 @@
 #############################################################################
 #
 # A much better explanation can be found in the user manual which is
-# part of the distribution and can be found at http://www.privoxy.org/user-manual
+# part of the distribution and can be found at https://www.privoxy.org/user-manual
 #
 # To determine which actions apply to a request, the URL of the request is
 # compared to all patterns in this file. Every time it matches, the list of
