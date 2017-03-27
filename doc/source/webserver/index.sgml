@@ -176,7 +176,7 @@
 <!-- GNUMakefile is inserting this now -->
 <para>
  <subscript>
-  Copyright __copy 2001-2017 by Privoxy Developers
+  Copyright __copy 2001-2016 by Privoxy Developers
  </subscript>
 </para>
 
@@ -194,11 +194,6 @@
     not support yet.
    -->
    ChameleonJohn
- </subscript>
-</para>
-<para>
- <subscript>
-  <ulink url="/faq/general.html#SPONSOR">Become a sponsor</ulink>
  </subscript>
 </para>
 ]]>
