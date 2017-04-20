@@ -465,6 +465,10 @@ http://www.privoxy.org/faq/general.html#DONATE
      it's technically incorrect and causes crashes when running in
      valgrind.
 
+156) Reject socks requests with an explicit error message similar
+     to the one used for ftp. Motivation:
+     https://lists.privoxy.org/pipermail/privoxy-users/2017-March/000195.html
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
