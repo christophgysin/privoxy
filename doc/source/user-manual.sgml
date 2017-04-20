@@ -38,7 +38,7 @@
 
  $Id$
 
- Copyright (C) 2001-2016 Privoxy Developers https://www.privoxy.org/
+ Copyright (C) 2001-2017 Privoxy Developers https://www.privoxy.org/
  See LICENSE.
 
  ========================================================================
@@ -57,7 +57,7 @@
  <subscript>
 <!-- Completely the wrong markup, but very little is allowed  -->
 <!-- in this part of an article. FIXME -->
- <link linkend="copyright">Copyright</link> &my-copy; 2001-2016 by
+ <link linkend="copyright">Copyright</link> &my-copy; 2001-2017 by
  <ulink url="https://www.privoxy.org/">Privoxy Developers</ulink>
  </subscript>
 </pubdate>
