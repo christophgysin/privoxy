@@ -3022,6 +3022,21 @@ TAG:^User-Agent: MPlayer/
 TAG:^RANGE-REQUEST$
     </screen>
     </para>
+    <para>
+     <screen>
+# Tag all requests with the client IP address
+#
+# (Technically the client IP address isn't included in the
+# client headers but client-header taggers can set it anyway.
+# For details see the tagger in default.filter)
+{+client-header-tagger{client-ip-address}}
+/
+
+# Change forwarding settings for requests coming from address 10.0.0.1
+{+forward-override{forward-socks5 127.0.1.2:2222 .}}
+TAG:^IP-ADDRESS: 10\.0\.0\.1$
+     </screen>
+    </para>
   </listitem>
  </varlistentry>
 
