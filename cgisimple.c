@@ -1842,6 +1842,14 @@ static jb_err show_defines(struct map *exports)
 #endif
       },
       {
+         "FEATURE_EXTERNAL_FILTERS",
+#ifdef FEATURE_EXTERNAL_FILTERS
+         1,
+#else
+         0,
+#endif
+      },
+      {
          "FEATURE_FAST_REDIRECTS",
 #ifdef FEATURE_FAST_REDIRECTS
          1,
