@@ -765,7 +765,9 @@ long int pick_from_range(long int range)
 
    if (range <= 0) return 0;
 
-#ifdef HAVE_RANDOM
+#ifdef HAVE_ARC4RANDOM
+   number = arc4random() % range + 1;
+#elif defined(HAVE_RANDOM)
    number = random() % range + 1;
 #elif defined(MUTEX_LOCKS_AVAILABLE)
    privoxy_mutex_lock(&rand_mutex);
@@ -789,7 +791,7 @@ long int pick_from_range(long int range)
       "might cause crashes, predictable results or even combine these fine options.");
    number = rand() % (long int)(range + 1);
 
-#endif /* (def HAVE_RANDOM) */
+#endif /* (def HAVE_ARC4RANDOM) */
 
    return number;
 }

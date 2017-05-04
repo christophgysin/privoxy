@@ -774,6 +774,7 @@ AC_PROG_GCC_TRADITIONAL
 AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([ \
  access \
+ arc4random \
  atexit \
  getcwd \
  gethostbyaddr \
