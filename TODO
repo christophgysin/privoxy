@@ -469,6 +469,8 @@ http://www.privoxy.org/faq/general.html#DONATE
      to the one used for ftp. Motivation:
      https://lists.privoxy.org/pipermail/privoxy-users/2017-March/000195.html
 
+157) Add a directive to control the currently hardcoded receive-buffer size.
+
 ##########################################################################
 
 Hosting wish list (relevant for #53)
