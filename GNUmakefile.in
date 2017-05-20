@@ -628,6 +628,10 @@ web-actions:
 	@$(ECHO) Updating the actions on the webserver ...
 	@$(RSYNC) doc/webserver/actions/*.php shell.sourceforge.net:$(WWW_ROOT)/htdocs/actions
 
+web-homepage:
+	@$(ECHO) "Updating the home page (index.html) only (be careful in case of version changes) ..."
+	@$(RSYNC) doc/webserver/index.html shell.sourceforge.net:$(WWW_ROOT)/htdocs/
+
 web-faq:
 	@$(ECHO) Updating the FAQ on the webserver ...
 	@$(RSYNC) doc/webserver/faq/*.html shell.sourceforge.net:$(WWW_ROOT)/htdocs/faq
