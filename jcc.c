@@ -93,7 +93,6 @@ const char jcc_rcs[] = "$Id$";
 # ifdef __OS2__
 #define INCL_DOS
 # include <os2.h>
-#define bzero(B,N) memset(B,0x00,n)
 # endif
 
 # ifndef FD_ZERO
