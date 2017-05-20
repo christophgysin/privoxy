@@ -2290,6 +2290,7 @@ for details.
     that contains any of the words <quote>ads</quote>, <quote>banner</quote>,
     <quote>banners</quote> (because of the <quote>?</quote>) or <quote>junk</quote>.
     The path does not have to end in these words, just contain them.
+    The path has to contain at least two slashes (including the one at the beginning).
    </para>
   </listitem>
  </varlistentry>
