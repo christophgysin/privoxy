@@ -1944,9 +1944,6 @@ struct configuration_spec * load_config(void)
                                            current_configfile->f;
       /*
        * Check if config->haddr[i],hport[i] == oldcfg->haddr[i],hport[i]
-       *
-       * The following could be written more compactly as a single,
-       * (unreadably long) if statement.
        */
       config->need_bind = 0;
 
