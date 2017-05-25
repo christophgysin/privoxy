@@ -8,7 +8,7 @@ const char loadcfg_rcs[] = "$Id$";
  *                routine to load the configuration and the global
  *                variables it writes to.
  *
- * Copyright   :  Written by and Copyright (C) 2001-2016 the
+ * Copyright   :  Written by and Copyright (C) 2001-2017 the
  *                Privoxy team. http://www.privoxy.org/
  *
  *                Based on the Internet Junkbuster originally written
