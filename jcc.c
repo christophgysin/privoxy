@@ -1434,7 +1434,7 @@ static jb_err receive_chunked_client_request_body(struct client_state *csp)
    enum chunk_status status;
 
    while (CHUNK_STATUS_MISSING_DATA ==
-      (status = chunked_body_is_complete(csp->client_iob,&body_length)))
+      (status = chunked_body_is_complete(csp->client_iob, &body_length)))
    {
       char buf[BUFFER_SIZE];
       int len;
