@@ -2700,13 +2700,10 @@ static void handle_established_connection(struct client_state *csp,
  *********************************************************************/
 static void chat(struct client_state *csp)
 {
-   char buf[BUFFER_SIZE];
    const struct forward_spec *fwd;
    struct http_request *http;
    /* Skeleton for HTTP response, if we should intercept the request */
    struct http_response *rsp;
-
-   memset(buf, 0, sizeof(buf));
 
    http = csp->http;
 
