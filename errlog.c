@@ -686,7 +686,7 @@ void log_error(int loglevel, const char *fmt, ...)
     * why else do we allocate instead of using
     * an array?
     */
-   size_t log_buffer_size = LOG_BUFFER_SIZE;
+   const size_t log_buffer_size = LOG_BUFFER_SIZE;
 
 #if defined(_WIN32) && !defined(_WIN_CONSOLE)
    /*
