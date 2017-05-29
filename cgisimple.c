@@ -391,12 +391,16 @@ jb_err cgi_show_client_tags(struct client_state *csp,
          if (!err) err = string_append(&client_tag_status, "</td></tr>\n");
          if (err)
          {
-            free_map(exports);
-            return JB_ERR_MEMORY;
+            break;
          }
          this_tag = this_tag->next;
       }
       if (!err) err = string_append(&client_tag_status, "</table>\n");
+      if (err)
+      {
+         free_map(exports);
+         return JB_ERR_MEMORY;
+      }
    }
    refresh_delay = get_next_tag_timeout_for_client(csp->client_address);
    if (refresh_delay != 0)
