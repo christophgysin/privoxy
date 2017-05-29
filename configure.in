@@ -782,6 +782,7 @@ AC_CHECK_FUNCS([ \
  access \
  arc4random \
  atexit \
+ calloc \
  getcwd \
  gethostbyaddr \
  gethostbyaddr_r \
