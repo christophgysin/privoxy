@@ -3893,6 +3893,9 @@ int main(int argc, char **argv)
    {
       exit(process_fuzzed_input(fuzz_input_type, fuzz_input_file));
    }
+   log_error(LOG_LEVEL_FATAL,
+      "When compiled with fuzzing support, Privoxy should only be used for fuzzing. "
+      "Various data structures are static which is unsafe when using threads.");
 #endif
 
    if (do_config_test)
