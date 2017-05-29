@@ -1348,6 +1348,9 @@ struct configuration_spec
    /** Size limit for IOB */
    size_t buffer_limit;
 
+   /** Size of the receive buffer */
+   size_t receive_buffer_size;
+
 #ifdef FEATURE_TRUST
 
    /** The file name of the trust file. */
