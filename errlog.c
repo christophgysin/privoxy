@@ -954,7 +954,7 @@ void log_error(int loglevel, const char *fmt, ...)
 
 #if defined(_WIN32) && !defined(_WIN_CONSOLE)
    /* Write to display */
-   LogPutString(outbuf_save);
+   LogPutString(outbuf);
 #endif /* defined(_WIN32) && !defined(_WIN_CONSOLE) */
 
    unlock_logfile();
