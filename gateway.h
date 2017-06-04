@@ -45,12 +45,6 @@ extern jb_socket forwarded_connect(const struct forward_spec * fwd,
                                    struct http_request *http,
                                    struct client_state *csp);
 
-/*
- * Default number of seconds after which an
- * open connection will no longer be reused.
- */
-#define DEFAULT_KEEP_ALIVE_TIMEOUT 180
-
 #ifdef FEATURE_CONNECTION_SHARING
 extern void initialize_reusable_connections(void);
 extern void forget_connection(jb_socket sfd);

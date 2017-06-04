@@ -90,6 +90,12 @@ const char loadcfg_rcs[] = "$Id$";
 #include "client-tags.h"
 #endif
 
+/*
+ * Default number of seconds after which an
+ * open connection will no longer be reused.
+ */
+#define DEFAULT_KEEP_ALIVE_TIMEOUT 180
+
 const char loadcfg_h_rcs[] = LOADCFG_H_VERSION;
 
 #ifdef FEATURE_TOGGLE
