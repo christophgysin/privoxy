@@ -4,7 +4,7 @@ const char jbsockets_rcs[] = "$Id$";
  * File        :  $Source$
  *
  * Purpose     :  Contains wrappers for system-specific sockets code,
- *                so that the rest of Junkbuster can be more
+ *                so that the rest of Privoxy can be more
  *                OS-independent.  Contains #ifdefs to make this work
  *                on many platforms.
  *
