@@ -1577,7 +1577,6 @@ int socket_is_still_alive(jb_socket sfd)
 {
    char buf[10];
    int no_data_waiting;
-
 #ifdef HAVE_POLL
    int poll_result;
    struct pollfd poll_fd[1];
