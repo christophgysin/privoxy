@@ -112,10 +112,7 @@ static int sockaddr_storage_to_ip(const struct sockaddr_storage *addr,
                                   uint8_t **ip, unsigned int *len,
                                   in_port_t **port)
 {
-   if (NULL == addr)
-   {
-      return(-1);
-   }
+   assert(NULL != addr);
 
    switch (addr->ss_family)
    {
