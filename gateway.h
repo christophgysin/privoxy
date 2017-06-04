@@ -52,7 +52,6 @@ extern jb_socket forwarded_connect(const struct forward_spec * fwd,
 #define DEFAULT_KEEP_ALIVE_TIMEOUT 180
 
 #ifdef FEATURE_CONNECTION_SHARING
-extern void set_keep_alive_timeout(unsigned int timeout);
 extern void initialize_reusable_connections(void);
 extern void forget_connection(jb_socket sfd);
 extern void remember_connection(const struct reusable_connection *connection);

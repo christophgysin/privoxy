@@ -134,7 +134,6 @@ static const char socks_userid[] = "anonymous";
 #ifdef FEATURE_CONNECTION_SHARING
 
 #define MAX_REUSABLE_CONNECTIONS 100
-static unsigned int keep_alive_timeout = DEFAULT_KEEP_ALIVE_TIMEOUT;
 
 static struct reusable_connection reusable_connection[MAX_REUSABLE_CONNECTIONS];
 static int mark_connection_unused(const struct reusable_connection *connection);
@@ -559,25 +558,6 @@ static int mark_connection_unused(const struct reusable_connection *connection)
 
    return socket_found;
 
-}
-
-
-/*********************************************************************
- *
- * Function    :  set_keep_alive_timeout
- *
- * Description :  Sets the timeout after which open
- *                connections will no longer be reused.
- *
- * Parameters  :
- *          1  :  timeout = The timeout in seconds.
- *
- * Returns     :  void
- *
- *********************************************************************/
-void set_keep_alive_timeout(unsigned int timeout)
-{
-   keep_alive_timeout = timeout;
 }
 #endif /* def FEATURE_CONNECTION_SHARING */
 

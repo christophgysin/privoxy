@@ -1836,11 +1836,7 @@ struct configuration_spec * load_config(void)
 #ifdef FEATURE_CONNECTION_SHARING
    if (config->feature_flags & RUNTIME_FEATURE_CONNECTION_KEEP_ALIVE)
    {
-      if (config->multi_threaded)
-      {
-         set_keep_alive_timeout(config->keep_alive_timeout);
-      }
-      else
+      if (!config->multi_threaded)
       {
          /*
           * While we could use keep-alive without multiple threads
