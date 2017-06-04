@@ -113,6 +113,7 @@ static int sockaddr_storage_to_ip(const struct sockaddr_storage *addr,
                                   in_port_t **port)
 {
    assert(NULL != addr);
+   assert(addr->ss_family == AF_INET || addr->ss_family == AF_INET6);
 
    switch (addr->ss_family)
    {
