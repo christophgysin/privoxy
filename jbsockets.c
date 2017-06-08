@@ -373,7 +373,26 @@ static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client
       poll_fd[0].fd = fd;
       poll_fd[0].events = POLLOUT;
 
-      if (poll(poll_fd, 1, 30000) > 0)
+      retval = poll(poll_fd, 1, 30000);
+      if (retval == 0)
+      {
+         if (rp->ai_next != NULL)
+         {
+            /* Log this now as we'll try another address next */
+            log_error(LOG_LEVEL_CONNECT,
+               "Could not connect to [%s]:%s: Operation timed out.",
+               csp->http->host_ip_addr_str, service);
+         }
+         else
+         {
+            /*
+             * This is the last address, don't log this now
+             * as it would result in a duplicated log message.
+             */
+            socket_error = ETIMEDOUT;
+         }
+      }
+      else if (retval > 0)
 #else
       /* wait for connection to complete */
       FD_ZERO(&wfds);
