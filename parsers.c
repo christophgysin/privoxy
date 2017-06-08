@@ -1816,7 +1816,9 @@ static jb_err client_keep_alive(struct client_state *csp, char **header)
 static jb_err get_content_length(const char *header_value, unsigned long long *length)
 {
 #ifdef _WIN32
-   assert(sizeof(unsigned long long) > 4);
+#if SIZEOF_LONG_LONG < 8
+#error sizeof(unsigned long long) too small
+#endif
    if (1 != sscanf(header_value, "%I64u", length))
 #else
    if (1 != sscanf(header_value, "%llu", length))
