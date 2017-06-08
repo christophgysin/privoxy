@@ -2678,10 +2678,10 @@ static void handle_established_connection(struct client_state *csp,
                 * delivered the crunch response to the client
                 * and are done here after cleaning up.
                 */
-                freez(hdr);
-                mark_server_socket_tainted(csp);
-                freez(receive_buffer);
-                return;
+               freez(hdr);
+               mark_server_socket_tainted(csp);
+               freez(receive_buffer);
+               return;
             }
             /* Buffer and pcrs filter this if appropriate. */
 
