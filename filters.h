@@ -6,11 +6,6 @@
  * File        :  $Source$
  *
  * Purpose     :  Declares functions to parse/crunch headers and pages.
- *                Functions declared include:
- *                   `acl_addr', `add_stats', `block_acl', `block_imageurl',
- *                   `block_url', `url_actions', `filter_popups', `forward_url'
- *                   `ij_untrusted_url', `intercept_url', `re_process_buffer',
- *                   `show_proxy_args', and `trust_url'
  *
  * Copyright   :  Written by and Copyright (C) 2001-2010 the
  *                Privoxy team. http://www.privoxy.org/
