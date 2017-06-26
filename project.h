@@ -1351,6 +1351,9 @@ struct configuration_spec
    /** Size of the receive buffer */
    size_t receive_buffer_size;
 
+   /** Use accf_http(4) if available */
+   int enable_accept_filter;
+
 #ifdef FEATURE_TRUST
 
    /** The file name of the trust file. */

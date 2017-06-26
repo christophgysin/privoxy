@@ -1378,10 +1378,18 @@ int accept_connection(struct client_state * csp, jb_socket fds[])
    do
    {
 #if defined(FEATURE_ACCEPT_FILTER) && defined(SO_ACCEPTFILTER)
-      struct accept_filter_arg af_options;
-      bzero(&af_options, sizeof(af_options));
-      strlcpy(af_options.af_name, "httpready", sizeof(af_options.af_name));
-      setsockopt(fd, SOL_SOCKET, SO_ACCEPTFILTER, &af_options, sizeof(af_options));
+      if (csp->config->enable_accept_filter)
+      {
+         struct accept_filter_arg af_options;
+         bzero(&af_options, sizeof(af_options));
+         strlcpy(af_options.af_name, "httpready", sizeof(af_options.af_name));
+         if (setsockopt(fd, SOL_SOCKET, SO_ACCEPTFILTER, &af_options,
+            sizeof(af_options)))
+         {
+            log_error(LOG_LEVEL_ERROR,
+               "Enabling accept filter for socket %d failed: %E", fd);
+         }
+      }
 #endif
       afd = accept (fd, (struct sockaddr *) &client, &c_length);
    } while (afd < 0 && errno == EINTR);
