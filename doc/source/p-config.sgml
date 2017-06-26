@@ -3176,6 +3176,85 @@ forward-socks4, forward-socks4a, forward-socks5 and forward-socks5t</title>
 </sect3>
 
 
+<sect3 renderas="sect4" id="listen-backlog"><title>listen-backlog</title>
+<variablelist>
+ <varlistentry>
+  <term>Specifies:</term>
+  <listitem>
+   <para>
+    Connection queue length requested from the operating system.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Type of value:</term>
+  <listitem>
+   <para>
+    <replaceable>Number.</replaceable>
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Default value:</term>
+  <listitem>
+   <para>128</para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Effect if unset:</term>
+  <listitem>
+   <para>
+    A connection queue length of 128 is requested from the operating system.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Notes:</term>
+  <listitem>
+   <para>
+    Under high load incoming connection may queue up before Privoxy
+    gets around to serve them. The queue length is limitted by the
+    operating system. Once the queue is full, additional connections
+    are dropped before Privoxy can accept and serve them.
+   </para>
+   <para>
+    Increasing the queue length allows Privoxy to accept more
+    incomming connections that arrive roughly at the same time.
+   </para>
+   <para>
+    Note that Privoxy can only request a certain queue length,
+    whether or not the requested length is actually used depends
+    on the operating system which may use a different length instead.
+   </para>
+   <para>
+    On many operating systems a limit of -1 can be specified to
+    instruct the operating system to use the maximum queue length
+    allowed. Check the listen man page to see if your platform allows this.
+   </para>
+   <para>
+    On some platforms you can use "netstat -Lan -p tcp" to see the effective
+    queue length.
+   </para>
+   <para>
+    Effectively using a value above 128 usually requires changing
+    the system configuration as well. On FreeBSD-based system the
+    limit is controlled by the kern.ipc.soacceptqueue sysctl.
+   </para>
+  </listitem>
+ </varlistentry>
+ <varlistentry>
+  <term>Examples:</term>
+  <listitem>
+   <para>
+    listen-backlog 4096
+   </para>
+  </listitem>
+ </varlistentry>
+</variablelist>
+<![%config-file;[<literallayout>@@#listen-backlog -1</literallayout>]]>
+</sect3>
+
+
 <sect3 renderas="sect4" id="handle-as-empty-doc-returns-ok"><title>handle-as-empty-doc-returns-ok</title>
 <variablelist>
  <varlistentry>
