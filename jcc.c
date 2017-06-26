@@ -4361,7 +4361,7 @@ static void listen_loop(void)
           * new one.
           *
           * Which-ever is correct, we will serve 1 more page via the
-          * old settings.  This should probably be a "show-proxy-args"
+          * old settings.  This should probably be a "show-status"
           * request.  This should not be a so common of an operation
           * that this will hurt people's feelings.
           */
