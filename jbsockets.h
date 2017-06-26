@@ -53,7 +53,7 @@ extern int data_is_available(jb_socket fd, int seconds_to_wait);
 extern void close_socket(jb_socket fd);
 extern void drain_and_close_socket(jb_socket fd);
 
-extern int bind_port(const char *hostnam, int portnum, jb_socket *pfd);
+extern int bind_port(const char *hostnam, int portnum, int backlog, jb_socket *pfd);
 extern int accept_connection(struct client_state * csp, jb_socket fds[]);
 extern void get_host_information(jb_socket afd, char **ip_address, char **port, char **hostname);
 

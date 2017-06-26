@@ -116,8 +116,6 @@ const char jbsockets_h_rcs[] = JBSOCKETS_H_VERSION;
  */
 #define MAX_DNS_RETRIES 10
 
-#define MAX_LISTEN_BACKLOG 128
-
 #ifdef HAVE_RFC2553
 static jb_socket rfc2553_connect_to(const char *host, int portnum, struct client_state *csp);
 #else
@@ -890,14 +888,15 @@ void drain_and_close_socket(jb_socket fd)
  * Parameters  :
  *          1  :  hostnam = TCP/IP address to bind/listen to
  *          2  :  portnum = port to listen on
- *          3  :  pfd = pointer used to return file descriptor.
+ *          3  :  backlog = Listen backlog
+ *          4  :  pfd = pointer used to return file descriptor.
  *
  * Returns     :  if success, returns 0 and sets *pfd.
  *                if failure, returns -3 if address is in use,
  *                                    -2 if address unresolvable,
  *                                    -1 otherwise
  *********************************************************************/
-int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
+int bind_port(const char *hostnam, int portnum, int backlog, jb_socket *pfd)
 {
 #ifdef HAVE_RFC2553
    struct addrinfo hints;
@@ -1072,7 +1071,7 @@ int bind_port(const char *hostnam, int portnum, jb_socket *pfd)
    }
 #endif /* ndef HAVE_RFC2553 */
 
-   while (listen(fd, MAX_LISTEN_BACKLOG) == -1)
+   while (listen(fd, backlog) == -1)
    {
       if (errno != EINTR)
       {

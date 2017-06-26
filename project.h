@@ -1354,6 +1354,9 @@ struct configuration_spec
    /** Use accf_http(4) if available */
    int enable_accept_filter;
 
+   /** Backlog passed to listen() */
+   int listen_backlog;
+
 #ifdef FEATURE_TRUST
 
    /** The file name of the trust file. */
