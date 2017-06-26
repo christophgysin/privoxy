@@ -1852,6 +1852,10 @@ static jb_err parse_client_request(struct client_state *csp)
       }
       verify_request_length(csp);
    }
+   else
+   {
+      csp->flags |= CSP_FLAG_SERVER_SOCKET_TAINTED;
+   }
 #endif /* def FEATURE_CONNECTION_KEEP_ALIVE */
 
    err = sed(csp, FILTER_CLIENT_HEADERS);
