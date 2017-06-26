@@ -313,12 +313,6 @@ int check_file_changed(const struct file_list * current,
    fs->filename = strdup_or_die(filename);
    fs->lastmodified = statbuf->st_mtime;
 
-   if (fs->filename == NULL)
-   {
-      /* Out of memory error */
-      freez (fs);
-      return 1;
-   }
    *newfl = fs;
    return 1;
 }
