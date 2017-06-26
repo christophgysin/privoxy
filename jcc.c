@@ -3386,6 +3386,8 @@ static void serve(struct client_state *csp)
       drain_and_close_socket(csp->cfd);
    }
 
+   free_csp_resources(csp);
+
    csp->flags &= ~CSP_FLAG_ACTIVE;
 
 }

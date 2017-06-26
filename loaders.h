@@ -39,6 +39,7 @@
 
 
 extern unsigned int sweep(void);
+extern void free_csp_resources(struct client_state *csp);
 extern char *read_config_line(FILE *fp, unsigned long *linenum, char **buf);
 extern int check_file_changed(const struct file_list * current,
                               const char * filename,

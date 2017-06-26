@@ -219,8 +219,6 @@ unsigned int sweep(void)
       {
          last_active->next = client_list->next;
 
-         free_csp_resources(csp);
-
 #ifdef FEATURE_STATISTICS
          urls_read++;
          if (csp->flags & CSP_FLAG_REJECTED)
