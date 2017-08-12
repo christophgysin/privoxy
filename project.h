@@ -953,6 +953,12 @@ struct client_state
    /** An I/O buffer used for buffering data read from the client */
    struct iob client_iob[1];
 
+   /** Buffer used to briefly store data read from the network
+    *  before forwarding or processing it.
+    */
+   char *receive_buffer;
+   size_t receive_buffer_size;
+
    /** List of all headers for this request */
    struct list headers[1];
 
