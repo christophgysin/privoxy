@@ -87,6 +87,7 @@ void *zalloc(size_t size)
 #ifdef HAVE_CALLOC
    ret = calloc(1, size);
 #else
+#warning calloc appears to be unavailable. Your platform will become unsupported in the future
    if ((ret = (void *)malloc(size)) != NULL)
    {
       memset(ret, 0, size);
