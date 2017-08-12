@@ -1990,9 +1990,11 @@ struct configuration_spec * load_config(void)
 /* FIXME: end kludge */
 
 
-   config->need_bind = 1;
-
-   if (current_configfile)
+   if (current_configfile == NULL)
+   {
+      config->need_bind = 1;
+   }
+   else
    {
       struct configuration_spec * oldcfg = (struct configuration_spec *)
                                            current_configfile->f;
