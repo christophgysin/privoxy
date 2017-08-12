@@ -105,6 +105,7 @@ const char jcc_rcs[] = "$Id$";
 # ifndef FD_ZERO
 #  include <select.h>
 # endif
+#warning poll() appears to be unavailable. Your platform will become unsupported in the future.
 #endif /* HAVE_POLL */
 
 #endif
